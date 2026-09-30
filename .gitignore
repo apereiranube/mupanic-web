@@ -1,0 +1,20 @@
+# Local / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets / runtime config
+.env
+.env.*
+!.env.example
+includes/config/webengine.json
+includes/config/database.php
+
+# Local build output
+build/
+dist/
+.tmp/
+
+# Logs
+*.log
