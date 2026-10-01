@@ -13,3 +13,7 @@ Los WebP se codificaron para entrega web. MU Online y sus marcas pertenecen a su
 Original concept illustration generated with the built-in image generation tool, using `threshold.webp` as a visual reference for the classic MU Dark Knight silhouette. Native result: 1024 × 1536 RGBA; encoded as WebP quality 94 with alpha preserved, without enlargement. Not a gameplay screenshot or an official new game render.
 
 Prompt direction: premium detailed modern cinematic MU Dark Knight; red hair, dark silver spiked armor, gold filigree, flowing cape, blue runic sword, copper and blue rim lighting; transparent character layer; no text/logo/watermark. The model returned 1024 × 1536 despite the requested larger frame. Site rendering separates the existing Devias environment, character, sword aura, fog, lighting and embers to avoid scaling a low-resolution full scene.
+
+## V6.1 Conquista — `conquest-v61.webp`
+
+Original built-in generated concept scene, 1983 × 793, WebP quality 93. `knight-v6.webp` was a material/lighting reference only. Different character: a Dark Lord with closed crown helmet, royal scepter, burgundy cloak and blackened silver/copper armor at a ruined fortress. Prompt: realistic mature cinematic game rendering, detailed engraved weathered metal, copper and steel rim lighting, character on the right and open darker fortress on the left; no red-haired knight, blue sword, cartoon style, text, logos or watermark. Replaces the previous Conquista artwork; the hero character is not reused.
