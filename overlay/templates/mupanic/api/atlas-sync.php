@@ -22,7 +22,7 @@ if(strlen($body) > 8000000) atlasReply(413, 'Snapshot too large');
 if(!hash_equals(hash_hmac('sha256', $stamp."\n".$body, $token), $signature)) atlasReply(401, 'Invalid signature');
 $snapshot = json_decode($body, true);
 $required = array('schemaVersion','generatedAt','sourceHash','revision','accounts','masterMonsterMin','resets','experience','maps','drops','crafting');
-if(!is_array($snapshot) || array_diff($required, array_keys($snapshot)) || array_diff(array_keys($snapshot), $required)) atlasReply(422, 'Invalid snapshot fields');
+if(!is_array($snapshot) || array_diff($required, array_keys($snapshot)) || array_diff(array_keys($snapshot), array_merge($required, array('eventBags')))) atlasReply(422, 'Invalid snapshot fields');
 if($snapshot['schemaVersion'] !== 2 || !is_string($snapshot['generatedAt']) || strtotime($snapshot['generatedAt']) === false || !is_string($snapshot['sourceHash']) || !preg_match('/^[a-f0-9]{64}$/D', $snapshot['sourceHash'])) atlasReply(422, 'Invalid snapshot metadata');
 // Keep account names controlled because existing template sections display them directly.
 if(!is_array($snapshot['accounts']) || count($snapshot['accounts']) !== 4) atlasReply(422, 'Invalid accounts');
@@ -42,6 +42,19 @@ foreach($snapshot['maps'] as $map) {
 foreach($snapshot['drops'] as $drop) {
     if(!isset($drop['name'],$drop['map'],$drop['monster'],$drop['min'],$drop['max'],$drop['rates']) || !is_string($drop['name']) || !is_array($drop['rates']) || count($drop['rates']) !== 4) atlasReply(422, 'Invalid drop');
     foreach($drop['rates'] as $rate) if(!is_numeric($rate) || $rate < 0 || $rate > 100) atlasReply(422, 'Invalid drop rate');
+}
+if(isset($snapshot['eventBags'])) {
+    if(!is_array($snapshot['eventBags']) || count($snapshot['eventBags']) > 2000) atlasReply(422, 'Invalid reward lists');
+    foreach($snapshot['eventBags'] as $bag) {
+        if(!is_array($bag) || !isset($bag['id'],$bag['name'],$bag['monster'],$bag['monsterName'],$bag['item'],$bag['variant'],$bag['topHit'],$bag['special'],$bag['coins'],$bag['format'],$bag['settings'],$bag['items'],$bag['unsupportedSections']) || !is_int($bag['id']) || !is_int($bag['monster']) || !is_string($bag['name']) || !is_string($bag['monsterName']) || !in_array($bag['format'],array('standard','unsupported','missing'),true) || !is_array($bag['items']) || count($bag['items']) > 5000 || !is_array($bag['settings']) || !is_array($bag['coins']) || count($bag['coins']) !== 3 || !is_array($bag['unsupportedSections'])) atlasReply(422, 'Invalid reward list');
+        if($bag['format'] === 'standard') {
+            foreach(array('dropZen','itemDropRate','itemDropCount','setItemDropRate','itemDropType','fireworks','dropInventory') as $field) if(!isset($bag['settings'][$field]) || !is_int($bag['settings'][$field])) atlasReply(422, 'Invalid reward settings');
+        }
+        foreach($bag['items'] as $item) {
+            if(!is_array($item) || !isset($item['name']) || !is_string($item['name'])) atlasReply(422, 'Invalid reward item');
+            foreach(array('id','min','max','skill','luck','option','excellent','setOption','socketOption','pool') as $field) if(!isset($item[$field]) || !is_int($item[$field])) atlasReply(422, 'Invalid reward item fields');
+        }
+    }
 }
 if(!isset($snapshot['crafting']['mixRates'],$snapshot['crafting']['jewels'],$snapshot['crafting']['failLevelRemoval']) || !is_array($snapshot['resets']) || !is_array($snapshot['experience'])) atlasReply(422, 'Invalid crafting or progression');
 // Reject malformed numeric fields before they reach PHP rendering or JS formulas.

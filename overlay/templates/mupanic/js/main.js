@@ -157,7 +157,8 @@
       target.hidden = false;
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
-      if (target.matches('.wiki-map') || target.id.indexOf('spot-') === 0) { mapFilter.value = ''; filterMaps(); }
+      if (target.id.indexOf('mapa-') === 0 || target.id.indexOf('spot-') === 0) { mapFilter.value = ''; filterMaps(); }
+      if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardFilter.value = ''; rewardFilter.dispatchEvent(new Event('input')); }
       if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
       requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
     }
@@ -169,6 +170,13 @@
   panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.textContent), hash: '#' + panel.id}); });
   data.maps.forEach(function (map) { searchable.push({title: map.name, context: map.spots.length + ' spots · mapas y monstruos', text: normalize(map.name + ' ' + map.monsters.map(function(m) { return m.name; }).join(' ')), hash: '#mapa-' + map.id}); });
   data.drops.forEach(function (drop, i) { searchable.push({title: drop.name, context: 'Drop · monstruos Lv. ' + drop.min + '–' + drop.max, text: normalize(drop.name), hash: '#drop-' + i}); });
+  (data.eventBags || []).forEach(function(bag) { searchable.push({title:bag.name, context:'Boss, caja o evento', text:normalize(bag.name + ' ' + bag.monsterName + ' ' + bag.items.map(function(item) { return item.name; }).join(' ')), hash:'#recompensa-' + bag.id}); });
+  var rewardFilter = wiki.querySelector('[data-reward-filter]');
+  if (rewardFilter) rewardFilter.addEventListener('input',function() {
+    var query = normalize(rewardFilter.value), visible = 0;
+    wiki.querySelectorAll('[data-reward-list]').forEach(function(list) { list.hidden = !normalize(list.textContent).includes(query); if (!list.hidden) visible++; });
+    wiki.querySelector('[data-reward-status]').textContent = visible + ' listas de recompensas' + (visible ? '' : ' · probá otro nombre');
+  });
   search.addEventListener('input', function () {
     var query = normalize(search.value); results.replaceChildren();
     if (!query) { clearSearch(); return; }
@@ -185,7 +193,7 @@
   });
   function filterMaps() {
     var query = normalize(mapFilter.value), visible = 0;
-    wiki.querySelectorAll('.wiki-map').forEach(function (map) {
+    wiki.querySelectorAll('#progresion .wiki-map').forEach(function (map) {
       map.hidden = !normalize(map.textContent).includes(query); if (!map.hidden) visible++;
     });
     wiki.querySelector('[data-map-status]').textContent = visible + ' mapas' + (visible ? '' : ' · probá otro nombre');
@@ -231,7 +239,7 @@
   mobDialog.className = 'wiki-mob-dialog';
   var closeMob = document.createElement('button'); closeMob.type = 'button'; closeMob.textContent = 'Cerrar ×';
   var mobTitle = document.createElement('h3');
-  var mobNote = document.createElement('p'); mobNote.textContent = 'Reglas de objetos compatibles con este monstruo y mapa. No incluyen por sí solas el drop común ni las bolsas de eventos. La tasa configurada no es una probabilidad final por muerte.';
+  var mobNote = document.createElement('p'); mobNote.textContent = 'Reglas de objetos compatibles con este monstruo y mapa. Las recompensas especiales se enlazan debajo si están identificadas. El drop común puede incluir otros objetos; la tasa configurada no es una probabilidad final por muerte.';
   var mobAccount = document.createElement('select'); mobAccount.setAttribute('aria-label','Tipo de cuenta para los drops');
   data.accounts.forEach(function(a,i) { mobAccount.add(new Option(a.name,String(i))); });
   var mobRules = document.createElement('div'); mobRules.className = 'wiki-mob-rule-list';
@@ -243,6 +251,10 @@
     mobRules.replaceChildren();
     if (!rules.length) { var empty = document.createElement('p'); empty.textContent = 'Sin reglas específicas de objetos compatibles. Esto no significa que el monstruo no tenga otros drops.'; mobRules.appendChild(empty); }
     rules.forEach(function(d) { var row = document.createElement('div'); var name = document.createElement('span'); name.textContent = d.name; var rate = document.createElement('strong'); rate.textContent = d.rates[Number(mobAccount.value)].toLocaleString('es-AR',{maximumFractionDigits:6}) + '%'; row.append(name,rate); mobRules.appendChild(row); });
+    (data.eventBags || []).filter(function(bag) { return bag.monster === activeMob.id; }).forEach(function(bag) {
+      var row = document.createElement('p'), link = document.createElement('a'); link.href = '#recompensa-' + bag.id; link.textContent = 'Recompensas especiales: ' + bag.name + ' →';
+      link.addEventListener('click',function() { mobDialog.close(); if (rewardFilter) { rewardFilter.value = ''; rewardFilter.dispatchEvent(new Event('input')); } if (location.hash === link.hash) revealHash(); }); row.appendChild(link); mobRules.appendChild(row);
+    });
   }
   mobAccount.addEventListener('change',renderMobRules);
   wiki.querySelectorAll('[data-mob-drops]').forEach(function(link) { link.addEventListener('click',function(event) {

@@ -18,9 +18,9 @@ from pathlib import Path
 
 def sources(root):
     paths = []
-    for directory in ('Data/Monster','Data/MonsterSetBase','Data/Move','Data/Item'):
+    for directory in ('Data/Monster','Data/MonsterSetBase','Data/Move','Data/Item','Data/EventItemBag'):
         paths.extend((root/directory).rglob('*.txt'))
-    for relative in ('Data/MapManager.txt','Data/Util/ExperienceTable.txt','Data/Util/ResetTable.txt',
+    for relative in ('Data/MapManager.txt','Data/EventItemBagManager.txt','Data/Util/ExperienceTable.txt','Data/Util/ResetTable.txt',
                      'GameServer/Data/GameServerInfo - Common.dat',
                      'GameServer/Data/GameServerInfo - ChaosMix.dat'):
         paths.append(root/relative)
@@ -59,7 +59,7 @@ def main():
         with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
             for path in paths: z.write(path, path.relative_to(args.server_root).as_posix())
         subprocess.run([sys.executable,str(Path(__file__).with_name('build_public_balance.py')),str(archive),str(output)],check=True)
-        if fingerprint != digest(paths,args.server_root): raise ValueError('Configuration changed during export; retry after saving all changes')
+        if fingerprint != digest(sources(args.server_root),args.server_root): raise ValueError('Configuration changed during export; retry after saving all changes')
         snapshot = json.loads(output.read_text(encoding='utf-8'))
         snapshot['sourceHash'] = fingerprint
         body = json.dumps(snapshot,ensure_ascii=False).encode('utf-8')

@@ -5,6 +5,7 @@ Never extract or publish the ZIP or complete GameServer configuration.
 import json, sys, zipfile, shlex, re, hashlib
 from datetime import datetime, timezone
 from pathlib import Path
+from atlas_event_bags import build_event_bags
 z=zipfile.ZipFile(sys.argv[1])
 members={name.replace('\\','/'):name for name in z.namelist()}
 archive_names=[name.replace('/','\\') for name in members]
@@ -67,7 +68,9 @@ crafting={'mixRates':{key:[setting(key+'_AL'+str(i),chaos) for i in range(4)] fo
 map_configs={int(r[0]):{'excellent':int(r[6])/10000,'ancient':int(r[7])/10000,'socket':r[8]=='1','dropMode':r[4]} for r,c in rows('Data/MapManager.txt') if len(r)>8}
 for map in maps: map['equipmentDrop']=map_configs.get(map['id'], {'excellent':0,'ancient':0,'socket':False,'dropMode':'unknown'})
 data={'schemaVersion':2,'generatedAt':datetime.now(timezone.utc).isoformat(),'sourceHash':hashlib.sha256(Path(sys.argv[1]).read_bytes()).hexdigest(),'revision':datetime.now(timezone.utc).date().isoformat(),'accounts':accounts,'masterMonsterMin':setting('MinMasterExperienceMonsterLevel_AL0'),'resets':resets,'experience':experience,'maps':maps,'drops':drops,'crafting':crafting}
+data['eventBags']=build_event_bags(members, rows, monsters)
 assert len(maps)>0 and all(account['experience']>=0 for account in accounts)
 out=Path(sys.argv[2]) if len(sys.argv)>2 else Path(__file__).resolve().parents[1]/'overlay/templates/mupanic/inc/public-balance.json'
 out.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
 print('Exported',len(maps),'maps,',sum(len(m['spots']) for m in maps),'spots,',len(drops),'drop rules.')
+print('Reward lists:',len(data['eventBags']),'; unsupported formats:',sum(b['format']!='standard' for b in data['eventBags']))
