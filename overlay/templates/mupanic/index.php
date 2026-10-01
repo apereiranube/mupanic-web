@@ -6,7 +6,7 @@ $serverInfoCache = LoadCacheData('server_info.cache');
 if(is_array($serverInfoCache) && isset($serverInfoCache[1][0])) {
     $srvInfo = explode("|", $serverInfoCache[1][0]);
 }
-$onlinePlayers = isset($srvInfo[3]) ? (int)$srvInfo[3] : 0;
+$onlinePlayers = isset($srvInfo[3]) && is_numeric($srvInfo[3]) ? max(0, (int)$srvInfo[3]) : null;
 
 if(!isset($_REQUEST['page'])) $_REQUEST['page'] = '';
 if(!isset($_REQUEST['subpage'])) $_REQUEST['subpage'] = '';
@@ -14,54 +14,54 @@ if(!isset($_REQUEST['subpage'])) $_REQUEST['subpage'] = '';
 $isHome = ($_REQUEST['page'] === '');
 $isLogged = isLoggedIn();
 
-$serverSeason = mupanicServerValue('server_info_season', 'Season 6');
+$serverSeason = 'Season 6'; // MU PANIC UP43: editorial identity, independent of legacy CMS title.
 $serverExp = mupanicServerValue('server_info_exp', '—');
 $serverMasterExp = mupanicServerValue('server_info_masterexp', '—');
 $serverDrop = mupanicServerValue('server_info_drop', '—');
-$topResetPlayers = $isHome ? mupanicTopResetPlayers(5) : array();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="theme-color" content="#111111"/>
-    <title><?php $handler->websiteTitle(); ?></title>
-    <meta name="description" content="<?php config('website_meta_description'); ?>"/>
-    <meta name="keywords" content="<?php config('website_meta_keywords'); ?>"/>
+    <meta name="theme-color" content="#0b1113"/>
+    <title><?php echo $isHome ? 'MU PANIC · Season 6 · Argentina' : htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])).' · MU PANIC'; ?></title>
+    <meta name="description" content="MU PANIC. MU Online Season 6 en Argentina: progresión por etapas, Zen con valor y un continente por conquistar. Creá tu cuenta y descargá el cliente."/>
+    <meta name="keywords" content="MU PANIC, MU Online, Season 6, Argentina, Louis UP43"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:title" content="<?php $handler->websiteTitle(); ?>"/>
-    <meta property="og:description" content="<?php config('website_meta_description'); ?>"/>
+    <meta property="og:title" content="MU PANIC · Season 6"/>
+    <meta property="og:description" content="Tu historia en el continente de MU. Descubrí MU PANIC, Season 6 en Argentina."/>
     <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/threshold.webp" fetchpriority="high"><?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
-    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css" rel="stylesheet">
+    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=5.0" rel="stylesheet">
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
+    <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
 <body class="<?php echo $isHome ? 'is-home' : 'is-inner'; ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
         <a class="brand" href="<?php echo __BASE_URL__; ?>">
-            <span class="brand-mark">MP</span>
-            <span class="brand-copy"><strong>MU PANIC</strong><small>SEASON 6 · ARGENTINA</small></span>
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 48"><path d="M3 38V9l17 15L37 9v29L20 47z M3 9V2l17 15L37 2v7 M20 24v23"/></svg></span>
+            <span class="brand-copy"><strong>MU PANIC</strong><small>EL CONTINENTE TE ESPERA</small></span>
         </a>
 
-        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
             <span></span><span></span>
         </button>
 
-        <nav class="main-nav">
-            <a href="<?php echo __BASE_URL__; ?>">Inicio</a>
-            <a href="<?php echo __BASE_URL__; ?>information/">Guías</a>
+        <nav class="main-nav" id="main-navigation" aria-label="Navegación principal">
+            <a href="<?php echo __BASE_URL__; ?>#continente">El continente</a>
+            <a href="<?php echo __BASE_URL__; ?>info/">Guías</a>
             <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
             <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
+            <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
         <div class="nav-actions">
-            <div class="online-pill"><i></i><strong><?php echo number_format($onlinePlayers); ?></strong><span>online</span></div>
+
             <?php if($isLogged) { ?>
                 <a class="account-link" href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a>
                 <a class="nav-cta" href="<?php echo __BASE_URL__; ?>logout/">Salir</a>
@@ -73,188 +73,76 @@ $topResetPlayers = $isHome ? mupanicTopResetPlayers(5) : array();
     </div>
 </header>
 
-<main>
+<a class="skip-link" href="#main-content">Saltar al contenido</a>
+<main id="main-content">
 <?php if($isHome) { ?>
 
-<section class="hero" data-parallax-hero>
-    <div class="hero-left">
-        <div class="hero-left-inner reveal">
-            <div class="hero-eyebrow"><span>MU ONLINE</span><i></i><span><?php echo htmlspecialchars($serverSeason); ?></span></div>
-            <h1>Volvé a sentir<br>que <em>progresar</em><br>vale la pena.</h1>
-            <p>MU PANIC combina la base clásica que conocés con una progresión más clara, economía con valor y objetivos que te empujan a seguir.</p>
-
-            <div class="hero-actions">
-                <a class="button primary button-shine" href="<?php echo __BASE_URL__; ?>downloads/">Jugar ahora <b>↗</b></a>
-                <a class="button secondary" href="<?php echo __BASE_URL__; ?>information/">Ver cómo empezar</a>
-            </div>
-
-            <div class="hero-facts">
-                <div><strong data-count="<?php echo (int)$onlinePlayers; ?>"><?php echo number_format($onlinePlayers); ?></strong><span>online ahora</span></div>
-                <div><strong><?php echo htmlspecialchars($serverExp); ?></strong><span>experiencia</span></div>
-                <div><strong><?php echo htmlspecialchars($serverDrop); ?></strong><span>drop</span></div>
-            </div>
+<section class="panic-hero" aria-labelledby="hero-title" data-scene>
+    <div class="scene-art hero-art" aria-hidden="true" data-depth></div>
+    <div class="hero-atmosphere" aria-hidden="true"></div>
+    <div class="embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="hero-frame shell">
+        <div class="hero-overline"><span class="eyebrow">MU ONLINE / ARGENTINA</span><span class="edition">UNA NUEVA HISTORIA.<br>EL MISMO CONTINENTE.</span></div>
+        <div class="hero-content">
+            <p class="eyebrow hero-pretitle">EL CONTINENTE TE ESTÁ LLAMANDO</p>
+            <h1 id="hero-title"><span>MU</span><span>PANIC<span class="title-period">.</span></span></h1>
+            <div class="hero-summary"><span class="fine-rule" aria-hidden="true"></span><p>Volvé al lugar donde todo empezó.<br>Hacé que cada conquista cuente.</p></div>
+            <div class="hero-actions"><a class="button primary" href="<?php echo __BASE_URL__; ?>downloads/">Entrar al juego <span aria-hidden="true">↗</span></a><a class="text-link" href="<?php echo __BASE_URL__; ?>register/">Crear cuenta <span aria-hidden="true">→</span></a></div>
         </div>
-    </div>
-
-    <div class="hero-visual">
-        <div class="hero-art" data-parallax-layer></div>
-        <div class="hero-art-shade"></div>
-        <div class="hero-light-sweep"></div>
-        <div class="particles" data-particles aria-hidden="true"></div>
-
-        <div class="hero-status-card reveal">
-            <div class="status-head">
-                <div><small>SERVIDOR EN VIVO</small><strong>MU PANIC</strong></div>
-                <span class="status-live"><i></i> ONLINE</span>
-            </div>
-            <div class="status-grid">
-                <div><small>JUGADORES</small><strong><?php echo number_format($onlinePlayers); ?></strong></div>
-                <div><small>VERSIÓN</small><strong><?php echo htmlspecialchars($serverSeason); ?></strong></div>
-            </div>
-            <a href="<?php echo __BASE_URL__; ?>rankings/">Ver rankings <span>→</span></a>
-        </div>
-
-        <div class="hero-caption">LORENCIA · CONTINENTE DE MU</div>
+        <div class="hero-bottom"><a class="scroll-cue" href="#continente"><span class="scroll-line" aria-hidden="true"></span>EXPLORÁ EL CONTINENTE</a><span class="scene-caption">01 / EL UMBRAL</span></div>
     </div>
 </section>
 
-<section class="dna-section">
-    <div class="shell">
-        <div class="dna-rail reveal">
-            <div class="dna-label"><span>SERVER DNA</span><strong>Los números que importan.</strong></div>
-            <div class="dna-item"><small>SEASON</small><strong><?php echo htmlspecialchars($serverSeason); ?></strong></div>
-            <div class="dna-item"><small>EXP</small><strong><?php echo htmlspecialchars($serverExp); ?></strong></div>
-            <div class="dna-item"><small>MASTER EXP</small><strong><?php echo htmlspecialchars($serverMasterExp); ?></strong></div>
-            <div class="dna-item"><small>DROP</small><strong><?php echo htmlspecialchars($serverDrop); ?></strong></div>
-            <div class="dna-item"><small>REGIÓN</small><strong>Argentina</strong></div>
-            <a class="dna-link" href="<?php echo __BASE_URL__; ?>information/">Ver configuración <span>↗</span></a>
-        </div>
+<section class="server-dossier" aria-label="Información del servidor">
+    <div class="shell dossier-layout">
+        <div class="dossier-title"><span class="eyebrow">LA BASE DE TU AVENTURA</span><strong><?php echo $serverSeason; ?></strong><span>Louis UP43 · Argentina</span></div>
+        <dl class="server-facts">
+            <div><dt>EXPERIENCIA</dt><dd><?php echo htmlspecialchars($serverExp); ?></dd></div>
+            <div><dt>MASTER EXP</dt><dd><?php echo htmlspecialchars($serverMasterExp); ?></dd></div>
+            <div><dt>DROP</dt><dd><?php echo htmlspecialchars($serverDrop); ?></dd></div>
+            <div><dt>CONECTADOS</dt><dd><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers); ?><small><?php echo $onlinePlayers === null ? 'Sin datos disponibles' : 'Último registro del servidor'; ?></small></dd></div>
+        </dl>
+        <a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Guía del servidor <span aria-hidden="true">↗</span></a>
+    </div>
+</section>
 
-        <div class="dna-tags reveal">
-            <span>Reset por etapas</span>
-            <span>Master Reset</span>
-            <span>Zen con valor</span>
-            <span>Primeras alas vía Chaos</span>
-            <span>Icarus requiere alas</span>
-            <span>Spots diseñados por mapa</span>
+<section class="continent" id="continente" aria-labelledby="continent-title">
+    <div class="shell continent-intro reveal"><span class="eyebrow">02 / EL VIAJE</span><h2 id="continent-title">No se hereda<br>una leyenda.<em>Se construye.</em></h2><p>Desde tu primera arma hasta las zonas que se disputan en party. Tu historia avanza con cada mapa.</p></div>
+    <div class="journey">
+        <div class="journey-stage" aria-hidden="true">
+            <div class="journey-backdrop journey-origin is-active" data-chapter-art="0"></div>
+            <div class="journey-backdrop journey-ascent" data-chapter-art="1"></div>
+            <div class="journey-backdrop journey-conquest" data-chapter-art="2"></div>
+            <div class="journey-vignette"></div><span class="journey-word" data-journey-word>ORIGEN</span>
+            <div class="journey-indicator"><span data-journey-index>01</span><div><i data-journey-progress></i></div><span>03</span></div>
+        </div>
+        <div class="journey-chapters shell">
+            <article class="journey-chapter" data-chapter="0" data-word="ORIGEN" aria-labelledby="origin-title">
+                <div class="chapter-copy"><span class="eyebrow">I / EL PRIMER PASO</span><h3 id="origin-title">Todo empieza<br>con una espada.</h3><p>Lorencia y Noria. El primer equipo, los primeros spots y la decisión de seguir un poco más.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Construí tu personaje.</strong><p>Elegí tu clase, conocé tus habilidades y prepará el equipo para salir de las zonas iniciales.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#primeros-pasos">Consultá la guía de inicio <span aria-hidden="true">→</span></a></div>
+            </article>
+            <article class="journey-chapter" data-chapter="1" data-word="ASCENSO" aria-labelledby="ascent-title">
+                <div class="chapter-copy"><span class="eyebrow">II / GANATE TUS ALAS</span><h3 id="ascent-title">El próximo mapa<br>se gana.</h3><p>Devias, Dungeon, Atlans y Lost Tower. Después, Tarkan e Icarus: el recorrido exige más de tu personaje.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Equipá. Farmeá. Avanzá.</strong><p>Guardá Zen, prepará tus combinaciones en la Chaos Machine y conseguí tus primeras alas. Icarus las requiere.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#progresion">Conocé la progresión <span aria-hidden="true">→</span></a></div>
+            </article>
+            <article class="journey-chapter" data-chapter="2" data-word="CONQUISTA" aria-labelledby="conquest-title">
+                <div class="chapter-copy"><span class="eyebrow">III / BUSCÁ TU LUGAR</span><h3 id="conquest-title">Llegar es sólo<br>el comienzo.</h3><p>Kanturu, Raklion, Swamp y Karutan. Mejores objetivos, spots disputados y una razón para reunir a tu party.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Hacé valer tu progreso.</strong><p>Reset por etapas y Master Reset. Prepará tu siguiente objetivo y consultá los requisitos antes de dar el salto.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#sistemas">Explorá los sistemas <span aria-hidden="true">→</span></a></div>
+            </article>
         </div>
     </div>
 </section>
 
-<section class="start-section">
-    <div class="shell">
-        <div class="section-heading reveal">
-            <span class="kicker">EMPEZÁ ACÁ</span>
-            <h2>Entrá al server sin perder tiempo.</h2>
-            <p>Cuatro accesos directos para hacer lo importante antes de abrir el cliente.</p>
-        </div>
-
-        <div class="start-grid">
-            <a class="start-card reveal hover-tilt" href="<?php echo __BASE_URL__; ?>downloads/"><span class="step">01</span><div><small>PRIMERO</small><strong>Descargá el cliente</strong><p>Todo lo necesario para instalar y entrar.</p></div><b>↗</b></a>
-            <?php if($isLogged) { ?>
-                <a class="start-card reveal hover-tilt" href="<?php echo __BASE_URL__; ?>usercp/"><span class="step">02</span><div><small>CUENTA</small><strong>Gestioná tu personaje</strong><p>Panel de usuario, resets y opciones de cuenta.</p></div><b>↗</b></a>
-            <?php } else { ?>
-                <a class="start-card reveal hover-tilt" href="<?php echo __BASE_URL__; ?>register/"><span class="step">02</span><div><small>CUENTA</small><strong>Creá tu usuario</strong><p>Registrate y dejá lista tu cuenta para jugar.</p></div><b>↗</b></a>
-            <?php } ?>
-            <a class="start-card reveal hover-tilt" href="<?php echo __BASE_URL__; ?>information/"><span class="step">03</span><div><small>GUÍAS</small><strong>Entendé qué hacer</strong><p>Mapas, progresión, sistemas y prioridades.</p></div><b>↗</b></a>
-            <a class="start-card reveal hover-tilt" href="<?php echo __BASE_URL__; ?>rankings/"><span class="step">04</span><div><small>COMPETENCIA</small><strong>Mirá quién está arriba</strong><p>Rankings y referencia del progreso real.</p></div><b>↗</b></a>
-        </div>
-    </div>
+<section class="panic-manifesto" aria-labelledby="manifesto-title">
+    <div class="shell manifesto-layout"><span class="eyebrow">03 / LA ESENCIA PANIC</span><div><h2 id="manifesto-title">Tu tiempo.<br>Tu equipo.<br><em>Tu conquista.</em></h2><p>Un continente conocido. Decisiones que importan.</p></div><div class="manifesto-notes"><article><span>01</span><div><h3>El Zen tiene peso.</h3><p>Farmear, guardar y vender forman parte del progreso. Pensá tu próxima mejora.</p></div></article><article><span>02</span><div><h3>Cada etapa tiene un destino.</h3><p>Spots diseñados por mapa y objetivos para avanzar con tu personaje.</p></div></article><article><span>03</span><div><h3>La aventura se comparte.</h3><p>Armá tu party. Encontrá tu guild. Volvé por esa conquista que todavía te falta.</p></div></article></div></div>
 </section>
 
-<section class="world-section" data-world-journey>
-    <div class="shell world-shell">
-        <div class="world-copy reveal">
-            <span class="kicker light">TU VIAJE</span>
-            <h2>El continente no es un menú.<br>Es tu progresión.</h2>
-            <p>La ruta se va endureciendo con vos. Cada etapa tiene mapas, spots y objetivos propios.</p>
-            <a href="<?php echo __BASE_URL__; ?>information/">Abrir guía completa <span>→</span></a>
-        </div>
-
-        <div class="world-map reveal">
-            <div class="world-map-bg"></div>
-            <div class="world-route">
-                <div class="world-route-line"><span data-route-progress></span></div>
-
-                <a class="world-node n1 active" href="<?php echo __BASE_URL__; ?>information/"><i></i><div><small>01</small><strong>Lorencia / Noria</strong><span>Inicio · primer equipo</span></div></a>
-                <a class="world-node n2" href="<?php echo __BASE_URL__; ?>information/"><i></i><div><small>02</small><strong>Devias / Dungeon</strong><span>Leveleo · Zen · transición</span></div></a>
-                <a class="world-node n3" href="<?php echo __BASE_URL__; ?>information/"><i></i><div><small>03</small><strong>Atlans / Lost Tower</strong><span>Farmeo serio · mejores drops</span></div></a>
-                <a class="world-node n4" href="<?php echo __BASE_URL__; ?>information/"><i></i><div><small>04</small><strong>Tarkan / Icarus</strong><span>Alas · daño · requisitos</span></div></a>
-                <a class="world-node n5" href="<?php echo __BASE_URL__; ?>information/"><i></i><div><small>05</small><strong>Kanturu / Raklion</strong><span>Party · endgame · competencia</span></div></a>
-                <a class="world-node n6" href="<?php echo __BASE_URL__; ?>information/"><i></i><div><small>06</small><strong>Swamp / Karutan</strong><span>Objetivos disputados</span></div></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="why-section">
-    <div class="shell">
-        <div class="why-layout">
-            <div class="why-intro reveal">
-                <span class="kicker light">POR QUÉ MU PANIC</span>
-                <h2>No queremos otro server que se sienta igual.</h2>
-                <p>La gracia está en que cada etapa tenga una razón de ser: dónde levelear, qué guardar, qué vender y cuándo vale la pena avanzar.</p>
-                <a href="<?php echo __BASE_URL__; ?>information/">Conocé los sistemas <span>→</span></a>
-            </div>
-            <div class="why-cards">
-                <article class="why-card why-card-bright reveal hover-tilt"><span>01</span><small>PROGRESIÓN</small><h3>Mapas con propósito.</h3><p>No saltás contenido porque sí. Cada zona acompaña una etapa de crecimiento.</p></article>
-                <article class="why-card reveal hover-tilt"><span>02</span><small>ECONOMÍA</small><h3>El Zen importa.</h3><p>Farmear y vender vuelve a tener peso real dentro de tus decisiones.</p></article>
-                <article class="why-card reveal hover-tilt"><span>03</span><small>ENDGAME</small><h3>Siempre hay otro objetivo.</h3><p>Reset, Master Reset, eventos, rankings y zonas para competir.</p></article>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ranking-preview">
-    <div class="shell">
-        <div class="ranking-head reveal">
-            <div><span class="kicker">RANKING EN VIVO</span><h2>Los que están marcando el ritmo.</h2></div>
-            <a href="<?php echo __BASE_URL__; ?>rankings/">Ver ranking completo <span>↗</span></a>
-        </div>
-
-        <div class="ranking-board reveal">
-            <div class="ranking-board-head"><span>#</span><span>PERSONAJE</span><span>RESET</span><span>NIVEL</span></div>
-            <?php if(is_array($topResetPlayers) && count($topResetPlayers) > 0) { ?>
-                <?php foreach($topResetPlayers as $player) { ?>
-                    <div class="ranking-row">
-                        <span class="rank-position"><?php echo (int)$player['position']; ?></span>
-                        <span class="rank-name"><i></i><?php echo htmlspecialchars($player['name']); ?></span>
-                        <strong><?php echo number_format((int)$player['resets']); ?></strong>
-                        <span><?php echo number_format((int)$player['level']); ?></span>
-                    </div>
-                <?php } ?>
-            <?php } else { ?>
-                <div class="ranking-empty">El ranking se está actualizando. Volvé a revisar en unos minutos.</div>
-            <?php } ?>
-        </div>
-    </div>
-</section>
-
-<section class="live-section">
-    <div class="shell live-shell reveal">
-        <div class="live-copy"><span class="kicker light">AHORA MISMO</span><h2>El server está vivo.</h2><p>Estado real, jugadores conectados y accesos directos para volver al juego.</p></div>
-        <div class="live-number"><strong data-count="<?php echo (int)$onlinePlayers; ?>"><?php echo number_format($onlinePlayers); ?></strong><span>jugador<?php echo $onlinePlayers === 1 ? '' : 'es'; ?> online</span></div>
-        <div class="live-meta">
-            <div><small>ESTADO</small><strong><i></i> Online</strong></div>
-            <div><small>EXP</small><strong><?php echo htmlspecialchars($serverExp); ?></strong></div>
-            <div><small>DROP</small><strong><?php echo htmlspecialchars($serverDrop); ?></strong></div>
-        </div>
-        <div class="live-actions"><a class="button-shine" href="<?php echo __BASE_URL__; ?>downloads/">Descargar cliente</a><a href="<?php echo __BASE_URL__; ?>rankings/">Ver rankings</a></div>
-    </div>
-</section>
-
-<section class="news-section">
-    <div class="shell">
-        <div class="section-heading compact reveal"><span class="kicker">NOVEDADES</span><h2>Qué está pasando en MU PANIC.</h2></div>
-        <div class="module-surface home-module reveal"><?php $handler->loadModule($_REQUEST['page'],$_REQUEST['subpage']); ?></div>
-    </div>
+<section class="play-gateway" id="empezar" aria-labelledby="play-title">
+    <div class="gateway-art" aria-hidden="true"></div><div class="shell gateway-layout"><div class="gateway-copy"><span class="eyebrow">04 / TU HISTORIA EMPIEZA ACÁ</span><h2 id="play-title">Nos vemos<br><em>en Lorencia.</em></h2><p>Prepará tu cuenta y el cliente.<br>El siguiente paso lo das dentro del juego.</p></div><div class="launch-steps"><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><span>01</span><div><small><?php echo $isLogged ? 'TU PANEL' : 'TU IDENTIDAD'; ?></small><strong><?php echo $isLogged ? 'Abrir mi cuenta' : 'Crear mi cuenta'; ?></strong></div><b aria-hidden="true">↗</b></a><a class="launch-download" href="<?php echo __BASE_URL__; ?>downloads/"><span>02</span><div><small>EL CLIENTE / PC</small><strong>Descargar MU PANIC</strong></div><b aria-hidden="true">↓</b></a><a href="<?php echo __BASE_URL__; ?>info/"><span>03</span><div><small>ANTES DE ENTRAR</small><strong>Leer la guía del servidor</strong></div><b aria-hidden="true">↗</b></a></div></div>
 </section>
 
 <?php } else { ?>
 
 <section class="inner-hero">
     <div class="shell inner-head">
-        <div><span class="kicker"><?php echo strtoupper($_REQUEST['page']); ?></span><h1><?php echo mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage']); ?></h1></div>
+        <div><span class="eyebrow"><?php echo htmlspecialchars(strtoupper($_REQUEST['page'])); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
         <a href="<?php echo __BASE_URL__; ?>">← Inicio</a>
     </div>
 </section>
@@ -264,10 +152,25 @@ $topResetPlayers = $isHome ? mupanicTopResetPlayers(5) : array();
         <?php if($_REQUEST['page'] == 'usercp' && $_REQUEST['subpage'] != '') { ?>
             <div class="account-layout">
                 <aside class="account-nav"><div class="account-nav-head"><small>TU CUENTA</small><strong>Panel de usuario</strong></div><?php templateBuildUsercp(); ?></aside>
-                <div class="module-surface"><?php $handler->loadModule($_REQUEST['page'],$_REQUEST['subpage']); ?></div>
+                <div class="module-surface"><?php $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']); ?></div>
             </div>
         <?php } else { ?>
-            <div class="module-surface"><?php $handler->loadModule($_REQUEST['page'],$_REQUEST['subpage']); ?></div>
+            <div class="module-surface"><?php
+                if($_REQUEST['page'] === 'info') {
+                    include('inc/guide.php');
+                } elseif($_REQUEST['page'] === 'downloads') {
+                    ob_start();
+                    $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
+                    $downloadsMarkup = ob_get_clean();
+                    if(stripos($downloadsMarkup, '<a ') === false && stripos($downloadsMarkup, 'alert') === false) {
+                        echo '<div class="download-notice"><span class="eyebrow">CLIENTE PARA PC</span><h2>La descarga todavía no está publicada.</h2><p>Cuando el cliente esté disponible, encontrarás los enlaces en esta sección. Mientras tanto, podés preparar tu cuenta y conocer la guía del servidor.</p><a class="btn btn-primary" href="'.__BASE_URL__.'register/">Crear cuenta</a> <a href="'.__BASE_URL__.'info/">Leer la guía →</a></div>';
+                    } else {
+                        echo $downloadsMarkup;
+                    }
+                } else {
+                    $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
+                }
+                ?></div>
         <?php } ?>
     </div>
 </section>
@@ -278,11 +181,11 @@ $topResetPlayers = $isHome ? mupanicTopResetPlayers(5) : array();
 <footer class="footer-modern">
     <div class="shell footer-main">
         <div>
-            <a class="brand" href="<?php echo __BASE_URL__; ?>"><span class="brand-mark">MP</span><span class="brand-copy"><strong>MU PANIC</strong><small>SEASON 6 · ARGENTINA</small></span></a>
-            <p>Un MU clásico con una progresión más clara, economía con valor y objetivos que importan.</p>
+            <a class="brand" href="<?php echo __BASE_URL__; ?>"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 48"><path d="M3 38V9l17 15L37 9v29L20 47z M3 9V2l17 15L37 2v7 M20 24v23"/></svg></span><span class="brand-copy"><strong>MU PANIC</strong><small>EL CONTINENTE TE ESPERA</small></span></a>
+            <p>Tu historia en el continente de MU.</p>
         </div>
         <div class="footer-links">
-            <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>information/">Guías</a></div>
+            <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Guías</a></div>
             <div><small>CUENTA</small><?php if($isLogged) { ?><a href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>register/">Crear cuenta</a><?php } ?><a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a></div>
         </div>
     </div>
@@ -291,6 +194,6 @@ $topResetPlayers = $isHome ? mupanicTopResetPlayers(5) : array();
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
-<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js"></script>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=5.0"></script>
 </body>
 </html>
