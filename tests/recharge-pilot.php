@@ -83,6 +83,25 @@ try {
     expectPilot($inspected['last_error']==='CHECKOUT_NOT_FOUND' && $inspected['payment_state']==='creating','No match does not erase reservation');
     $found=true; $inspected=$store->inspect($recovery,'fixture');
     expectPilot($inspected['payment_state']==='approved' && $postCount===0,'Recovery uses canonical GET without new checkout');
+    $store->save($reserved); $pageCalls=0; $duplicate=false;
+    $paged=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($reserved,&$pageCalls,&$duplicate) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        expectPilot($method==='GET','Pagination never creates another checkout');
+        if(strpos($url,'?limit=20')!==false) {
+            $pageCalls++;
+            if(strpos($url,'last_search_key=')===false) return ['orders'=>[['uuid'=>'page-payment','external_reference'=>$reserved['id']]],'has_more_items'=>true,'last_search_key'=>'next +/=?&'];
+            expectPilot(strpos($url,'last_search_key=next%20%2B%2F%3D%3F%26')!==false,'Opaque cursor is escaped');
+            return ['orders'=>$duplicate?[['uuid'=>'different-payment','external_reference'=>$reserved['id']]]:[],'has_more_items'=>'false'];
+        }
+        return ['uuid'=>'page-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'APPROVED'];
+    });
+    $first=$store->inspect($paged,'fixture');
+    expectPilot($first['last_error']==='RECOVERY_MORE_PAGES' && PanicRechargePilot::job($first)===null,'A match on a partial search cannot deliver');
+    $final=(new PanicRechargePilot($root))->inspect($paged,'fixture');
+    expectPilot($pageCalls===2 && $final['payment_state']==='approved','Cursor and matches persist between requests');
+    $store->save($reserved); $duplicate=true;
+    $store->inspect($paged,'fixture'); $held=$store->inspect($paged,'fixture');
+    expectPilot($held['payment_state']==='review' && PanicRechargePilot::job($held)===null,'Different matches on different pages hold delivery');
     unlink($root.'/uala-pilot.json');
     if(function_exists('pcntl_fork')) {
         $children=[];

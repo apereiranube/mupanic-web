@@ -273,9 +273,19 @@ seguros (HTTP numérico, transporte o etapas privadas) y nunca imprime respuesta
 ni excepciones del proveedor. El retorno/webhook usa la URL HTTPS fija de beta,
 sin depender del protocolo que WebEngine detecta detrás del proxy. El payload
 se valida antes de autenticar o enviar la creación. `Revisar reserva sin crear
-otro cobro` consulta hasta las 20 primeras órdenes de test y compara la referencia
-local; si encuentra una sola coincidencia, obtiene su UUID con GET autenticado y
+otro cobro` consulta páginas de 20 órdenes de test y compara la referencia
+local; si encuentra una sola coincidencia al completar las páginas, obtiene su UUID con GET autenticado y
 vuelve a validar el importe y referencia antes de permitir entrega. Sin match,
 con más páginas pendientes, o con varios matches, no se elimina la reserva ni
 se crea otra orden. La causa del error observado todavía no está confirmada;
 requiere el código de diagnóstico del hosting y/o la inspección de la reserva.
+
+El diagnóstico `RECOVERY_MORE_PAGES` informado por el administrador confirma que
+la búsqueda quedó incompleta. Ahora cada consulta avanza una página mediante
+`last_search_key`; cursor, coincidencias y contador persisten en el estado
+privado, sin exponer datos de otras órdenes. No ofrece entrega hasta terminar
+la búsqueda con una sola coincidencia. Detecta cursores repetidos y detiene a
+250 páginas; formatos inesperados no eliminan la reserva ni generan un pago.
+Las pruebas verifican avance entre solicitudes, escape del cursor, coincidencia
+en una página parcial y duplicados en páginas distintas. No cambia el worker
+PowerShell ni requiere reinstalar SQL/token.

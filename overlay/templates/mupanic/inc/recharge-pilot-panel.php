@@ -33,6 +33,7 @@ $pilotLabels=['creating'=>'Creación pendiente de revisar','pending'=>'Pago pend
     <?php if($pilotMessage) { ?><p role="status"><?php echo panicAccountEscape($pilotMessage); ?></p><?php } ?>
     <?php if($pilot) { ?>
         <?php if(isset($pilot['last_error'])) { ?><p>Diagnóstico: <b><?php echo panicAccountEscape($pilot['last_error']); ?></b></p><?php } ?>
+        <?php if(($pilot['last_error'] ?? '')==='RECOVERY_MORE_PAGES') { ?><p>Revisamos <?php echo (int)($pilot['recovery_pages'] ?? 0); ?> página(s). Hay más resultados: esperá 15 segundos y continuá la revisión con el botón de abajo. No se crea otro cobro.</p><?php } ?>
         <p><b><?php echo panicAccountEscape($pilotLabels[$pilot['payment_state']] ?? 'En revisión'); ?></b> · Entrega: <?php echo panicAccountEscape(['pending'=>'Pendiente','credited'=>'1.000 WCoin C acreditados','reverted'=>'Monedas de prueba retiradas'][$pilot['delivery_state']] ?? 'En revisión'); ?></p>
         <?php if(isset($pilot['checkout_url']) && $pilot['payment_state']==='pending') { ?><p><a class="btn btn-primary" href="<?php echo panicAccountEscape($pilot['checkout_url']); ?>" target="_blank" rel="noopener noreferrer">Abrir pago simulado en Ualá</a></p><?php } ?>
         <?php if(isset($pilot['payment_id'])) { ?>

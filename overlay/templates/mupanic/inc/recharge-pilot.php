@@ -95,7 +95,9 @@ final class PanicRechargePilot {
             'Pilot lock unavailable'=>'PRIVATE_LOCK','Pilot storage unavailable'=>'PRIVATE_WRITE','Pilot commit failed'=>'PRIVATE_COMMIT',
             'Invalid pilot state'=>'PRIVATE_STATE','Invalid sandbox checkout'=>'CHECKOUT_RESPONSE','Sandbox only'=>'TEST_REQUIRED',
             'Private payment settings unavailable'=>'PRIVATE_SETTINGS','Invalid private settings: sales must remain disabled'=>'SETTINGS_DISABLED',
-            'Uala credential missing'=>'CREDENTIALS','Payment transport unavailable'=>'PHP_CURL'];
+            'Uala credential missing'=>'CREDENTIALS','Payment transport unavailable'=>'PHP_CURL',
+            'Invalid recovery pagination'=>'RECOVERY_FORMAT','Invalid recovery cursor'=>'RECOVERY_CURSOR',
+            'Recovery pagination stopped'=>'RECOVERY_STOPPED'];
         return $codes[$exception->getMessage()] ?? 'PILOT_CHECK_FAILED';
     }
     public function inspect(PanicUalaBisApi $api,$merchant) {
@@ -105,18 +107,43 @@ final class PanicRechargePilot {
                 $state=self::refreshed($state,$api->fetchPayment($state['payment_id']),$merchant);
             } else {
                 // Recover an ambiguous creation using authenticated GET only.
-                $result=$api->pilotOrders();
+                if(!empty($state['recovery_complete'])) {
+                    unset($state['recovery_cursor'],$state['recovery_matches'],$state['recovery_seen'],$state['recovery_pages'],$state['recovery_complete']);
+                }
+                $cursor=$state['recovery_cursor'] ?? null;
+                $result=$api->pilotOrders($cursor);
                 if(!is_array($result['orders'] ?? null)) throw new RuntimeException('Invalid sandbox checkout');
-                $matches=[];
-                foreach($result['orders'] as $candidate) if(is_array($candidate) && ($candidate['external_reference'] ?? '')===$state['id']) $matches[]=$candidate;
+                $matches=$state['recovery_matches'] ?? [];
+                foreach($result['orders'] as $candidate) {
+                    if(!is_array($candidate) || ($candidate['external_reference'] ?? '')!==$state['id']) continue;
+                    if(!is_string($candidate['uuid'] ?? null) || !preg_match('/^[A-Za-z0-9_-]{1,120}$/D',$candidate['uuid'])) throw new RuntimeException('Invalid sandbox checkout');
+                    $matches[$candidate['uuid']]=true;
+                }
+                $state['recovery_matches']=$matches;
+                $state['recovery_pages']=(int)($state['recovery_pages'] ?? 0)+1;
+                $more=$result['has_more_items'] ?? false;
+                if($more==='true') $more=true;
+                elseif($more==='false') $more=false;
+                if(!is_bool($more)) throw new RuntimeException('Invalid recovery pagination');
                 if(count($matches)>1) { $state['payment_state']='review'; $state['last_error']='MULTIPLE_CHECKOUTS'; }
-                elseif(count($matches)===1 && is_string($matches[0]['uuid'] ?? null)) {
-                    $state['payment_id']=$matches[0]['uuid'];
+                elseif($more) {
+                    $next=$result['last_search_key'] ?? null;
+                    if(!is_string($next) || $next==='' || strlen($next)>4096) throw new RuntimeException('Invalid recovery cursor');
+                    $hash=hash('sha256',$next);
+                    if(isset($state['recovery_seen'][$hash]) || $state['recovery_pages']>=250) throw new RuntimeException('Recovery pagination stopped');
+                    $state['recovery_seen'][$hash]=true;
+                    $state['recovery_cursor']=$next;
+                    $state['last_error']='RECOVERY_MORE_PAGES';
+                }
+                elseif(count($matches)===1) {
+                    $state['payment_id']=array_key_first($matches);
                     $payment=$api->fetchPayment($state['payment_id']);
                     $state=self::refreshed($state,$payment,$merchant);
                     $state['last_error']='CHECKOUT_RECOVERED';
+                    $state['recovery_complete']=true;
                 } else {
-                    $state['last_error']=!empty($result['has_more_items'])?'RECOVERY_MORE_PAGES':'CHECKOUT_NOT_FOUND';
+                    $state['last_error']='CHECKOUT_NOT_FOUND';
+                    $state['recovery_complete']=true;
                 }
             }
             $store->save($state); return $state;

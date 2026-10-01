@@ -41,9 +41,14 @@ final class PanicUalaBisApi extends PanicRechargeApi {
         $payload=self::checkoutPayload($order,$returnUrl,$webhookUrl);
         return $this->request('POST',$this->base('checkout').'/checkout',$this->headers(),$payload);
     }
-    public function pilotOrders() {
+    public function pilotOrders($cursor=null) {
         if($this->environment!=='test') throw new RuntimeException('Sandbox only');
-        return $this->request('GET',$this->base('checkout').'/orders?limit=20',$this->headers());
+        $query=['limit'=>20];
+        if($cursor!==null) {
+            if(!is_string($cursor) || $cursor==='' || strlen($cursor)>4096) throw new RuntimeException('Invalid recovery cursor');
+            $query['last_search_key']=$cursor;
+        }
+        return $this->request('GET',$this->base('checkout').'/orders?'.http_build_query($query,'','&',PHP_QUERY_RFC3986),$this->headers());
     }
     public function fetchPayment($paymentId) {
         $result=$this->request('GET',$this->base('checkout').'/orders/'.self::id($paymentId),$this->headers());
