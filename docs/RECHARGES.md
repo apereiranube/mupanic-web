@@ -204,3 +204,62 @@ Windows/SQL Server. No se probó contra el VPS desde este entorno.
 # Browser authentication check without cPanel Terminal
 
 `usercp/recharge/` displays a test authentication button only for logged-in accounts present in the existing WebEngine `admins` configuration. No administrator account is hardcoded or granted new permissions. POST requires a session CSRF token and allows one attempt per minute per session; GET never calls Ualá. It reads the existing private settings file, requires `environment: test` and disabled sales, and calls authentication only. Credentials, tokens and provider exception messages are never rendered. Deployment still requires cPanel Update from Remote and Deploy HEAD Commit. `tests/recharge-check.php` covers guest/player denial, CSRF, throttling, safe errors and admin rendering; gateway behavior remains covered by mocked adapter tests.
+
+## Compra piloto con pago simulado y monedas reales (autorizada 1/10/2026)
+
+Agustín autorizó probar el circuito con monedas reales antes del lanzamiento.
+Esta excepción es **una sola compra Ualá de test de $1.000 ARS, por 1.000 WCoin C,
+exclusivamente para `pruebacoin`**. No habilita ventas, otros paquetes ni otras
+cuentas. El reconciliador general sigue rechazando entregas reales de sandbox.
+
+La creación está reservada a administradores WebEngine autenticados, mediante
+POST con CSRF. `recharge-pilot.php` guarda una reserva antes de llamar a Ualá;
+un error ambiguo conserva esa reserva y no crea otro checkout al reintentar.
+Estado privado `payments-private/uala-pilot.json`, archivo 600 y lock estable:
+flock más reemplazo atómico de JSON. No borrar ni restaurar una versión vieja.
+El enlace de checkout debe ser HTTPS en un dominio Ualá permitido; el importe,
+UUID y referencia se verifican. `uala-pilot-hook.php` usa una capacidad aleatoria
+por orden, ignora el estado del POST y consulta el UUID almacenado con el token
+Ualá. El worker vuelve a consultar Ualá antes de ofrecer el trabajo. Estado
+APPROVED y coincidencias de importe, referencia, entorno y merchant son
+obligatorios. PROCESSED queda pendiente; contradicciones requieren revisión.
+La prueba vence a los siete días si no fue entregada.
+
+El puente `uala-pilot-worker.php` exige HMAC-SHA256 de timestamp y body, ventana
+de cinco minutos, TLS y límite de tamaño. Respuestas firmadas incluyen un nonce
+único por petición para impedir aceptar una respuesta de otra consulta. El
+secreto independiente `sandbox-worker-token` es generado en el VPS, se copia
+privadamente a cPanel y no se muestra en el panel ni se guarda en GitHub. No
+reutiliza el token Atlas, claves Ualá ni contraseñas SQL.
+
+`tools/test_uala_pilot.ps1` conecta localmente a **MuOnline43**. `-Install` crea
+únicamente la tabla `dbo.MUPanicUalaSandboxPilot` y un token de prueba; no suma
+monedas. Sin opciones consulta el saldo. `-Run` consulta la orden y entrega
+solo si pruebacoin está **desconectada** (ConnectStat=0, NULL no se acepta), para
+evitar que una sesión con saldo en memoria sobrescriba la prueba. `-Run
+-WatchSeconds 900` observa hasta 15 minutos; es un proceso temporal, no una
+tarea permanente. Salir y reejecutar es seguro porque el registro vive en SQL.
+
+SQL toma un applock exclusivo y usa una transacción para `WZ_SetCoin` + registro
+de entrega. Una fila singleton, claves únicas de orden/pago y cantidades fijas
+impiden una segunda acreditación aun con dos workers o tras perder la respuesta
+HTTP. Se comprueba el delta de WCoin C y que WCoin P/Goblin Points no cambien;
+fallos revierten la transacción. La respuesta web se reconoce solo tras COMMIT.
+Si ese reconocimiento falla, la siguiente ejecución envía el recibo SQL sin
+sumar monedas. No se inserta una billetera faltante.
+
+`-Revert` retira exactamente 1.000 WCoin C una vez, exige cuenta offline y saldo
+suficiente, y marca el registro como revertido en la misma transacción. Conserva
+la moneda de la prueba anterior y otros cambios de saldo; no restaura un saldo
+antiguo ni elimina el historial. También reconoce la reversión en la web. No
+borrar la tabla ni sus registros para "reiniciar" la prueba. Antes de producción
+deshabilitar este piloto retirando `sandbox-worker-token` del hosting y no
+ejecutar más el worker. Se conservan los comprobantes privados y SQL.
+
+Validación local: pruebas de aprobación auténtica con API simulada, importes y
+entornos incorrectos, CSRF/admin, replay, excepción ambigua, dos procesos PHP
+creando simultáneamente un solo checkout, persistencia y recibos de reversión.
+No se ejecutó PowerShell/SQL Server contra el VPS ni se realizó un pago Ualá
+desde este entorno. La prueba completa queda pendiente de despliegue, instalación,
+pago con la tarjeta de test y comprobación del saldo en el cliente. Este piloto
+no reemplaza el ledger general, panel de paquetes o procesamiento de producción.
