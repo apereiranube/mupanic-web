@@ -263,3 +263,19 @@ No se ejecutó PowerShell/SQL Server contra el VPS ni se realizó un pago Ualá
 desde este entorno. La prueba completa queda pendiente de despliegue, instalación,
 pago con la tarjeta de test y comprobación del saldo en el cliente. Este piloto
 no reemplaza el ledger general, panel de paquetes o procesamiento de producción.
+
+### Diagnóstico de creación
+
+El administrador informó que la instalación SQL/token terminó sin cambios de
+saldo; luego la UI mostró un error genérico al crear la prueba. El panel ahora
+recarga la reserva incluso si la creación falla, conserva códigos de error
+seguros (HTTP numérico, transporte o etapas privadas) y nunca imprime respuestas
+ni excepciones del proveedor. El retorno/webhook usa la URL HTTPS fija de beta,
+sin depender del protocolo que WebEngine detecta detrás del proxy. El payload
+se valida antes de autenticar o enviar la creación. `Revisar reserva sin crear
+otro cobro` consulta hasta las 20 primeras órdenes de test y compara la referencia
+local; si encuentra una sola coincidencia, obtiene su UUID con GET autenticado y
+vuelve a validar el importe y referencia antes de permitir entrega. Sin match,
+con más páginas pendientes, o con varios matches, no se elimina la reserva ni
+se crea otra orden. La causa del error observado todavía no está confirmada;
+requiere el código de diagnóstico del hosting y/o la inspección de la reserva.

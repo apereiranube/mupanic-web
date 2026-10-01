@@ -68,7 +68,8 @@ final class PanicRechargePilot {
             $store->save($state); // Reserve before external request; ambiguity never creates another order.
             $hook=rtrim($baseUrl,'/').'/templates/mupanic/api/uala-pilot-hook.php?key='.$state['callback_token'];
             $return=rtrim($baseUrl,'/').'/usercp/recharge/';
-            $result=$api->createCheckout($state,$return,$hook);
+            try { $result=$api->createCheckout($state,$return,$hook); }
+            catch(Throwable $exception) { $state['last_error']=self::diagnostic($exception); $store->save($state); throw $exception; }
             $id=$result['uuid'] ?? null; $link=$result['links']['checkout_link'] ?? null;
             $parts=is_string($link)?parse_url($link):false;
             if(!is_string($id) || !preg_match('/^[A-Za-z0-9_-]{1,120}$/D',$id) || ($result['external_reference'] ?? '')!==$state['id'] ||
@@ -87,6 +88,39 @@ final class PanicRechargePilot {
         elseif($decision!=='already_credited' && $state['payment_state']!=='approved') $state['payment_state']=$decision;
         $state['checked_at']=gmdate('c');
         return $state;
+    }
+    public static function diagnostic(Throwable $exception) {
+        if($exception instanceof PanicRechargeApiFailure && preg_match('/^(AUTH|CHECKOUT)_(HTTP_[0-9]{1,3}|NETWORK_[0-9]{1,3}|RESPONSE_SIZE)$/D',$exception->safeCode)) return $exception->safeCode;
+        $codes=['HTTPS callback required'=>'CALLBACK_HTTPS','Private pilot directory unavailable'=>'PRIVATE_DIRECTORY',
+            'Pilot lock unavailable'=>'PRIVATE_LOCK','Pilot storage unavailable'=>'PRIVATE_WRITE','Pilot commit failed'=>'PRIVATE_COMMIT',
+            'Invalid pilot state'=>'PRIVATE_STATE','Invalid sandbox checkout'=>'CHECKOUT_RESPONSE','Sandbox only'=>'TEST_REQUIRED',
+            'Private payment settings unavailable'=>'PRIVATE_SETTINGS','Invalid private settings: sales must remain disabled'=>'SETTINGS_DISABLED',
+            'Uala credential missing'=>'CREDENTIALS','Payment transport unavailable'=>'PHP_CURL'];
+        return $codes[$exception->getMessage()] ?? 'PILOT_CHECK_FAILED';
+    }
+    public function inspect(PanicUalaBisApi $api,$merchant) {
+        return $this->locked(function($state,$store) use ($api,$merchant) {
+            if(!$state) throw new RuntimeException('Pilot checkout unavailable');
+            if(is_string($state['payment_id'] ?? null)) {
+                $state=self::refreshed($state,$api->fetchPayment($state['payment_id']),$merchant);
+            } else {
+                // Recover an ambiguous creation using authenticated GET only.
+                $result=$api->pilotOrders();
+                if(!is_array($result['orders'] ?? null)) throw new RuntimeException('Invalid sandbox checkout');
+                $matches=[];
+                foreach($result['orders'] as $candidate) if(is_array($candidate) && ($candidate['external_reference'] ?? '')===$state['id']) $matches[]=$candidate;
+                if(count($matches)>1) { $state['payment_state']='review'; $state['last_error']='MULTIPLE_CHECKOUTS'; }
+                elseif(count($matches)===1 && is_string($matches[0]['uuid'] ?? null)) {
+                    $state['payment_id']=$matches[0]['uuid'];
+                    $payment=$api->fetchPayment($state['payment_id']);
+                    $state=self::refreshed($state,$payment,$merchant);
+                    $state['last_error']='CHECKOUT_RECOVERED';
+                } else {
+                    $state['last_error']=!empty($result['has_more_items'])?'RECOVERY_MORE_PAGES':'CHECKOUT_NOT_FOUND';
+                }
+            }
+            $store->save($state); return $state;
+        });
     }
     public function refresh(PanicUalaBisApi $api,$merchant,$callbackKey=null) {
         return $this->locked(function($state,$store) use ($api,$merchant,$callbackKey) {

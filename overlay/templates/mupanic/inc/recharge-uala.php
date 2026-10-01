@@ -38,7 +38,12 @@ final class PanicUalaBisApi extends PanicRechargeApi {
     }
     public function createCheckout(array $order, $returnUrl, $webhookUrl) {
         if(($order['live'] ?? null)!==($this->environment==='production')) throw new InvalidArgumentException('Uala environment mismatch');
-        return $this->request('POST',$this->base('checkout').'/checkout',$this->headers(),self::checkoutPayload($order,$returnUrl,$webhookUrl));
+        $payload=self::checkoutPayload($order,$returnUrl,$webhookUrl);
+        return $this->request('POST',$this->base('checkout').'/checkout',$this->headers(),$payload);
+    }
+    public function pilotOrders() {
+        if($this->environment!=='test') throw new RuntimeException('Sandbox only');
+        return $this->request('GET',$this->base('checkout').'/orders?limit=20',$this->headers());
     }
     public function fetchPayment($paymentId) {
         $result=$this->request('GET',$this->base('checkout').'/orders/'.self::id($paymentId),$this->headers());

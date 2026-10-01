@@ -2,6 +2,11 @@
 if(!defined('access') || !access) die();
 require_once __DIR__.'/recharge-domain.php';
 
+final class PanicRechargeApiFailure extends RuntimeException {
+    public $safeCode;
+    public function __construct($safeCode) { parent::__construct('Payment API unavailable'); $this->safeCode=$safeCode; }
+}
+
 /** Server-side adapters. Instantiated only by future private payment bootstrap. */
 abstract class PanicRechargeApi implements PanicRechargeGateway {
     protected $credentials;
@@ -23,9 +28,12 @@ abstract class PanicRechargeApi implements PanicRechargeGateway {
             CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>12,CURLOPT_FOLLOWLOCATION=>false,
             CURLOPT_SSL_VERIFYPEER=>true,CURLOPT_SSL_VERIFYHOST=>2]);
         if($body!==null) curl_setopt($curl,CURLOPT_POSTFIELDS,json_encode($body,JSON_THROW_ON_ERROR));
-        $raw=curl_exec($curl); $status=curl_getinfo($curl,CURLINFO_HTTP_CODE); curl_close($curl);
+        $raw=curl_exec($curl); $status=(int)curl_getinfo($curl,CURLINFO_HTTP_CODE); $curlError=curl_errno($curl); curl_close($curl);
         // Never expose provider response bodies or headers to the browser/logs.
-        if($raw===false || $status<200 || $status>=300 || strlen($raw)>1048576) throw new RuntimeException('Payment API unavailable');
+        $service=strpos($url,'/auth/token')!==false?'AUTH':'CHECKOUT';
+        if($raw===false) throw new PanicRechargeApiFailure($service.'_NETWORK_'.(int)$curlError);
+        if($status<200 || $status>=300) throw new PanicRechargeApiFailure($service.'_HTTP_'.$status);
+        if(strlen($raw)>1048576) throw new PanicRechargeApiFailure($service.'_RESPONSE_SIZE');
         $result=json_decode($raw,true,32,JSON_THROW_ON_ERROR);
         if(!is_array($result)) throw new RuntimeException('Invalid payment response');
         return $result;

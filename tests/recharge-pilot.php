@@ -69,6 +69,20 @@ try {
     expectPilot($store->current()['payment_state']==='creating','Ambiguous request remains reserved');
     $store->begin($uncertain,'https://preview.test/');
     expectPilot($attempts===1,'Timeout retry does not create another checkout');
+    expectPilot($store->current()['last_error']==='PILOT_CHECK_FAILED','Raw exception is not persisted');
+    expectPilot(PanicRechargePilot::diagnostic(new PanicRechargeApiFailure('CHECKOUT_HTTP_403'))==='CHECKOUT_HTTP_403','Safe numeric diagnostics');
+    expectPilot(PanicRechargePilot::diagnostic(new PanicRechargeApiFailure('SECRET'))==='PILOT_CHECK_FAILED','Unrecognized diagnostic is not disclosed');
+    $reserved=$store->current(); $postCount=0; $found=false;
+    $recovery=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($reserved,&$postCount,&$found) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        if($method==='POST') { $postCount++; throw new RuntimeException('Recovery must not POST checkout'); }
+        if(strpos($url,'?limit=20')!==false) return ['orders'=>$found?[['uuid'=>'recovered-payment','external_reference'=>$reserved['id']]]:[]];
+        return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'APPROVED'];
+    });
+    $inspected=$store->inspect($recovery,'fixture');
+    expectPilot($inspected['last_error']==='CHECKOUT_NOT_FOUND' && $inspected['payment_state']==='creating','No match does not erase reservation');
+    $found=true; $inspected=$store->inspect($recovery,'fixture');
+    expectPilot($inspected['payment_state']==='approved' && $postCount===0,'Recovery uses canonical GET without new checkout');
     unlink($root.'/uala-pilot.json');
     if(function_exists('pcntl_fork')) {
         $children=[];
