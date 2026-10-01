@@ -200,3 +200,6 @@ También se verificó acceso bloqueado para invitados y regresión de las 12
 vistas existentes de cuenta, incluidos los datos originales de sus formularios.
 El script de auditoría está revisado como solo lectura; falta ejecutarlo en
 Windows/SQL Server. No se probó contra el VPS desde este entorno.
+# Browser authentication check without cPanel Terminal
+
+`usercp/recharge/` displays a test authentication button only for logged-in accounts present in the existing WebEngine `admins` configuration. No administrator account is hardcoded or granted new permissions. POST requires a session CSRF token and allows one attempt per minute per session; GET never calls Ualá. It reads the existing private settings file, requires `environment: test` and disabled sales, and calls authentication only. Credentials, tokens and provider exception messages are never rendered. Deployment still requires cPanel Update from Remote and Deploy HEAD Commit. `tests/recharge-check.php` covers guest/player denial, CSRF, throttling, safe errors and admin rendering; gateway behavior remains covered by mocked adapter tests.

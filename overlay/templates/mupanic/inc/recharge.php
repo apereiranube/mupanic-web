@@ -13,6 +13,7 @@ foreach($rechargeConfig['packages'] as $package) {
 }
 ?>
 <section class="recharge-shop" aria-labelledby="recharge-title">
+    <?php include __DIR__.'/recharge-check.php'; ?>
     <header class="recharge-hero">
         <span class="eyebrow">LA TIENDA DE TU AVENTURA</span>
         <h2 id="recharge-title">Recargá.<br><em>Elegí tu próxima conquista.</em></h2>
