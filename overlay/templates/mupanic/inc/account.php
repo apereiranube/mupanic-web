@@ -3,6 +3,7 @@ if(!defined('access') || !access) die();
 
 function panicAccountTools() {
     return [
+        'recharge'=>['title'=>'Recargar WCoin C','copy'=>'Paquetes, medios de pago y estado de tus recargas.','group'=>'Créditos y Zen','icon'=>'gem'],
         'myaccount'=>['title'=>'Mi cuenta','copy'=>'Tus datos, personajes y estado de conexión.','group'=>'Cuenta','icon'=>'shield'],
         'myemail'=>['title'=>'Cambiar correo','copy'=>'Actualizá el correo de tu cuenta.','group'=>'Cuenta','icon'=>'mail'],
         'mypassword'=>['title'=>'Cambiar contraseña','copy'=>'Administrá la contraseña de acceso.','group'=>'Cuenta','icon'=>'shield'],
@@ -36,7 +37,7 @@ function panicAccountIcon($type) {
 }
 function panicAccountMenuItems() {
     $config = loadConfig('usercp'); $items=[]; $tools=panicAccountTools();
-    if(!is_array($config)) return $items;
+    if(!is_array($config)) $config=[];
     foreach($config as $element) {
         if(!is_array($element) || empty($element['active'])) continue;
         if(($element['visibility'] ?? '') === 'guest' && isLoggedIn()) continue;
@@ -49,6 +50,8 @@ function panicAccountMenuItems() {
         $tool=$tools[$key] ?? ['title'=>strip_tags(lang($element['phrase'], true)), 'copy'=>'Abrí esta opción para consultar los detalles.', 'group'=>'Más opciones','icon'=>'shield'];
         $items[] = array_merge($tool, ['key'=>$key,'href'=>$link,'newtab'=>!empty($element['newtab'])]);
     }
+    // New storefront is informational until payments are configured.
+    if(isLoggedIn()) $items[] = array_merge($tools['recharge'], ['key'=>'recharge','href'=>__BASE_URL__.'usercp/recharge/','newtab'=>false]);
     return $items;
 }
 function panicAccountNavigation() {

@@ -60,6 +60,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>account.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/account.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] === 'recharge') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
@@ -187,10 +188,13 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                     if($_REQUEST['subpage'] === '') { panicAccountHome(); }
                     else {
                         $accountTool=panicAccountTools()[$_REQUEST['subpage']] ?? null;
-                        if($accountTool) echo '<header class="account-module-head"><span class="account-module-icon">'.panicAccountIcon($accountTool['icon']).'</span><div><h2>'.panicAccountEscape($accountTool['title']).'</h2><p>'.panicAccountEscape($accountTool['copy']).'</p></div></header>';
+                        if($accountTool && $_REQUEST['subpage'] !== 'recharge') echo '<header class="account-module-head"><span class="account-module-icon">'.panicAccountIcon($accountTool['icon']).'</span><div><h2>'.panicAccountEscape($accountTool['title']).'</h2><p>'.panicAccountEscape($accountTool['copy']).'</p></div></header>';
                         echo '<div class="account-module" data-account-module="'.panicAccountEscape($_REQUEST['subpage']).'">';
-                        ob_start(); $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
-                        echo panicAccountFormMarkup(ob_get_clean(), $_REQUEST['subpage']);
+                        if($_REQUEST['subpage'] === 'recharge') { include __DIR__.'/inc/recharge.php'; }
+                        else {
+                            ob_start(); $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
+                            echo panicAccountFormMarkup(ob_get_clean(), $_REQUEST['subpage']);
+                        }
                         echo '</div>';
                     }
                 ?></div>
