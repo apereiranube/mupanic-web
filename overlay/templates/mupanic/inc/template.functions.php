@@ -17,6 +17,35 @@ function mupanicPageTitle($page, $subpage = '') {
     return 'MU PANIC';
 }
 
+function mupanicServerValue($key, $fallback = '—') {
+    $value = config($key, true);
+    return check_value($value) ? $value : $fallback;
+}
+
+function mupanicTopResetPlayers($limit = 5) {
+    $rankingData = LoadCacheData('rankings_resets.cache');
+    if(!is_array($rankingData) || count($rankingData) < 2) return array();
+
+    $players = array();
+    $position = 0;
+
+    foreach($rankingData as $index => $row) {
+        if($index === 0 || !is_array($row) || !isset($row[0])) continue;
+        $position++;
+        $players[] = array(
+            'position' => $position,
+            'name' => $row[0],
+            'class' => isset($row[1]) ? $row[1] : 0,
+            'resets' => isset($row[2]) ? $row[2] : 0,
+            'level' => isset($row[3]) ? $row[3] : 0,
+            'map' => isset($row[4]) ? $row[4] : 0,
+        );
+        if(count($players) >= $limit) break;
+    }
+
+    return $players;
+}
+
 function templateBuildNavbar() {
     $cfg = loadConfig('navbar');
     if(!is_array($cfg)) return;
