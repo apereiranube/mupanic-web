@@ -18,3 +18,7 @@ dist/
 
 # Logs
 *.log
+
+# Python caches
+__pycache__/
+*.pyc

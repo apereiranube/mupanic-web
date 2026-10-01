@@ -1,0 +1,159 @@
+{
+  "maps": {
+    "0": {
+      "file": "img/atlas/maps/0.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World1.ozj",
+      "coordinateOverlay": false
+    },
+    "1": {
+      "file": "img/atlas/maps/1.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World2.ozj",
+      "coordinateOverlay": false
+    },
+    "2": {
+      "file": "img/atlas/maps/2.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World3.ozj",
+      "coordinateOverlay": false
+    },
+    "3": {
+      "file": "img/atlas/maps/3.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World4.ozj",
+      "coordinateOverlay": false
+    },
+    "4": {
+      "file": "img/atlas/maps/4.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World5.ozj",
+      "coordinateOverlay": false
+    },
+    "7": {
+      "file": "img/atlas/maps/7.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World8.ozj",
+      "coordinateOverlay": false
+    },
+    "8": {
+      "file": "img/atlas/maps/8.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World9.ozj",
+      "coordinateOverlay": false
+    },
+    "10": {
+      "file": "img/atlas/maps/10.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World11.ozj",
+      "coordinateOverlay": false
+    },
+    "33": {
+      "file": "img/atlas/maps/33.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World34.ozj",
+      "coordinateOverlay": false
+    },
+    "34": {
+      "file": "img/atlas/maps/34.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World35.ozj",
+      "coordinateOverlay": false
+    },
+    "37": {
+      "file": "img/atlas/maps/37.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World38.ozj",
+      "coordinateOverlay": false
+    },
+    "39": {
+      "file": "img/atlas/maps/39.webp",
+      "width": 128,
+      "height": 128,
+      "source": "Custom/Maps/Kantru3.ozt",
+      "coordinateOverlay": false
+    },
+    "41": {
+      "file": "img/atlas/maps/41.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World42.ozj",
+      "coordinateOverlay": false
+    },
+    "51": {
+      "file": "img/atlas/maps/51.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World52.ozj",
+      "coordinateOverlay": false
+    },
+    "56": {
+      "file": "img/atlas/maps/56.webp",
+      "width": 128,
+      "height": 128,
+      "source": "Custom/Maps/Calmness.ozt",
+      "coordinateOverlay": false
+    },
+    "57": {
+      "file": "img/atlas/maps/57.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World58.ozj",
+      "coordinateOverlay": false
+    },
+    "80": {
+      "file": "img/atlas/maps/80.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World81.ozj",
+      "coordinateOverlay": false
+    },
+    "81": {
+      "file": "img/atlas/maps/81.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World82.ozj",
+      "coordinateOverlay": false
+    },
+    "31": {
+      "file": "img/atlas/maps/31.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World32.ozj",
+      "coordinateOverlay": false
+    },
+    "63": {
+      "file": "img/atlas/maps/63.webp",
+      "width": 128,
+      "height": 128,
+      "source": "Custom/Maps/Vulcanus.ozt",
+      "coordinateOverlay": false
+    },
+    "6": {
+      "file": "img/atlas/maps/6.webp",
+      "width": 140,
+      "height": 143,
+      "source": "Custom/Maps/Stadium.ozt",
+      "coordinateOverlay": false
+    },
+    "38": {
+      "file": "img/atlas/maps/38.webp",
+      "width": 1024,
+      "height": 1024,
+      "source": "Custom/Maps/World39.ozj",
+      "coordinateOverlay": false
+    }
+  },
+  "monsters": {}
+}

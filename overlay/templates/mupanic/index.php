@@ -27,7 +27,8 @@ $isLogged = isLoggedIn();
 
 $serverSeason = 'Season 6'; // MU PANIC UP43: editorial identity, independent of legacy CMS title.
 // Curated public gameplay snapshot; CMS information defaults are not authoritative.
-$publicBalance = json_decode(file_get_contents(__DIR__.'/inc/public-balance.json'), true);
+require_once(__DIR__.'/inc/atlas-runtime.php');
+$publicBalance = panicAtlasBalance();
 $serverExp = $publicBalance['accounts'][0]['experience'].'x';
 $serverMasterExp = $publicBalance['accounts'][0]['master'].'x';
 $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
