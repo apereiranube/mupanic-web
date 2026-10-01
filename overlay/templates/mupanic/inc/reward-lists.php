@@ -5,10 +5,11 @@
     <label class="wiki-control">Buscar recompensa<input type="search" data-reward-filter placeholder="Selupan, Kundun, Harmony…"></label>
     <p data-reward-status role="status" aria-live="polite"></p>
     <div class="wiki-map-list">
-    <?php foreach($wiki['eventBags'] as $bag) { ?>
+    <?php foreach($wiki['eventBags'] as $bag) { $portrait = $atlasAssets['monsters'][(string)$bag['monster']] ?? null; ?>
         <details class="wiki-map" id="recompensa-<?php echo $bag['id']; ?>" data-reward-list data-wiki-search>
             <summary><strong><?php echo panicWikiEscape($bag['name']); ?></strong><small><?php echo $bag['monster'] >= 0 ? panicWikiEscape($bag['monsterName'] ?: 'Monstruo '.$bag['monster']) : ($bag['item'] >= 0 ? 'Caja u objeto' : 'Evento o sistema'); ?></small><b aria-hidden="true">+</b></summary>
             <div class="wiki-map-body">
+                <?php if($portrait) { ?><img class="atlas-reward-portrait" loading="lazy" decoding="async" width="144" height="144" src="<?php echo __BASE_URL__; ?>templates/mupanic/<?php echo panicWikiEscape($portrait['file']); ?>" alt="<?php echo panicWikiEscape($bag['monsterName']); ?>"><?php } ?>
                 <a href="#recompensa-<?php echo $bag['id']; ?>">Enlace directo ↗</a>
                 <?php if($bag['format'] !== 'standard') { ?>
                     <p class="wiki-note">Esta lista todavía requiere verificación. Sus recompensas no se muestran hasta confirmar la información.</p>

@@ -13,3 +13,7 @@
 .atlas-map-window{width:100%;aspect-ratio:1;overflow:auto;border:1px solid #61716a;scrollbar-color:#b48b5c #162224}.atlas-map-window .atlas-terrain{border:0;max-width:none;margin:0}.atlas-map-window.is-zoomed .atlas-terrain{width:200%}.atlas-zoom{background:#20302b;color:#f2cf9b;border:1px solid #8f9c90;padding:7px 10px;font-size:11px;cursor:pointer}.atlas-zoom:focus-visible{outline:2px solid #f4d4a6;outline-offset:3px}.panic-wiki:not(.wiki-enhanced) .atlas-zoom{display:none}.atlas-account select:focus-visible{outline:2px solid #f4d4a6;outline-offset:2px}
 
 .atlas-loot li small{display:block;margin-top:3px;color:#b9c9bf;font-size:10px;font-weight:400}.atlas-loot li strong{align-self:center}
+
+/* Authenticated client portraits keep a fixed footprint in the spot inspector. */
+.atlas-mob-portrait{width:96px;height:96px;flex:0 0 96px;object-fit:contain;background:radial-gradient(ellipse,#344442 0%,#1b2a2c 70%);border:1px solid #526157;border-radius:8px}.atlas-mob-name{flex:1;min-width:0;overflow-wrap:anywhere}.atlas-reward-portrait{display:block;width:144px;height:144px;object-fit:contain;margin:0 0 16px;background:radial-gradient(ellipse,#344442 0%,#1b2a2c 70%);border:1px solid #526157;border-radius:8px}
+@media(max-width:420px){.atlas-mob-portrait{width:72px;height:72px;flex-basis:72px}.atlas-mob-heading .atlas-mob-level{display:none}.atlas-mob-name h4{font-size:20px!important}}

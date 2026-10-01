@@ -64,7 +64,8 @@ def main():
                 'width': im.width, 'height': im.height, 'source': source,
                 'coordinateOverlay': False}
     path = ROOT / 'overlay/templates/mupanic/inc/atlas-assets.json'
-    path.write_text(json.dumps({'maps': manifest, 'monsters': {}},
+    previous = json.loads(path.read_text()) if path.exists() else {}
+    path.write_text(json.dumps({'maps': manifest, 'monsters': previous.get('monsters', {})},
                                ensure_ascii=False, indent=2) + '\n')
     print(f'Converted {len(manifest)} maps. Coordinates remain separate until calibrated.')
 

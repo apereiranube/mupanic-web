@@ -155,5 +155,534 @@
       "coordinateOverlay": false
     }
   },
-  "monsters": {}
+  "monsters": {
+    "2": {
+      "file": "img/atlas/monsters/2.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "9758900d276f4db86f237a31c0617fa00ee04469d964865e71bdda01e20ae474"
+    },
+    "3": {
+      "file": "img/atlas/monsters/3.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b012f5c9de68d0dd1093e4552428fd3e0bc5f36b6514bf6e190a5273f73bb1a6"
+    },
+    "12": {
+      "file": "img/atlas/monsters/12.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "57fce50e26d9370246d88b6f07eed485c7143b16976e13e51e96b0c75df86f9c"
+    },
+    "19": {
+      "file": "img/atlas/monsters/19.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "a22e202e910b9134f1cd9eb0f08696668d318de3b45af55e065bc34af96a4931"
+    },
+    "20": {
+      "file": "img/atlas/monsters/20.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "c3cc2dc581ba0b37c1d8600458c700269d058271c7680ecb41b7e59af946d290"
+    },
+    "21": {
+      "file": "img/atlas/monsters/21.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "c000fc7c1eab68518c4b81b8fb9a89902099d28ea6163a75d7e546ff5e2e7038"
+    },
+    "24": {
+      "file": "img/atlas/monsters/24.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "32fd6477068426f751cc8129e218985b2a87fae9257249f4873258d06f826c72"
+    },
+    "27": {
+      "file": "img/atlas/monsters/27.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b1f8ed7dcd960af2e07b64a4bab92356b5f4b6c8d337eb62463bb6cf2a485204"
+    },
+    "30": {
+      "file": "img/atlas/monsters/30.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "01d335ae732d93c3fcdca4daf38f6d3ba26ba48dc8eb8be9d4dce12f0ba96d7d"
+    },
+    "32": {
+      "file": "img/atlas/monsters/32.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "fd1eca8321753ad05cd5ad52a6dac7d5f3895b04fcbeb9c0bc7e59d16d531455"
+    },
+    "37": {
+      "file": "img/atlas/monsters/37.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "14e1ccf25205d0b23acfae0ab693e08e8eecf55c47e26e6b4405b6af7536d974"
+    },
+    "45": {
+      "file": "img/atlas/monsters/45.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "0dbf844c212c67499f05c9169e1121cc4fcedf808b7195331c4f355f79e94829"
+    },
+    "46": {
+      "file": "img/atlas/monsters/46.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b74b384d371ac5ab1474881570c4f052959fc74ecfb5e077a741c5e0c4a5dc3e"
+    },
+    "70": {
+      "file": "img/atlas/monsters/70.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "012737c0c72c1636d9beec61ba7d9a4a0ca9cefd2fe4d5baa1d517e86cf3e07a"
+    },
+    "73": {
+      "file": "img/atlas/monsters/73.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "ac9352823ba8fce93bb79ec04a90fffccc8946d1aa6e06d3aa67f76208864729"
+    },
+    "75": {
+      "file": "img/atlas/monsters/75.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "ac9352823ba8fce93bb79ec04a90fffccc8946d1aa6e06d3aa67f76208864729"
+    },
+    "290": {
+      "file": "img/atlas/monsters/290.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "8d0af5b3d226e2e7207d1f2069822a540411e2114e0ed4cdf6488ab96791229f"
+    },
+    "291": {
+      "file": "img/atlas/monsters/291.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "2742a4621692d6021bbd1fd32b9614c423f029b97522151dd9b048d98ec211f1"
+    },
+    "292": {
+      "file": "img/atlas/monsters/292.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "abb7f1a002d0a2d9fa8642a5db74e1b0deeff1ff31fd30c0ef79931cd0256406"
+    },
+    "293": {
+      "file": "img/atlas/monsters/293.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "656eaed05d2faa652c99051529d356f45c2b6cc965ede52f531aa1474e15c997"
+    },
+    "294": {
+      "file": "img/atlas/monsters/294.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "070cf1b848c01bc20327c681917a3001f084a6e2a2a376ba5d6ac37f54bc8c1b"
+    },
+    "295": {
+      "file": "img/atlas/monsters/295.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "12b1c2f7ea1cb4e11c8bf4c0051bbad4edd7a8af2de34a2d69ef592a8f871a6f"
+    },
+    "304": {
+      "file": "img/atlas/monsters/304.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "ed5076aecfafb587eb3ff3f99a27aa38d67a25d069848deb9df95274f4aa9059"
+    },
+    "305": {
+      "file": "img/atlas/monsters/305.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "7fd46aba5c5552436ee12368fdd0ca4061bc3283642ed6e494dc9222d02fdf36"
+    },
+    "306": {
+      "file": "img/atlas/monsters/306.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "9862ca94605b8f2e08c3b7c645c3a1324e6fbd4318cd647a5ffcd672516fab15"
+    },
+    "307": {
+      "file": "img/atlas/monsters/307.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "55ce9f32a648917f0f0a98e1477e2cbdaf92012a321786dcc47f6618a05fa881"
+    },
+    "308": {
+      "file": "img/atlas/monsters/308.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "6db72f9a05ab81eb07e9bb003f33dbf65fa0a9ecc77f114fa363d7c0cbf61d08"
+    },
+    "309": {
+      "file": "img/atlas/monsters/309.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "5115fd7ac25cbd8fe4ec2b6eb5a7f167b6ce06ac55444d2494e686c57cf77ddd"
+    },
+    "310": {
+      "file": "img/atlas/monsters/310.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "087102d2952ac2cc230b479d5b37cf6dccb50d9f1f9a5e5e3728c6ce88d33c9c"
+    },
+    "311": {
+      "file": "img/atlas/monsters/311.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "bf184338afe1b17c9fb986d8336967b0fc428018fbcac5a4b28cb6b0c0d6b185"
+    },
+    "312": {
+      "file": "img/atlas/monsters/312.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "9834df70176e3e59c173d593d1aa22c1ae80d198bd5af908da4c08e5547c1355"
+    },
+    "313": {
+      "file": "img/atlas/monsters/313.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "4a3867c17135449eaad68855b3613e433b2940bdecbce7e881931c4ab55d6ac5"
+    },
+    "314": {
+      "file": "img/atlas/monsters/314.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "087102d2952ac2cc230b479d5b37cf6dccb50d9f1f9a5e5e3728c6ce88d33c9c"
+    },
+    "315": {
+      "file": "img/atlas/monsters/315.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "4a3867c17135449eaad68855b3613e433b2940bdecbce7e881931c4ab55d6ac5"
+    },
+    "316": {
+      "file": "img/atlas/monsters/316.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "99147c74bd4c9f0da3ecb1395bd21f00d66de53680d69733aff7e8d3df6d509a"
+    },
+    "317": {
+      "file": "img/atlas/monsters/317.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "6a84bc9b5b4dc9456e7f68a15ea0a877361d7bc2587ae72d4a3b1cf7d93b3792"
+    },
+    "340": {
+      "file": "img/atlas/monsters/340.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "0f3c473133d810145d56cf192680b87d108bd92345e4eed2331d0f41238267fb"
+    },
+    "350": {
+      "file": "img/atlas/monsters/350.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "4a13981255a1e6e58fc5d7a3928f0f282750afb9100dfcdb52e05fc3ec4f7702"
+    },
+    "352": {
+      "file": "img/atlas/monsters/352.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b48dae0e5624c9d30dff4cfb981457665a6a0dd75342a7cbf4f46589dc6249db"
+    },
+    "353": {
+      "file": "img/atlas/monsters/353.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "a94282813740a007a2f4c360b3c88cb3770c3196872ba6743eb9e5038625c430"
+    },
+    "354": {
+      "file": "img/atlas/monsters/354.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "c5215aa2cbb7a4bb67308832f9d8d2b7a7aed2e02971402f8bdf82b293838a82"
+    },
+    "356": {
+      "file": "img/atlas/monsters/356.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "9d3add5f0ecd314b1165c05ea6f4ca9392e422c83d7d324b1ed674075cc496d8"
+    },
+    "357": {
+      "file": "img/atlas/monsters/357.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "af4ddd3e834137bd4cf031bcac7ac65d217b9f62c49686b3181b726e5185d891"
+    },
+    "358": {
+      "file": "img/atlas/monsters/358.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "5a980e2c4d11cfee643f56c00fbb3fd15e958bbf8be4244958a616b0917691b1"
+    },
+    "359": {
+      "file": "img/atlas/monsters/359.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "bc21929732e2505200c48410e7ad30df2af5cb0614728ca99e6c53c50c298244"
+    },
+    "360": {
+      "file": "img/atlas/monsters/360.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "4b3524267c5ec325cdeeeaa6fb03b3af3aeda5dd312edc0bb3cd853eea7f8054"
+    },
+    "418": {
+      "file": "img/atlas/monsters/418.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "df51efadd13c97fa5fcde503b6fa3d1f05259bbc62d378ba4eb231aa3d612954"
+    },
+    "419": {
+      "file": "img/atlas/monsters/419.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "9d5a6c0b5877bede28eed8aa45cfde1ec4355394453680238ea60bb51f72bb4d"
+    },
+    "420": {
+      "file": "img/atlas/monsters/420.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "ed1bebfd65b7476071f6915ff137c220df7b9ffbd909f1282e13a81d4a34ba09"
+    },
+    "421": {
+      "file": "img/atlas/monsters/421.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "bc65e3c2e58a9ff8bbb36065bacec46dff73b638815df359349e1adb5e7131bf"
+    },
+    "422": {
+      "file": "img/atlas/monsters/422.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "e616395c1b16ef88ad76c6ac136eb06553cd726fdb4bfa08b10d9f89bc7b4bf1"
+    },
+    "423": {
+      "file": "img/atlas/monsters/423.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "307e1fb4edf57182709207fe4f549306f898e2705f58a87a908edeb6041ee8a2"
+    },
+    "424": {
+      "file": "img/atlas/monsters/424.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "30ad79468ef0ad508122faa85dc77f90003cc470452b9b3bd4ad83bf70cb984a"
+    },
+    "425": {
+      "file": "img/atlas/monsters/425.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "7ed04aec66c109af0b07e270d50660c44787b5fde5f4918bfdf4b253f23b9745"
+    },
+    "441": {
+      "file": "img/atlas/monsters/441.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "f4871e69e359679d35481f8a14f082f7a6bab76f684bda375021e505fd4e8b14"
+    },
+    "442": {
+      "file": "img/atlas/monsters/442.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "acfa341c65c6431396763f8005ac0eede4bd828b9ad01475951a94092f32942d"
+    },
+    "443": {
+      "file": "img/atlas/monsters/443.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b61bfaffb8df19b58d138e0696caed5e03c2e1a3778172a3ea7cd5dd516faa03"
+    },
+    "445": {
+      "file": "img/atlas/monsters/445.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "12d81288813ebb3aef14591650cb4b881a9ace8f3ad888238e64fb5d5ffd6728"
+    },
+    "446": {
+      "file": "img/atlas/monsters/446.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "df93cecca9a586f1591bb2d847cc20d7316667a6154a9565aeb1ceb89f89da99"
+    },
+    "447": {
+      "file": "img/atlas/monsters/447.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "387f5b70e4709f804d5fd44e301a3b0b68f180ffd8e3ac7197af0fee000b26e3"
+    },
+    "448": {
+      "file": "img/atlas/monsters/448.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "f4b0100c92144afecaf7e6c83fd56a5e6ebd2f0691c1cb1402683af5075fdbd4"
+    },
+    "449": {
+      "file": "img/atlas/monsters/449.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "5a6fdd07080ffbb19a20afd5534198d4cd31c54b713fdd382511889567286ab8"
+    },
+    "454": {
+      "file": "img/atlas/monsters/454.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b4d1ff44accdc3ac5ab7c6a337218f38ea8ec834c2d828ee688f4929a626693f"
+    },
+    "456": {
+      "file": "img/atlas/monsters/456.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "6fa9a7ebd7fd2a7dc0dddc36242c67871848e4e3ef6d27bec95c36b77660f783"
+    },
+    "457": {
+      "file": "img/atlas/monsters/457.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "24184f09fc758ac1af15b8f03f6a468078df07946dfedd1822a7db60951b7f68"
+    },
+    "458": {
+      "file": "img/atlas/monsters/458.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "188f8d281f96a6dcfbf61d84d0ea45e83ef54e247467a16c0f2cc2c0d6ac751a"
+    },
+    "549": {
+      "file": "img/atlas/monsters/549.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "42505dd886995bb08e47b34df26dc78f9f50827a33f041313f4ccf5cefd0d13c"
+    },
+    "550": {
+      "file": "img/atlas/monsters/550.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "622936f026d9868767d8ae2e607f83128730d2539ddc296548331e7bf9dfe301"
+    },
+    "551": {
+      "file": "img/atlas/monsters/551.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "d4d654280bb32763034e19b8f47d76f417d639007f2376bdafd374cd7044719f"
+    },
+    "552": {
+      "file": "img/atlas/monsters/552.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "601bc03269d494eab2420a43e3fda9038f3e1b5b1656cd4e3cadad9bf17eb11e"
+    },
+    "553": {
+      "file": "img/atlas/monsters/553.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "963ebd6425d65ad3d2d5dc40b810e6e873df09f12a136dbdb09e0fd6d91970c8"
+    },
+    "554": {
+      "file": "img/atlas/monsters/554.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "6db32bfbe72c0006222f2327face898540b564a0c08d05d9d07dbed025887d33"
+    },
+    "555": {
+      "file": "img/atlas/monsters/555.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "006e40995077f5a27147d116dcecd0f874cc321525d5ce71363bb719ee078033"
+    },
+    "556": {
+      "file": "img/atlas/monsters/556.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "48cffcb5c45bd3148ebfb71d8925b241a734fff6d856147fd4f16309251caae3"
+    },
+    "557": {
+      "file": "img/atlas/monsters/557.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "2fe5f9e9d7cfd3f941c1fe2e8129a49bda6ff21af765cad9e45495a04472ea6b"
+    },
+    "558": {
+      "file": "img/atlas/monsters/558.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "cd7460d3e2f21e12ca30dbbfdb837fcfaff8161ae1d9b35ca75d23312073de67"
+    },
+    "559": {
+      "file": "img/atlas/monsters/559.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b1a98f45040139f0562f2871c0273078097850c8856fdd858157f89ae4ad2f35"
+    },
+    "561": {
+      "file": "img/atlas/monsters/561.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "942cad01f6949db8c06f8486cac1673d13a93a7a3c268b7488d65522c8e4b560"
+    },
+    "563": {
+      "file": "img/atlas/monsters/563.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "425a3a5f2230c772ccc6462d16c654607a139fe3b3e0842b2ee5f6fbc736258a"
+    },
+    "564": {
+      "file": "img/atlas/monsters/564.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "ac0b7fc0e20a01ed83a746782a88fdeccefe3f5f600c4d8f77e07c1556393e91"
+    },
+    "565": {
+      "file": "img/atlas/monsters/565.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "c67c060c927d0c98cb391a22e1f83809d25f0e9e4fe2985636a543fb8d57f433"
+    },
+    "569": {
+      "file": "img/atlas/monsters/569.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "751b60bb77c21540f2a17c4fb09f5edd9e44ba7cbe5fb76ad24595277e8d9a5f"
+    },
+    "570": {
+      "file": "img/atlas/monsters/570.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "0a87a4219b3b40ef892c437272b81921a06403b07ab485d0a05a1439269340dc"
+    },
+    "571": {
+      "file": "img/atlas/monsters/571.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "d00025e02bd506275491f08ddd859d8ef1de3355e15f05df9ba57b48eb2575c5"
+    },
+    "572": {
+      "file": "img/atlas/monsters/572.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "d0d0b59bac192305221b8a6406b075f1cfad0477182c7470d8f0ac2b2ccb576c"
+    },
+    "573": {
+      "file": "img/atlas/monsters/573.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b1177c06a000fef9322ec5c54fe2f6d13aa7b6a21a2760886c63b0b190b6124b"
+    },
+    "574": {
+      "file": "img/atlas/monsters/574.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "8eceda3bd42e966ff79c0a66b886b81bb8b720468504af31a7ffad3a2f8f408d"
+    },
+    "575": {
+      "file": "img/atlas/monsters/575.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "f36b620e1dd83b6f5e044bd665f05d9a517c812da30e329c1acddebda406b103"
+    }
+  }
 }
