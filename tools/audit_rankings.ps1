@@ -8,16 +8,17 @@ $ErrorActionPreference = 'Stop'
 # No character names, account records, passwords or connection strings are exported.
 function Open-RankingConnection([string]$Instance, $Credential) {
     $builder = New-Object System.Data.SqlClient.SqlConnectionStringBuilder
-    $builder.DataSource = $Instance
-    $builder.InitialCatalog = 'MuOnline43'
-    $builder.ConnectTimeout = 5
-    $builder.ApplicationName = 'MU PANIC Read Only Ranking Audit'
-    if ($null -eq $Credential) { $builder.IntegratedSecurity = $true }
+    # PowerShell adapts this builder as a dictionary: use SQL keywords explicitly.
+    $builder['Data Source'] = $Instance
+    $builder['Initial Catalog'] = 'MuOnline43'
+    $builder['Connect Timeout'] = 5
+    $builder['Application Name'] = 'MU PANIC Read Only Ranking Audit'
+    if ($null -eq $Credential) { $builder['Integrated Security'] = $true }
     else {
-        $builder.UserID = $Credential.UserName
-        $builder.Password = $Credential.GetNetworkCredential().Password
+        $builder['User ID'] = $Credential.UserName
+        $builder['Password'] = $Credential.GetNetworkCredential().Password
     }
-    $connection = New-Object System.Data.SqlClient.SqlConnection $builder.ConnectionString
+    $connection = New-Object System.Data.SqlClient.SqlConnection -ArgumentList ($builder.get_ConnectionString())
     try { $connection.Open(); return $connection }
     catch { $connection.Dispose(); return $null }
 }
