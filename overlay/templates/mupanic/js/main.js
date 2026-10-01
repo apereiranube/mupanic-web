@@ -31,7 +31,7 @@
         observer.unobserve(entry.target);
       }
     });
-  },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  },{threshold:.08,rootMargin:'0px 0px -30px 0px'});
 
   for(var j=0;j<items.length;j++) observer.observe(items[j]);
 })();
