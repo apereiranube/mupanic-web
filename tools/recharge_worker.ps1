@@ -136,12 +136,14 @@ CREATE TABLE dbo.MUPanicRechargeDeliveries (
     Environment varchar(10) NOT NULL CHECK(Environment IN ('test','production')),
     AccountID varchar(10) NOT NULL,
     Coins int NOT NULL CHECK(Coins BETWEEN 1 AND 1000000),
-    PriceCents int NOT NULL CHECK(PriceCents=Coins*100),
+    PriceCents int NOT NULL,
     BeforeCoin int NOT NULL CHECK(BeforeCoin>=0),
-    AfterCoin int NOT NULL CHECK(AfterCoin>=BeforeCoin),
+    AfterCoin int NOT NULL,
     CreditedAt datetime2 NOT NULL,
     AcknowledgedAt datetime2 NULL,
     CONSTRAINT UQ_MUPanicRechargePayment UNIQUE(Environment,Provider,PaymentID),
+    CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents=Coins*100),
+    CONSTRAINT CK_MUPanicRechargeBalance CHECK(AfterCoin>=BeforeCoin),
     CONSTRAINT CK_MUPanicRechargeDelta CHECK(AfterCoin-BeforeCoin=Coins)
 );
 IF OBJECT_ID('dbo.MUPanicApplyRecharge','P') IS NULL EXEC('CREATE PROCEDURE dbo.MUPanicApplyRecharge AS RETURN;');
