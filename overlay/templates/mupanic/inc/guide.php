@@ -22,6 +22,7 @@ unset($drop);
 $atlasAssets = json_decode(file_get_contents(__DIR__.'/atlas-assets.json'), true);
 $recipes = json_decode(file_get_contents(__DIR__.'/crafting-recipes.json'), true);
 $wiki['recipes'] = $recipes;
+$wiki['portraits'] = $atlasAssets['monsters'] ?? [];
 function panicWikiEscape($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
 function panicWikiRate($value) { return rtrim(rtrim(number_format($value, 6, ',', ''), '0'), ',').'%'; }
 $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map['name'];
@@ -31,11 +32,12 @@ $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map
         <span class="eyebrow">ARCHIVO DEL CONTINENTE</span>
         <label for="wiki-search">¿Qué estás buscando?</label><input id="wiki-search" type="search" placeholder="Chaos, Lorencia, reset…" autocomplete="off">
         <div class="wiki-search-results" hidden></div><p class="wiki-search-status" role="status" aria-live="polite"></p>
-        <nav aria-label="Guía de MU PANIC"><a href="#primeros-pasos">01 <span>Primeros pasos</span> ↗</a><a href="#progresion">02 <span>Atlas y spots</span> ↗</a><a href="#drops">03 <span>Dónde conseguirlo</span> ↗</a><?php if(!empty($wiki['eventBags'])) { ?><a href="#recompensas">03b <span>Bosses y recompensas</span> ↗</a><?php } ?><a href="#rates">04 <span>Rates y experiencia</span> ↗</a><a href="#sistemas">05 <span>Reset y mejoras</span> ↗</a><a href="#taller">06 <span>Taller de creación</span> ↗</a><a href="#mejoras">07 <span>Mejorar equipo</span> ↗</a><a href="#equipo">08 <span>Excellent y sistemas</span> ↗</a></nav>
+        <nav aria-label="Guía de MU PANIC"><a href="#buscar">⌕ <span>Buscar objetos y mobs</span> ↗</a><a href="#primeros-pasos">01 <span>Primeros pasos</span> ↗</a><a href="#progresion">02 <span>Atlas y spots</span> ↗</a><a href="#drops">03 <span>Dónde conseguirlo</span> ↗</a><?php if(!empty($wiki['eventBags'])) { ?><a href="#recompensas">03b <span>Bosses y recompensas</span> ↗</a><?php } ?><a href="#rates">04 <span>Rates y experiencia</span> ↗</a><a href="#sistemas">05 <span>Reset y mejoras</span> ↗</a><a href="#taller">06 <span>Taller de creación</span> ↗</a><a href="#mejoras">07 <span>Mejorar equipo</span> ↗</a><a href="#equipo">08 <span>Excellent y sistemas</span> ↗</a></nav>
         <div class="wiki-saved" hidden><span class="eyebrow">TUS MAPAS GUARDADOS</span><div data-saved-maps></div></div><p class="wiki-date">Datos del servidor<br>Revisión: <?php echo panicWikiEscape($wiki['revision']); ?></p>
     </aside>
     <div class="wiki-content">
         <header class="wiki-intro"><span class="eyebrow">CONOCÉ EL TERRENO</span><h2>Tu próximo paso.<br><em>Con un rumbo.</em></h2><p>Elegí dónde entrenar, encontrá lo que necesitás y entendé cómo progresa tu personaje en MU PANIC.</p></header>
+        <?php include(__DIR__.'/atlas-search.php'); ?>
         <section id="primeros-pasos" class="wiki-section" data-wiki-search>
             <span class="eyebrow">01 / EMPEZÁ ACÁ</span><h2>Entrá al continente.</h2>
             <ol class="wiki-route"><li><strong>Prepará tu cuenta y el cliente.</strong><p>Registrate y descargá el cliente de MU PANIC desde Descargas. Conservá tus datos de acceso.</p><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Crear cuenta'; ?> →</a> <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas →</a></li><li><strong>Conocé tu personaje.</strong><p>Empezá en Lorencia, Noria o Elbeland. Equipá las habilidades de tu clase, llevá pociones y probá un spot inicial.</p></li><li><strong>Buscá un spot que puedas sostener.</strong><p>Un spot es una zona con monstruos que reaparecen. Si gastás más pociones de las que podés reponer o tardás demasiado en matar, volvé a una zona más tranquila. El nivel de traslado no mide la dificultad del mapa.</p><a href="#progresion">Elegir mapa y coordenadas →</a></li><li><strong>Prepará el siguiente salto.</strong><p>Guardá Zen para moverte y resetear, y separá las joyas de los objetos que vas a vender. No confirmes una mezcla sin revisar sus ingredientes y su probabilidad dentro del juego.</p><a href="#sistemas">Entender el reset →</a></li></ol>

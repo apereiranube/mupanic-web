@@ -145,7 +145,7 @@
   function normalize(value) { return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
   function clearSearch() { search.value = ''; results.replaceChildren(); results.hidden = true; searchStatus.textContent = ''; }
   function revealHash() {
-    var id = location.hash.slice(1) || 'primeros-pasos';
+    var id = location.hash.slice(1) || 'buscar';
     var target = document.getElementById(id);
     var panel = target && (target.classList.contains('wiki-section') ? target : target.closest('.wiki-section'));
     if (!panel) panel = panels[0];
@@ -159,7 +159,7 @@
       if (atlasPanel) selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel'));
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
-      if (target.id.indexOf('mapa-') === 0 || target.id.indexOf('spot-') === 0) { mapFilter.value = ''; filterMaps(); }
+      if (target.closest('#progresion')) { mapFilter.value = ''; filterMaps(); }
       if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardFilter.value = ''; rewardFilter.dispatchEvent(new Event('input')); }
       if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
       requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
@@ -169,10 +169,7 @@
   window.addEventListener('hashchange', function () { clearSearch(); revealHash(); });
   nav.forEach(function (link) { link.addEventListener('click', function () { clearSearch(); if (location.hash === link.hash) revealHash(); }); });
   var searchable = [];
-  panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.textContent), hash: '#' + panel.id}); });
-  data.maps.forEach(function (map) { searchable.push({title: map.name, context: map.spots.length + ' spots · mapas y monstruos', text: normalize(map.name + ' ' + (map.aliases || []).join(' ') + ' ' + map.monsters.map(function(m) { return m.name; }).join(' ')), hash: '#mapa-' + map.id}); });
-  data.drops.forEach(function (drop, i) { searchable.push({title: drop.name, context: 'Drop · monstruos Lv. ' + drop.min + '–' + drop.max, text: normalize(drop.name), hash: '#drop-' + i}); });
-  (data.eventBags || []).forEach(function(bag) { searchable.push({title:bag.name, context:'Boss, caja o evento', text:normalize(bag.name + ' ' + bag.monsterName + ' ' + bag.items.map(function(item) { return item.name; }).join(' ')), hash:'#recompensa-' + bag.id}); });
+  panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.querySelector('h2').textContent), hash: '#' + panel.id}); });
   var rewardFilter = wiki.querySelector('[data-reward-filter]');
   if (rewardFilter) rewardFilter.addEventListener('input',function() {
     var query = normalize(rewardFilter.value), visible = 0;
@@ -182,16 +179,18 @@
   search.addEventListener('input', function () {
     var query = normalize(search.value); results.replaceChildren();
     if (!query) { clearSearch(); return; }
-    var matches = searchable.filter(function (item) { return item.text.includes(query); });
-    results.hidden = matches.length === 0;
-    searchStatus.textContent = matches.length ? matches.length + ' coincidencias' + (matches.length > 20 ? ' · primeras 20' : '') : 'Sin coincidencias. Probá otro nombre.';
-    matches.slice(0, 20).forEach(function (item) {
-      var link = document.createElement('a'); link.href = item.hash;
-      link.appendChild(document.createTextNode(item.title));
-      var context = document.createElement('small'); context.textContent = item.context; link.appendChild(context);
-      link.addEventListener('click', function () { clearSearch(); if (location.hash === item.hash) revealHash(); });
-      results.appendChild(link);
+    finderQuery.value = search.value; finderType.value = ''; finderMap.value = ''; finderLevel.value = ''; renderFinder(true);
+    var matches = window.PanicAtlasSearch.filter(finderIndex,{query:search.value,type:'',map:'',level:''});
+    results.hidden = false; searchStatus.textContent = matches.length + ' resultados en objetos, mobs y mapas';
+    var link = document.createElement('a'); link.href = '#buscar'; link.textContent = 'Ver resultados de «' + search.value + '» ↗';
+    link.addEventListener('click',function () { if (location.hash === '#buscar') revealHash(); clearSearch(); }); results.appendChild(link);
+    searchable.filter(function (item) { return item.text.includes(query); }).slice(0,3).forEach(function (item) {
+      var guideLink = document.createElement('a'); guideLink.href = item.hash; guideLink.textContent = item.title + ' · Guía ↗';
+      guideLink.addEventListener('click',function () { if (location.hash === item.hash) revealHash(); clearSearch(); }); results.appendChild(guideLink);
     });
+  });
+  search.addEventListener('keydown',function (event) {
+    if (event.key === 'Enter' && normalize(search.value)) { event.preventDefault(); location.hash = '#buscar'; revealHash(); clearSearch(); finderQuery.focus(); }
   });
   function filterMaps() {
     var query = normalize(mapFilter.value), visible = 0;
@@ -237,6 +236,89 @@
   dropAccount.addEventListener('change', filterDrops);
   wiki.querySelectorAll('[data-drop-query]').forEach(function (button) { button.addEventListener('click', function () { dropFilter.value = button.getAttribute('data-drop-query'); filterDrops(); }); });
   wiki.querySelectorAll('[data-map-drops]').forEach(function (link) { link.addEventListener('click', function () { dropMap.value = link.getAttribute('data-map-drops'); dropFilter.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); if (location.hash === '#drops') revealHash(); }); });
+  var finderIndex = window.PanicAtlasSearch.build(data);
+  var finderQuery = wiki.querySelector('[data-atlas-query]');
+  var finderType = wiki.querySelector('[data-atlas-type]');
+  var finderMap = wiki.querySelector('[data-atlas-map]');
+  var finderLevel = wiki.querySelector('[data-atlas-level]');
+  var finderResults = wiki.querySelector('[data-atlas-find-results]');
+  var finderStatus = wiki.querySelector('[data-atlas-find-status]');
+  var finderMore = wiki.querySelector('[data-atlas-find-more]');
+  var finderLimit = 12;
+  function finderLink(route) {
+    var link = document.createElement('a'); link.href = route.hash; link.textContent = route.label + ' ↗';
+    link.addEventListener('click', function () { if (location.hash === route.hash) revealHash(); });
+    return link;
+  }
+  function finderRoute(route) {
+    var row = document.createElement('li');
+    row.appendChild(finderLink(route));
+    if (route.detail) { var detail = document.createElement('small'); detail.textContent = route.detail; row.appendChild(detail); }
+    if (route.spots && route.spots.length) {
+      var spots = document.createElement('div'); spots.className = 'atlas-find-spots';
+      route.spots.forEach(function (spot) { spots.appendChild(finderLink(spot)); }); row.appendChild(spots);
+    }
+    return row;
+  }
+  function finderRoutes(card, routes, heading) {
+    if (!routes.length) return;
+    var title = document.createElement('h4'); title.textContent = heading; card.appendChild(title);
+    var list = document.createElement('ul'); routes.slice(0,3).forEach(function (route) { list.appendChild(finderRoute(route)); }); card.appendChild(list);
+    if (routes.length > 3) {
+      var more = document.createElement('details'), summary = document.createElement('summary');
+      summary.textContent = 'Ver otras ' + (routes.length - 3) + ' opciones'; more.appendChild(summary);
+      var rest = document.createElement('ul'); routes.slice(3).forEach(function (route) { rest.appendChild(finderRoute(route)); });
+      more.appendChild(rest); card.appendChild(more);
+    }
+  }
+  function renderFinder(reset) {
+    if (reset) finderLimit = 12;
+    var showLevel = finderType.value === 'mob' || finderType.value === 'boss';
+    wiki.querySelector('[data-atlas-level-control]').hidden = !showLevel;
+    if (!showLevel) finderLevel.value = '';
+    wiki.querySelector('[data-atlas-map-note]').hidden = finderMap.value === '';
+    finderResults.replaceChildren();
+    var active = normalize(finderQuery.value) || finderType.value || finderMap.value !== '' || finderLevel.value !== '';
+    if (!active) { finderStatus.textContent = 'Escribí un nombre o elegí qué querés explorar.'; finderMore.hidden = true; return; }
+    var matches = window.PanicAtlasSearch.filter(finderIndex, {query:finderQuery.value, type:finderType.value, map:finderMap.value, level:finderLevel.value});
+    finderStatus.textContent = matches.length ? matches.length + ' resultados · mostrando ' + Math.min(matches.length, finderLimit) : 'No encontramos resultados. Probá otro nombre o quitá un filtro.';
+    finderMore.hidden = matches.length <= finderLimit;
+    matches.slice(0,finderLimit).forEach(function (entry) {
+      var card = document.createElement('article'); card.className = 'atlas-find-card';
+      var header = document.createElement('header');
+      var portrait = data.portraits && data.portraits[String(entry.id)];
+      if (entry.type === 'mob' && portrait) {
+        var image = document.createElement('img'); image.src = sourceBase() + portrait.file; image.alt = entry.name;
+        image.width = 72; image.height = 72; image.loading = 'lazy'; header.appendChild(image);
+      }
+      var names = document.createElement('div'), type = document.createElement('small'), title = document.createElement('h3');
+      type.textContent = {object:'OBJETO', mob:'MONSTRUO', map:'MAPA'}[entry.type]; title.textContent = entry.name;
+      names.appendChild(type); names.appendChild(title); header.appendChild(names); card.appendChild(header);
+      var routes = entry.routes.filter(function (route) { return finderMap.value === '' || entry.type === 'map' || (route.maps || []).includes(Number(finderMap.value)); });
+      if (entry.type === 'object') {
+        finderRoutes(card,routes.filter(function (route) { return route.kind === 'drop'; }),'Drops de monstruos');
+        finderRoutes(card,routes.filter(function (route) { return route.kind === 'reward'; }),'Cajas, bosses y eventos');
+      } else {
+        finderRoutes(card,routes,'Dónde encontrarlo');
+        if (!entry.maps.length) { var note = document.createElement('p'); note.textContent = 'La ubicación de aparición no está confirmada en la población fija. Consultá las condiciones del evento.'; card.appendChild(note); }
+      }
+      finderResults.appendChild(card);
+    });
+  }
+  function sourceBase() {
+    var script = document.querySelector('script[src*="atlas-search.js"]');
+    return script ? script.src.split('/js/atlas-search.js')[0] + '/' : '';
+  }
+  finderQuery.addEventListener('input', function () { renderFinder(true); });
+  [finderType,finderMap,finderLevel].forEach(function (control) { control.addEventListener('change',function () { renderFinder(true); }); });
+  finderMore.addEventListener('click',function () { finderLimit += 12; renderFinder(false); });
+  wiki.querySelectorAll('[data-atlas-example]').forEach(function (button) { button.addEventListener('click',function () {
+    finderQuery.value = button.getAttribute('data-atlas-example'); finderType.value = ''; finderMap.value = ''; finderLevel.value = ''; renderFinder(true);
+  }); });
+  wiki.querySelector('[data-atlas-clear]').addEventListener('click',function () {
+    finderQuery.value = ''; finderType.value = ''; finderMap.value = ''; finderLevel.value = ''; renderFinder(true); finderQuery.focus();
+  });
+  renderFinder(true);
   function selectAtlasSpot(explorer, key) {
     explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) { panel.hidden = panel.getAttribute('data-atlas-panel') !== key; });
     explorer.querySelectorAll('[data-atlas-select]').forEach(function(link) {
