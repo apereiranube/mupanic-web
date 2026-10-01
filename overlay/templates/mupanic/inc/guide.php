@@ -1,6 +1,13 @@
 <?php
 if(!defined('access') or !access) die();
 $wiki = $publicBalance;
+// Comments in ItemDrop may include administrator release labels.
+foreach($wiki['drops'] as &$drop) {
+    $drop['name'] = preg_replace('/^(?:(?:REGIONAL|GLOBAL RARO)\s+V[\d.]+\s+INTEGRAL|PILAR\s*\d+\s+.+?\s+MIX)\s+/iu', '', $drop['name']);
+    $drop['name'] = preg_replace('/\s+-\s+Kanturu\s+1\s+V[\d.]+$/iu', '', $drop['name']);
+}
+unset($drop);
+
 $atlasAssets = json_decode(file_get_contents(__DIR__.'/atlas-assets.json'), true);
 $recipes = json_decode(file_get_contents(__DIR__.'/crafting-recipes.json'), true);
 $wiki['recipes'] = $recipes;
@@ -24,30 +31,13 @@ $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map
         </section>
         <section id="progresion" class="wiki-section">
             <span class="eyebrow">02 / ATLAS DEL SERVIDOR</span><h2>Elegí dónde ir.</h2><p>Inicio: Lorencia, Noria y Elbeland. Después explorá Devias, Dungeon y Lost Tower. Atlans, Tarkan, Aida y los mapas posteriores exigen evaluar tu daño y supervivencia. Esta ruta orienta; tu equipo y tu party deciden cuándo avanzar.</p>
-            <p class="wiki-note">Las coordenadas marcan el centro de las zonas de aparición configuradas. Los monstruos pueden moverse. El mapa muestra el terreno del cliente. El plano de coordenadas se consulta por separado hasta verificar la alineación de los spots.</p>
+            <p class="wiki-note">Elegí un mapa y tocá un punto numerado: a su lado vas a encontrar las coordenadas, los mobs y sus drops. También podés elegir el spot por nombre.</p>
             <label class="wiki-control">Filtrar mapas<input type="search" data-map-filter placeholder="Mapa o monstruo…"></label><p data-map-status role="status"></p><div class="wiki-map-list">
             <?php foreach($wiki['maps'] as $map) { ?>
                 <details class="wiki-map" id="mapa-<?php echo $map['id']; ?>" data-wiki-search>
                     <summary><span class="wiki-map-number"><?php echo str_pad($map['id'], 2, '0', STR_PAD_LEFT); ?></span><strong><?php echo panicWikiEscape($map['name']); ?></strong><small><?php echo count($map['spots']); ?> spots · <?php echo count($map['monsters']); ?> tipos de monstruos</small><b aria-hidden="true">+</b></summary>
                     <div class="wiki-map-body"><div class="wiki-map-actions"><button type="button" data-save-map="<?php echo $map['id']; ?>" aria-pressed="false">Guardar mapa</button><a href="#mapa-<?php echo $map['id']; ?>">Enlace directo ↗</a></div>
-                    <?php if(count($map['moves'])) { ?><h3>Traslados</h3><p>Niveles y Zen configurados para el menú de traslado. El juego puede aplicar condiciones adicionales según tu clase o acceso.</p><div class="wiki-table-scroll"><table><thead><tr><th>Destino</th><th>Nivel</th><th>Zen</th></tr></thead><tbody><?php foreach($map['moves'] as $move) { ?><tr><td><?php echo panicWikiEscape($move['name']); ?></td><td><?php echo $move['level']; ?></td><td><?php echo number_format($move['zen'], 0, ',', '.'); ?></td></tr><?php } ?></tbody></table></div><?php } else { ?><p class="wiki-note">Sin traslado directo identificado en el menú. Consultá el acceso desde el mapa anterior dentro del juego.</p><?php } ?>
-                    <?php if(isset($atlasAssets['maps'][(string)$map['id']])) { $art = $atlasAssets['maps'][(string)$map['id']]; ?>
-                    <figure class="wiki-real-map"><img loading="lazy" width="<?php echo $art['width']; ?>" height="<?php echo $art['height']; ?>" src="<?php echo __BASE_URL__; ?>templates/mupanic/<?php echo panicWikiEscape($art['file']); ?>" alt="Mapa del cliente de <?php echo panicWikiEscape($map['name']); ?>"><figcaption>Terreno del cliente · <?php echo panicWikiEscape($map['name']); ?></figcaption></figure>
-                    <?php } else { ?><p class="wiki-note">Imagen del terreno pendiente de verificar para este mapa.</p><?php } ?>
-                    <?php if(count($map['spots'])) { ?><details class="wiki-spot-details"><summary>Consultar <?php echo count($map['spots']); ?> spots y coordenadas</summary>
-                        <div class="wiki-atlas"><div><h3>Zonas de entrenamiento</h3><svg class="wiki-coordinate-map" viewBox="-15 -15 285 285" role="img" aria-label="Coordenadas de spots de <?php echo panicWikiEscape($map['name']); ?>"><defs><pattern id="grid-<?php echo $map['id']; ?>" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" stroke-width=".4"/></pattern></defs><rect width="255" height="255" fill="url(#grid-<?php echo $map['id']; ?>)"/><text x="0" y="267">0</text><text x="232" y="267">255 X</text><text x="-12" y="4">255</text><text x="-12" y="254">0</text><?php foreach($map['spots'] as $i => $spot) { ?><a href="#spot-<?php echo $map['id'].'-'.$i; ?>" aria-label="Spot <?php echo $i+1; ?>, X <?php echo $spot['x']; ?> Y <?php echo $spot['y']; ?>"><circle cx="<?php echo $spot['x']; ?>" cy="<?php echo 255-$spot['y']; ?>" r="5"/><text x="<?php echo $spot['x']+6; ?>" y="<?php echo 255-$spot['y']+3; ?>"><?php echo $i+1; ?></text></a><?php } ?></svg><p>Elegí un punto para localizar su fila.</p></div><div class="wiki-table-scroll"><table><thead><tr><th>Spot / X · Y</th><th>Monstruos / nivel / cantidad</th></tr></thead><tbody><?php foreach($map['spots'] as $i => $spot) { ?><tr id="spot-<?php echo $map['id'].'-'.$i; ?>"><td><strong><?php echo str_pad($i+1, 2, '0', STR_PAD_LEFT); ?></strong><br><?php echo $spot['x'].' · '.$spot['y']; ?></td><td><?php foreach($spot['monsters'] as $monster) { ?><div><?php echo panicWikiEscape($monster['name']); ?> <small>Lv. <?php echo $monster['level']; ?> · ×<?php echo $monster['quantity']; ?></small></div><?php } ?></td></tr><?php } ?></tbody></table></div></div>
-                    </details><?php } ?>
-                    <h3>Monstruos del mapa</h3><p>Valores base de la configuración. Bonos, eventos y reglas especiales pueden modificar el combate.</p>
-                    <?php if(!count($map['monsters'])) { ?><p class="wiki-note">Sin población fija identificada en esta configuración. Los eventos pueden generar monstruos mediante sus propias reglas.</p><?php } ?>
-                    <div class="wiki-mob-grid"><?php foreach($map['monsters'] as $monster) { ?>
-                        <article class="wiki-mob-card" id="mob-<?php echo $map['id'].'-'.$monster['id']; ?>">
-                            <?php if(isset($atlasAssets['monsters'][(string)$monster['id']])) { ?><img loading="lazy" src="<?php echo __BASE_URL__; ?>templates/mupanic/<?php echo panicWikiEscape($atlasAssets['monsters'][(string)$monster['id']]['file']); ?>" alt="<?php echo panicWikiEscape($monster['name']); ?>" width="256" height="256"><?php } ?>
-                            <h4><?php echo panicWikiEscape($monster['name']); ?></h4><span class="wiki-mob-level">Nivel <?php echo $monster['level']; ?></span>
-                            <dl><?php foreach(['life'=>'Vida','defense'=>'Defensa','attackRate'=>'Attack Rate','defenseRate'=>'Defense Rate','respawnSeconds'=>'Respawn base (s)'] as $key=>$label) { if(isset($monster[$key])) { ?><dt><?php echo $label; ?></dt><dd><?php echo number_format($monster[$key],0,',','.'); ?></dd><?php } } ?>
-                            <?php if(isset($monster['damageMin'])) { ?><dt>Daño</dt><dd><?php echo $monster['damageMin'].'–'.$monster['damageMax']; ?></dd><?php } ?></dl>
-                            <a class="wiki-mob-drops" href="#drops" data-mob-drops="<?php echo $monster['id']; ?>" data-mob-map="<?php echo $map['id']; ?>">Ver drops →</a>
-                        </article>
-                    <?php } ?></div><a href="#drops" data-map-drops="<?php echo $map['id']; ?>">Qué puedo farmear acá →</a>
+                    <?php include(__DIR__.'/atlas-explorer.php'); ?>
                     </div>
                 </details>
             <?php } ?>

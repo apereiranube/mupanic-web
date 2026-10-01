@@ -155,6 +155,8 @@
     // A shared deep link must reveal a map/row even after local filtering.
     if (target) {
       target.hidden = false;
+      var atlasPanel = target.closest('[data-atlas-panel]');
+      if (atlasPanel) selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel'));
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
       if (target.id.indexOf('mapa-') === 0 || target.id.indexOf('spot-') === 0) { mapFilter.value = ''; filterMaps(); }
@@ -235,35 +237,39 @@
   dropAccount.addEventListener('change', filterDrops);
   wiki.querySelectorAll('[data-drop-query]').forEach(function (button) { button.addEventListener('click', function () { dropFilter.value = button.getAttribute('data-drop-query'); filterDrops(); }); });
   wiki.querySelectorAll('[data-map-drops]').forEach(function (link) { link.addEventListener('click', function () { dropMap.value = link.getAttribute('data-map-drops'); dropFilter.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); if (location.hash === '#drops') revealHash(); }); });
-  var mobDialog = document.createElement('dialog');
-  mobDialog.className = 'wiki-mob-dialog';
-  var closeMob = document.createElement('button'); closeMob.type = 'button'; closeMob.textContent = 'Cerrar ×';
-  var mobTitle = document.createElement('h3');
-  var mobNote = document.createElement('p'); mobNote.textContent = 'Reglas de objetos compatibles con este monstruo y mapa. Las recompensas especiales se enlazan debajo si están identificadas. El drop común puede incluir otros objetos; la tasa configurada no es una probabilidad final por muerte.';
-  var mobAccount = document.createElement('select'); mobAccount.setAttribute('aria-label','Tipo de cuenta para los drops');
-  data.accounts.forEach(function(a,i) { mobAccount.add(new Option(a.name,String(i))); });
-  var mobRules = document.createElement('div'); mobRules.className = 'wiki-mob-rule-list';
-  mobDialog.append(closeMob,mobTitle,mobNote,mobAccount,mobRules); wiki.appendChild(mobDialog);
-  closeMob.addEventListener('click',function() { mobDialog.close(); });
-  var activeMob = null, activeMobMap = null;
-  function renderMobRules() {
-    var rules = data.drops.filter(function(d) { return eligible(d,activeMobMap) && matchesMonster(d,activeMob); });
-    mobRules.replaceChildren();
-    if (!rules.length) { var empty = document.createElement('p'); empty.textContent = 'Sin reglas específicas de objetos compatibles. Esto no significa que el monstruo no tenga otros drops.'; mobRules.appendChild(empty); }
-    rules.forEach(function(d) { var row = document.createElement('div'); var name = document.createElement('span'); name.textContent = d.name; var rate = document.createElement('strong'); rate.textContent = d.rates[Number(mobAccount.value)].toLocaleString('es-AR',{maximumFractionDigits:6}) + '%'; row.append(name,rate); mobRules.appendChild(row); });
-    (data.eventBags || []).filter(function(bag) { return bag.monster === activeMob.id; }).forEach(function(bag) {
-      var row = document.createElement('p'), link = document.createElement('a'); link.href = '#recompensa-' + bag.id; link.textContent = 'Recompensas especiales: ' + bag.name + ' →';
-      link.addEventListener('click',function() { mobDialog.close(); if (rewardFilter) { rewardFilter.value = ''; rewardFilter.dispatchEvent(new Event('input')); } if (location.hash === link.hash) revealHash(); }); row.appendChild(link); mobRules.appendChild(row);
+  function selectAtlasSpot(explorer, key) {
+    explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) { panel.hidden = panel.getAttribute('data-atlas-panel') !== key; });
+    explorer.querySelectorAll('[data-atlas-select]').forEach(function(link) {
+      if (link.getAttribute('data-atlas-select') === key) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
     });
   }
-  mobAccount.addEventListener('change',renderMobRules);
-  wiki.querySelectorAll('[data-mob-drops]').forEach(function(link) { link.addEventListener('click',function(event) {
-    var mapId = Number(link.getAttribute('data-mob-map')), mobId = Number(link.getAttribute('data-mob-drops'));
-    activeMobMap = data.maps.find(function(m) { return m.id === mapId; }); activeMob = activeMobMap.monsters.find(function(m) { return m.id === mobId; });
-    if (typeof mobDialog.showModal === 'function') {
-      event.preventDefault(); mobTitle.textContent = activeMob.name + ' · ' + activeMobMap.name; mobAccount.value = dropAccount.value; renderMobRules(); mobDialog.showModal();
-    } else { dropMap.value = String(mapId); updateMonsterOptions(); dropMonster.value = String(mobId); dropFilter.value = ''; filterDrops(); }
-  }); });
+  wiki.querySelectorAll('[data-atlas-explorer]').forEach(function(explorer) {
+    selectAtlasSpot(explorer, explorer.querySelector('[data-atlas-panel]').getAttribute('data-atlas-panel'));
+    explorer.querySelectorAll('[data-atlas-select]').forEach(function(link) { link.addEventListener('click', function(event) {
+      event.preventDefault(); selectAtlasSpot(explorer, link.getAttribute('data-atlas-select'));
+      var inspector = explorer.querySelector('.atlas-inspector');
+      if (window.matchMedia('(max-width: 900px)').matches) inspector.scrollIntoView({block:'start',behavior:'smooth'});
+    }); });
+    explorer.querySelector('[data-atlas-zoom]').addEventListener('click',function(event) {
+      var frame = explorer.querySelector('.atlas-map-window');
+      var zoomed = frame.classList.toggle('is-zoomed');
+      event.currentTarget.setAttribute('aria-pressed',String(zoomed));
+      event.currentTarget.textContent = zoomed ? 'Alejar −' : 'Acercar +';
+    });
+    explorer.querySelector('[data-atlas-account]').addEventListener('change',function(event) {
+      var account = Number(event.target.value);
+      explorer.querySelectorAll('[data-atlas-rates]').forEach(function(rate) {
+        rate.textContent = JSON.parse(rate.getAttribute('data-atlas-rates'))[account].toLocaleString('es-AR',{maximumFractionDigits:6}) + '%';
+      });
+    });
+  });
+  // Keep just one map expanded; deep links still open the requested map.
+  wiki.querySelectorAll('#progresion > .wiki-map-list > .wiki-map').forEach(function(map) {
+    map.addEventListener('toggle',function() {
+      if (map.open) wiki.querySelectorAll('#progresion > .wiki-map-list > .wiki-map').forEach(function(other) { if (other !== map) other.open = false; });
+    });
+  });
   // The workshop and the upgrade planner share the same public balance snapshot.
   var recipeSearch = wiki.querySelector('[data-recipe-search]');
   var recipeAccount = wiki.querySelector('[data-recipe-account]');
