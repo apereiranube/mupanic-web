@@ -83,6 +83,21 @@ try {
     expectPilot($inspected['last_error']==='CHECKOUT_NOT_FOUND' && $inspected['payment_state']==='creating','No match does not erase reservation');
     $found=true; $inspected=$store->inspect($recovery,'fixture');
     expectPilot($inspected['payment_state']==='approved' && $postCount===0,'Recovery uses canonical GET without new checkout');
+    $link='https://stage.uala-checkout.com/orders/recovered';
+    $linked=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($reserved,&$link) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        expectPilot($method==='GET','Link recovery cannot create payments');
+        return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'PENDING','links'=>['checkout_link'=>$link]];
+    });
+    $pending=$reserved; $pending['payment_id']='recovered-payment'; $pending['payment_state']='pending';
+    $store->save($pending);
+    expectPilot($store->refresh($linked,'fixture')['checkout_url']===$link,'Refresh restores provider supplied payment link');
+    foreach(['https://uala-checkout.com.evil.test/pay','https://user@uala-checkout.com/pay','http://uala-checkout.com/pay','https://uala-checkout.com:8443/pay'] as $unsafe) {
+        $link=$unsafe; $store->save($pending);
+        expectPilot(empty($store->refresh($linked,'fixture')['checkout_url']),'Untrusted link is never displayed');
+    }
+    $link=null; $store->save($pending);
+    expectPilot(empty($store->refresh($linked,'fixture')['checkout_url']),'Missing link is not invented');
     $store->save($reserved); $pageCalls=0; $duplicate=false;
     $paged=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($reserved,&$pageCalls,&$duplicate) {
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];

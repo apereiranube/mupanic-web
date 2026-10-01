@@ -50,6 +50,15 @@ final class PanicUalaBisApi extends PanicRechargeApi {
         }
         return $this->request('GET',$this->base('checkout').'/orders?'.http_build_query($query,'','&',PHP_QUERY_RFC3986),$this->headers());
     }
+    public static function checkoutLink($link) {
+        if(!is_string($link) || strlen($link)>4096 || preg_match('/[\x00-\x20\x7f]/',$link)) return null;
+        $parts=parse_url($link);
+        if(!$parts || ($parts['scheme'] ?? '')!=='https' || empty($parts['host']) ||
+           isset($parts['user']) || isset($parts['pass']) || isset($parts['fragment']) ||
+           (isset($parts['port']) && $parts['port']!==443) ||
+           !preg_match('/(^|\.)(uala-checkout\.com|ua\.la|ualabis\.com\.ar)$/D',strtolower($parts['host']))) return null;
+        return $link;
+    }
     public function fetchPayment($paymentId) {
         $result=$this->request('GET',$this->base('checkout').'/orders/'.self::id($paymentId),$this->headers());
         $amount=$result['amount'] ?? null;
@@ -62,7 +71,9 @@ final class PanicUalaBisApi extends PanicRechargeApi {
         // and fixed Argentina v2 hosts, never from webhook/browser parameters.
         return ['provider'=>'uala_bis','id'=>$paymentId,'reference'=>$result['external_reference'],
             'merchant'=>$this->credential('client_id'),'currency'=>'ARS','amount_cents'=>$amount,
-            'live'=>$this->environment==='production','state'=>$states[$result['status'] ?? ''] ?? 'review'];
+            'live'=>$this->environment==='production','state'=>$states[$result['status'] ?? ''] ?? 'review',
+            // Optional provider-supplied link only. Never construct a payment URL from a UUID.
+            'checkout_url'=>self::checkoutLink($result['links']['checkout_link'] ?? null)];
     }
 }
 

@@ -86,6 +86,10 @@ final class PanicRechargePilot {
         elseif($decision==='review') $state['payment_state']='review';
         elseif(in_array($decision,['rejected','cancelled'],true) && $state['payment_state']==='approved') $state['payment_state']='review';
         elseif($decision!=='already_credited' && $state['payment_state']!=='approved') $state['payment_state']=$decision;
+        if($decision==='pending' && $state['payment_state']==='pending' && empty($state['checkout_url'])) {
+            $link=PanicUalaBisApi::checkoutLink($payment['checkout_url'] ?? null);
+            if($link!==null) $state['checkout_url']=$link;
+        }
         $state['checked_at']=gmdate('c');
         return $state;
     }
