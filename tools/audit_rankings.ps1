@@ -106,8 +106,8 @@ ORDER BY s.name,t.name,c.column_id
         $path = Join-Path $ServerRoot $relativePath
         if (-not (Test-Path -LiteralPath $path)) { continue }
         if ($relativePath -like '*Common.dat') {
-            $lines = @(Get-Content -LiteralPath $path | Where-Object { $_ -match '(?i)^\s*(WriteEventLog|DuelSwitch|DuelMaxScore|GensSystemKiller\w*|CustomRanking\w*|CustomAchievements\w*)\s*=' })
-        } else { $lines = @(Get-Content -LiteralPath $path | Select-Object -First 220) }
+            $lines = @([System.IO.File]::ReadAllLines($path) | Where-Object { $_ -match '(?i)^\s*(WriteEventLog|DuelSwitch|DuelMaxScore|GensSystemKiller\w*|CustomRanking\w*|CustomAchievements\w*)\s*=' })
+        } else { $lines = @([System.IO.File]::ReadAllLines($path) | Select-Object -First 220) }
         $settings += [ordered]@{file=$relativePath;lines=$lines}
     }
     $report = [ordered]@{format='mupanic-ranking-audit-v1';database='MuOnline43';createdUtc=[DateTime]::UtcNow.ToString('o');
@@ -115,7 +115,13 @@ ORDER BY s.name,t.name,c.column_id
         columns=$columns;metrics=$metrics;settings=$settings}
     $desktop = [Environment]::GetFolderPath('Desktop')
     $destination = Join-Path $desktop ('MU_PANIC_RANKINGS_AUDIT_' + (Get-Date -Format 'yyyyMMdd_HHmmss') + '.json')
-    $report | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $destination -Encoding UTF8
+    # Get-Content strings carry provider metadata that ConvertTo-Json can expand.
+    # ReadAllLines returns plain strings; reject unexpectedly large diagnostics.
+    $json = $report | ConvertTo-Json -Depth 8
+    if ([System.Text.Encoding]::UTF8.GetByteCount($json) -gt 5MB) {
+        throw 'Diagnostic exceeds 5 MB; no new JSON was saved. Report this error instead of uploading a large file.'
+    }
+    [System.IO.File]::WriteAllText($destination, $json, [System.Text.Encoding]::UTF8)
     Write-Host ('Audit ready: ' + $destination)
     Write-Host ('Candidate columns: ' + $columns.Count + '; aggregate samples: ' + $metrics.Count)
     Write-Host 'Upload the JSON. No database, game configuration or game processes were changed.'
