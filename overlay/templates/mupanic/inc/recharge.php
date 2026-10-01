@@ -2,8 +2,10 @@
 if(!defined('access') || !access) die();
 if(!isLoggedIn()) return;
 require_once __DIR__.'/recharge-domain.php';
+require_once __DIR__.'/recharge-wallet.php';
 $rechargeConfig=require __DIR__.'/recharge-config.php';
 $rechargeAccount=(string)($_SESSION['username'] ?? '');
+$rechargeBalance=panicRechargeWalletBalance($rechargeAccount);
 $rechargePackages=[];
 foreach($rechargeConfig['packages'] as $package) {
     try { $rechargePackages[]=PanicRecharge::package($package); }
@@ -15,7 +17,8 @@ foreach($rechargeConfig['packages'] as $package) {
         <span class="eyebrow">LA TIENDA DE TU AVENTURA</span>
         <h2 id="recharge-title">Recargá.<br><em>Elegí tu próxima conquista.</em></h2>
         <p>WCoin C para comprar en la tienda del juego.<br>La recarga corresponde a tu cuenta, no a un personaje.</p>
-        <div class="recharge-account"><span>CUENTA DE DESTINO</span><strong><?php echo panicAccountEscape($rechargeAccount); ?></strong></div>
+        <div class="recharge-wallet-row"><div class="recharge-account"><span>CUENTA DE DESTINO</span><strong><?php echo panicAccountEscape($rechargeAccount); ?></strong></div><div class="recharge-account recharge-balance"><span>SALDO REGISTRADO</span><strong><?php echo $rechargeBalance===null ? 'No disponible' : number_format($rechargeBalance,0,',','.').' WCoin C'; ?></strong></div></div>
+        <small class="recharge-balance-note">Saldo consultado al abrir esta página. El juego puede mostrar cambios posteriores.</small>
     </header>
     <div class="recharge-notice" role="status"><strong>Estamos preparando las recargas</strong><p>Todavía no se pueden realizar compras. Los paquetes y sus precios aparecerán acá cuando la tienda esté habilitada.</p></div>
     <nav class="recharge-sections" aria-label="Secciones de recargas"><a href="#recharge-packages">Paquetes</a><a href="#recharge-guide">Cómo funciona</a><a href="#recharge-history">Mis compras</a></nav>

@@ -42,6 +42,30 @@ entrega. Otros estados positivos posteriores se dejan en revisión hasta homolog
 
 ## Siguiente entrega: persistencia y administración
 
+Auditoría recibida: `MU_PANIC_WALLET_AUDIT_20261001_163845.json`, solo metadatos,
+base MuOnline43, 1/10/2026 19:38:45 UTC. Se confirmó:
+
+| Uso | Tabla / columna | Tipo y clave |
+| --- | --- | --- |
+| WCoin C | dbo.CashShopData.WCoinC | int NOT NULL |
+| Cuenta del saldo | dbo.CashShopData.AccountID | varchar(10), PK única PK_TempCashShop |
+| Otras monedas, no tocar | WCoinP / GoblinPoint | int NOT NULL |
+| Estado de conexión | dbo.MEMB_STAT.ConnectStat | tinyint nullable; no asumir NULL = desconectado |
+| Cuenta de conexión | dbo.MEMB_STAT.memb___id | varchar(10), PK única |
+
+`WZ_SetCoin` existe, pero el informe inicial solo contiene el nombre. No asumir
+que suma, reemplaza el saldo o notifica al GameServer. Su definición puede
+consultarse con `audit_wallet.ps1 -IncludeCoinProcedure`; el script únicamente
+lee ese procedimiento y sus parámetros, sin ejecutarlo. Revisar el código antes
+de compartirlo y comprobar VIEW DEFINITION si aparece null.
+
+`inc/recharge-wallet.php` consulta WCoinC de la cuenta de sesión con SQL
+parametrizado y base física fija MuOnline43. El saldo es una lectura al cargar;
+no prueba que el cliente muestre lo mismo en ese instante. Cuenta sin fila,
+error de conexión o valor inválido se muestran como No disponible, nunca 0.
+Un 0 válido se muestra como tal. No cambia saldos ni ejecuta WZ_SetCoin.
+
+
 1. Obtener esquema con `tools/audit_wallet.ps1` (solo lectura, MuOnline43).
    Verificar tabla y columna reales de WCoin C, clave única de cuenta, tipo,
    límites y procedimientos del Cash Shop. No usar la vieja base MuOnline.

@@ -6,6 +6,7 @@
 .recharge-account{display:inline-flex;flex-direction:column;border-left:2px solid #d39a66;padding-left:14px;margin-top:12px}
 .recharge-account span{font-size:11px;letter-spacing:1.5px;color:#e2bb93}
 .recharge-account strong{font-size:20px;overflow-wrap:anywhere}
+.recharge-wallet-row{display:flex;flex-wrap:wrap;gap:18px 32px}.recharge-balance{border-left-color:#ab7c52}.recharge-balance-note{display:block;margin-top:14px;color:#e1ceb5;font-size:12px;line-height:1.6}
 .recharge-notice{padding:20px 22px;background:#f1e4d1;border:1px solid #cdb18a;border-left:4px solid #a46c3b}
 .recharge-notice strong{font-size:19px;color:#6f452c}.recharge-notice p{margin:7px 0 0}
 .recharge-sections{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}

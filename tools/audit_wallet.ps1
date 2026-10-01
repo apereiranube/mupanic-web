@@ -1,6 +1,7 @@
 param(
     [string]$SqlServer = '',
-    [System.Management.Automation.PSCredential]$SqlCredential
+    [System.Management.Automation.PSCredential]$SqlCredential,
+    [switch]$IncludeCoinProcedure
 )
 $ErrorActionPreference = 'Stop'
 # READ ONLY. Database is deliberately fixed to the active MU PANIC database.
@@ -90,7 +91,7 @@ WHERE t.name LIKE '%CashShop%' OR t.name LIKE '%Coin%' OR t.name LIKE '%Wallet%'
    OR t.name IN ('MEMB_STAT','MEMB_INFO')
 ORDER BY s.name,t.name,i.name,ic.key_ordinal
 '@
-    # Names only: never export procedure definitions, account rows or balances.
+    # Names only by default. Optional flag adds ONLY WZ_SetCoin source/parameters.
     $procedures = Read-WalletTable @'
 SELECT s.name AS schema_name, o.name AS object_name, o.type_desc
 FROM sys.objects o
@@ -121,6 +122,26 @@ ORDER BY s.name,o.name
         columns = @(Export-WalletRows $columns)
         indexes = @(Export-WalletRows $indexes)
         procedures = @(Export-WalletRows $procedures)
+    }
+    if ($IncludeCoinProcedure) {
+        $coinSource = Read-WalletTable @'
+SELECT OBJECT_SCHEMA_NAME(p.object_id) AS schema_name, p.name AS procedure_name,
+       m.definition AS definition
+FROM sys.procedures p
+LEFT JOIN sys.sql_modules m ON m.object_id=p.object_id
+WHERE p.object_id=OBJECT_ID(N'dbo.WZ_SetCoin',N'P')
+'@
+        $coinParameters = Read-WalletTable @'
+SELECT p.name AS parameter_name, ty.name AS data_type, p.max_length,
+       p.precision, p.scale, p.is_output
+FROM sys.parameters p
+JOIN sys.types ty ON ty.user_type_id=p.user_type_id
+WHERE p.object_id=OBJECT_ID(N'dbo.WZ_SetCoin',N'P')
+ORDER BY p.parameter_id
+'@
+        $report['coinProcedure'] = @(Export-WalletRows $coinSource)
+        $report['coinParameters'] = @(Export-WalletRows $coinParameters)
+        $report['note'] = 'Read only metadata plus dbo.WZ_SetCoin SQL definition. No account records or balances. Review definition before sharing.'
     }
     $output = Join-Path ([Environment]::GetFolderPath('Desktop')) ('MU_PANIC_WALLET_AUDIT_' + (Get-Date -Format 'yyyyMMdd_HHmmss') + '.json')
     $json = $report | ConvertTo-Json -Depth 8
