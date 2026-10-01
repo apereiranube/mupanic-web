@@ -46,7 +46,7 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
     <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/knight-v6.webp" fetchpriority="high"><?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
-    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=6.1" rel="stylesheet">
+    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=6.2" rel="stylesheet">
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
@@ -89,13 +89,12 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
 <?php if($isHome) { ?>
 
 <section class="panic-hero" aria-labelledby="hero-title" data-scene>
-    <div class="scene-art hero-art" aria-hidden="true" data-depth></div>
+    <div class="scene-art hero-art" aria-hidden="true"></div>
     <div class="hero-character" aria-hidden="true"><img src="<?php echo __PATH_TEMPLATE__; ?>img/knight-v6.webp" alt="" width="1024" height="1536" fetchpriority="high"><div class="blade-aura"></div></div>
     <div class="hero-atmosphere" aria-hidden="true"></div>
     <div class="embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="scene-fog" aria-hidden="true"></div>
     <button class="scene-control" type="button" aria-pressed="false" aria-label="Pausar animación">Ⅱ <span>Pausar escena</span></button>
-    <div class="sound-panel"><button class="sound-control" type="button" aria-pressed="false" aria-label="Activar sonido ambiente">♪ <span>Ambiente apagado</span></button><label class="sound-volume">Volumen <input type="range" min="0" max="100" value="55" aria-label="Volumen del ambiente"></label><span class="sound-message" role="status"></span></div>
     <div class="hero-frame shell">
         <div class="hero-overline"><span class="eyebrow">MU ONLINE / ARGENTINA</span><span class="edition">UNA NUEVA HISTORIA.<br>EL MISMO CONTINENTE.</span></div>
         <div class="hero-content">
@@ -210,6 +209,6 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
-<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=6.1"></script>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=6.2"></script>
 </body>
 </html>

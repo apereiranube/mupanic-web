@@ -36,20 +36,12 @@
   var index = document.querySelector('[data-journey-index]');
   var progress = document.querySelector('[data-journey-progress]');
   var hero = document.querySelector('[data-scene]');
-  var depth = document.querySelector('[data-depth]');
   var active = -1;
   var paused = false;
   var stage = document.querySelector('.journey-stage');
   var pending = false;
   function update() {
     pending = false;
-    if (hero && depth && !reduced.matches && !paused && window.innerWidth > 600) {
-      var rect = hero.getBoundingClientRect();
-      if (rect.bottom > 0) {
-        hero.style.setProperty('--depth-shift', (Math.max(0, -rect.top) * 0.075) + 'px');
-        hero.style.setProperty('--character-shift', (Math.max(0, -rect.top) * 0.14) + 'px');
-      }
-    }
     if (!chapters.length) return;
     var center = window.innerHeight * 0.55;
     var nearest = 0;
@@ -79,15 +71,7 @@
       sceneControl.innerHTML = paused ? '▷ <span>Reanudar escena</span>' : 'Ⅱ <span>Pausar escena</span>';
       schedule();
     });
-    hero.addEventListener('pointermove', function (e) {
-      if (reduced.matches || paused || e.pointerType !== 'mouse' || innerWidth <= 600) return;
-      var box = hero.getBoundingClientRect();
-      hero.style.setProperty('--pointer-x', ((e.clientX / box.width - .5) * 15) + 'px');
-      hero.style.setProperty('--pointer-y', (((e.clientY - box.top) / box.height - .5) * 10) + 'px');
-    }, { passive: true });
-    hero.addEventListener('pointerleave', function () {
-      hero.style.setProperty('--pointer-x', '0px');hero.style.setProperty('--pointer-y', '0px');
-    });
+
   }
   update();
   window.addEventListener('scroll', schedule, { passive: true });
@@ -138,73 +122,5 @@
       setInterval(updateStatus, 60000);
       document.addEventListener('visibilitychange', function () { if (!document.hidden) updateStatus(); });
     }
-  }
-  var soundButton = document.querySelector('.sound-control');
-  var soundPanel = document.querySelector('.sound-panel');
-  var soundLevel = document.querySelector('.sound-volume input');
-  var soundMessage = document.querySelector('.sound-message');
-  var AudioEngine = window.AudioContext || window.webkitAudioContext;
-  if (soundButton && soundPanel && AudioEngine) {
-    soundPanel.classList.add('is-available');
-    var audio, volume, soundEnabled = false, soundBusy = false;
-    function setSoundState(enabled) {
-      soundEnabled = enabled;
-      soundPanel.classList.toggle('sound-on', enabled);
-      soundButton.setAttribute('aria-pressed', String(enabled));
-      soundButton.setAttribute('aria-label', enabled ? 'Apagar sonido ambiente' : 'Activar sonido ambiente');
-      soundButton.innerHTML = enabled ? '♪ <span>Ambiente encendido</span>' : '♪ <span>Ambiente apagado</span>';
-    }
-    function applyVolume() {
-      if (audio && volume) volume.gain.setTargetAtTime(soundEnabled ? Number(soundLevel.value) / 100 : 0, audio.currentTime, .25);
-    }
-    function createAmbience() {
-      audio = new AudioEngine();
-      volume = audio.createGain();volume.gain.value = 0;
-      var limiter = audio.createDynamicsCompressor();
-      limiter.threshold.value = -18;limiter.ratio.value = 4;
-      volume.connect(limiter);limiter.connect(audio.destination);
-      // Mid-range tones and filtered air remain audible on ordinary laptop speakers.
-      [[146.83, .16], [220, .09], [293.66, .055], [440, .025]].forEach(function (tone) {
-        var oscillator = audio.createOscillator();
-        var gain = audio.createGain();gain.gain.value = tone[1];
-        oscillator.type = 'triangle';oscillator.frequency.value = tone[0];
-        var filter = audio.createBiquadFilter();filter.type = 'lowpass';filter.frequency.value = 900;
-        oscillator.connect(filter);filter.connect(gain);gain.connect(volume);oscillator.start();
-      });
-      var wind = audio.createBufferSource();
-      var buffer = audio.createBuffer(1, audio.sampleRate * 4, audio.sampleRate);
-      var samples = buffer.getChannelData(0);
-      for (var i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
-      wind.buffer = buffer;wind.loop = true;
-      var windFilter = audio.createBiquadFilter();windFilter.type = 'bandpass';windFilter.frequency.value = 650;windFilter.Q.value = .6;
-      var windGain = audio.createGain();windGain.gain.value = .065;
-      wind.connect(windFilter);windFilter.connect(windGain);windGain.connect(volume);wind.start();
-    }
-    soundButton.addEventListener('click', async function () {
-      if (soundBusy) return;
-      soundBusy = true;soundButton.disabled = true;soundMessage.textContent = '';
-      try {
-        if (soundEnabled) {
-          setSoundState(false);applyVolume();
-          await audio.suspend();
-        } else {
-          if (!audio) createAmbience();
-          await audio.resume();
-          if (audio.state !== 'running') throw new Error('Audio not running');
-          setSoundState(true);applyVolume();
-        }
-      } catch (error) {
-        setSoundState(false);applyVolume();
-        soundMessage.textContent = 'No se pudo activar el audio. Volvé a intentarlo.';
-      } finally { soundBusy = false;soundButton.disabled = false; }
-    });
-    soundLevel.addEventListener('input', applyVolume);
-    document.addEventListener('visibilitychange', function () {
-      if (!audio) return;
-      if (document.hidden) audio.suspend().catch(function () {});
-      else if (soundEnabled) audio.resume().catch(function () {
-        setSoundState(false);applyVolume();soundMessage.textContent = 'Tocá el botón para reactivar el audio.';
-      });
-    });
   }
 })();
