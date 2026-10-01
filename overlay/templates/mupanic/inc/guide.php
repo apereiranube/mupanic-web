@@ -29,26 +29,30 @@ $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map
 ?>
 <div class="panic-wiki" data-wiki>
     <aside class="wiki-nav">
-        <span class="eyebrow">ARCHIVO DEL CONTINENTE</span>
+        <span class="eyebrow">EXPLORÁ MU PANIC</span>
         <label for="wiki-search">¿Qué estás buscando?</label><input id="wiki-search" type="search" placeholder="Chaos, Lorencia, reset…" autocomplete="off">
         <div class="wiki-search-results" hidden></div><p class="wiki-search-status" role="status" aria-live="polite"></p>
-        <nav aria-label="Guía de MU PANIC"><a href="#buscar">⌕ <span>Buscar objetos y mobs</span> ↗</a><a href="#primeros-pasos">01 <span>Primeros pasos</span> ↗</a><a href="#progresion">02 <span>Atlas y spots</span> ↗</a><a href="#drops">03 <span>Dónde conseguirlo</span> ↗</a><?php if(!empty($wiki['eventBags'])) { ?><a href="#recompensas">03b <span>Bosses y recompensas</span> ↗</a><?php } ?><a href="#rates">04 <span>Rates y experiencia</span> ↗</a><a href="#sistemas">05 <span>Reset y mejoras</span> ↗</a><a href="#taller">06 <span>Taller de creación</span> ↗</a><a href="#mejoras">07 <span>Mejorar equipo</span> ↗</a><a href="#equipo">08 <span>Excellent y sistemas</span> ↗</a></nav>
+        <nav aria-label="Guía de MU PANIC">
+            <a href="#inicio"><span>Inicio del Atlas</span> →</a><a href="#progresion"><span>Mapas y spots</span> →</a><a href="#buscar"><span>Buscar objetos y mobs</span> →</a><a href="#recompensas"><span>Bosses y recompensas</span> →</a>
+            <details class="atlas-learn-nav"><summary>Aprender a jugar</summary><a href="#primeros-pasos"><span>Primeros pasos</span> →</a><a href="#sistemas"><span>Reset y mejoras</span> →</a><a href="#taller"><span>Crear objetos y alas</span> →</a><a href="#mejoras"><span>Mejorar mi equipo</span> →</a><a href="#equipo"><span>Tipos de equipo</span> →</a><a href="#rates"><span>Experiencia y tasas</span> →</a><a href="#drops"><span>Tabla de drops</span> →</a></details>
+        </nav>
         <div class="wiki-saved" hidden><span class="eyebrow">TUS MAPAS GUARDADOS</span><div data-saved-maps></div></div><p class="wiki-date">Datos del servidor<br>Revisión: <?php echo panicWikiEscape($wiki['revision']); ?></p>
     </aside>
     <div class="wiki-content">
         <header class="wiki-intro"><span class="eyebrow">CONOCÉ EL TERRENO</span><h2>Tu próximo paso.<br><em>Con un rumbo.</em></h2><p>Elegí dónde entrenar, encontrá lo que necesitás y entendé cómo progresa tu personaje en MU PANIC.</p></header>
+        <?php include(__DIR__.'/atlas-home.php'); ?>
         <?php include(__DIR__.'/atlas-search.php'); ?>
         <section id="primeros-pasos" class="wiki-section" data-wiki-search>
             <span class="eyebrow">01 / EMPEZÁ ACÁ</span><h2>Entrá al continente.</h2>
             <ol class="wiki-route"><li><strong>Prepará tu cuenta y el cliente.</strong><p>Registrate y descargá el cliente de MU PANIC desde Descargas. Conservá tus datos de acceso.</p><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Crear cuenta'; ?> →</a> <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas →</a></li><li><strong>Conocé tu personaje.</strong><p>Empezá en Lorencia, Noria o Elbeland. Equipá las habilidades de tu clase, llevá pociones y probá un spot inicial.</p></li><li><strong>Buscá un spot que puedas sostener.</strong><p>Un spot es una zona con monstruos que reaparecen. Si gastás más pociones de las que podés reponer o tardás demasiado en matar, volvé a una zona más tranquila. El nivel de traslado no mide la dificultad del mapa.</p><a href="#progresion">Elegir mapa y coordenadas →</a></li><li><strong>Prepará el siguiente salto.</strong><p>Guardá Zen para moverte y resetear, y separá las joyas de los objetos que vas a vender. No confirmes una mezcla sin revisar sus ingredientes y su probabilidad dentro del juego.</p><a href="#sistemas">Entender el reset →</a></li></ol>
         </section>
         <section id="progresion" class="wiki-section">
-            <span class="eyebrow">02 / ATLAS DEL SERVIDOR</span><h2>Elegí dónde ir.</h2><p>Inicio: Lorencia, Noria y Elbeland. Después explorá Devias, Dungeon y Lost Tower. Atlans, Tarkan, Aida y los mapas posteriores exigen evaluar tu daño y supervivencia. Esta ruta orienta; tu equipo y tu party deciden cuándo avanzar.</p>
-            <p class="wiki-note">Elegí un mapa y tocá un punto numerado: a su lado vas a encontrar las coordenadas, los mobs y sus drops. También podés elegir el spot por nombre.</p>
+            <span class="eyebrow">02 / ATLAS DEL SERVIDOR</span><h2>Mapas y zonas para entrenar.</h2><p>Inicio: Lorencia, Noria y Elbeland. Después explorá Devias, Dungeon y Lost Tower. Atlans, Tarkan, Aida y los mapas posteriores exigen evaluar tu daño y supervivencia. Esta ruta orienta; tu equipo y tu party deciden cuándo avanzar.</p>
+            <ol class="atlas-steps"><li><b>1</b><span>Elegí un mapa</span></li><li><b>2</b><span>Tocá un spot numerado</span></li><li><b>3</b><span>Conocé sus mobs y drops</span></li></ol>
             <label class="wiki-control">Filtrar mapas<input type="search" data-map-filter placeholder="Mapa o monstruo…"></label><p data-map-status role="status"></p><div class="wiki-map-list">
-            <?php foreach($wiki['maps'] as $map) { ?>
+            <?php foreach($wiki['maps'] as $map) { $mapPreview = $atlasAssets['maps'][(string)$map['id']] ?? null; $mapLevels = array_column($map['monsters'], 'level'); ?>
                 <details class="wiki-map" id="mapa-<?php echo $map['id']; ?>" data-map-aliases="<?php echo panicWikiEscape(implode(' ', $map['aliases'] ?? [])); ?>" data-wiki-search>
-                    <summary><span class="wiki-map-number"><?php echo str_pad($map['id'], 2, '0', STR_PAD_LEFT); ?></span><strong><?php echo panicWikiEscape($map['name']); ?></strong><small><?php echo count($map['spots']); ?> spots · <?php echo count($map['monsters']); ?> tipos de monstruos</small><b aria-hidden="true">+</b></summary>
+                    <summary><?php if($mapPreview) { ?><img class="atlas-map-preview" loading="lazy" width="96" height="96" src="<?php echo __BASE_URL__; ?>templates/mupanic/<?php echo panicWikiEscape($mapPreview['file']); ?>" alt=""><?php } else { ?><span class="atlas-map-placeholder" aria-hidden="true">⌖</span><?php } ?><span class="atlas-map-title"><strong><?php echo panicWikiEscape($map['name']); ?></strong><small><?php echo count($map['spots']); ?> zonas · <?php echo count($map['monsters']); ?> tipos de mobs<?php if($mapLevels) { ?><span>Monstruos nivel <?php echo min($mapLevels).'–'.max($mapLevels); ?></span><?php } ?></small></span><b class="atlas-map-open-label" aria-hidden="true">Abrir →</b></summary>
                     <div class="wiki-map-body"><div class="wiki-map-actions"><button type="button" data-save-map="<?php echo $map['id']; ?>" aria-pressed="false">Guardar mapa</button><a href="#mapa-<?php echo $map['id']; ?>">Enlace directo ↗</a></div>
                     <?php include(__DIR__.'/atlas-explorer.php'); ?>
                     </div>

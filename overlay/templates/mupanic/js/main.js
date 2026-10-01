@@ -145,12 +145,12 @@
   function normalize(value) { return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
   function clearSearch() { search.value = ''; results.replaceChildren(); results.hidden = true; searchStatus.textContent = ''; }
   function revealHash() {
-    var id = location.hash.slice(1) || 'buscar';
+    var id = location.hash.slice(1) || 'inicio';
     var target = document.getElementById(id);
     var panel = target && (target.classList.contains('wiki-section') ? target : target.closest('.wiki-section'));
     if (!panel) panel = panels[0];
     panels.forEach(function (item) { item.hidden = item !== panel; });
-    nav.forEach(function (link) { if (link.hash === '#' + panel.id) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current'); });
+    nav.forEach(function (link) { if (link.hash === '#' + panel.id) { link.setAttribute('aria-current', 'page'); var group = link.closest('details'); if (group) group.open = true; } else link.removeAttribute('aria-current'); });
     if (panel.id === 'taller') selectRecipe(target && target.hasAttribute('data-recipe-id') ? target.getAttribute('data-recipe-id') : currentRecipe);
     // A shared deep link must reveal a map/row even after local filtering.
     if (target) {

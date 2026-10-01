@@ -1,25 +1,207 @@
-/* Map, spawn and loot inspector. Keep text readable against the dark terrain. */
-.panic-wiki .atlas-explorer{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,1fr);gap:24px;align-items:start;margin-top:24px;color:#eee8de}
-.atlas-explorer>*{min-width:0}.atlas-terrain-column{position:sticky;top:104px}.atlas-map-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;font-size:11px;color:#c5cfc9;letter-spacing:1px}.atlas-map-heading strong,.atlas-map-heading a{color:#e5b985;font-size:12px;letter-spacing:0}
-.atlas-terrain{position:relative;width:100%;aspect-ratio:1;border:1px solid #61716a;background:#10191b;isolation:isolate}.atlas-terrain img{display:block;width:100%;height:100%;object-fit:fill}.atlas-terrain-empty{background-color:#152124;background-image:linear-gradient(#70837a22 1px,transparent 1px),linear-gradient(90deg,#70837a22 1px,transparent 1px);background-size:12.5% 12.5%}
-.panic-wiki a.atlas-pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#0c191d;color:#fff3de;border:2px solid #dfb77d;box-shadow:0 2px 8px #000b;font-size:12px;font-weight:700;text-decoration:none;z-index:1;letter-spacing:0}.panic-wiki a.atlas-pin:hover,.panic-wiki a.atlas-pin[aria-current]{background:#e5b985;color:#111b1c;z-index:2;box-shadow:0 0 0 5px #e5b98544}.atlas-pin:focus-visible{outline:3px solid #fff;outline-offset:3px}.atlas-map-caption{font-size:11px!important;line-height:1.7!important;color:#b5c3bd!important;margin:12px 0!important}
-.atlas-travel,.atlas-combat{border-top:1px solid #45544c;padding:12px 0;font-size:12px;color:#c5d0c9}.atlas-travel summary,.atlas-combat summary{cursor:pointer;color:#d8ba96}.atlas-travel p{font-size:12px!important;margin:12px 0!important}.atlas-travel small{font-size:11px}.atlas-inspector{scroll-margin-top:100px}.atlas-spot-picker{display:grid;grid-template-columns:1fr;gap:6px;max-height:190px;overflow-y:auto;padding:4px 8px 4px 4px;scrollbar-color:#b48b5c #162224}.atlas-spot-picker a{display:flex;gap:12px;align-items:center;min-height:54px;padding:10px 12px;border:1px solid #45584f;background:#142124;color:#e9eee8;font-size:12px;line-height:1.4;text-decoration:none}.atlas-spot-picker a[aria-current]{border-color:#e5b985;background:#2c302b}.atlas-spot-picker b{font-size:14px;color:#e5b985}.atlas-spot-picker small{display:block;font-size:10px;color:#b9c7bf;margin-top:3px}.atlas-spot-picker a:focus-visible{outline:2px solid #f4d4a6;outline-offset:1px}.atlas-account{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0;font-size:12px;color:#c8d0cb}.atlas-account select{width:130px;min-height:40px;background:#172629;color:#f4ead9;border:1px solid #748277;padding:8px}
-.atlas-spot-panel{scroll-margin-top:105px}.atlas-spot-panel>header{margin-bottom:16px}.panic-wiki .atlas-spot-panel h3{font:500 30px var(--display);color:#f1e5ce;margin:4px 0}.atlas-spot-panel>header p{color:#c0ccc6;font-size:12px;margin:0}.atlas-mob{padding:16px;margin-bottom:12px;background:#142124;border:1px solid #4b5b51;color:#e9eee8}.atlas-mob-heading{display:flex;align-items:center;justify-content:space-between;gap:10px}.panic-wiki .atlas-mob-heading h4{font:500 24px var(--display);color:#f3e7cf;margin:0 0 4px;line-height:1.2}.atlas-mob-heading span{font-size:11px;color:#bdcdc3}.atlas-mob-heading .atlas-mob-level{white-space:nowrap;font-size:12px;background:#e5b985;color:#182121;padding:6px 9px;border-radius:4px;font-weight:700}.atlas-mob-facts{display:flex;gap:24px;flex-wrap:wrap;border-bottom:1px solid #43544b;padding:14px 0;margin-bottom:12px;font-size:10px;color:#b9c9bf}.atlas-mob-facts strong{display:block;font-size:14px;color:#f5ead9;margin-top:3px}.atlas-loot summary{cursor:pointer;font-size:13px;color:#f4dfbf}.atlas-loot summary span{float:right;background:#2b3934;padding:2px 8px;border-radius:12px;color:#e5b985;font-size:11px}.atlas-loot ul{list-style:none;margin:10px 0 0;padding:0;max-height:220px;overflow-y:auto;scrollbar-color:#b48b5c #162224}.atlas-loot li{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid #35483e;padding:9px 0;font-size:12px}.atlas-loot li span{overflow-wrap:anywhere}.atlas-loot li strong{white-space:nowrap;color:#f3cc96;font-size:12px}.atlas-loot p,.atlas-loot-note{font-size:11px!important;color:#b9c8bf!important;line-height:1.7!important}.atlas-special-loot{display:block;font-size:12px;color:#efc38e;margin:14px 0}.atlas-combat{margin-top:14px;padding-bottom:0}.atlas-combat dl{display:grid;grid-template-columns:1fr auto;gap:8px;margin:12px 0 0;font-size:11px}.atlas-combat dd{margin:0;color:#f3e7cf}.panic-wiki [hidden]{display:none!important}
-@media(min-width:901px){.wiki-enhanced .atlas-inspector{max-height:calc(100vh - 135px);overflow-y:auto;padding-right:10px;scrollbar-color:#b48b5c #162224}}
-@media(max-width:1100px){.panic-wiki .atlas-explorer{grid-template-columns:minmax(0,1fr) minmax(280px,1fr);gap:16px}}
-@media(max-width:900px){.panic-wiki .atlas-explorer{grid-template-columns:1fr}.atlas-terrain-column{position:static}.atlas-terrain{max-width:540px;margin:auto}.atlas-spot-picker{grid-template-columns:repeat(2,minmax(0,1fr));max-height:180px}.atlas-spot-picker a{padding:8px}.atlas-account{justify-content:flex-start}.atlas-pin{width:32px;height:32px}}
-@media(max-width:420px){.atlas-spot-picker{grid-template-columns:1fr}.atlas-mob-heading h4{font-size:22px!important}.atlas-mob{padding:14px}.atlas-terrain .atlas-pin{width:28px;height:28px;font-size:11px}.atlas-map-heading{font-size:10px}}
+/* Atlas reading system: warm light surfaces, large text, genuine client artwork. */
+.is-wiki{background:#f3f3ed;color:#25352f}
+.is-wiki .inner-hero{background:linear-gradient(90deg,#edf1e9ed,#edf1e9b8),url('../img/origin.webp') center 48%/cover;border-bottom:1px solid #ccd6cb;padding-top:145px;padding-bottom:30px}
+.is-wiki .inner-hero h1{color:#203d32;font-size:clamp(42px,5vw,68px)}
+.is-wiki .inner-hero .eyebrow,.is-wiki .inner-head>a{color:#38634e}
+.is-wiki .inner-content{padding-top:28px}
+.is-wiki .module-surface{color:#25352f}
+.is-wiki .module-surface :is(h2,h3,h4){color:#213e32}
+.is-wiki .module-surface a{color:#235c45}
+.panic-wiki{--atlas-line:#cdd8cd;--atlas-muted:#53655a;display:grid;grid-template-columns:250px minmax(0,1fr);gap:32px;font-size:17px;color:#25352f;align-items:start}
+.panic-wiki [hidden]{display:none!important}
+.panic-wiki :is(input,select){min-height:52px;border:1px solid #97b09c;border-radius:8px;background:#fff;color:#25352f;font-size:16px;padding:12px;width:100%}
+.panic-wiki :is(input,select,button,a,summary):focus-visible{outline:3px solid #397b58;outline-offset:3px}
+.panic-wiki .eyebrow{font-size:13px;letter-spacing:.08em;color:#536d58;font-weight:700}
+.panic-wiki .wiki-content{min-width:0}
+.panic-wiki .wiki-content p{font-size:17px;line-height:1.75;color:#465b4e;max-width:780px}
+.panic-wiki .wiki-section{padding:16px 0 44px;scroll-margin-top:100px}
+.panic-wiki .wiki-section>h2{font:700 clamp(30px,3.4vw,44px)/1.15 var(--body);text-transform:none;letter-spacing:-.025em;margin:12px 0 18px}
+.panic-wiki .wiki-section h3{font-family:var(--body);font-weight:700;line-height:1.3}
+.panic-wiki .wiki-nav{position:sticky;top:98px;padding:24px 18px;border:1px solid var(--atlas-line);border-radius:14px;background:#fff;max-height:calc(100vh - 115px);overflow:auto;box-shadow:0 5px 20px #28422e08}
+.panic-wiki .wiki-nav label{font-size:15px;color:#304b39;margin:20px 0 10px}
+.panic-wiki .wiki-nav nav{gap:6px;margin-top:22px}
+.panic-wiki .wiki-nav nav a{font-size:16px;padding:14px 12px;border:0;border-radius:8px;gap:8px;min-height:48px;color:#354e3e}
+.panic-wiki .wiki-nav nav a span{font-size:16px;font-weight:600}
+.panic-wiki .wiki-nav nav a:hover{background:#edf4eb}
+.panic-wiki .wiki-nav nav a[aria-current]{background:#245c44;color:#fff;border:0;padding-left:12px}
+.panic-wiki .wiki-date{font-size:13px;line-height:1.6;letter-spacing:0;color:#607063;margin-top:22px}
+.atlas-learn-nav{border-top:1px solid var(--atlas-line);margin-top:12px;padding-top:14px}
+.atlas-learn-nav>summary{cursor:pointer;font-size:16px;font-weight:700;padding:8px;color:#365642}
+.panic-wiki .wiki-search-results{background:#f4f8f1;border:1px solid var(--atlas-line);border-radius:8px}
+.panic-wiki .wiki-search-results a{font-size:15px;padding:14px;border-bottom:1px solid var(--atlas-line)}
+.panic-wiki .wiki-search-results small{font-size:14px;color:var(--atlas-muted)}
+.panic-wiki :is(.wiki-search-status,[data-drop-status],[data-map-status],[data-reward-status],[data-atlas-find-status]){font-size:15px!important;color:#526856}
+.panic-wiki .wiki-control{font-size:15px;color:#36513e;letter-spacing:0;max-width:none;font-weight:600}
+.panic-wiki .wiki-note{background:#eaf2e5;border:1px solid #c8d9bf;border-left:4px solid #61884d;border-radius:8px;color:#405d38;padding:18px 20px}
+.panic-wiki :is(.wiki-quick button,.wiki-map-actions button,.atlas-find-more){font-size:15px;min-height:46px;background:#fff;border:1px solid #a9bfa9;border-radius:8px;color:#24593f;padding:10px 16px;cursor:pointer;font-weight:600}
+.panic-wiki :is(.wiki-quick button,.wiki-map-actions button,.atlas-find-more):hover{background:#e9f3e5}
+.panic-wiki .wiki-quick button[aria-pressed=true],.panic-wiki .wiki-map-actions button[aria-pressed=true]{background:#245c44;color:#fff;border-color:#245c44}
+.panic-wiki .wiki-map-actions a{font-size:15px}
+.panic-wiki table{font-size:16px;background:#fff;border:1px solid var(--atlas-line)}
+.panic-wiki :is(td,th){padding:16px;border-bottom:1px solid var(--atlas-line);color:#2c4133}
+.panic-wiki th{font-size:14px;background:#e7eee2;color:#38513d;text-transform:none;letter-spacing:0}
+.panic-wiki tbody tr:nth-child(even){background:#f5f8f2}
+.panic-wiki tr:target{background:#fff0c8;outline:2px solid #b57b2c}
+.panic-wiki td small{font-size:14px;color:#566b59;white-space:normal}
+.panic-wiki .wiki-table-scroll{border-radius:10px;overscroll-behavior-x:contain}
+.panic-wiki .wiki-drop-controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+.panic-wiki code{background:#e7eddd;color:#3c5e33;padding:3px 6px;border-radius:4px}
+.panic-wiki .wiki-glossary{font-size:16px;line-height:1.8}
+.panic-wiki .wiki-glossary dt{color:#285940;font-weight:700}
+.panic-wiki .wiki-route{padding-left:30px}
+.panic-wiki .wiki-route li{padding:24px 0 24px 12px;border-bottom:1px solid var(--atlas-line)}
+.panic-wiki .wiki-route strong{font:700 24px var(--body);color:#244430}
+.panic-wiki .wiki-route a{font-size:16px}
+.panic-wiki .wiki-route li::marker{color:#4b7548;font-size:26px}
+/* A first screen organized around decisions, rather than a list of systems. */
+.atlas-home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:30px 0}
+.panic-wiki a.atlas-home-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid #becfba;background:#fff;border-radius:14px;box-shadow:0 5px 16px #35513a0a;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.atlas-home-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #35513a1a}
+.atlas-home-art{height:170px;background:#e4ecdb;overflow:hidden;border-bottom:1px solid #cbd8c1}
+.atlas-home-art>img{width:100%;height:100%;object-fit:cover}
+.atlas-home-creatures{display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse,#fff8dd,#d6e3c5)}
+.atlas-home-creatures>img{width:33%;height:150px;object-fit:contain}
+.atlas-home-card>div:last-child{padding:22px;display:flex;flex-direction:column;flex:1}
+.atlas-purpose{font-size:12px;letter-spacing:.06em;color:#5e7456;font-weight:700}
+.panic-wiki .atlas-home-card h3{font-size:23px;margin:12px 0}
+.panic-wiki .atlas-home-card p{font-size:16px;line-height:1.65;margin:0 0 20px}
+.atlas-home-card strong{font-size:16px;color:#245c44;margin-top:auto}
+.atlas-basics{background:#eaf0e2;padding:26px;border:1px solid #ccd9c0;border-radius:14px}
+.panic-wiki .atlas-basics h3{font-size:22px;margin:0 0 20px}
+.atlas-basics dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0}
+.atlas-basics dt{font-size:17px;font-weight:700;color:#365235;margin-bottom:8px}
+.atlas-basics dd{font-size:16px;line-height:1.7;color:#4d6048;margin:0}
+.atlas-home-secondary{display:inline-block;margin:24px 0;font-size:17px;font-weight:600}
+.atlas-steps{list-style:none;padding:18px;display:flex;gap:24px;flex-wrap:wrap;background:#eaf0e2;border-radius:10px;margin:24px 0}
+.atlas-steps li{display:flex;align-items:center;gap:10px;font-size:16px;color:#355439}
+.atlas-steps b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#2d6548;color:#fff}
+/* Map cards retain native accessible details, with real terrain previews. */
+.panic-wiki #progresion .wiki-map-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panic-wiki .wiki-map{border:1px solid #bfceba;background:#fff;border-radius:12px;overflow:hidden;margin-bottom:12px}
+.panic-wiki #progresion .wiki-map{margin-bottom:0;min-width:0}
+.panic-wiki #progresion .wiki-map[open]{grid-column:1/-1}
+.panic-wiki .wiki-map>summary{padding:20px;gap:16px;min-height:100px;background:#fff}
+.panic-wiki .wiki-map[open]>summary{border-bottom:1px solid var(--atlas-line);background:#edf3e6}
+.panic-wiki .wiki-map>summary strong{font:700 23px var(--body);color:#244b34}
+.panic-wiki .wiki-map>summary small{font-size:15px;color:#546b54;max-width:none;text-align:left;margin-left:auto}
+.panic-wiki .wiki-map>summary b{color:#285e40;font-size:15px;font-weight:700;white-space:nowrap}
+.panic-wiki .wiki-map[open]>summary b{transform:none}
+.panic-wiki .wiki-map-body{padding:0 24px 26px}
+.atlas-map-preview,.atlas-map-placeholder{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid #c9d5c0;flex:0 0 84px}
+.atlas-map-placeholder{display:grid;place-items:center;background:#edf2e6;color:#4d764e;font-size:42px}
+.atlas-map-title{flex:1;min-width:0}
+.atlas-map-title strong,.atlas-map-title small,.atlas-map-title small span{display:block}
+.panic-wiki .atlas-map-title small{margin:8px 0 0;font-size:14px;line-height:1.6}
+.panic-wiki .atlas-map-open-label{font-size:14px!important}
+/* Map and selected spot. No nested page-sized scroll container. */
+.panic-wiki .atlas-explorer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}
+.atlas-explorer>*{min-width:0}
+.atlas-terrain-column{position:sticky;top:104px}
+.atlas-map-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px;font-size:14px;font-weight:700;color:#405c44}
+.atlas-map-heading strong,.atlas-map-heading a{font-size:15px;color:#285d40}
+.atlas-map-window{width:100%;aspect-ratio:1;overflow:auto;border:2px solid #819975;border-radius:10px;background:#26342a}
+.atlas-terrain{position:relative;width:100%;aspect-ratio:1;isolation:isolate;background:#dce6d2}
+.atlas-terrain img{display:block;width:100%;height:100%;object-fit:fill}
+.atlas-terrain-empty{background-image:linear-gradient(#849f6b55 1px,transparent 1px),linear-gradient(90deg,#849f6b55 1px,transparent 1px);background-size:12.5% 12.5%}
+.atlas-map-window.is-zoomed .atlas-terrain{width:200%}
+.panic-wiki a.atlas-pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fffce9;color:#1f4b32;border:2px solid #376342;box-shadow:0 2px 8px #0008;font-size:15px;font-weight:800;text-decoration:none;z-index:1}
+.panic-wiki a.atlas-pin:hover,.panic-wiki a.atlas-pin[aria-current]{background:#f3c952;color:#263520;border-color:#fff;z-index:2;box-shadow:0 0 0 5px #f3c95266}
+.panic-wiki .atlas-map-caption{font-size:14px!important;line-height:1.7!important;color:#53634d!important;margin:14px 0!important}
+.atlas-zoom{font-size:15px;font-weight:600;min-height:44px;background:#fff;border:1px solid #95ad88;border-radius:8px;color:#365e34;padding:8px 12px;cursor:pointer}
+.panic-wiki:not(.wiki-enhanced) .atlas-zoom{display:none}
+.atlas-travel,.atlas-combat{border-top:1px solid var(--atlas-line);padding:16px 0;font-size:16px;color:#455d47}
+.atlas-travel summary,.atlas-combat summary{cursor:pointer;color:#2a603e;font-weight:600}
+.panic-wiki .atlas-travel p{font-size:16px!important;margin:12px 0!important}
+.atlas-travel small{font-size:14px;line-height:1.6}
+.atlas-inspector{scroll-margin-top:100px}
+.atlas-spot-picker{display:grid;gap:8px;max-height:250px;overflow:auto;padding:3px;scrollbar-color:#79945f #e9f0e2}
+.atlas-spot-picker a{display:flex;gap:12px;align-items:center;min-height:68px;padding:14px;border:1px solid #b4c6a5;background:#f5f8f0;border-radius:9px;color:#2a4c31;font-size:16px;line-height:1.5;text-decoration:none}
+.atlas-spot-picker a[aria-current]{border:2px solid #47733d;background:#e9f3db;padding:13px}
+.atlas-spot-picker b{font-size:21px;color:#386d34;flex:0 0 28px}
+.atlas-spot-picker small{display:block;font-size:14px;color:#546a4d;margin-top:4px}
+.atlas-account{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0;font-size:15px;color:#40583e}
+.panic-wiki .atlas-account select{width:140px;flex-shrink:0}
+.atlas-spot-panel{scroll-margin-top:105px}
+.atlas-spot-panel>header{margin:22px 0}
+.panic-wiki .atlas-spot-panel h3{font:700 27px var(--body);margin:8px 0;color:#264b33}
+.panic-wiki .atlas-spot-panel>header p{font-size:16px;margin:0}
+.atlas-mob{padding:22px;margin-bottom:18px;border:1px solid #bbceaf;border-radius:12px;background:#f9fbf5;color:#2c4530}
+.atlas-mob-heading{display:flex;align-items:center;gap:14px}
+.atlas-mob-name{flex:1;min-width:0;overflow-wrap:anywhere}
+.panic-wiki .atlas-mob-heading h4{font:700 23px/1.3 var(--body);color:#264c31;margin:0 0 8px}
+.atlas-mob-heading span{font-size:15px;color:#4f6547}
+.atlas-mob-heading .atlas-mob-level{white-space:nowrap;background:#e4ecd7;border-radius:6px;color:#315535;padding:8px;font-size:14px;font-weight:700}
+.atlas-mob-portrait,.atlas-reward-portrait{object-fit:contain;background:radial-gradient(ellipse,#fff8e4,#d9e5c9);border:1px solid #b8caa9;border-radius:10px}
+.atlas-mob-portrait{width:110px;height:110px;flex:0 0 110px}
+.atlas-reward-portrait{display:block;width:180px;height:180px;margin:20px 0}
+.atlas-mob-facts{display:flex;gap:24px;flex-wrap:wrap;padding:20px 0;border-bottom:1px solid var(--atlas-line);margin-bottom:16px;font-size:14px;color:#52674c}
+.atlas-mob-facts strong{display:block;font-size:20px;color:#2b5132;margin-top:6px}
+.atlas-loot>summary{font-size:16px;font-weight:700;color:#2c603b;cursor:pointer;min-height:44px;padding:10px 0}
+.atlas-loot summary span{float:right;border-radius:20px;background:#e0eacb;padding:3px 10px;color:#3c5831;font-size:14px}
+.atlas-loot ul{list-style:none;margin:8px 0;padding:0}
+.atlas-loot li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--atlas-line);font-size:16px;color:#344f34}
+.atlas-loot li span{overflow-wrap:anywhere}
+.atlas-loot li strong{white-space:nowrap;color:#775119;font-size:16px;align-self:center}
+.atlas-loot li small{display:block;margin-top:5px;color:#5d7054;font-size:14px}
+.panic-wiki .atlas-loot p,.panic-wiki .atlas-loot-note{font-size:14px!important;line-height:1.7!important;color:#52644a!important}
+.panic-wiki .atlas-drop-group{font:700 15px var(--body);color:#476b36;margin:20px 0 6px}
+.atlas-special-loot{display:block;font-size:16px;font-weight:600;margin:18px 0}
+.atlas-combat{margin-top:16px;padding-bottom:0}
+.atlas-combat dl{display:grid;grid-template-columns:1fr auto;gap:12px;font-size:15px}
+.atlas-combat dd{margin:0;font-weight:600;color:#335236}
+/* Search cards, with a larger portrait and clearly separated obtainment routes. */
+.atlas-finder-controls{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:end;padding:22px;background:#eaf1e2;border:1px solid #c5d5b8;border-radius:12px;margin:26px 0}
+.atlas-find-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:24px 0}
+.atlas-find-card{min-width:0;padding:24px;background:#fff;border:1px solid #bcccaf;border-radius:14px;box-shadow:0 4px 16px #344d2708}
+.atlas-find-card header{display:flex;gap:16px;align-items:center}
+.atlas-find-card header img{width:100px;height:100px;object-fit:contain;background:radial-gradient(ellipse,#fff6dc,#dde8d0);border-radius:10px}
+.atlas-find-card header small{font-size:13px;color:#62784f;font-weight:700}
+.panic-wiki .atlas-find-card h3{font:700 25px/1.3 var(--body);color:#2e5136;margin:8px 0;overflow-wrap:anywhere}
+.panic-wiki .atlas-find-card h4{font:700 16px var(--body);color:#3d5c36;margin:24px 0 10px}
+.atlas-find-card ul{list-style:none;padding:0;margin:0}
+.atlas-find-card li{padding:14px 0;border-bottom:1px solid var(--atlas-line);overflow-wrap:anywhere}
+.atlas-find-card li>a{font-size:16px;font-weight:600;line-height:1.65}
+.atlas-find-card li small{display:block;font-size:14px;color:#5e7054;line-height:1.7;margin-top:6px}
+.atlas-find-spots{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.atlas-find-spots a{padding:9px 12px;background:#edf3e2;border:1px solid #b5c99e;border-radius:6px;font-size:14px;color:#31542d}
+.atlas-find-card details{margin-top:16px}
+.atlas-find-card details summary{cursor:pointer;font-size:16px;color:#35632e;font-weight:600;min-height:44px;padding:10px 0}
+.panic-wiki .atlas-find-card p,.panic-wiki .atlas-find-help{font-size:15px;line-height:1.75;color:#53674a}
+/* The same reading scale continues through recipes, improvements and rewards. */
+.panic-wiki .recipe-nav>a{background:#fff;border:1px solid #c8d6be;border-radius:8px;font-size:16px;padding:18px;margin-bottom:8px;color:#345834}
+.panic-wiki .recipe-nav>a[aria-current]{background:#e3eed6;border-left:4px solid #4c7335;color:#2b532b}
+.panic-wiki .recipe-nav small{font-size:12px;color:#5f7850;letter-spacing:.05em}
+.panic-wiki :is(.recipe-article,.upgrade-calculator){background:#fff;border:1px solid #c0d2b2;border-radius:12px;padding:28px}
+.panic-wiki .recipe-symbol{background:#edf3e4;border-color:#bdd1ab;color:#4c7337;border-radius:8px}
+.panic-wiki .recipe-heading h3{font-size:30px;line-height:1.2;color:#325132}
+.panic-wiki .recipe-heading p{font-size:15px;color:#5d7350}
+.panic-wiki .recipe-rate{border-color:#ccd9c2}
+.panic-wiki :is(.recipe-rate small,.recipe-result small){font-size:13px;color:#5b724b;letter-spacing:0}
+.panic-wiki .recipe-rate strong,.panic-wiki .upgrade-result strong{color:#467037}
+.panic-wiki .recipe-rate p,.panic-wiki .recipe-zen,.panic-wiki .recipe-inventory-note,.panic-wiki .recipe-progress{font-size:16px!important;color:#516745}
+.panic-wiki :is(.recipe-article h4,.equipment-article h4){font:700 21px var(--body);color:#375f30;text-transform:none}
+.panic-wiki .recipe-materials li{border-color:#cddbc2;padding:18px 0}
+.panic-wiki .recipe-materials strong{font-size:17px;color:#2d4930}
+.panic-wiki .recipe-materials small{font-size:15px;color:#5b7050}
+.panic-wiki .recipe-materials li>a,.panic-wiki .recipe-permalink{font-size:16px}
+.panic-wiki .material-count{color:#4f713c;font:700 22px var(--body)}
+.panic-wiki .recipe-steps,.panic-wiki .equipment-columns ul,.panic-wiki .equipment-article a{font-size:17px;line-height:1.8}
+.panic-wiki .recipe-result{background:#ecf3e4;border-color:#759856;border-radius:8px}
+.panic-wiki .recipe-reference{background:#f5f8f0;border-color:#c4d6b5;border-radius:8px}
+.panic-wiki .recipe-reference summary{font:700 20px var(--body);color:#416e32}
+.panic-wiki .upgrade-luck{color:#375332;font-size:16px}
+.panic-wiki .upgrade-result{border-color:#cad9bf}
+.panic-wiki .upgrade-result p{font-size:17px}
+.panic-wiki .equipment-tabs,.panic-wiki .equipment-article{border-color:#c4d5b5}
+.panic-wiki .equipment-tabs a{font:600 20px var(--body)}
+.panic-wiki .wiki-saved{border-color:#c5d5ba}
+.panic-wiki .wiki-saved a{font-size:16px}
+@media(max-width:1150px){.panic-wiki{grid-template-columns:220px minmax(0,1fr);gap:24px}.atlas-home-grid{grid-template-columns:1fr}.atlas-home-card{flex-direction:row!important}.atlas-home-art{width:180px;height:auto;min-height:180px;flex:0 0 180px;border-bottom:0}.atlas-home-creatures>img{height:160px}.atlas-mob-heading .atlas-mob-level{display:none}.atlas-find-results{grid-template-columns:1fr}.panic-wiki #progresion .wiki-map-list{grid-template-columns:1fr}.atlas-home-card>div:last-child{padding:24px}}
+@media(max-width:950px){.panic-wiki .atlas-explorer{grid-template-columns:1fr}.atlas-terrain-column{position:static}.atlas-map-window{max-width:620px;margin:auto}.atlas-spot-picker{grid-template-columns:repeat(2,minmax(0,1fr));max-height:280px}.atlas-basics dl{grid-template-columns:1fr;gap:20px}}
+@media(max-width:750px){.panic-wiki{display:block}.panic-wiki .wiki-nav{position:static;max-height:none;margin-bottom:28px;padding:20px}.panic-wiki .wiki-nav nav{display:grid;grid-template-columns:1fr 1fr;overflow:visible;gap:6px}.panic-wiki .wiki-nav nav a{white-space:normal;padding:12px;flex-shrink:1}.panic-wiki .wiki-nav nav a span{font-size:15px}.atlas-learn-nav{grid-column:1/-1}.panic-wiki .wiki-nav .eyebrow,.panic-wiki .wiki-date{display:block}.panic-wiki .wiki-date{margin-bottom:0}.atlas-finder-controls{padding:18px}.panic-wiki .wiki-map-body{padding:0 18px 24px}.atlas-steps{gap:16px}.panic-wiki .wiki-nav nav a[aria-current]{padding:12px}}
+@media(max-width:500px){.atlas-home-card{flex-direction:column!important}.atlas-home-art{width:100%;height:170px;min-height:0;flex:0 0 170px}.atlas-finder-controls,.panic-wiki .wiki-drop-controls{grid-template-columns:1fr}.atlas-spot-picker{grid-template-columns:1fr}.atlas-mob{padding:18px}.atlas-mob-portrait{width:96px;height:96px;flex-basis:96px}.panic-wiki .atlas-mob-heading h4{font-size:21px}.panic-wiki .wiki-map>summary{padding:16px;gap:12px;flex-wrap:wrap}.atlas-map-preview,.atlas-map-placeholder{width:72px;height:72px;flex-basis:72px}.panic-wiki .wiki-map>summary strong{font-size:22px}.atlas-map-open-label{margin-left:auto}.panic-wiki .wiki-map>summary small{font-size:14px}.panic-wiki .wiki-glossary{grid-template-columns:1fr}.atlas-find-card{padding:20px}.atlas-find-card header img{width:86px;height:86px}.panic-wiki .recipe-article{padding:20px}.panic-wiki .recipe-heading h3{font-size:25px}}
+@media(prefers-reduced-motion:reduce){.atlas-home-card{transition:none}.atlas-home-card:hover{transform:none}}
 
-.atlas-map-window{width:100%;aspect-ratio:1;overflow:auto;border:1px solid #61716a;scrollbar-color:#b48b5c #162224}.atlas-map-window .atlas-terrain{border:0;max-width:none;margin:0}.atlas-map-window.is-zoomed .atlas-terrain{width:200%}.atlas-zoom{background:#20302b;color:#f2cf9b;border:1px solid #8f9c90;padding:7px 10px;font-size:11px;cursor:pointer}.atlas-zoom:focus-visible{outline:2px solid #f4d4a6;outline-offset:3px}.panic-wiki:not(.wiki-enhanced) .atlas-zoom{display:none}.atlas-account select:focus-visible{outline:2px solid #f4d4a6;outline-offset:2px}
+.panic-wiki .wiki-map details>summary{display:list-item;list-style:disclosure-closed;padding:12px 0;min-height:44px;font-size:16px;line-height:1.5;color:#2a603e;border:0}.panic-wiki .wiki-map details[open]>summary{list-style:disclosure-open}.panic-wiki .atlas-loot>summary{font-weight:700}
 
-.atlas-loot li small{display:block;margin-top:3px;color:#b9c9bf;font-size:10px;font-weight:400}.atlas-loot li strong{align-self:center}
-
-/* Authenticated client portraits keep a fixed footprint in the spot inspector. */
-.atlas-mob-portrait{width:96px;height:96px;flex:0 0 96px;object-fit:contain;background:radial-gradient(ellipse,#344442 0%,#1b2a2c 70%);border:1px solid #526157;border-radius:8px}.atlas-mob-name{flex:1;min-width:0;overflow-wrap:anywhere}.atlas-reward-portrait{display:block;width:144px;height:144px;object-fit:contain;margin:0 0 16px;background:radial-gradient(ellipse,#344442 0%,#1b2a2c 70%);border:1px solid #526157;border-radius:8px}
-@media(max-width:420px){.atlas-mob-portrait{width:72px;height:72px;flex-basis:72px}.atlas-mob-heading .atlas-mob-level{display:none}.atlas-mob-name h4{font-size:20px!important}}
-
-.atlas-finder-controls{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;align-items:end}.atlas-finder-controls .wiki-control{min-width:0}.atlas-find-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}.atlas-find-card{min-width:0;padding:20px;background:#142124;border:1px solid #4b5b51;border-radius:10px;color:#ecede5}.atlas-find-card header{display:flex;gap:14px;align-items:center}.atlas-find-card header img{width:72px;height:72px;object-fit:contain;background:#223336;border-radius:8px}.atlas-find-card header small{font-size:10px;color:#dfbb88;letter-spacing:1px}.panic-wiki .atlas-find-card h3{font:500 28px var(--display);color:#f4e8d0;margin:4px 0;overflow-wrap:anywhere}.panic-wiki .atlas-find-card h4{font:600 13px var(--body);color:#dbe8de;margin:18px 0 8px}.atlas-find-card ul{padding:0;margin:0;list-style:none}.atlas-find-card li{padding:10px 0;border-bottom:1px solid #354b43;overflow-wrap:anywhere}.atlas-find-card li>a{font-size:13px;color:#f1c88f;line-height:1.6}.atlas-find-card li small{display:block;font-size:11px;color:#c3d0c8;line-height:1.6;margin-top:4px}.atlas-find-spots{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;max-height:110px;overflow:auto}.atlas-find-spots a{padding:5px 8px;background:#293e36;border:1px solid #56705f;border-radius:4px;font-size:11px;color:#edf3e9}.atlas-find-card details{margin-top:10px}.atlas-find-card details summary{cursor:pointer;font-size:12px;color:#edca98}.atlas-find-card details ul{max-height:280px;overflow:auto;padding-right:8px}.panic-wiki .atlas-find-card p,.panic-wiki .atlas-find-help{font-size:12px;line-height:1.7;color:#c2cec7}.atlas-find-more{border:1px solid #bd986b;border-radius:6px;background:#293d34;color:#f6e1c4;padding:12px 20px;cursor:pointer}.atlas-finder input:focus-visible,.atlas-finder select:focus-visible,.atlas-find-card a:focus-visible,.atlas-find-more:focus-visible{outline:2px solid #edc691;outline-offset:3px}
-@media(max-width:900px){.atlas-finder-controls{grid-template-columns:1fr 1fr}.atlas-finder-controls>label:first-child{grid-column:1/-1}}
-@media(max-width:600px){.atlas-find-results{grid-template-columns:1fr}.atlas-finder-controls{grid-template-columns:1fr}.atlas-find-card{padding:16px}}
-
-.panic-wiki .atlas-drop-group{font:600 11px var(--body);color:#efc896;margin:16px 0 4px}.atlas-loot .atlas-drop-group+ul{margin-top:0}
+.panic-wiki input[type="checkbox"]{width:22px;height:22px;min-height:22px;accent-color:#376d46;flex-shrink:0;padding:0}.panic-wiki .recipe-materials label:has(input:checked){opacity:1;background:#edf5e5;border-radius:6px}
