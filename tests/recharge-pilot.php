@@ -117,6 +117,34 @@ try {
     $store->save($reserved); $duplicate=true;
     $store->inspect($paged,'fixture'); $held=$store->inspect($paged,'fixture');
     expectPilot($held['payment_state']==='review' && PanicRechargePilot::job($held)===null,'Different matches on different pages hold delivery');
+    $replacePosts=0; $remoteStatus='PENDING'; $newReference=null;
+    $replacement=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url,$headers,$body) use ($reserved,&$replacePosts,&$remoteStatus,&$newReference) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        if($method==='GET') return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>$remoteStatus];
+        $replacePosts++; $newReference=$body['external_reference'];
+        return ['uuid'=>'replacement-payment','amount'=>100000,'external_reference'=>$newReference,'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/replacement']];
+    });
+    $store->save($pending); $remoteStatus='APPROVED';
+    expectPilot($store->replaceMissingLink($replacement,'fixture','https://preview.test/')['payment_state']==='approved' && $replacePosts===0,'Canonical approval prevents replacement');
+    $remoteStatus='PENDING'; $store->save($pending);
+    $replaced=$store->replaceMissingLink($replacement,'fixture','https://preview.test/');
+    expectPilot($replacePosts===1 && $replaced['id']!==$reserved['id'] && $replaced['retired_attempt']['id']===$reserved['id'],'Explicit replacement preserves retired attempt with new reference');
+    expectPilot($replaced['replacement_used'] && PanicRechargePilot::job($replaced)===null,'Replacement is reserved and still requires payment');
+    $store->replaceMissingLink($replacement,'fixture','https://preview.test/');
+    expectPilot($replacePosts===1,'Repeated replacement cannot create another payment');
+    rejectPilot(function() use ($store,$replacement,$reserved) { $store->refresh($replacement,'fixture',$reserved['callback_token']); },'Retired callback cannot refresh new attempt');
+    $store->save($pending);
+    rejectPilot(function() use ($store,$uncertain) { $store->replaceMissingLink($uncertain,'fixture','https://preview.test/'); },'Failed canonical GET blocks replacement');
+    expectPilot($store->current()['id']===$pending['id'],'Failed preflight preserves active attempt');
+    $timeoutPosts=0;
+    $replacementTimeout=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($reserved,&$timeoutPosts) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        if($method==='GET') return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'PENDING'];
+        $timeoutPosts++; throw new RuntimeException('Ambiguous timeout');
+    });
+    rejectPilot(function() use ($store,$replacementTimeout) { $store->replaceMissingLink($replacementTimeout,'fixture','https://preview.test/'); },'Replacement timeout is reserved');
+    $store->replaceMissingLink($replacementTimeout,'fixture','https://preview.test/');
+    expectPilot($timeoutPosts===1 && $store->current()['replacement_used'],'Timeout replacement cannot be repeated');
     unlink($root.'/uala-pilot.json');
     if(function_exists('pcntl_fork')) {
         $children=[];

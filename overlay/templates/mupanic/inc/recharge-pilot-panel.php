@@ -17,6 +17,7 @@ try {
             if($_POST['uala_pilot_action']==='create') $pilotStore->begin($pilotApi,'https://beta.mupanic.com.ar/');
             elseif($_POST['uala_pilot_action']==='refresh') $pilotStore->refresh($pilotApi,$pilotMerchant);
             elseif($_POST['uala_pilot_action']==='inspect') $pilotStore->inspect($pilotApi,$pilotMerchant);
+            elseif($_POST['uala_pilot_action']==='replace') $pilotStore->replaceMissingLink($pilotApi,$pilotMerchant,'https://beta.mupanic.com.ar/');
         }
     }
     $pilot=$pilotStore->current();
@@ -36,7 +37,14 @@ $pilotLabels=['creating'=>'Creación pendiente de revisar','pending'=>'Pago pend
         <?php if(($pilot['last_error'] ?? '')==='RECOVERY_MORE_PAGES') { ?><p>Revisamos <?php echo (int)($pilot['recovery_pages'] ?? 0); ?> página(s). Hay más resultados: esperá 15 segundos y continuá la revisión con el botón de abajo. No se crea otro cobro.</p><?php } ?>
         <p><b><?php echo panicAccountEscape($pilotLabels[$pilot['payment_state']] ?? 'En revisión'); ?></b> · Entrega: <?php echo panicAccountEscape(['pending'=>'Pendiente','credited'=>'1.000 WCoin C acreditados','reverted'=>'Monedas de prueba retiradas'][$pilot['delivery_state']] ?? 'En revisión'); ?></p>
         <?php if(isset($pilot['checkout_url']) && $pilot['payment_state']==='pending') { ?><p><a class="btn btn-primary" href="<?php echo panicAccountEscape($pilot['checkout_url']); ?>" target="_blank" rel="noopener noreferrer">Abrir pago simulado en Ualá</a></p><?php } ?>
-        <?php if(isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && empty($pilot['checkout_url'])) { ?><p>Encontramos la compra, pero falta el enlace para pagar. «Actualizar estado» intenta recuperar ese enlace si Ualá lo devuelve. Si sigue sin aparecer, no repitas la consulta ni crees otra compra: necesitamos recuperar el enlace original desde Ualá.</p><?php } ?>
+        <?php if(isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && empty($pilot['checkout_url'])) { ?><p>Encontramos la compra, pero falta el enlace para pagar. Actualizar el estado no completa el pago. No hace falta seguir repitiendo la consulta.</p><?php } ?>
+        <?php if(isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && $pilot['delivery_state']==='pending' && empty($pilot['checkout_url']) && empty($pilot['replacement_used'])) { ?>
+        <p>Podés reemplazar este intento sin enlace por uno nuevo de prueba. El anterior queda registrado y deja de entregar monedas desde esta web. Se mantiene el límite de una sola acreditación de 1.000 WCoin C. Usá únicamente la tarjeta de prueba.</p>
+        <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">
+            <input type="hidden" name="uala_check_csrf" value="<?php echo panicAccountEscape($_SESSION['uala_check_csrf']); ?>">
+            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="replace">Generar nuevo enlace de prueba</button>
+        </form>
+        <?php } ?>
         <?php if(isset($pilot['payment_id'])) { ?>
         <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">
             <input type="hidden" name="uala_check_csrf" value="<?php echo panicAccountEscape($_SESSION['uala_check_csrf']); ?>">
