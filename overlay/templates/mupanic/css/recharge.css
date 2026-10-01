@@ -8,6 +8,7 @@
 .recharge-account strong{font-size:20px;overflow-wrap:anywhere}
 .recharge-wallet-row{display:flex;flex-wrap:wrap;gap:18px 32px}.recharge-balance{border-left-color:#ab7c52}.recharge-balance-note{display:block;margin-top:14px;color:#e1ceb5;font-size:12px;line-height:1.6}
 .recharge-notice{padding:20px 22px;background:#f1e4d1;border:1px solid #cdb18a;border-left:4px solid #a46c3b}
+.recharge-notice+.recharge-notice{margin-top:18px}
 .recharge-notice strong{font-size:19px;color:#6f452c}.recharge-notice p{margin:7px 0 0}
 .recharge-sections{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
 .is-account .recharge-sections a{display:inline-flex;align-items:center;min-height:44px;padding:10px 18px;background:#f4ecdf;border:1px solid #cdb494;color:#74492e;text-decoration:none;font-weight:600}

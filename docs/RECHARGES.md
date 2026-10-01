@@ -6,7 +6,8 @@
 - Ualá Bis será la pasarela principal, decisión de Agustín del 1/10/2026. Credenciales disponibles según lo informado; conector v2 preparado, cobros todavía no habilitados. Documentación oficial: https://developers.ualabis.com.ar/.
 - Mobbex queda como alternativa. Alta solicitada por Agustín; espera informada de 72 horas.
 - MercadoPago queda opcional y desactivado. Nunca mostrarlo como disponible sin activación expresa.
-- Precios, cantidades y bonos todavía no definidos. Catálogo vacío: no inventar ofertas ni saldos.
+- Equivalencia confirmada el 1/10/2026: $1 ARS = 1 WCoin C (100 centavos por moneda), sin bonos por ahora. Importes de paquetes todavía no definidos; catálogo vacío, sin inventar ofertas ni saldos. La equivalencia se guarda como enteros en `exchange_rate`; el futuro checkout debe aplicarla al crear los paquetes y preservar el importe y las monedas en cada orden.
+- Autenticación Ualá Bis de prueba confirmada por captura del administrador el 1/10/2026. No se creó ningún cobro ni se acreditaron monedas con esa comprobación.
 - Primera etapa: vender monedas; los productos se compran en el Cash Shop del cliente.
 
 ## Primera entrega (preparación, no sistema habilitado para cobrar)

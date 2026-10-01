@@ -13,7 +13,6 @@ foreach($rechargeConfig['packages'] as $package) {
 }
 ?>
 <section class="recharge-shop" aria-labelledby="recharge-title">
-    <?php include __DIR__.'/recharge-check.php'; ?>
     <header class="recharge-hero">
         <span class="eyebrow">LA TIENDA DE TU AVENTURA</span>
         <h2 id="recharge-title">Recargá.<br><em>Elegí tu próxima conquista.</em></h2>
@@ -21,7 +20,9 @@ foreach($rechargeConfig['packages'] as $package) {
         <div class="recharge-wallet-row"><div class="recharge-account"><span>CUENTA DE DESTINO</span><strong><?php echo panicAccountEscape($rechargeAccount); ?></strong></div><div class="recharge-account recharge-balance"><span>SALDO REGISTRADO</span><strong><?php echo $rechargeBalance===null ? 'No disponible' : number_format($rechargeBalance,0,',','.').' WCoin C'; ?></strong></div></div>
         <small class="recharge-balance-note">Saldo consultado al abrir esta página. El juego puede mostrar cambios posteriores.</small>
     </header>
+    <?php include __DIR__.'/recharge-check.php'; ?>
     <div class="recharge-notice" role="status"><strong>Estamos preparando las recargas</strong><p>Todavía no se pueden realizar compras. Los paquetes y sus precios aparecerán acá cuando la tienda esté habilitada.</p></div>
+    <div class="recharge-notice"><strong>$ <?php echo number_format($rechargeConfig['exchange_rate']['price_cents']/100,0,',','.'); ?> ARS = <?php echo number_format($rechargeConfig['exchange_rate']['coins'],0,',','.'); ?> WCoin C</strong><p>La equivalencia de las recargas. Por ejemplo, $5.000 argentinos equivalen a 5.000 WCoin C. Sin bonos adicionales por ahora.</p></div>
     <nav class="recharge-sections" aria-label="Secciones de recargas"><a href="#recharge-packages">Paquetes</a><a href="#recharge-guide">Cómo funciona</a><a href="#recharge-history">Mis compras</a></nav>
     <section id="recharge-packages" class="recharge-section">
         <div class="recharge-section-head"><div><span class="eyebrow">01 / TU RECARGA</span><h3>Elegí tus WCoin C</h3></div><span>Precios en pesos argentinos</span></div>

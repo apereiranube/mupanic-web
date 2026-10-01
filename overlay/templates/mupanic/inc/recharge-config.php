@@ -5,6 +5,8 @@ if(!defined('access') || !access) die();
 // Sales remain closed in this first delivery; no endpoint accepts purchases.
 return [
     'currency' => 'WCoin C',
+    // Confirmed base rate: ARS 1.00 (100 centavos) delivers one WCoin C.
+    'exchange_rate' => ['price_cents'=>100, 'coins'=>1],
     'primary_provider' => 'uala_bis',
     'packages' => [],
     'providers' => [
