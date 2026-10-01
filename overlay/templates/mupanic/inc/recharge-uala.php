@@ -59,6 +59,21 @@ final class PanicUalaBisApi extends PanicRechargeApi {
            !preg_match('/(^|\.)(uala-checkout\.com|ua\.la|ualabis\.com\.ar)$/D',strtolower($parts['host']))) return null;
         return $link;
     }
+    public static function linkDiagnostic($link) {
+        $info=['issue'=>'LINK_MISSING','host'=>'','scheme'=>''];
+        if($link===null || $link==='') return $info;
+        if(!is_string($link)) { $info['issue']='LINK_TYPE'; return $info; }
+        if(strlen($link)>4096 || preg_match('/[\x00-\x20\x7f]/',$link)) { $info['issue']='LINK_FORMAT'; return $info; }
+        $parts=parse_url($link);
+        if(!$parts) { $info['issue']='LINK_FORMAT'; return $info; }
+        $host=strtolower($parts['host'] ?? '');
+        // Only domain and protocol are shown. Never expose path/query/capabilities.
+        if(preg_match('/^[a-z0-9.-]{1,253}$/D',$host)) $info['host']=$host;
+        $scheme=$parts['scheme'] ?? '';
+        if(in_array($scheme,['http','https'],true)) $info['scheme']=$scheme;
+        $info['issue']=self::checkoutLink($link)!==null?'LINK_OK':($scheme!=='https'?'LINK_HTTPS_REQUIRED':'LINK_NOT_ALLOWED');
+        return $info;
+    }
     public function fetchPayment($paymentId) {
         $result=$this->request('GET',$this->base('checkout').'/orders/'.self::id($paymentId),$this->headers());
         $amount=$result['amount'] ?? null;
@@ -73,7 +88,8 @@ final class PanicUalaBisApi extends PanicRechargeApi {
             'merchant'=>$this->credential('client_id'),'currency'=>'ARS','amount_cents'=>$amount,
             'live'=>$this->environment==='production','state'=>$states[$result['status'] ?? ''] ?? 'review',
             // Optional provider-supplied link only. Never construct a payment URL from a UUID.
-            'checkout_url'=>self::checkoutLink($result['links']['checkout_link'] ?? null)];
+            'checkout_url'=>self::checkoutLink($result['links']['checkout_link'] ?? null),
+            'link_diagnostic'=>self::linkDiagnostic($result['links']['checkout_link'] ?? null)];
     }
 }
 

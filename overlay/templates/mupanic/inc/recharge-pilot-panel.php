@@ -26,42 +26,74 @@ try {
     $pilotMessage.=' Código: '.PanicRechargePilot::diagnostic($exception).'.';
     if(isset($pilotStore)) { try { $pilot=$pilotStore->current(); } catch(Throwable $ignored) {} }
 }
+$pilotWait=max(0,15-(time()-(int)($_SESSION['uala_pilot_time'] ?? 0)));
 $pilotLabels=['creating'=>'Creación pendiente de revisar','pending'=>'Pago pendiente','approved'=>'Pago simulado aprobado','rejected'=>'Pago rechazado','cancelled'=>'Pago cancelado','review'=>'En revisión'];
 ?>
 <section class="recharge-notice" aria-labelledby="pilot-title">
-    <strong id="pilot-title">Administración · Compra de prueba</strong>
-    <p>$1.000 simulados en Ualá → 1.000 WCoin C reales, únicamente para <b>pruebacoin</b>. Usá la tarjeta de prueba de Ualá. Esta prueba permite una sola compra.</p>
+    <strong id="pilot-title">Prueba de pago · Ualá Bis</strong>
+    <p><b>$1.000 de prueba → 1.000 WCoin C para pruebacoin.</b> Usá la tarjeta de prueba de Ualá y mantené esa cuenta desconectada del juego.</p>
     <?php if($pilotMessage) { ?><p role="status"><?php echo panicAccountEscape($pilotMessage); ?></p><?php } ?>
     <?php if($pilot) { ?>
-        <?php if(isset($pilot['last_error'])) { ?><p>Diagnóstico: <b><?php echo panicAccountEscape($pilot['last_error']); ?></b></p><?php } ?>
-        <?php if(($pilot['last_error'] ?? '')==='RECOVERY_MORE_PAGES') { ?><p>Revisamos <?php echo (int)($pilot['recovery_pages'] ?? 0); ?> página(s). Hay más resultados: esperá 15 segundos y continuá la revisión con el botón de abajo. No se crea otro cobro.</p><?php } ?>
-        <p><b><?php echo panicAccountEscape($pilotLabels[$pilot['payment_state']] ?? 'En revisión'); ?></b> · Entrega: <?php echo panicAccountEscape(['pending'=>'Pendiente','credited'=>'1.000 WCoin C acreditados','reverted'=>'Monedas de prueba retiradas'][$pilot['delivery_state']] ?? 'En revisión'); ?></p>
-        <?php if(isset($pilot['checkout_url']) && $pilot['payment_state']==='pending') { ?><p><a class="btn btn-primary" href="<?php echo panicAccountEscape($pilot['checkout_url']); ?>" target="_blank" rel="noopener noreferrer">Abrir pago simulado en Ualá</a></p><?php } ?>
-        <?php if(isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && empty($pilot['checkout_url'])) { ?><p>Encontramos la compra, pero falta el enlace para pagar. Actualizar el estado no completa el pago. No hace falta seguir repitiendo la consulta.</p><?php } ?>
-        <?php if(isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && $pilot['delivery_state']==='pending' && empty($pilot['checkout_url']) && empty($pilot['replacement_used'])) { ?>
-        <p>Podés reemplazar este intento sin enlace por uno nuevo de prueba. El anterior queda registrado y deja de entregar monedas desde esta web. Se mantiene el límite de una sola acreditación de 1.000 WCoin C. Usá únicamente la tarjeta de prueba.</p>
-        <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">
+        <p><b><?php echo panicAccountEscape($pilotLabels[$pilot['payment_state']] ?? 'En revisión'); ?></b> · <?php echo panicAccountEscape(['pending'=>'Monedas todavía no entregadas','credited'=>'1.000 WCoin C acreditados','reverted'=>'Monedas de prueba retiradas'][$pilot['delivery_state']] ?? 'Entrega en revisión'); ?></p>
+        <?php if(isset($pilot['checkout_url']) && $pilot['payment_state']==='pending') { ?>
+            <p><b>Paso 1:</b> abrí el pago y completalo con la tarjeta de prueba.</p>
+            <p><a class="btn btn-primary" href="<?php echo panicAccountEscape($pilot['checkout_url']); ?>" target="_blank" rel="noopener noreferrer">Abrir pago de prueba</a></p>
+        <?php } elseif($pilot['payment_state']==='approved' && $pilot['delivery_state']==='pending') { ?>
+            <p><b>Paso 2:</b> ejecutá el script del VPS para entregar las monedas.</p>
+        <?php } elseif($pilot['delivery_state']==='credited') { ?>
+            <p><b>Paso 3:</b> entrá al juego con pruebacoin y comprobá el saldo.</p>
+        <?php } ?>
+        <?php $canRestart=isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && $pilot['delivery_state']==='pending' && empty($pilot['checkout_url']) && (empty($pilot['replacement_used']) || ($pilot['flow_version'] ?? 0)<2); ?>
+        <?php if($canRestart) { ?>
+            <p>El intento anterior quedó sin enlace. Este botón prepara una nueva prueba, conserva el historial y mantiene el límite de una sola acreditación.</p>
+        <?php } elseif($pilot['payment_state']==='pending' && empty($pilot['checkout_url'])) { ?>
+            <p>No pudimos habilitar el enlace. No crees más compras: el diagnóstico de abajo permite revisar la respuesta recibida.</p>
+        <?php } ?>
+        <?php if($canRestart || isset($pilot['payment_id']) || $pilot['payment_state']==='creating') { ?>
+        <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>" data-pilot-form>
             <input type="hidden" name="uala_check_csrf" value="<?php echo panicAccountEscape($_SESSION['uala_check_csrf']); ?>">
-            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="replace">Generar nuevo enlace de prueba</button>
+            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="<?php echo $canRestart?'replace':(isset($pilot['payment_id'])?'refresh':'inspect'); ?>" data-pilot-wait="<?php echo $pilotWait; ?>" <?php if($pilotWait>0) echo 'disabled'; ?>><?php echo $canRestart?'Preparar nueva prueba':(isset($pilot['payment_id'])?'Comprobar pago y entrega':'Revisar intento anterior'); ?></button>
         </form>
         <?php } ?>
-        <?php if(isset($pilot['payment_id'])) { ?>
-        <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">
-            <input type="hidden" name="uala_check_csrf" value="<?php echo panicAccountEscape($_SESSION['uala_check_csrf']); ?>">
-            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="refresh">Actualizar estado de la prueba</button>
-        </form>
-        <?php } ?>
-        <?php if(!isset($pilot['payment_id'])) { ?>
-        <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">
-            <input type="hidden" name="uala_check_csrf" value="<?php echo panicAccountEscape($_SESSION['uala_check_csrf']); ?>">
-            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="inspect">Revisar reserva sin crear otro cobro</button>
-        </form>
-        <?php } ?>
+        <details style="margin-top:20px">
+            <summary>Diagnóstico de esta prueba</summary>
+            <p>Código: <b><?php echo panicAccountEscape($pilot['last_error'] ?? 'Sin errores registrados'); ?></b></p>
+            <?php foreach(['checkout_response'=>'Respuesta al crear el pago','get_link_diagnostic'=>'Consulta del pago'] as $field=>$label) {
+                $info=$field==='checkout_response'?($pilot[$field]['link_diagnostic'] ?? null):($pilot[$field] ?? null);
+                if(!is_array($info)) continue; ?>
+                <p><?php echo panicAccountEscape($label); ?>: <b><?php echo panicAccountEscape($info['issue'] ?? 'Sin diagnóstico'); ?></b>
+                <?php if(!empty($info['host'])) echo ' · Dominio: '.panicAccountEscape($info['host']); ?>
+                <?php if(!empty($info['scheme'])) echo ' · Protocolo: '.panicAccountEscape($info['scheme']); ?></p>
+            <?php } ?>
+            <?php if(isset($pilot['worker_error'])) { ?><p>Último error del VPS: <?php echo panicAccountEscape($pilot['worker_error']); ?></p><?php } ?>
+            <p>El enlace original y los identificadores se conservan de forma privada. Este panel no muestra tokens ni datos de tarjetas.</p>
+        </details>
     <?php } elseif($pilotConfigured) { ?>
-        <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">
+        <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>" data-pilot-form>
             <input type="hidden" name="uala_check_csrf" value="<?php echo panicAccountEscape($_SESSION['uala_check_csrf']); ?>">
-            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="create">Crear compra de prueba para pruebacoin</button>
+            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="create" data-pilot-wait="<?php echo $pilotWait; ?>" <?php if($pilotWait>0) echo 'disabled'; ?>>Preparar prueba para pruebacoin</button>
         </form>
     <?php } ?>
-    <p>La entrega la ejecuta el sincronizador del VPS. Para esta prueba, dejá <b>pruebacoin desconectada del juego</b>; después entrá para comprobar el saldo.</p>
+    <p data-pilot-countdown aria-live="polite"></p>
 </section>
+<script>
+(function(){
+    document.querySelectorAll('[data-pilot-form]').forEach(function(form){
+        var button=form.querySelector('button');
+        var remaining=Number(button.dataset.pilotWait||0);
+        var notice=form.closest('section').querySelector('[data-pilot-countdown]');
+        function tick(){
+            button.disabled=remaining>0;
+            notice.textContent=remaining>0?'Podés continuar en '+remaining+' segundos.':'';
+            if(remaining>0){remaining--;window.setTimeout(tick,1000);}
+        }
+        tick();
+        form.addEventListener('submit',function(event){
+            if(form.dataset.sending==='yes'){event.preventDefault();return;}
+            form.dataset.sending='yes';
+            // Keep the clicked submit button enabled until its name/value is serialized.
+            window.setTimeout(function(){button.disabled=true;button.textContent='Consultando Ualá…';},0);
+        });
+    });
+})();
+</script>

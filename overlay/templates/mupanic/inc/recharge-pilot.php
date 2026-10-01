@@ -68,7 +68,7 @@ final class PanicRechargePilot {
         return $this->locked(function($state,$store) use ($api,$merchant,$baseUrl) {
             if(!$state) throw new RuntimeException('Pilot checkout unavailable');
             // One explicit replacement only; double clicks and retries cannot POST again.
-            if(!empty($state['replacement_used'])) return $state;
+            if(!empty($state['replacement_used']) && ($state['flow_version'] ?? 0)>=2) return $state;
             if($state['payment_state']!=='pending' || $state['delivery_state']!=='pending' ||
                !empty($state['checkout_url']) || !is_string($state['payment_id'] ?? null)) throw new RuntimeException('Pilot replacement unavailable');
             $payment=$api->fetchPayment($state['payment_id']);
@@ -77,16 +77,17 @@ final class PanicRechargePilot {
             if($state['payment_state']!=='pending' || !empty($state['checkout_url'])) return $state;
             // Preserve the old attempt, but never dispatch it after replacement.
             return $store->createAttempt($api,$baseUrl,[
-                'replacement_used'=>true,'retired_attempt'=>[
+                'replacement_used'=>true,'previous_attempts'=>array_slice(array_merge($state['previous_attempts'] ?? [],isset($state['retired_attempt'])?[$state['retired_attempt']]:[]),-3),'retired_attempt'=>[
                     'id'=>$state['id'],'payment_id'=>$state['payment_id'],
                     'payment_state'=>$state['payment_state'],'delivery_state'=>$state['delivery_state'],
-                    'retired_at'=>gmdate('c')]]);
+                    'checkout_response'=>$state['checkout_response'] ?? null,'retired_at'=>gmdate('c')]]);
         });
     }
     private function createAttempt(PanicUalaBisApi $api,$baseUrl,array $extra=[]) {
             $store=$this;
             $package=['id'=>'wcoin-1000','title'=>'PRUEBA · 1.000 WCoin C','price_cents'=>100000,'coins'=>1000,'bonus'=>0];
             $state=array_merge(PanicRecharge::order('pruebacoin',$package,'uala_bis',false),$extra);
+            $state['flow_version']=2;
             $state['payment_state']='creating';
             $state['callback_token']=bin2hex(random_bytes(32));
             $state['expires_at']=time()+7*86400;
@@ -96,6 +97,15 @@ final class PanicRechargePilot {
             try { $result=$api->createCheckout($state,$return,$hook); }
             catch(Throwable $exception) { $state['last_error']=self::diagnostic($exception); $store->save($state); throw $exception; }
             $id=$result['uuid'] ?? null; $link=$result['links']['checkout_link'] ?? null;
+            // Persist selected response fields BEFORE rejecting anything. No tokens,
+            // card/customer information, or complete gateway bodies are stored.
+            $state['checkout_response']=[
+                'uuid'=>is_string($id)?substr($id,0,120):null,
+                'amount'=>is_scalar($result['amount'] ?? null)?substr((string)$result['amount'],0,32):null,
+                'external_reference'=>is_string($result['external_reference'] ?? null)?substr($result['external_reference'],0,120):null,
+                'checkout_link'=>is_string($link) && strlen($link)<=4096?$link:null,
+                'link_diagnostic'=>PanicUalaBisApi::linkDiagnostic($link)];
+            $store->save($state);
             $link=PanicUalaBisApi::checkoutLink($link);
             if(!is_string($id) || !preg_match('/^[A-Za-z0-9_-]{1,120}$/D',$id) || ($result['external_reference'] ?? '')!==$state['id'] ||
                (string)($result['amount'] ?? '')!=='100000') {
@@ -120,8 +130,14 @@ final class PanicRechargePilot {
         elseif($decision!=='already_credited' && $state['payment_state']!=='approved') $state['payment_state']=$decision;
         if($decision==='pending' && $state['payment_state']==='pending' && empty($state['checkout_url'])) {
             $link=PanicUalaBisApi::checkoutLink($payment['checkout_url'] ?? null);
+            $response=$state['checkout_response'] ?? [];
+            if($link===null && ($response['uuid'] ?? null)===($state['payment_id'] ?? null) &&
+               ($response['external_reference'] ?? null)===$state['id'] && ($response['amount'] ?? null)==='100000') {
+                $link=PanicUalaBisApi::checkoutLink($response['checkout_link'] ?? null);
+            }
             if($link!==null) $state['checkout_url']=$link;
         }
+        if(isset($payment['link_diagnostic'])) $state['get_link_diagnostic']=$payment['link_diagnostic'];
         $state['checked_at']=gmdate('c');
         return $state;
     }
@@ -133,7 +149,7 @@ final class PanicRechargePilot {
             'Private payment settings unavailable'=>'PRIVATE_SETTINGS','Invalid private settings: sales must remain disabled'=>'SETTINGS_DISABLED',
             'Uala credential missing'=>'CREDENTIALS','Payment transport unavailable'=>'PHP_CURL',
             'Invalid recovery pagination'=>'RECOVERY_FORMAT','Invalid recovery cursor'=>'RECOVERY_CURSOR',
-            'Recovery pagination stopped'=>'RECOVERY_STOPPED'];
+            'Recovery pagination stopped'=>'RECOVERY_STOPPED','Pilot replacement unavailable'=>'RESTART_BLOCKED'];
         return $codes[$exception->getMessage()] ?? 'PILOT_CHECK_FAILED';
     }
     public function inspect(PanicUalaBisApi $api,$merchant) {
@@ -205,6 +221,23 @@ final class PanicRechargePilot {
             $state['delivery_state']=$receipt['state']; $state['delivered_at']=gmdate('c');
             $store->save($state); return $state;
         });
+    }
+    public function workerFailure($orderId,Throwable $exception) {
+        return $this->locked(function($state,$store) use ($orderId,$exception) {
+            if($state && $state['id']===$orderId) {
+                $state['worker_error']=self::diagnostic($exception);
+                $store->save($state);
+            }
+        });
+    }
+    public function pollForWorker(PanicUalaBisApi $api,$merchant) {
+        $state=$this->current(); $error=null;
+        if($state && is_string($state['payment_id'] ?? null) && $state['delivery_state']==='pending') {
+            try { $state=$this->refresh($api,$merchant); }
+            catch(Throwable $exception) { $error=self::diagnostic($exception); $this->workerFailure($state['id'],$exception); }
+        }
+        return ['job'=>$error===null && $state?self::job($state):null,
+            'payment_state'=>$state['payment_state'] ?? 'not_started','error'=>$error];
     }
     public static function job(array $state) {
         if($state['payment_state']!=='approved' || ($state['delivery_state'] ?? '')!=='pending' || time()>$state['expires_at']) return null;

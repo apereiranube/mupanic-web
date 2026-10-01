@@ -18,9 +18,8 @@ try {
     if(!is_array($request) || !preg_match('/^[a-f0-9]{32}$/D',$request['nonce'] ?? '')) pilotWorkerError(422);
     [$api,$merchant]=panicRechargePilotGateway();
     if(($request['action'] ?? '')==='poll') {
-        $state=$store->current();
-        if($state && is_string($state['payment_id'] ?? null) && ($state['delivery_state'] ?? '')==='pending') $state=$store->refresh($api,$merchant);
-        $result=['job'=>$state?PanicRechargePilot::job($state):null];
+        // A failed fresh verification never dispatches a previously cached job.
+        $result=$store->pollForWorker($api,$merchant);
     } elseif(($request['action'] ?? '')==='ack') {
         $state=$store->acknowledge($request['receipt'] ?? []);
         $result=['state'=>$state['delivery_state']];

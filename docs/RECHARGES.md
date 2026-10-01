@@ -289,3 +289,43 @@ la búsqueda con una sola coincidencia. Detecta cursores repetidos y detiene a
 Las pruebas verifican avance entre solicitudes, escape del cursor, coincidencia
 en una página parcial y duplicados en páginas distintas. No cambia el worker
 PowerShell ni requiere reinstalar SQL/token.
+
+### Flujo de prueba v2 y conservación del diagnóstico
+
+La búsqueda real recuperó una orden pendiente, pero sin URL de checkout. Una
+reposición explícita produjo `CHECKOUT_LINK_UNAVAILABLE`: identidad, referencia
+e importe eran válidos, pero el enlace faltaba o no pasaba la validación. No se
+conservó ese valor en las versiones anteriores; no se puede deducir su causa
+ni recuperar el enlace inventando una URL a partir del UUID.
+
+El flujo v2 guarda **antes de validar** una selección limitada de la respuesta
+en `uala-pilot.json` privado: UUID, importe, referencia y checkout link hasta
+4096 caracteres. Omite clientes, tarjetas, tokens y el cuerpo completo. La UI
+solo muestra motivo, dominio y protocolo del enlace, nunca rutas/query privados.
+El GET autenticado sigue siendo obligatorio para habilitar la entrega.
+
+Una reserva pendiente de una versión anterior puede reemplazarse explícitamente
+una vez con el flujo v2. Antes se vuelve a consultar el proveedor: una aprobación,
+rechazo, revisión o enlace recuperado bloquea esa reposición. Se conserva el
+intento retirado, cambia la referencia/callback y se reserva el nuevo antes del
+POST. Repetir el botón o perder la respuesta no genera otro POST. Un intento
+retirado puede seguir existiendo en el sandbox de Ualá; esta web deja de entregar
+sus monedas. **La tabla SQL singleton no se borra ni permite dos entregas.**
+
+El panel presenta una acción por estado, un contador visible de espera y bloqueo
+de doble envío. El worker devuelve errores seguros firmados y no emite un job
+con aprobación cacheada si la consulta fresca falla. PowerShell imprime el código
+HTTP o de proveedor y reintenta solo la consulta hasta tres fallas consecutivas;
+no reintenta a ciegas SQL ni modifica certificados, tokens o reloj.
+
+Actualizar el script descargándolo nuevamente, sin `-Install`, sin cambiar el
+token ni recrear tablas. Desplegar el overlay desde cPanel y luego usar
+`Preparar nueva prueba`. Abrir el checkout solamente con tarjeta de sandbox.
+Si vuelve a fallar el enlace, desplegar no basta: revisar el diagnóstico conservado
+antes de cualquier nueva reposición. No hay garantía de cero fallas externas.
+
+Validación v2: mocks de enlace rechazado preservado, redacción de ruta/query,
+omisión de campos sensibles, reinicio de reserva legacy, doble clic, timeout y
+bloqueo de aprobación cacheada ante HTTP 503. PHP y layout de la cuenta se
+verificaron localmente. El script PowerShell se revisó, pero no se ejecutó aquí
+contra Windows/SQL Server. Acreditación real de 1000 WCoin y reversión aún pendientes.

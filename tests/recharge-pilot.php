@@ -145,6 +145,31 @@ try {
     rejectPilot(function() use ($store,$replacementTimeout) { $store->replaceMissingLink($replacementTimeout,'fixture','https://preview.test/'); },'Replacement timeout is reserved');
     $store->replaceMissingLink($replacementTimeout,'fixture','https://preview.test/');
     expectPilot($timeoutPosts===1 && $store->current()['replacement_used'],'Timeout replacement cannot be repeated');
+    // An old flow may be restarted once with the new response capture.
+    $legacy=$pending; $legacy['replacement_used']=true; unset($legacy['flow_version']);
+    $store->save($legacy); $replacePosts=0;
+    $fresh=$store->replaceMissingLink($replacement,'fixture','https://preview.test/');
+    expectPilot($replacePosts===1 && $fresh['flow_version']===2 && $fresh['checkout_response']['checkout_link']===$fresh['checkout_url'],'New flow captures selected response before validating');
+    $store->replaceMissingLink($replacement,'fixture','https://preview.test/');
+    expectPilot($replacePosts===1,'New flow cannot reset itself again');
+    unlink($root.'/uala-pilot.json');
+    $unsafeApi=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url,$headers,$body) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        return ['uuid'=>'unsafe-payment','amount'=>100000,'external_reference'=>$body['external_reference'],
+            'links'=>['checkout_link'=>'https://unrecognized.example/orders/opaque?private=fixture'],
+            'customer'=>['card'=>'DO_NOT_STORE'],'secret'=>'DO_NOT_STORE'];
+    });
+    rejectPilot(function() use ($store,$unsafeApi) { $store->begin($unsafeApi,'https://preview.test/'); },'Untrusted link blocks checkout');
+    $captured=$store->current();
+    expectPilot($captured['payment_id']==='unsafe-payment' && $captured['checkout_response']['checkout_link']==='https://unrecognized.example/orders/opaque?private=fixture','Rejected link and valid identity survive failure privately');
+    $meta=$captured['checkout_response']['link_diagnostic'];
+    expectPilot($meta['issue']==='LINK_NOT_ALLOWED' && $meta['host']==='unrecognized.example' && strpos(json_encode($meta),'private')===false,'Displayed diagnostics omit private path and query');
+    expectPilot(strpos(file_get_contents($root.'/uala-pilot.json'),'DO_NOT_STORE')===false,'No customer/card/secret response fields are persisted');
+    $captured['payment_state']='approved'; $store->save($captured);
+    $failApi=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function() { throw new PanicRechargeApiFailure('CHECKOUT_HTTP_503'); });
+    $blocked=$store->pollForWorker($failApi,'fixture');
+    expectPilot($blocked['job']===null && $blocked['error']==='CHECKOUT_HTTP_503','Failed fresh lookup never dispatches cached approved job');
+    expectPilot($store->current()['worker_error']==='CHECKOUT_HTTP_503','Safe worker error persists for admin');
     unlink($root.'/uala-pilot.json');
     if(function_exists('pcntl_fork')) {
         $children=[];

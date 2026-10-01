@@ -58,7 +58,11 @@ function Invoke-PilotBridge($Request) {
     $headers = @{ 'X-Panic-Timestamp'=$stamp; 'X-Panic-Signature'=(Get-PilotSignature ($stamp + "`n" + $body) $token) }
     # Fixed HTTPS destination, certificate verification enabled, no redirects.
     try { $response = Invoke-WebRequest -UseBasicParsing -Uri $endpoint -Method Post -Headers $headers -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($body)) -MaximumRedirection 0 -TimeoutSec 45 }
-    catch { throw 'No se pudo consultar la prueba en la web. Verifica despliegue, token y reloj del VPS. No se muestran credenciales.' }
+    catch {
+        $httpCode = 0
+        if ($null -ne $_.Exception.Response) { $httpCode = [int]$_.Exception.Response.StatusCode }
+        throw ('Consulta web fallida. HTTP ' + $httpCode + '. 401: token o reloj; 503: configuracion web; 0: conexion o timeout. No se modificaron monedas en esta consulta.')
+    }
     $raw = [string]$response.Content
     if ($raw.Length -gt 8192) { throw 'Respuesta de prueba invalida.' }
     $expected = Get-PilotSignature ($Request.nonce + "`n" + $raw) $token
@@ -241,6 +245,7 @@ try {
         return
     }
     $deadline = [DateTime]::UtcNow.AddSeconds($WatchSeconds)
+    $bridgeFailures = 0
     do {
         # Recover a committed SQL receipt even if HTTP acknowledgment previously failed.
         $existing = Read-PilotSql 'SELECT OrderID,PaymentID,State,BeforeCoin,AfterCoin FROM dbo.MUPanicUalaSandboxPilot WHERE PilotKey=1'
@@ -249,7 +254,24 @@ try {
             Write-Host ('Prueba ya registrada: ' + $existing.Rows[0].State + '. No se sumaron monedas nuevamente.')
             break
         }
-        $result = Invoke-PilotBridge @{ action='poll' }
+        try { $result = Invoke-PilotBridge @{ action='poll' } }
+        catch {
+            $bridgeFailures++
+            Write-Host $_.Exception.Message
+            if ($WatchSeconds -eq 0 -or $bridgeFailures -ge 3 -or [DateTime]::UtcNow -ge $deadline) { throw 'Consulta detenida. Conserva el registro y envia el codigo mostrado; no reinstales ni cambies el token.' }
+            Write-Host 'Reintento de consulta en 15 segundos. No se ejecuta SQL de entrega.'
+            Start-Sleep -Seconds 15
+            continue
+        }
+        if ($null -ne $result.error -and [string]$result.error -ne '') {
+            if ([string]$result.error -cnotmatch '^[A-Z0-9_]{1,64}$') { throw 'Diagnostico firmado invalido. No se acreditan monedas.' }
+            $bridgeFailures++
+            Write-Host ('La web no pudo verificar Uala. Codigo: ' + [string]$result.error)
+            if ($WatchSeconds -eq 0 -or $bridgeFailures -ge 3 -or [DateTime]::UtcNow -ge $deadline) { throw 'Verificacion detenida sin entregar monedas. Envia el codigo mostrado.' }
+            Start-Sleep -Seconds 15
+            continue
+        }
+        $bridgeFailures = 0
         if ($null -ne $result.job) {
             $job = $result.job
             if ($job.account -cne 'pruebacoin' -or $job.environment -cne 'test' -or $job.coins -ne 1000 -or $job.price_cents -ne 100000 -or
@@ -260,7 +282,7 @@ try {
             Write-Host ('Entrega confirmada para pruebacoin: ' + $receipt.Rows[0].BeforeCoin + ' -> ' + $receipt.Rows[0].AfterCoin + ' WCoin C. No se uso dinero real.')
             break
         }
-        Write-Host 'Todavia no hay un pago simulado aprobado para entregar.'
+        Write-Host ('Esperando el pago de prueba. Estado web: ' + [string]$result.payment_state + '. No se entregaron monedas en esta consulta.')
         if ($WatchSeconds -eq 0 -or [DateTime]::UtcNow -ge $deadline) { break }
         Start-Sleep -Seconds 15
     } while ([DateTime]::UtcNow -lt $deadline)
