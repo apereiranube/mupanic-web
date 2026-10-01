@@ -33,26 +33,26 @@ $pilotLabels=['creating'=>'Creación pendiente de revisar','pending'=>'Pago pend
     <strong id="pilot-title">Prueba de pago · Ualá Bis</strong>
     <p><b>$1.000 de prueba → 1.000 WCoin C para pruebacoin.</b> Usá la tarjeta de prueba de Ualá y mantené esa cuenta desconectada del juego.</p>
     <?php if($pilotMessage) { ?><p role="status"><?php echo panicAccountEscape($pilotMessage); ?></p><?php } ?>
-    <?php if($pilot) { ?>
+    <?php if($pilot) { $legacyAmount=($pilot['flow_version'] ?? 0)<3 && $pilot['delivery_state']==='pending' && isset($pilot['payment_id']); ?>
         <p><b><?php echo panicAccountEscape($pilotLabels[$pilot['payment_state']] ?? 'En revisión'); ?></b> · <?php echo panicAccountEscape(['pending'=>'Monedas todavía no entregadas','credited'=>'1.000 WCoin C acreditados','reverted'=>'Monedas de prueba retiradas'][$pilot['delivery_state']] ?? 'Entrega en revisión'); ?></p>
-        <?php if(isset($pilot['checkout_url']) && $pilot['payment_state']==='pending') { ?>
+        <?php if(!$legacyAmount && isset($pilot['checkout_url']) && $pilot['payment_state']==='pending') { ?>
             <p><b>Paso 1:</b> abrí el pago y completalo con la tarjeta de prueba.</p>
             <p><a class="btn btn-primary" href="<?php echo panicAccountEscape($pilot['checkout_url']); ?>" target="_blank" rel="noopener noreferrer">Abrir pago de prueba</a></p>
-        <?php } elseif($pilot['payment_state']==='approved' && $pilot['delivery_state']==='pending') { ?>
+        <?php } elseif(!$legacyAmount && $pilot['payment_state']==='approved' && $pilot['delivery_state']==='pending') { ?>
             <p><b>Paso 2:</b> ejecutá el script del VPS para entregar las monedas.</p>
         <?php } elseif($pilot['delivery_state']==='credited') { ?>
             <p><b>Paso 3:</b> entrá al juego con pruebacoin y comprobá el saldo.</p>
         <?php } ?>
-        <?php $canRestart=isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && $pilot['delivery_state']==='pending' && empty($pilot['checkout_url']) && (empty($pilot['replacement_used']) || ($pilot['flow_version'] ?? 0)<2); ?>
+        <?php $canRestart=$legacyAmount || isset($pilot['payment_id']) && $pilot['payment_state']==='pending' && $pilot['delivery_state']==='pending' && empty($pilot['checkout_url']) && (empty($pilot['replacement_used']) || ($pilot['flow_version'] ?? 0)<2); ?>
         <?php if($canRestart) { ?>
-            <p>El intento anterior quedó sin enlace. Este botón prepara una nueva prueba, conserva el historial y mantiene el límite de una sola acreditación.</p>
+            <p><?php echo $legacyAmount?'El importe del intento anterior debe corregirse.':'El intento anterior quedó sin enlace.'; ?> Este botón prepara una nueva prueba, conserva el historial y mantiene el límite de una sola acreditación.</p>
         <?php } elseif($pilot['payment_state']==='pending' && empty($pilot['checkout_url'])) { ?>
             <p>No pudimos habilitar el enlace. No crees más compras: el diagnóstico de abajo permite revisar la respuesta recibida.</p>
         <?php } ?>
         <?php if($canRestart || isset($pilot['payment_id']) || $pilot['payment_state']==='creating') { ?>
         <form method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>" data-pilot-form>
             <input type="hidden" name="uala_check_csrf" value="<?php echo panicAccountEscape($_SESSION['uala_check_csrf']); ?>">
-            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="<?php echo $canRestart?'replace':(isset($pilot['payment_id'])?'refresh':'inspect'); ?>" data-pilot-wait="<?php echo $pilotWait; ?>" <?php if($pilotWait>0) echo 'disabled'; ?>><?php echo $canRestart?'Preparar nueva prueba':(isset($pilot['payment_id'])?'Comprobar pago y entrega':'Revisar intento anterior'); ?></button>
+            <button class="btn btn-primary" type="submit" name="uala_pilot_action" value="<?php echo $canRestart?'replace':(isset($pilot['payment_id'])?'refresh':'inspect'); ?>" data-pilot-wait="<?php echo $pilotWait; ?>" <?php if($pilotWait>0) echo 'disabled'; ?>><?php echo $canRestart?($legacyAmount?'Preparar prueba de $1.000':'Preparar nueva prueba'):(isset($pilot['payment_id'])?'Comprobar pago y entrega':'Revisar intento anterior'); ?></button>
         </form>
         <?php } ?>
         <details style="margin-top:20px">

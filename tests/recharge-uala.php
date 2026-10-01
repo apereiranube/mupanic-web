@@ -5,9 +5,9 @@ function verify($condition,$message) { if(!$condition) throw new RuntimeExceptio
 $package=['id'=>'test','title'=>'Fixture only','price_cents'=>12345,'coins'=>1000,'bonus'=>0];
 $order=PanicRecharge::order('pruebacoin',$package,'uala_bis',false);
 $payload=PanicUalaBisApi::checkoutPayload($order,'https://example.test/return','https://example.test/hook');
-verify($payload['amount']==='12345','Uala amount is integer centavos, not pesos');
+verify($payload['amount']==='123.45','Sandbox wire amount is decimal pesos');
 verify($payload['external_reference']===$order['id'],'Snapshot reference');
-$calls=[]; $state='APPROVED'; $amount=12345;
+$calls=[]; $state='APPROVED'; $amount=123.45;
 $api=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture-client','client_secret_id'=>'fixture-secret'],'test',function($method,$url,$headers,$body) use (&$calls,&$state,&$amount,$order) {
     $calls[]=[$method,$url,$headers,$body];
     if(strpos($url,'/auth/token')!==false) {
@@ -25,9 +25,13 @@ foreach(['PENDING','PROCESSED','PROCCESED','REJECTED','REFUNDED','UNKNOWN'] as $
     $state=$value; $payment=$api->fetchPayment('fixture-order');
     verify(PanicRecharge::decision($order,$payment,'fixture-client')!=='ready','Only approved can deliver');
 }
-$state='APPROVED';$amount='12345';verify($api->fetchPayment('fixture-order')['amount_cents']===12345,'String centavos');
-$amount='123.45';
-try { $api->fetchPayment('fixture-order'); throw new LogicException('Decimal centavos accepted'); } catch(RuntimeException $e) {}
+$state='APPROVED';$amount='123.45';verify($api->fetchPayment('fixture-order')['amount_cents']===12345,'Decimal pesos normalize to cents');
+$amount='123.456';
+try { $api->fetchPayment('fixture-order'); throw new LogicException('Fractional cent accepted'); } catch(RuntimeException $e) {}
+verify(PanicUalaBisApi::sandboxCents(1000)===100000,'Integer pesos normalize exactly');
+verify(PanicUalaBisApi::sandboxAmount(100000)==='1000.00','1000 peso checkout');
+$production=$order; $production['live']=true;
+verify(PanicUalaBisApi::checkoutPayload($production,'https://example.test/return','https://example.test/hook')['amount']==='12345','Production behavior unchanged pending verification');
 $small=$order;$small['price_cents']=2499;
 try { PanicUalaBisApi::checkoutPayload($small,'https://example.test/return','https://example.test/hook');throw new LogicException('Below minimum accepted'); } catch(InvalidArgumentException $e) {}
 try { $api->createCheckout(array_replace($order,['live'=>true]),'https://example.test/return','https://example.test/hook');throw new LogicException('Environment mismatch accepted'); } catch(InvalidArgumentException $e) {}

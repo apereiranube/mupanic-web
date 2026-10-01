@@ -67,6 +67,18 @@ final class PanicRechargePilot {
         $this->token();
         return $this->locked(function($state,$store) use ($api,$merchant,$baseUrl) {
             if(!$state) throw new RuntimeException('Pilot checkout unavailable');
+            // Correct only the known old sandbox peso/centavo mismatch. Canonical
+            // merchant, identity, amount and status must all match before retiring it.
+            $legacyAmount=($state['flow_version'] ?? 0)<3 && $state['delivery_state']==='pending' && is_string($state['payment_id'] ?? null);
+            if($legacyAmount) {
+                $payment=$api->fetchPayment($state['payment_id']);
+                $expected=$state; $expected['price_cents']=10000000; $expected['payment_state']='pending';
+                $confirmed=PanicRecharge::decision($expected,$payment,$merchant);
+                if(in_array($confirmed,['pending','test_approved'],true)) {
+                    $state=self::refreshed($state,$payment,$merchant); $store->save($state);
+                    return $store->retireAndCreate($state,$api,$baseUrl);
+                }
+            }
             // One explicit replacement only; double clicks and retries cannot POST again.
             if(!empty($state['replacement_used']) && ($state['flow_version'] ?? 0)>=2) return $state;
             if($state['payment_state']!=='pending' || $state['delivery_state']!=='pending' ||
@@ -75,19 +87,22 @@ final class PanicRechargePilot {
             $state=self::refreshed($state,$payment,$merchant);
             $store->save($state);
             if($state['payment_state']!=='pending' || !empty($state['checkout_url'])) return $state;
-            // Preserve the old attempt, but never dispatch it after replacement.
-            return $store->createAttempt($api,$baseUrl,[
-                'replacement_used'=>true,'previous_attempts'=>array_slice(array_merge($state['previous_attempts'] ?? [],isset($state['retired_attempt'])?[$state['retired_attempt']]:[]),-3),'retired_attempt'=>[
-                    'id'=>$state['id'],'payment_id'=>$state['payment_id'],
-                    'payment_state'=>$state['payment_state'],'delivery_state'=>$state['delivery_state'],
-                    'checkout_response'=>$state['checkout_response'] ?? null,'retired_at'=>gmdate('c')]]);
+            return $store->retireAndCreate($state,$api,$baseUrl);
         });
+    }
+    private function retireAndCreate(array $state,PanicUalaBisApi $api,$baseUrl) {
+        // Old callback capability is retired; SQL singleton still limits delivery to once.
+        return $this->createAttempt($api,$baseUrl,[
+            'replacement_used'=>true,'previous_attempts'=>array_slice(array_merge($state['previous_attempts'] ?? [],isset($state['retired_attempt'])?[$state['retired_attempt']]:[]),-3),'retired_attempt'=>[
+                'id'=>$state['id'],'payment_id'=>$state['payment_id'],
+                'payment_state'=>$state['payment_state'],'delivery_state'=>$state['delivery_state'],
+                'checkout_response'=>$state['checkout_response'] ?? null,'retired_at'=>gmdate('c')]]);
     }
     private function createAttempt(PanicUalaBisApi $api,$baseUrl,array $extra=[]) {
             $store=$this;
             $package=['id'=>'wcoin-1000','title'=>'PRUEBA · 1.000 WCoin C','price_cents'=>100000,'coins'=>1000,'bonus'=>0];
             $state=array_merge(PanicRecharge::order('pruebacoin',$package,'uala_bis',false),$extra);
-            $state['flow_version']=2;
+            $state['flow_version']=3;
             $state['payment_state']='creating';
             $state['callback_token']=bin2hex(random_bytes(32));
             $state['expires_at']=time()+7*86400;
@@ -108,7 +123,7 @@ final class PanicRechargePilot {
             $store->save($state);
             $link=PanicUalaBisApi::checkoutLink($link,true);
             if(!is_string($id) || !preg_match('/^[A-Za-z0-9_-]{1,120}$/D',$id) || ($result['external_reference'] ?? '')!==$state['id'] ||
-               (string)($result['amount'] ?? '')!=='100000') {
+               PanicUalaBisApi::sandboxCents($result['amount'] ?? null)!==100000) {
                 $state['last_error']='CHECKOUT_RESPONSE'; $store->save($state);
                 throw new RuntimeException('Invalid sandbox checkout');
             }
@@ -122,6 +137,10 @@ final class PanicRechargePilot {
             $state['payment_id']=$id; $state['checkout_url']=$link; $state['payment_state']='pending';
             $store->save($state); return $state;
     }
+    private static function capturedAmountMatches($amount) {
+        try { return PanicUalaBisApi::sandboxCents($amount)===100000; }
+        catch(Throwable $ignored) { return false; }
+    }
     public static function refreshed(array $state,array $payment,$merchant) {
         $decision=PanicRecharge::decision($state,$payment,$merchant);
         if($decision==='test_approved') $state['payment_state']='approved';
@@ -132,7 +151,7 @@ final class PanicRechargePilot {
             $link=PanicUalaBisApi::checkoutLink($payment['checkout_url'] ?? null,true);
             $response=$state['checkout_response'] ?? [];
             if($link===null && ($response['uuid'] ?? null)===($state['payment_id'] ?? null) &&
-               ($response['external_reference'] ?? null)===$state['id'] && ($response['amount'] ?? null)==='100000') {
+               ($response['external_reference'] ?? null)===$state['id'] && self::capturedAmountMatches($response['amount'] ?? null)) {
                 $link=PanicUalaBisApi::checkoutLink($response['checkout_link'] ?? null,true);
             }
             if($link!==null) {
@@ -244,7 +263,7 @@ final class PanicRechargePilot {
             'payment_state'=>$state['payment_state'] ?? 'not_started','error'=>$error];
     }
     public static function job(array $state) {
-        if($state['payment_state']!=='approved' || ($state['delivery_state'] ?? '')!=='pending' || time()>$state['expires_at']) return null;
+        if(($state['flow_version'] ?? 0)<3 || $state['payment_state']!=='approved' || ($state['delivery_state'] ?? '')!=='pending' || time()>$state['expires_at']) return null;
         return ['id'=>$state['id'],'payment_id'=>$state['payment_id'],'account'=>'pruebacoin','coins'=>1000,'price_cents'=>100000,'environment'=>'test'];
     }
 }

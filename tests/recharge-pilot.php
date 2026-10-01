@@ -5,16 +5,16 @@ function expectPilot($condition,$message) { if(!$condition) throw new RuntimeExc
 function rejectPilot(callable $test,$message) { try { $test(); } catch(Throwable $exception) { return; } throw new RuntimeException($message); }
 $root=sys_get_temp_dir().'/panic-pilot-'.bin2hex(random_bytes(6)); mkdir($root,0700);
 $token=str_repeat('a',64); file_put_contents($root.'/sandbox-worker-token',$token);
-$calls=[]; $paymentState='APPROVED'; $amount=100000; $external=null;
+$calls=[]; $paymentState='APPROVED'; $amount=1000; $external=null;
 $api=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture-merchant','client_secret_id'=>'fixture-secret'],'test',
     function($method,$url,$headers,$body) use (&$calls,&$external,&$paymentState,&$amount) {
         $calls[]=$url;
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture-token','expires_in'=>3600,'token_type'=>'Bearer'];
         if($method==='POST') {
             expectPilot(strpos($url,'.stage.')!==false,'Checkout must use sandbox');
-            expectPilot($body['amount']==='100000','Exactly 1000 ARS in cents');
+            expectPilot($body['amount']==='1000.00','Exactly 1000 ARS at checkout');
             $external=$body['external_reference'];
-            return ['uuid'=>'fixture-payment','amount'=>100000,'external_reference'=>$external,'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/fixture']];
+            return ['uuid'=>'fixture-payment','amount'=>1000,'external_reference'=>$external,'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/fixture']];
         }
         return ['uuid'=>'fixture-payment','amount'=>$amount,'external_reference'=>$external,'status'=>$paymentState];
     });
@@ -77,7 +77,7 @@ try {
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
         if($method==='POST') { $postCount++; throw new RuntimeException('Recovery must not POST checkout'); }
         if(strpos($url,'?limit=20')!==false) return ['orders'=>$found?[['uuid'=>'recovered-payment','external_reference'=>$reserved['id']]]:[]];
-        return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'APPROVED'];
+        return ['uuid'=>'recovered-payment','amount'=>1000,'external_reference'=>$reserved['id'],'status'=>'APPROVED'];
     });
     $inspected=$store->inspect($recovery,'fixture');
     expectPilot($inspected['last_error']==='CHECKOUT_NOT_FOUND' && $inspected['payment_state']==='creating','No match does not erase reservation');
@@ -87,7 +87,7 @@ try {
     $linked=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($reserved,&$link) {
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
         expectPilot($method==='GET','Link recovery cannot create payments');
-        return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'PENDING','links'=>['checkout_link'=>$link]];
+        return ['uuid'=>'recovered-payment','amount'=>1000,'external_reference'=>$reserved['id'],'status'=>'PENDING','links'=>['checkout_link'=>$link]];
     });
     $pending=$reserved; $pending['payment_id']='recovered-payment'; $pending['payment_state']='pending';
     $store->save($pending);
@@ -108,7 +108,7 @@ try {
             expectPilot(strpos($url,'last_search_key=next%20%2B%2F%3D%3F%26')!==false,'Opaque cursor is escaped');
             return ['orders'=>$duplicate?[['uuid'=>'different-payment','external_reference'=>$reserved['id']]]:[],'has_more_items'=>'false'];
         }
-        return ['uuid'=>'page-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'APPROVED'];
+        return ['uuid'=>'page-payment','amount'=>1000,'external_reference'=>$reserved['id'],'status'=>'APPROVED'];
     });
     $first=$store->inspect($paged,'fixture');
     expectPilot($first['last_error']==='RECOVERY_MORE_PAGES' && PanicRechargePilot::job($first)===null,'A match on a partial search cannot deliver');
@@ -120,9 +120,9 @@ try {
     $replacePosts=0; $remoteStatus='PENDING'; $newReference=null;
     $replacement=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url,$headers,$body) use ($reserved,&$replacePosts,&$remoteStatus,&$newReference) {
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
-        if($method==='GET') return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>$remoteStatus];
+        if($method==='GET') return ['uuid'=>'recovered-payment','amount'=>1000,'external_reference'=>$reserved['id'],'status'=>$remoteStatus];
         $replacePosts++; $newReference=$body['external_reference'];
-        return ['uuid'=>'replacement-payment','amount'=>100000,'external_reference'=>$newReference,'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/replacement']];
+        return ['uuid'=>'replacement-payment','amount'=>1000,'external_reference'=>$newReference,'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/replacement']];
     });
     $store->save($pending); $remoteStatus='APPROVED';
     expectPilot($store->replaceMissingLink($replacement,'fixture','https://preview.test/')['payment_state']==='approved' && $replacePosts===0,'Canonical approval prevents replacement');
@@ -139,7 +139,7 @@ try {
     $timeoutPosts=0;
     $replacementTimeout=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($reserved,&$timeoutPosts) {
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
-        if($method==='GET') return ['uuid'=>'recovered-payment','amount'=>100000,'external_reference'=>$reserved['id'],'status'=>'PENDING'];
+        if($method==='GET') return ['uuid'=>'recovered-payment','amount'=>1000,'external_reference'=>$reserved['id'],'status'=>'PENDING'];
         $timeoutPosts++; throw new RuntimeException('Ambiguous timeout');
     });
     rejectPilot(function() use ($store,$replacementTimeout) { $store->replaceMissingLink($replacementTimeout,'fixture','https://preview.test/'); },'Replacement timeout is reserved');
@@ -149,13 +149,36 @@ try {
     $legacy=$pending; $legacy['replacement_used']=true; unset($legacy['flow_version']);
     $store->save($legacy); $replacePosts=0;
     $fresh=$store->replaceMissingLink($replacement,'fixture','https://preview.test/');
-    expectPilot($replacePosts===1 && $fresh['flow_version']===2 && $fresh['checkout_response']['checkout_link']===$fresh['checkout_url'],'New flow captures selected response before validating');
+    expectPilot($replacePosts===1 && $fresh['flow_version']===3 && $fresh['checkout_response']['checkout_link']===$fresh['checkout_url'],'New flow captures selected response before validating');
     $store->replaceMissingLink($replacement,'fixture','https://preview.test/');
     expectPilot($replacePosts===1,'New flow cannot reset itself again');
+    // The already-approved legacy $100,000 sandbox payment must not deliver.
+    $legacy=$pending; $legacy['flow_version']=2; $legacy['replacement_used']=true;
+    $legacy['payment_state']='approved'; $legacy['checkout_url']='https://stage.uala-checkout.com/orders/old';
+    $store->save($legacy); $amountPosts=0;
+    expectPilot(PanicRechargePilot::job($legacy)===null,'Old approval cannot dispatch coins');
+    $correctedApi=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url,$headers,$body) use ($legacy,&$amountPosts) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        if($method==='GET') return ['uuid'=>$legacy['payment_id'],'amount'=>100000,'external_reference'=>$legacy['id'],'status'=>'APPROVED'];
+        $amountPosts++; expectPilot($body['amount']==='1000.00','Correction sends 1000 pesos');
+        return ['uuid'=>'corrected-payment','amount'=>1000,'external_reference'=>$body['external_reference'],'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/corrected']];
+    });
+    expectPilot($store->pollForWorker($correctedApi,'fixture')['job']===null,'Old amount is held on canonical worker verification');
+    $wrongIdentity=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($legacy) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        expectPilot($method==='GET','Wrong identity cannot create checkout');
+        return ['uuid'=>$legacy['payment_id'],'amount'=>100000,'external_reference'=>'wrong-reference','status'=>'APPROVED'];
+    });
+    $store->replaceMissingLink($wrongIdentity,'fixture','https://preview.test/');
+    expectPilot($store->current()['id']===$legacy['id'] && $amountPosts===0,'Wrong reference blocks correction');
+    $corrected=$store->replaceMissingLink($correctedApi,'fixture','https://preview.test/');
+    expectPilot($corrected['flow_version']===3 && $corrected['payment_state']==='pending' && $corrected['retired_attempt']['payment_state']==='review','Approved wrong amount is retired with history');
+    $store->replaceMissingLink($correctedApi,'fixture','https://preview.test/');
+    expectPilot($amountPosts===1,'Amount correction is one-time');
     unlink($root.'/uala-pilot.json');
     $unsafeApi=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url,$headers,$body) {
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
-        return ['uuid'=>'unsafe-payment','amount'=>100000,'external_reference'=>$body['external_reference'],
+        return ['uuid'=>'unsafe-payment','amount'=>1000,'external_reference'=>$body['external_reference'],
             'links'=>['checkout_link'=>'https://unrecognized.example/orders/opaque?private=fixture'],
             'customer'=>['card'=>'DO_NOT_STORE'],'secret'=>'DO_NOT_STORE'];
     });
@@ -182,7 +205,7 @@ try {
     $getOnly=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($captured,&$getOnlyCalls) {
         if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
         expectPilot($method==='GET','Stored link recovery never creates another payment'); $getOnlyCalls++;
-        return ['uuid'=>$captured['payment_id'],'amount'=>100000,'external_reference'=>$captured['id'],'status'=>'PENDING'];
+        return ['uuid'=>$captured['payment_id'],'amount'=>1000,'external_reference'=>$captured['id'],'status'=>'PENDING'];
     });
     $restored=$store->refresh($getOnly,'fixture');
     expectPilot($restored['checkout_url']===$stageLink && $getOnlyCalls===1 && $restored['last_error']==='CHECKOUT_LINK_RECOVERED','Fresh canonical GET restores bound private link without new checkout');
@@ -199,7 +222,7 @@ try {
                 $childApi=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url,$headers,$body) use ($root) {
                     if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
                     file_put_contents($root.'/checkout-count',"one\n",FILE_APPEND);
-                    return ['uuid'=>'race-payment','amount'=>100000,'external_reference'=>$body['external_reference'],'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/race']];
+                    return ['uuid'=>'race-payment','amount'=>1000,'external_reference'=>$body['external_reference'],'links'=>['checkout_link'=>'https://stage.uala-checkout.com/orders/race']];
                 });
                 try { (new PanicRechargePilot($root))->begin($childApi,'https://preview.test/'); exit(0); }
                 catch(Throwable $exception) { exit(1); }

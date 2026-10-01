@@ -96,7 +96,7 @@ posible carrera con el GameServer. No repetir ni eliminar el marcador de prueba.
 
 `inc/recharge-uala.php` genera tokens con username/client_id/client_secret_id,
 usa los hosts oficiales separados para test/production y consulta órdenes por
-GET autorizado. Amount es centavos enteros, no pesos decimales. Solo APPROVED
+GET autorizado. El dominio guarda centavos enteros; el sandbox recibe y devuelve pesos, normalizados al leer. Las unidades de producción siguen pendientes de verificar. Solo APPROVED
 puede habilitar una entrega; PROCESSED (y PROCCESED en ejemplos oficiales) sigue
 pendiente. Estados desconocidos y devoluciones requieren revisión.
 El GET omite comercio/moneda/ambiente: se derivan del scope autenticado del
@@ -337,3 +337,23 @@ la orden de sandbox; el GET posterior no incluye el enlace. Se agrega ese nombre
 Una consulta canónica que confirme la misma orden, referencia e importe recupera
 el enlace privado ya guardado y cambia el diagnóstico a `CHECKOUT_LINK_RECOVERED`.
 No se requiere una cuarta compra ni otro reinicio; el pago continúa pendiente.
+
+
+### Corrección de importe de sandbox (flujo v3)
+
+El 1/10/2026 el checkout real de sandbox mostró $100.000 al enviar `100000`,
+cuando la prueba debía costar $1.000. La documentación v2 tiene una tabla de
+centavos y ejemplos decimales contradictorios. Para sandbox enviamos ahora
+`1000.00` pesos y normalizamos el importe de POST/GET a 100000 centavos en el
+dominio. No se cambió el comportamiento de producción, que sigue sin habilitar
+ventas y requiere verificar sus unidades antes de abrir cobros.
+
+El panel oculta enlaces e instrucciones de entrega de pilotos anteriores a v3.
+El botón «Preparar prueba de $1.000» consulta el proveedor y solo retira el
+intento anterior si confirma exactamente el importe equivocado de $100.000,
+la misma identidad y referencia, el merchant configurado y estado sandbox
+pendiente o aprobado. El intento queda en revisión e historial privado. Una
+reserva v3 previa al POST impide repetir la corrección incluso ante timeout.
+El worker no despacha pilotos anteriores a v3 y mantiene la acreditación única
+SQL. No elimina ni reembolsa órdenes en Ualá; la operación anterior fue simulada.
+La nueva prueba debe mostrar $1.000 antes de completar la tarjeta de sandbox.

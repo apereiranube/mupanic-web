@@ -32,9 +32,19 @@ final class PanicUalaBisApi extends PanicRechargeApi {
     public static function checkoutPayload(array $order, $returnUrl, $webhookUrl) {
         self::checkOrder($order,'uala_bis');
         if($order['price_cents']<2500 || $order['price_cents']>999999900) throw new InvalidArgumentException('Amount outside Uala limits');
-        return ['amount'=>(string)$order['price_cents'],'description'=>'MU PANIC · '.$order['title'],
+        return ['amount'=>$order['live']?(string)$order['price_cents']:self::sandboxAmount($order['price_cents']),'description'=>'MU PANIC · '.$order['title'],
             'callback_fail'=>self::callback($returnUrl),'callback_success'=>self::callback($returnUrl),
             'notification_url'=>self::callback($webhookUrl),'external_reference'=>$order['id']];
+    }
+    // Sandbox checkout displays pesos, despite the conflicting centavos table in v2 docs.
+    // Domain and ledger continue to use integer centavos. Production units remain unverified.
+    public static function sandboxAmount($cents) {
+        if(!is_int($cents) || $cents<0) throw new InvalidArgumentException('Invalid amount');
+        return intdiv($cents,100).'.'.str_pad((string)($cents%100),2,'0',STR_PAD_LEFT);
+    }
+    public static function sandboxCents($amount) {
+        try { return PanicRecharge::cents($amount); }
+        catch(Throwable $exception) { throw new RuntimeException('Invalid Uala order response'); }
     }
     public function createCheckout(array $order, $returnUrl, $webhookUrl) {
         if(($order['live'] ?? null)!==($this->environment==='production')) throw new InvalidArgumentException('Uala environment mismatch');
@@ -82,7 +92,8 @@ final class PanicUalaBisApi extends PanicRechargeApi {
     public function fetchPayment($paymentId) {
         $result=$this->request('GET',$this->base('checkout').'/orders/'.self::id($paymentId),$this->headers());
         $amount=$result['amount'] ?? null;
-        if(is_string($amount) && preg_match('/^[0-9]{1,9}$/D',$amount)) $amount=(int)$amount;
+        if($this->environment==='test') $amount=self::sandboxCents($amount);
+        elseif(is_string($amount) && preg_match('/^[0-9]{1,9}$/D',$amount)) $amount=(int)$amount;
         if(($result['uuid'] ?? null)!==$paymentId || !is_int($amount) || $amount<0 || $amount>999999900 ||
            !is_string($result['external_reference'] ?? null)) throw new RuntimeException('Invalid Uala order response');
         $states=['PENDING'=>'pending','PROCESSED'=>'pending','PROCCESED'=>'pending','APPROVED'=>'approved','REJECTED'=>'rejected','REFUNDED'=>'refunded'];
