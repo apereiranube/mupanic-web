@@ -1,0 +1,604 @@
+[
+  {
+    "id": "arma-chaos",
+    "name": "Arma Chaos",
+    "group": "Alas",
+    "rateKey": "ChaosItemMixRate",
+    "place": "Chaos Goblin · Noria · creación de arma Chaos",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Equipo +4 con opción adicional +4 o superior",
+        "quantity": 1,
+        "note": "La opción adicional es la de Life; Skill o Luck no la reemplazan.",
+        "query": "",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Separá un equipo compatible +4 o superior con opción adicional.",
+      "Elegí creación de arma Chaos y colocá los ingredientes.",
+      "Agregar equipo o joyas compatibles puede elevar la tasa; comprobá el porcentaje antes de combinar."
+    ],
+    "result": "Un arma Chaos aleatoria: Dragon Axe, Nature Bow o Lightning Staff.",
+    "note": "Es la base de la primera generación de alas. Si falla, se consumen los materiales de la mezcla.",
+    "zen": null
+  },
+  {
+    "id": "alas-1",
+    "name": "Alas de primera generación",
+    "group": "Alas",
+    "rateKey": "Wing1MixRate",
+    "place": "Chaos Goblin · Noria · combinación regular",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Arma Chaos +4 con opción adicional +4 o superior",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": "arma-chaos"
+      }
+    ],
+    "steps": [
+      "Creá el arma Chaos y preparala al nivel y opción requeridos.",
+      "Colocá el arma junto a un Chaos en combinación regular.",
+      "Mejorar el valor del equipo o agregar ingredientes compatibles ayuda a la tasa variable."
+    ],
+    "result": "Alas de primera generación; la clase resultante puede ser aleatoria.",
+    "note": "La tasa depende de los materiales. Si falla, perdés lo colocado en la máquina.",
+    "zen": null
+  },
+  {
+    "id": "alas-2",
+    "name": "Alas de segunda generación",
+    "group": "Alas",
+    "rateKey": "Wing2MixRate",
+    "place": "Chaos Goblin · Noria · combinación regular",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Alas de primera generación",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": "alas-1"
+      },
+      {
+        "name": "Loch's Feather",
+        "quantity": 1,
+        "note": "",
+        "query": "Loch's Feather",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Conseguí la pluma en Icarus con los monstruos elegibles.",
+      "Colocá alas de primera generación, pluma y Chaos.",
+      "Un equipo Excellent +4 o superior puede aportar valor a la mezcla; revisá la tasa mostrada."
+    ],
+    "result": "Alas de segunda generación de una clase aleatoria.",
+    "note": "Las alas usadas se consumen al crear las nuevas. La opción adicional, el nivel y los materiales influyen en el valor de la combinación.",
+    "zen": 5000000
+  },
+  {
+    "id": "capa-2",
+    "name": "Capa de Lord / Fighter",
+    "group": "Alas",
+    "rateKey": "Wing2MixRate",
+    "place": "Chaos Goblin · Noria · combinación regular",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Alas de primera generación",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": "alas-1"
+      },
+      {
+        "name": "Monarch's Crest",
+        "quantity": 1,
+        "note": "",
+        "query": "Monarch's Crest",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Conseguí Monarch’s Crest; es distinto de Loch’s Feather.",
+      "Usá Crest, alas de primera generación y Chaos.",
+      "Revisá la combinación de capa y el resultado permitido para tu clase."
+    ],
+    "result": "Capa de segunda generación según los resultados habilitados.",
+    "note": "El Crest reemplaza a la pluma; no pongas ambos. No garantiza que salga la capa de tu clase.",
+    "zen": 5000000
+  },
+  {
+    "id": "pluma-condor",
+    "name": "Pluma de Cóndor",
+    "group": "Alas",
+    "rateKey": "FeatherOfCondorMixRate",
+    "place": "Chaos Goblin · Noria · combinación regular",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Creation",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Creation",
+        "recipe": ""
+      },
+      {
+        "name": "Pack de 10 Soul",
+        "quantity": 1,
+        "note": "Pack, no diez joyas sueltas.",
+        "query": "Jewel of Soul",
+        "recipe": ""
+      },
+      {
+        "name": "Alas o capa de segunda generación +9, opción +4 o superior",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": "alas-2"
+      },
+      {
+        "name": "Equipo Ancient +7, opción +4 o superior",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Prepará las alas o capa +9 y el equipo Ancient +7 con opción adicional.",
+      "Empaquetá diez Soul; colocá el pack junto a Chaos y Creation.",
+      "Verificá que la máquina reconozca la receta y revisá la tasa."
+    ],
+    "result": "Condor Feather para la tercera generación.",
+    "note": "Las alas y el Ancient son ingredientes que se consumen. La tasa variable depende del equipo aportado.",
+    "zen": null
+  },
+  {
+    "id": "alas-3",
+    "name": "Alas de tercera generación",
+    "group": "Alas",
+    "rateKey": "Wing3MixRate",
+    "place": "Chaos Goblin · Noria · combinación regular",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Creation",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Creation",
+        "recipe": ""
+      },
+      {
+        "name": "Pack de 10 Soul",
+        "quantity": 1,
+        "note": "Pack, no diez joyas sueltas.",
+        "query": "Jewel of Soul",
+        "recipe": ""
+      },
+      {
+        "name": "Pack de 10 Bless",
+        "quantity": 1,
+        "note": "Pack, no diez joyas sueltas.",
+        "query": "Jewel of Bless",
+        "recipe": ""
+      },
+      {
+        "name": "Condor Feather",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": "pluma-condor"
+      },
+      {
+        "name": "Condor Flame",
+        "quantity": 1,
+        "note": "",
+        "query": "Condor Flame",
+        "recipe": ""
+      },
+      {
+        "name": "Equipo Excellent +9, opción +4 o superior",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Conseguí la llama en Barracks y creá la pluma de Cóndor.",
+      "Prepará los packs de diez Bless y diez Soul, y el Excellent con nivel y opción.",
+      "Colocá los ingredientes, revisá tasa y costo, y confirmá solo si aceptás perderlos."
+    ],
+    "result": "Alas o capa de tercera generación aleatorias.",
+    "note": "Crear alas de tercera generación y subir su nivel son combinaciones diferentes. La creación usa tasa variable.",
+    "zen": null
+  },
+  {
+    "id": "pieza-fenrir",
+    "name": "Pieza de cuerno",
+    "group": "Fenrir",
+    "rateKey": "PieceOfHornMixRate",
+    "place": "Chaos Goblin · Noria",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Splinter of Armor",
+        "quantity": 20,
+        "note": "",
+        "query": "Splinter of Armor",
+        "recipe": ""
+      },
+      {
+        "name": "Bless of Guardian",
+        "quantity": 20,
+        "note": "",
+        "query": "Bless of Guardian",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Farmeá los materiales elegibles de Crywolf.",
+      "Juntá exactamente las cantidades de esta etapa.",
+      "Combiná los dos materiales con un Chaos."
+    ],
+    "result": "Piece of Horn.",
+    "note": "Es la primera etapa del Fenrir; necesitarás cinco piezas para el cuerno roto.",
+    "zen": null
+  },
+  {
+    "id": "cuerno-roto",
+    "name": "Cuerno roto",
+    "group": "Fenrir",
+    "rateKey": "BrokenHornMixRate",
+    "place": "Chaos Goblin · Noria",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Piece of Horn",
+        "quantity": 5,
+        "note": "",
+        "query": "",
+        "recipe": "pieza-fenrir"
+      },
+      {
+        "name": "Claw of Beast",
+        "quantity": 10,
+        "note": "",
+        "query": "Claw of Beast",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Prepará cinco piezas de cuerno; cada una requiere su propia mezcla.",
+      "Conseguí diez Claw of Beast en Crywolf.",
+      "Colocá las cinco piezas, las diez garras y un Chaos."
+    ],
+    "result": "Broken Horn.",
+    "note": "Cada etapa tiene su propio riesgo; el 50% de esta mezcla no representa toda la cadena del Fenrir.",
+    "zen": null
+  },
+  {
+    "id": "fenrir",
+    "name": "Fenrir rojo",
+    "group": "Fenrir",
+    "rateKey": "HornOfFenrirMixRate",
+    "place": "Chaos Goblin · Noria",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Broken Horn",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": "cuerno-roto"
+      },
+      {
+        "name": "Jewel of Life",
+        "quantity": 3,
+        "note": "",
+        "query": "Jewel of Life",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Creá el cuerno roto.",
+      "Juntá tres Life y un Chaos.",
+      "Revisá el costo y combiná para intentar crear el Fenrir."
+    ],
+    "result": "Horn of Fenrir rojo.",
+    "note": "El fallo consume los materiales. Las mejoras a Fenrir negro o azul tienen otra receta.",
+    "zen": 10000000
+  },
+  {
+    "id": "fruta",
+    "name": "Fruta de estadísticas",
+    "group": "Otros",
+    "rateKey": "FruitMixRate",
+    "place": "Chaos Goblin · Noria",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Creation",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Creation",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Colocá Chaos y Creation.",
+      "Revisá el costo de combinación.",
+      "La fruta resultante puede corresponder a distintos atributos."
+    ],
+    "result": "Fruta de estadísticas aleatoria.",
+    "note": "Crear una fruta y utilizarla son procesos diferentes; el uso tiene límites propios del personaje.",
+    "zen": 3000000
+  },
+  {
+    "id": "dark-horse",
+    "name": "Dark Horse",
+    "group": "Pets",
+    "rateKey": "PetMixRate",
+    "place": "Trainer · Lorencia",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Creation",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Creation",
+        "recipe": ""
+      },
+      {
+        "name": "Soul of Dark Horse",
+        "quantity": 1,
+        "note": "",
+        "query": "Spirit of Dark Horse",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Bless",
+        "quantity": 5,
+        "note": "",
+        "query": "Jewel of Bless",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Soul",
+        "quantity": 5,
+        "note": "",
+        "query": "Jewel of Soul",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Conseguí el alma de Dark Horse.",
+      "Llevá los ingredientes al Trainer de Lorencia.",
+      "Seleccioná la resurrección del Dark Horse y revisá el costo."
+    ],
+    "result": "Dark Horse para Dark Lord.",
+    "note": "No se crea en Chaos Goblin. El alma y las joyas forman parte de la combinación.",
+    "zen": 5000000
+  },
+  {
+    "id": "dark-spirit",
+    "name": "Dark Spirit",
+    "group": "Pets",
+    "rateKey": "PetMixRate",
+    "place": "Trainer · Lorencia",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Creation",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Creation",
+        "recipe": ""
+      },
+      {
+        "name": "Soul of Dark Spirit",
+        "quantity": 1,
+        "note": "",
+        "query": "Spirit of Dark Spirit",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Bless",
+        "quantity": 2,
+        "note": "",
+        "query": "Jewel of Bless",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Soul",
+        "quantity": 2,
+        "note": "",
+        "query": "Jewel of Soul",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Conseguí el alma de Dark Spirit.",
+      "Llevá los ingredientes al Trainer de Lorencia.",
+      "Elegí la resurrección del Dark Spirit."
+    ],
+    "result": "Dark Spirit para Dark Lord.",
+    "note": "No confundas el alma del caballo con la del cuervo: son variantes diferentes.",
+    "zen": 1000000
+  },
+  {
+    "id": "seed",
+    "name": "Seed",
+    "group": "Socket",
+    "rateKey": "SocketItemCreateSeedMixRate",
+    "place": "Seed Master · sistema Socket",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Creation",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Creation",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Harmony",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": ""
+      },
+      {
+        "name": "Equipo Excellent +4 o superior",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": ""
+      },
+      {
+        "name": "Equipo Ancient +4 o superior",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Prepará un Excellent y un Ancient compatibles, ambos +4 o superior.",
+      "Agregá las tres joyas requeridas.",
+      "Elegí extracción de Seed y revisá el resultado de la receta."
+    ],
+    "result": "Seed de tipo y opción aleatorios.",
+    "note": "Crear Seed consume el equipo usado como ingrediente; no agrega slots a ese equipo.",
+    "zen": 1000000
+  },
+  {
+    "id": "seed-sphere",
+    "name": "Seed Sphere",
+    "group": "Socket",
+    "rateKey": "SocketItemCreateSeedSphereMixRate",
+    "place": "Seed Master · sistema Socket",
+    "materials": [
+      {
+        "name": "Jewel of Chaos",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Chaos",
+        "recipe": ""
+      },
+      {
+        "name": "Jewel of Creation",
+        "quantity": 1,
+        "note": "",
+        "query": "Jewel of Creation",
+        "recipe": ""
+      },
+      {
+        "name": "Seed",
+        "quantity": 1,
+        "note": "",
+        "query": "",
+        "recipe": "seed"
+      },
+      {
+        "name": "Sphere",
+        "quantity": 1,
+        "note": "",
+        "query": "Sphere",
+        "recipe": ""
+      }
+    ],
+    "steps": [
+      "Conseguí un Seed y una Sphere compatible.",
+      "Elegí combinación de Seed Sphere.",
+      "La Seed Sphere se monta después en un slot vacío mediante el NPC correspondiente."
+    ],
+    "result": "Seed Sphere lista para el montaje.",
+    "note": "Crear la Seed Sphere y montarla son operaciones distintas. El equipo debe tener un slot disponible.",
+    "zen": 1000000
+  }
+]

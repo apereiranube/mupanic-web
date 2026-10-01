@@ -307,7 +307,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 3,
@@ -505,7 +510,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 51,
@@ -689,7 +699,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 2,
@@ -874,7 +889,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 1,
@@ -1109,7 +1129,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 4,
@@ -1368,7 +1393,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 7,
@@ -1566,7 +1596,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.5,
+        "socket": false
+      }
     },
     {
       "id": 8,
@@ -1729,7 +1764,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 10,
@@ -1898,7 +1938,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 33,
@@ -2106,7 +2151,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 34,
@@ -2165,7 +2215,12 @@
           "level": 134
         }
       ],
-      "spots": []
+      "spots": [],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 37,
@@ -2371,7 +2426,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 38,
@@ -2495,14 +2555,24 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 39,
       "name": "Kanturu 3",
       "moves": [],
       "monsters": [],
-      "spots": []
+      "spots": [],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 41,
@@ -2525,7 +2595,12 @@
           "level": 119
         }
       ],
-      "spots": []
+      "spots": [],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 42,
@@ -2548,7 +2623,12 @@
           "level": 118
         }
       ],
-      "spots": []
+      "spots": [],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 57,
@@ -2694,7 +2774,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": true
+      }
     },
     {
       "id": 56,
@@ -2854,7 +2939,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 80,
@@ -3002,7 +3092,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 81,
@@ -3145,7 +3240,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     },
     {
       "id": 82,
@@ -3418,7 +3518,12 @@
             }
           ]
         }
-      ]
+      ],
+      "equipmentDrop": {
+        "excellent": 0.1,
+        "ancient": 0.0,
+        "socket": false
+      }
     }
   ],
   "drops": [
@@ -4502,5 +4607,408 @@
         0.1
       ]
     }
-  ]
+  ],
+  "crafting": {
+    "mixRates": {
+      "ChaosItemMixRate": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "Wing1MixRate": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "Wing2MixRate": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "FeatherOfCondorMixRate": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "Wing3MixRate": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "PetMixRate": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "PieceOfHornMixRate": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "BrokenHornMixRate": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "HornOfFenrirMixRate": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "FruitMixRate": [
+        90,
+        90,
+        90,
+        90
+      ],
+      "SocketItemCreateSeedMixRate": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "SocketItemCreateSeedSphereMixRate": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "JewelOfHarmonyItemPurityMixRate": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "DinorantMixRate": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "DevilSquareMixRate1": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "DevilSquareMixRate2": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "DevilSquareMixRate3": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "DevilSquareMixRate4": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "DevilSquareMixRate5": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "DevilSquareMixRate6": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "DevilSquareMixRate7": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "BloodCastleMixRate1": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "BloodCastleMixRate2": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "BloodCastleMixRate3": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "BloodCastleMixRate4": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "BloodCastleMixRate5": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "BloodCastleMixRate6": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "BloodCastleMixRate7": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "BloodCastleMixRate8": [
+        80,
+        80,
+        80,
+        80
+      ],
+      "PlusItemLevelMixRate1": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "PlusItemLevelMixRate2": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "PlusItemLevelMixRate3": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "PlusItemLevelMixRate4": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "PlusItemLevelMixRate5": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "PlusItemLevelMixRate6": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "PlusItemExcLevelMixRate1": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "PlusItemExcLevelMixRate2": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "PlusItemExcLevelMixRate3": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "PlusItemExcLevelMixRate4": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "PlusItemExcLevelMixRate5": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "PlusItemExcLevelMixRate6": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "PlusItemSetLevelMixRate1": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "PlusItemSetLevelMixRate2": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "PlusItemSetLevelMixRate3": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "PlusItemSetLevelMixRate4": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "PlusItemSetLevelMixRate5": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "PlusItemSetLevelMixRate6": [
+        40,
+        40,
+        40,
+        40
+      ],
+      "PlusItemSocketLevelMixRate1": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "PlusItemSocketLevelMixRate2": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "PlusItemSocketLevelMixRate3": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "PlusItemSocketLevelMixRate4": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "PlusItemSocketLevelMixRate5": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "PlusItemSocketLevelMixRate6": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "PlusItemWingLevelMixRate1": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "PlusItemWingLevelMixRate2": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "PlusItemWingLevelMixRate3": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "PlusItemWingLevelMixRate4": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "PlusItemWingLevelMixRate5": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "PlusItemWingLevelMixRate6": [
+        60,
+        60,
+        60,
+        60
+      ]
+    },
+    "jewels": {
+      "SoulSuccessRate": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "LifeSuccessRate": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "HarmonySuccessRate": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "SmeltStoneSuccessRate1": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "SmeltStoneSuccessRate2": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "AddLuckSuccessRate1": [
+        25,
+        25,
+        25,
+        25
+      ],
+      "AddLuckSuccessRate2": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "failLevelRemoval": -1
+  }
 }

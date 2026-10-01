@@ -47,3 +47,28 @@ PHP lint y JS syntax check. Navegador real: 1440/1024/768/390/320 px, sin desbor
 ## Deploy
 
 Únicamente overlay mediante el flujo beta existente. No cambiar `webengine.json`, configuración del servidor ni secretos. Subir la rama no equivale a desplegar: cPanel → Update from Remote → Deploy HEAD Commit.
+
+## Ampliación 7.1 — Taller y equipo
+
+La revisión agrega 14 recetas: arma Chaos, alas 1/2/3, capas de segunda generación, Pluma de Cóndor, tres etapas de Fenrir, fruta, Dark Horse, Dark Spirit, Seed y Seed Sphere. Cada receta incluye ingredientes, cantidades, condiciones de nivel/opción, NPC, pasos y resultado. Los checklists se guardan en el navegador. Los ingredientes enlazan al drop real disponible o a su receta previa.
+
+La calculadora +0 a +15 cruza categoría, cuenta, nivel inicial/final y Luck. Exporta las tasas de Chaos por las cinco categorías (normal/Excellent/Ancient/Socket/alas), Soul y los bonos Luck. Para las mezclas configuradas con -1 se muestra **Variable**, sin inventar un porcentaje exacto de alas ni aplicar automáticamente un tope de otra versión.
+
+El resultado de una cadena es el producto de probabilidades por paso. Materiales = suma de los ingredientes de una cadena sin fallos; no se presenta como costo promedio, cantidad garantizada de intentos ni predicción del resultado del jugador. No incluye talismanes, impuestos ni otras ayudas. El porcentaje final se verifica en la máquina.
+
+Se agregan guías de niveles del equipo, Life, Luck, Skill, Excellent, Ancient, Socket, Harmony y equipo 380. MapManager aporta las tasas configuradas de Excellent/Ancient y la bandera Socket, con el alcance de elegibilidad explicado.
+
+### Fuentes de crafting
+
+- Configuración activa aportada por el administrador: GameServerInfo Common y ChaosMix; MapManager; CustomWingMix sin recetas adicionales. Se exportan exclusivamente claves públicas permitidas.
+- La [guía oficial de upgrades de Webzen](https://muonline.webzen.com/es/gameinfo/guide/detail/32) explica los ingredientes de +10 a +15. Sus probabilidades genéricas no se usan como rates de PANIC.
+- [Código publicado por LouisEmulator](https://github.com/LouisEmulator/Main5.2/blob/acfdd2bf8bd8f8ca6d0c15e1a3e71a70b89924c5/Source%20MuServer%20Update%2015/GameServer/GameServer/ChaosBox.cpp): base de ingredientes y pasos de crafting de esta familia de emulador; esta fuente es Update 15, no el binario UP43 en ejecución. Los costos fijos se marcan como referencia antes de impuestos y la tasa final se contrasta en juego. No se traslada la guía moderna de alas Season 18, que cambió sus ingredientes.
+- El código `JewelOfHarmonyOption.cpp` de ese mismo repositorio distingue la refinación por la piedra utilizada: Lower usa SmeltStoneSuccessRate1 y Higher (14,44) usa SmeltStoneSuccessRate2. La documentación antigua etiqueta esas claves de forma ambigua como normal/Excellent; la guía usa la interpretación del código.
+
+### Mapas reales: pendiente de arte del cliente
+
+El ZIP contiene configuración y población, no las imágenes de minimapa del cliente. No se sustituyeron con arte generado ni mapas de otro servidor. `tools/collect_atlas_client.ps1` reúne exclusivamente imágenes identificables de mapas y Mix/Item.bmd de Local, conserva rutas relativas y crea un ZIP en el Escritorio. Nunca copia EXE, MainInfo, seriales ni configuración. No se ejecutó en Windows en este entorno; debe indicarse `-ClientRoot` si el cliente está en otra carpeta. El arte requiere revisión y calibración de coordenadas antes de superponer spots.
+
+### Validación 7.1
+
+PHP lint y JS syntax; navegador real en 1440/1024/768/390/320: taller sin desbordamiento, selección/filtros, vacío de búsqueda, checklist persistente, ingredientes encadenados a recetas y drops, búsquedas globales de recetas, capítulos de equipo, todas las recetas sin JS. Calculadora: normal +9→+10=20%; Excellent=30%; Excellent con Luck=50%; Excellent +9→+12 con Luck=12,5%, con 6 Bless/6 Soul/3 Chaos; rango inválido; Soul +6→+9=100%. Regresión del Atlas 7.0 aprobada. Deploy continúa limitado al overlay.

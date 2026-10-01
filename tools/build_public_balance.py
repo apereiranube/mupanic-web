@@ -13,8 +13,8 @@ def rows(path):
   try: yield shlex.split(code), comment.strip()
   except ValueError: raise ValueError('Invalid public data line in '+path)
 common=read('GameServer/Data/GameServerInfo - Common.dat')
-def setting(key):
- m=re.search(r'^\s*'+re.escape(key)+r'\s*=\s*(\d+)',common,re.M)
+def setting(key, source=common):
+ m=re.search(r'^\s*'+re.escape(key)+r'\s*=\s*(-?\d+)',source,re.M)
  if not m: raise ValueError('Missing setting '+key)
  return int(m[1])
 accounts=[{'name':n,'experience':setting('AddExperienceRate_AL'+str(i)), 'master':setting('AddMasterExperienceRate_AL'+str(i)), 'drop':setting('ItemDropRate_AL'+str(i))} for i,n in enumerate(['Free','VIP 1','VIP 2','VIP 3'])]
@@ -46,7 +46,14 @@ for r,c in rows('Data/Item/ItemDrop.txt'):
  drops.append({'name':c or 'Item '+r[0],'id':int(r[0]),'variant':int(r[1]),'map':-1 if r[11]=='*' else int(r[11]),'monster':-1 if r[12]=='*' else int(r[12]),'min':int(r[13]),'max':int(r[14]),'rates':[int(v)/10000 for v in r[15:19]]})
 resets=[{'min':int(r[0]),'max':int(r[1]),'level':int(r[2]),'zen':int(r[6]),'points':int(r[10])} for r,c in rows('Data/Util/ResetTable.txt') if len(r)==14]
 experience=[{'min':int(r[4]),'max':int(r[5]),'percent':int(r[8])} for r,c in rows('Data/Util/ExperienceTable.txt') if len(r)==9]
-data={'revision':'2026-10-01','accounts':accounts,'masterMonsterMin':setting('MinMasterExperienceMonsterLevel_AL0'),'resets':resets,'experience':experience,'maps':maps,'drops':drops}
+chaos = read('GameServer/Data/GameServerInfo - ChaosMix.dat')
+rate_keys = ['ChaosItemMixRate','Wing1MixRate','Wing2MixRate','FeatherOfCondorMixRate','Wing3MixRate','PetMixRate','PieceOfHornMixRate','BrokenHornMixRate','HornOfFenrirMixRate','FruitMixRate','SocketItemCreateSeedMixRate','SocketItemCreateSeedSphereMixRate','JewelOfHarmonyItemPurityMixRate','DinorantMixRate']
+rate_keys += ['DevilSquareMixRate'+str(i) for i in range(1,8)] + ['BloodCastleMixRate'+str(i) for i in range(1,9)]
+rate_keys += [prefix+str(i) for prefix in ['PlusItemLevelMixRate','PlusItemExcLevelMixRate','PlusItemSetLevelMixRate','PlusItemSocketLevelMixRate','PlusItemWingLevelMixRate'] for i in range(1,7)]
+crafting={'mixRates':{key:[setting(key+'_AL'+str(i),chaos) for i in range(4)] for key in rate_keys}, 'jewels':{key:[setting(key+'_AL'+str(i)) for i in range(4)] for key in ['SoulSuccessRate','LifeSuccessRate','HarmonySuccessRate','SmeltStoneSuccessRate1','SmeltStoneSuccessRate2','AddLuckSuccessRate1','AddLuckSuccessRate2']},'failLevelRemoval':setting('PlusItemFailRemoveLevelAmount',chaos)}
+map_configs={int(r[0]):{'excellent':int(r[6])/10000,'ancient':int(r[7])/10000,'socket':r[8]=='1'} for r,c in rows('Data/MapManager.txt') if len(r)>8}
+for map in maps: map['equipmentDrop']=map_configs[map['id']]
+data={'revision':'2026-10-01','accounts':accounts,'masterMonsterMin':setting('MinMasterExperienceMonsterLevel_AL0'),'resets':resets,'experience':experience,'maps':maps,'drops':drops,'crafting':crafting}
 assert len(maps)>15 and len(drops)>10 and accounts[0]['experience']==15
 out=Path(__file__).resolve().parents[1]/'overlay/templates/mupanic/inc/public-balance.json'
 out.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')

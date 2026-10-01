@@ -150,6 +150,7 @@
     if (!panel) panel = panels[0];
     panels.forEach(function (item) { item.hidden = item !== panel; });
     nav.forEach(function (link) { if (link.hash === '#' + panel.id) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current'); });
+    if (panel.id === 'taller') selectRecipe(target && target.hasAttribute('data-recipe-id') ? target.getAttribute('data-recipe-id') : currentRecipe);
     // A shared deep link must reveal a map/row even after local filtering.
     if (target) {
       target.hidden = false;
@@ -211,6 +212,89 @@
   dropAccount.addEventListener('change', filterDrops);
   wiki.querySelectorAll('[data-drop-query]').forEach(function (button) { button.addEventListener('click', function () { dropFilter.value = button.getAttribute('data-drop-query'); filterDrops(); }); });
   wiki.querySelectorAll('[data-map-drops]').forEach(function (link) { link.addEventListener('click', function () { dropMap.value = link.getAttribute('data-map-drops'); dropFilter.value = ''; filterDrops(); if (location.hash === '#drops') revealHash(); }); });
+  // The workshop and the upgrade planner share the same public balance snapshot.
+  var recipeSearch = wiki.querySelector('[data-recipe-search]');
+  var recipeAccount = wiki.querySelector('[data-recipe-account]');
+  var recipeGroup = 'Todas';
+  var currentRecipe = data.recipes[0].id;
+  var materialChecks = [];
+  try { var storedMaterials = JSON.parse(localStorage.getItem('panic-atlas-materials') || '[]'); if (Array.isArray(storedMaterials)) materialChecks = storedMaterials.filter(function (key) { return typeof key === 'string' && wiki.querySelector('[data-material="' + CSS.escape(key) + '"]'); }); } catch (e) {}
+  function updateMaterialProgress(article) {
+    var checks = Array.from(article.querySelectorAll('[data-material]'));
+    var ready = checks.filter(function (check) { return check.checked; }).length;
+    article.querySelector('[data-recipe-progress]').textContent = ready === checks.length ? 'Lista de materiales completa. Revisá la tasa y el Zen en el juego antes de intentar la mezcla.' : ready + ' de ' + checks.length + ' materiales preparados · faltan ' + (checks.length - ready);
+  }
+  wiki.querySelectorAll('[data-material]').forEach(function (check) {
+    check.checked = materialChecks.includes(check.getAttribute('data-material'));
+    check.addEventListener('change', function () {
+      var key = check.getAttribute('data-material');
+      materialChecks = check.checked ? materialChecks.concat(key) : materialChecks.filter(function (item) { return item !== key; });
+      try { localStorage.setItem('panic-atlas-materials', JSON.stringify(materialChecks)); } catch (e) {}
+      updateMaterialProgress(check.closest('.recipe-article'));
+    });
+  });
+  function recipeRates() {
+    var account = Number(recipeAccount.value);
+    data.recipes.forEach(function (recipe) {
+      var rate = data.crafting.mixRates[recipe.rateKey][account];
+      var article = document.getElementById('crear-' + recipe.id);
+      article.querySelector('[data-recipe-rate]').textContent = rate === -1 ? 'Variable' : rate + '%';
+      updateMaterialProgress(article);
+    });
+  }
+  function selectRecipe(id) {
+    if (!data.recipes.some(function (recipe) { return recipe.id === id; })) return;
+    currentRecipe = id;
+    var link = wiki.querySelector('[data-recipe-nav="' + id + '"]');
+    if (link.hidden) { recipeGroup = 'Todas'; recipeSearch.value = ''; filterRecipes(false); }
+    wiki.querySelectorAll('.recipe-article').forEach(function (article) { article.hidden = article.getAttribute('data-recipe-id') !== id; });
+    wiki.querySelectorAll('[data-recipe-nav]').forEach(function (item) { if (item.getAttribute('data-recipe-nav') === id) item.setAttribute('aria-current', 'true'); else item.removeAttribute('aria-current'); });
+    wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-recipe-group') === recipeGroup)); });
+  }
+  function filterRecipes(selectFirst) {
+    var query = normalize(recipeSearch.value);
+    var matches = data.recipes.filter(function (recipe) { return (recipeGroup === 'Todas' || recipe.group === recipeGroup) && normalize(recipe.name + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')).includes(query); });
+    wiki.querySelectorAll('[data-recipe-nav]').forEach(function (link) { link.hidden = !matches.some(function (recipe) { return recipe.id === link.getAttribute('data-recipe-nav'); }); });
+    wiki.querySelector('[data-recipe-status]').textContent = matches.length ? matches.length + ' recetas · elegí tu objetivo' : 'No hay recetas con ese nombre en esta categoría.';
+    if (selectFirst && matches.length) { selectRecipe(matches[0].id); history.replaceState(null, '', '#crear-' + matches[0].id); }
+    if (!matches.length) wiki.querySelectorAll('.recipe-article').forEach(function (article) { article.hidden = true; });
+    wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-recipe-group') === recipeGroup)); });
+  }
+  recipeSearch.addEventListener('input', function () { filterRecipes(true); });
+  recipeAccount.addEventListener('change', recipeRates);
+  wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.addEventListener('click', function () { recipeGroup = button.getAttribute('data-recipe-group'); filterRecipes(true); }); });
+  wiki.querySelectorAll('[data-material-drop]').forEach(function (link) { link.addEventListener('click', function () { dropFilter.value = link.getAttribute('data-material-drop'); dropMap.value = ''; filterDrops(); if (location.hash === '#drops') revealHash(); }); });
+  data.recipes.forEach(function (recipe) { searchable.push({title: recipe.name, context: 'Taller · ' + recipe.group, text: normalize(recipe.name + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')), hash: '#crear-' + recipe.id}); });
+  function updateUpgradePlanner() {
+    var account = Number(wiki.querySelector('[data-upgrade-account]').value);
+    var type = wiki.querySelector('[data-upgrade-type]').value;
+    var from = Number(wiki.querySelector('[data-upgrade-from]').value);
+    var to = Number(wiki.querySelector('[data-upgrade-to]').value);
+    var luck = wiki.querySelector('[data-upgrade-luck]').checked;
+    var rows = wiki.querySelector('[data-upgrade-steps]'); rows.replaceChildren();
+    var total = 1, bless = 0, soul = 0, chaos = 0;
+    var summary = wiki.querySelector('[data-upgrade-summary]');
+    var probability = wiki.querySelector('[data-chain-rate]');
+    var resources = wiki.querySelector('[data-upgrade-resources]');
+    if (to <= from) { probability.textContent = '—'; summary.textContent = 'Elegí un objetivo mayor que el nivel actual.'; resources.textContent = ''; return; }
+    for (var level = from + 1; level <= to; level++) {
+      var amount = level - 9;
+      var rate, where, materials;
+      if (level <= 6) { rate = 100; where = 'Inventario'; materials = '1 Bless'; bless++; }
+      else if (level <= 9) { rate = Math.min(100, data.crafting.jewels.SoulSuccessRate[account] + (luck ? data.crafting.jewels.AddLuckSuccessRate1[account] : 0)); where = 'Inventario'; materials = '1 Soul'; soul++; }
+      else { rate = Math.min(100, data.crafting.mixRates[type + amount][account] + (luck ? data.crafting.jewels.AddLuckSuccessRate2[account] : 0)); where = 'Chaos Goblin'; materials = '1 Chaos · ' + amount + ' Bless · ' + amount + ' Soul'; chaos++; bless += amount; soul += amount; }
+      total *= rate / 100;
+      var row = document.createElement('tr');
+      ['+' + (level - 1) + ' → +' + level, where, materials, rate + '%'].forEach(function (value) { var cell = document.createElement('td'); cell.textContent = value; row.appendChild(cell); });
+      rows.appendChild(row);
+    }
+    probability.textContent = (total * 100).toLocaleString('es-AR', {maximumFractionDigits: 4}) + '%';
+    summary.textContent = 'Probabilidad calculada de completar de +' + from + ' a +' + to + ' sin fallar ningún paso. Cada intento sigue teniendo su propia tasa.';
+    resources.textContent = 'Materiales de una cadena sin fallos: ' + bless + ' Bless · ' + soul + ' Soul · ' + chaos + ' Chaos. No incluye equipo ni Zen; un fallo exige reconsiderar la ruta.';
+  }
+  wiki.querySelectorAll('[data-upgrade-calculator] select,[data-upgrade-luck]').forEach(function (control) { control.addEventListener('change', updateUpgradePlanner); });
+  filterRecipes(false); selectRecipe(currentRecipe); recipeRates(); updateUpgradePlanner();
+
   var saved = [];
   try { var stored = JSON.parse(localStorage.getItem('panic-atlas-maps') || '[]'); if (Array.isArray(stored)) saved = stored.filter(function (id) { return data.maps.some(function (map) { return map.id === id; }); }); } catch (e) { /* Reference works without browser storage. */ }
   function renderSaved() {
