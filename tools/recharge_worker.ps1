@@ -152,7 +152,7 @@ COMMIT;
 GO
 ALTER PROCEDURE dbo.MUPanicApplyRecharge
     @OrderID varchar(38),@PaymentID varchar(120),@Account varchar(10),@Coins int,@PriceCents int,@Environment varchar(10)
-WITH EXECUTE AS OWNER
+WITH EXECUTE AS CALLER
 AS
 BEGIN
     SET NOCOUNT ON; SET XACT_ABORT ON; SET LOCK_TIMEOUT 5000;
@@ -201,13 +201,15 @@ BEGIN
 END;
 GO
 ALTER PROCEDURE dbo.MUPanicAckRecharge @OrderID varchar(38)
-WITH EXECUTE AS OWNER
+WITH EXECUTE AS CALLER
 AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE dbo.MUPanicRechargeDeliveries SET AcknowledgedAt=SYSUTCDATETIME() WHERE OrderID=@OrderID AND AcknowledgedAt IS NULL;
 END;
 GO
+-- CALLER avoids impersonating an orphaned dbo after a database restore.
+-- Static SQL in dbo uses ownership chaining; no direct game-table writes are granted.
 -- Scheduled task runs under SYSTEM. Grant only the delivery/ack procedures and ledger reads.
 IF NOT EXISTS(SELECT 1 FROM sys.server_principals WHERE name=N'NT AUTHORITY\SYSTEM') CREATE LOGIN [NT AUTHORITY\SYSTEM] FROM WINDOWS;
 IF NOT EXISTS(SELECT 1 FROM sys.database_principals WHERE name=N'NT AUTHORITY\SYSTEM') CREATE USER [NT AUTHORITY\SYSTEM] FOR LOGIN [NT AUTHORITY\SYSTEM];
