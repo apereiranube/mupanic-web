@@ -329,3 +329,11 @@ omisión de campos sensibles, reinicio de reserva legacy, doble clic, timeout y
 bloqueo de aprobación cacheada ante HTTP 503. PHP y layout de la cuenta se
 verificaron localmente. El script PowerShell se revisó, pero no se ejecutó aquí
 contra Windows/SQL Server. Acreditación real de 1000 WCoin y reversión aún pendientes.
+
+El diagnóstico real del flujo v2 confirmó `LINK_NOT_ALLOWED` con HTTPS y el host
+`stage-uala-arg-bis-link-de-pago-web.vercel.app`. Ese es el enlace devuelto al crear
+la orden de sandbox; el GET posterior no incluye el enlace. Se agrega ese nombre
+**exacto y solo en test**, sin habilitar otros tenants, subdominios ni HTTP.
+Una consulta canónica que confirme la misma orden, referencia e importe recupera
+el enlace privado ya guardado y cambia el diagnóstico a `CHECKOUT_LINK_RECOVERED`.
+No se requiere una cuarta compra ni otro reinicio; el pago continúa pendiente.

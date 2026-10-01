@@ -50,16 +50,21 @@ final class PanicUalaBisApi extends PanicRechargeApi {
         }
         return $this->request('GET',$this->base('checkout').'/orders?'.http_build_query($query,'','&',PHP_QUERY_RFC3986),$this->headers());
     }
-    public static function checkoutLink($link) {
+    public static function checkoutLink($link,$sandbox=false) {
         if(!is_string($link) || strlen($link)>4096 || preg_match('/[\x00-\x20\x7f]/',$link)) return null;
         $parts=parse_url($link);
         if(!$parts || ($parts['scheme'] ?? '')!=='https' || empty($parts['host']) ||
            isset($parts['user']) || isset($parts['pass']) || isset($parts['fragment']) ||
-           (isset($parts['port']) && $parts['port']!==443) ||
-           !preg_match('/(^|\.)(uala-checkout\.com|ua\.la|ualabis\.com\.ar)$/D',strtolower($parts['host']))) return null;
+           (isset($parts['port']) && $parts['port']!==443)) return null;
+        $host=strtolower($parts['host']);
+        $known=preg_match('/(^|\.)(uala-checkout\.com|ua\.la|ualabis\.com\.ar)$/D',$host);
+        // Exact hostname observed in the authenticated sandbox checkout response.
+        // This is not an allowance for other Vercel tenants or production payments.
+        $testHost=$sandbox===true && $host==='stage-uala-arg-bis-link-de-pago-web.vercel.app';
+        if(!$known && !$testHost) return null;
         return $link;
     }
-    public static function linkDiagnostic($link) {
+    public static function linkDiagnostic($link,$sandbox=false) {
         $info=['issue'=>'LINK_MISSING','host'=>'','scheme'=>''];
         if($link===null || $link==='') return $info;
         if(!is_string($link)) { $info['issue']='LINK_TYPE'; return $info; }
@@ -71,7 +76,7 @@ final class PanicUalaBisApi extends PanicRechargeApi {
         if(preg_match('/^[a-z0-9.-]{1,253}$/D',$host)) $info['host']=$host;
         $scheme=$parts['scheme'] ?? '';
         if(in_array($scheme,['http','https'],true)) $info['scheme']=$scheme;
-        $info['issue']=self::checkoutLink($link)!==null?'LINK_OK':($scheme!=='https'?'LINK_HTTPS_REQUIRED':'LINK_NOT_ALLOWED');
+        $info['issue']=self::checkoutLink($link,$sandbox)!==null?'LINK_OK':($scheme!=='https'?'LINK_HTTPS_REQUIRED':'LINK_NOT_ALLOWED');
         return $info;
     }
     public function fetchPayment($paymentId) {
@@ -88,8 +93,8 @@ final class PanicUalaBisApi extends PanicRechargeApi {
             'merchant'=>$this->credential('client_id'),'currency'=>'ARS','amount_cents'=>$amount,
             'live'=>$this->environment==='production','state'=>$states[$result['status'] ?? ''] ?? 'review',
             // Optional provider-supplied link only. Never construct a payment URL from a UUID.
-            'checkout_url'=>self::checkoutLink($result['links']['checkout_link'] ?? null),
-            'link_diagnostic'=>self::linkDiagnostic($result['links']['checkout_link'] ?? null)];
+            'checkout_url'=>self::checkoutLink($result['links']['checkout_link'] ?? null,$this->environment==='test'),
+            'link_diagnostic'=>self::linkDiagnostic($result['links']['checkout_link'] ?? null,$this->environment==='test')];
     }
 }
 

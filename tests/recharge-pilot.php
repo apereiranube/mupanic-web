@@ -170,6 +170,25 @@ try {
     $blocked=$store->pollForWorker($failApi,'fixture');
     expectPilot($blocked['job']===null && $blocked['error']==='CHECKOUT_HTTP_503','Failed fresh lookup never dispatches cached approved job');
     expectPilot($store->current()['worker_error']==='CHECKOUT_HTTP_503','Safe worker error persists for admin');
+    $stageLink='https://stage-uala-arg-bis-link-de-pago-web.vercel.app/orders/fixture?order=fixture';
+    expectPilot(PanicUalaBisApi::checkoutLink($stageLink,true)===$stageLink,'Exact observed sandbox host accepted');
+    expectPilot(PanicUalaBisApi::checkoutLink($stageLink,false)===null,'Sandbox Vercel host rejected for production');
+    foreach(['https://another.vercel.app/orders/fixture','https://stage-uala-arg-bis-link-de-pago-web.vercel.app.evil.test/pay','https://sub.stage-uala-arg-bis-link-de-pago-web.vercel.app/pay','http://stage-uala-arg-bis-link-de-pago-web.vercel.app/pay'] as $wrongHost) {
+        expectPilot(PanicUalaBisApi::checkoutLink($wrongHost,true)===null,'No wildcard, subdomain, suffix or HTTP exception');
+    }
+    $captured['payment_state']='pending'; $captured['last_error']='CHECKOUT_LINK_UNAVAILABLE';
+    $captured['checkout_response']['checkout_link']=$stageLink;
+    $store->save($captured); $getOnlyCalls=0;
+    $getOnly=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'fixture','client_secret_id'=>'fixture'],'test',function($method,$url) use ($captured,&$getOnlyCalls) {
+        if(strpos($url,'/auth/token')!==false) return ['access_token'=>'fixture','expires_in'=>3600,'token_type'=>'Bearer'];
+        expectPilot($method==='GET','Stored link recovery never creates another payment'); $getOnlyCalls++;
+        return ['uuid'=>$captured['payment_id'],'amount'=>100000,'external_reference'=>$captured['id'],'status'=>'PENDING'];
+    });
+    $restored=$store->refresh($getOnly,'fixture');
+    expectPilot($restored['checkout_url']===$stageLink && $getOnlyCalls===1 && $restored['last_error']==='CHECKOUT_LINK_RECOVERED','Fresh canonical GET restores bound private link without new checkout');
+    expectPilot($restored['checkout_response']['link_diagnostic']['issue']==='LINK_OK' && PanicRechargePilot::job($restored)===null,'Restored link updates diagnosis and does not approve payment');
+    $captured['checkout_response']['external_reference']='unrelated'; $store->save($captured);
+    expectPilot(empty($store->refresh($getOnly,'fixture')['checkout_url']),'Private response for another reference cannot restore link');
     unlink($root.'/uala-pilot.json');
     if(function_exists('pcntl_fork')) {
         $children=[];

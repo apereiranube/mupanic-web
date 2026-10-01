@@ -104,9 +104,9 @@ final class PanicRechargePilot {
                 'amount'=>is_scalar($result['amount'] ?? null)?substr((string)$result['amount'],0,32):null,
                 'external_reference'=>is_string($result['external_reference'] ?? null)?substr($result['external_reference'],0,120):null,
                 'checkout_link'=>is_string($link) && strlen($link)<=4096?$link:null,
-                'link_diagnostic'=>PanicUalaBisApi::linkDiagnostic($link)];
+                'link_diagnostic'=>PanicUalaBisApi::linkDiagnostic($link,true)];
             $store->save($state);
-            $link=PanicUalaBisApi::checkoutLink($link);
+            $link=PanicUalaBisApi::checkoutLink($link,true);
             if(!is_string($id) || !preg_match('/^[A-Za-z0-9_-]{1,120}$/D',$id) || ($result['external_reference'] ?? '')!==$state['id'] ||
                (string)($result['amount'] ?? '')!=='100000') {
                 $state['last_error']='CHECKOUT_RESPONSE'; $store->save($state);
@@ -129,13 +129,17 @@ final class PanicRechargePilot {
         elseif(in_array($decision,['rejected','cancelled'],true) && $state['payment_state']==='approved') $state['payment_state']='review';
         elseif($decision!=='already_credited' && $state['payment_state']!=='approved') $state['payment_state']=$decision;
         if($decision==='pending' && $state['payment_state']==='pending' && empty($state['checkout_url'])) {
-            $link=PanicUalaBisApi::checkoutLink($payment['checkout_url'] ?? null);
+            $link=PanicUalaBisApi::checkoutLink($payment['checkout_url'] ?? null,true);
             $response=$state['checkout_response'] ?? [];
             if($link===null && ($response['uuid'] ?? null)===($state['payment_id'] ?? null) &&
                ($response['external_reference'] ?? null)===$state['id'] && ($response['amount'] ?? null)==='100000') {
-                $link=PanicUalaBisApi::checkoutLink($response['checkout_link'] ?? null);
+                $link=PanicUalaBisApi::checkoutLink($response['checkout_link'] ?? null,true);
             }
-            if($link!==null) $state['checkout_url']=$link;
+            if($link!==null) {
+                $state['checkout_url']=$link;
+                if(isset($state['checkout_response'])) $state['checkout_response']['link_diagnostic']=PanicUalaBisApi::linkDiagnostic($response['checkout_link'] ?? null,true);
+                if(($state['last_error'] ?? '')==='CHECKOUT_LINK_UNAVAILABLE') $state['last_error']='CHECKOUT_LINK_RECOVERED';
+            }
         }
         if(isset($payment['link_diagnostic'])) $state['get_link_diagnostic']=$payment['link_diagnostic'];
         $state['checked_at']=gmdate('c');
