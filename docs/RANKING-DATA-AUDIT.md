@@ -16,4 +16,12 @@ Run `tools/audit_rankings.ps1` on the Windows VPS. It discovers local SQL instan
 
 After confirming candidate counters, compare their values before and after one completed event, boss kill or duel to verify update behavior and meaning. A zero/absent sample is not proof a counter does not exist. Packed achievements require verified decoding and reset/cap semantics. Publish each event separately unless a shared scoring rule is explicitly defined.
 
-Resets/Master Resets activation is pending the database audit and live CMS mapping. No unavailable or unverified category has been exposed as a working ranking.
+## Live database audit received
+
+The administrator supplied `MU_PANIC_RANKINGS_AUDIT_20261001_152459.json` (103 KB). It confirms `dbo.Character.ResetCount` (4 positive records, max 20) and `MasterResetCount` (4, max 4). `RankingBloodCastle.Score` has 2 positive records (max 26000), `RankingDevilSquare.Score` has 2 (max 12030), and `RankingDuel.WinScore/LoseScore` have 2 records with one positive win and one positive loss. These are existing stored counters; the audit alone does not verify continuing writes.
+
+The beta template adds Resets, Master Resets, Blood Castle, Devil Square and Duelos. New views use fixed audited identifiers in the explicitly qualified `MuOnline43` database via the existing CMS `MuOnline` connection alias. They respect the global ranking active switch, configured excluded characters and result limit (capped at 100), use parameterized exclusions, deterministic name tie breakers, and do not alter live CMS configuration. Native rankings retain their CMS handler. Public result snapshots cache for five minutes under separate cache names, keyed by the exclusion/limit policy; a failed refresh can retain a clearly labelled snapshot for up to one day. No cron or VPS change is required. An empty result is different from a database failure.
+
+Other event rankings (Chaos Castle, Castle Siege, PvP Championship, Battle Royale, Demon Guardian, etc.) have zero rows and are not exposed. `Character.Kills` has values but its PvP semantics are not established. Achievements use separate Count/Level columns, not a packed binary field, but monster counter caps/resets and lifetime meaning remain unverified. No general boss leaderboard has been verified. Weekly score columns exist but their reset schedule has not been established, so the new event views use total counters only.
+
+Validation uses PHP rendering with a stub CMS/SQL connection and DOM tests for all five categories, native menu preservation, parameterized exclusions, empty/failure states, cache reuse and stale fallback, plus existing ranking interaction checks. A live beta query is still required after cPanel deployment.

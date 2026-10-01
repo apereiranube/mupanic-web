@@ -183,6 +183,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <div class="module-surface"><?php
                 if($_REQUEST['page'] === 'info') {
                     include('inc/guide.php');
+                } elseif($_REQUEST['page'] === 'rankings') {
+                    include(__DIR__.'/inc/rankings.php');
                 } elseif($_REQUEST['page'] === 'downloads') {
                     ob_start();
                     $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);

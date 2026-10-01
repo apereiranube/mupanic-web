@@ -23,7 +23,7 @@
         const path = document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',paths[type] || paths.crest);svg.append(path);return svg;
     }
     function classGlyph(id) { return ({0:'magic',16:'sword',32:'wings',48:'sword',64:'crown',80:'gem',96:'sword'})[Math.floor(Number(id)/16)*16] || 'crest'; }
-    const labels = {level:'Nivel',masterlevel:'Nivel Master',master:'Nivel Master',killers:'Asesinatos',guilds:'Guilds',online:'Tiempo conectado',votes:'Votos',resets:'Resets',reset:'Resets',grandresets:'Master Resets',gens:'Gens'};
+    const labels = {level:'Nivel',masterlevel:'Nivel Master',master:'Nivel Master',killers:'Asesinatos',guilds:'Guilds',online:'Tiempo conectado',votes:'Votos',resets:'Resets',reset:'Resets',grandresets:'Master Resets',gens:'Gens',bloodcastle:'Blood Castle',devilsquare:'Devil Square',duels:'Duelos'};
     const translations = {country:'País',class:'Clase',character:'Personaje',level:'Nivel',location:'Mapa',guild:'Guild',logo:'Emblema',master:'Líder',score:'Puntos',kills:'Asesinatos','master level':'Nivel Master',resets:'Resets','grand resets':'Master Resets','guild name':'Guild','guild master':'Líder','guild score':'Puntos','pk count':'Asesinatos','pk level':'Estado PK','master level':'Nivel Master'};
     const classLabels = {all:'Todas',wizards:'Magos',knights:'Guerreros',elves:'Elfas',gladiators:'Gladiadores',lords:'Dark Lords',summoners:'Summoners',fighters:'Rage Fighters',lancers:'Lancers','rune wizards':'Rune Wizards',slayers:'Slayers'};
     const intro = make('p','rankings-intro','Conocé a los líderes de MU PANIC. Elegí una categoría y buscá un personaje o una guild para ver su posición.');
@@ -36,7 +36,7 @@
         menu.querySelectorAll('a').forEach(link => {
             const key = new URL(link.href,location.href).pathname.split('/').filter(Boolean).pop();
             if (labels[key]) link.textContent = labels[key];
-            const icon = glyph(({level:'sword',master:'magic',guilds:'crest',killers:'sword',resets:'gem',grandresets:'crown'})[key] || 'crest');link.prepend(icon);
+            const icon = glyph(({level:'sword',master:'magic',guilds:'crest',killers:'sword',resets:'gem',grandresets:'crown',bloodcastle:'crest',devilsquare:'magic',duels:'sword'})[key] || 'crest');link.prepend(icon);
             if (link.classList.contains('active')) link.setAttribute('aria-current','page');
         });
     }
@@ -64,7 +64,7 @@
     const nameIndex = columns.findIndex(x => ['character','personaje','guild','guild name'].includes(x));
     const isGuild = nameIndex >= 0 && ['guild','guild name'].includes(columns[nameIndex]);
     const classIndex = columns.findIndex(x => ['class','clase'].includes(x));
-    const metricGroups = [['grand resets','master resets'],['resets'],['pk count','kills','asesinatos'],['guild score','score','puntos'],['master level','nivel master'],['level','nivel']];
+    const metricGroups = [['grand resets','master resets'],['resets'],['victorias'],['pk count','kills','asesinatos'],['guild score','score','puntos'],['master level','nivel master'],['level','nivel']];
     let scoreIndex = -1;
     for (const group of metricGroups) { scoreIndex = columns.findIndex(x => group.includes(x)); if (scoreIndex >= 0) break; }
     if (nameIndex >= 0 && scoreIndex >= 0 && rows.length) {

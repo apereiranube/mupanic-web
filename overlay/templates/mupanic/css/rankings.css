@@ -1,4 +1,7 @@
-/* Presentation only: ranking positions and values remain owned by WebEngine. */
+/* Native CMS rankings and the verified MU PANIC event counters share one UI. */
+.rankings-category-copy{margin:0 0 24px;max-width:780px}
+.rankings-category-copy h2{font:500 32px/1.2 var(--display);color:#75482f;margin:0 0 10px}
+.rankings-category-copy p{font-size:17px;line-height:1.7;color:#59615e;margin:0}
 .is-rankings{background:#f1ede5;color:#263033}
 .is-rankings .inner-hero{border-bottom:1px solid #b8886155}
 .is-rankings .inner-content{padding:40px 0 90px}
