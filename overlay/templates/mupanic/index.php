@@ -24,6 +24,8 @@ if($isHome && function_exists('loadCache')) {
     }
 }
 $isLogged = isLoggedIn();
+$community = require(__DIR__.'/inc/community-config.php');
+$discordInvite = $community['invite'];
 
 $serverSeason = 'Season 6'; // MU PANIC UP43: editorial identity, independent of legacy CMS title.
 // Curated public gameplay snapshot; CMS information defaults are not authoritative.
@@ -72,6 +74,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a>
             <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
             <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
+            <a class="nav-discord" href="<?php echo htmlspecialchars($discordInvite, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
@@ -153,6 +156,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <div class="shell manifesto-layout"><span class="eyebrow">03 / LA ESENCIA PANIC</span><div><h2 id="manifesto-title">Tu tiempo.<br>Tu equipo.<br><em>Tu conquista.</em></h2><p>Un continente conocido. Decisiones que importan.</p></div><div class="manifesto-notes"><article><span>01</span><div><h3>El Zen tiene peso.</h3><p>Farmear, guardar y vender forman parte del progreso. Pensá tu próxima mejora.</p></div></article><article><span>02</span><div><h3>Cada etapa tiene un destino.</h3><p>Spots diseñados por mapa y objetivos para avanzar con tu personaje.</p></div></article><article><span>03</span><div><h3>La aventura se comparte.</h3><p>Armá tu party. Encontrá tu guild. Volvé por esa conquista que todavía te falta.</p></div></article></div></div>
 </section>
 
+<?php include(__DIR__.'/inc/community-home.php'); ?>
+
 <section class="play-gateway" id="empezar" aria-labelledby="play-title">
     <div class="gateway-art" aria-hidden="true"></div><div class="shell gateway-layout"><div class="gateway-copy"><span class="eyebrow">04 / TU HISTORIA EMPIEZA ACÁ</span><h2 id="play-title">Nos vemos<br><em>en Lorencia.</em></h2><p>Prepará tu cuenta y el cliente.<br>El siguiente paso lo das dentro del juego.</p></div><div class="launch-steps"><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><span>01</span><div><small><?php echo $isLogged ? 'TU PANEL' : 'TU IDENTIDAD'; ?></small><strong><?php echo $isLogged ? 'Abrir mi cuenta' : 'Crear mi cuenta'; ?></strong></div><b aria-hidden="true">↗</b></a><a class="launch-download" href="<?php echo __BASE_URL__; ?>downloads/"><span>02</span><div><small>EL CLIENTE / PC</small><strong>Descargar MU PANIC</strong></div><b aria-hidden="true">↓</b></a><a href="<?php echo __BASE_URL__; ?>info/"><span>03</span><div><small>ANTES DE ENTRAR</small><strong>Explorar el Atlas PANIC</strong></div><b aria-hidden="true">↗</b></a></div></div>
 </section>
@@ -204,6 +209,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <p>Tu historia en el continente de MU.</p>
         </div>
         <div class="footer-links">
+            <div><small>COMUNIDAD</small><a href="<?php echo htmlspecialchars($discordInvite, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a></div>
             <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a></div>
             <div><small>CUENTA</small><?php if($isLogged) { ?><a href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>register/">Crear cuenta</a><?php } ?><a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a></div>
         </div>
