@@ -69,3 +69,5 @@
 @media(max-width:1100px){.community-features{grid-template-columns:1fr}.community-features article{align-items:center}}
 @media(max-width:900px){.community-widget{max-width:none;justify-self:stretch}.community-features{grid-column:auto}}
 @media(max-width:500px){.community-widget-heading{padding:22px}.community-widget-help{padding:18px 22px}.community-features article{align-items:flex-start}}
+
+.community-member-link{display:block;width:fit-content;max-width:100%;margin:0 0 16px;padding:8px 0;min-height:44px;font-size:16px;line-height:1.7;color:#e6b891;text-decoration:underline;text-underline-offset:4px}.community-member-link:hover{color:#f0e4d4}
