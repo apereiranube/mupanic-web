@@ -1,0 +1,4506 @@
+{
+  "revision": "2026-10-01",
+  "accounts": [
+    {
+      "name": "Free",
+      "experience": 15,
+      "master": 1000,
+      "drop": 50
+    },
+    {
+      "name": "VIP 1",
+      "experience": 18,
+      "master": 1000,
+      "drop": 60
+    },
+    {
+      "name": "VIP 2",
+      "experience": 18,
+      "master": 1000,
+      "drop": 70
+    },
+    {
+      "name": "VIP 3",
+      "experience": 18,
+      "master": 1000,
+      "drop": 75
+    }
+  ],
+  "masterMonsterMin": 95,
+  "resets": [
+    {
+      "min": 0,
+      "max": 4,
+      "level": 400,
+      "zen": 5000000,
+      "points": 200
+    },
+    {
+      "min": 5,
+      "max": 9,
+      "level": 400,
+      "zen": 15000000,
+      "points": 250
+    },
+    {
+      "min": 10,
+      "max": 14,
+      "level": 400,
+      "zen": 30000000,
+      "points": 300
+    },
+    {
+      "min": 15,
+      "max": 19,
+      "level": 400,
+      "zen": 50000000,
+      "points": 350
+    }
+  ],
+  "experience": [
+    {
+      "min": 0,
+      "max": 4,
+      "percent": 100
+    },
+    {
+      "min": 5,
+      "max": 9,
+      "percent": 90
+    },
+    {
+      "min": 10,
+      "max": 14,
+      "percent": 75
+    },
+    {
+      "min": 15,
+      "max": 19,
+      "percent": 60
+    }
+  ],
+  "maps": [
+    {
+      "id": 0,
+      "name": "Lorencia",
+      "moves": [
+        {
+          "name": "Lorencia",
+          "zen": 2000,
+          "level": 10
+        }
+      ],
+      "monsters": [
+        {
+          "id": 3,
+          "name": "Spider",
+          "level": 2
+        },
+        {
+          "id": 2,
+          "name": "Budge Dragon",
+          "level": 4
+        },
+        {
+          "id": 0,
+          "name": "Bull Fighter",
+          "level": 6
+        },
+        {
+          "id": 6,
+          "name": "LIch",
+          "level": 14
+        },
+        {
+          "id": 14,
+          "name": "Skeleton",
+          "level": 19
+        },
+        {
+          "id": 1,
+          "name": "Hound",
+          "level": 9
+        },
+        {
+          "id": 4,
+          "name": "Elite Bull Fighter",
+          "level": 12
+        },
+        {
+          "id": 7,
+          "name": "Giant",
+          "level": 17
+        }
+      ],
+      "spots": [
+        {
+          "x": 181,
+          "y": 128,
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 4
+            },
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 210,
+          "y": 164,
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 3
+            },
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 196,
+          "y": 170,
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 3
+            },
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 192,
+          "y": 47,
+          "monsters": [
+            {
+              "id": 0,
+              "name": "Bull Fighter",
+              "level": 6,
+              "quantity": 4
+            },
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 90,
+          "y": 126,
+          "monsters": [
+            {
+              "id": 1,
+              "name": "Hound",
+              "level": 9,
+              "quantity": 3
+            },
+            {
+              "id": 4,
+              "name": "Elite Bull Fighter",
+              "level": 12,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 59,
+          "y": 129,
+          "monsters": [
+            {
+              "id": 1,
+              "name": "Hound",
+              "level": 9,
+              "quantity": 3
+            },
+            {
+              "id": 4,
+              "name": "Elite Bull Fighter",
+              "level": 12,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 138,
+          "y": 79,
+          "monsters": [
+            {
+              "id": 0,
+              "name": "Bull Fighter",
+              "level": 6,
+              "quantity": 3
+            },
+            {
+              "id": 7,
+              "name": "Giant",
+              "level": 17,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 131,
+          "y": 213,
+          "monsters": [
+            {
+              "id": 6,
+              "name": "LIch",
+              "level": 14,
+              "quantity": 3
+            },
+            {
+              "id": 14,
+              "name": "Skeleton",
+              "level": 19,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 133,
+          "y": 177,
+          "monsters": [
+            {
+              "id": 6,
+              "name": "LIch",
+              "level": 14,
+              "quantity": 3
+            },
+            {
+              "id": 14,
+              "name": "Skeleton",
+              "level": 19,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 26,
+          "y": 44,
+          "monsters": [
+            {
+              "id": 7,
+              "name": "Giant",
+              "level": 17,
+              "quantity": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Noria",
+      "moves": [
+        {
+          "name": "Noria",
+          "zen": 2000,
+          "level": 10
+        }
+      ],
+      "monsters": [
+        {
+          "id": 3,
+          "name": "Spider",
+          "level": 2
+        },
+        {
+          "id": 26,
+          "name": "Goblin",
+          "level": 3
+        },
+        {
+          "id": 27,
+          "name": "Chain Scorpion",
+          "level": 5
+        },
+        {
+          "id": 33,
+          "name": "Elite Goblin",
+          "level": 8
+        },
+        {
+          "id": 28,
+          "name": "Beetle Monster",
+          "level": 10
+        },
+        {
+          "id": 29,
+          "name": "Hunter",
+          "level": 13
+        },
+        {
+          "id": 30,
+          "name": "Forest Monster",
+          "level": 15
+        },
+        {
+          "id": 31,
+          "name": "Agon",
+          "level": 16
+        },
+        {
+          "id": 32,
+          "name": "Stone Golem",
+          "level": 18
+        }
+      ],
+      "spots": [
+        {
+          "x": 197,
+          "y": 62,
+          "monsters": [
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 4
+            },
+            {
+              "id": 26,
+              "name": "Goblin",
+              "level": 3,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 138,
+          "y": 118,
+          "monsters": [
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 4
+            },
+            {
+              "id": 26,
+              "name": "Goblin",
+              "level": 3,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 189,
+          "y": 188,
+          "monsters": [
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 3
+            },
+            {
+              "id": 31,
+              "name": "Agon",
+              "level": 16,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 170,
+          "y": 17,
+          "monsters": [
+            {
+              "id": 33,
+              "name": "Elite Goblin",
+              "level": 8,
+              "quantity": 3
+            },
+            {
+              "id": 28,
+              "name": "Beetle Monster",
+              "level": 10,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 100,
+          "y": 51,
+          "monsters": [
+            {
+              "id": 33,
+              "name": "Elite Goblin",
+              "level": 8,
+              "quantity": 3
+            },
+            {
+              "id": 28,
+              "name": "Beetle Monster",
+              "level": 10,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 30,
+          "y": 96,
+          "monsters": [
+            {
+              "id": 31,
+              "name": "Agon",
+              "level": 16,
+              "quantity": 4
+            },
+            {
+              "id": 30,
+              "name": "Forest Monster",
+              "level": 15,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 80,
+          "y": 149,
+          "monsters": [
+            {
+              "id": 31,
+              "name": "Agon",
+              "level": 16,
+              "quantity": 4
+            },
+            {
+              "id": 30,
+              "name": "Forest Monster",
+              "level": 15,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 63,
+          "y": 215,
+          "monsters": [
+            {
+              "id": 32,
+              "name": "Stone Golem",
+              "level": 18,
+              "quantity": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "name": "Elbeland",
+      "moves": [
+        {
+          "name": "Elbeland",
+          "zen": 2000,
+          "level": 10
+        },
+        {
+          "name": "Elbeland2",
+          "zen": 2500,
+          "level": 10
+        },
+        {
+          "name": "Elbeland3",
+          "zen": 3000,
+          "level": 10
+        }
+      ],
+      "monsters": [
+        {
+          "id": 418,
+          "name": "Strange Rabbit",
+          "level": 4
+        },
+        {
+          "id": 3,
+          "name": "Spider",
+          "level": 2
+        },
+        {
+          "id": 419,
+          "name": "Hideous Rabbit",
+          "level": 19
+        },
+        {
+          "id": 421,
+          "name": "Polluted Butterfly",
+          "level": 13
+        },
+        {
+          "id": 420,
+          "name": "Werewolf",
+          "level": 24
+        },
+        {
+          "id": 422,
+          "name": "Cursed Lich",
+          "level": 30
+        },
+        {
+          "id": 423,
+          "name": "Totem Golem",
+          "level": 36
+        },
+        {
+          "id": 424,
+          "name": "Grizzly",
+          "level": 43
+        },
+        {
+          "id": 425,
+          "name": "Captain Grizzly",
+          "level": 48
+        }
+      ],
+      "spots": [
+        {
+          "x": 50,
+          "y": 149,
+          "monsters": [
+            {
+              "id": 418,
+              "name": "Strange Rabbit",
+              "level": 4,
+              "quantity": 3
+            },
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 115,
+          "y": 203,
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 3
+            },
+            {
+              "id": 418,
+              "name": "Strange Rabbit",
+              "level": 4,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 130,
+          "y": 132,
+          "monsters": [
+            {
+              "id": 419,
+              "name": "Hideous Rabbit",
+              "level": 19,
+              "quantity": 4
+            },
+            {
+              "id": 421,
+              "name": "Polluted Butterfly",
+              "level": 13,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 65,
+          "y": 75,
+          "monsters": [
+            {
+              "id": 420,
+              "name": "Werewolf",
+              "level": 24,
+              "quantity": 6
+            }
+          ]
+        },
+        {
+          "x": 102,
+          "y": 32,
+          "monsters": [
+            {
+              "id": 422,
+              "name": "Cursed Lich",
+              "level": 30,
+              "quantity": 6
+            }
+          ]
+        },
+        {
+          "x": 200,
+          "y": 157,
+          "monsters": [
+            {
+              "id": 423,
+              "name": "Totem Golem",
+              "level": 36,
+              "quantity": 6
+            }
+          ]
+        },
+        {
+          "x": 173,
+          "y": 80,
+          "monsters": [
+            {
+              "id": 424,
+              "name": "Grizzly",
+              "level": 43,
+              "quantity": 6
+            }
+          ]
+        },
+        {
+          "x": 207,
+          "y": 38,
+          "monsters": [
+            {
+              "id": 425,
+              "name": "Captain Grizzly",
+              "level": 48,
+              "quantity": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Devias",
+      "moves": [
+        {
+          "name": "Devias",
+          "zen": 2000,
+          "level": 20
+        },
+        {
+          "name": "Devias2",
+          "zen": 2500,
+          "level": 20
+        },
+        {
+          "name": "Devias3",
+          "zen": 3000,
+          "level": 20
+        },
+        {
+          "name": "Devias4",
+          "zen": 3500,
+          "level": 20
+        }
+      ],
+      "monsters": [
+        {
+          "id": 24,
+          "name": "Worm",
+          "level": 20
+        },
+        {
+          "id": 23,
+          "name": "Hommerd",
+          "level": 24
+        },
+        {
+          "id": 22,
+          "name": "Ice Monster",
+          "level": 22
+        },
+        {
+          "id": 19,
+          "name": "Yeti",
+          "level": 30
+        },
+        {
+          "id": 21,
+          "name": "Assassin",
+          "level": 26
+        },
+        {
+          "id": 20,
+          "name": "Elite Yeti",
+          "level": 36
+        },
+        {
+          "id": 25,
+          "name": "Ice Queen",
+          "level": 52
+        }
+      ],
+      "spots": [
+        {
+          "x": 161,
+          "y": 58,
+          "monsters": [
+            {
+              "id": 24,
+              "name": "Worm",
+              "level": 20,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 238,
+          "y": 88,
+          "monsters": [
+            {
+              "id": 24,
+              "name": "Worm",
+              "level": 20,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 205,
+          "y": 148,
+          "monsters": [
+            {
+              "id": 24,
+              "name": "Worm",
+              "level": 20,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 109,
+          "y": 133,
+          "monsters": [
+            {
+              "id": 22,
+              "name": "Ice Monster",
+              "level": 22,
+              "quantity": 3
+            },
+            {
+              "id": 19,
+              "name": "Yeti",
+              "level": 30,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 107,
+          "y": 117,
+          "monsters": [
+            {
+              "id": 22,
+              "name": "Ice Monster",
+              "level": 22,
+              "quantity": 3
+            },
+            {
+              "id": 19,
+              "name": "Yeti",
+              "level": 30,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 35,
+          "y": 105,
+          "monsters": [
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 228,
+          "y": 184,
+          "monsters": [
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 35,
+          "y": 214,
+          "monsters": [
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 193,
+          "y": 231,
+          "monsters": [
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Dungeon",
+      "moves": [
+        {
+          "name": "Dungeon",
+          "zen": 3000,
+          "level": 30
+        },
+        {
+          "name": "Dungeon2",
+          "zen": 3500,
+          "level": 40
+        },
+        {
+          "name": "Dungeon3",
+          "zen": 4000,
+          "level": 50
+        }
+      ],
+      "monsters": [
+        {
+          "id": 14,
+          "name": "Skeleton",
+          "level": 19
+        },
+        {
+          "id": 17,
+          "name": "Cyclops",
+          "level": 28
+        },
+        {
+          "id": 11,
+          "name": "Ghost",
+          "level": 32
+        },
+        {
+          "id": 12,
+          "name": "Larva",
+          "level": 25
+        },
+        {
+          "id": 15,
+          "name": "Skeleton Archer",
+          "level": 34
+        },
+        {
+          "id": 16,
+          "name": "Chief Skeleton Warrior",
+          "level": 42
+        },
+        {
+          "id": 9,
+          "name": "Thunder Lich",
+          "level": 44
+        },
+        {
+          "id": 8,
+          "name": "Poison Bull Fighter",
+          "level": 46
+        },
+        {
+          "id": 5,
+          "name": "Hell Hound",
+          "level": 38
+        },
+        {
+          "id": 10,
+          "name": "Dark Knight",
+          "level": 48
+        },
+        {
+          "id": 13,
+          "name": "Hell Spider",
+          "level": 40
+        },
+        {
+          "id": 18,
+          "name": "Gorgon",
+          "level": 55
+        }
+      ],
+      "spots": [
+        {
+          "x": 52,
+          "y": 222,
+          "monsters": [
+            {
+              "id": 14,
+              "name": "Skeleton",
+              "level": 19,
+              "quantity": 3
+            },
+            {
+              "id": 17,
+              "name": "Cyclops",
+              "level": 28,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 142,
+          "y": 218,
+          "monsters": [
+            {
+              "id": 11,
+              "name": "Ghost",
+              "level": 32,
+              "quantity": 3
+            },
+            {
+              "id": 14,
+              "name": "Skeleton",
+              "level": 19,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 87,
+          "y": 177,
+          "monsters": [
+            {
+              "id": 11,
+              "name": "Ghost",
+              "level": 32,
+              "quantity": 4
+            },
+            {
+              "id": 12,
+              "name": "Larva",
+              "level": 25,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 243,
+          "y": 201,
+          "monsters": [
+            {
+              "id": 11,
+              "name": "Ghost",
+              "level": 32,
+              "quantity": 4
+            },
+            {
+              "id": 17,
+              "name": "Cyclops",
+              "level": 28,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 183,
+          "y": 128,
+          "monsters": [
+            {
+              "id": 17,
+              "name": "Cyclops",
+              "level": 28,
+              "quantity": 3
+            },
+            {
+              "id": 15,
+              "name": "Skeleton Archer",
+              "level": 34,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 122,
+          "y": 46,
+          "monsters": [
+            {
+              "id": 16,
+              "name": "Chief Skeleton Warrior",
+              "level": 42,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 235,
+          "y": 23,
+          "monsters": [
+            {
+              "id": 16,
+              "name": "Chief Skeleton Warrior",
+              "level": 42,
+              "quantity": 3
+            },
+            {
+              "id": 9,
+              "name": "Thunder Lich",
+              "level": 44,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 39,
+          "y": 112,
+          "monsters": [
+            {
+              "id": 8,
+              "name": "Poison Bull Fighter",
+              "level": 46,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 27,
+          "y": 53,
+          "monsters": [
+            {
+              "id": 9,
+              "name": "Thunder Lich",
+              "level": 44,
+              "quantity": 4
+            },
+            {
+              "id": 8,
+              "name": "Poison Bull Fighter",
+              "level": 46,
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Lost Tower",
+      "moves": [
+        {
+          "name": "LostTower",
+          "zen": 5000,
+          "level": 50
+        },
+        {
+          "name": "LostTower2",
+          "zen": 5500,
+          "level": 50
+        },
+        {
+          "name": "LostTower3",
+          "zen": 6000,
+          "level": 50
+        },
+        {
+          "name": "LostTower4",
+          "zen": 6500,
+          "level": 60
+        },
+        {
+          "name": "LostTower5",
+          "zen": 7000,
+          "level": 60
+        },
+        {
+          "name": "LostTower6",
+          "zen": 7500,
+          "level": 70
+        },
+        {
+          "name": "LostTower7",
+          "zen": 8000,
+          "level": 70
+        }
+      ],
+      "monsters": [
+        {
+          "id": 36,
+          "name": "Shadow",
+          "level": 47
+        },
+        {
+          "id": 39,
+          "name": "Poison Shadow",
+          "level": 50
+        },
+        {
+          "id": 34,
+          "name": "Cursed Wizard",
+          "level": 54
+        },
+        {
+          "id": 41,
+          "name": "Death Cow",
+          "level": 57
+        },
+        {
+          "id": 37,
+          "name": "Devil",
+          "level": 60
+        },
+        {
+          "id": 40,
+          "name": "Death Knight",
+          "level": 62
+        },
+        {
+          "id": 35,
+          "name": "Death Gorgon",
+          "level": 64
+        },
+        {
+          "id": 38,
+          "name": "Balrog",
+          "level": 66
+        }
+      ],
+      "spots": [
+        {
+          "x": 222,
+          "y": 109,
+          "monsters": [
+            {
+              "id": 36,
+              "name": "Shadow",
+              "level": 47,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 210,
+          "y": 41,
+          "monsters": [
+            {
+              "id": 36,
+              "name": "Shadow",
+              "level": 47,
+              "quantity": 3
+            },
+            {
+              "id": 39,
+              "name": "Poison Shadow",
+              "level": 50,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 210,
+          "y": 225,
+          "monsters": [
+            {
+              "id": 39,
+              "name": "Poison Shadow",
+              "level": 50,
+              "quantity": 4
+            },
+            {
+              "id": 34,
+              "name": "Cursed Wizard",
+              "level": 54,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 207,
+          "y": 178,
+          "monsters": [
+            {
+              "id": 39,
+              "name": "Poison Shadow",
+              "level": 50,
+              "quantity": 4
+            },
+            {
+              "id": 34,
+              "name": "Cursed Wizard",
+              "level": 54,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 110,
+          "y": 206,
+          "monsters": [
+            {
+              "id": 41,
+              "name": "Death Cow",
+              "level": 57,
+              "quantity": 3
+            },
+            {
+              "id": 34,
+              "name": "Cursed Wizard",
+              "level": 54,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 116,
+          "y": 113,
+          "monsters": [
+            {
+              "id": 41,
+              "name": "Death Cow",
+              "level": 57,
+              "quantity": 3
+            },
+            {
+              "id": 37,
+              "name": "Devil",
+              "level": 60,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 111,
+          "y": 26,
+          "monsters": [
+            {
+              "id": 37,
+              "name": "Devil",
+              "level": 60,
+              "quantity": 3
+            },
+            {
+              "id": 40,
+              "name": "Death Knight",
+              "level": 62,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 30,
+          "y": 32,
+          "monsters": [
+            {
+              "id": 40,
+              "name": "Death Knight",
+              "level": 62,
+              "quantity": 3
+            },
+            {
+              "id": 37,
+              "name": "Devil",
+              "level": 60,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 34,
+          "y": 108,
+          "monsters": [
+            {
+              "id": 35,
+              "name": "Death Gorgon",
+              "level": 64,
+              "quantity": 3
+            },
+            {
+              "id": 40,
+              "name": "Death Knight",
+              "level": 62,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 29,
+          "y": 200,
+          "monsters": [
+            {
+              "id": 35,
+              "name": "Death Gorgon",
+              "level": 64,
+              "quantity": 4
+            },
+            {
+              "id": 40,
+              "name": "Death Knight",
+              "level": 62,
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Atlans",
+      "moves": [
+        {
+          "name": "Atlans",
+          "zen": 4000,
+          "level": 70
+        },
+        {
+          "name": "Atlans2",
+          "zen": 4500,
+          "level": 80
+        },
+        {
+          "name": "Atlans3",
+          "zen": 5000,
+          "level": 90
+        }
+      ],
+      "monsters": [
+        {
+          "id": 46,
+          "name": "Vepar",
+          "level": 45
+        },
+        {
+          "id": 45,
+          "name": "Bahamut",
+          "level": 43
+        },
+        {
+          "id": 47,
+          "name": "Valkyrie",
+          "level": 46
+        },
+        {
+          "id": 52,
+          "name": "Silver Valkyrie",
+          "level": 68
+        },
+        {
+          "id": 48,
+          "name": "Lizard King",
+          "level": 70
+        },
+        {
+          "id": 51,
+          "name": "Great Bahamut",
+          "level": 66
+        },
+        {
+          "id": 49,
+          "name": "Hydra",
+          "level": 74
+        }
+      ],
+      "spots": [
+        {
+          "x": 59,
+          "y": 34,
+          "monsters": [
+            {
+              "id": 46,
+              "name": "Vepar",
+              "level": 45,
+              "quantity": 3
+            },
+            {
+              "id": 45,
+              "name": "Bahamut",
+              "level": 43,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 50,
+          "y": 93,
+          "monsters": [
+            {
+              "id": 46,
+              "name": "Vepar",
+              "level": 45,
+              "quantity": 3
+            },
+            {
+              "id": 45,
+              "name": "Bahamut",
+              "level": 43,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 128,
+          "y": 22,
+          "monsters": [
+            {
+              "id": 47,
+              "name": "Valkyrie",
+              "level": 46,
+              "quantity": 4
+            },
+            {
+              "id": 46,
+              "name": "Vepar",
+              "level": 45,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 211,
+          "y": 59,
+          "monsters": [
+            {
+              "id": 47,
+              "name": "Valkyrie",
+              "level": 46,
+              "quantity": 3
+            },
+            {
+              "id": 52,
+              "name": "Silver Valkyrie",
+              "level": 68,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 84,
+          "y": 170,
+          "monsters": [
+            {
+              "id": 52,
+              "name": "Silver Valkyrie",
+              "level": 68,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 156,
+          "y": 156,
+          "monsters": [
+            {
+              "id": 52,
+              "name": "Silver Valkyrie",
+              "level": 68,
+              "quantity": 3
+            },
+            {
+              "id": 48,
+              "name": "Lizard King",
+              "level": 70,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 40,
+          "y": 210,
+          "monsters": [
+            {
+              "id": 48,
+              "name": "Lizard King",
+              "level": 70,
+              "quantity": 4
+            },
+            {
+              "id": 52,
+              "name": "Silver Valkyrie",
+              "level": 68,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 220,
+          "y": 168,
+          "monsters": [
+            {
+              "id": 48,
+              "name": "Lizard King",
+              "level": 70,
+              "quantity": 5
+            },
+            {
+              "id": 52,
+              "name": "Silver Valkyrie",
+              "level": 68,
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Tarkan",
+      "moves": [
+        {
+          "name": "Tarkan",
+          "zen": 8000,
+          "level": 140
+        },
+        {
+          "name": "Tarkan2",
+          "zen": 8500,
+          "level": 140
+        }
+      ],
+      "monsters": [
+        {
+          "id": 62,
+          "name": "Mutant",
+          "level": 72
+        },
+        {
+          "id": 60,
+          "name": "Bloody wolf",
+          "level": 76
+        },
+        {
+          "id": 57,
+          "name": "Iron Wheel",
+          "level": 80
+        },
+        {
+          "id": 58,
+          "name": "Tantalos",
+          "level": 83
+        },
+        {
+          "id": 61,
+          "name": "Beam Knight",
+          "level": 84
+        },
+        {
+          "id": 59,
+          "name": "Zaikan",
+          "level": 90
+        },
+        {
+          "id": 63,
+          "name": "Death Beam Knight",
+          "level": 93
+        }
+      ],
+      "spots": [
+        {
+          "x": 161,
+          "y": 110,
+          "monsters": [
+            {
+              "id": 62,
+              "name": "Mutant",
+              "level": 72,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 108,
+          "y": 55,
+          "monsters": [
+            {
+              "id": 60,
+              "name": "Bloody wolf",
+              "level": 76,
+              "quantity": 3
+            },
+            {
+              "id": 62,
+              "name": "Mutant",
+              "level": 72,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 56,
+          "y": 75,
+          "monsters": [
+            {
+              "id": 57,
+              "name": "Iron Wheel",
+              "level": 80,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 105,
+          "y": 130,
+          "monsters": [
+            {
+              "id": 58,
+              "name": "Tantalos",
+              "level": 83,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 40,
+          "y": 150,
+          "monsters": [
+            {
+              "id": 58,
+              "name": "Tantalos",
+              "level": 83,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 27,
+          "y": 229,
+          "monsters": [
+            {
+              "id": 61,
+              "name": "Beam Knight",
+              "level": 84,
+              "quantity": 3
+            },
+            {
+              "id": 58,
+              "name": "Tantalos",
+              "level": 83,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 98,
+          "y": 193,
+          "monsters": [
+            {
+              "id": 61,
+              "name": "Beam Knight",
+              "level": 84,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 169,
+          "y": 204,
+          "monsters": [
+            {
+              "id": 61,
+              "name": "Beam Knight",
+              "level": 84,
+              "quantity": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Icarus",
+      "moves": [
+        {
+          "name": "Icarus",
+          "zen": 10000,
+          "level": 170
+        }
+      ],
+      "monsters": [
+        {
+          "id": 69,
+          "name": "Alquamos",
+          "level": 75
+        },
+        {
+          "id": 71,
+          "name": "Mega Crust",
+          "level": 78
+        },
+        {
+          "id": 70,
+          "name": "Queen Rainier",
+          "level": 82
+        },
+        {
+          "id": 73,
+          "name": "Drakan",
+          "level": 86
+        },
+        {
+          "id": 74,
+          "name": "Alpha Crust",
+          "level": 92
+        },
+        {
+          "id": 72,
+          "name": "Phantom Knight",
+          "level": 96
+        },
+        {
+          "id": 75,
+          "name": "Great Drakan",
+          "level": 100
+        },
+        {
+          "id": 77,
+          "name": "Phoenix of Darkness",
+          "level": 108
+        }
+      ],
+      "spots": [
+        {
+          "x": 31,
+          "y": 37,
+          "monsters": [
+            {
+              "id": 69,
+              "name": "Alquamos",
+              "level": 75,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 74,
+          "y": 38,
+          "monsters": [
+            {
+              "id": 71,
+              "name": "Mega Crust",
+              "level": 78,
+              "quantity": 4
+            },
+            {
+              "id": 70,
+              "name": "Queen Rainier",
+              "level": 82,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 74,
+          "y": 72,
+          "monsters": [
+            {
+              "id": 70,
+              "name": "Queen Rainier",
+              "level": 82,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 36,
+          "y": 79,
+          "monsters": [
+            {
+              "id": 73,
+              "name": "Drakan",
+              "level": 86,
+              "quantity": 3
+            },
+            {
+              "id": 74,
+              "name": "Alpha Crust",
+              "level": 92,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 42,
+          "y": 122,
+          "monsters": [
+            {
+              "id": 72,
+              "name": "Phantom Knight",
+              "level": 96,
+              "quantity": 3
+            },
+            {
+              "id": 74,
+              "name": "Alpha Crust",
+              "level": 92,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 44,
+          "y": 221,
+          "monsters": [
+            {
+              "id": 75,
+              "name": "Great Drakan",
+              "level": 100,
+              "quantity": 3
+            },
+            {
+              "id": 72,
+              "name": "Phantom Knight",
+              "level": 96,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 52,
+          "y": 168,
+          "monsters": [
+            {
+              "id": 75,
+              "name": "Great Drakan",
+              "level": 100,
+              "quantity": 5
+            },
+            {
+              "id": 72,
+              "name": "Phantom Knight",
+              "level": 96,
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Aida",
+      "moves": [
+        {
+          "name": "Aida1",
+          "zen": 8500,
+          "level": 150
+        },
+        {
+          "name": "Aida2",
+          "zen": 8500,
+          "level": 150
+        }
+      ],
+      "monsters": [
+        {
+          "id": 306,
+          "name": "Death Rider",
+          "level": 78
+        },
+        {
+          "id": 307,
+          "name": "Forest Orc",
+          "level": 74
+        },
+        {
+          "id": 305,
+          "name": "Blue Golem",
+          "level": 84
+        },
+        {
+          "id": 549,
+          "name": "Bloody Orc",
+          "level": 114
+        },
+        {
+          "id": 550,
+          "name": "Bloody Death Rider",
+          "level": 115
+        },
+        {
+          "id": 551,
+          "name": "Bloody Golem",
+          "level": 117
+        },
+        {
+          "id": 552,
+          "name": "Bloody Witch Queen",
+          "level": 120
+        },
+        {
+          "id": 308,
+          "name": "Death Tree",
+          "level": 72
+        },
+        {
+          "id": 304,
+          "name": "Witch Queen",
+          "level": 94
+        },
+        {
+          "id": 309,
+          "name": "Hell Maine",
+          "level": 98
+        }
+      ],
+      "spots": [
+        {
+          "x": 213,
+          "y": 38,
+          "monsters": [
+            {
+              "id": 306,
+              "name": "Death Rider",
+              "level": 78,
+              "quantity": 2
+            },
+            {
+              "id": 307,
+              "name": "Forest Orc",
+              "level": 74,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 210,
+          "y": 122,
+          "monsters": [
+            {
+              "id": 306,
+              "name": "Death Rider",
+              "level": 78,
+              "quantity": 2
+            },
+            {
+              "id": 307,
+              "name": "Forest Orc",
+              "level": 74,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 150,
+          "y": 46,
+          "monsters": [
+            {
+              "id": 305,
+              "name": "Blue Golem",
+              "level": 84,
+              "quantity": 2
+            },
+            {
+              "id": 307,
+              "name": "Forest Orc",
+              "level": 74,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 113,
+          "y": 155,
+          "monsters": [
+            {
+              "id": 305,
+              "name": "Blue Golem",
+              "level": 84,
+              "quantity": 2
+            },
+            {
+              "id": 306,
+              "name": "Death Rider",
+              "level": 78,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 208,
+          "y": 210,
+          "monsters": [
+            {
+              "id": 549,
+              "name": "Bloody Orc",
+              "level": 114,
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "x": 143,
+          "y": 198,
+          "monsters": [
+            {
+              "id": 550,
+              "name": "Bloody Death Rider",
+              "level": 115,
+              "quantity": 2
+            },
+            {
+              "id": 551,
+              "name": "Bloody Golem",
+              "level": 117,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 36,
+          "y": 93,
+          "monsters": [
+            {
+              "id": 552,
+              "name": "Bloody Witch Queen",
+              "level": 120,
+              "quantity": 2
+            },
+            {
+              "id": 551,
+              "name": "Bloody Golem",
+              "level": 117,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 46,
+          "y": 212,
+          "monsters": [
+            {
+              "id": 551,
+              "name": "Bloody Golem",
+              "level": 117,
+              "quantity": 3
+            },
+            {
+              "id": 552,
+              "name": "Bloody Witch Queen",
+              "level": 120,
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Crywolf",
+      "moves": [
+        {
+          "name": "Crywolf",
+          "zen": 0,
+          "level": 10
+        },
+        {
+          "name": "Crywolf",
+          "zen": 0,
+          "level": 10
+        }
+      ],
+      "monsters": [
+        {
+          "id": 310,
+          "name": "Hammer Scout",
+          "level": 97
+        },
+        {
+          "id": 311,
+          "name": "Lance Scout",
+          "level": 97
+        },
+        {
+          "id": 312,
+          "name": "Bow Scout",
+          "level": 97
+        },
+        {
+          "id": 313,
+          "name": "Werewolf",
+          "level": 118
+        },
+        {
+          "id": 314,
+          "name": "Scout(Hero)",
+          "level": 123
+        },
+        {
+          "id": 315,
+          "name": "Werewolf(Hero)",
+          "level": 127
+        },
+        {
+          "id": 316,
+          "name": "Balram",
+          "level": 132
+        },
+        {
+          "id": 317,
+          "name": "Soram",
+          "level": 134
+        }
+      ],
+      "spots": []
+    },
+    {
+      "id": 37,
+      "name": "Kanturu 1",
+      "moves": [
+        {
+          "name": "Kanturu ruin1",
+          "zen": 9000,
+          "level": 160
+        },
+        {
+          "name": "Kanturu ruin2",
+          "zen": 9000,
+          "level": 160
+        },
+        {
+          "name": "Kanturu ruin island",
+          "zen": 15000,
+          "level": 160
+        }
+      ],
+      "monsters": [
+        {
+          "id": 351,
+          "name": "Splinter Wolf",
+          "level": 80
+        },
+        {
+          "id": 352,
+          "name": "Iron Rider",
+          "level": 82
+        },
+        {
+          "id": 353,
+          "name": "Satyros",
+          "level": 85
+        },
+        {
+          "id": 354,
+          "name": "Blade Hunter",
+          "level": 88
+        },
+        {
+          "id": 350,
+          "name": "Berserker",
+          "level": 100
+        },
+        {
+          "id": 356,
+          "name": "Gigantis",
+          "level": 98
+        },
+        {
+          "id": 554,
+          "name": "Kentauros Warrior",
+          "level": 126
+        },
+        {
+          "id": 553,
+          "name": "Berserker Warrior",
+          "level": 123
+        },
+        {
+          "id": 555,
+          "name": "Gigantis Warrior",
+          "level": 128
+        },
+        {
+          "id": 556,
+          "name": "Genocider Warrior",
+          "level": 129
+        },
+        {
+          "id": 357,
+          "name": "Genocider",
+          "level": 105
+        }
+      ],
+      "spots": [
+        {
+          "x": 75,
+          "y": 231,
+          "monsters": [
+            {
+              "id": 351,
+              "name": "Splinter Wolf",
+              "level": 80,
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "x": 172,
+          "y": 215,
+          "monsters": [
+            {
+              "id": 351,
+              "name": "Splinter Wolf",
+              "level": 80,
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "x": 195,
+          "y": 152,
+          "monsters": [
+            {
+              "id": 352,
+              "name": "Iron Rider",
+              "level": 82,
+              "quantity": 2
+            },
+            {
+              "id": 353,
+              "name": "Satyros",
+              "level": 85,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 226,
+          "y": 68,
+          "monsters": [
+            {
+              "id": 353,
+              "name": "Satyros",
+              "level": 85,
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "x": 142,
+          "y": 41,
+          "monsters": [
+            {
+              "id": 354,
+              "name": "Blade Hunter",
+              "level": 88,
+              "quantity": 2
+            },
+            {
+              "id": 350,
+              "name": "Berserker",
+              "level": 100,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 56,
+          "y": 44,
+          "monsters": [
+            {
+              "id": 350,
+              "name": "Berserker",
+              "level": 100,
+              "quantity": 2
+            },
+            {
+              "id": 356,
+              "name": "Gigantis",
+              "level": 98,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 81,
+          "y": 125,
+          "monsters": [
+            {
+              "id": 554,
+              "name": "Kentauros Warrior",
+              "level": 126,
+              "quantity": 2
+            },
+            {
+              "id": 553,
+              "name": "Berserker Warrior",
+              "level": 123,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 131,
+          "y": 119,
+          "monsters": [
+            {
+              "id": 555,
+              "name": "Gigantis Warrior",
+              "level": 128,
+              "quantity": 4
+            },
+            {
+              "id": 556,
+              "name": "Genocider Warrior",
+              "level": 129,
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "name": "Kanturu 2",
+      "moves": [
+        {
+          "name": "Kanturu Remain",
+          "zen": 12000,
+          "level": 230
+        }
+      ],
+      "monsters": [
+        {
+          "id": 359,
+          "name": "Twin Tale",
+          "level": 117
+        },
+        {
+          "id": 358,
+          "name": "Persona",
+          "level": 118
+        },
+        {
+          "id": 360,
+          "name": "Dreadfear",
+          "level": 119
+        },
+        {
+          "id": 106,
+          "name": "Laser Trap",
+          "level": 80
+        },
+        {
+          "id": 105,
+          "name": "Canon Trap",
+          "level": 80
+        }
+      ],
+      "spots": [
+        {
+          "x": 123,
+          "y": 88,
+          "monsters": [
+            {
+              "id": 359,
+              "name": "Twin Tale",
+              "level": 117,
+              "quantity": 2
+            },
+            {
+              "id": 358,
+              "name": "Persona",
+              "level": 118,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 168,
+          "y": 94,
+          "monsters": [
+            {
+              "id": 359,
+              "name": "Twin Tale",
+              "level": 117,
+              "quantity": 3
+            },
+            {
+              "id": 358,
+              "name": "Persona",
+              "level": 118,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 197,
+          "y": 136,
+          "monsters": [
+            {
+              "id": 359,
+              "name": "Twin Tale",
+              "level": 117,
+              "quantity": 3
+            },
+            {
+              "id": 358,
+              "name": "Persona",
+              "level": 118,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 110,
+          "y": 140,
+          "monsters": [
+            {
+              "id": 358,
+              "name": "Persona",
+              "level": 118,
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "x": 158,
+          "y": 137,
+          "monsters": [
+            {
+              "id": 358,
+              "name": "Persona",
+              "level": 118,
+              "quantity": 3
+            },
+            {
+              "id": 360,
+              "name": "Dreadfear",
+              "level": 119,
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "name": "Kanturu 3",
+      "moves": [],
+      "monsters": [],
+      "spots": []
+    },
+    {
+      "id": 41,
+      "name": "Barracks",
+      "moves": [],
+      "monsters": [
+        {
+          "id": 409,
+          "name": "Balram",
+          "level": 117
+        },
+        {
+          "id": 410,
+          "name": "Death Spirit",
+          "level": 118
+        },
+        {
+          "id": 411,
+          "name": "Soram",
+          "level": 119
+        }
+      ],
+      "spots": []
+    },
+    {
+      "id": 42,
+      "name": "Refuge",
+      "moves": [],
+      "monsters": [
+        {
+          "id": 412,
+          "name": "Dark Elf",
+          "level": 128
+        },
+        {
+          "id": 411,
+          "name": "Soram",
+          "level": 119
+        },
+        {
+          "id": 410,
+          "name": "Death Spirit",
+          "level": 118
+        }
+      ],
+      "spots": []
+    },
+    {
+      "id": 57,
+      "name": "Raklion",
+      "moves": [
+        {
+          "name": "Raklion",
+          "zen": 15000,
+          "level": 280
+        }
+      ],
+      "monsters": [
+        {
+          "id": 456,
+          "name": "Ice Giant",
+          "level": 122
+        },
+        {
+          "id": 458,
+          "name": "Iron Knight",
+          "level": 142
+        },
+        {
+          "id": 457,
+          "name": "Coolutin",
+          "level": 132
+        },
+        {
+          "id": 563,
+          "name": "Dark Giant",
+          "level": 143
+        },
+        {
+          "id": 564,
+          "name": "Dark Coolutin",
+          "level": 145
+        },
+        {
+          "id": 565,
+          "name": "Dark Iron Knight",
+          "level": 148
+        },
+        {
+          "id": 454,
+          "name": "Ice Walker",
+          "level": 102
+        }
+      ],
+      "spots": [
+        {
+          "x": 164,
+          "y": 212,
+          "monsters": [
+            {
+              "id": 456,
+              "name": "Ice Giant",
+              "level": 122,
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "x": 142,
+          "y": 126,
+          "monsters": [
+            {
+              "id": 458,
+              "name": "Iron Knight",
+              "level": 142,
+              "quantity": 2
+            },
+            {
+              "id": 456,
+              "name": "Ice Giant",
+              "level": 122,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 212,
+          "y": 95,
+          "monsters": [
+            {
+              "id": 458,
+              "name": "Iron Knight",
+              "level": 142,
+              "quantity": 3
+            },
+            {
+              "id": 457,
+              "name": "Coolutin",
+              "level": 132,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 52,
+          "y": 199,
+          "monsters": [
+            {
+              "id": 563,
+              "name": "Dark Giant",
+              "level": 143,
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "x": 71,
+          "y": 120,
+          "monsters": [
+            {
+              "id": 563,
+              "name": "Dark Giant",
+              "level": 143,
+              "quantity": 3
+            },
+            {
+              "id": 564,
+              "name": "Dark Coolutin",
+              "level": 145,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 91,
+          "y": 31,
+          "monsters": [
+            {
+              "id": 565,
+              "name": "Dark Iron Knight",
+              "level": 148,
+              "quantity": 4
+            },
+            {
+              "id": 564,
+              "name": "Dark Coolutin",
+              "level": 145,
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "name": "Swamp of Calmness",
+      "moves": [
+        {
+          "name": "Swamp of Calmness",
+          "zen": 15000,
+          "level": 400
+        }
+      ],
+      "monsters": [
+        {
+          "id": 441,
+          "name": "Sapi-Unus",
+          "level": 95
+        },
+        {
+          "id": 442,
+          "name": "Sapi-Duo",
+          "level": 96
+        },
+        {
+          "id": 443,
+          "name": "Sapi-Tres",
+          "level": 102
+        },
+        {
+          "id": 445,
+          "name": "Shadow Knight",
+          "level": 100
+        },
+        {
+          "id": 449,
+          "name": "Blaze Napin",
+          "level": 107
+        },
+        {
+          "id": 557,
+          "name": "Sapi Queen",
+          "level": 131
+        },
+        {
+          "id": 558,
+          "name": "Ice Napin",
+          "level": 135
+        },
+        {
+          "id": 559,
+          "name": "Shadow Master",
+          "level": 137
+        },
+        {
+          "id": 446,
+          "name": "Shadow Look",
+          "level": 104
+        },
+        {
+          "id": 447,
+          "name": "Thunder Napin",
+          "level": 97
+        },
+        {
+          "id": 448,
+          "name": "Ghost Napin",
+          "level": 106
+        }
+      ],
+      "spots": [
+        {
+          "x": 220,
+          "y": 217,
+          "monsters": [
+            {
+              "id": 441,
+              "name": "Sapi-Unus",
+              "level": 95,
+              "quantity": 1
+            },
+            {
+              "id": 442,
+              "name": "Sapi-Duo",
+              "level": 96,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 33,
+          "y": 23,
+          "monsters": [
+            {
+              "id": 443,
+              "name": "Sapi-Tres",
+              "level": 102,
+              "quantity": 2
+            },
+            {
+              "id": 445,
+              "name": "Shadow Knight",
+              "level": 100,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 68,
+          "y": 202,
+          "monsters": [
+            {
+              "id": 449,
+              "name": "Blaze Napin",
+              "level": 107,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 175,
+          "y": 41,
+          "monsters": [
+            {
+              "id": 557,
+              "name": "Sapi Queen",
+              "level": 131,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 202,
+          "y": 113,
+          "monsters": [
+            {
+              "id": 558,
+              "name": "Ice Napin",
+              "level": 135,
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "x": 35,
+          "y": 114,
+          "monsters": [
+            {
+              "id": 558,
+              "name": "Ice Napin",
+              "level": 135,
+              "quantity": 3
+            },
+            {
+              "id": 559,
+              "name": "Shadow Master",
+              "level": 137,
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "name": "Karutan 1",
+      "moves": [
+        {
+          "name": "Karutan1",
+          "zen": 13000,
+          "level": 170
+        }
+      ],
+      "monsters": [
+        {
+          "id": 569,
+          "name": "Venomous Chain Scorpion",
+          "level": 99
+        },
+        {
+          "id": 570,
+          "name": "Bone Scorpion",
+          "level": 103
+        },
+        {
+          "id": 571,
+          "name": "Orcus",
+          "level": 105
+        },
+        {
+          "id": 573,
+          "name": "Crypta",
+          "level": 111
+        },
+        {
+          "id": 574,
+          "name": "Crypos",
+          "level": 114
+        }
+      ],
+      "spots": [
+        {
+          "x": 198,
+          "y": 100,
+          "monsters": [
+            {
+              "id": 569,
+              "name": "Venomous Chain Scorpion",
+              "level": 99,
+              "quantity": 2
+            },
+            {
+              "id": 570,
+              "name": "Bone Scorpion",
+              "level": 103,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 109,
+          "y": 176,
+          "monsters": [
+            {
+              "id": 570,
+              "name": "Bone Scorpion",
+              "level": 103,
+              "quantity": 2
+            },
+            {
+              "id": 569,
+              "name": "Venomous Chain Scorpion",
+              "level": 99,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 174,
+          "y": 57,
+          "monsters": [
+            {
+              "id": 570,
+              "name": "Bone Scorpion",
+              "level": 103,
+              "quantity": 2
+            },
+            {
+              "id": 569,
+              "name": "Venomous Chain Scorpion",
+              "level": 99,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 200,
+          "y": 166,
+          "monsters": [
+            {
+              "id": 570,
+              "name": "Bone Scorpion",
+              "level": 103,
+              "quantity": 3
+            },
+            {
+              "id": 571,
+              "name": "Orcus",
+              "level": 105,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 53,
+          "y": 70,
+          "monsters": [
+            {
+              "id": 573,
+              "name": "Crypta",
+              "level": 111,
+              "quantity": 2
+            },
+            {
+              "id": 574,
+              "name": "Crypos",
+              "level": 114,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 48,
+          "y": 153,
+          "monsters": [
+            {
+              "id": 573,
+              "name": "Crypta",
+              "level": 111,
+              "quantity": 4
+            },
+            {
+              "id": 574,
+              "name": "Crypos",
+              "level": 114,
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 81,
+      "name": "Karutan 2",
+      "moves": [
+        {
+          "name": "Karutan2",
+          "zen": 14000,
+          "level": 170
+        }
+      ],
+      "monsters": [
+        {
+          "id": 571,
+          "name": "Orcus",
+          "level": 105
+        },
+        {
+          "id": 572,
+          "name": "Gollock",
+          "level": 108
+        },
+        {
+          "id": 575,
+          "name": "Condra",
+          "level": 117
+        },
+        {
+          "id": 576,
+          "name": "Narcondra",
+          "level": 120
+        }
+      ],
+      "spots": [
+        {
+          "x": 206,
+          "y": 134,
+          "monsters": [
+            {
+              "id": 571,
+              "name": "Orcus",
+              "level": 105,
+              "quantity": 2
+            },
+            {
+              "id": 572,
+              "name": "Gollock",
+              "level": 108,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 61,
+          "y": 145,
+          "monsters": [
+            {
+              "id": 571,
+              "name": "Orcus",
+              "level": 105,
+              "quantity": 2
+            },
+            {
+              "id": 575,
+              "name": "Condra",
+              "level": 117,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 140,
+          "y": 117,
+          "monsters": [
+            {
+              "id": 571,
+              "name": "Orcus",
+              "level": 105,
+              "quantity": 2
+            },
+            {
+              "id": 575,
+              "name": "Condra",
+              "level": 117,
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "x": 195,
+          "y": 61,
+          "monsters": [
+            {
+              "id": 575,
+              "name": "Condra",
+              "level": 117,
+              "quantity": 3
+            },
+            {
+              "id": 576,
+              "name": "Narcondra",
+              "level": 120,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 92,
+          "y": 80,
+          "monsters": [
+            {
+              "id": 575,
+              "name": "Condra",
+              "level": 117,
+              "quantity": 3
+            },
+            {
+              "id": 576,
+              "name": "Narcondra",
+              "level": 120,
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "x": 127,
+          "y": 60,
+          "monsters": [
+            {
+              "id": 575,
+              "name": "Condra",
+              "level": 117,
+              "quantity": 3
+            },
+            {
+              "id": 576,
+              "name": "Narcondra",
+              "level": 120,
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 82,
+      "name": "Arkania",
+      "moves": [
+        {
+          "name": "Arkaina",
+          "zen": 15000,
+          "level": 10
+        }
+      ],
+      "monsters": [
+        {
+          "id": 2,
+          "name": "Budge Dragon",
+          "level": 4
+        },
+        {
+          "id": 3,
+          "name": "Spider",
+          "level": 2
+        },
+        {
+          "id": 22,
+          "name": "Ice Monster",
+          "level": 22
+        },
+        {
+          "id": 24,
+          "name": "Worm",
+          "level": 20
+        },
+        {
+          "id": 20,
+          "name": "Elite Yeti",
+          "level": 36
+        },
+        {
+          "id": 27,
+          "name": "Chain Scorpion",
+          "level": 5
+        }
+      ],
+      "spots": [
+        {
+          "x": 210,
+          "y": 94,
+          "monsters": [
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 20
+            }
+          ]
+        },
+        {
+          "x": 233,
+          "y": 106,
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 20
+            }
+          ]
+        },
+        {
+          "x": 226,
+          "y": 146,
+          "monsters": [
+            {
+              "id": 22,
+              "name": "Ice Monster",
+              "level": 22,
+              "quantity": 8
+            }
+          ]
+        },
+        {
+          "x": 215,
+          "y": 149,
+          "monsters": [
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 8
+            }
+          ]
+        },
+        {
+          "x": 210,
+          "y": 174,
+          "monsters": [
+            {
+              "id": 24,
+              "name": "Worm",
+              "level": 20,
+              "quantity": 15
+            },
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 7
+            }
+          ]
+        },
+        {
+          "x": 237,
+          "y": 204,
+          "monsters": [
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 5
+            },
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 232,
+          "y": 216,
+          "monsters": [
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 7
+            },
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 7
+            },
+            {
+              "id": 22,
+              "name": "Ice Monster",
+              "level": 22,
+              "quantity": 7
+            },
+            {
+              "id": 24,
+              "name": "Worm",
+              "level": 20,
+              "quantity": 7
+            },
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 7
+            }
+          ]
+        },
+        {
+          "x": 239,
+          "y": 228,
+          "monsters": [
+            {
+              "id": 2,
+              "name": "Budge Dragon",
+              "level": 4,
+              "quantity": 2
+            },
+            {
+              "id": 3,
+              "name": "Spider",
+              "level": 2,
+              "quantity": 2
+            },
+            {
+              "id": 22,
+              "name": "Ice Monster",
+              "level": 22,
+              "quantity": 2
+            },
+            {
+              "id": 24,
+              "name": "Worm",
+              "level": 20,
+              "quantity": 2
+            },
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 2
+            },
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 215,
+          "y": 229,
+          "monsters": [
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 5
+            },
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 5
+            },
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            },
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 204,
+          "y": 240,
+          "monsters": [
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 5
+            },
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "x": 218,
+          "y": 238,
+          "monsters": [
+            {
+              "id": 27,
+              "name": "Chain Scorpion",
+              "level": 5,
+              "quantity": 5
+            },
+            {
+              "id": 20,
+              "name": "Elite Yeti",
+              "level": 36,
+              "quantity": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "drops": [
+    {
+      "name": "Jewel of Chaos",
+      "id": 6159,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 12,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Sphere (Mono)",
+      "id": 6214,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 58,
+      "max": 76,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Sphere (Di)",
+      "id": 6215,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 77,
+      "max": 101,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Sphere (Tri)",
+      "id": 6216,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 102,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Loch's Feather",
+      "id": 6670,
+      "variant": 0,
+      "map": 10,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Monarch's Crest",
+      "id": 6670,
+      "variant": 1,
+      "map": 10,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 1",
+      "id": 6672,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 1,
+      "max": 32,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 2",
+      "id": 6672,
+      "variant": 2,
+      "map": -1,
+      "monster": -1,
+      "min": 33,
+      "max": 45,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 3",
+      "id": 6672,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 57,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 4",
+      "id": 6672,
+      "variant": 4,
+      "map": -1,
+      "monster": -1,
+      "min": 58,
+      "max": 68,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 5",
+      "id": 6672,
+      "variant": 5,
+      "map": -1,
+      "monster": -1,
+      "min": 69,
+      "max": 76,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 6",
+      "id": 6672,
+      "variant": 6,
+      "map": -1,
+      "monster": -1,
+      "min": 77,
+      "max": 84,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 7",
+      "id": 6672,
+      "variant": 7,
+      "map": -1,
+      "monster": -1,
+      "min": 85,
+      "max": 101,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Scroll of Archangel 8",
+      "id": 6672,
+      "variant": 8,
+      "map": -1,
+      "monster": -1,
+      "min": 102,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 1",
+      "id": 6673,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 1,
+      "max": 32,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 2",
+      "id": 6673,
+      "variant": 2,
+      "map": -1,
+      "monster": -1,
+      "min": 33,
+      "max": 45,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 3",
+      "id": 6673,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 57,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 4",
+      "id": 6673,
+      "variant": 4,
+      "map": -1,
+      "monster": -1,
+      "min": 58,
+      "max": 68,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 5",
+      "id": 6673,
+      "variant": 5,
+      "map": -1,
+      "monster": -1,
+      "min": 69,
+      "max": 76,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 6",
+      "id": 6673,
+      "variant": 6,
+      "map": -1,
+      "monster": -1,
+      "min": 77,
+      "max": 84,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 7",
+      "id": 6673,
+      "variant": 7,
+      "map": -1,
+      "monster": -1,
+      "min": 85,
+      "max": 101,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Blood Bone 8",
+      "id": 6673,
+      "variant": 8,
+      "map": -1,
+      "monster": -1,
+      "min": 102,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Spirit of Dark Horse",
+      "id": 6687,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Spirit of Dark Spirit",
+      "id": 6687,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Splinter of Armor",
+      "id": 6688,
+      "variant": 0,
+      "map": 34,
+      "monster": -1,
+      "min": 97,
+      "max": 134,
+      "rates": [
+        0.2,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Bless of Guardian",
+      "id": 6689,
+      "variant": 0,
+      "map": 34,
+      "monster": -1,
+      "min": 97,
+      "max": 134,
+      "rates": [
+        0.2,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Claw of Beast",
+      "id": 6690,
+      "variant": 0,
+      "map": 34,
+      "monster": -1,
+      "min": 97,
+      "max": 134,
+      "rates": [
+        0.2,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Moonstone Pendant",
+      "id": 6694,
+      "variant": 0,
+      "map": 38,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.5,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Old Scroll 1",
+      "id": 6705,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 57,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Old Scroll 2",
+      "id": 6705,
+      "variant": 2,
+      "map": -1,
+      "monster": -1,
+      "min": 58,
+      "max": 68,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Old Scroll 3",
+      "id": 6705,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 69,
+      "max": 76,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Old Scroll 4",
+      "id": 6705,
+      "variant": 4,
+      "map": -1,
+      "monster": -1,
+      "min": 77,
+      "max": 84,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Old Scroll 5",
+      "id": 6705,
+      "variant": 5,
+      "map": -1,
+      "monster": -1,
+      "min": 85,
+      "max": 101,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Old Scroll 6",
+      "id": 6705,
+      "variant": 6,
+      "map": -1,
+      "monster": -1,
+      "min": 102,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Illusion Sorcerer Covenant 1",
+      "id": 6706,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 57,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Illusion Sorcerer Covenant 2",
+      "id": 6706,
+      "variant": 2,
+      "map": -1,
+      "monster": -1,
+      "min": 58,
+      "max": 68,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Illusion Sorcerer Covenant 3",
+      "id": 6706,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 69,
+      "max": 76,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Illusion Sorcerer Covenant 4",
+      "id": 6706,
+      "variant": 4,
+      "map": -1,
+      "monster": -1,
+      "min": 77,
+      "max": 84,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Illusion Sorcerer Covenant 5",
+      "id": 6706,
+      "variant": 5,
+      "map": -1,
+      "monster": -1,
+      "min": 85,
+      "max": 101,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Illusion Sorcerer Covenant 6",
+      "id": 6706,
+      "variant": 6,
+      "map": -1,
+      "monster": -1,
+      "min": 102,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Condor Flame",
+      "id": 6708,
+      "variant": 0,
+      "map": 41,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Jewel of Bless",
+      "id": 7181,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Jewel of Soul",
+      "id": 7182,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Jewel of Life",
+      "id": 7184,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Eye 1",
+      "id": 7185,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 1,
+      "max": 32,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Eye 2",
+      "id": 7185,
+      "variant": 2,
+      "map": -1,
+      "monster": -1,
+      "min": 33,
+      "max": 45,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Eye 3",
+      "id": 7185,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 57,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Eye 4",
+      "id": 7185,
+      "variant": 4,
+      "map": -1,
+      "monster": -1,
+      "min": 58,
+      "max": 68,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Eye 5",
+      "id": 7185,
+      "variant": 5,
+      "map": -1,
+      "monster": -1,
+      "min": 69,
+      "max": 76,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Eye 6",
+      "id": 7185,
+      "variant": 6,
+      "map": -1,
+      "monster": -1,
+      "min": 77,
+      "max": 84,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Eye 7",
+      "id": 7185,
+      "variant": 7,
+      "map": -1,
+      "monster": -1,
+      "min": 85,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Key 1",
+      "id": 7186,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 1,
+      "max": 32,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Key 2",
+      "id": 7186,
+      "variant": 2,
+      "map": -1,
+      "monster": -1,
+      "min": 33,
+      "max": 45,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Key 3",
+      "id": 7186,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 57,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Key 4",
+      "id": 7186,
+      "variant": 4,
+      "map": -1,
+      "monster": -1,
+      "min": 58,
+      "max": 68,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Key 5",
+      "id": 7186,
+      "variant": 5,
+      "map": -1,
+      "monster": -1,
+      "min": 69,
+      "max": 76,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Key 6",
+      "id": 7186,
+      "variant": 6,
+      "map": -1,
+      "monster": -1,
+      "min": 77,
+      "max": 84,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Devil's Key 7",
+      "id": 7186,
+      "variant": 7,
+      "map": -1,
+      "monster": -1,
+      "min": 85,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Sign of the Lord",
+      "id": 7189,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.3,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Jewel of Creation",
+      "id": 7190,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 46,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Symbol of Kundun 1",
+      "id": 7197,
+      "variant": 1,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 46,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Symbol of Kundun 2",
+      "id": 7197,
+      "variant": 2,
+      "map": -1,
+      "monster": -1,
+      "min": 47,
+      "max": 65,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Symbol of Kundun 3",
+      "id": 7197,
+      "variant": 3,
+      "map": -1,
+      "monster": -1,
+      "min": 66,
+      "max": 77,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Symbol of Kundun 4",
+      "id": 7197,
+      "variant": 4,
+      "map": -1,
+      "monster": -1,
+      "min": 78,
+      "max": 83,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Symbol of Kundun 5",
+      "id": 7197,
+      "variant": 5,
+      "map": -1,
+      "monster": -1,
+      "min": 84,
+      "max": 91,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Symbol of Kundun 6",
+      "id": 7197,
+      "variant": 6,
+      "map": -1,
+      "monster": -1,
+      "min": 92,
+      "max": 113,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Symbol of Kundun 7",
+      "id": 7197,
+      "variant": 7,
+      "map": -1,
+      "monster": -1,
+      "min": 114,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Gemstone",
+      "id": 7209,
+      "variant": 0,
+      "map": 39,
+      "monster": -1,
+      "min": 69,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Suspicious Scrap of Paper",
+      "id": 7269,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 60,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Sign of Dimensions",
+      "id": 7278,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 60,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Sealed Golden Box",
+      "id": 7289,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "Sealed Silver Box",
+      "id": 7290,
+      "variant": 0,
+      "map": -1,
+      "monster": -1,
+      "min": 25,
+      "max": 150,
+      "rates": [
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    }
+  ]
+}

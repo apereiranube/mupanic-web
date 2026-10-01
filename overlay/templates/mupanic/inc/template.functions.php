@@ -4,7 +4,7 @@ if(!defined('access') or !access) die();
 function mupanicPageTitle($page, $subpage = '') {
     $map = array(
         'information' => 'Guías y sistemas',
-        'info' => 'Guía del servidor',
+        'info' => 'Atlas PANIC',
         'downloads' => 'Descargas',
         'rankings' => 'Rankings',
         'register' => 'Crear cuenta',

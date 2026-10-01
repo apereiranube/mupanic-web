@@ -26,9 +26,11 @@ if($isHome && function_exists('loadCache')) {
 $isLogged = isLoggedIn();
 
 $serverSeason = 'Season 6'; // MU PANIC UP43: editorial identity, independent of legacy CMS title.
-$serverExp = mupanicServerValue('server_info_exp', '—');
-$serverMasterExp = mupanicServerValue('server_info_masterexp', '—');
-$serverDrop = mupanicServerValue('server_info_drop', '—');
+// Curated public gameplay snapshot; CMS information defaults are not authoritative.
+$publicBalance = json_decode(file_get_contents(__DIR__.'/inc/public-balance.json'), true);
+$serverExp = $publicBalance['accounts'][0]['experience'].'x';
+$serverMasterExp = $publicBalance['accounts'][0]['master'].'x';
+$serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 ?>
 <!DOCTYPE html>
@@ -46,11 +48,11 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
     <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/knight-v6.webp" fetchpriority="high"><?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
-    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=6.2" rel="stylesheet">
+    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=7.0" rel="stylesheet">
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home' : 'is-inner'; ?>">
+<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ''); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -65,7 +67,7 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
 
         <nav class="main-nav" id="main-navigation" aria-label="Navegación principal">
             <a href="<?php echo __BASE_URL__; ?>#continente">El continente</a>
-            <a href="<?php echo __BASE_URL__; ?>info/">Guías</a>
+            <a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a>
             <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
             <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
@@ -112,12 +114,12 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
         <div class="hud-heading"><span class="eyebrow">LA BASE DE TU AVENTURA</span><span>EXPLORÁ LOS SISTEMAS <span aria-hidden="true">↘</span></span></div>
         <div class="server-hud">
             <details class="hud-item hud-season"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('crest'); ?></span><span class="hud-label">EL CONTINENTE</span><strong><?php echo $serverSeason; ?></strong><small>Louis UP43 · Argentina</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>El continente clásico de MU. Elegí tu clase y prepará tu recorrido desde Lorencia y Noria hasta las zonas de conquista.</p><a href="<?php echo __BASE_URL__; ?>info/#primeros-pasos">Elegí tu primer objetivo ↗</a></div></details>
-            <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('sword'); ?></span><span class="hud-label">EXPERIENCIA</span><strong><?php echo htmlspecialchars($serverExp); ?></strong><small>Tu camino al siguiente nivel</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>La experiencia normal impulsa los niveles de tu personaje. El mapa, tu equipo y la party acompañan cada etapa.</p><a href="<?php echo __BASE_URL__; ?>info/#progresion">Explorá la progresión ↗</a></div></details>
+            <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('sword'); ?></span><span class="hud-label">EXPERIENCIA</span><strong><?php echo htmlspecialchars($serverExp); ?></strong><small>Tu camino al siguiente nivel</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>EXP base para cuenta Free. El factor baja por tramos de reset; party y bonos pueden modificar la experiencia recibida.</p><a href="<?php echo __BASE_URL__; ?>info/#rates">Consultá los tramos ↗</a></div></details>
             <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('wings'); ?></span><span class="hud-label">MASTER EXP</span><strong><?php echo htmlspecialchars($serverMasterExp); ?></strong><small>La siguiente etapa</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>La experiencia Master corresponde a la progresión Master de tu personaje. Revisá los sistemas y requisitos antes de tu próximo salto.</p><a href="<?php echo __BASE_URL__; ?>info/#sistemas">Conocé los sistemas ↗</a></div></details>
-            <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span><span class="hud-label">DROP</span><strong><?php echo htmlspecialchars($serverDrop); ?></strong><small>Equipá tu próxima conquista</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Este es el valor general de drop publicado por el servidor. Cada objeto, evento o combinación puede tener sus propias condiciones.</p><a href="<?php echo __BASE_URL__; ?>info/#sistemas">Prepará tus mejoras ↗</a></div></details>
+            <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span><span class="hud-label">DROP</span><strong><?php echo htmlspecialchars($serverDrop); ?></strong><small>Equipá tu próxima conquista</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Drop general para cuenta Free. No equivale a la probabilidad de una joya: cada objeto tiene sus propias condiciones.</p><a href="<?php echo __BASE_URL__; ?>info/#drops">Buscá un objeto ↗</a></div></details>
             <details class="hud-item hud-online"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('party'); ?></span><span class="hud-label">CONECTADOS</span><strong data-online-count><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers); ?></strong><small data-online-note><?php echo $onlinePlayers === null ? 'Sin datos disponibles' : 'Último registro del servidor'; ?></small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Conexiones registradas por el servidor. La lista de personajes proviene de un registro independiente y puede actualizarse en otro momento.</p><div class="online-roster" data-online-roster><?php if(count($onlineCharacters)) { foreach($onlineCharacters as $name) { ?><span><?php echo htmlspecialchars($name); ?></span><?php } } else { ?><p>La lista de personajes todavía no está disponible.</p><?php } ?></div></div></details>
         </div>
-        <div class="hud-footer"><p role="status" data-status-message data-cache-time="<?php echo $cacheTime ?: ''; ?>"><span class="status-dot" aria-hidden="true"></span><?php echo $cacheTime ? 'Registro: '.gmdate('H:i', $cacheTime).' UTC' : 'Sin hora de registro disponible'; ?></p><button class="status-refresh" type="button">Actualizar registro <span aria-hidden="true">↻</span></button><a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Guía del servidor <span aria-hidden="true">↗</span></a></div>
+        <div class="hud-footer"><p role="status" data-status-message data-cache-time="<?php echo $cacheTime ?: ''; ?>"><span class="status-dot" aria-hidden="true"></span><?php echo $cacheTime ? 'Registro: '.gmdate('H:i', $cacheTime).' UTC' : 'Sin hora de registro disponible'; ?></p><button class="status-refresh" type="button">Actualizar registro <span aria-hidden="true">↻</span></button><a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC <span aria-hidden="true">↗</span></a></div>
     </div>
 </section>
 
@@ -150,7 +152,7 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
 </section>
 
 <section class="play-gateway" id="empezar" aria-labelledby="play-title">
-    <div class="gateway-art" aria-hidden="true"></div><div class="shell gateway-layout"><div class="gateway-copy"><span class="eyebrow">04 / TU HISTORIA EMPIEZA ACÁ</span><h2 id="play-title">Nos vemos<br><em>en Lorencia.</em></h2><p>Prepará tu cuenta y el cliente.<br>El siguiente paso lo das dentro del juego.</p></div><div class="launch-steps"><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><span>01</span><div><small><?php echo $isLogged ? 'TU PANEL' : 'TU IDENTIDAD'; ?></small><strong><?php echo $isLogged ? 'Abrir mi cuenta' : 'Crear mi cuenta'; ?></strong></div><b aria-hidden="true">↗</b></a><a class="launch-download" href="<?php echo __BASE_URL__; ?>downloads/"><span>02</span><div><small>EL CLIENTE / PC</small><strong>Descargar MU PANIC</strong></div><b aria-hidden="true">↓</b></a><a href="<?php echo __BASE_URL__; ?>info/"><span>03</span><div><small>ANTES DE ENTRAR</small><strong>Leer la guía del servidor</strong></div><b aria-hidden="true">↗</b></a></div></div>
+    <div class="gateway-art" aria-hidden="true"></div><div class="shell gateway-layout"><div class="gateway-copy"><span class="eyebrow">04 / TU HISTORIA EMPIEZA ACÁ</span><h2 id="play-title">Nos vemos<br><em>en Lorencia.</em></h2><p>Prepará tu cuenta y el cliente.<br>El siguiente paso lo das dentro del juego.</p></div><div class="launch-steps"><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><span>01</span><div><small><?php echo $isLogged ? 'TU PANEL' : 'TU IDENTIDAD'; ?></small><strong><?php echo $isLogged ? 'Abrir mi cuenta' : 'Crear mi cuenta'; ?></strong></div><b aria-hidden="true">↗</b></a><a class="launch-download" href="<?php echo __BASE_URL__; ?>downloads/"><span>02</span><div><small>EL CLIENTE / PC</small><strong>Descargar MU PANIC</strong></div><b aria-hidden="true">↓</b></a><a href="<?php echo __BASE_URL__; ?>info/"><span>03</span><div><small>ANTES DE ENTRAR</small><strong>Explorar el Atlas PANIC</strong></div><b aria-hidden="true">↗</b></a></div></div>
 </section>
 
 <?php } else { ?>
@@ -200,7 +202,7 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
             <p>Tu historia en el continente de MU.</p>
         </div>
         <div class="footer-links">
-            <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Guías</a></div>
+            <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a></div>
             <div><small>CUENTA</small><?php if($isLogged) { ?><a href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>register/">Crear cuenta</a><?php } ?><a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a></div>
         </div>
     </div>
@@ -209,6 +211,6 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
-<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=6.2"></script>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=7.0"></script>
 </body>
 </html>
