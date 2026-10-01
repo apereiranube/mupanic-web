@@ -74,7 +74,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a>
             <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
             <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
-            <a class="nav-discord" href="<?php echo htmlspecialchars($discordInvite, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+            <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
