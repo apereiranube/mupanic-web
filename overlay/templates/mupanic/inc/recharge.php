@@ -31,7 +31,9 @@ foreach($rechargeConfig['packages'] as $package) {
             <article class="recharge-package"><span class="recharge-gem" aria-hidden="true"><?php echo panicAccountIcon('gem'); ?></span><h4><?php echo panicAccountEscape($package['title']); ?></h4><strong><?php echo number_format($package['coins']+$package['bonus'],0,',','.'); ?> <small>WCoin C</small></strong><p><?php echo $package['bonus']>0 ? number_format($package['coins'],0,',','.').' + '.number_format($package['bonus'],0,',','.').' de regalo' : 'Sin bono adicional'; ?></p><div class="recharge-price">$ <?php echo number_format($package['price_cents']/100,2,',','.'); ?> <small>ARS</small></div><span class="recharge-coming">Disponible próximamente</span></article>
         <?php } ?></div>
         <?php } ?>
-        <div class="recharge-method"><span class="recharge-method-icon" aria-hidden="true"><?php echo panicAccountIcon('shield'); ?></span><div><strong>Mobbex</strong><p>Estamos preparando este medio de pago.</p></div><span>Próximamente</span></div>
+        <?php $rechargeMethod=$rechargeConfig['providers'][$rechargeConfig['primary_provider']] ?? null; if($rechargeMethod) { ?>
+        <div class="recharge-method"><span class="recharge-method-icon" aria-hidden="true"><?php echo panicAccountIcon('shield'); ?></span><div><strong><?php echo panicAccountEscape($rechargeMethod['label']); ?></strong><p><?php echo panicAccountEscape($rechargeMethod['copy']); ?></p></div><span>Próximamente</span></div>
+        <?php } ?>
     </section>
     <section id="recharge-guide" class="recharge-section">
         <div class="recharge-section-head"><div><span class="eyebrow">02 / SIN VUELTAS</span><h3>De la web al juego</h3></div></div>

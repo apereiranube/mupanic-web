@@ -3,7 +3,8 @@
 ## Decisiones confirmadas
 
 - Moneda: WCoin C para la cuenta del juego, no créditos genéricos de WebEngine.
-- Mobbex será la primera pasarela. Alta solicitada por Agustín; espera informada de 72 horas.
+- Ualá Bis será la pasarela principal, decisión de Agustín del 1/10/2026. Cuenta y token disponibles según lo informado; integración todavía no implementada ni habilitada. Documentación oficial: https://developers.ualabis.com.ar/.
+- Mobbex queda como alternativa. Alta solicitada por Agustín; espera informada de 72 horas.
 - MercadoPago queda opcional y desactivado. Nunca mostrarlo como disponible sin activación expresa.
 - Precios, cantidades y bonos todavía no definidos. Catálogo vacío: no inventar ofertas ni saldos.
 - Primera etapa: vender monedas; los productos se compran en el Cash Shop del cliente.
@@ -53,11 +54,39 @@ base MuOnline43, 1/10/2026 19:38:45 UTC. Se confirmó:
 | Estado de conexión | dbo.MEMB_STAT.ConnectStat | tinyint nullable; no asumir NULL = desconectado |
 | Cuenta de conexión | dbo.MEMB_STAT.memb___id | varchar(10), PK única |
 
-`WZ_SetCoin` existe, pero el informe inicial solo contiene el nombre. No asumir
-que suma, reemplaza el saldo o notifica al GameServer. Su definición puede
-consultarse con `audit_wallet.ps1 -IncludeCoinProcedure`; el script únicamente
-lee ese procedimiento y sus parámetros, sin ejecutarlo. Revisar el código antes
-de compartirlo y comprobar VIEW DEFINITION si aparece null.
+El segundo informe, `MU_PANIC_WALLET_AUDIT_20261001_164526.json`, incluye
+`dbo.WZ_SetCoin`: suma @Value1 a WCoinC, @Value2 a WCoinP y @Value3 a
+GoblinPoint para AccountID=@Account. @Name se declara pero no se usa.
+No crea filas faltantes, no comprueba que se haya actualizado una cuenta y
+no registra una entrega única. No contiene una notificación al GameServer.
+Activa XACT_ABORT al entrar y lo desactiva al salir: cualquier wrapper debe
+reestablecerlo y manejar transacción/rollback explícitamente.
+Esto verifica el SQL, no la caché ni el refresco del cliente.
+
+### Prueba autorizada: pruebacoin
+
+Agustín eligió `pruebacoin` para la prueba. `tools/test_coin_delivery.ps1`
+consulta únicamente esa cuenta y la base MuOnline43. Por defecto solo lee.
+Con `-AddOneCoin` suma exactamente una WCoin C usando el procedimiento auditado:
+requiere fila de saldo existente y ConnectStat=1, toma locks, comprueba el
+incremento y que WCoinP/GoblinPoint no cambien, y hace rollback ante error SQL.
+No crea cuentas/filas ni modifica procedimientos ni procesos del servidor.
+
+Antes de sumar, reserva un archivo local con CreateNew y lo fuerza a disco,
+en `C:\MuServer43\PaymentsPrivate\pruebacoin-one-coin-test.json`. El archivo
+bloquea una segunda ejecución de la suma en ese VPS/ruta. Si hay timeout o corte
+queda reservado: no borrar ni repetir hasta revisar el resultado. Esto es una
+protección de la prueba, NO el ledger durable de recargas de producción.
+
+Procedimiento de observación: entrar con pruebacoin, abrir Cash Shop y anotar
+WCoin C; ejecutar una vez con -AddOneCoin; cerrar/reabrir la tienda; salir por
+completo de la cuenta y volver a entrar; ejecutar sin -AddOneCoin para consultar
+SQL después de salir. No gastar, comprar ni obtener recompensas durante la
+prueba. Comparar SQL antes/después y saldo visible en el cliente. No prometer
+actualización instantánea hasta completar esta prueba.
+
+La suma de prueba todavía no se ejecutó en el VPS. El script fue revisado
+localmente, pero este entorno no incluye PowerShell/SQL Server para verificarlo.
 
 `inc/recharge-wallet.php` consulta WCoinC de la cuenta de sesión con SQL
 parametrizado y base física fija MuOnline43. El saldo es una lectura al cargar;
@@ -82,7 +111,9 @@ Un 0 válido se muestra como tal. No cambia saldos ni ejecuta WZ_SetCoin.
 5. Formulario con cuenta tomada de sesión, CSRF, límites por usuario y creación
    idempotente. Primero persistir orden/attempt; después solicitar checkout.
    Un timeout del proveedor necesita conciliación, no una nueva orden ciega.
-6. Webhook autenticado por mecanismo acordado con Mobbex; MercadoPago usa su
+6. Integrar primero Ualá Bis usando su documentación oficial v2 y validar sus
+   notificaciones mediante consulta autenticada de la orden. Mobbex queda para
+   una conexión posterior; MercadoPago usa su
    firma oficial cuando se habilite. Verificar mediante GET del proveedor antes
    de registrar aprobación. Los eventos se guardan de forma durable y se
    procesan/reintentan sin depender de que el jugador mantenga abierta la web.
@@ -92,7 +123,7 @@ Un 0 válido se muestra como tal. No cambia saldos ni ejecuta WZ_SetCoin.
 8. Historial real por sesión; administración con roles del CMS y CSRF para
    paquetes, disponibilidad, bonos y casos de revisión. Auditoría de cambios.
    Definir expiración de bonos y conservar el snapshot de compras anteriores.
-9. Mobbex sandbox, aprobación, rechazo, retorno abandonado, webhook repetido,
+9. Ualá Bis en entorno de prueba, aprobación, rechazo, retorno abandonado, webhook repetido,
    eventos fuera de orden, importe alterado, proveedor caído y corte durante
    entrega. Luego una compra real pequeña y activación explícita.
 
