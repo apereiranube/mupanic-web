@@ -83,5 +83,9 @@ expect($reconciler->reconcile('PAY-123')==='ready','Reconciler');
 $reconciler->reconcile('PAY-123'); expect($ledger->jobs===1,'Replay produces one fixture job');
 // Entire public catalogue is closed and has no secrets or made-up offers.
 $config=require __DIR__.'/../overlay/templates/mupanic/inc/recharge-config.php';
-expect($config['packages']===[] && $config['providers']['mercadopago']['state']==='disabled','Prelaunch configuration');
+expect(count($config['packages'])===5 && $config['providers']['mercadopago']['state']==='disabled' && $config['providers']['uala_bis']['state']==='pending','Prelaunch configuration');
+foreach($config['packages'] as $offer) {
+    $offer=PanicRecharge::package($offer);
+    expect($offer['price_cents']===$offer['coins']*100 && $offer['bonus']===0,'Approved one peso per WCoin rate');
+}
 echo "Recharge domain and mock API tests passed. No live payments or game writes.\n";

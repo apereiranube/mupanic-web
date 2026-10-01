@@ -21,7 +21,7 @@ foreach($rechargeConfig['packages'] as $package) {
         <small class="recharge-balance-note">Saldo consultado al abrir esta página. El juego puede mostrar cambios posteriores.</small>
     </header>
     <?php include __DIR__.'/recharge-check.php'; ?>
-    <div class="recharge-notice" role="status"><strong>Estamos preparando las recargas</strong><p>Todavía no se pueden realizar compras. Los paquetes y sus precios aparecerán acá cuando la tienda esté habilitada.</p></div>
+    <div class="recharge-notice" role="status"><strong>Estamos preparando las recargas</strong><p>Ya podés conocer los paquetes y sus precios. Las compras se habilitarán cuando terminemos de probar el pago y la entrega de monedas.</p></div>
     <div class="recharge-notice"><strong>$ <?php echo number_format($rechargeConfig['exchange_rate']['price_cents']/100,0,',','.'); ?> ARS = <?php echo number_format($rechargeConfig['exchange_rate']['coins'],0,',','.'); ?> WCoin C</strong><p>La equivalencia de las recargas. Por ejemplo, $5.000 argentinos equivalen a 5.000 WCoin C. Sin bonos adicionales por ahora.</p></div>
     <nav class="recharge-sections" aria-label="Secciones de recargas"><a href="#recharge-packages">Paquetes</a><a href="#recharge-guide">Cómo funciona</a><a href="#recharge-history">Mis compras</a></nav>
     <section id="recharge-packages" class="recharge-section">

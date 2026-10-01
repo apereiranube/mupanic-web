@@ -6,7 +6,7 @@
 - Ualá Bis será la pasarela principal, decisión de Agustín del 1/10/2026. Credenciales disponibles según lo informado; conector v2 preparado, cobros todavía no habilitados. Documentación oficial: https://developers.ualabis.com.ar/.
 - Mobbex queda como alternativa. Alta solicitada por Agustín; espera informada de 72 horas.
 - MercadoPago queda opcional y desactivado. Nunca mostrarlo como disponible sin activación expresa.
-- Equivalencia confirmada el 1/10/2026: $1 ARS = 1 WCoin C (100 centavos por moneda), sin bonos por ahora. Importes de paquetes todavía no definidos; catálogo vacío, sin inventar ofertas ni saldos. La equivalencia se guarda como enteros en `exchange_rate`; el futuro checkout debe aplicarla al crear los paquetes y preservar el importe y las monedas en cada orden.
+- Equivalencia confirmada el 1/10/2026: $1 ARS = 1 WCoin C (100 centavos por moneda), sin bonos por ahora. Paquetes aprobados: $1.000, $3.000, $5.000, $10.000 y $20.000 ARS, entregando respectivamente 1.000, 3.000, 5.000, 10.000 y 20.000 WCoin C. Visibles como disponibles próximamente; compras deshabilitadas. La equivalencia se guarda como enteros en `exchange_rate`; el futuro checkout debe aplicarla al crear los paquetes y preservar el importe y las monedas en cada orden.
 - Autenticación Ualá Bis de prueba confirmada por captura del administrador el 1/10/2026. No se creó ningún cobro ni se acreditaron monedas con esa comprobación.
 - Primera etapa: vender monedas; los productos se compran en el Cash Shop del cliente.
 
@@ -121,7 +121,7 @@ cobra dinero ni acredita WCoin. Falta verificarlo con las credenciales reales.
 Pruebas locales en `tests/recharge-uala.php` con credenciales ficticias y sin
 red: autenticación, reutilización de token, centavos, ambiente, estados, límites
 y rechazo de placeholders. Ledger, webhook, historial real y panel de paquetes
-siguen pendientes. Los paquetes/precios todavía no fueron definidos.
+siguen pendientes. Los cinco paquetes y la equivalencia fueron definidos; todavía no se habilitaron compras.
 
 `inc/recharge-wallet.php` consulta WCoinC de la cuenta de sesión con SQL
 parametrizado y base física fija MuOnline43. El saldo es una lectura al cargar;
