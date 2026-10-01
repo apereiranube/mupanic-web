@@ -3,7 +3,7 @@
 ## Decisiones confirmadas
 
 - Moneda: WCoin C para la cuenta del juego, no créditos genéricos de WebEngine.
-- Ualá Bis será la pasarela principal, decisión de Agustín del 1/10/2026. Cuenta y token disponibles según lo informado; integración todavía no implementada ni habilitada. Documentación oficial: https://developers.ualabis.com.ar/.
+- Ualá Bis será la pasarela principal, decisión de Agustín del 1/10/2026. Credenciales disponibles según lo informado; conector v2 preparado, cobros todavía no habilitados. Documentación oficial: https://developers.ualabis.com.ar/.
 - Mobbex queda como alternativa. Alta solicitada por Agustín; espera informada de 72 horas.
 - MercadoPago queda opcional y desactivado. Nunca mostrarlo como disponible sin activación expresa.
 - Precios, cantidades y bonos todavía no definidos. Catálogo vacío: no inventar ofertas ni saldos.
@@ -85,8 +85,42 @@ SQL después de salir. No gastar, comprar ni obtener recompensas durante la
 prueba. Comparar SQL antes/después y saldo visible en el cliente. No prometer
 actualización instantánea hasta completar esta prueba.
 
-La suma de prueba todavía no se ejecutó en el VPS. El script fue revisado
-localmente, pero este entorno no incluye PowerShell/SQL Server para verificarlo.
+Prueba completada por Agustín el 1/10/2026: Cash Shop mostró 1 WCoin C,
+consulta posterior con ConnectStat=0 mostró WCoinC=1 y el usuario confirmó
+que siguió mostrando 1 al volver a entrar. Evidencia de persistencia para esa
+cuenta/prueba; no demuestra concurrencia, entrega masiva ni ausencia de toda
+posible carrera con el GameServer. No repetir ni eliminar el marcador de prueba.
+
+### Conector Ualá Bis v2 y configuración privada
+
+`inc/recharge-uala.php` genera tokens con username/client_id/client_secret_id,
+usa los hosts oficiales separados para test/production y consulta órdenes por
+GET autorizado. Amount es centavos enteros, no pesos decimales. Solo APPROVED
+puede habilitar una entrega; PROCESSED (y PROCCESED en ejemplos oficiales) sigue
+pendiente. Estados desconocidos y devoluciones requieren revisión.
+El GET omite comercio/moneda/ambiente: se derivan del scope autenticado del
+client_id y del host de Argentina, no de un webhook. Antes de producción hay
+que probar acceso a órdenes ajenas (debe denegarse), referencias/importe y
+guardar UUID de checkout en el intento antes de aceptar aprobación.
+
+`examples/uala-settings.example.json` contiene solo placeholders. Copiarlo
+como `/home/mupanic/payments-private/settings.json`, fuera de public_html,
+permisos 0600, directorio 0700. Nunca subir valores reales al repositorio/chat.
+Usar environment test con credenciales de prueba; production solo si las claves
+recibidas corresponden a producción. sales_enabled debe quedar false: el loader
+rechaza true en esta etapa. El archivo aún no habilita checkout en la página.
+El adaptador conserva el token solo en memoria y no devuelve su valor al cliente.
+
+Después de desplegar, cPanel Terminal puede ejecutar:
+`php /home/mupanic/public_html/beta/templates/mupanic/bin/check-uala.php`
+Este comando verifica únicamente autenticación y devuelve estado/ambiente,
+nunca tokens ni cuerpos API. Se niega a ejecutarse por HTTP. No crea órdenes,
+cobra dinero ni acredita WCoin. Falta verificarlo con las credenciales reales.
+
+Pruebas locales en `tests/recharge-uala.php` con credenciales ficticias y sin
+red: autenticación, reutilización de token, centavos, ambiente, estados, límites
+y rechazo de placeholders. Ledger, webhook, historial real y panel de paquetes
+siguen pendientes. Los paquetes/precios todavía no fueron definidos.
 
 `inc/recharge-wallet.php` consulta WCoinC de la cuenta de sesión con SQL
 parametrizado y base física fija MuOnline43. El saldo es una lectura al cargar;

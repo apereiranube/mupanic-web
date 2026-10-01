@@ -3,7 +3,7 @@ if(!defined('access') || !access) die();
 
 /** Payment core, not an HTTP endpoint. No game balance writes in this release. */
 final class PanicRecharge {
-    const PROVIDERS = ['mobbex', 'mercadopago'];
+    const PROVIDERS = ['uala_bis', 'mobbex', 'mercadopago'];
 
     public static function cents($value) {
         // Amounts are stored as integer centavos; API decimals are converted once.
