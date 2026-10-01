@@ -2,7 +2,7 @@
 if(!defined('access') || !access) die();
 
 // Public catalogue only. Never put API keys, tokens or bank details here.
-// Sales remain closed in this first delivery; no endpoint accepts purchases.
+// Checkout uses private settings; production sales stay closed by default.
 return [
     'currency' => 'WCoin C',
     // Confirmed base rate: ARS 1.00 (100 centavos) delivers one WCoin C.

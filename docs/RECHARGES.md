@@ -1,5 +1,97 @@
 # MU PANIC: recargas de WCoin C
 
+## Estado actual · tienda con cantidades (1/10/2026)
+
+La tienda ya tiene carrito mixto (0–99 unidades por paquete, hasta $1.000.000
+por compra), resumen calculado en cliente y servidor, órdenes privadas,
+historial por cuenta y actualización automática de estados. Cualquier cuenta
+puede simular la experiencia completa con las credenciales actuales de Ualá
+`environment: test`. La interfaz del jugador es la definitiva; el ambiente se
+muestra solo en administración, según lo solicitado por Agustín.
+
+La prueba anterior de $1.000 entregó 1000 WCoin C a `pruebacoin`: VPS confirmó
+11 → 1011; el cliente mostró 1011 y la web confirmó la entrega. Esto valida el
+piloto previo, no la nueva tarea de múltiples compras, que requiere instalarse
+y probarse en Windows/SQL. Las compras reales siguen cerradas.
+
+### Instalar la entrega automática nueva
+
+1. Desplegar HEAD desde cPanel y actualizar el navegador.
+2. Descargar `tools/recharge_worker.ps1` al Desktop del VPS y ejecutar `-Install`
+   desde PowerShell como administrador. Instala exclusivamente en MuOnline43
+   tabla `MUPanicRechargeDeliveries` y procedimientos de entrega/ack; no suma
+   monedas durante instalación. Guarda el script en
+   `C:\MuServer43\RechargeSync\recharge_worker.ps1`, configuración local sin
+   credenciales en PaymentsPrivate y un token nuevo separado del piloto.
+3. Subir el archivo Desktop `recharge-worker-token` a
+   `/home/mupanic/payments-private/recharge-worker-token` con permiso 600.
+   Conservar `sandbox-worker-token` y el historial anterior.
+4. Ejecutar el script instalado con `-InstallTask`. Crea la tarea SYSTEM
+   `MU PANIC Recharge Worker` cada minuto, sin ejecuciones superpuestas.
+   No requiere mantener PowerShell abierto. SYSTEM recibe acceso solo a los
+   procedimientos de entrega/ack y lectura del registro de entregas; no se
+   agrega a sysadmin. Los permisos que ya tuviera antes no se eliminan.
+5. Consultar `-Status` y realizar una compra pequeña con cualquier cuenta y
+   tarjeta de prueba. Luego probar cantidades mixtas, cuenta online y reinicio.
+   Si la cuenta nunca entró al juego, entrar una vez para crear sus registros
+   de conexión y wallet y después desconectarse para recibir la entrega.
+
+### Contrato y recuperación
+
+- Cuenta de destino tomada de sesión; precios, monedas y líneas salen del
+  catálogo del servidor, no del navegador. La equivalencia se valida a 1:1.
+- Nonce de checkout, reserva durable previa al POST, snapshot del merchant y
+  control de cinco compras abiertas por cuenta. Repetir un nonce nunca crea
+  otro checkout; cambiar su carrito se rechaza. Un timeout de creación conserva
+  la orden y exige revisión del equipo; no hay reintento ciego de creación.
+- Ledger privado de archivos: bloqueo estable y escritura temporal + fsync +
+  rename. Límite 5000 órdenes / 8 MB; al llegar se cierran nuevas compras sin
+  borrar historial. Planificar migración a almacenamiento de mayor capacidad
+  antes del crecimiento. Historial paginado de 10; administración ve últimas 10.
+- Webhook con capacidad única por orden; cuerpo solo es una pista. Toda entrega
+  exige un GET autenticado fresco que confirme ID, referencia, merchant,
+  importe y ambiente. Un fallo del GET no despacha aprobaciones cacheadas.
+- Bridge HMAC de solicitud (timestamp ±300 s) y respuesta vinculada al nonce.
+  El token nuevo queda fuera de public_html. Poll procesa hasta tres candidatos
+  por ejecución, con turnos por última consulta. El estado público solo lee
+  compras de la cuenta autenticada; no consulta Ualá en segundo plano.
+- Procedimiento SQL: transacción, bloqueo por cuenta, control de offline y saldo,
+  WZ_SetCoin sin tocar WCoinP/GoblinPoint, validación de delta y registro único
+  por orden y por (ambiente, proveedor, pago). Cuenta online o estado desconocido
+  queda pendiente y se reintenta. No borra filas para permitir reacreditar.
+- SQL commit precede HTTP ack. Antes de cada poll se reenvían recibos no
+  confirmados; pérdida de red o reinicio no repite el incremento. Revisiones o
+  reembolsos posteriores mantienen el historial; no descuentan automáticamente
+  monedas gastadas.
+- El piloto de pruebacoin usa otra tabla/token y no se importa ni acredita otra
+  vez al instalar el servicio nuevo.
+
+### Producción
+
+Mantener por ahora `environment: test`, `sales_enabled: false` y credenciales de
+prueba. No hay que editar la configuración actual para probar todas las cuentas.
+El paso futuro a producción necesita verificar importes y host del checkout
+real, configurar `recharges.production_verified: true`, la unidad confirmada
+`recharges.amount_unit: ARS|centavos`, `sales_enabled: true`, credenciales reales
+y ambiente local production. Estas opciones no están activadas en este cambio.
+No se deducen las unidades de producción de la prueba de sandbox.
+
+### Validación de esta entrega
+
+PHP: `tests/recharge-orders.php` (carrito mixto, cuentas, propiedad, concurrencia,
+nonce, snapshot de comercio, importe, refund/review, caída con aprobación previa,
+recibos e HMAC) y regresiones del piloto/conector/wallet/dominio.
+Navegador: `tests/recharge-shop-browser.cjs`, Playwright, fixture PHP renderizada,
+1440/1024/390 px: totales, límites, controles táctiles, actualización automática
+con ocultamiento del enlace pagado y ausencia de desbordamiento. Usa `PHP_BIN`
+y opcional `CHROME_BIN`; `RECHARGE_SCREENSHOT_DIR` genera capturas de QA.
+El instalador PowerShell y procedimientos SQL se revisaron, pero no se ejecutaron
+en este entorno Linux; su instalación efectiva se confirma con la salida del VPS.
+
+---
+
+## Etapas anteriores (registro histórico)
+
 ## Decisiones confirmadas
 
 - Moneda: WCoin C para la cuenta del juego, no créditos genéricos de WebEngine.

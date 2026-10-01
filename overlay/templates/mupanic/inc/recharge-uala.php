@@ -5,12 +5,16 @@ require_once __DIR__.'/recharge-providers.php';
 /** Uala Bis API v2. Server-side only; no public payment endpoint yet. */
 final class PanicUalaBisApi extends PanicRechargeApi {
     private $environment;
+    private $amountUnit;
     private $token=null;
     private $expiresAt=0;
-    public function __construct(array $credentials, $environment, callable $transport=null) {
+    public function __construct(array $credentials, $environment, callable $transport=null,$amountUnit=null) {
         if(!in_array($environment,['test','production'],true)) throw new InvalidArgumentException('Invalid Uala environment');
-        parent::__construct($credentials,$transport); $this->environment=$environment;
+        $amountUnit=$amountUnit ?? ($environment==='test'?'ARS':'centavos');
+        if(!in_array($amountUnit,['ARS','centavos'],true) || ($environment==='test' && $amountUnit!=='ARS')) throw new InvalidArgumentException('Invalid Uala amount unit');
+        parent::__construct($credentials,$transport); $this->environment=$environment; $this->amountUnit=$amountUnit;
     }
+    public function merchantId() { return $this->credential('client_id'); }
     private function base($service) {
         return 'https://'.$service.($this->environment==='test'?'.stage':'').'.developers.ar.ua.la/v2/api';
     }
@@ -29,10 +33,10 @@ final class PanicUalaBisApi extends PanicRechargeApi {
     private function headers() {
         $this->authenticate(); return ['Authorization: Bearer '.$this->token];
     }
-    public static function checkoutPayload(array $order, $returnUrl, $webhookUrl) {
+    public static function checkoutPayload(array $order, $returnUrl, $webhookUrl,$amountUnit=null) {
         self::checkOrder($order,'uala_bis');
         if($order['price_cents']<2500 || $order['price_cents']>999999900) throw new InvalidArgumentException('Amount outside Uala limits');
-        return ['amount'=>$order['live']?(string)$order['price_cents']:self::sandboxAmount($order['price_cents']),'description'=>'MU PANIC · '.$order['title'],
+        return ['amount'=>($amountUnit ?? ($order['live']?'centavos':'ARS'))==='ARS'?self::sandboxAmount($order['price_cents']):(string)$order['price_cents'],'description'=>'MU PANIC · '.$order['title'],
             'callback_fail'=>self::callback($returnUrl),'callback_success'=>self::callback($returnUrl),
             'notification_url'=>self::callback($webhookUrl),'external_reference'=>$order['id']];
     }
@@ -48,7 +52,7 @@ final class PanicUalaBisApi extends PanicRechargeApi {
     }
     public function createCheckout(array $order, $returnUrl, $webhookUrl) {
         if(($order['live'] ?? null)!==($this->environment==='production')) throw new InvalidArgumentException('Uala environment mismatch');
-        $payload=self::checkoutPayload($order,$returnUrl,$webhookUrl);
+        $payload=self::checkoutPayload($order,$returnUrl,$webhookUrl,$this->amountUnit);
         return $this->request('POST',$this->base('checkout').'/checkout',$this->headers(),$payload);
     }
     public function pilotOrders($cursor=null) {
@@ -92,7 +96,7 @@ final class PanicUalaBisApi extends PanicRechargeApi {
     public function fetchPayment($paymentId) {
         $result=$this->request('GET',$this->base('checkout').'/orders/'.self::id($paymentId),$this->headers());
         $amount=$result['amount'] ?? null;
-        if($this->environment==='test') $amount=self::sandboxCents($amount);
+        if($this->amountUnit==='ARS') $amount=self::sandboxCents($amount);
         elseif(is_string($amount) && preg_match('/^[0-9]{1,9}$/D',$amount)) $amount=(int)$amount;
         if(($result['uuid'] ?? null)!==$paymentId || !is_int($amount) || $amount<0 || $amount>999999900 ||
            !is_string($result['external_reference'] ?? null)) throw new RuntimeException('Invalid Uala order response');
@@ -109,7 +113,7 @@ final class PanicUalaBisApi extends PanicRechargeApi {
     }
 }
 
-function panicUalaPrivateSettings($path='/home/mupanic/payments-private/settings.json') {
+function panicUalaPrivateSettings($path='/home/mupanic/payments-private/settings.json',$allowSales=false) {
     $real=realpath($path); $public=realpath('/home/mupanic/public_html');
     if(!$real || !is_file($real) || ($public && ($real===$public || strpos($real,$public.DIRECTORY_SEPARATOR)===0)) || filesize($real)>65536) {
         throw new RuntimeException('Private payment settings unavailable');
@@ -118,7 +122,7 @@ function panicUalaPrivateSettings($path='/home/mupanic/payments-private/settings
     if($raw===false) throw new RuntimeException('Private payment settings unavailable');
     $settings=json_decode($raw,true,16,JSON_THROW_ON_ERROR);
     if(!is_array($settings) || !in_array($settings['environment'] ?? '',['test','production'],true) ||
-       ($settings['sales_enabled'] ?? null)!==false || !is_array($settings['uala_bis'] ?? null)) {
+       !is_bool($settings['sales_enabled'] ?? null) || (!$allowSales && $settings['sales_enabled']!==false) || !is_array($settings['uala_bis'] ?? null)) {
         throw new RuntimeException('Invalid private settings: sales must remain disabled');
     }
     foreach(['username','client_id','client_secret_id'] as $key) {

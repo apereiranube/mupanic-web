@@ -15,6 +15,20 @@ if($_REQUEST['page'] === 'usercp') {
     $GLOBALS['lang'] = array_replace(is_array($GLOBALS['lang'] ?? null) ? $GLOBALS['lang'] : [], require(__DIR__.'/inc/account-locale.php'));
 }
 
+// Status route runs before markup and only reads the signed-in account's ledger.
+if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='recharge' && ($_GET['shop_status'] ?? '')==='1') {
+    header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store');
+    if(!isLoggedIn()) { http_response_code(401); echo '{"orders":{}}'; exit; }
+    require_once __DIR__.'/inc/recharge-orders.php';
+    try {
+        $store=new PanicRechargeOrders();
+        $history=$store->history((string)($_SESSION['username'] ?? ''),max(1,min(500,(int)($_GET['compras'] ?? 1))));
+        $status=[]; foreach($history['orders'] as $order) $status[$order['id']]=panicRechargeStatus($order);
+        echo json_encode(['orders'=>$status],JSON_THROW_ON_ERROR);
+    } catch(Throwable $exception) { http_response_code(503); echo '{"orders":{}}'; }
+    exit;
+}
+
 $isHome = ($_REQUEST['page'] === '');
 $cacheTime = isset($serverInfoCache[0][0]) && is_numeric($serverInfoCache[0][0]) ? (int)$serverInfoCache[0][0] : null;
 $onlineCharacters = array();
@@ -246,6 +260,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>community.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/community.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'rankings') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>rankings.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/rankings.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($_REQUEST['page'] === 'profile') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>profiles.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/profiles.js'), 0, 12); ?>"></script><?php } ?>
+<?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] === 'recharge') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>recharge.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/recharge.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($_REQUEST['page'] === 'usercp') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>account.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/account.js'), 0, 12); ?>"></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 </body>

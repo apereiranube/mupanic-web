@@ -50,7 +50,7 @@ function panicAccountMenuItems() {
         $tool=$tools[$key] ?? ['title'=>strip_tags(lang($element['phrase'], true)), 'copy'=>'Abrí esta opción para consultar los detalles.', 'group'=>'Más opciones','icon'=>'shield'];
         $items[] = array_merge($tool, ['key'=>$key,'href'=>$link,'newtab'=>!empty($element['newtab'])]);
     }
-    // New storefront is informational until payments are configured.
+    // Storefront checkout availability is controlled by private payment settings.
     if(isLoggedIn()) $items[] = array_merge($tools['recharge'], ['key'=>'recharge','href'=>__BASE_URL__.'usercp/recharge/','newtab'=>false]);
     return $items;
 }
