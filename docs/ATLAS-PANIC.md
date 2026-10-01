@@ -112,3 +112,10 @@ ItemDrop comment prefixes used for administrator releases (`REGIONAL V… INTEGR
 `tools/install_atlas_task.ps1` registers a SYSTEM task at a default interval of 30 minutes, without `--force`. It ignores overlapping runs, records the last run outside the public web root on the VPS, and can run with the RDP session closed. The installer preserves original game configuration and token files. Confirmation requires actual task info and its log from the VPS; no local Linux test can certify Windows registration.
 
 Validation: PHP rendering and lint, JavaScript syntax, 149 pins / 179 panels / 30 maps, unique DOM IDs, and absence of known internal release labels in generated HTML/JSON. Browser checks and actual Windows task registration are recorded separately after execution.
+
+
+### Client name and scheduled task confirmed
+
+The administrator confirms map 57 is called **LaCleon** in the client. The Atlas uses that display name in maps, transfers, drop filters and links; Raklion remains a search alias. Presentation normalization applies to subsequent VPS snapshots without modifying server files or IDs. Map 58 is not renamed without confirmation of its client label.
+
+Windows scheduled task `MU PANIC Atlas Sync` was created with a 30-minute interval and executed as SYSTEM successfully. The administrator reported `LastTaskResult = 0`, last run 1 October 2026 11:53:53, next run 12:23:23. The log records `Unchanged. Last successfully published snapshot remains active.` Automated registration and its first unchanged run are now confirmed; terrain alignment and monster portraits remain pending.

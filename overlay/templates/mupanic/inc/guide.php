@@ -1,6 +1,17 @@
 <?php
 if(!defined('access') or !access) die();
 $wiki = $publicBalance;
+// Match the administrator-confirmed name shown by this server's client.
+foreach($wiki['maps'] as &$atlasMap) {
+    if($atlasMap['id'] === 57) {
+        $atlasMap['aliases'] = array_values(array_unique([$atlasMap['name'], 'Raklion']));
+        $atlasMap['name'] = 'LaCleon';
+        foreach($atlasMap['moves'] as &$atlasMove) $atlasMove['name'] = str_ireplace('Raklion', 'LaCleon', $atlasMove['name']);
+        unset($atlasMove);
+    }
+}
+unset($atlasMap);
+
 // Comments in ItemDrop may include administrator release labels.
 foreach($wiki['drops'] as &$drop) {
     $drop['name'] = preg_replace('/^(?:(?:REGIONAL|GLOBAL RARO)\s+V[\d.]+\s+INTEGRAL|PILAR\s*\d+\s+.+?\s+MIX)\s+/iu', '', $drop['name']);
@@ -34,7 +45,7 @@ $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map
             <p class="wiki-note">Elegí un mapa y tocá un punto numerado: a su lado vas a encontrar las coordenadas, los mobs y sus drops. También podés elegir el spot por nombre.</p>
             <label class="wiki-control">Filtrar mapas<input type="search" data-map-filter placeholder="Mapa o monstruo…"></label><p data-map-status role="status"></p><div class="wiki-map-list">
             <?php foreach($wiki['maps'] as $map) { ?>
-                <details class="wiki-map" id="mapa-<?php echo $map['id']; ?>" data-wiki-search>
+                <details class="wiki-map" id="mapa-<?php echo $map['id']; ?>" data-map-aliases="<?php echo panicWikiEscape(implode(' ', $map['aliases'] ?? [])); ?>" data-wiki-search>
                     <summary><span class="wiki-map-number"><?php echo str_pad($map['id'], 2, '0', STR_PAD_LEFT); ?></span><strong><?php echo panicWikiEscape($map['name']); ?></strong><small><?php echo count($map['spots']); ?> spots · <?php echo count($map['monsters']); ?> tipos de monstruos</small><b aria-hidden="true">+</b></summary>
                     <div class="wiki-map-body"><div class="wiki-map-actions"><button type="button" data-save-map="<?php echo $map['id']; ?>" aria-pressed="false">Guardar mapa</button><a href="#mapa-<?php echo $map['id']; ?>">Enlace directo ↗</a></div>
                     <?php include(__DIR__.'/atlas-explorer.php'); ?>

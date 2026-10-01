@@ -170,7 +170,7 @@
   nav.forEach(function (link) { link.addEventListener('click', function () { clearSearch(); if (location.hash === link.hash) revealHash(); }); });
   var searchable = [];
   panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.textContent), hash: '#' + panel.id}); });
-  data.maps.forEach(function (map) { searchable.push({title: map.name, context: map.spots.length + ' spots · mapas y monstruos', text: normalize(map.name + ' ' + map.monsters.map(function(m) { return m.name; }).join(' ')), hash: '#mapa-' + map.id}); });
+  data.maps.forEach(function (map) { searchable.push({title: map.name, context: map.spots.length + ' spots · mapas y monstruos', text: normalize(map.name + ' ' + (map.aliases || []).join(' ') + ' ' + map.monsters.map(function(m) { return m.name; }).join(' ')), hash: '#mapa-' + map.id}); });
   data.drops.forEach(function (drop, i) { searchable.push({title: drop.name, context: 'Drop · monstruos Lv. ' + drop.min + '–' + drop.max, text: normalize(drop.name), hash: '#drop-' + i}); });
   (data.eventBags || []).forEach(function(bag) { searchable.push({title:bag.name, context:'Boss, caja o evento', text:normalize(bag.name + ' ' + bag.monsterName + ' ' + bag.items.map(function(item) { return item.name; }).join(' ')), hash:'#recompensa-' + bag.id}); });
   var rewardFilter = wiki.querySelector('[data-reward-filter]');
@@ -196,7 +196,7 @@
   function filterMaps() {
     var query = normalize(mapFilter.value), visible = 0;
     wiki.querySelectorAll('#progresion .wiki-map').forEach(function (map) {
-      map.hidden = !normalize(map.textContent).includes(query); if (!map.hidden) visible++;
+      map.hidden = !normalize(map.textContent + ' ' + (map.getAttribute('data-map-aliases') || '')).includes(query); if (!map.hidden) visible++;
     });
     wiki.querySelector('[data-map-status]').textContent = visible + ' mapas' + (visible ? '' : ' · probá otro nombre');
   }
