@@ -12,6 +12,17 @@ if(!isset($_REQUEST['page'])) $_REQUEST['page'] = '';
 if(!isset($_REQUEST['subpage'])) $_REQUEST['subpage'] = '';
 
 $isHome = ($_REQUEST['page'] === '');
+$cacheTime = isset($serverInfoCache[0][0]) && is_numeric($serverInfoCache[0][0]) ? (int)$serverInfoCache[0][0] : null;
+$onlineCharacters = array();
+if($isHome && function_exists('loadCache')) {
+    $cachedCharacters = loadCache('online_characters.cache');
+    if(is_array($cachedCharacters)) {
+        foreach($cachedCharacters as $name) {
+            if(is_string($name) && preg_match('/^[A-Za-z0-9_]{1,10}$/D', $name)) $onlineCharacters[] = $name;
+        }
+        $onlineCharacters = array_slice(array_unique($onlineCharacters), 0, 24);
+    }
+}
 $isLogged = isLoggedIn();
 
 $serverSeason = 'Season 6'; // MU PANIC UP43: editorial identity, independent of legacy CMS title.
@@ -33,9 +44,9 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
     <meta property="og:title" content="MU PANIC · Season 6"/>
     <meta property="og:description" content="Tu historia en el continente de MU. Descubrí MU PANIC, Season 6 en Argentina."/>
     <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
-    <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/threshold.webp" fetchpriority="high"><?php } ?>
+    <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/knight-v6.webp" fetchpriority="high"><?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
-    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=5.0" rel="stylesheet">
+    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=6.0" rel="stylesheet">
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
@@ -79,8 +90,12 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
 
 <section class="panic-hero" aria-labelledby="hero-title" data-scene>
     <div class="scene-art hero-art" aria-hidden="true" data-depth></div>
+    <div class="hero-character" aria-hidden="true"><img src="<?php echo __PATH_TEMPLATE__; ?>img/knight-v6.webp" alt="" width="2048" height="3072" fetchpriority="high"><div class="blade-aura"></div></div>
     <div class="hero-atmosphere" aria-hidden="true"></div>
     <div class="embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="scene-fog" aria-hidden="true"></div>
+    <button class="scene-control" type="button" aria-pressed="false" aria-label="Pausar animación">Ⅱ <span>Pausar escena</span></button>
+    <button class="sound-control" type="button" aria-pressed="false" aria-label="Activar sonido ambiente">♪ <span>Ambiente apagado</span></button>
     <div class="hero-frame shell">
         <div class="hero-overline"><span class="eyebrow">MU ONLINE / ARGENTINA</span><span class="edition">UNA NUEVA HISTORIA.<br>EL MISMO CONTINENTE.</span></div>
         <div class="hero-content">
@@ -93,38 +108,39 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
     </div>
 </section>
 
-<section class="server-dossier" aria-label="Información del servidor">
-    <div class="shell dossier-layout">
-        <div class="dossier-title"><span class="eyebrow">LA BASE DE TU AVENTURA</span><strong><?php echo $serverSeason; ?></strong><span>Louis UP43 · Argentina</span></div>
-        <dl class="server-facts">
-            <div><dt>EXPERIENCIA</dt><dd><?php echo htmlspecialchars($serverExp); ?></dd></div>
-            <div><dt>MASTER EXP</dt><dd><?php echo htmlspecialchars($serverMasterExp); ?></dd></div>
-            <div><dt>DROP</dt><dd><?php echo htmlspecialchars($serverDrop); ?></dd></div>
-            <div><dt>CONECTADOS</dt><dd><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers); ?><small><?php echo $onlinePlayers === null ? 'Sin datos disponibles' : 'Último registro del servidor'; ?></small></dd></div>
-        </dl>
-        <a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Guía del servidor <span aria-hidden="true">↗</span></a>
+<section class="server-dossier" aria-label="Información del servidor" data-status-url="<?php echo htmlspecialchars(__BASE_URL__); ?>">
+    <div class="shell">
+        <div class="hud-heading"><span class="eyebrow">LA BASE DE TU AVENTURA</span><span>EXPLORÁ LOS SISTEMAS <span aria-hidden="true">↘</span></span></div>
+        <div class="server-hud">
+            <details class="hud-item hud-season"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('crest'); ?></span><span class="hud-label">EL CONTINENTE</span><strong><?php echo $serverSeason; ?></strong><small>Louis UP43 · Argentina</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>El continente clásico de MU. Elegí tu clase y prepará tu recorrido desde Lorencia y Noria hasta las zonas de conquista.</p><a href="<?php echo __BASE_URL__; ?>info/#primeros-pasos">Elegí tu primer objetivo ↗</a></div></details>
+            <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('sword'); ?></span><span class="hud-label">EXPERIENCIA</span><strong><?php echo htmlspecialchars($serverExp); ?></strong><small>Tu camino al siguiente nivel</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>La experiencia normal impulsa los niveles de tu personaje. El mapa, tu equipo y la party acompañan cada etapa.</p><a href="<?php echo __BASE_URL__; ?>info/#progresion">Explorá la progresión ↗</a></div></details>
+            <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('wings'); ?></span><span class="hud-label">MASTER EXP</span><strong><?php echo htmlspecialchars($serverMasterExp); ?></strong><small>La siguiente etapa</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>La experiencia Master corresponde a la progresión Master de tu personaje. Revisá los sistemas y requisitos antes de tu próximo salto.</p><a href="<?php echo __BASE_URL__; ?>info/#sistemas">Conocé los sistemas ↗</a></div></details>
+            <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span><span class="hud-label">DROP</span><strong><?php echo htmlspecialchars($serverDrop); ?></strong><small>Equipá tu próxima conquista</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Este es el valor general de drop publicado por el servidor. Cada objeto, evento o combinación puede tener sus propias condiciones.</p><a href="<?php echo __BASE_URL__; ?>info/#sistemas">Prepará tus mejoras ↗</a></div></details>
+            <details class="hud-item hud-online"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('party'); ?></span><span class="hud-label">CONECTADOS</span><strong data-online-count><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers); ?></strong><small data-online-note><?php echo $onlinePlayers === null ? 'Sin datos disponibles' : 'Último registro del servidor'; ?></small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Conexiones registradas por el servidor. La lista de personajes proviene de un registro independiente y puede actualizarse en otro momento.</p><div class="online-roster" data-online-roster><?php if(count($onlineCharacters)) { foreach($onlineCharacters as $name) { ?><span><?php echo htmlspecialchars($name); ?></span><?php } } else { ?><p>La lista de personajes todavía no está disponible.</p><?php } ?></div></div></details>
+        </div>
+        <div class="hud-footer"><p role="status" data-status-message data-cache-time="<?php echo $cacheTime ?: ''; ?>"><span class="status-dot" aria-hidden="true"></span><?php echo $cacheTime ? 'Registro: '.gmdate('H:i', $cacheTime).' UTC' : 'Sin hora de registro disponible'; ?></p><button class="status-refresh" type="button">Actualizar registro <span aria-hidden="true">↻</span></button><a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Guía del servidor <span aria-hidden="true">↗</span></a></div>
     </div>
 </section>
 
 <section class="continent" id="continente" aria-labelledby="continent-title">
     <div class="shell continent-intro reveal"><span class="eyebrow">02 / EL VIAJE</span><h2 id="continent-title">No se hereda<br>una leyenda.<em>Se construye.</em></h2><p>Desde tu primera arma hasta las zonas que se disputan en party. Tu historia avanza con cada mapa.</p></div>
     <div class="journey">
-        <div class="journey-stage" aria-hidden="true">
+        <div class="journey-stage" aria-hidden="true" data-ambience="0">
             <div class="journey-backdrop journey-origin is-active" data-chapter-art="0"></div>
             <div class="journey-backdrop journey-ascent" data-chapter-art="1"></div>
             <div class="journey-backdrop journey-conquest" data-chapter-art="2"></div>
-            <div class="journey-vignette"></div><span class="journey-word" data-journey-word>ORIGEN</span>
+            <div class="journey-weather"></div><div class="journey-vignette"></div><span class="journey-word" data-journey-word>ORIGEN</span>
             <div class="journey-indicator"><span data-journey-index>01</span><div><i data-journey-progress></i></div><span>03</span></div>
         </div>
         <div class="journey-chapters shell">
             <article class="journey-chapter" data-chapter="0" data-word="ORIGEN" aria-labelledby="origin-title">
-                <div class="chapter-copy"><span class="eyebrow">I / EL PRIMER PASO</span><h3 id="origin-title">Todo empieza<br>con una espada.</h3><p>Lorencia y Noria. El primer equipo, los primeros spots y la decisión de seguir un poco más.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Construí tu personaje.</strong><p>Elegí tu clase, conocé tus habilidades y prepará el equipo para salir de las zonas iniciales.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#primeros-pasos">Consultá la guía de inicio <span aria-hidden="true">→</span></a></div>
+                <div class="chapter-copy"><span class="chapter-emblem" aria-hidden="true"><?php echo mupanicGlyph('sword'); ?></span><span class="eyebrow">I / EL PRIMER PASO</span><h3 id="origin-title">Todo empieza<br>con una espada.</h3><p>Lorencia y Noria. El primer equipo, los primeros spots y la decisión de seguir un poco más.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Construí tu personaje.</strong><p>Elegí tu clase, conocé tus habilidades y prepará el equipo para salir de las zonas iniciales.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#primeros-pasos">Consultá la guía de inicio <span aria-hidden="true">→</span></a></div>
             </article>
             <article class="journey-chapter" data-chapter="1" data-word="ASCENSO" aria-labelledby="ascent-title">
-                <div class="chapter-copy"><span class="eyebrow">II / GANATE TUS ALAS</span><h3 id="ascent-title">El próximo mapa<br>se gana.</h3><p>Devias, Dungeon, Atlans y Lost Tower. Después, Tarkan e Icarus: el recorrido exige más de tu personaje.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Equipá. Farmeá. Avanzá.</strong><p>Guardá Zen, prepará tus combinaciones en la Chaos Machine y conseguí tus primeras alas. Icarus las requiere.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#progresion">Conocé la progresión <span aria-hidden="true">→</span></a></div>
+                <div class="chapter-copy"><span class="chapter-emblem" aria-hidden="true"><?php echo mupanicGlyph('wings'); ?></span><span class="eyebrow">II / GANATE TUS ALAS</span><h3 id="ascent-title">El próximo mapa<br>se gana.</h3><p>Devias, Dungeon, Atlans y Lost Tower. Después, Tarkan e Icarus: el recorrido exige más de tu personaje.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Equipá. Farmeá. Avanzá.</strong><p>Guardá Zen, prepará tus combinaciones en la Chaos Machine y conseguí tus primeras alas. Icarus las requiere.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#progresion">Conocé la progresión <span aria-hidden="true">→</span></a></div>
             </article>
             <article class="journey-chapter" data-chapter="2" data-word="CONQUISTA" aria-labelledby="conquest-title">
-                <div class="chapter-copy"><span class="eyebrow">III / BUSCÁ TU LUGAR</span><h3 id="conquest-title">Llegar es sólo<br>el comienzo.</h3><p>Kanturu, Raklion, Swamp y Karutan. Mejores objetivos, spots disputados y una razón para reunir a tu party.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Hacé valer tu progreso.</strong><p>Reset por etapas y Master Reset. Prepará tu siguiente objetivo y consultá los requisitos antes de dar el salto.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#sistemas">Explorá los sistemas <span aria-hidden="true">→</span></a></div>
+                <div class="chapter-copy"><span class="chapter-emblem" aria-hidden="true"><?php echo mupanicGlyph('crest'); ?></span><span class="eyebrow">III / BUSCÁ TU LUGAR</span><h3 id="conquest-title">Llegar es sólo<br>el comienzo.</h3><p>Kanturu, Raklion, Swamp y Karutan. Mejores objetivos, spots disputados y una razón para reunir a tu party.</p><div class="chapter-detail"><span>TU OBJETIVO</span><strong>Hacé valer tu progreso.</strong><p>Reset por etapas y Master Reset. Prepará tu siguiente objetivo y consultá los requisitos antes de dar el salto.</p></div><a class="text-link" href="<?php echo __BASE_URL__; ?>info/#sistemas">Explorá los sistemas <span aria-hidden="true">→</span></a></div>
             </article>
         </div>
     </div>
@@ -194,6 +210,6 @@ $serverDrop = mupanicServerValue('server_info_drop', '—');
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
-<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=5.0"></script>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=6.0"></script>
 </body>
 </html>
