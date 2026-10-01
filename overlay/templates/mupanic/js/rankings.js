@@ -3,6 +3,18 @@
     'use strict';
     const surface = document.querySelector('.is-rankings .module-surface');
     if (!surface) return;
+    // Profiles open in the same tab, so the browser's Back action also works.
+    surface.querySelectorAll('a').forEach(link => {
+        const url = new URL(link.href, location.href);
+        if (url.origin === location.origin && /\/profile\/(player|guild)\//.test(url.pathname)) link.removeAttribute('target');
+    });
+    surface.addEventListener('click', event => {
+        const link = event.target.closest('a');
+        if (!link) return;
+        const url = new URL(link.href, location.href);
+        if (url.origin !== location.origin || !/\/profile\/(player|guild)\//.test(url.pathname)) return;
+        try { sessionStorage.setItem('mupanic:ranking-return', JSON.stringify({from:location.href,to:url.href,at:Date.now()})); } catch (_) {}
+    });
     const make = (tag, cls, text) => {
         const el = document.createElement(tag);
         if (cls) el.className = cls;

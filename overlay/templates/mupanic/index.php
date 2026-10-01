@@ -54,10 +54,11 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet">
     <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : '')); ?>">
+<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ''))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -167,8 +168,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <section class="inner-hero">
     <div class="shell inner-head">
-        <div><span class="eyebrow"><?php echo htmlspecialchars(strtoupper($_REQUEST['page'])); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
-        <a href="<?php echo __BASE_URL__; ?>">← Inicio</a>
+        <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : htmlspecialchars(strtoupper($_REQUEST['page'])); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
+        <?php if($_REQUEST['page'] === 'profile') { ?><a class="profile-back" href="<?php echo __BASE_URL__; ?>rankings/">← Volver al ranking</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>">← Inicio</a><?php } ?>
     </div>
 </section>
 
@@ -225,6 +226,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-search.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-search.js'), 0, 12); ?>"></script>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>community.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/community.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'rankings') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>rankings.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/rankings.js'), 0, 12); ?>"></script><?php } ?>
+<?php if($_REQUEST['page'] === 'profile') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>profiles.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/profiles.js'), 0, 12); ?>"></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 </body>
 </html>

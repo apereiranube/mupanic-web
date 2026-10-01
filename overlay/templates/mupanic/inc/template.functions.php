@@ -7,6 +7,7 @@ function mupanicPageTitle($page, $subpage = '') {
         'info' => 'Atlas PANIC',
         'downloads' => 'Descargas',
         'rankings' => 'Rankings',
+        'profile' => $subpage === 'guild' ? 'Perfil de guild' : 'Perfil de personaje',
         'register' => 'Crear cuenta',
         'login' => 'Ingresar',
         'usercp' => 'Mi cuenta',
