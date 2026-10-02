@@ -71,14 +71,13 @@ Copy-Item -LiteralPath $buy -Destination $originalBuy
 $priceText='PRECIO_PENDIENTE';if ($PriceCoins -gt 0) { $priceText=[string]$PriceCoins }
 $proposal="// VIP unico. EXP/drop son tasas absolutas. Sin entrega automatica de monedas.`r`n// Index Exp+ Drop+ Days Coin1 Coin2 Coin3 VipName`r`n0 20 30 30 $priceText 0 0 `"VIP`"`r`nend`r`n"
 [IO.File]::WriteAllText((Join-Path $destination 'CustomBuyVip.txt.proposed'),$proposal,[Text.Encoding]::ASCII)
-$manifest=@{version=4;applied=$false;align_server_rates=[bool]$AlignServerRates;normal_rates=$normalRates;price_coins=if($PriceCoins -gt 0){$PriceCoins}else{$null};plan='VIP';account_level=1;days=30;exp_normal=15;exp_vip=20;drop_normal=25;drop_vip=30;included_wcoin_c=5000;included_wcoin_delivery_implemented=$false;rates_configuration_verified=$true;files=$files;changes=$changes}
+$manifest=@{version=4;applied=$false;align_server_rates=[bool]$AlignServerRates;normal_rates=$normalRates;price_coins=if($PriceCoins -gt 0){$PriceCoins}else{$null};plan='VIP';account_level=1;days=30;exp_normal=15;exp_vip=20;drop_normal=25;drop_vip=30;included_wcoin_c=0;rates_configuration_verified=$true;files=$files;changes=$changes}
 [IO.File]::WriteAllText((Join-Path $destination 'cambios.json'),($manifest|ConvertTo-Json -Depth 8),(New-Object Text.UTF8Encoding($false)))
 [IO.File]::WriteAllText((Join-Path $destination 'LEEME.txt'),@'
 Sin -Apply, este paquete es solo una propuesta. INSTALADO.txt confirma una aplicacion.
 Un plan: VIP, 30 dias. Normal EXP 15/drop 25; VIP EXP 20/drop 30.
 Precio: 25000 WCoin C por defecto; el manifiesto conserva el precio solicitado.
-Las 5000 WCoin C incluidas requieren integracion: esta tabla NO las entrega.
-No anunciar las monedas incluidas como operativas hasta probar esa entrega.
+El plan no incluye monedas de regalo.
 Los valores AL1/AL2/AL3 seleccionados se igualan a AL0 para evitar ventajas acumuladas.
 Se conservan las tasas normales de GameServer y Master EXP.
 Ambos GameServer usan las tasas aprobadas: normal 15/25 y VIP 20/30. No se modifica ExperienceTable.
@@ -92,7 +91,7 @@ Los nombres Bronze/Prata/Ouro tambien deben corregirse en mensajes y cliente.
 No borrar claves AL2/AL3 ni cambiar membresias existentes: solo retirar sus ofertas.
 La renovacion del mismo nivel debe usar max(vencimiento, ahora); el procedimiento actual
 suma desde el vencimiento incluso si esta en el pasado. La correccion SQL se revisa aparte.
-Con -Apply se instala la oferta y las tasas con respaldo. Las monedas incluidas no estan activas.
+Con -Apply se instala la oferta y las tasas con respaldo.
 '@,[Text.Encoding]::UTF8)
 $zip=$destination+'.zip';Compress-Archive -LiteralPath $destination -DestinationPath $zip
 Write-Host ('Preparados '+$changes.Count+' ajustes. No aplicados. ZIP: '+$zip)
@@ -130,7 +129,7 @@ $manifest.applied=$true
 [IO.File]::WriteAllText((Join-Path $destination 'cambios.json'),($manifest|ConvertTo-Json -Depth 8),(New-Object Text.UTF8Encoding($false)))
 [IO.File]::WriteAllText((Join-Path $destination 'INSTALADO.txt'),('VIP 30 dias / 25000 WCoin C. Normal EXP 15 drop 25; VIP EXP 20 drop 30. '+(Get-Date -Format o)),[Text.Encoding]::UTF8)
 Write-Host ('INSTALADO: VIP / 30 dias / 25000 WCoin C. Respaldo: '+$destination+'\originals')
-Write-Host 'No se alteraron cuentas, vencimientos ni saldos. Las 5000 monedas incluidas siguen pendientes.'
+Write-Host 'No se alteraron cuentas, vencimientos ni saldos.'
 if ($StartServers) {
     Start-Process -FilePath (Join-Path $root 'GameServer\GameServer.exe') -WorkingDirectory (Join-Path $root 'GameServer')
     Start-Sleep -Seconds 5

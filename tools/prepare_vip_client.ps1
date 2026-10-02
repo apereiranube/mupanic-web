@@ -76,21 +76,21 @@ Copy-Item -LiteralPath $message -Destination (Join-Path $out 'originals\Common\C
 [IO.File]::WriteAllBytes((Join-Path $out 'proposed\Common\CustomMessage.txt'),$encoding.GetBytes($new))
 $proposal="// VIP: tasas absolutas; el sufijo % pertenece a la UI nativa.`r`n// Index Exp+ Drop+ Days Coin1 Coin2 Coin3 VipName`r`n0 20 30 30 25000 0 0 `"VIP`"`r`nend`r`n"
 [IO.File]::WriteAllText((Join-Path $out 'proposed\Common\CustomBuyVip.txt'),$proposal,[Text.Encoding]::ASCII)
-$manifest=@{version=1;applied=$false;generator_root=$root;plan='VIP';days=30;price_wcoin_c=25000;exp_normal=15;exp_vip=20;drop_normal=25;drop_vip=30;rates_configuration_verified=$true;included_wcoin_delivery_implemented=$false;badge_supported=$false;message_sha256_before=(Get-FileHash -LiteralPath $message -Algorithm SHA256).Hash}
+$manifest=@{version=1;applied=$false;generator_root=$root;plan='VIP';days=30;price_wcoin_c=25000;exp_normal=15;exp_vip=20;drop_normal=25;drop_vip=30;rates_configuration_verified=$true;included_wcoin_c=0;badge_supported=$false;message_sha256_before=(Get-FileHash -LiteralPath $message -Algorithm SHA256).Hash}
 [IO.File]::WriteAllText((Join-Path $out 'manifest.json'),($manifest|ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding($false)))
 [IO.File]::WriteAllText((Join-Path $out 'LEEME.txt'),@'
 BORRADOR. No se modifico el generador ni el cliente.
 Una sola oferta VIP, 30 dias, precio 25000 WCoin C, valores visuales EXP 20 / drop 30. Son tasas, no +20% ni +30%.
 Texto VIP en los tres idiomas; cuenta normal en AL0. No elimina niveles SQL.
 La seccion espanola de las etiquetas VIP queda en espanol, con textos cortos.
-No se anuncian las 5000 monedas incluidas: falta implementar y probar la entrega.
+El plan no incluye monedas de regalo.
 No se agrego una corona ni efectos. Esas opciones no figuran en estas tablas.
 El generador NUEVO MAIN BETA no incluyo Common/CustomMessage.txt en el ZIP recibido.
 No mezclar generadores ni copiar MainInfo.ini o archivos main.exe/main.dll antiguos.
 No ejecutar generadores ni reemplazar main.premium hasta coordinar con el servidor.
 Tasas configuradas: normal EXP 15 / drop 25; VIP EXP 20 / drop 30.
 La UI nativa mantiene dos filas vacias y sufijos %: no se eliminan con estas tablas.
-La entrega de 5000 y la renovacion vencida siguen pendientes de integracion.
+La renovacion se corrige con fix_vip_renewal.ps1, incluido en el instalador VPS.
 '@,[Text.Encoding]::UTF8)
 Compress-Archive -LiteralPath $out -DestinationPath ($out+'.zip')
 Write-Host ('Borrador preparado. No instalado. ZIP: '+$out+'.zip')
@@ -119,7 +119,7 @@ Generador/Common contiene el borrador VIP. No se ejecuto GetMainInfo-Premium.exe
 Cliente conserva el main.premium original: todavia no muestra el nuevo menu.
 No compres VIP con estas tablas hasta coordinar su precio con el servidor.
 El servidor debe tener la misma oferta de 25000 antes de comprar.
-Las 5000 monedas incluidas todavia no se entregan automaticamente.
+El plan no incluye monedas de regalo.
 No distribuir esta copia ni mezclarla con NUEVO MAIN BETA.
 '@,[Text.Encoding]::UTF8)
     Write-Host ('Copias de prueba listas en: '+$testRoot)

@@ -28,19 +28,16 @@ La página `usercp/vip/` usa el estilo cobre, una oferta, comparación 15→20 /
 guía de compra y estado real de membresía consultado con el reloj SQL. La página
 es de consulta: no ejecuta el checkout VIP heredado del CMS ni setters SQL.
 
-Pendientes reales: devolución automática e idempotente de 5.000 WC por compra,
-sustituir el menú nativo de tres filas y sus
-sufijos %, corregir mensajes VIP del servidor e insignia dentro del juego.
-La tabla nativa no ofrece columna de regalo. WZ_SetCoin recibe el nombre del
-personaje: el texto BuyVip solo se conserva en el log, no en el procedimiento.
-Por ello no se puede distinguir una compra por una variación de saldo/fecha.
-No conectar un trigger que regale monedas ante cualquier cambio de membresía.
-`audit_vip_interface.ps1` prepara un inventario no secreto de Lua y sus cargadores
-para determinar si el cliente/servidor instalados permiten el nuevo flujo.
+Decisión final del usuario (2/10/2026 00:19 ARG): retirar las 5.000 WC incluidas.
+VIP queda en 25.000 WCoin C por 30 días, sin monedas de regalo. Las tasas normales
+son EXP 15/drop 25 y las VIP EXP 20/drop 30. Precio, renovación SQL y copia del
+cliente fueron instalados y confirmados por el usuario; la página VIP ya figura.
+La entrega de monedas nunca se habilitó, por lo que no hace falta revertir saldos
+ni reinstalar el servidor. Los instaladores ya no piden inventarios de Lua.
 
-La autorización del usuario es implementar el conjunto. El precio, tablas,
-cliente aislado y presentación web están preparados; los puntos anteriores
-no deben darse por terminados ni anunciarse como operativos.
+El historial inferior conserva las propuestas anteriores, incluida la entrega de
+5.000 WC descartada. No usar esas propuestas históricas como requisitos vigentes.
+El menú nativo conserva sus filas vacías y sufijos: su reemplazo no está implementado.
 
 ---
 
