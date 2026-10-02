@@ -134,9 +134,25 @@ No sustituir su configuración de mensajes por la del otro generador sin conocer
 su formato y archivos reales; no asumir qué generador produjo el cliente activo.
 
 prepare_vip_client.ps1 prepara copias originales y propuestas del generador
-seleccionado; no modifica ni ejecuta el generador y no reemplaza main.emu.
+seleccionado; no modifica ni ejecuta el generador y no reemplaza main.premium.
 Una oferta VIP; cambios limitados a etiquetas VIP por idioma (5–14,26,81–84,
 202–204), preservando IDs, placeholders, bytes y demás textos. No incluye nuevas
 coronas ni modifica RankUser, ya que el paquete no aportó una tabla compatible.
 La copia de mensajes es únicamente un borrador del generador que tenga ambos
 archivos. No habilita las monedas incluidas ni demuestra tasas efectivas.
+
+## Generador del cliente confirmado por hashes
+
+El inventario SHA256 del usuario confirma que Main.exe, Main.dll y main.premium
+de C:\Cliente_louis update 43 coinciden con main.exe y Premium/Main.dll,
+Premium/main.premium de C:\MuServer43\Tools\MAIN_INFO v43 - Season 6.
+NUEVO MAIN BETA tiene otro Main.exe y otro main.premium: conservarlo separado.
+El archivo real generado es main.premium, no main.emu.
+
+prepare_vip_client.ps1 -PrepareTestCopies comprueba esas tres coincidencias,
+copia cliente y generador a una carpeta unica en el Escritorio y comprueba los
+hashes copiados. Solo instala las dos tablas propuestas dentro de la copia del
+generador. No ejecuta GetMainInfo-Premium.exe ni actualiza el cliente copiado.
+El ZIP de borradores no incluye los binarios ni el cliente completo.
+Hasta coordinar configuracion del servidor, no generar ni comprar VIP con las
+tablas propuestas; no representan una implementacion terminada del plan.

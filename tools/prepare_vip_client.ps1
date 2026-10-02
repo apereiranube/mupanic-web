@@ -1,10 +1,34 @@
-param([string]$GeneratorRoot='C:\MuServer43\Tools\MAIN_INFO v43 - Season 6')
+param(
+    [string]$GeneratorRoot='C:\MuServer43\Tools\MAIN_INFO v43 - Season 6',
+    [string]$ClientRoot='C:\Cliente_louis update 43',
+    [switch]$PrepareTestCopies
+)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path -LiteralPath $GeneratorRoot).Path.TrimEnd('\')
 $buy=Join-Path $root 'Common\CustomBuyVip.txt'
 $message=Join-Path $root 'Common\CustomMessage.txt'
 foreach ($path in @($buy,$message)) {
     if (-not (Test-Path -LiteralPath $path -PathType Leaf)) { throw ('Falta la tabla '+$path+'. No se modifico el generador.') }
+}
+$pairHashes=@{}
+if ($PrepareTestCopies) {
+    $client=(Resolve-Path -LiteralPath $ClientRoot).Path.TrimEnd('\')
+    foreach ($pair in @(
+        @('Main.exe','main.exe'),
+        @('Main.dll','Premium\Main.dll'),
+        @('main.premium','Premium\main.premium')
+    )) {
+        $clientFile=Join-Path $client $pair[0]
+        $generatorFile=Join-Path $root $pair[1]
+        foreach ($file in @($clientFile,$generatorFile)) {
+            if (-not (Test-Path -LiteralPath $file -PathType Leaf)) { throw ('Falta '+$file) }
+        }
+        $clientHash=(Get-FileHash -LiteralPath $clientFile -Algorithm SHA256).Hash
+        $generatorHash=(Get-FileHash -LiteralPath $generatorFile -Algorithm SHA256).Hash
+        if ($clientHash -cne $generatorHash) { throw ('Cliente y generador no coinciden: '+$pair[0]+'. No se prepararon copias.') }
+        $pairHashes[$pair[0]]=$clientHash
+    }
+    if (-not (Test-Path -LiteralPath (Join-Path $root 'GetMainInfo-Premium.exe') -PathType Leaf)) { throw 'Falta GetMainInfo-Premium.exe.' }
 }
 # Decode one byte per character so all untouched bytes, including UTF-8 text, survive.
 $encoding=[Text.Encoding]::GetEncoding(28591)
@@ -30,7 +54,7 @@ $new=[regex]::Replace($text,'(?m)^[^\r\n]*',{
             $oldArgs=@([regex]::Matches($old,'%(?:I64)?[sdu]')|ForEach-Object{$_.Value})
             $newArgs=@([regex]::Matches($value,'%(?:I64)?[sdu]')|ForEach-Object{$_.Value})
             if (($oldArgs -join '|') -cne ($newArgs -join '|')) { throw ('Parametros incompatibles: '+$key) }
-                        return $prefix+'"'+$value+'"'+$suffix
+            return $prefix+'"'+$value+'"'+$suffix
         }
     }
     return $line
@@ -60,8 +84,38 @@ No se anuncian las 5000 monedas incluidas: falta implementar y probar la entrega
 No se agrego una corona ni efectos. Esas opciones no figuran en estas tablas.
 El generador NUEVO MAIN BETA no incluyo Common/CustomMessage.txt en el ZIP recibido.
 No mezclar generadores ni copiar MainInfo.ini o archivos main.exe/main.dll antiguos.
-No ejecutar generadores ni reemplazar main.emu hasta coordinar con el servidor.
+No ejecutar generadores ni reemplazar main.premium hasta coordinar con el servidor.
 Los rates efectivos, la renovacion y las monedas incluidas siguen pendientes.
 '@,[Text.Encoding]::UTF8)
 Compress-Archive -LiteralPath $out -DestinationPath ($out+'.zip')
 Write-Host ('Borrador preparado. No instalado. ZIP: '+$out+'.zip')
+if ($PrepareTestCopies) {
+    $testRoot=$out+'_PRUEBA'
+    foreach ($source in @($root,$client)) {
+        if ($testRoot.StartsWith($source+'\',[StringComparison]::OrdinalIgnoreCase)) { throw 'La carpeta de prueba no puede estar dentro del origen.' }
+    }
+    $testGenerator=Join-Path $testRoot 'Generador'
+    $testClient=Join-Path $testRoot 'Cliente'
+    foreach ($copy in @(@($root,$testGenerator),@($client,$testClient))) {
+        & robocopy.exe $copy[0] $copy[1] /E /COPY:DAT /DCOPY:DAT /R:1 /W:1 /XJ /NFL /NDL /NJH /NJS /NP | Out-Null
+        if ($LASTEXITCODE -ge 8) { throw ('No se completo la copia a '+$copy[1]+'. Codigo robocopy: '+$LASTEXITCODE) }
+    }
+    foreach ($pair in @(@('Main.exe','main.exe'),@('Main.dll','Premium\Main.dll'),@('main.premium','Premium\main.premium'))) {
+        foreach ($file in @((Join-Path $testClient $pair[0]),(Join-Path $testGenerator $pair[1]))) {
+            if ((Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash -cne $pairHashes[$pair[0]]) { throw ('La copia no coincide: '+$file) }
+        }
+    }
+    foreach ($name in @('CustomBuyVip.txt','CustomMessage.txt')) {
+        Copy-Item -LiteralPath (Join-Path $out ('proposed\Common\'+$name)) -Destination (Join-Path $testGenerator ('Common\'+$name)) -Force
+    }
+    [IO.File]::WriteAllText((Join-Path $testRoot 'LEEME.txt'),@'
+COPIA DE PRUEBA. Los originales no se modificaron.
+Generador/Common contiene el borrador VIP. No se ejecuto GetMainInfo-Premium.exe.
+Cliente conserva el main.premium original: todavia no muestra el nuevo menu.
+No compres VIP con estas tablas hasta coordinar su precio con el servidor.
+Pendientes: rates efectivos, renovacion y entrega unica de las 5000 monedas.
+No distribuir esta copia ni mezclarla con NUEVO MAIN BETA.
+'@,[Text.Encoding]::UTF8)
+    Write-Host ('Copias de prueba listas en: '+$testRoot)
+    Write-Host 'Terminado. No ejecutes el generador todavia. El cliente original sigue intacto.'
+}
