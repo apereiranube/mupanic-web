@@ -4,11 +4,11 @@ $ErrorActionPreference='Stop'
 $desktop=[Environment]::GetFolderPath('Desktop')
 $package=Join-Path $desktop ('MU_PANIC_VIP_INSTALADOR_'+(Get-Date -Format 'yyyyMMdd_HHmmss')+'_'+[Guid]::NewGuid().ToString('N').Substring(0,6))
 [IO.Directory]::CreateDirectory($package)|Out-Null
-$base='https://raw.githubusercontent.com/apereiranube/mupanic-web/fd3f91532a6bffa7550f14b451a4614e1275c0de/tools/'
+$base='https://raw.githubusercontent.com/apereiranube/mupanic-web/3e3f072ebb17cdbc19df403c4098af1d97cd7170/tools/'
 $hashes=@{
     'prepare_single_vip.ps1'='B73394EFB0F90758D4C19064389ECC1FFBE7A29FD7E590EA1267BC215DFE3195'
     'prepare_vip_client.ps1'='7051DBDFD32C8E5A576C63E6C127DB2FF1B9CB7989151C7A7AFEDE3EC71F0E39'
-    'fix_vip_renewal.ps1'='CB6280E8EF7E15F5DB742CA70AF205303B2EB481944E7BDEAEC6742691ED7053'
+    'fix_vip_renewal.ps1'='E397B833ABAD229E3075B73EDADAB2D2255EC1DA69433F8D88334F5D4C1428EE'
     'audit_vip_interface.ps1'='3C9B5B5E8B0F4C5382192A8C2BEB898BCFFDF80BF4BAD99AA3E2321153FF8719'
 }
 foreach ($name in $hashes.Keys) {
