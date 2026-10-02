@@ -1,12 +1,13 @@
-param([ValidateSet('Before','After','Status')][string]$Mode='Before',[ValidatePattern('^[A-Za-z0-9_]{1,10}$')][string]$Account='pruebacoin',[string]$SqlServer='', [System.Management.Automation.PSCredential]$SqlCredential)
+param([ValidateSet('Before','After','Status','ResetTest')][string]$Mode='Before',[ValidatePattern('^[A-Za-z0-9_]{1,10}$')][string]$Account='pruebacoin',[string]$SqlServer='', [System.Management.Automation.PSCredential]$SqlCredential)
 $ErrorActionPreference='Stop'
+if ($Mode -eq 'ResetTest' -and $Account -cne 'pruebacoin') { throw 'ResetTest solo permite la cuenta pruebacoin.' }
 $resolvedRoot='C:\MuServer43'
 $desktop=[Environment]::GetFolderPath('Desktop')
 $baselineFile=Join-Path $desktop ('MU_PANIC_VIP_TEST_'+$Account+'.json')
 function Open-VipConnection([string]$Instance,$Credential) {
     $builder=New-Object System.Data.SqlClient.SqlConnectionStringBuilder
     $builder['Data Source']=$Instance;$builder['Initial Catalog']='MuOnline43';$builder['Connect Timeout']=5
-    $builder['Application Name']='MU PANIC Read Only VIP Audit'
+    $builder['Application Name']=if ($Mode -eq 'ResetTest') {'MU PANIC VIP Test Reset'} else {'MU PANIC Read Only VIP Audit'}
     if ($null -eq $Credential) { $builder['Integrated Security']=$true }
     else { $builder['User ID']=$Credential.UserName;$builder['Password']=$Credential.GetNetworkCredential().Password }
     $connection=New-Object System.Data.SqlClient.SqlConnection -ArgumentList ($builder.get_ConnectionString())
@@ -55,7 +56,48 @@ LEFT JOIN dbo.MEMB_STAT s ON s.memb___id=m.memb___id WHERE m.memb___id=@Account
         }
     } finally {if ($null -ne $reader) {$reader.Dispose()};$command.Dispose()}
     if ($null -eq $row) {throw 'No se encontro la cuenta con saldo. No se modifico nada.'}
-    if ($Mode -eq 'Status') {
+    if ($Mode -eq 'ResetTest') {
+        if ($row.ConnectStat -ne 0) { throw 'Sal del juego con pruebacoin antes de reiniciar su VIP.' }
+        if ($row.AccountLevel -eq 0 -and [DateTime]::Parse($row.AccountExpireDate) -le [DateTime]::Parse($row.SqlLocalTime)) {
+            Write-Host ('pruebacoin ya es cuenta normal. WCoin C: '+$row.WCoinC+'. No se modifico nada.')
+        } else {
+            $backupRoot=Join-Path $resolvedRoot 'PaymentsPrivate\vip-tests'
+            [IO.Directory]::CreateDirectory($backupRoot)|Out-Null
+            $backup=Join-Path $backupRoot ('pruebacoin_before_reset_'+[Guid]::NewGuid().ToString('N')+'.json')
+            [IO.File]::WriteAllText($backup,($row|ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding($false)))
+            $transaction=$script:connection.BeginTransaction()
+            $reset=$script:connection.CreateCommand()
+            $reset.Transaction=$transaction;$reset.CommandTimeout=15
+            $reset.CommandText=@'
+SET XACT_ABORT ON;
+IF NOT EXISTS (SELECT 1 FROM dbo.MEMB_STAT WITH (UPDLOCK,HOLDLOCK) WHERE memb___id=@Account AND ConnectStat=0)
+ OR EXISTS (SELECT 1 FROM dbo.MEMB_STAT WITH (UPDLOCK,HOLDLOCK) WHERE memb___id=@Account AND (ConnectStat<>0 OR ConnectStat IS NULL))
+    THROW 51000, 'La cuenta debe seguir desconectada.', 1;
+IF NOT EXISTS (SELECT 1 FROM dbo.CashShopData WITH (UPDLOCK,HOLDLOCK) WHERE AccountID=@Account AND WCoinC=@CoinC AND WCoinP=@CoinP AND GoblinPoint=@Goblin)
+    THROW 51000, 'El saldo cambio. Consulta el estado antes de repetir.', 1;
+UPDATE dbo.MEMB_INFO SET AccountLevel=0,AccountExpireDate=DATEADD(day,-1,GETDATE())
+WHERE memb___id=@Account AND AccountLevel=@Level AND AccountExpireDate=@Expiry;
+IF @@ROWCOUNT<>1 THROW 51000, 'El VIP cambio. No se reinicio la cuenta.', 1;
+IF NOT EXISTS (SELECT 1 FROM dbo.MEMB_INFO WHERE memb___id=@Account AND AccountLevel=0 AND AccountExpireDate<GETDATE())
+    THROW 51000, 'No se pudo verificar la cuenta normal.', 1;
+'@
+            $reset.Parameters.Add('@Account',[System.Data.SqlDbType]::VarChar,10).Value=$Account
+            foreach ($pair in @(@('CoinC','WCoinC'),@('CoinP','WCoinP'),@('Goblin','GoblinPoint'),@('Level','AccountLevel'))) {
+                $reset.Parameters.Add(('@'+$pair[0]),[System.Data.SqlDbType]::Int).Value=[int]$row[$pair[1]]
+            }
+            $reset.Parameters.Add('@Expiry',[System.Data.SqlDbType]::SmallDateTime).Value=[DateTime]::Parse($row.AccountExpireDate)
+            try {
+                $reset.ExecuteNonQuery()|Out-Null
+                $transaction.Commit()
+            } catch {
+                try {$transaction.Rollback()} catch {}
+                throw
+            } finally {$reset.Dispose();$transaction.Dispose()}
+            Write-Host ('VIP reiniciado: pruebacoin | nivel 0 | WCoin C conservados: '+$row.WCoinC)
+            Write-Host ('Estado anterior guardado en: '+$backup)
+            Write-Host 'No se modificaron personajes, otras cuentas ni saldos. Ya podes entrar al juego.'
+        }
+    } elseif ($Mode -eq 'Status') {
         [pscustomobject]$row | Format-List account,AccountLevel,AccountExpireDate,WCoinC,WCoinP,GoblinPoint,ConnectStat,SqlLocalTime
         Write-Host 'Solo consulta. No se modificaron saldos, nivel ni vencimiento.'
     } elseif ($Mode -eq 'Before') {

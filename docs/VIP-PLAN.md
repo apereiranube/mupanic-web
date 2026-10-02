@@ -168,3 +168,12 @@ cliente deshabilita compras ni que el cliente admite ocultar los botones.
 check_vip_purchase.ps1 -Mode Status consulta el estado actual de cualquier
 cuenta indicada sin baseline, sin guardarlo como Before y sin modificar SQL.
 No inferir el saldo previo a estas compras a partir de la prueba Bronze antigua.
+
+Tras retirar indices 1/2 en el VPS y ejecutar el arranque de GS/GSCS, el usuario
+confirmo que pulso ambos botones vacios. Status conserva nivel 3, vencimiento
+2026-11-30T23:01:00 y WCoin C 866; no modificaron la cuenta en esta prueba.
+El usuario autoriza retirar todo VIP de pruebacoin para repetir desde cuenta normal.
+ResetTest solo permite esa cuenta, exige desconexion, guarda snapshot privado y
+actualiza nivel 0/vencimiento pasado dentro de transaccion. Comprueba que nivel,
+vencimiento y tres monedas no cambiaron desde la lectura; no escribe wallets.
+Conserva el saldo y personajes; no revierte compras ni cambia otras cuentas.
