@@ -103,3 +103,21 @@ No habilitar devolución web si la compra nativa no tiene integración equivalen
 
 Insignia web posible; insignia en juego pendiente de soporte del cliente concreto.
 No modificar ejecutables ni prometer una corona compatible sin comprobarlo.
+
+## Enrutamiento confirmado (1/10/2026 22:07 ARG)
+
+MapServerInfo.dat deriva mapas 30,31,34,41,42,79 desde códigos 0 y 1 al 19.
+El Common.dat original adjunto confirma ServerCode 19 en GameServerCS y 0
+en GameServer. Por tanto la diferencia de tasas afecta mapas realmente asignados
+a GameServerCS, no un archivo aislado. GameServerCS usa EXP 1000/drop 100;
+GameServer AL0 usa EXP 15/drop 50. El usuario confirmó EXP 15 como base correcta
+y señaló que aún va a reducir drop 50. No elegir otra tasa de drop por su cuenta.
+
+prepare_single_vip.ps1 -AlignServerRates genera un borrador que copia las dos
+tasas AL0 ACTUALES de GameServer a AL0-AL3 de GameServerCS. No fija drop 50
+en el código, para respetar futuros ajustes. En el diagnóstico presente agrega
+ocho cambios de GameServerCS a los 44 anteriores: 52 en total. Sigue sin aplicar
+configuraciones, reiniciar procesos ni implementar regalos/renovaciones.
+El ZIP v2 recibido y verificado conserva tasas GameServerCS 1000/100: no instalarlo
+como configuración final. Se verificaron los 12 hashes del manifiesto y que las
+únicas diferencias de sus seis archivos son los 44 cambios declarados.
