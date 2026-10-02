@@ -43,3 +43,32 @@ Para completar la integración hay que verificar:
 
 Hasta resolver esas condiciones, no publicar una compra VIP funcional ni alterar
 los VIP ya otorgados. El reporte estático no prueba la fórmula del ejecutable.
+
+## Hallazgos del diagnóstico recibido (1/10/2026 21:34 ARG)
+
+SQL se leyó correctamente y su reloj local es UTC-3. El mismo nivel se renueva
+sumando segundos a AccountExpireDate incluso si está vencido, según
+WZ_SetAccountLevel. Un cambio de nivel usa GETDATE(). WZ_GetAccountLevel vuelve
+al nivel 0 cuando está vencido; no invocarlo para un diagnóstico de solo lectura,
+porque ese procedimiento hace UPDATE. El borrador de compra web deberá evitar
+renovar sobre una fecha pasada y bloquear cambios que hagan perder tiempo vigente.
+
+Diferencias reales: EXP GS AL0=15 y AL1–AL3=18; drop GS AL0=50 y AL1/2/3=60/70/75;
+reset cuesta 20M de zen normal y 15M/10M/10M VIP. También difieren HelperStartCoin1,
+WarehouseFeeValue, CustomPickRequireMoney, CustomDailyRewardEnable,
+CustomExclusiveGlowCoin1 y CustomSmithItemDiscount en GS/CS. Master EXP y las
+probabilidades de ChaosMix exportadas no difieren. No deducir la EXP final solo
+con estas tasas: el ejecutable puede combinar la tabla y parámetros de otra forma.
+
+prepare_single_vip.ps1 genera únicamente copias propuestas y originales en un
+nuevo ZIP de Escritorio. Iguala esos nueve grupos a AL0 y ofrece solo índice 0
+con EXP 10 / drop 0 / 30 días / VIP PANIC. No modifica AL0 ni ExperienceTable.
+Precio sin elegir se expresa como PRECIO_PENDIENTE; el borrador no es instalable
+hasta definirlo y verificar el juego. No trae opción Apply ni cambia el SQL.
+
+check_vip_purchase.ps1 captura antes/después, con SELECT directo y parámetro de
+cuenta, en MuOnline43. Before exige cuenta sin VIP, conectada y saldo >=10. Usa
+pruebacoin por defecto. After conserva nivel, vencimiento y delta de las tres
+monedas y compara contra el reloj SQL. No ejecuta una compra ni revierte saldo:
+la compra Bronze se realiza una sola vez desde el menú del cliente por el usuario.
+La lectura Before se conserva con respaldo al repetirla y vence a los 15 minutos.
