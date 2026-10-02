@@ -156,3 +156,15 @@ generador. No ejecuta GetMainInfo-Premium.exe ni actualiza el cliente copiado.
 El ZIP de borradores no incluye los binarios ni el cliente completo.
 Hasta coordinar configuracion del servidor, no generar ni comprar VIP con las
 tablas propuestas; no representan una implementacion terminada del plan.
+
+## Prueba visual y compras adicionales
+
+La captura del 1/10/2026 22:59 muestra VIP 5/5/30 en el cliente de prueba,
+dos filas sin nombre y tres botones de compra. Los encabezados largos se
+superponen; Time y days permanecen en ingles; el saludo del servidor dice Oro.
+El usuario pudo comprar con los dos botones vacios en pruebacoin. El VPS
+todavia conserva las tres ofertas originales. No asumir que quitar filas del
+cliente deshabilita compras ni que el cliente admite ocultar los botones.
+check_vip_purchase.ps1 -Mode Status consulta el estado actual de cualquier
+cuenta indicada sin baseline, sin guardarlo como Before y sin modificar SQL.
+No inferir el saldo previo a estas compras a partir de la prueba Bronze antigua.

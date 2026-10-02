@@ -1,4 +1,4 @@
-param([ValidateSet('Before','After')][string]$Mode='Before',[ValidatePattern('^[A-Za-z0-9_]{1,10}$')][string]$Account='pruebacoin',[string]$SqlServer='', [System.Management.Automation.PSCredential]$SqlCredential)
+param([ValidateSet('Before','After','Status')][string]$Mode='Before',[ValidatePattern('^[A-Za-z0-9_]{1,10}$')][string]$Account='pruebacoin',[string]$SqlServer='', [System.Management.Automation.PSCredential]$SqlCredential)
 $ErrorActionPreference='Stop'
 $resolvedRoot='C:\MuServer43'
 $desktop=[Environment]::GetFolderPath('Desktop')
@@ -55,7 +55,10 @@ LEFT JOIN dbo.MEMB_STAT s ON s.memb___id=m.memb___id WHERE m.memb___id=@Account
         }
     } finally {if ($null -ne $reader) {$reader.Dispose()};$command.Dispose()}
     if ($null -eq $row) {throw 'No se encontro la cuenta con saldo. No se modifico nada.'}
-    if ($Mode -eq 'Before') {
+    if ($Mode -eq 'Status') {
+        [pscustomobject]$row | Format-List account,AccountLevel,AccountExpireDate,WCoinC,WCoinP,GoblinPoint,ConnectStat,SqlLocalTime
+        Write-Host 'Solo consulta. No se modificaron saldos, nivel ni vencimiento.'
+    } elseif ($Mode -eq 'Before') {
         $vipTable='C:\MuServer43\Data\Custom\CustomBuyVip.txt'
         if (-not (Test-Path -LiteralPath $vipTable) -or [IO.File]::ReadAllText($vipTable) -notmatch '(?m)^[ \t]*0[ \t]+10[ \t]+10[ \t]+30[ \t]+10[ \t]+0[ \t]+0[ \t]+"Vip Bronze"[ \t]*\r?$') {throw 'La tabla Bronze cambio. No hagas la compra de prueba hasta revisar el nuevo precio.'}
 
