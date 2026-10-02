@@ -19,10 +19,13 @@ CREATE TABLE dbo.MUPanicRechargeDeliveries (
     CreditedAt datetime2 NOT NULL,
     AcknowledgedAt datetime2 NULL,
     CONSTRAINT UQ_MUPanicRechargePayment UNIQUE(Environment,Provider,PaymentID),
-    CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents=Coins*100),
+    CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents BETWEEN 100 AND 100000000 AND PriceCents%100=0 AND PriceCents<=Coins*100),
     CONSTRAINT CK_MUPanicRechargeBalance CHECK(AfterCoin>=BeforeCoin),
     CONSTRAINT CK_MUPanicRechargeDelta CHECK(AfterCoin-BeforeCoin=Coins)
 );
+-- Upgrade the price constraint without changing existing receipts.
+ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT CK_MUPanicRechargePrice;
+ALTER TABLE dbo.MUPanicRechargeDeliveries WITH CHECK ADD CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents BETWEEN 100 AND 100000000 AND PriceCents%100=0 AND PriceCents<=Coins*100);
 IF OBJECT_ID('dbo.MUPanicApplyRecharge','P') IS NULL EXEC('CREATE PROCEDURE dbo.MUPanicApplyRecharge AS RETURN;');
 IF OBJECT_ID('dbo.MUPanicAckRecharge','P') IS NULL EXEC('CREATE PROCEDURE dbo.MUPanicAckRecharge AS RETURN;');
 COMMIT;
@@ -34,7 +37,7 @@ AS
 BEGIN
     SET NOCOUNT ON; SET XACT_ABORT ON; SET LOCK_TIMEOUT 5000;
     IF LEN(@OrderID)<>38 OR LEFT(@OrderID,6)<>'PANIC-' OR LEN(@PaymentID)<1 OR LEN(@Account)<1 OR
-        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents<>@Coins*100 OR @Environment NOT IN ('test','production')
+        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents NOT BETWEEN 100 AND 100000000 OR @PriceCents%100<>0 OR @PriceCents>@Coins*100 OR @Environment NOT IN ('test','production')
     BEGIN RAISERROR('Orden invalida.',16,1); RETURN; END;
     BEGIN TRY
         BEGIN TRANSACTION;

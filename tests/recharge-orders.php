@@ -78,6 +78,17 @@ try {
     checkShop(panicRechargeWorkerRequest($wire,$stamp,$signature,$token,time()+301)===null,'Stale worker request rejected');
     $badNonce=json_encode(['action'=>'poll','nonce'=>['array']]);
     checkShop(panicRechargeWorkerRequest($badNonce,$stamp,hash_hmac('sha256',$stamp."\n".$badNonce,$token),$token,time())===null,'Malformed nonce rejected');
+    $bonusCatalogue=$catalogue;$bonusCatalogue[0]['bonus']=250;
+    $bonusCart=PanicRecharge::cart($bonusCatalogue,['wcoin-1000'=>2]);
+    $remoteState='APPROVED';$wrongAmount=false;$fail=false;
+    $bonusOrder=$store->begin('bonususer',$bonusCart,str_repeat('9',32),false,$api,'https://example.test/');
+    $oldJobs=$store->poll($api,'merchant-a',false)['jobs'];
+    checkShop(!in_array($bonusOrder['id'],array_column($oldJobs,'id'),true),'Old worker never dispatches bonuses');
+    $newJobs=$store->poll($api,'merchant-a',false,true)['jobs'];
+    $bonusJobs=array_values(array_filter($newJobs,fn($job)=>$job['id']===$bonusOrder['id']));
+    checkShop(count($bonusJobs)===1 && $bonusJobs[0]['coins']===2500 && $bonusJobs[0]['price_cents']===200000,'New worker receives snapshotted bonus');
+    $store->acknowledge(['id'=>$bonusOrder['id'],'payment_id'=>$bonusOrder['payment_id'],'account'=>'bonususer','coins'=>2500,'environment'=>'test','state'=>'credited','before_coin'=>0,'after_coin'=>2500]);
+    checkShop($store->get($bonusOrder['id'])['delivery_state']==='credited','Bonus receipt persisted');
     // Independent processes race on the same nonce. Reservation is committed before API.
     if(function_exists('pcntl_fork')) {
         $raceNonce=str_repeat('f',32);$children=[];
@@ -94,5 +105,6 @@ try {
         foreach($children as $pid) { pcntl_waitpid($pid,$status); checkShop(pcntl_wexitstatus($status)===0,'Race child succeeded'); }
         checkShop(substr_count(file_get_contents($root.'/race-posts'),'POST')===1,'Concurrent reservation creates once');
     }
-    echo "Recharge orders passed: quantities, multiple accounts, canonical amounts, ownership, history, replay, concurrent reservation, refunds and outages.\n";
+    echo "Recharge orders passed: quantities, multiple accounts, canonical amounts, ownership, history, replay, concurrent reservation, refunds, outages and bonus receipts.\n";
+
 } finally { foreach(glob($root.'/*') as $file) unlink($file); rmdir($root); }

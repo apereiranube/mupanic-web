@@ -1,3 +1,59 @@
+## Estado actual — panel privado de tienda (2/10/2026)
+
+La entrega automática de sandbox quedó confirmada por el administrador en dos
+cuentas: louismk (20.000 WCoin C) y panic (10.000 WCoin C). Se conserva el piloto
+anterior, sus recibos y todos los saldos. Las correcciones anteriores de SQL usan
+restricciones de tabla y EXECUTE AS CALLER; no cambian propietario de la base.
+
+El panel `/usercp/shopadmin/` exige sesión de la cuenta exacta `panic` y su presencia
+en `config('admins', true)` del CMS. Se oculta del menú de otras cuentas y responde
+403 ante acceso directo. Los cambios de catálogo requieren CSRF y una revisión
+vigente para evitar sobrescribir cambios desde otra ventana.
+
+Permite crear hasta 12 paquetes, modificar nombres y monedas, ordenarlos,
+ocultarlos, destacarlos y programar bonificaciones con fechas argentinas. Mantiene
+la equivalencia $1 ARS = 1 WCoin C base. Las cantidades multiplican el bono por
+paquete; el límite es 1.000.000 de monedas totales y $1.000.000 por compra. Cada
+orden guarda sus líneas, precio y monedas; editar ofertas no modifica compras.
+El registro permite buscar cuenta, orden o pago y filtrar ambiente/estado. La
+consulta manual siempre hace GET canónico a Ualá; no hay botón para aprobar ni
+acreditar saldos arbitrarios.
+
+Catálogo y estado del servicio se guardan fuera de public_html, en
+`/home/mupanic/payments-private/recharge-catalogue.json` y
+`recharge-worker-status.json`, con bloqueos estables y permisos 600. Nunca se
+muestran tokens, credenciales ni errores SQL en el panel.
+
+Desplegar primero la web; luego actualizar `tools/recharge_worker.ps1` en el VPS
+con `-Install` y arrancar la tarea existente. La actualización conserva el token,
+las órdenes y los recibos. No requiere volver a subir el token ni recrear la tarea.
+El servicio versión 2 informa contacto, ejecución correcta, espera por desconexión
+y errores. Hasta recibir una ejecución correcta reciente de esta versión, los
+bonos configurados no se ofrecen. El worker anterior continúa procesando compras
+sin bonos; nunca recibe compras bonificadas que su esquema no admite. El SQL de
+instalación y su copia en PowerShell son idénticos; la migración de la restricción
+de precio verifica los recibos existentes y permite precio base + bonus sin
+reacreditar compras. La operación en Windows/SQL deberá verificarse con -Status.
+
+El panel VIP consulta AccountLevel y AccountExpireDate de panic sin modificarlos.
+La versión 2 busca parámetros con Vip en los archivos Common/Command de GS y CS,
+y envía únicamente nombres y valores simples de esa configuración, sin rutas ni
+credenciales. Detecta también si existe el archivo del módulo VIP estándar de la
+web. No se habilita venta directa de VIP: faltan confirmar planes, beneficios,
+costos, vencimiento y reglas de renovación/cambio de nivel con la configuración
+real del servidor. No se inventan planes ni se alteran membresías.
+
+Las compras muestran fecha mediante America/Argentina/Buenos_Aires, convirtiendo
+UTC una sola vez. Producción sigue requiriendo habilitación y verificación explícita;
+la configuración existente de prueba se conserva.
+
+Validación local: suites PHP de pagos, órdenes, exclusividad/revocación del admin,
+catálogo/revisión, promociones, recibos con bonos, reloj argentino y firmas. Navegador
+a 1440/1024/390 px para tienda y panel: sin desbordes y formularios accesibles.
+No se ejecutó PowerShell/SQL Server en este entorno Linux ni se realizaron pagos.
+
+---
+
 # MU PANIC: recargas de WCoin C
 
 ## Estado actual · tienda con cantidades (1/10/2026)

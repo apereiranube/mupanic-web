@@ -3,7 +3,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/recharge-orders.php';
 $shopStore=null; $shopSettings=null; $shopCanBuy=false; $shopMessage=null; $shopCreated=null;
 $shopHistory=['total'=>0,'orders'=>[]]; $shopPage=max(1,min(500,(int)($_GET['compras'] ?? 1)));
-$shopAdmin=function_exists('config') && is_array(config('admins',true)) && array_key_exists($rechargeAccount,config('admins',true));
+$shopAdmin=panicRechargeAdminAllowed();
 try {
     $shopStore=new PanicRechargeOrders();
     [$shopApi,$shopMerchant,$shopSettings]=panicRechargeShopGateway();

@@ -1,6 +1,7 @@
 <?php
 if(!defined('access') || !access) die();
 require_once __DIR__.'/recharge-uala.php';
+require_once __DIR__.'/recharge-management.php';
 
 /** Private durable order ledger. API calls never hold its global filesystem lock. */
 final class PanicRechargeOrders {
@@ -33,7 +34,7 @@ final class PanicRechargeOrders {
                 if(!is_array($order) || ($order['id'] ?? '')!==$id || !preg_match('/^PANIC-[a-f0-9]{32}$/D',$id) ||
                    ($order['provider'] ?? '')!=='uala_bis' || !is_bool($order['live'] ?? null) ||
                    !is_int($order['coins'] ?? null) || $order['coins']<1 || $order['coins']>1000000 ||
-                   ($order['price_cents'] ?? null)!==$order['coins']*100 || ($order['bonus'] ?? null)!==0 ||
+                   !is_int($order['price_cents'] ?? null) || $order['price_cents']<100 || $order['price_cents']>100000000 || ($order['bonus'] ?? null)!==0 ||
                    !preg_match('/^[A-Za-z0-9_]{1,10}$/D',$order['account'] ?? '') ||
                    ($order['currency'] ?? '')!=='ARS' || ($order['wallet'] ?? '')!=='WCoin C' ||
                    !in_array($order['payment_state'] ?? '',['creating','pending','approved','rejected','cancelled','review'],true) ||
@@ -42,6 +43,11 @@ final class PanicRechargeOrders {
                    !preg_match('/^[a-f0-9]{64}$/D',$order['request_key'] ?? '') ||
                    !preg_match('/^[a-f0-9]{64}$/D',$order['callback_token'] ?? '') ||
                    !in_array($order['amount_unit'] ?? '',['ARS','centavos'],true)) throw new RuntimeException('Invalid ledger order');
+            }
+            foreach($orders as $order) {
+                try { $snapshot=PanicRecharge::cart($order['lines'] ?? [],array_column($order['lines'] ?? [],'quantity','id')); }
+                catch(Throwable $exception) { throw new RuntimeException('Invalid order snapshot'); }
+                if($snapshot['coins']!==$order['coins'] || $snapshot['price_cents']!==$order['price_cents']) throw new RuntimeException('Invalid order snapshot totals');
             }
             return $operation($orders,$this);
         } finally { flock($handle,LOCK_UN); fclose($handle); }
@@ -72,6 +78,29 @@ final class PanicRechargeOrders {
             $rows=array_values(array_filter($orders,function($order) use ($account,$admin) { return $admin || $order['account']===$account; }));
             usort($rows,function($a,$b) { return strcmp($b['created_at'],$a['created_at']); });
             return ['total'=>count($rows),'orders'=>array_map([self::class,'publicOrder'],array_slice($rows,(max(1,$page)-1)*10,10))];
+        });
+    }
+    public function administration(array $filter,$page=1) {
+        if(!panicRechargeAdminAllowed()) throw new RuntimeException('Forbidden');
+        return $this->locked(function($orders) use ($filter,$page) {
+            $query=trim((string)($filter['query'] ?? '')); $state=$filter['state'] ?? ''; $environment=$filter['environment'] ?? '';
+            $rows=[]; $summary=['total'=>0,'approved_cents'=>0,'delivered_coins'=>0,'pending'=>0,'review'=>0];
+            foreach($orders as $order) {
+                [$tone]=panicRechargeStatus($order);
+                if(($environment==='test' && $order['live']) || ($environment==='production' && !$order['live'])) continue;
+                if($query!=='' && stripos($order['account'],$query)===false && stripos($order['id'],$query)===false && stripos((string)$order['payment_id'],$query)===false) continue;
+                if($state!=='' && $tone!==$state) continue;
+                $summary['total']++;
+                if($order['payment_state']==='approved') $summary['approved_cents']+=$order['price_cents'];
+                if($order['delivery_state']==='credited') $summary['delivered_coins']+=$order['coins'];
+                elseif($order['payment_state']==='approved') $summary['pending']++;
+                if(in_array($order['payment_state'],['review','creating'],true) || isset($order['check_error'])) $summary['review']++;
+                $public=self::publicOrder($order);
+                $public+=['payment_id'=>$order['payment_id'],'checked_at'=>$order['checked_at'] ?? null,'error'=>$order['error'] ?? null,'check_error'=>$order['check_error'] ?? null];
+                $rows[]=$public;
+            }
+            usort($rows,function($a,$b) { return strcmp($b['created_at'],$a['created_at']); });
+            return ['summary'=>$summary,'total'=>count($rows),'orders'=>array_slice($rows,(max(1,$page)-1)*20,20)];
         });
     }
     public function begin($account,array $cart,$nonce,$live,PanicUalaBisApi $api,$baseUrl,$amountUnit=null) {
@@ -144,10 +173,10 @@ final class PanicRechargeOrders {
             $orders[$id]=$state; $store->save($orders); return $state;
         });
     }
-    public function poll(PanicUalaBisApi $api,$merchant,$live) {
-        $candidates=$this->locked(function($orders) use ($live) {
-            $rows=array_filter($orders,function($order) use ($live) {
-                return $order['live']===$live &&
+    public function poll(PanicUalaBisApi $api,$merchant,$live,$supportsBonuses=false) {
+        $candidates=$this->locked(function($orders) use ($live,$supportsBonuses) {
+            $rows=array_filter($orders,function($order) use ($live,$supportsBonuses) {
+                return ($supportsBonuses || $order['price_cents']===$order['coins']*100) && $order['live']===$live &&
                     $order['delivery_state']==='pending' && in_array($order['payment_state'],['pending','approved'],true) &&
                     is_string($order['payment_id']) && ($order['next_check'] ?? 0)<=time();
             });

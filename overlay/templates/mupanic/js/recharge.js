@@ -36,9 +36,9 @@
     shop.querySelector('[data-cart-lines]').replaceChildren(rows);
     shop.querySelector('[data-total-coins]').textContent = coins(received);
     shop.querySelector('[data-total-price]').textContent = pesos(total) + ' ARS';
-    const allowed = valid && total > 0 && total <= 100000000;
+    const allowed = valid && total > 0 && total <= 100000000 && received <= 1000000;
     submit.disabled = !allowed || submit.dataset.enabled !== '1' || form.dataset.sending === '1';
-    shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todas tus monedas.';
+    shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 || received > 1000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todas tus monedas.';
   }
   packages.forEach(card => {
     const input = card.querySelector('input[type=number]');

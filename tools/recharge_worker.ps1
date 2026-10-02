@@ -109,6 +109,23 @@ function Invoke-RechargeBridge($Request) {
     if ($result.nonce -cne $Request.nonce) { throw 'Respuesta de otra solicitud. No se acreditan monedas.' }
     return $result
 }
+function Get-RechargeVipConfig {
+    $found=@{}
+    foreach ($server in @(@{name='GS';root='GameServer'},@{name='CS';root='GameServerCS'})) {
+        foreach ($file in @('GameServerInfo - Common.dat','GameServerInfo - Command.dat')) {
+            $path=Join-Path ('C:\MuServer43\' + $server.root + '\Data') $file
+            if (-not (Test-Path -LiteralPath $path)) { continue }
+            try { $lines=[IO.File]::ReadAllLines($path) } catch { continue }
+            foreach ($line in $lines) {
+                if ($found.Count -ge 24) { break }
+                if ($line -match '^\s*([A-Za-z0-9_]*Vip[A-Za-z0-9_]*)\s*=\s*"?([A-Za-z0-9 _.-]{1,60}?)"?\s*(?://.*|;.*)?$') {
+                    $found[$server.name + '.' + $matches[1]]=$matches[2].Trim()
+                }
+            }
+        }
+    }
+    return $found
+}
 function Confirm-RechargeReceipt($Row) {
     $receipt = @{ id=[string]$Row.OrderID; payment_id=[string]$Row.PaymentID; account=[string]$Row.AccountID; coins=[int]$Row.Coins; environment=[string]$Row.Environment; state='credited'; before_coin=[int]$Row.BeforeCoin; after_coin=[int]$Row.AfterCoin }
     $ack = Invoke-RechargeBridge @{ action='ack'; receipt=$receipt }
@@ -142,10 +159,13 @@ CREATE TABLE dbo.MUPanicRechargeDeliveries (
     CreditedAt datetime2 NOT NULL,
     AcknowledgedAt datetime2 NULL,
     CONSTRAINT UQ_MUPanicRechargePayment UNIQUE(Environment,Provider,PaymentID),
-    CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents=Coins*100),
+    CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents BETWEEN 100 AND 100000000 AND PriceCents%100=0 AND PriceCents<=Coins*100),
     CONSTRAINT CK_MUPanicRechargeBalance CHECK(AfterCoin>=BeforeCoin),
     CONSTRAINT CK_MUPanicRechargeDelta CHECK(AfterCoin-BeforeCoin=Coins)
 );
+-- Upgrade the price constraint without changing existing receipts.
+ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT CK_MUPanicRechargePrice;
+ALTER TABLE dbo.MUPanicRechargeDeliveries WITH CHECK ADD CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents BETWEEN 100 AND 100000000 AND PriceCents%100=0 AND PriceCents<=Coins*100);
 IF OBJECT_ID('dbo.MUPanicApplyRecharge','P') IS NULL EXEC('CREATE PROCEDURE dbo.MUPanicApplyRecharge AS RETURN;');
 IF OBJECT_ID('dbo.MUPanicAckRecharge','P') IS NULL EXEC('CREATE PROCEDURE dbo.MUPanicAckRecharge AS RETURN;');
 COMMIT;
@@ -157,7 +177,7 @@ AS
 BEGIN
     SET NOCOUNT ON; SET XACT_ABORT ON; SET LOCK_TIMEOUT 5000;
     IF LEN(@OrderID)<>38 OR LEFT(@OrderID,6)<>'PANIC-' OR LEN(@PaymentID)<1 OR LEN(@Account)<1 OR
-        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents<>@Coins*100 OR @Environment NOT IN ('test','production')
+        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents NOT BETWEEN 100 AND 100000000 OR @PriceCents%100<>0 OR @PriceCents>@Coins*100 OR @Environment NOT IN ('test','production')
     BEGIN RAISERROR('Orden invalida.',16,1); RETURN; END;
     BEGIN TRY
         BEGIN TRANSACTION;
@@ -290,22 +310,26 @@ try {
         # SQL commits are recovered first, even if the gateway or last HTTP acknowledgment failed.
         $unacknowledged=Read-RechargeSql 'SELECT TOP(10) OrderID,PaymentID,AccountID,Environment,Coins,BeforeCoin,AfterCoin FROM dbo.MUPanicRechargeDeliveries WHERE AcknowledgedAt IS NULL ORDER BY CreditedAt'
         foreach ($row in $unacknowledged.Rows) { Confirm-RechargeReceipt $row }
-        $result=Invoke-RechargeBridge @{ action='poll'; environment=$Environment }
+        $result=Invoke-RechargeBridge @{ action='poll'; environment=$Environment; version=2 }
         if ($null -eq $result.jobs -or @($result.jobs).Count -gt 3) { throw 'Cola firmada invalida.' }
+        $waiting=0
         foreach ($job in @($result.jobs)) {
             if ([string]$job.id -cnotmatch '^PANIC-[a-f0-9]{32}$' -or [string]$job.payment_id -cnotmatch '^[A-Za-z0-9_-]{1,120}$' -or
                 [string]$job.account -cnotmatch '^[A-Za-z0-9_]{1,10}$' -or $job.provider -cne 'uala_bis' -or $job.environment -cne $Environment -or
-                ($job.coins -isnot [int] -and $job.coins -isnot [long]) -or $job.coins -lt 1 -or $job.coins -gt 1000000 -or ($job.price_cents -isnot [int] -and $job.price_cents -isnot [long]) -or $job.price_cents -ne $job.coins*100) { throw 'Orden firmada fuera de limites; no se acreditan monedas.' }
+                ($job.coins -isnot [int] -and $job.coins -isnot [long]) -or $job.coins -lt 1 -or $job.coins -gt 1000000 -or ($job.price_cents -isnot [int] -and $job.price_cents -isnot [long]) -or ($job.price_cents -lt 100 -or $job.price_cents -gt 100000000 -or $job.price_cents % 100 -ne 0 -or $job.price_cents -gt $job.coins*100)) { throw 'Orden firmada fuera de limites; no se acreditan monedas.' }
             $receipt=Read-RechargeSql 'EXEC dbo.MUPanicApplyRecharge @OrderID=@OrderID,@PaymentID=@PaymentID,@Account=@Account,@Coins=@Coins,@PriceCents=@PriceCents,@Environment=@Environment' $job
             if ($receipt.Rows.Count -ne 1) { throw 'Resultado SQL no confirmado; se conserva el registro.' }
-            if ($receipt.Rows[0].Result -ceq 'waiting_offline') { Write-RechargeLog ('Cuenta conectada o estado desconocido: ' + [string]$job.account + '. Entrega pendiente.'); continue }
+            if ($receipt.Rows[0].Result -ceq 'waiting_offline') { $waiting++; Write-RechargeLog ('Cuenta conectada o estado desconocido: ' + [string]$job.account + '. Entrega pendiente.'); continue }
             if ($receipt.Rows[0].Result -cne 'credited') { throw 'Estado SQL inesperado.' }
             Confirm-RechargeReceipt $receipt.Rows[0]
             Write-RechargeLog ('Entrega ' + [string]$job.id + ' para ' + [string]$job.account + ': ' + $receipt.Rows[0].BeforeCoin + ' -> ' + $receipt.Rows[0].AfterCoin + ' WCoin C.')
         }
+        Invoke-RechargeBridge @{ action='report'; environment=$Environment; version=2; phase='ok'; jobs=@($result.jobs).Count; check_errors=[int]$result.check_errors; waiting=$waiting; vip_config=(Get-RechargeVipConfig) } | Out-Null
         Write-RechargeLog ('Consulta completada. Compras listas: ' + @($result.jobs).Count + '; verificaciones pendientes: ' + [string]$result.check_errors + '.')
     } finally { if ($owns) { $mutex.ReleaseMutex() }; $mutex.Dispose() }
 } catch {
-    Write-RechargeLog ('Ejecucion detenida: ' + $_.Exception.Message + ' La tarea volvera a consultar en su siguiente ejecucion.')
+    $failure=$_
+    if ($Run) { try { Invoke-RechargeBridge @{ action='report'; environment=$Environment; version=2; phase='error' } | Out-Null } catch {} }
+    Write-RechargeLog ('Ejecucion detenida: ' + $failure.Exception.Message + ' La tarea volvera a consultar en su siguiente ejecucion.')
     throw
 } finally { $script:connection.Dispose() }

@@ -13,10 +13,16 @@ try {
     if(($request['action'] ?? '')==='ack') {
         // Accept stored SQL receipts even during provider outages or environment changes.
         $result=$store->acknowledge($request['receipt'] ?? []);
-    } elseif(($request['action'] ?? '')==='poll') {
+    } elseif(in_array($request['action'] ?? '',['poll','report'],true)) {
         [$api,$merchant,$settings]=panicRechargeShopGateway();
         if(($request['environment'] ?? '')!==$settings['environment']) rechargeWorkerError(409);
-        $result=$store->poll($api,$merchant,$settings['environment']==='production');
+        $management=new PanicRechargeManagement();
+        if($request['action']==='report') {
+            $result=$management->report($request,$request['phase'] ?? '',$request);
+        } else {
+            $management->report($request,'polling');
+            $result=$store->poll($api,$merchant,$settings['environment']==='production',($request['version'] ?? 1)>=2);
+        }
     } else rechargeWorkerError(422);
     $result['nonce']=$request['nonce']; $reply=json_encode($result,JSON_THROW_ON_ERROR);
     header('X-Panic-Signature: '.hash_hmac('sha256',$request['nonce']."\n".$reply,$token)); echo $reply;

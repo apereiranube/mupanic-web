@@ -35,18 +35,18 @@ final class PanicRecharge {
     }
 
     public static function cart(array $catalogue,array $quantities) {
-        $known=[]; foreach($catalogue as $offer) { $offer=self::package($offer); $known[$offer['id']]=$offer; }
+        $known=[]; foreach($catalogue as $offer) { $offer=self::package($offer); if(isset($known[$offer['id']])) throw new InvalidArgumentException('Duplicate package'); $known[$offer['id']]=$offer; }
         $lines=[]; $cents=0; $coins=0;
         foreach($quantities as $id=>$quantity) {
             if(!isset($known[$id]) || (!is_string($quantity) && !is_int($quantity)) ||
                !preg_match('/^(0|[1-9][0-9]?)$/D',(string)$quantity)) throw new InvalidArgumentException('Invalid cart quantity');
             $quantity=(int)$quantity; if($quantity===0) continue;
             $offer=$known[$id];
-            if($offer['bonus']!==0 || $offer['price_cents']!==$offer['coins']*100) throw new InvalidArgumentException('Invalid exchange rate');
+            if($offer['price_cents']!==$offer['coins']*100) throw new InvalidArgumentException('Invalid exchange rate');
             $lines[]=array_merge($offer,['quantity'=>$quantity]);
-            $cents+=$offer['price_cents']*$quantity; $coins+=$offer['coins']*$quantity;
+            $cents+=$offer['price_cents']*$quantity; $coins+=($offer['coins']+$offer['bonus'])*$quantity;
         }
-        if(!$lines || $cents>100000000) throw new InvalidArgumentException('Cart empty or outside limits');
+        if(!$lines || $cents>100000000 || $coins>1000000) throw new InvalidArgumentException('Cart empty or outside limits');
         return ['id'=>'cart','title'=>'Recarga de '.number_format($coins,0,',','.').' WCoin C',
             'price_cents'=>$cents,'coins'=>$coins,'bonus'=>0,'lines'=>$lines];
     }

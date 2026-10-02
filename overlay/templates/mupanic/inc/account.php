@@ -3,6 +3,7 @@ if(!defined('access') || !access) die();
 
 function panicAccountTools() {
     return [
+        'shopadmin'=>['title'=>'Administrar tienda','copy'=>'Paquetes, promociones, compras y entrega automática.','group'=>'Administración','icon'=>'crown'],
         'recharge'=>['title'=>'Recargar WCoin C','copy'=>'Paquetes, medios de pago y estado de tus recargas.','group'=>'Créditos y Zen','icon'=>'gem'],
         'myaccount'=>['title'=>'Mi cuenta','copy'=>'Tus datos, personajes y estado de conexión.','group'=>'Cuenta','icon'=>'shield'],
         'myemail'=>['title'=>'Cambiar correo','copy'=>'Actualizá el correo de tu cuenta.','group'=>'Cuenta','icon'=>'mail'],
@@ -52,12 +53,14 @@ function panicAccountMenuItems() {
     }
     // Storefront checkout availability is controlled by private payment settings.
     if(isLoggedIn()) $items[] = array_merge($tools['recharge'], ['key'=>'recharge','href'=>__BASE_URL__.'usercp/recharge/','newtab'=>false]);
+    require_once __DIR__.'/recharge-management.php';
+    if(panicRechargeAdminAllowed()) $items[]=array_merge($tools['shopadmin'],['key'=>'shopadmin','href'=>__BASE_URL__.'usercp/shopadmin/','newtab'=>false]);
     return $items;
 }
 function panicAccountNavigation() {
     $items=panicAccountMenuItems(); $current=(string)($_REQUEST['subpage'] ?? '');
     echo '<a class="account-overview-link" href="'.panicAccountEscape(__BASE_URL__.'usercp/').'"'.($current==='' ? ' aria-current="page"' : '').'>'.panicAccountIcon('compass').'Inicio del panel</a>';
-    foreach(['Cuenta','Personajes','Créditos y Zen','Más opciones'] as $group) {
+    foreach(['Cuenta','Personajes','Créditos y Zen','Más opciones','Administración'] as $group) {
         $groupItems=array_filter($items,function($item) use ($group) { return $item['group']===$group; });
         if(!$groupItems) continue;
         echo '<div class="account-nav-group"><span class="account-nav-group-title">'.panicAccountEscape($group).'</span><ul class="account-menu">';
@@ -72,7 +75,7 @@ function panicAccountHome() {
     echo '<section class="account-welcome"><span class="eyebrow">TU AVENTURA CONTINÚA</span><h2>'.($name!=='' ? 'Hola, '.panicAccountEscape($name) : 'Bienvenido a MU PANIC').'</h2><p>Administrá tu cuenta y tus personajes.<br>Elegí qué querés hacer.</p></section>';
     $items=panicAccountMenuItems();
     if(!$items) { echo '<p class="alert alert-info">No hay opciones disponibles para esta cuenta en este momento.</p>'; return; }
-    foreach(['Cuenta','Personajes','Créditos y Zen','Más opciones'] as $group) {
+    foreach(['Cuenta','Personajes','Créditos y Zen','Más opciones','Administración'] as $group) {
         $groupItems=array_filter($items,function($item) use ($group) { return $item['group']===$group; });
         if(!$groupItems) continue;
         echo '<section class="account-tool-section"><h2>'.panicAccountEscape($group).'</h2><div class="account-tools-grid">';
