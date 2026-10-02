@@ -19,8 +19,9 @@ del personaje Juanita se muestra Bronze con vencimiento 20/11/2026 19:48; no inf
 que sea panic, ni asumir que índice 0 corresponde a nivel SQL 0.
 
 El usuario solicita dejar un único VIP con beneficios moderados. Propuesta pendiente
-de comprobación: VIP PANIC, 30 días, +10% EXP normal, sin extra de drop ni bonus
-de combate. No se definió precio. No se cambió configuración activa ni membresías.
+de comprobación: VIP, 30 días, +5% EXP normal y +5% drop, sin bonus de combate.
+Precio definido: 25.000 WCoin C. Incluye 5.000 WCoin C por compra o renovación.
+La entrega de esas monedas aún no está implementada ni soportada por la tabla nativa. No se cambió configuración activa ni membresías.
 
 `tools/audit_vip.ps1` lee solo settings VIP/AL0–AL3, tablas CustomBuyVip/CustomItemVip
 /ExperienceTable/MasterExperienceTable, tipos de las columnas de membresía, reloj
@@ -62,9 +63,9 @@ con estas tasas: el ejecutable puede combinar la tabla y parámetros de otra for
 
 prepare_single_vip.ps1 genera únicamente copias propuestas y originales en un
 nuevo ZIP de Escritorio. Iguala esos nueve grupos a AL0 y ofrece solo índice 0
-con EXP 10 / drop 0 / 30 días / VIP PANIC. No modifica AL0 ni ExperienceTable.
-Precio sin elegir se expresa como PRECIO_PENDIENTE; el borrador no es instalable
-hasta definirlo y verificar el juego. No trae opción Apply ni cambia el SQL.
+con EXP 5 / drop 5 / 30 días / VIP. No modifica AL0 ni ExperienceTable.
+Precio predeterminado: 25.000 WCoin C; un precio cero genera PRECIO_PENDIENTE.
+El borrador no es instalable hasta verificar tasas, renovación y monedas incluidas. No trae opción Apply ni cambia el SQL.
 
 check_vip_purchase.ps1 captura antes/después, con SELECT directo y parámetro de
 cuenta, en MuOnline43. Before exige cuenta sin VIP, conectada y saldo >=10. Usa
@@ -72,3 +73,33 @@ pruebacoin por defecto. After conserva nivel, vencimiento y delta de las tres
 monedas y compara contra el reloj SQL. No ejecuta una compra ni revierte saldo:
 la compra Bronze se realiza una sola vez desde el menú del cliente por el usuario.
 La lectura Before se conserva con respaldo al repetirla y vence a los 15 minutos.
+
+## Compra comprobada y cierre pendiente (1/10/2026 21:47 ARG)
+
+La prueba manual de pruebacoin confirmó índice de compra 0 → AccountLevel 1.
+WCoin C pasó de 931 a 921, mientras WCoin P y Goblin Point quedaron en cero.
+AccountExpireDate pasó a 31/10/2026 21:47, 30 días desde el reloj local SQL.
+Esta evidencia confirma la primera activación, no las tasas efectivas ni la renovación.
+El mensaje del juego dijo Oro aunque la oferta decía Bronze: corregir el nombre
+en su fuente real, sin deducir por ese texto un cambio a nivel 3.
+
+Retirar ofertas Bronze/Prata/Ouro de CustomBuyVip y dejar solo VIP; conservar
+las claves AL0–AL3 que necesita el servidor. No borrar niveles SQL, cuentas ni
+vencimientos existentes. La normalización de los nueve grupos evita ventajas
+actuales de EXP, drop, zen/reset y otras que exceden el nuevo paquete.
+
+El 5 de Drop+ requiere verificar si es relativo o puntos de tasa y a qué drops
+aplica. No anunciar +5% de jewels, bolsas o eventos sin evidencia. Master EXP
+y party siguen pendientes de validación; no prometer esos extras.
+
+La tabla nativa permite cobrar Coin1, pero no tiene una columna de devolución
+de monedas. Las 5.000 incluidas deben vincularse a un identificador único de
+compra y entregarse exactamente una vez, también al renovar. No inferir compras
+a partir de cambios de AccountLevel o fecha; podrían ser cambios administrativos.
+En compra con saldo exigir 25.000 disponibles, descontar 25.000 y entregar 5.000
+en una operación registrada: neto -20.000. En venta directa por ARS, cobrar
+25.000 ARS y entregar VIP +5.000, sin convertir además el precio en 25.000 monedas.
+No habilitar devolución web si la compra nativa no tiene integración equivalente.
+
+Insignia web posible; insignia en juego pendiente de soporte del cliente concreto.
+No modificar ejecutables ni prometer una corona compatible sin comprobarlo.

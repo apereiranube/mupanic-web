@@ -1,4 +1,4 @@
-param([string]$ServerRoot='C:\MuServer43',[ValidateRange(0,1000000)][int]$PriceCoins=0)
+param([string]$ServerRoot='C:\MuServer43',[ValidateRange(0,1000000)][int]$PriceCoins=25000)
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path -LiteralPath $ServerRoot).Path.TrimEnd('\')
 $destination=Join-Path ([Environment]::GetFolderPath('Desktop')) ('MU_PANIC_VIP_PREPARADO_'+(Get-Date -Format 'yyyyMMdd_HHmmss')+'_'+[Guid]::NewGuid().ToString('N').Substring(0,6))
@@ -48,19 +48,25 @@ $originalBuy=Join-Path $destination 'originals\Data\Custom\CustomBuyVip.txt'
 [IO.Directory]::CreateDirectory([IO.Path]::GetDirectoryName($originalBuy)) | Out-Null
 Copy-Item -LiteralPath $buy -Destination $originalBuy
 $priceText='PRECIO_PENDIENTE';if ($PriceCoins -gt 0) { $priceText=[string]$PriceCoins }
-$proposal="// BORRADOR. NO INSTALAR: falta verificar nivel, EXP real y renovacion.`r`n// Index Exp+ Drop+ Days Coin1 Coin2 Coin3 VipName`r`n0 10 0 30 $priceText 0 0 `"VIP PANIC`"`r`nend`r`n"
+$proposal="// BORRADOR. NO INSTALAR: falta verificar EXP/drop reales, renovacion y entrega de 5000 WCoin C.`r`n// Index Exp+ Drop+ Days Coin1 Coin2 Coin3 VipName`r`n0 5 5 30 $priceText 0 0 `"VIP`"`r`nend`r`n"
 [IO.File]::WriteAllText((Join-Path $destination 'CustomBuyVip.txt.proposed'),$proposal,[Text.Encoding]::ASCII)
-$manifest=@{version=1;applied=$false;price_coins=if($PriceCoins -gt 0){$PriceCoins}else{$null};plan='VIP PANIC';days=30;exp_extra_proposed=10;drop_extra_proposed=0;files=$files;changes=$changes}
+$manifest=@{version=2;applied=$false;price_coins=if($PriceCoins -gt 0){$PriceCoins}else{$null};plan='VIP';account_level=1;days=30;exp_extra_proposed=5;drop_extra_proposed=5;included_wcoin_c=5000;included_wcoin_delivery_implemented=$false;rates_verified=$false;files=$files;changes=$changes}
 [IO.File]::WriteAllText((Join-Path $destination 'cambios.json'),($manifest|ConvertTo-Json -Depth 8),(New-Object Text.UTF8Encoding($false)))
 [IO.File]::WriteAllText((Join-Path $destination 'LEEME.txt'),@'
 Este paquete es una propuesta, no una instalacion.
-Un plan: VIP PANIC, 30 dias, extra normal EXP propuesto 10, extra drop 0.
+Un plan: VIP, 30 dias, extra normal EXP propuesto 5, extra drop propuesto 5.
+Precio: 25000 WCoin C por defecto; el manifiesto conserva el precio solicitado.
+Las 5000 WCoin C incluidas requieren integracion: esta tabla NO las entrega.
+No anunciar las monedas incluidas como operativas hasta probar esa entrega.
 Los valores AL1/AL2/AL3 seleccionados se igualan a AL0 para evitar ventajas acumuladas.
 Se conservan las tasas de cuentas normales y Master EXP. No se modifica ExperienceTable.
 originals contiene copias byte por byte de los archivos de configuracion actuales.
 No se modifican cuentas existentes, vencimientos, saldos, procedimientos, procesos ni tareas.
-Precio pendiente si no se indico -PriceCoins. No usar un borrador con PRECIO_PENDIENTE.
-Falta confirmar el nivel SQL que escribe el juego y medir el resultado real de EXP.
+Precio pendiente solo si se indico -PriceCoins 0. No usar un borrador con PRECIO_PENDIENTE.
+La compra de indice 0 fue comprobada: nivel SQL 1, Coin1 = WCoin C, 30 dias.
+Falta medir EXP real y verificar el significado y alcance del extra de drop.
+Los nombres Bronze/Prata/Ouro tambien deben corregirse en mensajes y cliente.
+No borrar claves AL2/AL3 ni cambiar membresias existentes: solo retirar sus ofertas.
 La renovacion del mismo nivel debe usar max(vencimiento, ahora); el procedimiento actual
 suma desde el vencimiento incluso si esta en el pasado. La correccion SQL se revisa aparte.
 NO copiar archivos proposed al servidor hasta cerrar estas verificaciones.
