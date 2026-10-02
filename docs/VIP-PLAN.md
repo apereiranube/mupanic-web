@@ -177,3 +177,20 @@ ResetTest solo permite esa cuenta, exige desconexion, guarda snapshot privado y
 actualiza nivel 0/vencimiento pasado dentro de transaccion. Comprueba que nivel,
 vencimiento y tres monedas no cambiaron desde la lectura; no escribe wallets.
 Conserva el saldo y personajes; no revierte compras ni cambia otras cuentas.
+
+## Valores finales aclarados por el usuario (1/10/2026 23:25 ARG)
+
+El usuario aclara que +5 significa CINCO PUNTOS, no 5% relativo: EXP normal 15,
+VIP 20; drop normal 25, VIP 30. Esta decision reemplaza la propuesta porcentual
+anterior. set_vip_rates.ps1 valida ocho claves unicas por Common.dat, preserva
+los demas bytes y aplica estos valores a GS y GSCS con -Apply, siempre con ambos
+procesos cerrados. AL0 normal; AL1-AL3 mismo VIP para no mantener ventajas de
+niveles anteriores. No repone ofertas 1/2 en CustomBuyVip ni cambia monedas,
+membresias, Master EXP, mapas o tablas de drops. Respalda ambos originales antes
+de escribir; revierte ambos archivos escritos si falla la escritura/verificacion.
+Con -StartServers ejecuta el arranque tras instalar. El script no verifica salud
+de los procesos ni mide la experiencia efectiva, que puede tener otros factores.
+ItemDropRate es el rate de drop comun por nivel; no significa multiplicar todos
+los drops especiales por 25. Menú nativo de prueba aun muestra +5%: no presentarlo
+como descripcion correcta de estos valores. Falta corregir/ocultar esa leyenda.
+El borrador ZIP v3 anterior 15/50 y el cliente 5/5 quedan obsoletos para tasas.
