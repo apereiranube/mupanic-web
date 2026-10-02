@@ -121,3 +121,22 @@ configuraciones, reiniciar procesos ni implementar regalos/renovaciones.
 El ZIP v2 recibido y verificado conserva tasas GameServerCS 1000/100: no instalarlo
 como configuración final. Se verificaron los 12 hashes del manifiesto y que las
 únicas diferencias de sus seis archivos son los 44 cambios declarados.
+
+## Tablas de cliente recibidas (1/10/2026 22:20 ARG)
+
+El ZIP contiene Common/CustomBuyVip idénticos en ambos generadores: índices
+0/1/2, EXP/drop 10/20/30, precios Coin1 10/15/25 y nombres Bronze/Prata/Ouro.
+El precio de la tercera oferta difiere del servidor auditado (20).
+Solo Generador_0 (MAIN_INFO v43 - Season 6) aportó CustomMessage.txt, UTF-8
+sin BOM. La sección 2 mantiene mensajes VIP portugueses y nombres ingleses.
+Generador_1 (NUEVO MAIN BETA) solo aportó CustomBuyVip y CustomMessageGremory.
+No sustituir su configuración de mensajes por la del otro generador sin conocer
+su formato y archivos reales; no asumir qué generador produjo el cliente activo.
+
+prepare_vip_client.ps1 prepara copias originales y propuestas del generador
+seleccionado; no modifica ni ejecuta el generador y no reemplaza main.emu.
+Una oferta VIP; cambios limitados a etiquetas VIP por idioma (5–14,26,81–84,
+202–204), preservando IDs, placeholders, bytes y demás textos. No incluye nuevas
+coronas ni modifica RankUser, ya que el paquete no aportó una tabla compatible.
+La copia de mensajes es únicamente un borrador del generador que tenga ambos
+archivos. No habilita las monedas incluidas ni demuestra tasas efectivas.
