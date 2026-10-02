@@ -18,7 +18,7 @@ function panicAccountTools() {
         'donation'=>['title'=>'Comprar créditos','copy'=>'Consultá las opciones disponibles para tu cuenta.','group'=>'Créditos y Zen','icon'=>'gem'],
         'buycredits'=>['title'=>'Comprar créditos','copy'=>'Consultá las opciones disponibles para tu cuenta.','group'=>'Créditos y Zen','icon'=>'gem'],
         'buyzen'=>['title'=>'Comprar Zen','copy'=>'Consultá el cambio de créditos por Zen.','group'=>'Créditos y Zen','icon'=>'coin'],
-        'vip'=>['title'=>'Suscripción VIP','copy'=>'Revisá los planes disponibles.','group'=>'Créditos y Zen','icon'=>'crown'],
+        'vip'=>['title'=>'Suscripción VIP','copy'=>'Tu VIP, sus beneficios y el estado de tu cuenta.','group'=>'Créditos y Zen','icon'=>'crown'],
     ];
 }
 function panicAccountEscape($value) { return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
@@ -52,6 +52,7 @@ function panicAccountMenuItems() {
         $items[] = array_merge($tool, ['key'=>$key,'href'=>$link,'newtab'=>!empty($element['newtab'])]);
     }
     // Storefront checkout availability is controlled by private payment settings.
+    if(isLoggedIn() && !in_array('vip',array_column($items,'key'),true)) $items[] = array_merge($tools['vip'], ['key'=>'vip','href'=>__BASE_URL__.'usercp/vip/','newtab'=>false]);
     if(isLoggedIn()) $items[] = array_merge($tools['recharge'], ['key'=>'recharge','href'=>__BASE_URL__.'usercp/recharge/','newtab'=>false]);
     require_once __DIR__.'/recharge-management.php';
     if(panicRechargeAdminAllowed()) $items[]=array_merge($tools['shopadmin'],['key'=>'shopadmin','href'=>__BASE_URL__.'usercp/shopadmin/','newtab'=>false]);

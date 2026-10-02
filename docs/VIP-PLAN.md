@@ -1,4 +1,50 @@
-# VIP PANIC: diagnóstico y propuesta
+# VIP: estado actual e instalación
+
+Última decisión del usuario: un solo VIP de 30 días, 25.000 WCoin C.
+Normal EXP 15 / drop 25; VIP EXP 20 / drop 30: +5 puntos, no +5%.
+Las tasas fueron aplicadas y confirmadas por el usuario en ambos GameServer.
+La última compra nativa todavía descontó 10 WC: el precio no se había instalado.
+
+`prepare_single_vip.ps1 -Apply -StartServers` ahora instala una sola fila
+`0 20 30 30 25000 0 0 "VIP"`, conserva las tasas aprobadas y normaliza los otros
+beneficios AL1–3 a AL0. Exige ambos GameServer cerrados; respalda todos los
+archivos antes de escribir, detecta cambios concurrentes y revierte escrituras
+ante errores. No cambia cuentas, vencimientos, saldos ni procedimientos SQL.
+`-AlignServerRates` permanece compatible con comandos anteriores, pero las tasas
+vigentes son explícitas; ya no iguala EXP/drop VIP a las tasas normales.
+
+`prepare_vip_client.ps1 -BuildTestClient` copia el cliente y generador que tienen
+los tres hashes coincidentes. Cambia los mensajes y la oferta solo en esa copia,
+ejecuta GetMainInfo-Premium, verifica salida y copia main.premium al cliente
+isolado. Abre su carpeta y guarda la ruta en `MU_PANIC_CLIENTE_VIP_ACTUAL.txt`.
+No modifica el cliente original ni NUEVO MAIN BETA.
+
+`fix_vip_renewal.ps1 -Apply` corrige la renovación vencida usando max(vencimiento,
+ahora) para el mismo nivel, con bloqueo transaccional. Comprueba el procedimiento
+original exacto del diagnóstico, lo respalda y verifica el ALTER antes de confirmar.
+No ejecuta cambios de membresía durante la instalación.
+
+La página `usercp/vip/` usa el estilo cobre, una oferta, comparación 15→20 / 25→30,
+guía de compra y estado real de membresía consultado con el reloj SQL. La página
+es de consulta: no ejecuta el checkout VIP heredado del CMS ni setters SQL.
+
+Pendientes reales: devolución automática e idempotente de 5.000 WC por compra,
+sustituir el menú nativo de tres filas y sus
+sufijos %, corregir mensajes VIP del servidor e insignia dentro del juego.
+La tabla nativa no ofrece columna de regalo. WZ_SetCoin recibe el nombre del
+personaje: el texto BuyVip solo se conserva en el log, no en el procedimiento.
+Por ello no se puede distinguir una compra por una variación de saldo/fecha.
+No conectar un trigger que regale monedas ante cualquier cambio de membresía.
+`audit_vip_interface.ps1` prepara un inventario no secreto de Lua y sus cargadores
+para determinar si el cliente/servidor instalados permiten el nuevo flujo.
+
+La autorización del usuario es implementar el conjunto. El precio, tablas,
+cliente aislado y presentación web están preparados; los puntos anteriores
+no deben darse por terminados ni anunciarse como operativos.
+
+---
+
+## Historial del diagnóstico (algunas propuestas anteriores quedaron obsoletas)
 
 Estado: borrador sin compra habilitada. La web administrativa y el servicio de
 recargas versión 2 están operativos; el usuario confirmó LastTaskResult 0 y el
