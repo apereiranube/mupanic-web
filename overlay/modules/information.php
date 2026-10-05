@@ -75,6 +75,16 @@ $serverImage = function($name) {
                 <h3>Nexo PANIC</h3>
                 <p>El Hub F11 reúne accesos, eventos, estadísticas y funciones del cliente para que no tengas que memorizar cada comando o ventana.</p>
                 <span class="server-system-plain">En el juego: Hub F11</span>
+                <details class="server-system-details server-system-details-featured">
+                    <summary>Ver qué reúne <span aria-hidden="true">→</span></summary>
+                    <div>
+                        <dl>
+                            <dt>Acceso</dt><dd>Se abre directamente desde el cliente con F11.</dd>
+                            <dt>Qué concentra</dt><dd>Información de personaje, accesos del servidor y ventanas que antes estaban dispersas.</dd>
+                            <dt>Objetivo</dt><dd>Que las funciones propias de MU PANIC estén en un único lugar reconocible.</dd>
+                        </dl>
+                    </div>
+                </details>
             </div>
         </div>
 
