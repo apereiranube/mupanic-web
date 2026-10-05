@@ -3,10 +3,14 @@ set -euo pipefail
 
 SOURCE_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEPLOY_ROOT="/home/mupanic/public_html"
+
 TEMPLATE_SOURCE="$SOURCE_ROOT/overlay/templates/mupanic"
 TEMPLATE_DEST="$DEPLOY_ROOT/templates/mupanic"
 
-echo "[MU PANIC] Deploying production template overlay..."
+TOS_SOURCE="$SOURCE_ROOT/overlay/modules/tos.php"
+TOS_DEST="$DEPLOY_ROOT/modules/tos.php"
+
+echo "[MU PANIC] Deploying production overlay..."
 
 if [ ! -f "$DEPLOY_ROOT/index.php" ]; then
   echo "[MU PANIC] ERROR: WebEngine core not found in production root." >&2
@@ -18,15 +22,20 @@ if [ ! -f "$TEMPLATE_SOURCE/index.php" ] || [ ! -f "$TEMPLATE_SOURCE/css/style.c
   exit 1
 fi
 
-# Production deploy is intentionally template-only.
-# Never read, rewrite, copy or delete live config, SQL credentials, runtime data or beta.
-if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ]; then
-  echo "[MU PANIC] ERROR: Template destination must not be a symlink." >&2
+if [ ! -f "$TOS_SOURCE" ]; then
+  echo "[MU PANIC] ERROR: Terms module not found in overlay." >&2
+  exit 1
+fi
+
+# Production deploy intentionally excludes live config, SQL credentials,
+# runtime data and the /beta environment.
+if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ] || [ -L "$DEPLOY_ROOT/modules" ] || [ -L "$TOS_DEST" ]; then
+  echo "[MU PANIC] ERROR: Deployment destinations must not be symlinks." >&2
   exit 1
 fi
 
 if find "$TEMPLATE_SOURCE" -type l -print -quit | /bin/grep -q .; then
-  echo "[MU PANIC] ERROR: Symlinks are not allowed in the overlay." >&2
+  echo "[MU PANIC] ERROR: Symlinks are not allowed in the template overlay." >&2
   exit 1
 fi
 
@@ -35,7 +44,8 @@ if [ -d "$TEMPLATE_DEST" ] && find "$TEMPLATE_DEST" -type l -print -quit | /bin/
   exit 1
 fi
 
-mkdir -p "$TEMPLATE_DEST"
+mkdir -p "$TEMPLATE_DEST" "$DEPLOY_ROOT/modules"
 cp -a "$TEMPLATE_SOURCE/." "$TEMPLATE_DEST/"
+cp -a "$TOS_SOURCE" "$TOS_DEST"
 
-echo "[MU PANIC] Production template overlay deployed successfully."
+echo "[MU PANIC] Production overlay deployed successfully."
