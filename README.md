@@ -10,3 +10,6 @@ Base técnica: WebEngine CMS 1.2.7, adaptado para Louis UP43 / Season 6 y la bas
 
 ## Seguridad
 No subir credenciales, contraseñas SQL ni archivos de configuración con secretos al repositorio.
+
+## Atlas PANIC
+La guía pública `/info/` incluye mapas, spots, drops y progresión a partir de datos de balance confirmados por el administrador. Ver [fuentes, límites y actualización](docs/ATLAS-PANIC.md).
