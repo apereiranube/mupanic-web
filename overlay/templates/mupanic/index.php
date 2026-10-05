@@ -206,12 +206,14 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <?php } else { ?>
 
+<?php if($_REQUEST['page'] !== 'information') { ?>
 <section class="inner-hero">
     <div class="shell inner-head">
         <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : ($_REQUEST['page'] === 'usercp' ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
         <?php if($_REQUEST['page'] === 'profile') { ?><a class="profile-back" href="<?php echo __BASE_URL__; ?>rankings/">← Volver al ranking</a><?php } elseif($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] !== '') { ?><a href="<?php echo __BASE_URL__; ?>usercp/">← Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>">← Inicio</a><?php } ?>
     </div>
 </section>
+<?php } ?>
 
 <section class="inner-content">
     <div class="shell">
