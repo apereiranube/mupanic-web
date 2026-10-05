@@ -48,6 +48,8 @@ function panicAccountMenuItems() {
         $path = parse_url($link, PHP_URL_PATH) ?? '';
         $key = basename(rtrim($path, '/'));
         if(strpos($path, '/donation/') !== false) $key='donation';
+        // MU PANIC uses its own WCoin C recharge flow. Hide legacy WebEngine purchase modules.
+        if(in_array($key, ['donation','buycredits','buyzen'], true)) continue;
         $tool=$tools[$key] ?? ['title'=>strip_tags(lang($element['phrase'], true)), 'copy'=>'Abrí esta opción para consultar los detalles.', 'group'=>'Más opciones','icon'=>'shield'];
         $items[] = array_merge($tool, ['key'=>$key,'href'=>$link,'newtab'=>!empty($element['newtab'])]);
     }
