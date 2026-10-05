@@ -7,8 +7,9 @@ DEPLOY_ROOT="/home/mupanic/public_html"
 TEMPLATE_SOURCE="$SOURCE_ROOT/overlay/templates/mupanic"
 TEMPLATE_DEST="$DEPLOY_ROOT/templates/mupanic"
 
-TOS_SOURCE="$SOURCE_ROOT/overlay/modules/tos.php"
-TOS_DEST="$DEPLOY_ROOT/modules/tos.php"
+MODULE_SOURCE="$SOURCE_ROOT/overlay/modules"
+MODULE_DEST="$DEPLOY_ROOT/modules"
+LEGAL_MODULES=("tos.php" "privacy.php" "refunds.php")
 
 echo "[MU PANIC] Deploying production overlay..."
 
@@ -22,14 +23,16 @@ if [ ! -f "$TEMPLATE_SOURCE/index.php" ] || [ ! -f "$TEMPLATE_SOURCE/css/style.c
   exit 1
 fi
 
-if [ ! -f "$TOS_SOURCE" ]; then
-  echo "[MU PANIC] ERROR: Terms module not found in overlay." >&2
-  exit 1
-fi
+for module in "${LEGAL_MODULES[@]}"; do
+  if [ ! -f "$MODULE_SOURCE/$module" ]; then
+    echo "[MU PANIC] ERROR: Missing legal module: $module" >&2
+    exit 1
+  fi
+done
 
 # Production deploy intentionally excludes live config, SQL credentials,
 # runtime data and the /beta environment.
-if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ] || [ -L "$DEPLOY_ROOT/modules" ] || [ -L "$TOS_DEST" ]; then
+if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ] || [ -L "$DEPLOY_ROOT/modules" ]; then
   echo "[MU PANIC] ERROR: Deployment destinations must not be symlinks." >&2
   exit 1
 fi
@@ -44,8 +47,10 @@ if [ -d "$TEMPLATE_DEST" ] && find "$TEMPLATE_DEST" -type l -print -quit | /bin/
   exit 1
 fi
 
-mkdir -p "$TEMPLATE_DEST" "$DEPLOY_ROOT/modules"
+mkdir -p "$TEMPLATE_DEST" "$MODULE_DEST"
 cp -a "$TEMPLATE_SOURCE/." "$TEMPLATE_DEST/"
-cp -a "$TOS_SOURCE" "$TOS_DEST"
+for module in "${LEGAL_MODULES[@]}"; do
+  cp -a "$MODULE_SOURCE/$module" "$MODULE_DEST/$module"
+done
 
 echo "[MU PANIC] Production overlay deployed successfully."
