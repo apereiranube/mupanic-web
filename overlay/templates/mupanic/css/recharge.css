@@ -59,3 +59,7 @@
 @media(max-width:600px){.shop-admin-filters,.shop-editor-grid{grid-template-columns:minmax(0,1fr)}.shop-package-editor{padding:16px}.shop-admin-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.shop-management .recharge-order-value{align-items:flex-start}.shop-admin-badges>*{font-size:14px}.shop-management .recharge-order-top{gap:12px}.shop-management .recharge-section-head{align-items:flex-start}}
 
 .shop-package-fold{margin:14px 0;border:1px solid #c8ac88;background:#f7ead6}.shop-package-fold>summary{padding:18px;color:#68452f;font-weight:700;cursor:pointer;min-height:48px}.shop-package-fold>summary span{display:block;font-size:14px;font-weight:400;color:#765f4d;margin-top:5px}.shop-package-fold .shop-package-editor{margin:10px 14px 16px;border:0}
+
+.recharge-legal-note{margin:12px 0 0;color:#bda88f;font-size:12px;line-height:1.6}
+.is-account .recharge-legal-note a{color:inherit!important;text-decoration:underline;text-decoration-color:#9f714c;text-underline-offset:2px}
+.is-account .recharge-legal-note a:hover{color:#e2c19e!important}

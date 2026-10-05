@@ -269,6 +269,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <div><small>COMUNIDAD</small><a href="<?php echo htmlspecialchars($discordInvite, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a></div>
             <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a></div>
             <div><small>CUENTA</small><?php if($isLogged) { ?><a href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>register/">Crear cuenta</a><?php } ?><a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a></div>
+            <div><small>LEGAL</small><a href="<?php echo __BASE_URL__; ?>tos/">Términos y condiciones</a><a href="<?php echo __BASE_URL__; ?>privacy/">Privacidad</a><a href="<?php echo __BASE_URL__; ?>refunds/">Compras y reembolsos</a></div>
         </div>
     </div>
     <div class="shell footer-bottom"><span>© <?php echo date('Y'); ?> MU PANIC</span><span>MU Online y sus marcas pertenecen a sus respectivos titulares.</span></div>
