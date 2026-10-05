@@ -10,6 +10,18 @@ $onlinePlayers = isset($srvInfo[3]) && is_numeric($srvInfo[3]) ? max(0, (int)$sr
 
 if(!isset($_REQUEST['page'])) $_REQUEST['page'] = '';
 if(!isset($_REQUEST['subpage'])) $_REQUEST['subpage'] = '';
+
+// Legacy WebEngine purchase routes are intentionally disabled in MU PANIC.
+// Anyone opening an old/bookmarked URL is sent to the official WCoin C recharge flow.
+$legacyPurchaseRoute =
+    ($_REQUEST['page'] === 'donation') ||
+    ($_REQUEST['page'] === 'usercp' && in_array($_REQUEST['subpage'], ['buyzen','buycredits','donation'], true));
+
+if($legacyPurchaseRoute) {
+    $target = isLoggedIn() ? __BASE_URL__.'usercp/recharge/' : __BASE_URL__.'login/';
+    header('Location: '.$target, true, 302);
+    exit;
+}
 if($_REQUEST['page'] === 'usercp') {
     require_once(__DIR__.'/inc/account.php');
     $GLOBALS['lang'] = array_replace(is_array($GLOBALS['lang'] ?? null) ? $GLOBALS['lang'] : [], require(__DIR__.'/inc/account-locale.php'));
