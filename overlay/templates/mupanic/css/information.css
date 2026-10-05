@@ -7,7 +7,7 @@
 .is-server-info .footer-modern{margin-top:0}
 .server-landing-hero,.server-identity,.server-progression,.server-systems-new,.server-atlas-showcase,.server-events-new,.server-final-cta{position:relative;isolation:isolate;overflow:hidden}
 .server-landing-hero{min-height:calc(100svh - 74px);background:#0b1113}
-.server-landing-hero-art{position:absolute;inset:0;background-image:var(--server-hero);background-position:center;background-size:cover;transform:scale(1.015);animation:serverHeroBreathe 14s ease-in-out infinite alternate}
+.server-landing-hero-art{position:absolute;inset:0;background-image:var(--server-hero);background-position:right center;background-size:cover;background-repeat:no-repeat;transform:none;animation:serverHeroBreathe 14s ease-in-out infinite alternate}
 .server-landing-hero-shade{position:absolute;inset:0;background:linear-gradient(90deg,#091012f7 0%,#091012df 30%,#09101273 57%,#09101215 79%),linear-gradient(0deg,#091012f2 0%,transparent 28%,transparent 72%,#09101278)}
 .server-landing-hero-inner{position:relative;z-index:2;min-height:calc(100svh - 74px);display:flex;flex-direction:column;justify-content:center;padding-top:90px;padding-bottom:60px}
 .server-landing-kicker{position:absolute;top:54px;right:0;font-size:9px;letter-spacing:.24em;color:#cda176}
@@ -18,7 +18,7 @@
 .server-landing-copy>p{font-size:18px;line-height:1.85;color:#ccd1ce;max-width:650px;margin:0}
 .server-landing-actions{display:flex;align-items:center;gap:32px;flex-wrap:wrap;margin-top:34px}
 .server-landing-scroll{position:absolute;bottom:38px;right:0;font-size:8px;letter-spacing:.2em;color:#aeb7b4}
-@keyframes serverHeroBreathe{to{transform:scale(1.04) translate3d(-.5%,0,0)}}
+@keyframes serverHeroBreathe{from{filter:saturate(.94) brightness(.96)}to{filter:saturate(1.04) brightness(1.015)}}
 
 .server-identity{padding:120px 0;background:radial-gradient(ellipse at 82% 20%,#b7622a18,transparent 36%),linear-gradient(180deg,#0c1416,#10181a)}
 .server-identity:before,.server-systems-new:before,.server-events-new:before{content:'';position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,#db8d4d1c 0 1px,transparent 1.5px);background-size:52px 52px;opacity:.18;mask-image:linear-gradient(to bottom,transparent,#000 18%,#000 82%,transparent)}
@@ -109,7 +109,7 @@
 }
 @media(max-width:720px){
   .server-landing-hero{min-height:900px}
-  .server-landing-hero-art{background-position:67% center}
+  .server-landing-hero-art{background-position:70% center}
   .server-landing-hero-shade{background:linear-gradient(0deg,#091012fa 0%,#091012e2 38%,#09101249 72%)}
   .server-landing-hero-inner{min-height:900px;justify-content:end;padding:120px 0 80px}
   .server-landing-kicker{top:38px;left:0;right:auto}
