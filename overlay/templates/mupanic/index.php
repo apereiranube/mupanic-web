@@ -88,6 +88,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet">
+    <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>information.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/information.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>account.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/account.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
@@ -96,7 +97,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : '')))); ?>">
+<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ''))))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -111,7 +112,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
         <nav class="main-nav" id="main-navigation" aria-label="Navegación principal">
             <a href="<?php echo __BASE_URL__; ?>#continente">El continente</a>
-            <a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a>
+            <a href="<?php echo __BASE_URL__; ?>information/">El servidor</a>
+            <a href="<?php echo __BASE_URL__; ?>info/">Atlas</a>
             <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
             <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
             <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a>
@@ -165,83 +167,6 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <details class="hud-item hud-online"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('party'); ?></span><span class="hud-label">CONECTADOS</span><strong data-online-count><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers); ?></strong><small data-online-note><?php echo $onlinePlayers === null ? 'Sin datos disponibles' : 'Último registro del servidor'; ?></small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Conexiones registradas por el servidor. La lista de personajes proviene de un registro independiente y puede actualizarse en otro momento.</p><div class="online-roster" data-online-roster><?php if(count($onlineCharacters)) { foreach($onlineCharacters as $name) { ?><span><?php echo htmlspecialchars($name); ?></span><?php } } else { ?><p>La lista de personajes todavía no está disponible.</p><?php } ?></div></div></details>
         </div>
         <div class="hud-footer"><p role="status" data-status-message data-cache-time="<?php echo $cacheTime ?: ''; ?>"><span class="status-dot" aria-hidden="true"></span><?php echo $cacheTime ? 'Registro: '.gmdate('H:i', $cacheTime).' UTC' : 'Sin hora de registro disponible'; ?></p><button class="status-refresh" type="button">Actualizar registro <span aria-hidden="true">↻</span></button><a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC <span aria-hidden="true">↗</span></a></div>
-    </div>
-</section>
-
-<section class="panic-why" id="por-que-mu-panic" aria-labelledby="why-title">
-    <div class="shell">
-        <header class="section-intro systems-intro reveal">
-            <span class="eyebrow">HECHO PARA QUE CADA PASO IMPORTE</span>
-            <h2 id="why-title">¿Por qué<br><em>MU PANIC?</em></h2>
-            <p>No se trata de correr al último mapa. Se trata de tener algo que buscar, algo que guardar y una razón para volver.</p>
-        </header>
-        <div class="why-grid reveal">
-            <article><span>01</span><div><h3>Cada mapa tiene un propósito.</h3><p>Spots, Zen, joyas y objetivos se reparten por el continente para que avanzar también signifique elegir dónde jugar.</p></div></article>
-            <article><span>02</span><div><h3>El progreso tiene etapas.</h3><p>Reset, Master Reset y zonas de mayor exigencia construyen un recorrido que acompaña a tu personaje.</p></div></article>
-            <article><span>03</span><div><h3>Hay vida más allá del level.</h3><p>Logros, recompensas, ruleta, VIP, Jewel Bank y herramientas propias del cliente suman objetivos paralelos.</p></div></article>
-            <article><span>04</span><div><h3>Sabés dónde estás parado.</h3><p>Atlas PANIC reúne mapas, mobs, spots, drops y progresión para que puedas planear tu próximo objetivo.</p></div></article>
-        </div>
-    </div>
-</section>
-
-<section class="panic-systems" id="sistemas-panic" aria-labelledby="systems-title">
-    <div class="shell">
-        <header class="section-intro systems-intro reveal">
-            <span class="eyebrow">MÁS QUE SUBIR DE NIVEL</span>
-            <h2 id="systems-title">Sistemas que<br><em>te hacen volver.</em></h2>
-            <p>Nombres propios para objetivos reales dentro de MU PANIC. Cada uno suma una forma distinta de progresar, competir o preparar tu cuenta.</p>
-        </header>
-        <div class="panic-system-grid reveal">
-            <article class="panic-system-card">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('crest'); ?></span>
-                <small>PROGRESIÓN</small>
-                <h3>Crónicas del Conquistador</h3>
-                <p>Completá objetivos, acumulá hitos y convertí tu recorrido por el continente en una colección de logros.</p>
-            </article>
-            <article class="panic-system-card">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('sword'); ?></span>
-                <small>RECOMPENSAS</small>
-                <h3>Camino del Héroe</h3>
-                <p>Avanzá por una ruta de recompensas mientras jugás y sumá nuevos objetivos a tu progreso habitual.</p>
-            </article>
-            <article class="panic-system-card">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('party'); ?></span>
-                <small>CADA DÍA</small>
-                <h3>Tributo Diario</h3>
-                <p>Volvé, reclamá tu recompensa y mantené viva una cadena de beneficios pensada para acompañar tu cuenta.</p>
-            </article>
-            <article class="panic-system-card">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span>
-                <small>FORTUNA</small>
-                <h3>Fortuna del Caos</h3>
-                <p>Probá tu suerte con una selección de premios definida por el servidor y una mecánica pensada para WCoin C.</p>
-            </article>
-            <article class="panic-system-card">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span>
-                <small>INVENTARIO</small>
-                <h3>Bóveda de Joyas</h3>
-                <p>Guardá tus joyas en una reserva de cuenta y evitá cargar el inventario cada vez que preparás una mejora.</p>
-            </article>
-            <article class="panic-system-card">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('wings'); ?></span>
-                <small>MEMBRESÍA</small>
-                <h3>Sello Imperial</h3>
-                <p>Activá beneficios temporales de cuenta y consultá desde la web el estado de tu membresía VIP.</p>
-            </article>
-            <article class="panic-system-card">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('crest'); ?></span>
-                <small>DENTRO DEL JUEGO</small>
-                <h3>Portal PANIC</h3>
-                <p>Abrí el Hub con F11 y concentrá accesos, eventos, estadísticas y funciones del cliente en un solo lugar.</p>
-            </article>
-            <article class="panic-system-card panic-system-card-featured">
-                <span class="panic-system-icon" aria-hidden="true"><?php echo mupanicGlyph('wings'); ?></span>
-                <small>EXPLORACIÓN</small>
-                <h3>Atlas del Continente</h3>
-                <p>Consultá mapas, mobs, spots, drops y rutas de progresión antes de decidir cuál va a ser tu próxima conquista.</p>
-                <a href="<?php echo __BASE_URL__; ?>info/">Abrir Atlas PANIC <span aria-hidden="true">↗</span></a>
-            </article>
-        </div>
     </div>
 </section>
 
@@ -312,7 +237,9 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             </div>
         <?php } else { ?>
             <div class="module-surface"><?php
-                if($_REQUEST['page'] === 'info') {
+                if($_REQUEST['page'] === 'information') {
+                    include(__ROOT_DIR__.'modules/information.php');
+                } elseif($_REQUEST['page'] === 'info') {
                     include('inc/guide.php');
                 } elseif($_REQUEST['page'] === 'rankings') {
                     include(__DIR__.'/inc/rankings.php');
