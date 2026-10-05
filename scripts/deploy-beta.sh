@@ -47,7 +47,24 @@ if [ -d "$TEMPLATE_DEST" ] && find "$TEMPLATE_DEST" -type l -print -quit | /bin/
 fi
 
 mkdir -p "$TEMPLATE_DEST" "$MODULE_DEST"
+
+# Keep the approved hero artwork that is managed directly on the server.
+# This prevents Git deploys from restoring the older cropped source image.
+HERO_DEST="$TEMPLATE_DEST/img/knight-v6.webp"
+HERO_KEEP="/home/mupanic/.mupanic-beta-knight-v6.keep"
+HERO_PRESENT=0
+if [ -f "$HERO_DEST" ]; then
+  cp -a "$HERO_DEST" "$HERO_KEEP"
+  HERO_PRESENT=1
+fi
+
 cp -a "$TEMPLATE_SOURCE/." "$TEMPLATE_DEST/"
+
+if [ "$HERO_PRESENT" -eq 1 ] && [ -f "$HERO_KEEP" ]; then
+  cp -a "$HERO_KEEP" "$HERO_DEST"
+  rm -f "$HERO_KEEP"
+fi
+
 for module in "${LEGAL_MODULES[@]}"; do
   cp -a "$MODULE_SOURCE/$module" "$MODULE_DEST/$module"
 done
