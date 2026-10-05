@@ -447,3 +447,24 @@
   renderSaved();
   filterMaps(); filterDrops(); revealHash();
 })();
+
+;(function () {
+  if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var last = 0;
+  document.addEventListener('pointermove', function (event) {
+    var now = performance.now();
+    if (now - last < 34) return;
+    last = now;
+
+    var ember = document.createElement('span');
+    ember.className = 'cursor-ember';
+    ember.style.left = event.clientX + 'px';
+    ember.style.top = event.clientY + 'px';
+    ember.style.setProperty('--dx', ((Math.random() - 0.5) * 24).toFixed(1) + 'px');
+    ember.style.setProperty('--dy', (-10 - Math.random() * 22).toFixed(1) + 'px');
+    document.body.appendChild(ember);
+    window.setTimeout(function () { ember.remove(); }, 650);
+  }, {passive:true});
+})();
