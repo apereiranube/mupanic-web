@@ -2,6 +2,6 @@
 if(!defined('access') or !access) die();
 // Public invitation supplied by the server administrator; no bot credentials.
 return [
-    'invite' => 'https://discord.gg/NqrTCk3kQs',
+    'invite' => 'https://discord.gg/fP4Mxcsee',
     'guildId' => '1555229554920915057',
 ];
