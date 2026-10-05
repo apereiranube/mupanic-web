@@ -1,4 +1,4 @@
 ---
 deployment:
   tasks:
-    - /bin/bash scripts/deploy-beta.sh
+    - /bin/bash scripts/deploy-prod.sh
