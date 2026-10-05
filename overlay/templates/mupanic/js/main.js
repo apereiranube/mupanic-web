@@ -468,3 +468,54 @@
     window.setTimeout(function () { ember.remove(); }, 650);
   }, {passive:true});
 })();
+
+;(function () {
+  if (!document.body.classList.contains('is-home') && !document.body.classList.contains('is-server-info')) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var layer = document.createElement('div');
+  layer.className = 'ambient-embers';
+  layer.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(layer);
+
+  var mobile = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
+  var maxAlive = mobile ? 16 : 34;
+  var interval = mobile ? 520 : 280;
+
+  function spawnEmber(seed) {
+    if (!layer.isConnected || layer.childElementCount >= maxAlive) return;
+
+    var ember = document.createElement('i');
+    ember.className = 'ambient-ember' + (Math.random() > .68 ? ' is-soft' : '');
+
+    var size = (mobile ? 2.5 : 3) + Math.random() * (mobile ? 3.8 : 5.5);
+    var duration = 5.8 + Math.random() * 4.4;
+    var x = Math.random() * 100;
+    var drift = (Math.random() - .5) * (mobile ? 90 : 180);
+    var opacity = .24 + Math.random() * .48;
+    var blur = Math.random() > .76 ? .8 : 0;
+
+    ember.style.setProperty('--x', x.toFixed(2) + 'vw');
+    ember.style.setProperty('--size', size.toFixed(2) + 'px');
+    ember.style.setProperty('--duration', duration.toFixed(2) + 's');
+    ember.style.setProperty('--drift', drift.toFixed(1) + 'px');
+    ember.style.setProperty('--opacity', opacity.toFixed(2));
+    ember.style.setProperty('--blur', blur.toFixed(1) + 'px');
+
+    if (seed) {
+      ember.style.bottom = (Math.random() * 82 - 10).toFixed(1) + 'vh';
+      ember.style.animationDelay = (-Math.random() * duration).toFixed(2) + 's';
+    }
+
+    layer.appendChild(ember);
+    window.setTimeout(function () { ember.remove(); }, (duration + 1.2) * 1000);
+  }
+
+  for (var i = 0; i < (mobile ? 8 : 18); i++) spawnEmber(true);
+  var timer = window.setInterval(function () {
+    spawnEmber(false);
+    if (!mobile && Math.random() > .72) spawnEmber(false);
+  }, interval);
+
+  window.addEventListener('pagehide', function () { window.clearInterval(timer); }, {once:true});
+})();
