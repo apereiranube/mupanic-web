@@ -147,3 +147,18 @@
   .main-nav.open .nav-main-link:after{left:0;right:auto;width:42px;bottom:4px}
   .main-nav.open .nav-discord{margin-left:0}
 }
+
+/* Ambient rising embers on the cinematic Home and El servidor pages. */
+.ambient-embers{position:fixed;inset:0;z-index:24;pointer-events:none;overflow:hidden;contain:strict}
+.ambient-ember{position:absolute;left:var(--x);bottom:-24px;width:var(--size);height:var(--size);border-radius:50%;opacity:0;background:radial-gradient(circle,#ffe0b6 0 12%,#f3a45f 26%,#d7652e 50%,#8f2d16 68%,transparent 76%);box-shadow:0 0 calc(var(--size) * 2.2) #d86d34aa,0 0 calc(var(--size) * 4) #8f351d44;filter:blur(var(--blur));animation:ambient-ember-rise var(--duration) linear forwards;will-change:transform,opacity}
+.ambient-ember.is-soft{background:radial-gradient(circle,#efbb7b 0 15%,#b65b2f 46%,transparent 74%);box-shadow:0 0 calc(var(--size) * 2) #c569355e}
+@keyframes ambient-ember-rise{
+  0%{opacity:0;transform:translate3d(0,0,0) scale(.6)}
+  8%{opacity:var(--opacity)}
+  70%{opacity:calc(var(--opacity) * .85)}
+  100%{opacity:0;transform:translate3d(var(--drift),calc(-100vh - 90px),0) scale(.15)}
+}
+@media(max-width:700px){
+  .ambient-ember{box-shadow:0 0 calc(var(--size) * 1.6) #d86d3470}
+}
+@media(prefers-reduced-motion:reduce){.ambient-embers{display:none!important}}
