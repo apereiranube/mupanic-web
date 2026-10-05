@@ -7,8 +7,8 @@ function mupanicPageTitle($page, $subpage = '') {
         if(isset($tools[$subpage])) return $tools[$subpage]['title'];
     }
     $map = array(
-        'information' => 'Guías y sistemas',
-        'info' => 'Atlas PANIC',
+        'information' => 'El servidor',
+        'info' => 'Atlas',
         'downloads' => 'Descargas',
         'rankings' => 'Rankings',
         'profile' => $subpage === 'guild' ? 'Perfil de guild' : 'Perfil de personaje',
