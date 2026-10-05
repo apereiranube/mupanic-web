@@ -55,6 +55,18 @@
 .server-system-cards small{display:block;color:#c48656;font-size:9px;letter-spacing:.19em;margin-bottom:12px}
 .server-system-cards h3{font:500 29px/1.02 var(--display);text-transform:uppercase;color:#f0e6d8;margin:0 0 13px}
 .server-system-cards p{font-size:14px;line-height:1.75;color:#adb7b4;margin:0}
+.server-system-details{margin-top:22px;border-top:1px solid #bd7c4e2e}
+.server-system-details>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:48px;padding:14px 0 0;cursor:pointer;list-style:none;color:#d8a273;font-size:12px;font-weight:700;letter-spacing:.02em}
+.server-system-details>summary::-webkit-details-marker{display:none}
+.server-system-details>summary span{font-size:17px;transition:transform .18s}
+.server-system-details[open]>summary span{transform:rotate(90deg)}
+.server-system-details>div{padding:14px 0 2px}
+.server-system-details dl{display:grid;grid-template-columns:96px 1fr;gap:8px 14px;margin:0;padding:14px;background:#0b1113a8;border:1px solid #bd7c4e26}
+.server-system-details dt{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#c48656}
+.server-system-details dd{margin:0;font-size:12px;line-height:1.65;color:#c2cac7}
+.server-system-details-featured{max-width:470px}
+.server-system-details-featured dl{grid-template-columns:110px 1fr;background:#0b11136e}
+.server-system-cards article:has(.server-system-details[open]){border-color:#ce8f5f70;background:linear-gradient(155deg,#182326,#111719)}
 
 .server-atlas-showcase{min-height:820px;background:#0b1113;display:flex;align-items:center}
 .server-atlas-background{position:absolute;inset:0}
@@ -92,8 +104,7 @@
   .server-section-heading{grid-template-columns:1fr;gap:18px}
   .server-system-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media(max-width:720px){            {font-size:clamp(66px,20vw,108px)}
-  {font-size:16px}
+@media(max-width:720px){
     .server-identity,.server-systems-new,.server-events-new{padding:72px 0}
   .server-identity-layout{gap:36px}
   .server-identity-copy h2,.server-progression-copy h2,.server-section-heading h2,.server-atlas-content h2,.server-final-content h2{font-size:58px}
