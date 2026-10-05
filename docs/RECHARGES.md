@@ -1,0 +1,507 @@
+## Estado actual — panel privado de tienda (2/10/2026)
+
+La entrega automática de sandbox quedó confirmada por el administrador en dos
+cuentas: louismk (20.000 WCoin C) y panic (10.000 WCoin C). Se conserva el piloto
+anterior, sus recibos y todos los saldos. Las correcciones anteriores de SQL usan
+restricciones de tabla y EXECUTE AS CALLER; no cambian propietario de la base.
+
+El panel `/usercp/shopadmin/` exige sesión de la cuenta exacta `panic` y su presencia
+en `config('admins', true)` del CMS. Se oculta del menú de otras cuentas y responde
+403 ante acceso directo. Los cambios de catálogo requieren CSRF y una revisión
+vigente para evitar sobrescribir cambios desde otra ventana.
+
+Permite crear hasta 12 paquetes, modificar nombres y monedas, ordenarlos,
+ocultarlos, destacarlos y programar bonificaciones con fechas argentinas. Mantiene
+la equivalencia $1 ARS = 1 WCoin C base. Las cantidades multiplican el bono por
+paquete; el límite es 1.000.000 de monedas totales y $1.000.000 por compra. Cada
+orden guarda sus líneas, precio y monedas; editar ofertas no modifica compras.
+El registro permite buscar cuenta, orden o pago y filtrar ambiente/estado. La
+consulta manual siempre hace GET canónico a Ualá; no hay botón para aprobar ni
+acreditar saldos arbitrarios.
+
+Catálogo y estado del servicio se guardan fuera de public_html, en
+`/home/mupanic/payments-private/recharge-catalogue.json` y
+`recharge-worker-status.json`, con bloqueos estables y permisos 600. Nunca se
+muestran tokens, credenciales ni errores SQL en el panel.
+
+Desplegar primero la web; luego actualizar `tools/recharge_worker.ps1` en el VPS
+con `-Install` y arrancar la tarea existente. La actualización conserva el token,
+las órdenes y los recibos. No requiere volver a subir el token ni recrear la tarea.
+El servicio versión 2 informa contacto, ejecución correcta, espera por desconexión
+y errores. Hasta recibir una ejecución correcta reciente de esta versión, los
+bonos configurados no se ofrecen. El worker anterior continúa procesando compras
+sin bonos; nunca recibe compras bonificadas que su esquema no admite. El SQL de
+instalación y su copia en PowerShell son idénticos; la migración de la restricción
+de precio verifica los recibos existentes y permite precio base + bonus sin
+reacreditar compras. La operación en Windows/SQL deberá verificarse con -Status.
+
+El panel VIP consulta AccountLevel y AccountExpireDate de panic sin modificarlos.
+La versión 2 busca parámetros con Vip en los archivos Common/Command de GS y CS,
+y envía únicamente nombres y valores simples de esa configuración, sin rutas ni
+credenciales. Detecta también si existe el archivo del módulo VIP estándar de la
+web. No se habilita venta directa de VIP: faltan confirmar planes, beneficios,
+costos, vencimiento y reglas de renovación/cambio de nivel con la configuración
+real del servidor. No se inventan planes ni se alteran membresías.
+
+Las compras muestran fecha mediante America/Argentina/Buenos_Aires, convirtiendo
+UTC una sola vez. Producción sigue requiriendo habilitación y verificación explícita;
+la configuración existente de prueba se conserva.
+
+Validación local: suites PHP de pagos, órdenes, exclusividad/revocación del admin,
+catálogo/revisión, promociones, recibos con bonos, reloj argentino y firmas. Navegador
+a 1440/1024/390 px para tienda y panel: sin desbordes y formularios accesibles.
+No se ejecutó PowerShell/SQL Server en este entorno Linux ni se realizaron pagos.
+
+---
+
+# MU PANIC: recargas de WCoin C
+
+## Estado actual · tienda con cantidades (1/10/2026)
+
+La tienda ya tiene carrito mixto (0–99 unidades por paquete, hasta $1.000.000
+por compra), resumen calculado en cliente y servidor, órdenes privadas,
+historial por cuenta y actualización automática de estados. Cualquier cuenta
+puede simular la experiencia completa con las credenciales actuales de Ualá
+`environment: test`. La interfaz del jugador es la definitiva; el ambiente se
+muestra solo en administración, según lo solicitado por Agustín.
+
+La prueba anterior de $1.000 entregó 1000 WCoin C a `pruebacoin`: VPS confirmó
+11 → 1011; el cliente mostró 1011 y la web confirmó la entrega. Esto valida el
+piloto previo, no la nueva tarea de múltiples compras, que requiere instalarse
+y probarse en Windows/SQL. Las compras reales siguen cerradas.
+
+### Instalar la entrega automática nueva
+
+1. Desplegar HEAD desde cPanel y actualizar el navegador.
+2. Descargar `tools/recharge_worker.ps1` al Desktop del VPS y ejecutar `-Install`
+   desde PowerShell como administrador. Instala exclusivamente en MuOnline43
+   tabla `MUPanicRechargeDeliveries` y procedimientos de entrega/ack; no suma
+   monedas durante instalación. Guarda el script en
+   `C:\MuServer43\RechargeSync\recharge_worker.ps1`, configuración local sin
+   credenciales en PaymentsPrivate y un token nuevo separado del piloto.
+3. Subir el archivo Desktop `recharge-worker-token` a
+   `/home/mupanic/payments-private/recharge-worker-token` con permiso 600.
+   Conservar `sandbox-worker-token` y el historial anterior.
+4. Ejecutar el script instalado con `-InstallTask`. Crea la tarea SYSTEM
+   `MU PANIC Recharge Worker` cada minuto, sin ejecuciones superpuestas.
+   No requiere mantener PowerShell abierto. SYSTEM recibe acceso solo a los
+   procedimientos de entrega/ack y lectura del registro de entregas; no se
+   agrega a sysadmin. Los permisos que ya tuviera antes no se eliminan.
+5. Consultar `-Status` y realizar una compra pequeña con cualquier cuenta y
+   tarjeta de prueba. Luego probar cantidades mixtas, cuenta online y reinicio.
+   Si la cuenta nunca entró al juego, entrar una vez para crear sus registros
+   de conexión y wallet y después desconectarse para recibir la entrega.
+
+### Contrato y recuperación
+
+- Cuenta de destino tomada de sesión; precios, monedas y líneas salen del
+  catálogo del servidor, no del navegador. La equivalencia se valida a 1:1.
+- Nonce de checkout, reserva durable previa al POST, snapshot del merchant y
+  control de cinco compras abiertas por cuenta. Repetir un nonce nunca crea
+  otro checkout; cambiar su carrito se rechaza. Un timeout de creación conserva
+  la orden y exige revisión del equipo; no hay reintento ciego de creación.
+- Ledger privado de archivos: bloqueo estable y escritura temporal + fsync +
+  rename. Límite 5000 órdenes / 8 MB; al llegar se cierran nuevas compras sin
+  borrar historial. Planificar migración a almacenamiento de mayor capacidad
+  antes del crecimiento. Historial paginado de 10; administración ve últimas 10.
+- Webhook con capacidad única por orden; cuerpo solo es una pista. Toda entrega
+  exige un GET autenticado fresco que confirme ID, referencia, merchant,
+  importe y ambiente. Un fallo del GET no despacha aprobaciones cacheadas.
+- Bridge HMAC de solicitud (timestamp ±300 s) y respuesta vinculada al nonce.
+  El token nuevo queda fuera de public_html. Poll procesa hasta tres candidatos
+  por ejecución, con turnos por última consulta. El estado público solo lee
+  compras de la cuenta autenticada; no consulta Ualá en segundo plano.
+- Procedimiento SQL: transacción, bloqueo por cuenta, control de offline y saldo,
+  WZ_SetCoin sin tocar WCoinP/GoblinPoint, validación de delta y registro único
+  por orden y por (ambiente, proveedor, pago). Cuenta online o estado desconocido
+  queda pendiente y se reintenta. No borra filas para permitir reacreditar.
+- SQL commit precede HTTP ack. Antes de cada poll se reenvían recibos no
+  confirmados; pérdida de red o reinicio no repite el incremento. Revisiones o
+  reembolsos posteriores mantienen el historial; no descuentan automáticamente
+  monedas gastadas.
+- El piloto de pruebacoin usa otra tabla/token y no se importa ni acredita otra
+  vez al instalar el servicio nuevo.
+
+### Producción
+
+Mantener por ahora `environment: test`, `sales_enabled: false` y credenciales de
+prueba. No hay que editar la configuración actual para probar todas las cuentas.
+El paso futuro a producción necesita verificar importes y host del checkout
+real, configurar `recharges.production_verified: true`, la unidad confirmada
+`recharges.amount_unit: ARS|centavos`, `sales_enabled: true`, credenciales reales
+y ambiente local production. Estas opciones no están activadas en este cambio.
+No se deducen las unidades de producción de la prueba de sandbox.
+
+### Validación de esta entrega
+
+PHP: `tests/recharge-orders.php` (carrito mixto, cuentas, propiedad, concurrencia,
+nonce, snapshot de comercio, importe, refund/review, caída con aprobación previa,
+recibos e HMAC) y regresiones del piloto/conector/wallet/dominio.
+Navegador: `tests/recharge-shop-browser.cjs`, Playwright, fixture PHP renderizada,
+1440/1024/390 px: totales, límites, controles táctiles, actualización automática
+con ocultamiento del enlace pagado y ausencia de desbordamiento. Usa `PHP_BIN`
+y opcional `CHROME_BIN`; `RECHARGE_SCREENSHOT_DIR` genera capturas de QA.
+El instalador PowerShell y procedimientos SQL se revisaron, pero no se ejecutaron
+en este entorno Linux; su instalación efectiva se confirma con la salida del VPS.
+
+---
+
+## Etapas anteriores (registro histórico)
+
+## Decisiones confirmadas
+
+- Moneda: WCoin C para la cuenta del juego, no créditos genéricos de WebEngine.
+- Ualá Bis será la pasarela principal, decisión de Agustín del 1/10/2026. Credenciales disponibles según lo informado; conector v2 preparado, cobros todavía no habilitados. Documentación oficial: https://developers.ualabis.com.ar/.
+- Mobbex queda como alternativa. Alta solicitada por Agustín; espera informada de 72 horas.
+- MercadoPago queda opcional y desactivado. Nunca mostrarlo como disponible sin activación expresa.
+- Equivalencia confirmada el 1/10/2026: $1 ARS = 1 WCoin C (100 centavos por moneda), sin bonos por ahora. Paquetes aprobados: $1.000, $3.000, $5.000, $10.000 y $20.000 ARS, entregando respectivamente 1.000, 3.000, 5.000, 10.000 y 20.000 WCoin C. Visibles como disponibles próximamente; compras deshabilitadas. La equivalencia se guarda como enteros en `exchange_rate`; el futuro checkout debe aplicarla al crear los paquetes y preservar el importe y las monedas en cada orden.
+- Autenticación Ualá Bis de prueba confirmada por captura del administrador el 1/10/2026. No se creó ningún cobro ni se acreditaron monedas con esa comprobación.
+- Primera etapa: vender monedas; los productos se compran en el Cash Shop del cliente.
+
+## Primera entrega (preparación, no sistema habilitado para cobrar)
+
+`usercp/recharge/` es una página privada integrada al panel existente, con arte MU,
+paleta cobre, cuenta de destino, paquetes, explicación y sección Mis compras.
+Actualmente muestra preparación y explica los estados; NO muestra un historial ficticio.
+No tiene formularios de compra, llamadas API, saldo simulado ni endpoint de pago.
+El catálogo público `inc/recharge-config.php` permite preparar paquetes con
+`id`, `title`, `price_cents`, `coins`, `bonus`. Aunque se carguen, siguen sin poder comprarse.
+No agregar secretos a ese archivo ni al repositorio. No se reemplaza la donación
+legacy ni se habilitan sus métodos mediante este cambio.
+
+`inc/recharge-domain.php` implementa importes en centavos, validación de paquetes,
+identificadores aleatorios y órdenes que guardan el precio/cantidad originales.
+Valida proveedor, operación, referencia, comercio receptor, moneda, importe y
+ambiente. Un pago de prueba nunca genera una entrega real. Devoluciones, pagos
+parciales, estados desconocidos y discrepancias requieren revisión.
+Pago aprobado y entrega acreditada son estados diferentes.
+
+`inc/recharge-providers.php` contiene adaptadores PHP para crear checkout y
+consultar pagos por API de Mobbex y MercadoPago, con transporte HTTPS y pruebas
+inyectables. El reconciliador consulta al proveedor: jamás toma como prueba de
+pago una URL de regreso ni el contenido de un webhook. No están conectados a
+endpoints públicos ni a una base de órdenes en esta entrega.
+
+La respuesta autenticada de Mobbex debe incluir la identidad del comercio;
+el adaptador falla si no está presente en `data.transaction.entity.uid`.
+La documentación pública de consulta tiene ejemplos parciales e inconsistentes
+(encabezado GET operations y ejemplo antiguo POST transactions/status).
+Hay que validar el contrato real con Mobbex y ejemplos de prueba antes de activar.
+El estado Mobbex 200 es paga; autorizada, retenida o aceptada sin pago no habilitan
+entrega. Otros estados positivos posteriores se dejan en revisión hasta homologar.
+
+## Siguiente entrega: persistencia y administración
+
+Auditoría recibida: `MU_PANIC_WALLET_AUDIT_20261001_163845.json`, solo metadatos,
+base MuOnline43, 1/10/2026 19:38:45 UTC. Se confirmó:
+
+| Uso | Tabla / columna | Tipo y clave |
+| --- | --- | --- |
+| WCoin C | dbo.CashShopData.WCoinC | int NOT NULL |
+| Cuenta del saldo | dbo.CashShopData.AccountID | varchar(10), PK única PK_TempCashShop |
+| Otras monedas, no tocar | WCoinP / GoblinPoint | int NOT NULL |
+| Estado de conexión | dbo.MEMB_STAT.ConnectStat | tinyint nullable; no asumir NULL = desconectado |
+| Cuenta de conexión | dbo.MEMB_STAT.memb___id | varchar(10), PK única |
+
+El segundo informe, `MU_PANIC_WALLET_AUDIT_20261001_164526.json`, incluye
+`dbo.WZ_SetCoin`: suma @Value1 a WCoinC, @Value2 a WCoinP y @Value3 a
+GoblinPoint para AccountID=@Account. @Name se declara pero no se usa.
+No crea filas faltantes, no comprueba que se haya actualizado una cuenta y
+no registra una entrega única. No contiene una notificación al GameServer.
+Activa XACT_ABORT al entrar y lo desactiva al salir: cualquier wrapper debe
+reestablecerlo y manejar transacción/rollback explícitamente.
+Esto verifica el SQL, no la caché ni el refresco del cliente.
+
+### Prueba autorizada: pruebacoin
+
+Agustín eligió `pruebacoin` para la prueba. `tools/test_coin_delivery.ps1`
+consulta únicamente esa cuenta y la base MuOnline43. Por defecto solo lee.
+Con `-AddOneCoin` suma exactamente una WCoin C usando el procedimiento auditado:
+requiere fila de saldo existente y ConnectStat=1, toma locks, comprueba el
+incremento y que WCoinP/GoblinPoint no cambien, y hace rollback ante error SQL.
+No crea cuentas/filas ni modifica procedimientos ni procesos del servidor.
+
+Antes de sumar, reserva un archivo local con CreateNew y lo fuerza a disco,
+en `C:\MuServer43\PaymentsPrivate\pruebacoin-one-coin-test.json`. El archivo
+bloquea una segunda ejecución de la suma en ese VPS/ruta. Si hay timeout o corte
+queda reservado: no borrar ni repetir hasta revisar el resultado. Esto es una
+protección de la prueba, NO el ledger durable de recargas de producción.
+
+Procedimiento de observación: entrar con pruebacoin, abrir Cash Shop y anotar
+WCoin C; ejecutar una vez con -AddOneCoin; cerrar/reabrir la tienda; salir por
+completo de la cuenta y volver a entrar; ejecutar sin -AddOneCoin para consultar
+SQL después de salir. No gastar, comprar ni obtener recompensas durante la
+prueba. Comparar SQL antes/después y saldo visible en el cliente. No prometer
+actualización instantánea hasta completar esta prueba.
+
+Prueba completada por Agustín el 1/10/2026: Cash Shop mostró 1 WCoin C,
+consulta posterior con ConnectStat=0 mostró WCoinC=1 y el usuario confirmó
+que siguió mostrando 1 al volver a entrar. Evidencia de persistencia para esa
+cuenta/prueba; no demuestra concurrencia, entrega masiva ni ausencia de toda
+posible carrera con el GameServer. No repetir ni eliminar el marcador de prueba.
+
+### Conector Ualá Bis v2 y configuración privada
+
+`inc/recharge-uala.php` genera tokens con username/client_id/client_secret_id,
+usa los hosts oficiales separados para test/production y consulta órdenes por
+GET autorizado. El dominio guarda centavos enteros; el sandbox recibe y devuelve pesos, normalizados al leer. Las unidades de producción siguen pendientes de verificar. Solo APPROVED
+puede habilitar una entrega; PROCESSED (y PROCCESED en ejemplos oficiales) sigue
+pendiente. Estados desconocidos y devoluciones requieren revisión.
+El GET omite comercio/moneda/ambiente: se derivan del scope autenticado del
+client_id y del host de Argentina, no de un webhook. Antes de producción hay
+que probar acceso a órdenes ajenas (debe denegarse), referencias/importe y
+guardar UUID de checkout en el intento antes de aceptar aprobación.
+
+`examples/uala-settings.example.json` contiene solo placeholders. Copiarlo
+como `/home/mupanic/payments-private/settings.json`, fuera de public_html,
+permisos 0600, directorio 0700. Nunca subir valores reales al repositorio/chat.
+Usar environment test con credenciales de prueba; production solo si las claves
+recibidas corresponden a producción. sales_enabled debe quedar false: el loader
+rechaza true en esta etapa. El archivo aún no habilita checkout en la página.
+El adaptador conserva el token solo en memoria y no devuelve su valor al cliente.
+
+Después de desplegar, cPanel Terminal puede ejecutar:
+`php /home/mupanic/public_html/beta/templates/mupanic/bin/check-uala.php`
+Este comando verifica únicamente autenticación y devuelve estado/ambiente,
+nunca tokens ni cuerpos API. Se niega a ejecutarse por HTTP. No crea órdenes,
+cobra dinero ni acredita WCoin. Falta verificarlo con las credenciales reales.
+
+Pruebas locales en `tests/recharge-uala.php` con credenciales ficticias y sin
+red: autenticación, reutilización de token, centavos, ambiente, estados, límites
+y rechazo de placeholders. Ledger, webhook, historial real y panel de paquetes
+siguen pendientes. Los cinco paquetes y la equivalencia fueron definidos; todavía no se habilitaron compras.
+
+`inc/recharge-wallet.php` consulta WCoinC de la cuenta de sesión con SQL
+parametrizado y base física fija MuOnline43. El saldo es una lectura al cargar;
+no prueba que el cliente muestre lo mismo en ese instante. Cuenta sin fila,
+error de conexión o valor inválido se muestran como No disponible, nunca 0.
+Un 0 válido se muestra como tal. No cambia saldos ni ejecuta WZ_SetCoin.
+
+
+1. Obtener esquema con `tools/audit_wallet.ps1` (solo lectura, MuOnline43).
+   Verificar tabla y columna reales de WCoin C, clave única de cuenta, tipo,
+   límites y procedimientos del Cash Shop. No usar la vieja base MuOnline.
+2. Comprobar en una cuenta de prueba el comportamiento conectado/desconectado:
+   caché de saldo del GameServer, refresco y si sobrescribe cambios al salir.
+   La auditoría de esquema por sí sola NO demuestra cómo funciona esa caché.
+3. Implementar ledger persistente de órdenes/pagos y outbox de entregas.
+   El contrato `PanicRechargeLedger` exige transacción, locks, revalidación y
+   unicidad global `(provider,payment_id)`; no incluye una implementación real aún.
+4. Implementar un mecanismo de entrega que el servidor admita. Registro de
+   entrega y modificación de saldo deben compartir transacción, o usar un
+   receptor idempotente en el VPS con recibo durable. No incrementar por HTTP
+   y marcar luego en otra base: un corte duplicaría monedas.
+5. Formulario con cuenta tomada de sesión, CSRF, límites por usuario y creación
+   idempotente. Primero persistir orden/attempt; después solicitar checkout.
+   Un timeout del proveedor necesita conciliación, no una nueva orden ciega.
+6. Integrar primero Ualá Bis usando su documentación oficial v2 y validar sus
+   notificaciones mediante consulta autenticada de la orden. Mobbex queda para
+   una conexión posterior; MercadoPago usa su
+   firma oficial cuando se habilite. Verificar mediante GET del proveedor antes
+   de registrar aprobación. Los eventos se guardan de forma durable y se
+   procesan/reintentan sin depender de que el jugador mantenga abierta la web.
+7. Conciliación programada de pagos pendientes y trabajos de entrega fallidos.
+   No depender exclusivamente del webhook. Reembolsos/contracargos crean un caso
+   de revisión; no descontar automáticamente monedas ya gastadas.
+8. Historial real por sesión; administración con roles del CMS y CSRF para
+   paquetes, disponibilidad, bonos y casos de revisión. Auditoría de cambios.
+   Definir expiración de bonos y conservar el snapshot de compras anteriores.
+9. Ualá Bis en entorno de prueba, aprobación, rechazo, retorno abandonado, webhook repetido,
+   eventos fuera de orden, importe alterado, proveedor caído y corte durante
+   entrega. Luego una compra real pequeña y activación explícita.
+
+## Alcance del futuro panel
+
+El primer panel administra recargas: pesos, WCoin, bonos, orden y visibilidad.
+No modifica productos del cliente. Administrar el Cash Shop del juego es otra
+integración: ya se usó un editor que genera archivos Server y Client. Hay que
+validar ambos formatos, respaldos y distribución del cliente antes de publicar.
+Una tienda de ítems en la web necesita además entrega de objetos, inventario,
+opciones legales de cada ítem y control de duplicados; no forma parte de recargas.
+
+## Credenciales y publicación
+
+Guardar claves en un archivo privado fuera de `public_html`, con permisos
+restringidos, o variables de entorno del hosting. Separar sandbox/producción.
+Nunca pedir que se peguen tokens en el chat. No usar el token del Atlas.
+El despliegue sigue siendo solo template: no instala tablas, tareas ni cambia
+configuración del CMS. Desplegar esta entrega no habilita cobros.
+
+## Fuentes oficiales consultadas el 1/10/2026
+
+- https://mobbex.dev/checkout
+- https://mobbex.dev/consulta-de-operaciones-y-childs
+- https://mobbex.dev/webhooks
+- https://mobbex.dev/codigos-de-estado
+- https://www.mercadopago.com.ar/developers/es/docs/checkout-pro-preferences/payment-notifications
+
+## Validación local
+
+Pruebas del dominio y adaptadores en `tests/recharges.php`, sin credenciales ni
+operaciones reales. Casos de importes, snapshots, ambiente, recepción correcta,
+suplantación, devolución, respuestas incompletas y pagos repetidos.
+Las pruebas de replay usan un ledger de memoria: NO prueban concurrencia SQL,
+persistencia tras reinicio, acreditación real ni homologación con las pasarelas.
+
+La página se renderizó localmente en Chromium a 1440 y 390 px: sin desborde
+horizontal, preguntas desplegables funcionando y sin controles para pagar.
+También se verificó acceso bloqueado para invitados y regresión de las 12
+vistas existentes de cuenta, incluidos los datos originales de sus formularios.
+El script de auditoría está revisado como solo lectura; falta ejecutarlo en
+Windows/SQL Server. No se probó contra el VPS desde este entorno.
+# Browser authentication check without cPanel Terminal
+
+`usercp/recharge/` displays a test authentication button only for logged-in accounts present in the existing WebEngine `admins` configuration. No administrator account is hardcoded or granted new permissions. POST requires a session CSRF token and allows one attempt per minute per session; GET never calls Ualá. It reads the existing private settings file, requires `environment: test` and disabled sales, and calls authentication only. Credentials, tokens and provider exception messages are never rendered. Deployment still requires cPanel Update from Remote and Deploy HEAD Commit. `tests/recharge-check.php` covers guest/player denial, CSRF, throttling, safe errors and admin rendering; gateway behavior remains covered by mocked adapter tests.
+
+## Compra piloto con pago simulado y monedas reales (autorizada 1/10/2026)
+
+Agustín autorizó probar el circuito con monedas reales antes del lanzamiento.
+Esta excepción es **una sola compra Ualá de test de $1.000 ARS, por 1.000 WCoin C,
+exclusivamente para `pruebacoin`**. No habilita ventas, otros paquetes ni otras
+cuentas. El reconciliador general sigue rechazando entregas reales de sandbox.
+
+La creación está reservada a administradores WebEngine autenticados, mediante
+POST con CSRF. `recharge-pilot.php` guarda una reserva antes de llamar a Ualá;
+un error ambiguo conserva esa reserva y no crea otro checkout al reintentar.
+Estado privado `payments-private/uala-pilot.json`, archivo 600 y lock estable:
+flock más reemplazo atómico de JSON. No borrar ni restaurar una versión vieja.
+El enlace de checkout debe ser HTTPS en un dominio Ualá permitido; el importe,
+UUID y referencia se verifican. `uala-pilot-hook.php` usa una capacidad aleatoria
+por orden, ignora el estado del POST y consulta el UUID almacenado con el token
+Ualá. El worker vuelve a consultar Ualá antes de ofrecer el trabajo. Estado
+APPROVED y coincidencias de importe, referencia, entorno y merchant son
+obligatorios. PROCESSED queda pendiente; contradicciones requieren revisión.
+La prueba vence a los siete días si no fue entregada.
+
+El puente `uala-pilot-worker.php` exige HMAC-SHA256 de timestamp y body, ventana
+de cinco minutos, TLS y límite de tamaño. Respuestas firmadas incluyen un nonce
+único por petición para impedir aceptar una respuesta de otra consulta. El
+secreto independiente `sandbox-worker-token` es generado en el VPS, se copia
+privadamente a cPanel y no se muestra en el panel ni se guarda en GitHub. No
+reutiliza el token Atlas, claves Ualá ni contraseñas SQL.
+
+`tools/test_uala_pilot.ps1` conecta localmente a **MuOnline43**. `-Install` crea
+únicamente la tabla `dbo.MUPanicUalaSandboxPilot` y un token de prueba; no suma
+monedas. Sin opciones consulta el saldo. `-Run` consulta la orden y entrega
+solo si pruebacoin está **desconectada** (ConnectStat=0, NULL no se acepta), para
+evitar que una sesión con saldo en memoria sobrescriba la prueba. `-Run
+-WatchSeconds 900` observa hasta 15 minutos; es un proceso temporal, no una
+tarea permanente. Salir y reejecutar es seguro porque el registro vive en SQL.
+
+SQL toma un applock exclusivo y usa una transacción para `WZ_SetCoin` + registro
+de entrega. Una fila singleton, claves únicas de orden/pago y cantidades fijas
+impiden una segunda acreditación aun con dos workers o tras perder la respuesta
+HTTP. Se comprueba el delta de WCoin C y que WCoin P/Goblin Points no cambien;
+fallos revierten la transacción. La respuesta web se reconoce solo tras COMMIT.
+Si ese reconocimiento falla, la siguiente ejecución envía el recibo SQL sin
+sumar monedas. No se inserta una billetera faltante.
+
+`-Revert` retira exactamente 1.000 WCoin C una vez, exige cuenta offline y saldo
+suficiente, y marca el registro como revertido en la misma transacción. Conserva
+la moneda de la prueba anterior y otros cambios de saldo; no restaura un saldo
+antiguo ni elimina el historial. También reconoce la reversión en la web. No
+borrar la tabla ni sus registros para "reiniciar" la prueba. Antes de producción
+deshabilitar este piloto retirando `sandbox-worker-token` del hosting y no
+ejecutar más el worker. Se conservan los comprobantes privados y SQL.
+
+Validación local: pruebas de aprobación auténtica con API simulada, importes y
+entornos incorrectos, CSRF/admin, replay, excepción ambigua, dos procesos PHP
+creando simultáneamente un solo checkout, persistencia y recibos de reversión.
+No se ejecutó PowerShell/SQL Server contra el VPS ni se realizó un pago Ualá
+desde este entorno. La prueba completa queda pendiente de despliegue, instalación,
+pago con la tarjeta de test y comprobación del saldo en el cliente. Este piloto
+no reemplaza el ledger general, panel de paquetes o procesamiento de producción.
+
+### Diagnóstico de creación
+
+El administrador informó que la instalación SQL/token terminó sin cambios de
+saldo; luego la UI mostró un error genérico al crear la prueba. El panel ahora
+recarga la reserva incluso si la creación falla, conserva códigos de error
+seguros (HTTP numérico, transporte o etapas privadas) y nunca imprime respuestas
+ni excepciones del proveedor. El retorno/webhook usa la URL HTTPS fija de beta,
+sin depender del protocolo que WebEngine detecta detrás del proxy. El payload
+se valida antes de autenticar o enviar la creación. `Revisar reserva sin crear
+otro cobro` consulta páginas de 20 órdenes de test y compara la referencia
+local; si encuentra una sola coincidencia al completar las páginas, obtiene su UUID con GET autenticado y
+vuelve a validar el importe y referencia antes de permitir entrega. Sin match,
+con más páginas pendientes, o con varios matches, no se elimina la reserva ni
+se crea otra orden. La causa del error observado todavía no está confirmada;
+requiere el código de diagnóstico del hosting y/o la inspección de la reserva.
+
+El diagnóstico `RECOVERY_MORE_PAGES` informado por el administrador confirma que
+la búsqueda quedó incompleta. Ahora cada consulta avanza una página mediante
+`last_search_key`; cursor, coincidencias y contador persisten en el estado
+privado, sin exponer datos de otras órdenes. No ofrece entrega hasta terminar
+la búsqueda con una sola coincidencia. Detecta cursores repetidos y detiene a
+250 páginas; formatos inesperados no eliminan la reserva ni generan un pago.
+Las pruebas verifican avance entre solicitudes, escape del cursor, coincidencia
+en una página parcial y duplicados en páginas distintas. No cambia el worker
+PowerShell ni requiere reinstalar SQL/token.
+
+### Flujo de prueba v2 y conservación del diagnóstico
+
+La búsqueda real recuperó una orden pendiente, pero sin URL de checkout. Una
+reposición explícita produjo `CHECKOUT_LINK_UNAVAILABLE`: identidad, referencia
+e importe eran válidos, pero el enlace faltaba o no pasaba la validación. No se
+conservó ese valor en las versiones anteriores; no se puede deducir su causa
+ni recuperar el enlace inventando una URL a partir del UUID.
+
+El flujo v2 guarda **antes de validar** una selección limitada de la respuesta
+en `uala-pilot.json` privado: UUID, importe, referencia y checkout link hasta
+4096 caracteres. Omite clientes, tarjetas, tokens y el cuerpo completo. La UI
+solo muestra motivo, dominio y protocolo del enlace, nunca rutas/query privados.
+El GET autenticado sigue siendo obligatorio para habilitar la entrega.
+
+Una reserva pendiente de una versión anterior puede reemplazarse explícitamente
+una vez con el flujo v2. Antes se vuelve a consultar el proveedor: una aprobación,
+rechazo, revisión o enlace recuperado bloquea esa reposición. Se conserva el
+intento retirado, cambia la referencia/callback y se reserva el nuevo antes del
+POST. Repetir el botón o perder la respuesta no genera otro POST. Un intento
+retirado puede seguir existiendo en el sandbox de Ualá; esta web deja de entregar
+sus monedas. **La tabla SQL singleton no se borra ni permite dos entregas.**
+
+El panel presenta una acción por estado, un contador visible de espera y bloqueo
+de doble envío. El worker devuelve errores seguros firmados y no emite un job
+con aprobación cacheada si la consulta fresca falla. PowerShell imprime el código
+HTTP o de proveedor y reintenta solo la consulta hasta tres fallas consecutivas;
+no reintenta a ciegas SQL ni modifica certificados, tokens o reloj.
+
+Actualizar el script descargándolo nuevamente, sin `-Install`, sin cambiar el
+token ni recrear tablas. Desplegar el overlay desde cPanel y luego usar
+`Preparar nueva prueba`. Abrir el checkout solamente con tarjeta de sandbox.
+Si vuelve a fallar el enlace, desplegar no basta: revisar el diagnóstico conservado
+antes de cualquier nueva reposición. No hay garantía de cero fallas externas.
+
+Validación v2: mocks de enlace rechazado preservado, redacción de ruta/query,
+omisión de campos sensibles, reinicio de reserva legacy, doble clic, timeout y
+bloqueo de aprobación cacheada ante HTTP 503. PHP y layout de la cuenta se
+verificaron localmente. El script PowerShell se revisó, pero no se ejecutó aquí
+contra Windows/SQL Server. Acreditación real de 1000 WCoin y reversión aún pendientes.
+
+El diagnóstico real del flujo v2 confirmó `LINK_NOT_ALLOWED` con HTTPS y el host
+`stage-uala-arg-bis-link-de-pago-web.vercel.app`. Ese es el enlace devuelto al crear
+la orden de sandbox; el GET posterior no incluye el enlace. Se agrega ese nombre
+**exacto y solo en test**, sin habilitar otros tenants, subdominios ni HTTP.
+Una consulta canónica que confirme la misma orden, referencia e importe recupera
+el enlace privado ya guardado y cambia el diagnóstico a `CHECKOUT_LINK_RECOVERED`.
+No se requiere una cuarta compra ni otro reinicio; el pago continúa pendiente.
+
+
+### Corrección de importe de sandbox (flujo v3)
+
+El 1/10/2026 el checkout real de sandbox mostró $100.000 al enviar `100000`,
+cuando la prueba debía costar $1.000. La documentación v2 tiene una tabla de
+centavos y ejemplos decimales contradictorios. Para sandbox enviamos ahora
+`1000.00` pesos y normalizamos el importe de POST/GET a 100000 centavos en el
+dominio. No se cambió el comportamiento de producción, que sigue sin habilitar
+ventas y requiere verificar sus unidades antes de abrir cobros.
+
+El panel oculta enlaces e instrucciones de entrega de pilotos anteriores a v3.
+El botón «Preparar prueba de $1.000» consulta el proveedor y solo retira el
+intento anterior si confirma exactamente el importe equivocado de $100.000,
+la misma identidad y referencia, el merchant configurado y estado sandbox
+pendiente o aprobado. El intento queda en revisión e historial privado. Una
+reserva v3 previa al POST impide repetir la corrección incluso ante timeout.
+El worker no despacha pilotos anteriores a v3 y mantiene la acreditación única
+SQL. No elimina ni reembolsa órdenes en Ualá; la operación anterior fue simulada.
+La nueva prueba debe mostrar $1.000 antes de completar la tarjeta de sandbox.

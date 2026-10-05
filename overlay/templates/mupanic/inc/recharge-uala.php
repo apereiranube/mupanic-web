@@ -1,0 +1,133 @@
+<?php
+if(!defined('access') || !access) die();
+require_once __DIR__.'/recharge-providers.php';
+
+/** Uala Bis API v2. Server-side only; no public payment endpoint yet. */
+final class PanicUalaBisApi extends PanicRechargeApi {
+    private $environment;
+    private $amountUnit;
+    private $token=null;
+    private $expiresAt=0;
+    public function __construct(array $credentials, $environment, callable $transport=null,$amountUnit=null) {
+        if(!in_array($environment,['test','production'],true)) throw new InvalidArgumentException('Invalid Uala environment');
+        $amountUnit=$amountUnit ?? ($environment==='test'?'ARS':'centavos');
+        if(!in_array($amountUnit,['ARS','centavos'],true) || ($environment==='test' && $amountUnit!=='ARS')) throw new InvalidArgumentException('Invalid Uala amount unit');
+        parent::__construct($credentials,$transport); $this->environment=$environment; $this->amountUnit=$amountUnit;
+    }
+    public function merchantId() { return $this->credential('client_id'); }
+    private function base($service) {
+        return 'https://'.$service.($this->environment==='test'?'.stage':'').'.developers.ar.ua.la/v2/api';
+    }
+    public function authenticate() {
+        if($this->token!==null && $this->expiresAt>time()+60) return;
+        $result=$this->request('POST',$this->base('auth').'/auth/token',[],[
+            'username'=>$this->credential('username'),'client_id'=>$this->credential('client_id'),
+            'client_secret_id'=>$this->credential('client_secret_id'),'grant_type'=>'client_credentials']);
+        $token=$result['access_token'] ?? null; $expiry=$result['expires_in'] ?? null;
+        if(!is_string($token) || $token==='' || strlen($token)>16384 || preg_match('/[\r\n]/',$token) ||
+           !is_int($expiry) || $expiry<1 || ($result['token_type'] ?? '')!=='Bearer') {
+            throw new RuntimeException('Invalid Uala authentication response');
+        }
+        $this->token=$token; $this->expiresAt=time()+min($expiry,86400);
+    }
+    private function headers() {
+        $this->authenticate(); return ['Authorization: Bearer '.$this->token];
+    }
+    public static function checkoutPayload(array $order, $returnUrl, $webhookUrl,$amountUnit=null) {
+        self::checkOrder($order,'uala_bis');
+        if($order['price_cents']<2500 || $order['price_cents']>999999900) throw new InvalidArgumentException('Amount outside Uala limits');
+        return ['amount'=>($amountUnit ?? ($order['live']?'centavos':'ARS'))==='ARS'?self::sandboxAmount($order['price_cents']):(string)$order['price_cents'],'description'=>'MU PANIC · '.$order['title'],
+            'callback_fail'=>self::callback($returnUrl),'callback_success'=>self::callback($returnUrl),
+            'notification_url'=>self::callback($webhookUrl),'external_reference'=>$order['id']];
+    }
+    // Sandbox checkout displays pesos, despite the conflicting centavos table in v2 docs.
+    // Domain and ledger continue to use integer centavos. Production units remain unverified.
+    public static function sandboxAmount($cents) {
+        if(!is_int($cents) || $cents<0) throw new InvalidArgumentException('Invalid amount');
+        return intdiv($cents,100).'.'.str_pad((string)($cents%100),2,'0',STR_PAD_LEFT);
+    }
+    public static function sandboxCents($amount) {
+        try { return PanicRecharge::cents($amount); }
+        catch(Throwable $exception) { throw new RuntimeException('Invalid Uala order response'); }
+    }
+    public function createCheckout(array $order, $returnUrl, $webhookUrl) {
+        if(($order['live'] ?? null)!==($this->environment==='production')) throw new InvalidArgumentException('Uala environment mismatch');
+        $payload=self::checkoutPayload($order,$returnUrl,$webhookUrl,$this->amountUnit);
+        return $this->request('POST',$this->base('checkout').'/checkout',$this->headers(),$payload);
+    }
+    public function pilotOrders($cursor=null) {
+        if($this->environment!=='test') throw new RuntimeException('Sandbox only');
+        $query=['limit'=>20];
+        if($cursor!==null) {
+            if(!is_string($cursor) || $cursor==='' || strlen($cursor)>4096) throw new RuntimeException('Invalid recovery cursor');
+            $query['last_search_key']=$cursor;
+        }
+        return $this->request('GET',$this->base('checkout').'/orders?'.http_build_query($query,'','&',PHP_QUERY_RFC3986),$this->headers());
+    }
+    public static function checkoutLink($link,$sandbox=false) {
+        if(!is_string($link) || strlen($link)>4096 || preg_match('/[\x00-\x20\x7f]/',$link)) return null;
+        $parts=parse_url($link);
+        if(!$parts || ($parts['scheme'] ?? '')!=='https' || empty($parts['host']) ||
+           isset($parts['user']) || isset($parts['pass']) || isset($parts['fragment']) ||
+           (isset($parts['port']) && $parts['port']!==443)) return null;
+        $host=strtolower($parts['host']);
+        $known=preg_match('/(^|\.)(uala-checkout\.com|ua\.la|ualabis\.com\.ar)$/D',$host);
+        // Exact hostname observed in the authenticated sandbox checkout response.
+        // This is not an allowance for other Vercel tenants or production payments.
+        $testHost=$sandbox===true && $host==='stage-uala-arg-bis-link-de-pago-web.vercel.app';
+        if(!$known && !$testHost) return null;
+        return $link;
+    }
+    public static function linkDiagnostic($link,$sandbox=false) {
+        $info=['issue'=>'LINK_MISSING','host'=>'','scheme'=>''];
+        if($link===null || $link==='') return $info;
+        if(!is_string($link)) { $info['issue']='LINK_TYPE'; return $info; }
+        if(strlen($link)>4096 || preg_match('/[\x00-\x20\x7f]/',$link)) { $info['issue']='LINK_FORMAT'; return $info; }
+        $parts=parse_url($link);
+        if(!$parts) { $info['issue']='LINK_FORMAT'; return $info; }
+        $host=strtolower($parts['host'] ?? '');
+        // Only domain and protocol are shown. Never expose path/query/capabilities.
+        if(preg_match('/^[a-z0-9.-]{1,253}$/D',$host)) $info['host']=$host;
+        $scheme=$parts['scheme'] ?? '';
+        if(in_array($scheme,['http','https'],true)) $info['scheme']=$scheme;
+        $info['issue']=self::checkoutLink($link,$sandbox)!==null?'LINK_OK':($scheme!=='https'?'LINK_HTTPS_REQUIRED':'LINK_NOT_ALLOWED');
+        return $info;
+    }
+    public function fetchPayment($paymentId) {
+        $result=$this->request('GET',$this->base('checkout').'/orders/'.self::id($paymentId),$this->headers());
+        $amount=$result['amount'] ?? null;
+        if($this->amountUnit==='ARS') $amount=self::sandboxCents($amount);
+        elseif(is_string($amount) && preg_match('/^[0-9]{1,9}$/D',$amount)) $amount=(int)$amount;
+        if(($result['uuid'] ?? null)!==$paymentId || !is_int($amount) || $amount<0 || $amount>999999900 ||
+           !is_string($result['external_reference'] ?? null)) throw new RuntimeException('Invalid Uala order response');
+        $states=['PENDING'=>'pending','PROCESSED'=>'pending','PROCCESED'=>'pending','APPROVED'=>'approved','REJECTED'=>'rejected','REFUNDED'=>'refunded'];
+        // GET is authorized for the configured merchant. The response omits
+        // merchant/currency/environment; these derive from authenticated scope
+        // and fixed Argentina v2 hosts, never from webhook/browser parameters.
+        return ['provider'=>'uala_bis','id'=>$paymentId,'reference'=>$result['external_reference'],
+            'merchant'=>$this->credential('client_id'),'currency'=>'ARS','amount_cents'=>$amount,
+            'live'=>$this->environment==='production','state'=>$states[$result['status'] ?? ''] ?? 'review',
+            // Optional provider-supplied link only. Never construct a payment URL from a UUID.
+            'checkout_url'=>self::checkoutLink($result['links']['checkout_link'] ?? null,$this->environment==='test'),
+            'link_diagnostic'=>self::linkDiagnostic($result['links']['checkout_link'] ?? null,$this->environment==='test')];
+    }
+}
+
+function panicUalaPrivateSettings($path='/home/mupanic/payments-private/settings.json',$allowSales=false) {
+    $real=realpath($path); $public=realpath('/home/mupanic/public_html');
+    if(!$real || !is_file($real) || ($public && ($real===$public || strpos($real,$public.DIRECTORY_SEPARATOR)===0)) || filesize($real)>65536) {
+        throw new RuntimeException('Private payment settings unavailable');
+    }
+    $raw=file_get_contents($real);
+    if($raw===false) throw new RuntimeException('Private payment settings unavailable');
+    $settings=json_decode($raw,true,16,JSON_THROW_ON_ERROR);
+    if(!is_array($settings) || !in_array($settings['environment'] ?? '',['test','production'],true) ||
+       !is_bool($settings['sales_enabled'] ?? null) || (!$allowSales && $settings['sales_enabled']!==false) || !is_array($settings['uala_bis'] ?? null)) {
+        throw new RuntimeException('Invalid private settings: sales must remain disabled');
+    }
+    foreach(['username','client_id','client_secret_id'] as $key) {
+        $value=$settings['uala_bis'][$key] ?? null;
+        if(!is_string($value) || trim($value)==='' || strpos($value,'REEMPLAZAR_')===0 || preg_match('/[\r\n]/',$value)) throw new RuntimeException('Uala credential missing');
+    }
+    return $settings;
+}

@@ -1,5 +1,9 @@
 # Arte V5
 
+## Character avatars restored for the account panel
+
+`character-avatars/*.jpg`: original 100 × 100 class portraits distributed with WebEngine CMS, copied without alteration from `templates/default/img/character-avatars/` at upstream revision `5cf16f1284abb970e29bde2a937dbec412d1bc94`. These illustrate the class, not the player's equipped character. MU Online artwork remains the property of its respective owners.
+
 - `threshold.webp`: arte de Dark Knight / MU Online, disponible en https://wallpaper.dog/large/20380063.jpg (página: https://wallpaper.dog/mu-online-wallpapers). El arte original contiene el emblema de Global MU Online. Se conserva; el encuadre y las capas CSS priorizan el personaje.
 - `conquest.webp`: `templates/default/img/background.jpg` de WebEngine en la revisión fijada `5cf16f1284abb970e29bde2a937dbec412d1bc94`. Personaje de MU, no captura del servidor.
 - `devias.webp`: arte conceptual original generado para este rediseño con image_gen integrado. Prompt: escena panorámica de una entrada de castillo gótico helado evocadora de Devias, puerta y escalinata a la derecha, ruinas y montañas a la izquierda, niebla azul y antorchas cobre; sin personajes, texto, interfaz ni logos. Ilustración de ambientación, no representación exacta del mapa.

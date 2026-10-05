@@ -2,11 +2,16 @@
 if(!defined('access') or !access) die();
 
 function mupanicPageTitle($page, $subpage = '') {
+    if($page === 'usercp' && $subpage !== '' && function_exists('panicAccountTools')) {
+        $tools=panicAccountTools();
+        if(isset($tools[$subpage])) return $tools[$subpage]['title'];
+    }
     $map = array(
         'information' => 'Guías y sistemas',
         'info' => 'Atlas PANIC',
         'downloads' => 'Descargas',
         'rankings' => 'Rankings',
+        'profile' => $subpage === 'guild' ? 'Perfil de guild' : 'Perfil de personaje',
         'register' => 'Crear cuenta',
         'login' => 'Ingresar',
         'usercp' => 'Mi cuenta',
@@ -39,6 +44,7 @@ function templateBuildNavbar() {
 }
 
 function templateBuildUsercp() {
+    if(function_exists('panicAccountNavigation')) { panicAccountNavigation(); return; }
     $cfg = loadConfig('usercp');
     if(!is_array($cfg)) return;
     echo '<ul class="account-menu">';

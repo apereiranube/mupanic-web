@@ -1,0 +1,2708 @@
+{
+  "0": {
+    "name": "Bull Fighter",
+    "model": 1,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "hidden mesh"
+    ],
+    "status": "requires-composition"
+  },
+  "1": {
+    "name": "Hound",
+    "model": 2,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "hidden mesh"
+    ],
+    "status": "requires-composition"
+  },
+  "2": {
+    "name": "Budge Dragon",
+    "model": 3,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster03.bmd",
+    "sourceHash": "9758900d276f4db86f237a31c0617fa00ee04469d964865e71bdda01e20ae474",
+    "modelVersion": 10,
+    "textures": [
+      "monster/p_d.ozj",
+      "monster/p_d.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 90,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/p_d.ozj": "a1a4673400834eab6adc190caa268516d81da5b23a88985686ebd95f5fefef68",
+      "monster/p_d.ozt": "5f896e492cb80a7770074142f9fc921cad40b99746a2b1331d6bbd26f2c679d3"
+    }
+  },
+  "3": {
+    "name": "Spider",
+    "model": 10,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster10.bmd",
+    "sourceHash": "b012f5c9de68d0dd1093e4552428fd3e0bc5f36b6514bf6e190a5273f73bb1a6",
+    "modelVersion": 10,
+    "textures": [
+      "monster/spider02.ozj",
+      "monster/spider01.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/spider02.ozj": "d77275d1794a11df44377699189049319f098877bde0b29acd7ab3bc0dcf4620",
+      "monster/spider01.ozt": "7cb3ac6ab76b8b7fd73118ca057e73a27c826990edcb00f8bccfed84f2b18f23"
+    }
+  },
+  "4": {
+    "name": "Elite Bull Fighter",
+    "model": 1,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "hidden mesh"
+    ],
+    "status": "requires-composition"
+  },
+  "5": {
+    "name": "Hell Hound",
+    "model": 2,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "hidden mesh"
+    ],
+    "status": "requires-composition"
+  },
+  "6": {
+    "name": "LIch",
+    "model": 5,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "7": {
+    "name": "Giant",
+    "model": 6,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "8": {
+    "name": "Poison Bull Fighter",
+    "model": 1,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "hidden mesh"
+    ],
+    "status": "requires-composition"
+  },
+  "9": {
+    "name": "Thunder Lich",
+    "model": 5,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "10": {
+    "name": "Dark Knight",
+    "model": 4,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "11": {
+    "name": "Ghost",
+    "model": 8,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "12": {
+    "name": "Larva",
+    "model": 7,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster07.bmd",
+    "sourceHash": "57fce50e26d9370246d88b6f07eed485c7143b16976e13e51e96b0c75df86f9c",
+    "modelVersion": 10,
+    "textures": [
+      "monster/snake.ozj",
+      "monster/snake02.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/snake.ozj": "f94e9631bbf50d770e58b70e54a3cac3c50d977517ab275d597e841c9f2e0613",
+      "monster/snake02.ozt": "76f3b2ad3f359abfe7ed25fd0e2d9608981193daeb16fcf236058e38acdee5bf"
+    }
+  },
+  "13": {
+    "name": "Hell Spider",
+    "model": 9,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "14": {
+    "name": "Skeleton",
+    "status": "unmapped"
+  },
+  "15": {
+    "name": "Skeleton Archer",
+    "status": "unmapped"
+  },
+  "16": {
+    "name": "Chief Skeleton Warrior",
+    "status": "unmapped"
+  },
+  "17": {
+    "name": "Cyclops",
+    "model": 11,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "18": {
+    "name": "Gorgon",
+    "model": 12,
+    "pending": [
+      "weapon attachment",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "19": {
+    "name": "Yeti",
+    "model": 13,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster13.bmd",
+    "sourceHash": "a22e202e910b9134f1cd9eb0f08696668d318de3b45af55e065bc34af96a4931",
+    "modelVersion": 10,
+    "textures": [
+      "monster/snowman.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/snowman.ozj": "5aa6b1a75de819fd13aca1528a500fff277c5bbef560e6e08ff476ec0483f710"
+    }
+  },
+  "20": {
+    "name": "Elite Yeti",
+    "model": 14,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster14.bmd",
+    "sourceHash": "c3cc2dc581ba0b37c1d8600458c700269d058271c7680ecb41b7e59af946d290",
+    "modelVersion": 10,
+    "textures": [
+      "monster/snowman02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/snowman02.ozj": "3682c261d7546463709013162591e099cf6f2dd0acc905396266ac1959191b5c"
+    }
+  },
+  "21": {
+    "name": "Assassin",
+    "model": 15,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster15.bmd",
+    "sourceHash": "c000fc7c1eab68518c4b81b8fb9a89902099d28ea6163a75d7e546ff5e2e7038",
+    "modelVersion": 10,
+    "textures": [
+      "monster/snowking.ozj",
+      "monster/sword05.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/snowking.ozj": "49a7098b4a4b0e26ff330ff1324e4f324167ef74de51f1489d63741ecf135ea1",
+      "monster/sword05.ozj": "3b3c9e18ac59d7671b21c686e8400981810cc85e9c651538d607c5a3e83c4602"
+    }
+  },
+  "22": {
+    "name": "Ice Monster",
+    "model": 16,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "23": {
+    "name": "Hommerd",
+    "model": 17,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "24": {
+    "name": "Worm",
+    "model": 18,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster18.bmd",
+    "sourceHash": "32fd6477068426f751cc8129e218985b2a87fae9257249f4873258d06f826c72",
+    "modelVersion": 10,
+    "textures": [
+      "monster/garp.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/garp.ozj": "e7b340594d3b8adbbd7cfb225ff7f8c2e3db73426309b3714c13a921b807e559"
+    }
+  },
+  "25": {
+    "name": "Ice Queen",
+    "model": 19,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "26": {
+    "name": "Goblin",
+    "model": 20,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "27": {
+    "name": "Chain Scorpion",
+    "model": 21,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster21.bmd",
+    "sourceHash": "b1f8ed7dcd960af2e07b64a4bab92356b5f4b6c8d337eb62463bb6cf2a485204",
+    "modelVersion": 10,
+    "textures": [
+      "monster/bug3.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/bug3.ozj": "9546cdd3a3b0d30b50e36c89c780b078ef14d23a9fee966947355158bbb9182e"
+    }
+  },
+  "28": {
+    "name": "Beetle Monster",
+    "model": 22,
+    "pending": [
+      "weapon attachment",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "29": {
+    "name": "Hunter",
+    "model": 23,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "30": {
+    "name": "Forest Monster",
+    "model": 24,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster24.bmd",
+    "sourceHash": "01d335ae732d93c3fcdca4daf38f6d3ba26ba48dc8eb8be9d4dce12f0ba96d7d",
+    "modelVersion": 10,
+    "textures": [
+      "monster/pt3.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/pt3.ozj": "f2778c47df89c0ac6441681c24da8e17304b5cfb62aa727fac4838a1ea822311"
+    }
+  },
+  "31": {
+    "name": "Agon",
+    "model": 25,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "32": {
+    "name": "Stone Golem",
+    "model": 26,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster26.bmd",
+    "sourceHash": "fd1eca8321753ad05cd5ad52a6dac7d5f3895b04fcbeb9c0bc7e59d16d531455",
+    "modelVersion": 10,
+    "textures": [
+      "monster/ston1.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ston1.ozj": "20dbb419b4d00bc83a870a75116f2d4a513340e67fea7d9bef705dc7f9d3d208"
+    }
+  },
+  "33": {
+    "name": "Elite Goblin",
+    "model": 20,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "34": {
+    "name": "Cursed Wizard",
+    "status": "unmapped"
+  },
+  "35": {
+    "name": "Death Gorgon",
+    "model": 12,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "36": {
+    "name": "Shadow",
+    "model": 29,
+    "pending": [
+      "Invisible body / special blending needs game verification"
+    ],
+    "status": "requires-composition",
+    "modelFile": "monster/monster29.bmd",
+    "sourceHash": "cf6dc7380bfc0db214ef3bec8ff486c3d044b6ced8eb474f311dc455743c5483",
+    "modelVersion": 10,
+    "textures": [
+      "monster/shadow_c.ozj",
+      "monster/shadow_b.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25
+  },
+  "37": {
+    "name": "Devil",
+    "model": 27,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster27.bmd",
+    "sourceHash": "14e1ccf25205d0b23acfae0ab693e08e8eecf55c47e26e6b4405b6af7536d974",
+    "modelVersion": 10,
+    "textures": [
+      "monster/satan_a.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/satan_a.ozt": "6b84f6aa21ec44e3bc46d2343bc0d751b46ae20c6d99d6e583a7a38ed6c77f7b"
+    }
+  },
+  "38": {
+    "name": "Balrog",
+    "model": 28,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "39": {
+    "name": "Poison Shadow",
+    "model": 29,
+    "pending": [
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "40": {
+    "name": "Death Knight",
+    "model": 30,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "41": {
+    "name": "Death Cow",
+    "model": 31,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "42": {
+    "name": "Red Dragon",
+    "status": "unmapped"
+  },
+  "43": {
+    "name": "Golden Budge Dragon",
+    "status": "unmapped"
+  },
+  "45": {
+    "name": "Bahamut",
+    "model": 34,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster34.bmd",
+    "sourceHash": "0dbf844c212c67499f05c9169e1121cc4fcedf808b7195331c4f355f79e94829",
+    "modelVersion": 10,
+    "textures": [
+      "monster/fs00.ozj",
+      "monster/fs01.ozt",
+      "monster/fs02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/fs00.ozj": "cb8d79036595396ac898f63c2ba8ee3129de69b6a277f1636246cc60044caeef",
+      "monster/fs01.ozt": "6a2115bdc2547070440cb304aed4f1e2879d5fd2a1e511ddea13b853163c83d4",
+      "monster/fs02.ozj": "b9710130bba77c9a34ef0a8262363bd24d2b0d558dfaae19572290c73e3d76a7"
+    }
+  },
+  "46": {
+    "name": "Vepar",
+    "model": 35,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster35.bmd",
+    "sourceHash": "b74b384d371ac5ab1474881570c4f052959fc74ecfb5e077a741c5e0c4a5dc3e",
+    "modelVersion": 10,
+    "textures": [
+      "monster/hp00.ozj",
+      "monster/hp01.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/hp00.ozj": "b4d4b0996ca010dd918d74a8c80b7c298e3d2a3e506bb83a10928c539a4487f8",
+      "monster/hp01.ozt": "9e2408cc72e3bfdf6ce328a6156f24e1be40242d0ad58a8ef37aedc240c08239"
+    }
+  },
+  "47": {
+    "name": "Valkyrie",
+    "model": 36,
+    "pending": [
+      "weapon attachment",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "48": {
+    "name": "Lizard King",
+    "model": 37,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "49": {
+    "name": "Hydra",
+    "model": 38,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "51": {
+    "name": "Great Bahamut",
+    "model": 34,
+    "pending": [
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "52": {
+    "name": "Silver Valkyrie",
+    "model": 36,
+    "pending": [
+      "weapon attachment"
+    ],
+    "status": "requires-composition"
+  },
+  "53": {
+    "name": "Golden Titan",
+    "status": "unmapped"
+  },
+  "54": {
+    "name": "Golden Soldier",
+    "status": "unmapped"
+  },
+  "55": {
+    "name": "Death King",
+    "status": "unmapped"
+  },
+  "57": {
+    "name": "Iron Wheel",
+    "model": 42,
+    "pending": [
+      "weapon attachment",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "58": {
+    "name": "Tantalos",
+    "model": 43,
+    "pending": [
+      "weapon attachment",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "59": {
+    "name": "Zaikan",
+    "model": 43,
+    "pending": [
+      "weapon attachment",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "60": {
+    "name": "Bloody wolf",
+    "model": 44,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "61": {
+    "name": "Beam Knight",
+    "model": 45,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "62": {
+    "name": "Mutant",
+    "model": 46,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "63": {
+    "name": "Death Beam Knight",
+    "model": 45,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "69": {
+    "name": "Alquamos",
+    "model": 51,
+    "pending": [
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "70": {
+    "name": "Queen Rainier",
+    "model": 52,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster52.bmd",
+    "sourceHash": "012737c0c72c1636d9beec61ba7d9a4a0ca9cefd2fe4d5baa1d517e86cf3e07a",
+    "modelVersion": 10,
+    "textures": [
+      "monster/kuo01.ozj",
+      "monster/kuo00.ozj",
+      "monster/kuo02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/kuo01.ozj": "a088d4de6d80c62b79d64080f9abfcc8e1e42d3a14ae98c063fec016618f18c3",
+      "monster/kuo00.ozj": "722be81bcd4291e5523a6c67d573f0e0b139ca3c2e67cd0eb84a407e997b8f39",
+      "monster/kuo02.ozj": "9ad6f7258dd32dd10c02ee23572d97b0d7524f31c56d868710ad39bd9aeaa958"
+    }
+  },
+  "71": {
+    "name": "Mega Crust",
+    "model": 53,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "72": {
+    "name": "Phantom Knight",
+    "model": 54,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin"
+    ],
+    "status": "requires-composition"
+  },
+  "73": {
+    "name": "Drakan",
+    "model": 55,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster55.bmd",
+    "sourceHash": "ac9352823ba8fce93bb79ec04a90fffccc8946d1aa6e06d3aa67f76208864729",
+    "modelVersion": 10,
+    "textures": [
+      "monster/drt02.ozj",
+      "monster/drt01.ozj",
+      "monster/drt05.ozj",
+      "monster/drt00.ozj",
+      "monster/drt03.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/drt02.ozj": "3a95a671dacc5f1714d6ed1d7d4ef0cd1bfecedee996689e01f7601ae12431d4",
+      "monster/drt01.ozj": "67ff97b4a35a828e8673ba00bcb13cec7758217a83a87b067f542550e25915db",
+      "monster/drt05.ozj": "f583de6e6a3c0dd9b0f1451ec1c17901d74f3c2fba4b785d333aa982da9ef84c",
+      "monster/drt00.ozj": "b0d89c37475d3a834d70053a80c0587a007881102b4c8d4cfb5a1c903ee5ee83",
+      "monster/drt03.ozt": "048054716af0d714e82e2226e34a072d891b6d704699542a2a158c007bab40ff"
+    }
+  },
+  "74": {
+    "name": "Alpha Crust",
+    "model": 53,
+    "pending": [
+      "weapon attachment",
+      "level-dependent skin",
+      "special blending/effect"
+    ],
+    "status": "requires-composition"
+  },
+  "75": {
+    "name": "Great Drakan",
+    "model": 55,
+    "pending": [],
+    "status": "rendered",
+    "modelFile": "monster/monster55.bmd",
+    "sourceHash": "ac9352823ba8fce93bb79ec04a90fffccc8946d1aa6e06d3aa67f76208864729",
+    "modelVersion": 10,
+    "textures": [
+      "monster/drt02.ozj",
+      "monster/drt01.ozj",
+      "monster/drt05.ozj",
+      "monster/drt00.ozj",
+      "monster/drt03.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/drt02.ozj": "3a95a671dacc5f1714d6ed1d7d4ef0cd1bfecedee996689e01f7601ae12431d4",
+      "monster/drt01.ozj": "67ff97b4a35a828e8673ba00bcb13cec7758217a83a87b067f542550e25915db",
+      "monster/drt05.ozj": "f583de6e6a3c0dd9b0f1451ec1c17901d74f3c2fba4b785d333aa982da9ef84c",
+      "monster/drt00.ozj": "b0d89c37475d3a834d70053a80c0587a007881102b4c8d4cfb5a1c903ee5ee83",
+      "monster/drt03.ozt": "048054716af0d714e82e2226e34a072d891b6d704699542a2a158c007bab40ff"
+    }
+  },
+  "77": {
+    "name": "Phoenix of Darkness",
+    "status": "unmapped"
+  },
+  "78": {
+    "name": "Golden Goblin",
+    "status": "unmapped"
+  },
+  "79": {
+    "name": "Golden Derkon",
+    "status": "unmapped"
+  },
+  "80": {
+    "name": "Golden Lizard King",
+    "status": "unmapped"
+  },
+  "81": {
+    "name": "Golden Vepar",
+    "status": "unmapped"
+  },
+  "82": {
+    "name": "Golden Tantalos",
+    "status": "unmapped"
+  },
+  "83": {
+    "name": "Golden Wheel",
+    "status": "unmapped"
+  },
+  "105": {
+    "name": "Canon Trap",
+    "status": "unmapped"
+  },
+  "106": {
+    "name": "Laser Trap",
+    "status": "unmapped"
+  },
+  "135": {
+    "name": "White wizard",
+    "status": "unmapped"
+  },
+  "275": {
+    "name": "Kundun",
+    "status": "unmapped"
+  },
+  "290": {
+    "model": 82,
+    "name": "Lizard Warrior",
+    "pending": [],
+    "source": "GMHuntingGround.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster82.bmd",
+    "sourceHash": "8d0af5b3d226e2e7207d1f2069822a540411e2114e0ed4cdf6488ab96791229f",
+    "modelVersion": 12,
+    "textures": [
+      "monster/monster_worlf.ozj",
+      "monster/monster_wolf_weapon.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/monster_worlf.ozj": "d27616d826e6117d6aaa2bcf651037b8bf4c7f23d6baafd0ef07209313aa7ef2",
+      "monster/monster_wolf_weapon.ozj": "b56bf8dcc2839cb4e530b222c9afebd6064170bc01a6a4dd0555a93c94469bd2"
+    }
+  },
+  "291": {
+    "model": 83,
+    "name": "Fire Golem",
+    "pending": [],
+    "source": "GMHuntingGround.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster83.bmd",
+    "sourceHash": "2742a4621692d6021bbd1fd32b9614c423f029b97522151dd9b048d98ec211f1",
+    "modelVersion": 12,
+    "textures": [
+      "monster/fireeffect.ozj",
+      "monster/stonegolem.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/fireeffect.ozj": "b68acde49245a558edb93ee8b9a0135e6bfca77fd159fdc633e3ea41f8c17094",
+      "monster/stonegolem.ozj": "9f80aa2c5b62e9ae4bc87889f80c7da911a099ee704af949c4c6efffcebae57b"
+    }
+  },
+  "292": {
+    "model": 84,
+    "name": "Queen Bee",
+    "pending": [],
+    "source": "GMHuntingGround.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster84.bmd",
+    "sourceHash": "abb7f1a002d0a2d9fa8642a5db74e1b0deeff1ff31fd30c0ef79931cd0256406",
+    "modelVersion": 12,
+    "textures": [
+      "monster/bee03_r.ozj",
+      "monster/mon2_02.ozj",
+      "monster/mon2_01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/bee03_r.ozj": "37d5da89eee37845e83397d837f4cd352ea17241545884807905a2a82ed566d5",
+      "monster/mon2_02.ozj": "bbe003aaa70210d083bc6560887549249f44ec154e7a913fe99185fa21f85626",
+      "monster/mon2_01.ozj": "93ed1484fd90e3537073d3a92f0b7e58398d721ac3b5f9299d712be83a4e600f"
+    }
+  },
+  "293": {
+    "model": 85,
+    "name": "Poison Golem",
+    "pending": [],
+    "source": "GMHuntingGround.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster85.bmd",
+    "sourceHash": "656eaed05d2faa652c99051529d356f45c2b6cc965ede52f531aa1474e15c997",
+    "modelVersion": 12,
+    "textures": [
+      "monster/poisongolem.ozt",
+      "monster/fireeffect.ozj",
+      "monster/poisongolem01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/poisongolem.ozt": "ea0b3b2a2ba8bcadfe5e324f4d4edc1380c0402080cae94564359feb48fc5cdf",
+      "monster/fireeffect.ozj": "b68acde49245a558edb93ee8b9a0135e6bfca77fd159fdc633e3ea41f8c17094",
+      "monster/poisongolem01.ozj": "ad175971263bc70c6cce29514abae92d763536b1071fa29fb18c8b565f58100a"
+    }
+  },
+  "294": {
+    "model": 86,
+    "name": "Ax Warrior",
+    "pending": [],
+    "source": "GMHuntingGround.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster86.bmd",
+    "sourceHash": "070cf1b848c01bc20327c681917a3001f084a6e2a2a376ba5d6ac37f54bc8c1b",
+    "modelVersion": 12,
+    "textures": [
+      "monster/mon_05.ozj",
+      "monster/mon_01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/mon_05.ozj": "cf7e28523ac6bae2fce4af8af23175f9e87b6569168483e4bc1c9eeb61af305f",
+      "monster/mon_01.ozj": "b9d160578a2d2150db34ded4accbaae27cef308e8ff5ded848b082c0a574c6bd"
+    }
+  },
+  "295": {
+    "model": 88,
+    "name": "Erohim",
+    "pending": [],
+    "source": "GMHuntingGround.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster88.bmd",
+    "sourceHash": "12b1c2f7ea1cb4e11c8bf4c0051bbad4edd7a8af2de34a2d69ef592a8f871a6f",
+    "modelVersion": 12,
+    "textures": [
+      "monster/bossmap1.ozj",
+      "monster/bosswingbone.ozj",
+      "monster/bossblack.ozj",
+      "monster/bossmap2.ozj",
+      "monster/bossseptormap2.ozj",
+      "monster/bosswing.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/bossmap1.ozj": "185b97c94b15c371e4befb87ae241be689fb9b68dc6f590a28e4cc3021dd3988",
+      "monster/bosswingbone.ozj": "fb6d4b48966b025e99cd5c03ed077602efdd60d421b40863d83cf8610e991f23",
+      "monster/bossblack.ozj": "df8c35a14a03c65e3729205e9c151131ab813f3d12d5912913b4613a4078368a",
+      "monster/bossmap2.ozj": "6ef181e29e64b56c71a95b4aee9d931ab1c9f474097d4879ea2dc06ec07cb98e",
+      "monster/bossseptormap2.ozj": "ecf537666777213706a752584fc82ac090715408442f1bbd10fbc293857be059",
+      "monster/bosswing.ozj": "238b96f9ac014606972c0ba4a1b45284ee8818178f8a4a5fd1465486e2844cda"
+    }
+  },
+  "304": {
+    "model": 101,
+    "name": "Witch Queen",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster101.bmd",
+    "sourceHash": "ed5076aecfafb587eb3ff3f99a27aa38d67a25d069848deb9df95274f4aa9059",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ma001.ozt",
+      "monster/ma002.ozj",
+      "monster/ma_1.ozj",
+      "monster/ma2.ozj",
+      "monster/it.ozj",
+      "monster/h_r.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ma001.ozt": "58edbb587fa8c3ed3976b4a466459635a51cf2a6361e9804823634077bd7954d",
+      "monster/ma002.ozj": "d14c1e0909034e9bceeaf3050a163ef77f8cba2d4eb4b2acc0df06dc05fb5ce7",
+      "monster/ma_1.ozj": "a586b21a41f8254989f5b4e301543353ce31e10a227d57d3854d84c2d11fb23f",
+      "monster/ma2.ozj": "18f7965b051065b596cca83ec4c4816a409c5b65de0048cf98e7e90f20e360eb",
+      "monster/it.ozj": "ca29fe1f09e75ec014240d7dc60f6515aa0860c3b050a937287b311728a315c6",
+      "monster/h_r.ozt": "1cdb2f4565c5553fbd54d97f3a43c1aa6235e88d7f51b63f2ca6660adcdc31b2"
+    }
+  },
+  "305": {
+    "model": 102,
+    "name": "Blue Golem",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster102.bmd",
+    "sourceHash": "7fd46aba5c5552436ee12368fdd0ca4061bc3283642ed6e494dc9222d02fdf36",
+    "modelVersion": 12,
+    "textures": [
+      "monster/fmbody_r.ozj",
+      "monster/fmammor.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/fmbody_r.ozj": "90e50b2ab65a9842b1654470e0edcf38328d0873596e068bc7b2d2365c34ecb8",
+      "monster/fmammor.ozj": "5645ebc7e256755ea6a87a2376cb4bb8fad4ec73c9fda3c81b5b34a5efcefef3"
+    }
+  },
+  "306": {
+    "model": 103,
+    "name": "Death Rider",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster103.bmd",
+    "sourceHash": "9862ca94605b8f2e08c3b7c645c3a1324e6fbd4318cd647a5ffcd672516fab15",
+    "modelVersion": 12,
+    "textures": [
+      "monster/branch.ozj",
+      "monster/leaves.ozt",
+      "monster/forestgost.ozj",
+      "monster/prizm.ozj",
+      "monster/forestgost_should.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/branch.ozj": "64392978f0d5e884a7f3d9e305519d4dce8ee6239004fdd63af2e1a48d364dae",
+      "monster/leaves.ozt": "0eeb03225b26ac2eec0f68912b0310e7af7e203407e8d3feadac30858128200a",
+      "monster/forestgost.ozj": "d499fb7b6ece82f0959f1522b2de418488b354dfdf590da2b000f94046d4a968",
+      "monster/prizm.ozj": "c87ff32eeb5511f7f399d30ead35f38fc6fcd2037fac84320f0e0c311acea9a7",
+      "monster/forestgost_should.ozj": "b663113a269a1a01386558aa2bb50d9fbbe05448b46f073a8c2bb7872856d186"
+    }
+  },
+  "307": {
+    "model": 104,
+    "name": "Forest Orc",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster104.bmd",
+    "sourceHash": "55ce9f32a648917f0f0a98e1477e2cbdaf92012a321786dcc47f6618a05fa881",
+    "modelVersion": 12,
+    "textures": [
+      "monster/mono3.ozj",
+      "monster/mono3eye.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/mono3.ozj": "091cfd20285b38808946c28999f2238f3bb0904236e101e164ed8f30685804a7",
+      "monster/mono3eye.ozj": "5266512306a9dfa2ac8a227c502dcbc80cbca782b74384cc1d19daeccba9626b"
+    }
+  },
+  "308": {
+    "model": 105,
+    "name": "Death Tree",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster105.bmd",
+    "sourceHash": "6db72f9a05ab81eb07e9bb003f33dbf65fa0a9ecc77f114fa363d7c0cbf61d08",
+    "modelVersion": 12,
+    "textures": [
+      "monster/treemonster01.ozt",
+      "monster/treemonster02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/treemonster01.ozt": "c83f95d4b59e4fcf5a053456effd00c3606df8266f27150428b1c04c359d9345",
+      "monster/treemonster02.ozj": "0a723322718a40b1575cb3907fc89911bbf958175b14e28b3fa43494f3883e02"
+    }
+  },
+  "309": {
+    "model": 106,
+    "name": "Hell Maine",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster106.bmd",
+    "sourceHash": "5115fd7ac25cbd8fe4ec2b6eb5a7f167b6ce06ac55444d2494e686c57cf77ddd",
+    "modelVersion": 12,
+    "textures": [
+      "monster/epiboss_armor.ozj",
+      "monster/epibossskin.ozj",
+      "monster/epibosswing.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/epiboss_armor.ozj": "3db26dd860c3d948b88300dda21446891b3e58a55b7ec6a845c308a07abb8e12",
+      "monster/epibossskin.ozj": "2b461fdece44b4b49b7681874acffe2a9b2f7ed5a604eed8fac9d3cf35c79a08",
+      "monster/epibosswing.ozj": "4f223efbfd1ca03d276212249fd03501bbf2ca8a91db4d58a082319bb6f11702"
+    }
+  },
+  "310": {
+    "model": 99,
+    "name": "Hammer Scout",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster99.bmd",
+    "sourceHash": "087102d2952ac2cc230b479d5b37cf6dccb50d9f1f9a5e5e3728c6ce88d33c9c",
+    "modelVersion": 12,
+    "textures": [
+      "monster/wolf01.ozj",
+      "monster/wolfbody.ozj",
+      "monster/wolf03.ozt",
+      "monster/wa1.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/wolf01.ozj": "de990916bf988690df61a454f07f36cff9392b24954ccf542b237181a548a80b",
+      "monster/wolfbody.ozj": "5485924959ee13bf1f7fa49c069c42bc4e914b3a06618f69e8a09f35fcd4f7ee",
+      "monster/wolf03.ozt": "35affe627398f4bf27b0ea806a280b34307409b02b08bcde822b2ec34c98f6c6",
+      "monster/wa1.ozj": "39796e1e84cdd26642394c4f9b9a5ee40ae9a503df26d6463c8f71a22973daf5"
+    }
+  },
+  "311": {
+    "model": 98,
+    "name": "Lance Scout",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster98.bmd",
+    "sourceHash": "bf184338afe1b17c9fb986d8336967b0fc428018fbcac5a4b28cb6b0c0d6b185",
+    "modelVersion": 12,
+    "textures": [
+      "monster/wolfa01.ozj",
+      "monster/wolfa02.ozj",
+      "monster/wolf03.ozt",
+      "monster/wa2.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/wolfa01.ozj": "94d347c957a62d4a6f921ae545734cfde52db6f51d36de40e6eab6cb5ee778d8",
+      "monster/wolfa02.ozj": "6c100e19d3c629fa5d61585f939725eeb919eab36c0337bbf5f5aad65ed0ef3b",
+      "monster/wolf03.ozt": "35affe627398f4bf27b0ea806a280b34307409b02b08bcde822b2ec34c98f6c6",
+      "monster/wa2.ozj": "2010ac26848898d042b5b5aedfe56c3186b117ae68c76bf4e4b4c67daaaa5f2e"
+    }
+  },
+  "312": {
+    "model": 97,
+    "name": "Bow Scout",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster97.bmd",
+    "sourceHash": "9834df70176e3e59c173d593d1aa22c1ae80d198bd5af908da4c08e5547c1355",
+    "modelVersion": 12,
+    "textures": [
+      "monster/wolfa01.ozj",
+      "monster/wolfa02.ozj",
+      "monster/wolf03.ozt",
+      "monster/wa3.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/wolfa01.ozj": "94d347c957a62d4a6f921ae545734cfde52db6f51d36de40e6eab6cb5ee778d8",
+      "monster/wolfa02.ozj": "6c100e19d3c629fa5d61585f939725eeb919eab36c0337bbf5f5aad65ed0ef3b",
+      "monster/wolf03.ozt": "35affe627398f4bf27b0ea806a280b34307409b02b08bcde822b2ec34c98f6c6",
+      "monster/wa3.ozj": "5b1de2ec8a0d2319bd6bc8239ad95d2afde3e5ed57366fabf4316bafdd3b077c"
+    }
+  },
+  "313": {
+    "model": 96,
+    "name": "Werewolf",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster96.bmd",
+    "sourceHash": "4a3867c17135449eaad68855b3613e433b2940bdecbce7e881931c4ab55d6ac5",
+    "modelVersion": 12,
+    "textures": [
+      "monster/cr_werewolf01.ozj",
+      "monster/cr_werewolf02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/cr_werewolf01.ozj": "56e3dcce27d36bf4ba3e31a948ac49fd8acafba3b1287793efcf9aad538f2a53",
+      "monster/cr_werewolf02.ozj": "c4a57928f901791f85a164f596a219e7002cc97c0f98be1df3af155857733465"
+    }
+  },
+  "314": {
+    "model": 99,
+    "name": "Scout(Hero)",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster99.bmd",
+    "sourceHash": "087102d2952ac2cc230b479d5b37cf6dccb50d9f1f9a5e5e3728c6ce88d33c9c",
+    "modelVersion": 12,
+    "textures": [
+      "monster/wolf01.ozj",
+      "monster/wolfbody.ozj",
+      "monster/wolf03.ozt",
+      "monster/wa1.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/wolf01.ozj": "de990916bf988690df61a454f07f36cff9392b24954ccf542b237181a548a80b",
+      "monster/wolfbody.ozj": "5485924959ee13bf1f7fa49c069c42bc4e914b3a06618f69e8a09f35fcd4f7ee",
+      "monster/wolf03.ozt": "35affe627398f4bf27b0ea806a280b34307409b02b08bcde822b2ec34c98f6c6",
+      "monster/wa1.ozj": "39796e1e84cdd26642394c4f9b9a5ee40ae9a503df26d6463c8f71a22973daf5"
+    }
+  },
+  "315": {
+    "model": 96,
+    "name": "Werewolf(Hero)",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster96.bmd",
+    "sourceHash": "4a3867c17135449eaad68855b3613e433b2940bdecbce7e881931c4ab55d6ac5",
+    "modelVersion": 12,
+    "textures": [
+      "monster/cr_werewolf01.ozj",
+      "monster/cr_werewolf02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/cr_werewolf01.ozj": "56e3dcce27d36bf4ba3e31a948ac49fd8acafba3b1287793efcf9aad538f2a53",
+      "monster/cr_werewolf02.ozj": "c4a57928f901791f85a164f596a219e7002cc97c0f98be1df3af155857733465"
+    }
+  },
+  "316": {
+    "model": 92,
+    "name": "Balram",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster92.bmd",
+    "sourceHash": "99147c74bd4c9f0da3ecb1395bd21f00d66de53680d69733aff7e8d3df6d509a",
+    "modelVersion": 12,
+    "textures": [
+      "monster/remonelf.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/remonelf.ozj": "ec8676d5bd976ae488af44851881d0d43a427d037305c775f2982b92349eec61"
+    }
+  },
+  "317": {
+    "model": 95,
+    "name": "Soram",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster95.bmd",
+    "sourceHash": "6a84bc9b5b4dc9456e7f68a15ea0a877361d7bc2587ae72d4a3b1cf7d93b3792",
+    "modelVersion": 12,
+    "textures": [
+      "monster/soram01.ozj",
+      "monster/soram02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/soram01.ozj": "7fd913b9cc2f3a8d72a06826fec4272c384ebe4b9e3de318334364ae9cec3d29",
+      "monster/soram02.ozj": "d7d5f0b708e63e99ad1fd712ef51042782c8bd7c953ba5cd27a690658ca71d62"
+    }
+  },
+  "340": {
+    "model": 93,
+    "name": "Dark Elf",
+    "pending": [],
+    "source": "GMCrywolf1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster93.bmd",
+    "sourceHash": "0f3c473133d810145d56cf192680b87d108bd92345e4eed2331d0f41238267fb",
+    "modelVersion": 12,
+    "textures": [
+      "monster/seta.ozj",
+      "monster/setb.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/seta.ozj": "a3ee838e484f0a5ccfe6fb80172fa39cc3320427c6c0433aa38246d0b042f9d5",
+      "monster/setb.ozt": "4e2244ef5164726480831d86d0b2f6478198f5c593509dba959f371291438a41"
+    }
+  },
+  "349": {
+    "model": 90,
+    "name": "Balgass",
+    "pending": [
+      "special blending/effect"
+    ],
+    "source": "GMCrywolf1st.cpp",
+    "status": "requires-composition"
+  },
+  "350": {
+    "model": 107,
+    "name": "Berserker",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster107.bmd",
+    "sourceHash": "4a13981255a1e6e58fc5d7a3928f0f282750afb9100dfcdb52e05fc3ec4f7702",
+    "modelVersion": 12,
+    "textures": [
+      "monster/buserbody.ozj",
+      "monster/busersword.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/buserbody.ozj": "d05cf7a762314dba1f20f66e7c5d30141be297735984b7b3e43b7aed8e9d5969",
+      "monster/busersword.ozj": "786c331e87e3887af082a8ae7ade7e8355f1b3e8168d4fb4e961a8cb12bd11dc"
+    }
+  },
+  "351": {
+    "model": 108,
+    "name": "Splinter Wolf",
+    "pending": [
+      "special blending/effect"
+    ],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "requires-composition"
+  },
+  "352": {
+    "model": 109,
+    "name": "Iron Rider",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster109.bmd",
+    "sourceHash": "b48dae0e5624c9d30dff4cfb981457665a6a0dd75342a7cbf4f46589dc6249db",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ironrideriteml.ozj",
+      "monster/ironrideritem.ozj",
+      "monster/ironriderarrow.ozj",
+      "monster/ironrider.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ironrideriteml.ozj": "a7e64290f3dc6fce13ae162dfaa9ca03c06671d3a3674ba5f803f68eb84afe6e",
+      "monster/ironrideritem.ozj": "f95a6e7bb1ac43a3257e06fd56bda21f1063af8df16fd30bd1efef68d6d7df10",
+      "monster/ironriderarrow.ozj": "e728bf7cb50d1a69506c8d5440184b3be9d747d610543934fcc2ad1351a6b22b",
+      "monster/ironrider.ozj": "9df70a0cd77a4f95bef9522186f5b4f06f26622c1566e4af17a16cb26d91e467"
+    }
+  },
+  "353": {
+    "model": 110,
+    "name": "Satyros",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster110.bmd",
+    "sourceHash": "a94282813740a007a2f4c360b3c88cb3770c3196872ba6743eb9e5038625c430",
+    "modelVersion": 12,
+    "textures": [
+      "monster/satyros2.ozt",
+      "monster/satyros3.ozj",
+      "monster/satyros1.ozj",
+      "monster/deathbl01.ozj",
+      "monster/deathbl03.ozj",
+      "monster/deathbl02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/satyros2.ozt": "acbfbdef4c870b9ec0af2922419d83b9672acc6c6c919e509fbf9e7d73becc4a",
+      "monster/satyros3.ozj": "3a09b11f19de6e61be184d4762dfcd1f3c18c3beaaf42a7a8e7df4c7e33ee4e0",
+      "monster/satyros1.ozj": "77dff6400e9ec49315db4118e1be4ba4ce0791d30c55f075976edfd2511a4a7b",
+      "monster/deathbl01.ozj": "20b8fcbcfd34a31f372306020174f89fb88ad033cd00e04dad8b6083ccf21ddd",
+      "monster/deathbl03.ozj": "a35258b8764c5f04442dd0c41dd34d6975f7d0603b269f3f16a2f7fc04758511",
+      "monster/deathbl02.ozj": "2214068bbf286f18530a89ef26b067e8fe1a990ac9ccc0633eb4b119624713bf"
+    }
+  },
+  "354": {
+    "model": 111,
+    "name": "Blade Hunter",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster111.bmd",
+    "sourceHash": "c5215aa2cbb7a4bb67308832f9d8d2b7a7aed2e02971402f8bdf82b293838a82",
+    "modelVersion": 12,
+    "textures": [
+      "monster/bladehunter.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/bladehunter.ozj": "0e3a3dd97a5962f098a20e4d3492067249cec76b60669e4a14265bf403d50a21"
+    }
+  },
+  "356": {
+    "model": 113,
+    "name": "Gigantis",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster113.bmd",
+    "sourceHash": "9d3add5f0ecd314b1165c05ea6f4ca9392e422c83d7d324b1ed674075cc496d8",
+    "modelVersion": 12,
+    "textures": [
+      "monster/gigantis.ozj",
+      "monster/gigantiscorn_r.ozj",
+      "monster/gigantis_axl.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/gigantis.ozj": "3cca020dbfdc8a6fcb9529b46a04e5a37eb4a72282e4cf9ed28e8516fb24a5ed",
+      "monster/gigantiscorn_r.ozj": "f6b4e536afe9eb1ab65d4d485f389321d5ec3cf67c3cc32694264f485ae42401",
+      "monster/gigantis_axl.ozj": "fd5d64f08a67d2709529b0e6e48c54a4de3a646e4eb89acd4e42e51276e8c25c"
+    }
+  },
+  "357": {
+    "model": 114,
+    "name": "Genocider",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster114.bmd",
+    "sourceHash": "af4ddd3e834137bd4cf031bcac7ac65d217b9f62c49686b3181b726e5185d891",
+    "modelVersion": 12,
+    "textures": [
+      "monster/genocider_1.ozj",
+      "monster/genocider_2.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/genocider_1.ozj": "96551fb15a1fcccecb749a3708996c920501e8da15a974e4e05abb457007549c",
+      "monster/genocider_2.ozj": "f84e30785abad2350da778383f38d3149f073de2109e1d3561a08fa0b6514d36"
+    }
+  },
+  "358": {
+    "model": 115,
+    "name": "Persona",
+    "pending": [],
+    "source": "GM_Kanturu_2nd.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster115.bmd",
+    "sourceHash": "5a980e2c4d11cfee643f56c00fbb3fd15e958bbf8be4244958a616b0917691b1",
+    "modelVersion": 12,
+    "textures": [
+      "monster/prsona_02.ozj",
+      "monster/prsonas.ozt",
+      "monster/prsonass.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/prsona_02.ozj": "680f106a5deca4482065f1c23a7108b4e5e20d05a319db9f79912f2258c908da",
+      "monster/prsonas.ozt": "e4ab676071af5f66d72c4149c12a250ee5f1055d359da503cbbf6b069968cce6",
+      "monster/prsonass.ozt": "012759f9e8d6b32c7f640622f93ab7e1eace2454d6d57f5508cae3b7a859e73d"
+    }
+  },
+  "359": {
+    "model": 116,
+    "name": "Twin Tale",
+    "pending": [],
+    "source": "GM_Kanturu_2nd.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster116.bmd",
+    "sourceHash": "bc21929732e2505200c48410e7ad30df2af5cb0614728ca99e6c53c50c298244",
+    "modelVersion": 12,
+    "textures": [
+      "monster/arme128.ozj",
+      "monster/body256.ozj",
+      "monster/illumi128.ozj",
+      "monster/nife_01.ozj",
+      "monster/nife_02f.ozj",
+      "monster/tail.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/arme128.ozj": "4cb417490102da4b0c7c3cf7d3e3e2263cead105818435874c09e51097335f06",
+      "monster/body256.ozj": "9c8cbd2e3bd062e8e6588029a8cb912e3ed836b976de36fc1d968ea742ab494f",
+      "monster/illumi128.ozj": "39c38a4b0b80c6f3fa3d091038375138e27ab76c8cc23a9c615fb5c9cae1b8b0",
+      "monster/nife_01.ozj": "9437c08d23aebbbd5fa0fa6113659468ee1ade561a92b14d79b71ba02d574f76",
+      "monster/nife_02f.ozj": "73976af29779af17338b1ec323f5bd9b5514209a179fadd4bde37255029af62d",
+      "monster/tail.ozj": "e7cf52c6fa6afe189b0f63ed1c14f369a46c1243cb7246c215e4cb4666369c03"
+    }
+  },
+  "360": {
+    "model": 117,
+    "name": "Dreadfear",
+    "pending": [],
+    "source": "GM_Kanturu_2nd.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster117.bmd",
+    "sourceHash": "4b3524267c5ec325cdeeeaa6fb03b3af3aeda5dd312edc0bb3cd853eea7f8054",
+    "modelVersion": 12,
+    "textures": [
+      "monster/anacondasword.ozj",
+      "monster/anaconda.ozj",
+      "monster/anawing.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/anacondasword.ozj": "aff88dcc1592f667d182f49e09419fad34104376573dd4b5cb6282cc1ddffd84",
+      "monster/anaconda.ozj": "ef7161f7c70abe0ee91ce3bf24dd5e3ff25d761141181bf952e897897cba4bb6",
+      "monster/anawing.ozt": "bc98d9b74543a082c85a771eb1159381e716578061fd410f80be7bec606a07f4"
+    }
+  },
+  "361": {
+    "model": 122,
+    "name": "Nightmare",
+    "pending": [
+      "special blending/effect"
+    ],
+    "source": "GM_Kanturu_3rd.cpp",
+    "status": "requires-composition"
+  },
+  "362": {
+    "model": 119,
+    "name": "Maya Hand",
+    "pending": [
+      "special blending/effect"
+    ],
+    "source": "GM_Kanturu_3rd.cpp",
+    "status": "requires-composition"
+  },
+  "363": {
+    "model": 120,
+    "name": "Maya Hand",
+    "pending": [
+      "special blending/effect"
+    ],
+    "source": "GM_Kanturu_3rd.cpp",
+    "status": "requires-composition"
+  },
+  "365": {
+    "name": "Pouch of Blessing",
+    "status": "unmapped"
+  },
+  "409": {
+    "name": "Balram",
+    "status": "unmapped"
+  },
+  "410": {
+    "name": "Death Spirit",
+    "status": "unmapped"
+  },
+  "411": {
+    "name": "Soram",
+    "status": "unmapped"
+  },
+  "412": {
+    "name": "Dark Elf",
+    "status": "unmapped"
+  },
+  "413": {
+    "name": "Lunar Rabbit",
+    "status": "unmapped"
+  },
+  "418": {
+    "model": 129,
+    "name": "Strange Rabbit",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster129.bmd",
+    "sourceHash": "df51efadd13c97fa5fcde503b6fa3d1f05259bbc62d378ba4eb231aa3d612954",
+    "modelVersion": 12,
+    "textures": [
+      "monster/strangehare.ozj",
+      "monster/harehair.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/strangehare.ozj": "d01fe56d714fe795c081e304919d1fbdef3ac4f16e1be78775c12595a1aef6a0",
+      "monster/harehair.ozt": "904b4ae7cae314a8a7f805a328a2aad91a8fc4e1d4ee7d575b9b579ccac8fbd1"
+    }
+  },
+  "419": {
+    "model": 130,
+    "name": "Hideous Rabbit",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster130.bmd",
+    "sourceHash": "9d5a6c0b5877bede28eed8aa45cfde1ec4355394453680238ea60bb51f72bb4d",
+    "modelVersion": 12,
+    "textures": [
+      "monster/strangerabbit_body.ozj",
+      "monster/strangerabbit_eyes.ozj",
+      "monster/strangerabbit_fur.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/strangerabbit_body.ozj": "c3aeb6047037eef5041299a743a5a8c50eeaeba91c93e2732067857878e9190f",
+      "monster/strangerabbit_eyes.ozj": "54e14e7835c1eb17d95043520769b77e5b0c4f98787efaf17415524c028e5ab6",
+      "monster/strangerabbit_fur.ozt": "20b8884fb84eec9a80c1e2a8dfb19758ffc522e2a74c391636b612b2e843653e"
+    }
+  },
+  "420": {
+    "model": 131,
+    "name": "Werewolf",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster131.bmd",
+    "sourceHash": "ed1bebfd65b7476071f6915ff137c220df7b9ffbd909f1282e13a81d4a34ba09",
+    "modelVersion": 12,
+    "textures": [
+      "monster/wolfhair.ozt",
+      "monster/werewolf.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/wolfhair.ozt": "8afbfd5c9f04d9c4ef4d76802ab74f4b981c2e196dae2c8b7c82d72200028b4d",
+      "monster/werewolf.ozj": "3e45e34659431f580857bc11e3cc7a515bb592dc092f16150fdbfe9a14f69bf9"
+    }
+  },
+  "421": {
+    "model": 132,
+    "name": "Polluted Butterfly",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster132.bmd",
+    "sourceHash": "bc65e3c2e58a9ff8bbb36065bacec46dff73b638815df359349e1adb5e7131bf",
+    "modelVersion": 12,
+    "textures": [
+      "monster/body.ozj",
+      "monster/wing.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/body.ozj": "77e27bdf9f8fae5374212be28189038c82675083c095c2dc42d53f7478c0a624",
+      "monster/wing.ozt": "bcd9dd0f2907b819f87181c7b2d81019b63f2c3bf0504c101adb6ee9e2ee7d55"
+    }
+  },
+  "422": {
+    "model": 133,
+    "name": "Cursed Lich",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster133.bmd",
+    "sourceHash": "e616395c1b16ef88ad76c6ac136eb06553cd726fdb4bfa08b10d9f89bc7b4bf1",
+    "modelVersion": 12,
+    "textures": [
+      "monster/curse_rich.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/curse_rich.ozj": "113535f514dfc6e1bf86af3e797b9a46d3f31889f7eedf87bc538cf7d778f8b8"
+    }
+  },
+  "423": {
+    "model": 134,
+    "name": "Totem Golem",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster134.bmd",
+    "sourceHash": "307e1fb4edf57182709207fe4f549306f898e2705f58a87a908edeb6041ee8a2",
+    "modelVersion": 12,
+    "textures": [
+      "monster/totemgolem_body.ozj",
+      "monster/totemgolem_leaf.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/totemgolem_body.ozj": "1d032038618a2053a85e6844ebe3238d00178d0c2694c98cd722a548abc1c6db",
+      "monster/totemgolem_leaf.ozt": "5a0b7b05d74a45688cf7c78ea38cca3d178c178361260090bbfc3d37fd2f0e95"
+    }
+  },
+  "424": {
+    "model": 135,
+    "name": "Grizzly",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster135.bmd",
+    "sourceHash": "30ad79468ef0ad508122faa85dc77f90003cc470452b9b3bd4ad83bf70cb984a",
+    "modelVersion": 12,
+    "textures": [
+      "monster/woosi02.ozt",
+      "monster/woosi01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/woosi02.ozt": "c09ea38e5678f9d794ac7b0b4193f2344b405e97be07ad55f202d34fc954b35f",
+      "monster/woosi01.ozj": "4fe249d745be2b1c2db503da8af581d5cd38d3dd678e19c1f7661096a02b3180"
+    }
+  },
+  "425": {
+    "model": 136,
+    "name": "Captain Grizzly",
+    "pending": [],
+    "source": "GMNewTown.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster136.bmd",
+    "sourceHash": "7ed04aec66c109af0b07e270d50660c44787b5fde5f4918bfdf4b253f23b9745",
+    "modelVersion": 12,
+    "textures": [
+      "monster/woosidezang02.ozt",
+      "monster/woosidezang01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/woosidezang02.ozt": "4d0d4b025f0cf6df9963e85271d7935330e9c122f33a214fbb72e19d41485a6f",
+      "monster/woosidezang01.ozj": "2bea765849829db35f8efd9cb1558489ac89f23cfb44943f6342e369d573e3a5"
+    }
+  },
+  "441": {
+    "model": 137,
+    "name": "Sapi-Unus",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster137.bmd",
+    "sourceHash": "f4871e69e359679d35481f8a14f082f7a6bab76f684bda375021e505fd4e8b14",
+    "modelVersion": 12,
+    "textures": [
+      "monster/sapitres_root.ozt",
+      "monster/sapiunus_body.ozj",
+      "monster/sapiunus_body01.ozj",
+      "monster/sapiunusleaf_r.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/sapitres_root.ozt": "770f91943f90c1ea0349b53abfcc41486d79f1b3cbe886e825a2d7c33519aa0e",
+      "monster/sapiunus_body.ozj": "c4e2099587336593374fa934ebfb4f9c1f2186bcd13e0bd66679229bce6e0379",
+      "monster/sapiunus_body01.ozj": "fc4a8e7888e3851bd79b09e3bd993066c5cb010a05b44917b6a8bb6f8702563a",
+      "monster/sapiunusleaf_r.ozj": "14c57dcd99a95fccd737354ba363e5a638c8766568b595abddf83e7b7c3b6cef"
+    }
+  },
+  "442": {
+    "model": 138,
+    "name": "Sapi-Duo",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster138.bmd",
+    "sourceHash": "acfa341c65c6431396763f8005ac0eede4bd828b9ad01475951a94092f32942d",
+    "modelVersion": 12,
+    "textures": [
+      "monster/sapiduoleaf_r.ozj",
+      "monster/sapitres_root.ozt",
+      "monster/sapiduo_body.ozj",
+      "monster/sapiduo_body01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/sapiduoleaf_r.ozj": "3b89787ad6d59f279db6765cd58d9007c12c1157e979c864705dd86b2843d5e4",
+      "monster/sapitres_root.ozt": "770f91943f90c1ea0349b53abfcc41486d79f1b3cbe886e825a2d7c33519aa0e",
+      "monster/sapiduo_body.ozj": "538d20ccdd2978adf27d9fe8a944493f62aabd2c4e92717c6e99c8c0ab70a8c2",
+      "monster/sapiduo_body01.ozj": "d732f8823913609dd2097d54899f086bf059d6aa08043a14481ce31e70a1cc76"
+    }
+  },
+  "443": {
+    "model": 139,
+    "name": "Sapi-Tres",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster139.bmd",
+    "sourceHash": "b61bfaffb8df19b58d138e0696caed5e03c2e1a3778172a3ea7cd5dd516faa03",
+    "modelVersion": 12,
+    "textures": [
+      "monster/sapitresleaf_r.ozj",
+      "monster/sapitres_root.ozt",
+      "monster/sapitresl_body.ozj",
+      "monster/sapitresthorn_r.ozj",
+      "monster/sapitres_body01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/sapitresleaf_r.ozj": "c7c28534613712997a63ee218df913a82f5e98c75e1ebb0e073e8784b102b63b",
+      "monster/sapitres_root.ozt": "770f91943f90c1ea0349b53abfcc41486d79f1b3cbe886e825a2d7c33519aa0e",
+      "monster/sapitresl_body.ozj": "4b05da22516da6eea689e4d5eef8d88021c71edbf6c0fa938b9acb2f3cecae48",
+      "monster/sapitresthorn_r.ozj": "c41c9b1f9dcef155321053d1c04aa7fe4bcded3140b41fdec1b20fd636e66be7",
+      "monster/sapitres_body01.ozj": "879019a0f402510b15782e81372d89824c57eaf3a6ae3e53201b28ee1c0a24b0"
+    }
+  },
+  "445": {
+    "model": 141,
+    "name": "Shadow Knight",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster141.bmd",
+    "sourceHash": "12d81288813ebb3aef14591650cb4b881a9ace8f3ad888238e64fb5d5ffd6728",
+    "modelVersion": 12,
+    "textures": [
+      "monster/shadow_weapons.ozj",
+      "monster/blue_shadowmontype.ozt",
+      "monster/blue_shadowschma.ozt",
+      "monster/shadowmontype.ozj",
+      "monster/nomal_shadows.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/shadow_weapons.ozj": "13d6b724cb92ee35e75ba1be99fef626adcce8c5c927d1c8db3d2d4dc256ccff",
+      "monster/blue_shadowmontype.ozt": "61d0acb331b713f032d1829df6c3d62c00c5fd98c605198cc453e6b2063bdea9",
+      "monster/blue_shadowschma.ozt": "4204c611d11dbd679196144b259a1bf5232464e12fec7bbd10ac15b894469632",
+      "monster/shadowmontype.ozj": "620efe99d83389c5a7380950a6c37b737547c01d1a8e129d860a91dd4ff64834",
+      "monster/nomal_shadows.ozt": "9a77b9d400e5ec5a5d40a733283a3bb2dd269cb09f96cb771456bb90ee3fe400"
+    }
+  },
+  "446": {
+    "model": 142,
+    "name": "Shadow Look",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster142.bmd",
+    "sourceHash": "df93cecca9a586f1591bb2d847cc20d7316667a6154a9565aeb1ceb89f89da99",
+    "modelVersion": 12,
+    "textures": [
+      "monster/nomal_shadows.ozt",
+      "monster/green_shadowmontype.ozt",
+      "monster/shadow_weapons.ozj",
+      "monster/green_shadowschma.ozt",
+      "monster/shadowmontype.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/nomal_shadows.ozt": "9a77b9d400e5ec5a5d40a733283a3bb2dd269cb09f96cb771456bb90ee3fe400",
+      "monster/green_shadowmontype.ozt": "b8e904c1f54e8e22f2b5fb15e19b065d9cb61988e029128323de051febb2a868",
+      "monster/shadow_weapons.ozj": "13d6b724cb92ee35e75ba1be99fef626adcce8c5c927d1c8db3d2d4dc256ccff",
+      "monster/green_shadowschma.ozt": "59bf5568826bd899c950833a484c7f5c993a9a7ec3ac60cfed6fc00ec082ef81",
+      "monster/shadowmontype.ozj": "620efe99d83389c5a7380950a6c37b737547c01d1a8e129d860a91dd4ff64834"
+    }
+  },
+  "447": {
+    "model": 143,
+    "name": "Thunder Napin",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster143.bmd",
+    "sourceHash": "387f5b70e4709f804d5fd44e301a3b0b68f180ffd8e3ac7197af0fee000b26e3",
+    "modelVersion": 12,
+    "textures": [
+      "monster/soultreea.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/soultreea.ozj": "d1c44ffa97143a4ea2044fff1501e9670c378155914b865f1fc1d24c066da322"
+    }
+  },
+  "448": {
+    "model": 144,
+    "name": "Ghost Napin",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster144.bmd",
+    "sourceHash": "f4b0100c92144afecaf7e6c83fd56a5e6ebd2f0691c1cb1402683af5075fdbd4",
+    "modelVersion": 12,
+    "textures": [
+      "monster/soultreeb.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/soultreeb.ozj": "dbed0f238213724bb49aed465ac47c8e2e958c6812fb1f0148ee7e271efc4e84"
+    }
+  },
+  "449": {
+    "model": 145,
+    "name": "Blaze Napin",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster145.bmd",
+    "sourceHash": "5a6fdd07080ffbb19a20afd5534198d4cd31c54b713fdd382511889567286ab8",
+    "modelVersion": 12,
+    "textures": [
+      "monster/soultreec.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/soultreec.ozj": "f24b7469df0e8756aa694d28744f710b38b4ce2ff223a5f595a9ac35345a2aef"
+    }
+  },
+  "454": {
+    "model": 146,
+    "name": "Ice Walker",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster146.bmd",
+    "sourceHash": "b4d1ff44accdc3ac5ab7c6a337218f38ea8ec834c2d828ee688f4929a626693f",
+    "modelVersion": 12,
+    "textures": [
+      "monster/icewalker_body.ozj",
+      "monster/icewalker_r.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/icewalker_body.ozj": "01c0483401be01ebd00832960cd784ae883374649301227165dddb330e6c2a49",
+      "monster/icewalker_r.ozj": "e32ef6cca5918b5a735568e2620c28fdf389835c64814e434a4fa285f09e40d4"
+    }
+  },
+  "456": {
+    "model": 148,
+    "name": "Ice Giant",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster148.bmd",
+    "sourceHash": "6fa9a7ebd7fd2a7dc0dddc36242c67871848e4e3ef6d27bec95c36b77660f783",
+    "modelVersion": 12,
+    "textures": [
+      "monster/iceja.ozj",
+      "monster/icejb.ozj",
+      "monster/weapona.ozj",
+      "monster/weaponb.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/iceja.ozj": "2166d5c492c38725b9202002964f576d06d4762b1f1e0474eb75e4103de70636",
+      "monster/icejb.ozj": "c7538c33284b7598a9f32218f43fbf67e25f9bf4cbf65765142c4c3c5210b7ec",
+      "monster/weapona.ozj": "0e7941e5378f48dbcd0ffaa73117be3f4952bc83b2ed7627aa6a518adf7a03f2",
+      "monster/weaponb.ozj": "8841380be1eee5f7d1109e191e90a0d3e47db11b3341a9af84c88ab87c565814"
+    }
+  },
+  "457": {
+    "model": 149,
+    "name": "Coolutin",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster149.bmd",
+    "sourceHash": "24184f09fc758ac1af15b8f03f6a468078df07946dfedd1822a7db60951b7f68",
+    "modelVersion": 12,
+    "textures": [
+      "monster/coolertin_body.ozj",
+      "monster/coolertin_r.ozj",
+      "monster/coolertinleg_r.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/coolertin_body.ozj": "6843c66757eae9a615165ec370b74b8b2cf8fb80cc233229dc69a460da2435b1",
+      "monster/coolertin_r.ozj": "7db058388b367291eb9d36310ab2a8e781846edd69bf600cd41ebc3dd6055f99",
+      "monster/coolertinleg_r.ozj": "4fd32677920def92a87c8fdc4a48bbe874ddb814f75c172f9968aa3054154120"
+    }
+  },
+  "458": {
+    "model": 150,
+    "name": "Iron Knight",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster150.bmd",
+    "sourceHash": "188f8d281f96a6dcfbf61d84d0ea45e83ef54e247467a16c0f2cc2c0d6ac751a",
+    "modelVersion": 12,
+    "textures": [
+      "monster/icenight.ozj",
+      "monster/icenight2.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/icenight.ozj": "3c3c129fb2484f2b6755a474a9ed0984da5b10581a8494339a4a2886f8eea543",
+      "monster/icenight2.ozj": "72b8931fc45b66cb9bd0d7e928772983d193255490c775785bfbdf7dc5479423"
+    }
+  },
+  "459": {
+    "model": 151,
+    "name": "Selupan",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "render-failed",
+    "modelFile": "monster/monster151.bmd",
+    "error": "Missing texture monster/blast2_r.ozj"
+  },
+  "463": {
+    "name": "Fire Flame Ghost",
+    "status": "unmapped"
+  },
+  "480": {
+    "name": "Zombie Fighter",
+    "status": "unmapped"
+  },
+  "481": {
+    "name": "Zombie Fighter",
+    "status": "unmapped"
+  },
+  "482": {
+    "name": "Resurrected Gladiator",
+    "status": "unmapped"
+  },
+  "483": {
+    "name": "Resurrected Gladiator",
+    "status": "unmapped"
+  },
+  "484": {
+    "name": "Ash Slaughterer",
+    "status": "unmapped"
+  },
+  "485": {
+    "name": "Ash Slaughterer",
+    "status": "unmapped"
+  },
+  "486": {
+    "name": "Blood Assassin",
+    "status": "unmapped"
+  },
+  "487": {
+    "name": "Cruel Blood Assassin",
+    "status": "unmapped"
+  },
+  "488": {
+    "name": "Cruel Blood Assassin",
+    "status": "unmapped"
+  },
+  "489": {
+    "name": "Burning Lava Giant",
+    "status": "unmapped"
+  },
+  "490": {
+    "name": "Ruthless Lava Giant",
+    "status": "unmapped"
+  },
+  "491": {
+    "name": "Ruthless Lava Giant",
+    "status": "unmapped"
+  },
+  "493": {
+    "name": "Golden Dark Knight",
+    "status": "unmapped"
+  },
+  "494": {
+    "name": "Golden Devil",
+    "status": "unmapped"
+  },
+  "495": {
+    "name": "Golden Stone Golem",
+    "status": "unmapped"
+  },
+  "496": {
+    "name": "Golden Crust",
+    "status": "unmapped"
+  },
+  "497": {
+    "name": "Golden Satyros",
+    "status": "unmapped"
+  },
+  "498": {
+    "name": "Golden Twin Tail",
+    "status": "unmapped"
+  },
+  "499": {
+    "name": "Golden Iron Knight",
+    "status": "unmapped"
+  },
+  "500": {
+    "name": "Golden Napin",
+    "status": "unmapped"
+  },
+  "501": {
+    "name": "Great Golden Dragon",
+    "status": "unmapped"
+  },
+  "502": {
+    "name": "Golden Rabbit",
+    "status": "unmapped"
+  },
+  "549": {
+    "model": 194,
+    "name": "Bloody Orc",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster194.bmd",
+    "sourceHash": "42505dd886995bb08e47b34df26dc78f9f50827a33f041313f4ccf5cefd0d13c",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01mono3.ozj",
+      "monster/ex01mono3eye.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01mono3.ozj": "94a3f8989269b20e9789f8965ce3c69ad222172d18da4662e7a07b259b99fd9c",
+      "monster/ex01mono3eye.ozj": "5266512306a9dfa2ac8a227c502dcbc80cbca782b74384cc1d19daeccba9626b"
+    }
+  },
+  "550": {
+    "model": 195,
+    "name": "Bloody Death Rider",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster195.bmd",
+    "sourceHash": "622936f026d9868767d8ae2e607f83128730d2539ddc296548331e7bf9dfe301",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01branch.ozj",
+      "monster/ex01leaves.ozt",
+      "monster/ex01forestgost.ozj",
+      "monster/ex01prizm.ozj",
+      "monster/ex01forestgost_should.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01branch.ozj": "64392978f0d5e884a7f3d9e305519d4dce8ee6239004fdd63af2e1a48d364dae",
+      "monster/ex01leaves.ozt": "0eeb03225b26ac2eec0f68912b0310e7af7e203407e8d3feadac30858128200a",
+      "monster/ex01forestgost.ozj": "03edd9b448f47cac7bfd1146f3ba8390beef3495f627f1e0d6d08196d746890c",
+      "monster/ex01prizm.ozj": "d770a655da1e9f5d0c804cc070d73cb4a72dcade97a47707bcdeebdd05ddca3f",
+      "monster/ex01forestgost_should.ozj": "2a8ebda353555fa00e66443ce7fc4ddfa4b34f8e9a5999f6f497cbd1ba98da39"
+    }
+  },
+  "551": {
+    "model": 196,
+    "name": "Bloody Golem",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster196.bmd",
+    "sourceHash": "d4d654280bb32763034e19b8f47d76f417d639007f2376bdafd374cd7044719f",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01fmbody_r.ozj",
+      "monster/ex01fmammor.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01fmbody_r.ozj": "b043d6c335b74c4de58a367533e466cd648320cd076523e7142f66c01fc80c62",
+      "monster/ex01fmammor.ozj": "f4a0f4faa9085e17583d0c7b3b1a41fedebf231547352da65ebaf321872a7249"
+    }
+  },
+  "552": {
+    "model": 197,
+    "name": "Bloody Witch Queen",
+    "pending": [],
+    "source": "GMAida.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster197.bmd",
+    "sourceHash": "601bc03269d494eab2420a43e3fda9038f3e1b5b1656cd4e3cadad9bf17eb11e",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ma001.ozt",
+      "monster/ma002.ozj",
+      "monster/ex01ma.ozj",
+      "monster/ma2.ozj",
+      "monster/it.ozj",
+      "monster/h_r.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ma001.ozt": "58edbb587fa8c3ed3976b4a466459635a51cf2a6361e9804823634077bd7954d",
+      "monster/ma002.ozj": "d14c1e0909034e9bceeaf3050a163ef77f8cba2d4eb4b2acc0df06dc05fb5ce7",
+      "monster/ex01ma.ozj": "ce8a86cf033178a96298223ea0374c6b999e3600d79558e5ce15bacfa559b769",
+      "monster/ma2.ozj": "18f7965b051065b596cca83ec4c4816a409c5b65de0048cf98e7e90f20e360eb",
+      "monster/it.ozj": "ca29fe1f09e75ec014240d7dc60f6515aa0860c3b050a937287b311728a315c6",
+      "monster/h_r.ozt": "1cdb2f4565c5553fbd54d97f3a43c1aa6235e88d7f51b63f2ca6660adcdc31b2"
+    }
+  },
+  "553": {
+    "model": 198,
+    "name": "Berserker Warrior",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster198.bmd",
+    "sourceHash": "963ebd6425d65ad3d2d5dc40b810e6e873df09f12a136dbdb09e0fd6d91970c8",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01buserbody.ozj",
+      "monster/ex01busersword.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01buserbody.ozj": "19c71e8ee5459cabee153894dd02b4000feb6b063ffab27587cd14da3d810078",
+      "monster/ex01busersword.ozj": "cbbe0595dc90546beee209f2423d293c4cbdc02aec6ffec200f966ac84d50f33"
+    }
+  },
+  "554": {
+    "model": 199,
+    "name": "Kentauros Warrior",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster199.bmd",
+    "sourceHash": "6db32bfbe72c0006222f2327face898540b564a0c08d05d9d07dbed025887d33",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01cantas_04.ozj",
+      "monster/ex01cantas_r.ozj",
+      "monster/ex01cantas_01.ozj",
+      "monster/ex01cantas_02.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01cantas_04.ozj": "1fa7d9d04512cf78f2eefc647483734bcd2549b69f35e5c36ac07940383b2ca1",
+      "monster/ex01cantas_r.ozj": "04b6d0b162dafa89a48e613f01aa607d1cde65a8510d5f4494bbc263dc81ebf4",
+      "monster/ex01cantas_01.ozj": "f719d9eff0646b7bdda9f5f9af17584e73fcec672661fd908fc2cf35a69d94ed",
+      "monster/ex01cantas_02.ozj": "38970df641185e41798dc0eb4e0c8c1243d63272e56584e5c65372599ca21231"
+    }
+  },
+  "555": {
+    "model": 200,
+    "name": "Gigantis Warrior",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster200.bmd",
+    "sourceHash": "006e40995077f5a27147d116dcecd0f874cc321525d5ce71363bb719ee078033",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01gigantis.ozj",
+      "monster/ex01gigantiscorn_r.ozj",
+      "monster/ex01gigantis_axl.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01gigantis.ozj": "37641a92c04235586e904b37b6cb5a6ef41bad9cfc14919ca39084fef38552ef",
+      "monster/ex01gigantiscorn_r.ozj": "a7b2bc0ad00677e03a48e851278c5be6ee480cb29add628eda236eb0eb38f7f2",
+      "monster/ex01gigantis_axl.ozj": "196b1ba0b798378b0fedf23d13193735663227c7395b26465a58594e3d5d68b0"
+    }
+  },
+  "556": {
+    "model": 201,
+    "name": "Genocider Warrior",
+    "pending": [],
+    "source": "GM_Kanturu_1st.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster201.bmd",
+    "sourceHash": "48cffcb5c45bd3148ebfb71d8925b241a734fff6d856147fd4f16309251caae3",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01genocider_1.ozj",
+      "monster/ex01genocider_2.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01genocider_1.ozj": "45046a11eec1de98057d1efdf7c2b3b8e64a72ef5c05b1adbd8babbc9cea29c5",
+      "monster/ex01genocider_2.ozj": "7dde5ba3639866269bc83e718df50db86119d12e2a2d00d5a5c3219aadfd9a76"
+    }
+  },
+  "557": {
+    "model": 202,
+    "name": "Sapi Queen",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster202.bmd",
+    "sourceHash": "2fe5f9e9d7cfd3f941c1fe2e8129a49bda6ff21af765cad9e45495a04472ea6b",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01sapitres_root.ozt",
+      "monster/ex01sapitres_body.ozj",
+      "monster/ex01sapitres_body01.ozj",
+      "monster/ex01sapitresleaf_r.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01sapitres_root.ozt": "770f91943f90c1ea0349b53abfcc41486d79f1b3cbe886e825a2d7c33519aa0e",
+      "monster/ex01sapitres_body.ozj": "834ab4824ea907b01e95767493f5416c7d61b9e93b84876b0ee1437d5e60cf19",
+      "monster/ex01sapitres_body01.ozj": "dd4f44f3ec5145699e638d7feb35116541fe260b91b20c8ef390593d50648727",
+      "monster/ex01sapitresleaf_r.ozj": "5578557502f458f6fe303c06f576804c333ed56dca5cc7bc07b76c87e8b08fd1"
+    }
+  },
+  "558": {
+    "model": 203,
+    "name": "Ice Napin",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster203.bmd",
+    "sourceHash": "cd7460d3e2f21e12ca30dbbfdb837fcfaff8161ae1d9b35ca75d23312073de67",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01soultreec.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01soultreec.ozj": "8adab3edc2da8a1d1000178a01df5d76b3b3bb476b2a147defdd9a40728e1c28"
+    }
+  },
+  "559": {
+    "model": 204,
+    "name": "Shadow Master",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster204.bmd",
+    "sourceHash": "b1a98f45040139f0562f2871c0273078097850c8856fdd858157f89ae4ad2f35",
+    "modelVersion": 12,
+    "textures": [
+      "monster/nomal_shadows.ozt",
+      "monster/ex01green_shadowmontype.ozt",
+      "monster/ex01shadow_weapons.ozj",
+      "monster/ex01green_shadowschma.ozt",
+      "monster/ex01shadowmontype.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/nomal_shadows.ozt": "9a77b9d400e5ec5a5d40a733283a3bb2dd269cb09f96cb771456bb90ee3fe400",
+      "monster/ex01green_shadowmontype.ozt": "463f568d5982273d595567b921c401bc10ee62e3c175a5c15ea1ff62a4db1779",
+      "monster/ex01shadow_weapons.ozj": "dc225a043672ddc35e97e3148c335e93a802a41acf160a185aedf02a84f005d3",
+      "monster/ex01green_shadowschma.ozt": "8403648a998e489c507199e2f39d23320f91236fbd41f0ad27411a4fdc5f19d2",
+      "monster/ex01shadowmontype.ozj": "c3f2825ceaff7ade70b4bbdd78fcd3025e4c81ab96da6c9c0809b98abb9d4d3f"
+    }
+  },
+  "561": {
+    "model": 193,
+    "name": "Medusa",
+    "pending": [],
+    "source": "GMSwampOfQuiet.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster193.bmd",
+    "sourceHash": "942cad01f6949db8c06f8486cac1673d13a93a7a3c268b7488d65522c8e4b560",
+    "modelVersion": 12,
+    "textures": [
+      "monster/medusa01_attach.ozj",
+      "monster/medusa01_body.ozj",
+      "monster/medusa01_wand.ozj",
+      "monster/medusa01_wing.ozt",
+      "monster/medusa01_tail.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/medusa01_attach.ozj": "aa833374565dc6dfa1fcf65bca29e67bfba5fcc5c3f35ae51749f75bd292b62e",
+      "monster/medusa01_body.ozj": "228be1bda18b1ae17d8c946f6b7475650b152222e6d7733132612ec2c97a8097",
+      "monster/medusa01_wand.ozj": "82cb691fe5c83c77803655e1b463f390204908bf92d2142b087d89984bf28eeb",
+      "monster/medusa01_wing.ozt": "412508f7174ead855107e32df5f1d2ba9f1798819d849636c0f116de7d965541",
+      "monster/medusa01_tail.ozj": "3d42b54635533de24c3267a188d3aaf664a712aeb814e820418e8fe302ea372b"
+    }
+  },
+  "563": {
+    "model": 207,
+    "name": "Dark Giant",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster207.bmd",
+    "sourceHash": "425a3a5f2230c772ccc6462d16c654607a139fe3b3e0842b2ee5f6fbc736258a",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01iceja.ozj",
+      "monster/ex01icejb.ozj",
+      "monster/ex01weapona.ozj",
+      "monster/ex01weaponb.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01iceja.ozj": "1f5a914a386225ff9cb174920b048da50f11de7f1bc94d07ede223fd71f5ba81",
+      "monster/ex01icejb.ozj": "591c6613afb28c68745383fd8f1a257d1df114c0f2d063f5d427c57b0107b43f",
+      "monster/ex01weapona.ozj": "a5e73d52cb65b87d010dcb19b95147af26885d30fe15cde14e0cc7486729a4f7",
+      "monster/ex01weaponb.ozj": "dd9579fe6350f0f33d279df4dfac3f789ce966e42dd4f5a8a56c275b83171b2b"
+    }
+  },
+  "564": {
+    "model": 208,
+    "name": "Dark Coolutin",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster208.bmd",
+    "sourceHash": "ac0b7fc0e20a01ed83a746782a88fdeccefe3f5f600c4d8f77e07c1556393e91",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01coolertin_body.ozj",
+      "monster/ex01coolertin_r.ozj",
+      "monster/ex01coolertinleg_r.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01coolertin_body.ozj": "a66e165629d572728e6149d130720a82a4a1409791ac9d4f865c4fd4cbcb611e",
+      "monster/ex01coolertin_r.ozj": "d13f43e62eebc65a7bbf4d654dcf9b2f27cdcab3e7e0dd635b81b4d3c6c7754c",
+      "monster/ex01coolertinleg_r.ozj": "ab66811c3cd1df1e466cfffe5bbb56c1d8b7773831cce2f57a3147cf5aaf2d43"
+    }
+  },
+  "565": {
+    "model": 209,
+    "name": "Dark Iron Knight",
+    "pending": [],
+    "source": "GM_Raklion.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster209.bmd",
+    "sourceHash": "c67c060c927d0c98cb391a22e1f83809d25f0e9e4fe2985636a543fb8d57f433",
+    "modelVersion": 12,
+    "textures": [
+      "monster/ex01icenight.ozj",
+      "monster/ex01icenight2.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/ex01icenight.ozj": "da9419cb6c8c173fdf779b4923737f9eb38abdd0aca00d7ca84a2c3d3996d2ed",
+      "monster/ex01icenight2.ozj": "705c118a39a14fe3979dbb10e4efd9c8fee981413297eae98bf02122b40aff51"
+    }
+  },
+  "569": {
+    "model": 210,
+    "name": "Venomous Chain Scorpion",
+    "pending": [],
+    "source": "GMKarutan1.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster210.bmd",
+    "sourceHash": "751b60bb77c21540f2a17c4fb09f5edd9e44ba7cbe5fb76ad24595277e8d9a5f",
+    "modelVersion": 12,
+    "textures": [
+      "monster/gorizungal.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/gorizungal.ozj": "9bb27355fd26fe88933e7683a3d50dc422ad82031285f0d191309147ea7b8f25"
+    }
+  },
+  "570": {
+    "model": 211,
+    "name": "Bone Scorpion",
+    "pending": [],
+    "source": "GMKarutan1.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster211.bmd",
+    "modelVersion": 12,
+    "textures": [
+      "monster/bones.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "sourceHash": "0a87a4219b3b40ef892c437272b81921a06403b07ab485d0a05a1439269340dc",
+    "textureHashes": {
+      "monster/bones.ozj": "1ec95ef193d2ae9987b7e259f884df4e76f06089c0d13819b76e377ebd9377a0"
+    }
+  },
+  "571": {
+    "model": 212,
+    "name": "Orcus",
+    "pending": [],
+    "source": "GMKarutan1.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster212.bmd",
+    "sourceHash": "d00025e02bd506275491f08ddd859d8ef1de3355e15f05df9ba57b48eb2575c5",
+    "modelVersion": 12,
+    "textures": [
+      "monster/orcus.ozj",
+      "monster/orcusalpha.ozt",
+      "monster/orcusweapon.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/orcus.ozj": "fdafbd86c67837562326750f8a787c0a4dfec035c2e7105a5274873ca6de868f",
+      "monster/orcusalpha.ozt": "97662f623db45730d5a1e00a86dbeb6afed5260e3f3e75ccb4b39f389cf37b58",
+      "monster/orcusweapon.ozj": "1b935ce9f5d375b27b6f8050ecbd52a4aa2550055e0968c3ce408d0b7a040e41"
+    }
+  },
+  "572": {
+    "model": 213,
+    "name": "Gollock",
+    "pending": [],
+    "source": "GMKarutan1.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster213.bmd",
+    "sourceHash": "d0d0b59bac192305221b8a6406b075f1cfad0477182c7470d8f0ac2b2ccb576c",
+    "modelVersion": 12,
+    "textures": [
+      "monster/sd1.ozj",
+      "monster/darital_1.ozt",
+      "monster/ironrider.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/sd1.ozj": "261fff60900ee4c7f7dbddc61f9ff607697b947a325b0cc4d031b7adaa3253cb",
+      "monster/darital_1.ozt": "3403d9178d12aea2a81f5c255ba54340e5c07b885fb2d0cb10c6e01bc409d4cb",
+      "monster/ironrider.ozj": "9df70a0cd77a4f95bef9522186f5b4f06f26622c1566e4af17a16cb26d91e467"
+    }
+  },
+  "573": {
+    "model": 214,
+    "name": "Crypta",
+    "pending": [],
+    "source": "GMKarutan1.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster214.bmd",
+    "modelVersion": 12,
+    "textures": [
+      "monster/kryptaball.ozj",
+      "monster/krypta.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "sourceHash": "b1177c06a000fef9322ec5c54fe2f6d13aa7b6a21a2760886c63b0b190b6124b",
+    "textureHashes": {
+      "monster/kryptaball.ozj": "2c5520af0fb17fc013cf42ec8efeb879c42094b284b0cd35bdb1fbd2aad8606d",
+      "monster/krypta.ozj": "334e7aae550ec24abf16145cf294eece68defca32b2e960aa3a6737f076b83fb"
+    }
+  },
+  "574": {
+    "model": 215,
+    "name": "Crypos",
+    "pending": [],
+    "source": "GMKarutan1.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster215.bmd",
+    "modelVersion": 12,
+    "textures": [
+      "monster/tuls_bug.ozt",
+      "monster/king_bug01.ozj",
+      "monster/king_bug02.ozj",
+      "monster/king_bug03.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "sourceHash": "8eceda3bd42e966ff79c0a66b886b81bb8b720468504af31a7ffad3a2f8f408d",
+    "textureHashes": {
+      "monster/tuls_bug.ozt": "b1ff4433a7eeda365d2d9aa0b33d7efbb4e2aa2c70b0263d600a86833bbaa613",
+      "monster/king_bug01.ozj": "00794e63671ad6bfb759e8fac0265ec6638dc297820cd25d8cd5ef5452157be5",
+      "monster/king_bug02.ozj": "c16bd5d8d37a3aba420214565d00c549e0ccf8944e664ea942fbeeca180bdb84",
+      "monster/king_bug03.ozj": "5faec1cb4c0032e50ed2b46b435e0411b042f64548769abe51121901b08ca945"
+    }
+  },
+  "575": {
+    "model": 216,
+    "name": "Condra",
+    "pending": [],
+    "source": "GMKarutan1.cpp",
+    "status": "rendered",
+    "modelFile": "monster/monster216.bmd",
+    "sourceHash": "f36b620e1dd83b6f5e044bd665f05d9a517c812da30e329c1acddebda406b103",
+    "modelVersion": 12,
+    "textures": [
+      "monster/bora_golem.ozj",
+      "monster/bora_golem2.ozj",
+      "monster/jointspirit01.ozj",
+      "monster/maginc_text.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 25,
+    "textureHashes": {
+      "monster/bora_golem.ozj": "d902dfa053cae1c3914a6692ba499c4fcc1c5b69799c1ffb45be2ea389adf6a9",
+      "monster/bora_golem2.ozj": "2b08e5854b05b799a7a99ffbf053c43218a36cc0e4f62e26e05d1f41cfeb8f50",
+      "monster/jointspirit01.ozj": "73408aaff169ed791f9f723feec0f4ccfbc803683211ed54041f49ec6ccffa4d",
+      "monster/maginc_text.ozj": "011601c68473415df2239cb7158de88832b5f31d8521d5bebbf4cce1f81fe15e"
+    }
+  },
+  "576": {
+    "model": 217,
+    "name": "Narcondra",
+    "pending": [
+      "special blending/effect"
+    ],
+    "source": "GMKarutan1.cpp",
+    "status": "requires-composition"
+  }
+}

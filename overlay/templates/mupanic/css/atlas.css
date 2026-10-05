@@ -1,0 +1,207 @@
+/* Atlas reading system: warm light surfaces, large text, genuine client artwork. */
+.is-wiki{background:#f3f3ed;color:#342c26}
+.is-wiki .inner-hero{background:linear-gradient(90deg,#f1ede9ed,#f1ede9b8),url('../img/origin.webp') center 48%/cover;border-bottom:1px solid #dacfc7;padding-top:145px;padding-bottom:30px}
+.is-wiki .inner-hero h1{color:#3a2d23;font-size:clamp(42px,5vw,68px)}
+.is-wiki .inner-hero .eyebrow,.is-wiki .inner-head>a{color:#5e4b3d}
+.is-wiki .inner-content{padding-top:28px}
+.is-wiki .module-surface{color:#342c26}
+.is-wiki .module-surface :is(h2,h3,h4){color:#3b2e24}
+.is-wiki .module-surface a{color:#865033}
+.panic-wiki{--atlas-line:#dbd1ca;--atlas-muted:#6b5a4d;display:grid;grid-template-columns:250px minmax(0,1fr);gap:32px;font-size:17px;color:#342c26;align-items:start}
+.panic-wiki [hidden]{display:none!important}
+.panic-wiki :is(input,select){min-height:52px;border:1px solid #b2a295;border-radius:8px;background:#fff;color:#342c26;font-size:16px;padding:12px;width:100%}
+.panic-wiki :is(input,select,button,a,summary):focus-visible{outline:3px solid #745740;outline-offset:3px}
+.panic-wiki .eyebrow{font-size:13px;letter-spacing:.08em;color:#6f5e51;font-weight:700}
+.panic-wiki .wiki-content{min-width:0}
+.panic-wiki .wiki-content p{font-size:17px;line-height:1.75;color:#5d4f44;max-width:780px}
+.panic-wiki .wiki-section{padding:16px 0 44px;scroll-margin-top:100px}
+.panic-wiki .wiki-section>h2{font:700 clamp(30px,3.4vw,44px)/1.15 var(--body);text-transform:none;letter-spacing:-.025em;margin:12px 0 18px}
+.panic-wiki .wiki-section h3{font-family:var(--body);font-weight:700;line-height:1.3}
+.panic-wiki .wiki-nav{position:sticky;top:98px;padding:24px 18px;border:1px solid var(--atlas-line);border-radius:14px;background:#fff;max-height:calc(100vh - 115px);overflow:auto;box-shadow:0 5px 20px #3f342b08}
+.panic-wiki .wiki-nav label{font-size:15px;color:#483c33;margin:20px 0 10px}
+.panic-wiki .wiki-nav nav{gap:6px;margin-top:22px}
+.panic-wiki .wiki-nav nav a{font-size:16px;padding:14px 12px;border:0;border-radius:8px;gap:8px;min-height:48px;color:#4c4037}
+.panic-wiki .wiki-nav nav a span{font-size:16px;font-weight:600}
+.panic-wiki .wiki-nav nav a:hover{background:#f3efec}
+.panic-wiki .wiki-nav nav a[aria-current]{background:#895238;color:#fff;border:0;padding-left:12px}
+.panic-wiki .wiki-date{font-size:13px;line-height:1.6;letter-spacing:0;color:#796657;margin-top:22px}
+.atlas-learn-nav{border-top:1px solid var(--atlas-line);margin-top:12px;padding-top:14px}
+.atlas-learn-nav>summary{cursor:pointer;font-size:16px;font-weight:700;padding:8px;color:#52443a}
+.panic-wiki .wiki-search-results{background:#f7f4f2;border:1px solid var(--atlas-line);border-radius:8px}
+.panic-wiki .wiki-search-results a{font-size:15px;padding:14px;border-bottom:1px solid var(--atlas-line)}
+.panic-wiki .wiki-search-results small{font-size:14px;color:var(--atlas-muted)}
+.panic-wiki :is(.wiki-search-status,[data-drop-status],[data-map-status],[data-reward-status],[data-atlas-find-status]){font-size:15px!important;color:#6c5b4e}
+.panic-wiki .wiki-control{font-size:15px;color:#4e4239;letter-spacing:0;max-width:none;font-weight:600}
+.panic-wiki .wiki-note{background:#f1ebe6;border:1px solid #d7cbc1;border-left:4px solid #826753;border-radius:8px;color:#59493c;padding:18px 20px}
+.panic-wiki :is(.wiki-quick button,.wiki-map-actions button,.atlas-find-more){font-size:15px;min-height:46px;background:#fff;border:1px solid #c3b2a5;border-radius:8px;color:#865033;padding:10px 16px;cursor:pointer;font-weight:600}
+.panic-wiki :is(.wiki-quick button,.wiki-map-actions button,.atlas-find-more):hover{background:#f2ebe6}
+.panic-wiki .wiki-quick button[aria-pressed=true],.panic-wiki .wiki-map-actions button[aria-pressed=true]{background:#895238;color:#fff;border-color:#895238}
+.panic-wiki .wiki-map-actions a{font-size:15px}
+.panic-wiki table{font-size:16px;background:#fff;border:1px solid var(--atlas-line)}
+.panic-wiki :is(td,th){padding:16px;border-bottom:1px solid var(--atlas-line);color:#3f352e}
+.panic-wiki th{font-size:14px;background:#ede7e3;color:#4f433a;text-transform:none;letter-spacing:0}
+.panic-wiki tbody tr:nth-child(even){background:#f8f5f2}
+.panic-wiki tr:target{background:#fff0c8;outline:2px solid #b57b2c}
+.panic-wiki td small{font-size:14px;color:#705e51;white-space:normal}
+.panic-wiki .wiki-table-scroll{border-radius:10px;overscroll-behavior-x:contain}
+.panic-wiki .wiki-drop-controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+.panic-wiki code{background:#ece4de;color:#594638;padding:3px 6px;border-radius:4px}
+.panic-wiki .wiki-glossary{font-size:16px;line-height:1.8}
+.panic-wiki .wiki-glossary dt{color:#543e2d;font-weight:700}
+.panic-wiki .wiki-route{padding-left:30px}
+.panic-wiki .wiki-route li{padding:24px 0 24px 12px;border-bottom:1px solid var(--atlas-line)}
+.panic-wiki .wiki-route strong{font:700 24px var(--body);color:#403228}
+.panic-wiki .wiki-route a{font-size:16px}
+.panic-wiki .wiki-route li::marker{color:#705c4d;font-size:26px}
+/* A first screen organized around decisions, rather than a list of systems. */
+.atlas-home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:30px 0}
+.panic-wiki a.atlas-home-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid #d0c3b9;background:#fff;border-radius:14px;box-shadow:0 5px 16px #4e42380a;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.atlas-home-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px #4e42381a}
+.atlas-home-art{height:170px;background:#ebe3dc;overflow:hidden;border-bottom:1px solid #d7cbc2}
+.atlas-home-art>img{width:100%;height:100%;object-fit:cover}
+.atlas-home-creatures{display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse,#fff8dd,#e1d2c7)}
+.atlas-home-creatures>img{width:33%;height:150px;object-fit:contain}
+.atlas-home-card>div:last-child{padding:22px;display:flex;flex-direction:column;flex:1}
+.atlas-purpose{font-size:12px;letter-spacing:.06em;color:#756355;font-weight:700}
+.panic-wiki .atlas-home-card h3{font-size:23px;margin:12px 0}
+.panic-wiki .atlas-home-card p{font-size:16px;line-height:1.65;margin:0 0 20px}
+.atlas-home-card strong{font-size:16px;color:#895238;margin-top:auto}
+.atlas-basics{background:#efe8e3;padding:26px;border:1px solid #d7cbc2;border-radius:14px}
+.panic-wiki .atlas-basics h3{font-size:22px;margin:0 0 20px}
+.atlas-basics dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0}
+.atlas-basics dt{font-size:17px;font-weight:700;color:#4f4238;margin-bottom:8px}
+.atlas-basics dd{font-size:16px;line-height:1.7;color:#615247;margin:0}
+.atlas-home-secondary{display:inline-block;margin:24px 0;font-size:17px;font-weight:600}
+.atlas-steps{list-style:none;padding:18px;display:flex;gap:24px;flex-wrap:wrap;background:#efe8e3;border-radius:10px;margin:24px 0}
+.atlas-steps li{display:flex;align-items:center;gap:10px;font-size:16px;color:#514338}
+.atlas-steps b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#5f4633;color:#fff}
+/* Map cards retain native accessible details, with real terrain previews. */
+.panic-wiki #progresion .wiki-map-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.panic-wiki .wiki-map{border:1px solid #d0c2b8;background:#fff;border-radius:12px;overflow:hidden;margin-bottom:12px}
+.panic-wiki #progresion .wiki-map{margin-bottom:0;min-width:0}
+.panic-wiki #progresion .wiki-map[open]{grid-column:1/-1}
+.panic-wiki .wiki-map>summary{padding:20px;gap:16px;min-height:100px;background:#fff}
+.panic-wiki .wiki-map[open]>summary{border-bottom:1px solid var(--atlas-line);background:#f2ece7}
+.panic-wiki .wiki-map>summary strong{font:700 23px var(--body);color:#473528}
+.panic-wiki .wiki-map>summary small{font-size:15px;color:#6f5d50;max-width:none;text-align:left;margin-left:auto}
+.panic-wiki .wiki-map>summary b{color:#58402e;font-size:15px;font-weight:700;white-space:nowrap}
+.panic-wiki .wiki-map[open]>summary b{transform:none}
+.panic-wiki .wiki-map-body{padding:0 24px 26px}
+.atlas-map-preview,.atlas-map-placeholder{width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid #d5c9c0;flex:0 0 84px}
+.atlas-map-placeholder{display:grid;place-items:center;background:#f1ebe7;color:#715f52;font-size:42px}
+.atlas-map-title{flex:1;min-width:0}
+.atlas-map-title strong,.atlas-map-title small,.atlas-map-title small span{display:block}
+.panic-wiki .atlas-map-title small{margin:8px 0 0;font-size:14px;line-height:1.6}
+.panic-wiki .atlas-map-open-label{font-size:14px!important}
+/* Map and selected spot. No nested page-sized scroll container. */
+.panic-wiki .atlas-explorer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}
+.atlas-explorer>*{min-width:0}
+.atlas-terrain-column{position:sticky;top:104px}
+.atlas-map-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px;font-size:14px;font-weight:700;color:#5a4c42}
+.atlas-map-heading strong,.atlas-map-heading a{font-size:15px;color:#57402e}
+.atlas-map-window{width:100%;aspect-ratio:1;overflow:auto;border:2px solid #9a8474;border-radius:10px;background:#342c26}
+.atlas-terrain{position:relative;width:100%;aspect-ratio:1;isolation:isolate;background:#e4dbd4}
+.atlas-terrain img{display:block;width:100%;height:100%;object-fit:fill}
+.atlas-terrain-empty{background-image:linear-gradient(#99827155 1px,transparent 1px),linear-gradient(90deg,#99827155 1px,transparent 1px);background-size:12.5% 12.5%}
+.atlas-map-window.is-zoomed .atlas-terrain{width:200%}
+.panic-wiki a.atlas-pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#fffce9;color:#463324;border:2px solid #5e4b3c;box-shadow:0 2px 8px #0008;font-size:15px;font-weight:800;text-decoration:none;z-index:1}
+.panic-wiki a.atlas-pin:hover,.panic-wiki a.atlas-pin[aria-current]{background:#d7a57d;color:#332922;border-color:#fff;z-index:2;box-shadow:0 0 0 5px #d7a57d66}
+.panic-wiki .atlas-map-caption{font-size:14px!important;line-height:1.7!important;color:#66564a!important;margin:14px 0!important}
+.atlas-zoom{font-size:15px;font-weight:600;min-height:44px;background:#fff;border:1px solid #ab988a;border-radius:8px;color:#594739;padding:8px 12px;cursor:pointer}
+.panic-wiki:not(.wiki-enhanced) .atlas-zoom{display:none}
+.atlas-travel,.atlas-combat{border-top:1px solid var(--atlas-line);padding:16px 0;font-size:16px;color:#5e4f44}
+.atlas-travel summary,.atlas-combat summary{cursor:pointer;color:#5a4230;font-weight:600}
+.panic-wiki .atlas-travel p{font-size:16px!important;margin:12px 0!important}
+.atlas-travel small{font-size:14px;line-height:1.6}
+.atlas-inspector{scroll-margin-top:100px}
+.atlas-spot-picker{display:grid;gap:8px;max-height:250px;overflow:auto;padding:3px;scrollbar-color:#8e7765 #efe8e3}
+.atlas-spot-picker a{display:flex;gap:12px;align-items:center;min-height:68px;padding:14px;border:1px solid #c4b4a7;background:#f7f4f1;border-radius:9px;color:#48392e;font-size:16px;line-height:1.5;text-decoration:none}
+.atlas-spot-picker a[aria-current]{border:2px solid #6d5543;background:#f1e6dd;padding:13px}
+.atlas-spot-picker b{font-size:21px;color:#674e3a;flex:0 0 28px}
+.atlas-spot-picker small{display:block;font-size:14px;color:#6a5a4d;margin-top:4px}
+.atlas-account{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0;font-size:15px;color:#57493f}
+.panic-wiki .atlas-account select{width:140px;flex-shrink:0}
+.atlas-spot-panel{scroll-margin-top:105px}
+.atlas-spot-panel>header{margin:22px 0}
+.panic-wiki .atlas-spot-panel h3{font:700 27px var(--body);margin:8px 0;color:#47372a}
+.panic-wiki .atlas-spot-panel>header p{font-size:16px;margin:0}
+.atlas-mob{padding:22px;margin-bottom:18px;border:1px solid #ccbdb1;border-radius:12px;background:#fbf8f5;color:#42372f}
+.atlas-mob-heading{display:flex;align-items:center;gap:14px}
+.atlas-mob-name{flex:1;min-width:0;overflow-wrap:anywhere}
+.panic-wiki .atlas-mob-heading h4{font:700 23px/1.3 var(--body);color:#48372a;margin:0 0 8px}
+.atlas-mob-heading span{font-size:15px;color:#645448}
+.atlas-mob-heading .atlas-mob-level{white-space:nowrap;background:#eae0d9;border-radius:6px;color:#514135;padding:8px;font-size:14px;font-weight:700}
+.atlas-mob-portrait,.atlas-reward-portrait{object-fit:contain;background:radial-gradient(ellipse,#fff8e4,#e3d5cb);border:1px solid #c8b8ab;border-radius:10px}
+.atlas-mob-portrait{width:110px;height:110px;flex:0 0 110px}
+.atlas-reward-portrait{display:block;width:180px;height:180px;margin:20px 0}
+.atlas-mob-facts{display:flex;gap:24px;flex-wrap:wrap;padding:20px 0;border-bottom:1px solid var(--atlas-line);margin-bottom:16px;font-size:14px;color:#68584b}
+.atlas-mob-facts strong{display:block;font-size:20px;color:#4d3c2f;margin-top:6px}
+.atlas-loot>summary{font-size:16px;font-weight:700;color:#5a4332;cursor:pointer;min-height:44px;padding:10px 0}
+.atlas-loot summary span{float:right;border-radius:20px;background:#e8d9cd;padding:3px 10px;color:#544235;font-size:14px}
+.atlas-loot ul{list-style:none;margin:8px 0;padding:0}
+.atlas-loot li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--atlas-line);font-size:16px;color:#4c4037}
+.atlas-loot li span{overflow-wrap:anywhere}
+.atlas-loot li strong{white-space:nowrap;color:#775119;font-size:16px;align-self:center}
+.atlas-loot li small{display:block;margin-top:5px;color:#726052;font-size:14px}
+.panic-wiki .atlas-loot p,.panic-wiki .atlas-loot-note{font-size:14px!important;line-height:1.7!important;color:#655549!important}
+.panic-wiki .atlas-drop-group{font:700 15px var(--body);color:#654e3c;margin:20px 0 6px}
+.atlas-special-loot{display:block;font-size:16px;font-weight:600;margin:18px 0}
+.atlas-combat{margin-top:16px;padding-bottom:0}
+.atlas-combat dl{display:grid;grid-template-columns:1fr auto;gap:12px;font-size:15px}
+.atlas-combat dd{margin:0;font-weight:600;color:#4f4136}
+/* Search cards, with a larger portrait and clearly separated obtainment routes. */
+.atlas-finder-controls{display:grid;grid-template-columns:2fr 1fr;gap:18px;align-items:end;padding:22px;background:#f0e9e3;border:1px solid #d3c5ba;border-radius:12px;margin:26px 0}
+.atlas-find-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:24px 0}
+.atlas-find-card{min-width:0;padding:24px;background:#fff;border:1px solid #cbbcb0;border-radius:14px;box-shadow:0 4px 16px #49382b08}
+.atlas-find-card header{display:flex;gap:16px;align-items:center}
+.atlas-find-card header img{width:100px;height:100px;object-fit:contain;background:radial-gradient(ellipse,#fff6dc,#e6dbd2);border-radius:10px}
+.atlas-find-card header small{font-size:13px;color:#736154;font-weight:700}
+.panic-wiki .atlas-find-card h3{font:700 25px/1.3 var(--body);color:#4d3e32;margin:8px 0;overflow-wrap:anywhere}
+.panic-wiki .atlas-find-card h4{font:700 16px var(--body);color:#58473a;margin:24px 0 10px}
+.atlas-find-card ul{list-style:none;padding:0;margin:0}
+.atlas-find-card li{padding:14px 0;border-bottom:1px solid var(--atlas-line);overflow-wrap:anywhere}
+.atlas-find-card li>a{font-size:16px;font-weight:600;line-height:1.65}
+.atlas-find-card li small{display:block;font-size:14px;color:#726052;line-height:1.7;margin-top:6px}
+.atlas-find-spots{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.atlas-find-spots a{padding:9px 12px;background:#f2eae3;border:1px solid #c6b1a1;border-radius:6px;font-size:14px;color:#503e31}
+.atlas-find-card details{margin-top:16px}
+.atlas-find-card details summary{cursor:pointer;font-size:16px;color:#5d4634;font-weight:600;min-height:44px;padding:10px 0}
+.panic-wiki .atlas-find-card p,.panic-wiki .atlas-find-help{font-size:15px;line-height:1.75;color:#67574a}
+/* The same reading scale continues through recipes, improvements and rewards. */
+.panic-wiki .recipe-nav>a{background:#fff;border:1px solid #d5c9bf;border-radius:8px;font-size:16px;padding:18px;margin-bottom:8px;color:#544438}
+.panic-wiki .recipe-nav>a[aria-current]{background:#ece1d8;border-left:4px solid #6c513c;color:#4f3d2f}
+.panic-wiki .recipe-nav small{font-size:12px;color:#746254;letter-spacing:.05em}
+.panic-wiki :is(.recipe-article,.upgrade-calculator){background:#fff;border:1px solid #d0c0b4;border-radius:12px;padding:28px}
+.panic-wiki .recipe-symbol{background:#f2ebe5;border-color:#cebcae;color:#6c523e;border-radius:8px}
+.panic-wiki .recipe-heading h3{font-size:30px;line-height:1.2;color:#4e4035}
+.panic-wiki .recipe-heading p{font-size:15px;color:#715f52}
+.panic-wiki .recipe-rate{border-color:#d7ccc4}
+.panic-wiki :is(.recipe-rate small,.recipe-result small){font-size:13px;color:#6e5c4f;letter-spacing:0}
+.panic-wiki .recipe-rate strong,.panic-wiki .upgrade-result strong{color:#6a513d}
+.panic-wiki .recipe-rate p,.panic-wiki .recipe-zen,.panic-wiki .recipe-inventory-note,.panic-wiki .recipe-progress{font-size:16px!important;color:#645448}
+.panic-wiki :is(.recipe-article h4,.equipment-article h4){font:700 21px var(--body);color:#5a4535;text-transform:none}
+.panic-wiki .recipe-materials li{border-color:#d9cdc4;padding:18px 0}
+.panic-wiki .recipe-materials strong{font-size:17px;color:#463a30}
+.panic-wiki .recipe-materials small{font-size:15px;color:#6f5e51}
+.panic-wiki .recipe-materials li>a,.panic-wiki .recipe-permalink{font-size:16px}
+.panic-wiki .material-count{color:#6b5442;font:700 22px var(--body)}
+.panic-wiki .recipe-steps,.panic-wiki .equipment-columns ul,.panic-wiki .equipment-article a{font-size:17px;line-height:1.8}
+.panic-wiki .recipe-result{background:#f2ebe5;border-color:#91745d;border-radius:8px}
+.panic-wiki .recipe-reference{background:#f7f4f1;border-color:#d4c4b7;border-radius:8px}
+.panic-wiki .recipe-reference summary{font:700 20px var(--body);color:#674d39}
+.panic-wiki .upgrade-luck{color:#4f4136;font-size:16px}
+.panic-wiki .upgrade-result{border-color:#d7cbc1}
+.panic-wiki .upgrade-result p{font-size:17px}
+.panic-wiki .equipment-tabs,.panic-wiki .equipment-article{border-color:#d3c3b7}
+.panic-wiki .equipment-tabs a{font:600 20px var(--body)}
+.panic-wiki .wiki-saved{border-color:#d3c6bc}
+.panic-wiki .wiki-saved a{font-size:16px}
+@media(max-width:1150px){.panic-wiki{grid-template-columns:220px minmax(0,1fr);gap:24px}.atlas-home-grid{grid-template-columns:1fr}.atlas-home-card{flex-direction:row!important}.atlas-home-art{width:180px;height:auto;min-height:180px;flex:0 0 180px;border-bottom:0}.atlas-home-creatures>img{height:160px}.atlas-mob-heading .atlas-mob-level{display:none}.atlas-find-results{grid-template-columns:1fr}.panic-wiki #progresion .wiki-map-list{grid-template-columns:1fr}.atlas-home-card>div:last-child{padding:24px}}
+@media(max-width:950px){.panic-wiki .atlas-explorer{grid-template-columns:1fr}.atlas-terrain-column{position:static}.atlas-map-window{max-width:620px;margin:auto}.atlas-spot-picker{grid-template-columns:repeat(2,minmax(0,1fr));max-height:280px}.atlas-basics dl{grid-template-columns:1fr;gap:20px}}
+@media(max-width:750px){.panic-wiki{display:block}.panic-wiki .wiki-nav{position:static;max-height:none;margin-bottom:28px;padding:20px}.panic-wiki .wiki-nav nav{display:grid;grid-template-columns:1fr 1fr;overflow:visible;gap:6px}.panic-wiki .wiki-nav nav a{white-space:normal;padding:12px;flex-shrink:1}.panic-wiki .wiki-nav nav a span{font-size:15px}.atlas-learn-nav{grid-column:1/-1}.panic-wiki .wiki-nav .eyebrow,.panic-wiki .wiki-date{display:block}.panic-wiki .wiki-date{margin-bottom:0}.atlas-finder-controls{padding:18px}.panic-wiki .wiki-map-body{padding:0 18px 24px}.atlas-steps{gap:16px}.panic-wiki .wiki-nav nav a[aria-current]{padding:12px}}
+@media(max-width:500px){.atlas-home-card{flex-direction:column!important}.atlas-home-art{width:100%;height:170px;min-height:0;flex:0 0 170px}.atlas-finder-controls,.panic-wiki .wiki-drop-controls{grid-template-columns:1fr}.atlas-spot-picker{grid-template-columns:1fr}.atlas-mob{padding:18px}.atlas-mob-portrait{width:96px;height:96px;flex-basis:96px}.panic-wiki .atlas-mob-heading h4{font-size:21px}.panic-wiki .wiki-map>summary{padding:16px;gap:12px;flex-wrap:wrap}.atlas-map-preview,.atlas-map-placeholder{width:72px;height:72px;flex-basis:72px}.panic-wiki .wiki-map>summary strong{font-size:22px}.atlas-map-open-label{margin-left:auto}.panic-wiki .wiki-map>summary small{font-size:14px}.panic-wiki .wiki-glossary{grid-template-columns:1fr}.atlas-find-card{padding:20px}.atlas-find-card header img{width:86px;height:86px}.panic-wiki .recipe-article{padding:20px}.panic-wiki .recipe-heading h3{font-size:25px}}
+@media(prefers-reduced-motion:reduce){.atlas-home-card{transition:none}.atlas-home-card:hover{transform:none}}
+
+.panic-wiki .wiki-map details>summary{display:list-item;list-style:disclosure-closed;padding:12px 0;min-height:44px;font-size:16px;line-height:1.5;color:#5a4230;border:0}.panic-wiki .wiki-map details[open]>summary{list-style:disclosure-open}.panic-wiki .atlas-loot>summary{font-weight:700}
+
+.panic-wiki input[type="checkbox"]{width:22px;height:22px;min-height:22px;accent-color:#674f3d;flex-shrink:0;padding:0}.panic-wiki .recipe-materials label:has(input:checked){opacity:1;background:#f4ece6;border-radius:6px}
