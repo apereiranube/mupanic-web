@@ -111,12 +111,12 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
         </button>
 
         <nav class="main-nav" id="main-navigation" aria-label="Navegación principal">
-            <a href="<?php echo __BASE_URL__; ?>#continente">El continente</a>
-            <a href="<?php echo __BASE_URL__; ?>information/">El servidor</a>
-            <a href="<?php echo __BASE_URL__; ?>info/">Atlas</a>
-            <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
-            <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
-            <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+            <a class="nav-main-link<?php echo $isHome ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>#continente"<?php echo $isHome ? ' aria-current="page"' : ''; ?>><span>El continente</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'information' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>information/"<?php echo $_REQUEST['page'] === 'information' ? ' aria-current="page"' : ''; ?>><span>El servidor</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'info' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>info/"<?php echo $_REQUEST['page'] === 'info' ? ' aria-current="page"' : ''; ?>><span>Atlas</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'rankings' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>rankings/"<?php echo $_REQUEST['page'] === 'rankings' ? ' aria-current="page"' : ''; ?>><span>Rankings</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'downloads' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>downloads/"<?php echo $_REQUEST['page'] === 'downloads' ? ' aria-current="page"' : ''; ?>><span>Descargas</span></a>
+            <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗</b></a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
