@@ -1,0 +1,43 @@
+.is-profile{background:#f1ede5;color:#28302e}
+.is-profile .inner-content{padding:36px 0 72px}
+.is-profile .module-surface{padding:0;border:0;background:transparent;box-shadow:none}
+.is-profile .page-title{display:none}
+.is-profile .profile-back{display:inline-flex;align-items:center;min-height:48px;padding:12px 20px;color:#f3dfc6;border:1px solid #ae7a50;font-size:15px;text-decoration:none}
+.is-profile .profile-back:hover{background:#895238;color:white}
+.profiles_player_card{position:relative;overflow:hidden;padding:38px;border:1px solid #ac805b;background:linear-gradient(100deg,#13201fee,#13201fb3),url('../img/origin.webp') center 38%/cover;color:#fff7e8}
+.profiles_player_content{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+.profiles_player_table{border-collapse:collapse;font-size:17px;line-height:1.7}
+.profiles_player_table td{padding:7px 16px 7px 0}
+.profiles_player_table .cname{font:500 clamp(38px,6vw,68px)/1.1 var(--display);overflow-wrap:anywhere;color:#fff4de}
+.profiles_player_table .cclass{font-size:18px;color:#dfb384;letter-spacing:.03em}
+.profiles_player_table_info{width:100%;margin-top:22px;background:#fffaf3;color:#28302e}
+.profiles_player_table_info td{padding:13px 18px;border-bottom:1px solid #dfd0bf}
+.profiles_player_table_info td:nth-child(2){font-weight:700}
+.profile-crest{display:grid;place-items:center;flex:0 0 84px;width:84px;height:102px;border:1px solid #c18e5c;clip-path:polygon(0 0,100% 0,100% 76%,50% 100%,0 76%);background:linear-gradient(135deg,#c18e5c33,#13201f);font:500 34px var(--display);color:#e3bc90}
+.profile-sections{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}
+.profile-sections section{padding:28px;background:#fffaf3;border:1px solid #d4c0a9}
+.profile-sections h2{font:500 30px/1.2 var(--display);color:#71482f;margin:0 0 8px}
+.profile-section-copy{color:#65695f;font-size:15px;line-height:1.6;margin:0 0 24px}
+.profile-progress{grid-column:1/-1}
+.profile-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:0}
+.profile-progress .profile-values{grid-template-columns:repeat(4,minmax(0,1fr))}
+.profile-value{padding:16px 18px;background:#f3ebdf;border-left:3px solid #ae7a50;min-width:0}
+.profile-value dt{color:#675c4d;font-size:14px;font-weight:500;margin-bottom:8px}
+.profile-value dd{font:600 26px/1.3 var(--body);color:#322c23;margin:0;overflow-wrap:anywhere}
+.profile-progress dd{font-size:clamp(28px,4vw,40px);color:#895238}
+.profile-value a{color:#895238;text-decoration:underline;text-underline-offset:4px}
+.profile-online dd{font-size:20px;color:#336647}
+.profile-offline dd{font-size:20px;color:#675c4d}
+.profile-actions{margin-top:28px}
+.profile-actions .profile-back{background:#895238;color:#fffaf3}
+.is-profile a:focus-visible{outline:3px solid #ba8658;outline-offset:4px}
+.profiles_guild_card{padding:32px;background:#fffaf3;border:1px solid #d4c0a9;font-size:17px}
+.profiles_guild_card .guild_name{display:block;font:500 clamp(32px,5vw,52px)/1.2 var(--display);color:#895238;margin-bottom:18px;overflow-wrap:anywhere}
+.profiles_guild_card .guild_logo img{max-width:100%;image-rendering:pixelated}
+.profiles_guild_card .table td{padding:14px;color:#322c23;border-color:#e2d5c3;text-align:left;font-size:17px}
+.profiles_guild_card a{color:#895238;text-decoration:underline;text-underline-offset:4px}
+.profiles_guild_card .guild_members{display:block;font:500 30px var(--display);color:#71482f;margin-bottom:22px}
+.profiles_guild_card .guild_members_list{display:flex;flex-wrap:wrap;gap:12px;margin:0}
+.profiles_guild_card .guild_members_list>div{width:auto;float:none;padding:12px 18px;background:#f3ebdf;border:1px solid #d4c0a9}
+@media(max-width:700px){.is-profile .inner-head{align-items:flex-start;gap:20px;flex-wrap:wrap}.profiles_player_card{padding:26px 22px}.profile-sections{grid-template-columns:1fr}.profile-sections section{padding:22px}.profile-progress .profile-values{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-crest{flex-basis:58px;width:58px;height:74px;font-size:25px}.profile-value{padding:13px}.profile-value dd{font-size:23px}}
+@media(max-width:380px){.profile-values{grid-template-columns:1fr}}

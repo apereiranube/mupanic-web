@@ -1,6 +1,6 @@
 # Atlas PANIC — beta
 
-`/info/` es ahora un archivo de consulta interactivo con identidad oscura y cobre, búsqueda global, navegación por capítulos, 21 mapas, 133 zonas de spawn agrupadas y 72 reglas activas de drop de monstruos. Conserva los enlaces existentes `#primeros-pasos`, `#progresion` y `#sistemas`.
+`/info/` es ahora un archivo de consulta interactivo con identidad oscura y cobre, búsqueda global, navegación por capítulos, 30 mapas, 149 zonas de spawn agrupadas y 82 reglas activas de drop de monstruos. Conserva los enlaces existentes `#primeros-pasos`, `#progresion` y `#sistemas`.
 
 ## Fuente y actualización
 
@@ -72,3 +72,50 @@ El ZIP contiene configuración y población, no las imágenes de minimapa del cl
 ### Validación 7.1
 
 PHP lint y JS syntax; navegador real en 1440/1024/768/390/320: taller sin desbordamiento, selección/filtros, vacío de búsqueda, checklist persistente, ingredientes encadenados a recetas y drops, búsquedas globales de recetas, capítulos de equipo, todas las recetas sin JS. Calculadora: normal +9→+10=20%; Excellent=30%; Excellent con Luck=50%; Excellent +9→+12 con Luck=12,5%, con 6 Bless/6 Soul/3 Chaos; rango inválido; Soul +6→+9=100%. Regresión del Atlas 7.0 aprobada. Deploy continúa limitado al overlay.
+
+## Atlas client resources and synchronization — work in progress
+
+Uploaded client assets were checked across six ZIPs (65 map-package entries and 995 monster-resource entries). `build_atlas_maps.py` decodes OZJ (24-byte wrapper) and OZT (4-byte wrapper) without changing client files. It converts 22 identified maps to WebP. Arkania is deliberately not mapped to World83: that image repeats Tarkan. Maps without verified art show an explicit pending message. Client terrain and coordinate diagrams remain separate until coordinate calibration is verified.
+
+The balance builder discovers numeric MonsterSetBase filenames instead of a hardcoded 21-map list, preserves maps without fixed population, and exports base monster HP, damage, defense, attack/defense rates and respawn. This snapshot has 30 discovered maps and 138 grouped spots. Event-generated monsters require their own sources. Monster cards open a drop-rule dialog with Free/VIP selection; rates retain up to six decimal places and map drop-type flags are respected. The dialog does not claim to cover common drops or event bags.
+
+`collect_atlas_server.ps1` gathers allowlisted gameplay tables and public custom-monster tool associations from the VPS. It is read-only and does not collect MainInfo, executables, SQL credentials or whole GameServer directories. A current export is required before completing monster-model mapping and boss/event drop parsing. Monster resources are 3D models/textures, not ready-made photos; no generic or generated portraits have been substituted.
+
+`sync_atlas.py` exports current allowlisted configuration to a temporary public JSON snapshot, detects file changes during generation, signs the payload, sends it over HTTPS, and records its source digest only after a confirmed successful update. Run once from Windows Task Scheduler; it does not restart or reload game processes. It currently publishes only the sources already supported by the public balance builder; event bags and model associations await the current export and verified parser extensions.
+
+The PHP receiver `templates/mupanic/api/atlas-sync.php` is disabled until a token of at least 32 characters is installed in `/home/mupanic/atlas-runtime/token` (or a private directory configured through PANIC_ATLAS_RUNTIME_DIR). Public snapshots are stored outside the web root and deployment overlay. Signature/clock checks, value validation, locking and atomic replacement preserve the last accepted snapshot on errors. The home and Atlas read this runtime snapshot with the checked-in data as fallback. Deployment does not overwrite runtime data. This synchronization is PREPARED, not installed or scheduled in the VPS/cPanel.
+
+Validation: Python compilation and full PHP/JS syntax checks; receiver rejects bad signatures and malformed content, accepts a valid snapshot, and preserves the accepted file after rejection. Full browser visual validation remains pending in this environment; browser binaries could not be fetched. No cPanel deployment has been performed.
+
+
+## Current VPS export — 2026-10-01
+
+The administrator ran the read-only collector on the VPS and supplied `MU_PANIC_SERVIDOR_20261001_105710.zip` (286 selected tables plus its directory entry). The checked-in public snapshot now reflects this export: 30 map files, 149 grouped spots and 82 enabled specific-drop rules. The original ZIP and complete server configurations are not published.
+
+`atlas_event_bags.py` reads EventItemBagManager associations and standard bag sections 0/1/2 using the source column headers. Item names come from Item.txt. It preserves multiple selection pools and configured attributes without computing per-item or per-kill odds. The public snapshot contains 171 reward associations: 168 standard lists, Golden Napin (125) in an unsupported advanced format, and two associations without an exported bag (200 and 1014). Those three display verification-pending messages; no guessed rewards are shown. The Atlas adds searchable reward lists with deep links and links monster dialogs to identified special rewards. Dynamically spawned bosses are not assigned fabricated map positions.
+
+The synchronizer now watches EventItemBag and EventItemBagManager as well as existing map/monster/item sources. Its second fingerprint scan enumerates files again, detecting additions as well as modifications/removals while exporting. Windows Python, hosting token and beta deployment are installed; the first signed upload succeeded. The scheduled task still requires registration and confirmation on the VPS. Changes on disk still require the appropriate GameServer reload before they represent live gameplay.
+
+Validation on this snapshot: Selupan ID 459 resolves to bag 67, three configured item selections, 108 configured entries including Jewel of Harmony; all reward IDs are unique. Python/JS syntax and PHP lint passed. PHP rendering produces all 171 lists without warnings. The receiver accepts a signed expanded snapshot, rejects malformed reward IDs and bad signatures, preserves the accepted file after rejection, and remains compatible with previous schema-2 snapshots without reward lists. Browser visual validation remains pending. No beta/production deployment occurred.
+
+
+## Atlas inspector — 1 October 2026
+
+The first VPS upload to the beta receiver succeeded: 30 maps, 149 spots, 82 item rules and 171 reward associations. Python 3.13 is installed at `C:\Python313\python.exe`, and the receiver and private token are configured. The Windows task has not yet been confirmed installed.
+
+The map view now projects configured spot centres over the client terrain, with a matching spot selector and one inspector panel. Selecting a spot shows its monsters, basic life/respawn information, compatible item rules by account and links to special rewards. Combat statistics are folded into native details. A separate selector covers map population outside grouped spots. Maps without an identified terrain use a coordinate grid. Zoom preserves the same coordinate projection. Only one map stays expanded with JavaScript; direct links to spots and monsters still select their panel.
+
+Projection uses X/256 and (255-Y)/256 over the complete image. **This is provisional, not verified calibration.** The visible map caption records that limitation. Verify orientation and reference positions against this client's minimap in game before claiming precise terrain alignment; cropped or custom art can require a per-map transform.
+
+ItemDrop comment prefixes used for administrator releases (`REGIONAL V… INTEGRAL`, `GLOBAL RARO V… INTEGRAL`, `PILAR… MIX`, the known Kanturu release suffix) are stripped in the presentation copy, including its JSON for search/filtering. Rule IDs, conditions and rates are untouched, and general versus map-specific rules remain labelled. This applies to future receiver snapshots without requiring a VPS exporter upgrade. CSS and JS URLs now use content hashes rather than a fixed `v=7.1`; a browser must fetch the changed files after deployment. The new Atlas stylesheet follows the main stylesheet.
+
+`tools/install_atlas_task.ps1` registers a SYSTEM task at a default interval of 30 minutes, without `--force`. It ignores overlapping runs, records the last run outside the public web root on the VPS, and can run with the RDP session closed. The installer preserves original game configuration and token files. Confirmation requires actual task info and its log from the VPS; no local Linux test can certify Windows registration.
+
+Validation: PHP rendering and lint, JavaScript syntax, 149 pins / 179 panels / 30 maps, unique DOM IDs, and absence of known internal release labels in generated HTML/JSON. Browser checks and actual Windows task registration are recorded separately after execution.
+
+
+### Client name and scheduled task confirmed
+
+The administrator confirms map 57 is called **LaCleon** in the client. The Atlas uses that display name in maps, transfers, drop filters and links; Raklion remains a search alias. Presentation normalization applies to subsequent VPS snapshots without modifying server files or IDs. Map 58 is not renamed without confirmation of its client label.
+
+Windows scheduled task `MU PANIC Atlas Sync` was created with a 30-minute interval and executed as SYSTEM successfully. The administrator reported `LastTaskResult = 0`, last run 1 October 2026 11:53:53, next run 12:23:23. The log records `Unchanged. Last successfully published snapshot remains active.` Automated registration and its first unchanged run are now confirmed; terrain alignment and monster portraits remain pending.

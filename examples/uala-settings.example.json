@@ -1,0 +1,13 @@
+{
+  "environment": "test",
+  "sales_enabled": false,
+  "uala_bis": {
+    "username": "REEMPLAZAR_USUARIO",
+    "client_id": "REEMPLAZAR_CLIENT_ID",
+    "client_secret_id": "REEMPLAZAR_CLIENT_SECRET_ID"
+  },
+  "recharges": {
+    "production_verified": false,
+    "amount_unit": "ARS"
+  }
+}

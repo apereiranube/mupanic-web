@@ -10,6 +10,29 @@ $onlinePlayers = isset($srvInfo[3]) && is_numeric($srvInfo[3]) ? max(0, (int)$sr
 
 if(!isset($_REQUEST['page'])) $_REQUEST['page'] = '';
 if(!isset($_REQUEST['subpage'])) $_REQUEST['subpage'] = '';
+if($_REQUEST['page'] === 'usercp') {
+    require_once(__DIR__.'/inc/account.php');
+    $GLOBALS['lang'] = array_replace(is_array($GLOBALS['lang'] ?? null) ? $GLOBALS['lang'] : [], require(__DIR__.'/inc/account-locale.php'));
+}
+
+if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='shopadmin') {
+    require_once __DIR__.'/inc/recharge-management.php';
+    if(!panicRechargeAdminAllowed()) { http_response_code(403); echo 'Acceso no autorizado.'; exit; }
+}
+
+// Status route runs before markup and only reads the signed-in account's ledger.
+if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='recharge' && ($_GET['shop_status'] ?? '')==='1') {
+    header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store');
+    if(!isLoggedIn()) { http_response_code(401); echo '{"orders":{}}'; exit; }
+    require_once __DIR__.'/inc/recharge-orders.php';
+    try {
+        $store=new PanicRechargeOrders();
+        $history=$store->history((string)($_SESSION['username'] ?? ''),max(1,min(500,(int)($_GET['compras'] ?? 1))));
+        $status=[]; foreach($history['orders'] as $order) $status[$order['id']]=panicRechargeStatus($order);
+        echo json_encode(['orders'=>$status],JSON_THROW_ON_ERROR);
+    } catch(Throwable $exception) { http_response_code(503); echo '{"orders":{}}'; }
+    exit;
+}
 
 $isHome = ($_REQUEST['page'] === '');
 $cacheTime = isset($serverInfoCache[0][0]) && is_numeric($serverInfoCache[0][0]) ? (int)$serverInfoCache[0][0] : null;
@@ -24,10 +47,13 @@ if($isHome && function_exists('loadCache')) {
     }
 }
 $isLogged = isLoggedIn();
+$community = require(__DIR__.'/inc/community-config.php');
+$discordInvite = $community['invite'];
 
 $serverSeason = 'Season 6'; // MU PANIC UP43: editorial identity, independent of legacy CMS title.
 // Curated public gameplay snapshot; CMS information defaults are not authoritative.
-$publicBalance = json_decode(file_get_contents(__DIR__.'/inc/public-balance.json'), true);
+require_once(__DIR__.'/inc/atlas-runtime.php');
+$publicBalance = panicAtlasBalance();
 $serverExp = $publicBalance['accounts'][0]['experience'].'x';
 $serverMasterExp = $publicBalance['accounts'][0]['master'].'x';
 $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
@@ -48,11 +74,17 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/knight-v6.webp" fetchpriority="high"><?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
-    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=7.1" rel="stylesheet">
+    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
+    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet">
+    <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'usercp') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>account.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/account.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='vip') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>vip.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/vip.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'usercp' && in_array($_REQUEST['subpage'],['recharge','shopadmin'],true)) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ''); ?>">
+<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : '')))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -70,6 +102,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a>
             <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
             <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
+            <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
@@ -151,6 +184,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <div class="shell manifesto-layout"><span class="eyebrow">03 / LA ESENCIA PANIC</span><div><h2 id="manifesto-title">Tu tiempo.<br>Tu equipo.<br><em>Tu conquista.</em></h2><p>Un continente conocido. Decisiones que importan.</p></div><div class="manifesto-notes"><article><span>01</span><div><h3>El Zen tiene peso.</h3><p>Farmear, guardar y vender forman parte del progreso. Pensá tu próxima mejora.</p></div></article><article><span>02</span><div><h3>Cada etapa tiene un destino.</h3><p>Spots diseñados por mapa y objetivos para avanzar con tu personaje.</p></div></article><article><span>03</span><div><h3>La aventura se comparte.</h3><p>Armá tu party. Encontrá tu guild. Volvé por esa conquista que todavía te falta.</p></div></article></div></div>
 </section>
 
+<?php include(__DIR__.'/inc/community-home.php'); ?>
+
 <section class="play-gateway" id="empezar" aria-labelledby="play-title">
     <div class="gateway-art" aria-hidden="true"></div><div class="shell gateway-layout"><div class="gateway-copy"><span class="eyebrow">04 / TU HISTORIA EMPIEZA ACÁ</span><h2 id="play-title">Nos vemos<br><em>en Lorencia.</em></h2><p>Prepará tu cuenta y el cliente.<br>El siguiente paso lo das dentro del juego.</p></div><div class="launch-steps"><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><span>01</span><div><small><?php echo $isLogged ? 'TU PANEL' : 'TU IDENTIDAD'; ?></small><strong><?php echo $isLogged ? 'Abrir mi cuenta' : 'Crear mi cuenta'; ?></strong></div><b aria-hidden="true">↗</b></a><a class="launch-download" href="<?php echo __BASE_URL__; ?>downloads/"><span>02</span><div><small>EL CLIENTE / PC</small><strong>Descargar MU PANIC</strong></div><b aria-hidden="true">↓</b></a><a href="<?php echo __BASE_URL__; ?>info/"><span>03</span><div><small>ANTES DE ENTRAR</small><strong>Explorar el Atlas PANIC</strong></div><b aria-hidden="true">↗</b></a></div></div>
 </section>
@@ -159,22 +194,39 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <section class="inner-hero">
     <div class="shell inner-head">
-        <div><span class="eyebrow"><?php echo htmlspecialchars(strtoupper($_REQUEST['page'])); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
-        <a href="<?php echo __BASE_URL__; ?>">← Inicio</a>
+        <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : ($_REQUEST['page'] === 'usercp' ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
+        <?php if($_REQUEST['page'] === 'profile') { ?><a class="profile-back" href="<?php echo __BASE_URL__; ?>rankings/">← Volver al ranking</a><?php } elseif($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] !== '') { ?><a href="<?php echo __BASE_URL__; ?>usercp/">← Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>">← Inicio</a><?php } ?>
     </div>
 </section>
 
 <section class="inner-content">
     <div class="shell">
-        <?php if($_REQUEST['page'] == 'usercp' && $_REQUEST['subpage'] != '') { ?>
+        <?php if($_REQUEST['page'] == 'usercp' && $isLogged) { ?>
             <div class="account-layout">
-                <aside class="account-nav"><div class="account-nav-head"><small>TU CUENTA</small><strong>Panel de usuario</strong></div><?php templateBuildUsercp(); ?></aside>
-                <div class="module-surface"><?php $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']); ?></div>
+                <aside class="account-nav"><div class="account-nav-head"><small>MU PANIC</small><strong>Mi cuenta</strong></div><nav aria-label="Opciones de mi cuenta"><?php templateBuildUsercp(); ?></nav></aside>
+                <div class="module-surface"><?php
+                    if($_REQUEST['subpage'] === '') { panicAccountHome(); }
+                    else {
+                        $accountTool=panicAccountTools()[$_REQUEST['subpage']] ?? null;
+                        if($accountTool && !in_array($_REQUEST['subpage'],['recharge','shopadmin','vip'],true)) echo '<header class="account-module-head"><span class="account-module-icon">'.panicAccountIcon($accountTool['icon']).'</span><div><h2>'.panicAccountEscape($accountTool['title']).'</h2><p>'.panicAccountEscape($accountTool['copy']).'</p></div></header>';
+                        echo '<div class="account-module" data-account-module="'.panicAccountEscape($_REQUEST['subpage']).'">';
+                        if($_REQUEST['subpage'] === 'recharge') { include __DIR__.'/inc/recharge.php'; }
+                        elseif($_REQUEST['subpage'] === 'vip') { include __DIR__.'/inc/vip.php'; }
+                        elseif($_REQUEST['subpage'] === 'shopadmin') { include __DIR__.'/inc/recharge-admin.php'; }
+                        else {
+                            ob_start(); $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
+                            echo panicAccountFormMarkup(ob_get_clean(), $_REQUEST['subpage']);
+                        }
+                        echo '</div>';
+                    }
+                ?></div>
             </div>
         <?php } else { ?>
             <div class="module-surface"><?php
                 if($_REQUEST['page'] === 'info') {
                     include('inc/guide.php');
+                } elseif($_REQUEST['page'] === 'rankings') {
+                    include(__DIR__.'/inc/rankings.php');
                 } elseif($_REQUEST['page'] === 'downloads') {
                     ob_start();
                     $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
@@ -202,6 +254,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <p>Tu historia en el continente de MU.</p>
         </div>
         <div class="footer-links">
+            <div><small>COMUNIDAD</small><a href="<?php echo htmlspecialchars($discordInvite, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a></div>
             <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a></div>
             <div><small>CUENTA</small><?php if($isLogged) { ?><a href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>register/">Crear cuenta</a><?php } ?><a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a></div>
         </div>
@@ -211,6 +264,12 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
-<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=7.1"></script>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-search.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-search.js'), 0, 12); ?>"></script>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>community.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/community.js'), 0, 12); ?>"></script>
+<?php if($_REQUEST['page'] === 'rankings') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>rankings.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/rankings.js'), 0, 12); ?>"></script><?php } ?>
+<?php if($_REQUEST['page'] === 'profile') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>profiles.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/profiles.js'), 0, 12); ?>"></script><?php } ?>
+<?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] === 'recharge') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>recharge.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/recharge.js'), 0, 12); ?>"></script><?php } ?>
+<?php if($_REQUEST['page'] === 'usercp') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>account.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/account.js'), 0, 12); ?>"></script><?php } ?>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 </body>
 </html>
