@@ -6,24 +6,6 @@ $serverImage = function($name) {
 };
 ?>
 
-<section class="server-landing-hero" aria-labelledby="server-hero-title" data-server-scene>
-    <div class="server-landing-hero-art" style="--server-hero:url('<?php echo $serverImage('server-hero.webp'); ?>')" aria-hidden="true"></div>
-    <div class="server-landing-hero-shade" aria-hidden="true"></div>
-    <div class="shell server-landing-hero-inner">
-        <div class="server-landing-kicker">MU PANIC / SEASON 6 / ARGENTINA</div>
-        <div class="server-landing-copy">
-            <span class="eyebrow">UN CONTINENTE. MUCHAS FORMAS DE CONQUISTARLO.</span>
-            <h1 id="server-hero-title">No venís<br>a correr.<br><em>Venís a conquistar.</em></h1>
-            <p>MU PANIC está pensado para que cada etapa tenga valor: mapas con propósito, economía útil, objetivos paralelos y sistemas que siguen importando después del level.</p>
-            <div class="server-landing-actions">
-                <a class="button primary" href="<?php echo __BASE_URL__; ?>register/">Crear cuenta <span aria-hidden="true">↗</span></a>
-                <a class="text-link" href="#identidad">Conocer el servidor <span aria-hidden="true">↓</span></a>
-            </div>
-        </div>
-        <div class="server-landing-scroll">01 / EL SERVIDOR <span aria-hidden="true">↓</span></div>
-    </div>
-</section>
-
 <section class="server-identity" id="identidad" aria-labelledby="server-identity-title">
     <div class="shell server-identity-layout">
         <div class="server-identity-copy">
