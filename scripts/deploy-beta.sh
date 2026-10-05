@@ -9,7 +9,7 @@ TEMPLATE_DEST="$DEPLOY_ROOT/templates/mupanic"
 
 MODULE_SOURCE="$SOURCE_ROOT/overlay/modules"
 MODULE_DEST="$DEPLOY_ROOT/modules"
-LEGAL_MODULES=("tos.php" "privacy.php" "refunds.php")
+DEPLOY_MODULES=("tos.php" "privacy.php" "refunds.php" "information.php")
 
 echo "[MU PANIC] Deploying beta overlay..."
 
@@ -23,9 +23,9 @@ if [ ! -f "$TEMPLATE_SOURCE/index.php" ] || [ ! -f "$TEMPLATE_SOURCE/css/style.c
   exit 1
 fi
 
-for module in "${LEGAL_MODULES[@]}"; do
+for module in "${DEPLOY_MODULES[@]}"; do
   if [ ! -f "$MODULE_SOURCE/$module" ]; then
-    echo "[MU PANIC] ERROR: Missing legal module: $module" >&2
+    echo "[MU PANIC] ERROR: Missing overlay module: $module" >&2
     exit 1
   fi
 done
@@ -65,7 +65,7 @@ if [ "$HERO_PRESENT" -eq 1 ] && [ -f "$HERO_KEEP" ]; then
   rm -f "$HERO_KEEP"
 fi
 
-for module in "${LEGAL_MODULES[@]}"; do
+for module in "${DEPLOY_MODULES[@]}"; do
   cp -a "$MODULE_SOURCE/$module" "$MODULE_DEST/$module"
 done
 
