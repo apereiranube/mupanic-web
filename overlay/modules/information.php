@@ -84,36 +84,96 @@ $serverImage = function($name) {
                 <small>LOGROS</small>
                 <h3>Crónicas del Conquistador</h3>
                 <p>Convertí tu recorrido en hitos y objetivos que quedan registrados.</p>
+                <details class="server-system-details">
+                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
+                    <div>
+                        <dl>
+                            <dt>Qué es</dt><dd>El sistema de Achievements de MU PANIC.</dd>
+                            <dt>Qué buscás</dt><dd>Completar objetivos concretos y sumar progreso más allá del level.</dd>
+                            <dt>Dónde</dt><dd>Dentro del cliente, con su propia ventana de logros.</dd>
+                        </dl>
+                    </div>
+                </details>
             </article>
             <article>
                 <span class="server-system-icon"><?php echo mupanicGlyph('sword'); ?></span>
                 <small>BATTLE PASS</small>
                 <h3>Camino del Héroe</h3>
                 <p>Una ruta de recompensas que acompaña lo que ya hacés dentro del servidor.</p>
+                <details class="server-system-details">
+                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
+                    <div>
+                        <dl>
+                            <dt>Qué es</dt><dd>El Battle Pass integrado al cliente.</dd>
+                            <dt>Qué buscás</dt><dd>Avanzar por objetivos y desbloquear recompensas por etapas.</dd>
+                            <dt>Dónde</dt><dd>Se consulta y reclama directamente dentro del juego.</dd>
+                        </dl>
+                    </div>
+                </details>
             </article>
             <article>
                 <span class="server-system-icon"><?php echo mupanicGlyph('party'); ?></span>
                 <small>DAILY REWARD</small>
                 <h3>Tributo Diario</h3>
                 <p>Volvé, reclamá tu premio y mantené activa una cadena de beneficios.</p>
+                <details class="server-system-details">
+                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
+                    <div>
+                        <dl>
+                            <dt>Qué es</dt><dd>La recompensa diaria de cuenta.</dd>
+                            <dt>Qué buscás</dt><dd>Sumar premios por conectarte y reclamar el día correspondiente.</dd>
+                            <dt>Dónde</dt><dd>Desde la interfaz de recompensas del cliente.</dd>
+                        </dl>
+                    </div>
+                </details>
             </article>
             <article>
                 <span class="server-system-icon"><?php echo mupanicGlyph('gem'); ?></span>
                 <small>RULETA</small>
                 <h3>Fortuna del Caos</h3>
                 <p>Usá WCoin C y probá tu suerte con una selección de premios definida por el servidor.</p>
+                <details class="server-system-details">
+                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
+                    <div>
+                        <dl>
+                            <dt>Qué es</dt><dd>La ruleta de premios de MU PANIC.</dd>
+                            <dt>Costo</dt><dd>300 WCoin C por giro.</dd>
+                            <dt>Qué pasa después</dt><dd>El premio queda en la propia interfaz para retirarlo cuando corresponda.</dd>
+                        </dl>
+                    </div>
+                </details>
             </article>
             <article>
                 <span class="server-system-icon"><?php echo mupanicGlyph('gem'); ?></span>
                 <small>JEWEL BANK</small>
                 <h3>Bóveda Arcana</h3>
                 <p>Guardá joyas a nivel de cuenta y prepará mejoras sin saturar tu inventario.</p>
+                <details class="server-system-details">
+                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
+                    <div>
+                        <dl>
+                            <dt>Qué es</dt><dd>Un banco de joyas integrado al servidor.</dd>
+                            <dt>Qué buscás</dt><dd>Depositar y consultar joyas desde una reserva separada del inventario.</dd>
+                            <dt>Estado</dt><dd>El sistema fue probado y está operativo.</dd>
+                        </dl>
+                    </div>
+                </details>
             </article>
             <article>
                 <span class="server-system-icon"><?php echo mupanicGlyph('wings'); ?></span>
                 <small>VIP</small>
                 <h3>Sello Imperial</h3>
                 <p>Beneficios temporales de cuenta con estado visible desde la web.</p>
+                <details class="server-system-details">
+                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
+                    <div>
+                        <dl>
+                            <dt>Qué es</dt><dd>La membresía VIP de MU PANIC.</dd>
+                            <dt>Qué cambia</dt><dd>Activa beneficios definidos por nivel y por tiempo de vigencia.</dd>
+                            <dt>Dónde lo ves</dt><dd>En el juego y también desde tu cuenta en la web.</dd>
+                        </dl>
+                    </div>
+                </details>
             </article>
         </div>
     </div>
