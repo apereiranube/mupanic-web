@@ -931,6 +931,534 @@
       "source": "external-game-portrait",
       "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_great_dragon.webp",
       "sourceHash": "5b0f616a91e7ff5a9d5b61415f025df6ca9df4ca14359434f2c1de1d50235bc9"
+    },
+    "0": {
+      "file": "img/atlas/monsters/web/0-ea63aa3f384b.webp",
+      "width": 200,
+      "height": 249,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/bull-fighter.png",
+      "sourceHash": "ea63aa3f384be3b2e82190652bff0e5270308a44cd985362914eab28bf2e579d"
+    },
+    "6": {
+      "file": "img/atlas/monsters/web/6-0c017ada7a37.webp",
+      "width": 200,
+      "height": 299,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/lich.png",
+      "sourceHash": "0c017ada7a37c9677fb778a3c9bac4cfa52e2577507903ef2d82fce56ba07c23"
+    },
+    "14": {
+      "file": "img/atlas/monsters/web/14-1065d3874830.webp",
+      "width": 146,
+      "height": 297,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/skeleton.png",
+      "sourceHash": "1065d3874830f4a224cb7ea148744d94b1227dc556a5fc6bbf2310a03eb98473"
+    },
+    "1": {
+      "file": "img/atlas/monsters/web/1-f290d442a64f.webp",
+      "width": 200,
+      "height": 244,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hound.png",
+      "sourceHash": "f290d442a64fc60c750b6cd70e002c0dc3c42d061b2fc0dea95f694834eea154"
+    },
+    "4": {
+      "file": "img/atlas/monsters/web/4-25b1cd754f9a.webp",
+      "width": 200,
+      "height": 269,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/elite-bull-fighter.png",
+      "sourceHash": "25b1cd754f9a69ebad907645e6fc6bd4a4533871c86be56188c9ddf2c49b3d91"
+    },
+    "7": {
+      "file": "img/atlas/monsters/web/7-495308a473f7.webp",
+      "width": 190,
+      "height": 297,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/giant.png",
+      "sourceHash": "495308a473f7878b999dd7f422ca81996935dd44d417bf91fe04c25b411856be"
+    },
+    "17": {
+      "file": "img/atlas/monsters/web/17-25b1cd754f9a.webp",
+      "width": 200,
+      "height": 269,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cyclops.png",
+      "sourceHash": "25b1cd754f9a69ebad907645e6fc6bd4a4533871c86be56188c9ddf2c49b3d91"
+    },
+    "11": {
+      "file": "img/atlas/monsters/web/11-4cf914003ddc.webp",
+      "width": 200,
+      "height": 208,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ghost.png",
+      "sourceHash": "4cf914003ddc71cdd42a12aa54f20068ef78597bfd87acc29e2d781c99e144b7"
+    },
+    "15": {
+      "file": "img/atlas/monsters/web/15-838144f61266.webp",
+      "width": 200,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/skeleton-archer.png",
+      "sourceHash": "838144f6126698315f4988658b93d6e761e8ea52fbd3f649add32dac0ca09082"
+    },
+    "16": {
+      "file": "img/atlas/monsters/web/16-52ef3c47432a.webp",
+      "width": 155,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/chief-skeleton-warrior.png",
+      "sourceHash": "52ef3c47432aaa436254e939a3e910cd0b6ada0181aea51b38447c9c0158b761"
+    },
+    "9": {
+      "file": "img/atlas/monsters/web/9-a21c14175d9a.webp",
+      "width": 200,
+      "height": 299,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/thunder-lich.png",
+      "sourceHash": "a21c14175d9ae086178a827b98f463e6fac4379639a612a6d3aeb94300b994ee"
+    },
+    "8": {
+      "file": "img/atlas/monsters/web/8-86c2365394a4.webp",
+      "width": 200,
+      "height": 249,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/poison-bull-fighter.png",
+      "sourceHash": "86c2365394a48e836192fdbfd396ccc749ac6db9c3da0e0b00e9bc723967b04b"
+    },
+    "5": {
+      "file": "img/atlas/monsters/web/5-f290d442a64f.webp",
+      "width": 200,
+      "height": 244,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hellhound.png",
+      "sourceHash": "f290d442a64fc60c750b6cd70e002c0dc3c42d061b2fc0dea95f694834eea154"
+    },
+    "10": {
+      "file": "img/atlas/monsters/web/10-a4ae392da075.webp",
+      "width": 200,
+      "height": 146,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/dark-knight.png",
+      "sourceHash": "a4ae392da075784d9c021f6042fd373615eec0116ebd575ab6f0c029e55176d8"
+    },
+    "13": {
+      "file": "img/atlas/monsters/web/13-2d145e6c0151.webp",
+      "width": 200,
+      "height": 200,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hell-spider.png",
+      "sourceHash": "2d145e6c0151ef9068d947edfd204d248f37be9db6f998b26efe2395a40dcab0"
+    },
+    "18": {
+      "file": "img/atlas/monsters/web/18-5240080541b2.webp",
+      "width": 200,
+      "height": 228,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/gorgon.png",
+      "sourceHash": "5240080541b2198dad9feeab74676883addfa9d7e81cecc701db37485bf40e55"
+    },
+    "23": {
+      "file": "img/atlas/monsters/web/23-185e50714a3a.webp",
+      "width": 194,
+      "height": 299,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hommerd.png",
+      "sourceHash": "185e50714a3a44b888419b021ef48b45e1292fef7caef1ff3c58db178d5846c0"
+    },
+    "22": {
+      "file": "img/atlas/monsters/web/22-4faf4e566fc0.webp",
+      "width": 200,
+      "height": 161,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ice-monster.png",
+      "sourceHash": "4faf4e566fc09f22a3391832c71dce97a25c433103689b57a58b9364cabdde00"
+    },
+    "25": {
+      "file": "img/atlas/monsters/web/25-d7183e633b55.webp",
+      "width": 200,
+      "height": 256,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ice-queen.png",
+      "sourceHash": "d7183e633b55e4b0a81d70e4395a375dce2259f79ddd4bc359ab7cd74c1eed95"
+    },
+    "26": {
+      "file": "img/atlas/monsters/web/26-2937e7d1e1a8.webp",
+      "width": 200,
+      "height": 241,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/goblin.png",
+      "sourceHash": "2937e7d1e1a811f2fb544e050f759f5c1fd947aeddf243f78c513550a043842b"
+    },
+    "33": {
+      "file": "img/atlas/monsters/web/33-036579bb2e53.webp",
+      "width": 200,
+      "height": 241,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/elite-goblin.png",
+      "sourceHash": "036579bb2e539fc6b9f0756518110ad5036d157713e75062331b86ea797741e9"
+    },
+    "28": {
+      "file": "img/atlas/monsters/web/28-09194c1d6596.webp",
+      "width": 200,
+      "height": 248,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/beetle-monster.png",
+      "sourceHash": "09194c1d659683e113bb90b7c11f6e22155bd4b86448cfb35817d0a561dbdc71"
+    },
+    "29": {
+      "file": "img/atlas/monsters/web/29-3a9cc3e04a80.webp",
+      "width": 193,
+      "height": 298,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hunter.png",
+      "sourceHash": "3a9cc3e04a80c8959d0a3ab8b7fad699f0f70c31475890a5d96fbcb6c3d86d5f"
+    },
+    "31": {
+      "file": "img/atlas/monsters/web/31-98ba7b83463f.webp",
+      "width": 200,
+      "height": 259,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/agon.png",
+      "sourceHash": "98ba7b83463f5ecdd9774dfe71dcf3a7f193bedb1e51d0e44a21544233aa01d5"
+    },
+    "36": {
+      "file": "img/atlas/monsters/web/36-80f0a62b81c9.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/shadow.png",
+      "sourceHash": "80f0a62b81c934d0a90e12eaf12bfc0fd79c4bf9b3aa8886377b6863883eb13f"
+    },
+    "39": {
+      "file": "img/atlas/monsters/web/39-4d0080877c99.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/poison-shadow.png",
+      "sourceHash": "4d0080877c99ebc124c6589b5f40d767c4fbf8c076414ec75a2b3785f2c6566c"
+    },
+    "34": {
+      "file": "img/atlas/monsters/web/34-42f8e046a412.webp",
+      "width": 198,
+      "height": 296,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cursed-wizard.png",
+      "sourceHash": "42f8e046a4120dd865c3fe64df839b68402027f730fddb17ef9161c77c5e094c"
+    },
+    "41": {
+      "file": "img/atlas/monsters/web/41-ba0eb4a790bf.webp",
+      "width": 200,
+      "height": 202,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-cow.png",
+      "sourceHash": "ba0eb4a790bf4881a81eb33d7e6d5b716cba9a55e3e0eaa095318613d97bc3d3"
+    },
+    "40": {
+      "file": "img/atlas/monsters/web/40-aef9b64a1c95.webp",
+      "width": 187,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-knight.png",
+      "sourceHash": "aef9b64a1c95b6b00685d7feea201f13fffc11f303a8f9a21780a644a2c03cb7"
+    },
+    "35": {
+      "file": "img/atlas/monsters/web/35-8a1214e02f40.webp",
+      "width": 200,
+      "height": 228,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-gorgon.png",
+      "sourceHash": "8a1214e02f40cf237eeeb7a6c2b2d9d0d6f187dbd324b021be4735fb60c42127"
+    },
+    "38": {
+      "file": "img/atlas/monsters/web/38-06291d457f13.webp",
+      "width": 200,
+      "height": 222,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/balrog.png",
+      "sourceHash": "06291d457f1372e8aedd14e9c8ebcce49f25235ae06c5f0dfaeaa8887eb3157d"
+    },
+    "57": {
+      "file": "img/atlas/monsters/web/57-dff9a9ae1452.webp",
+      "width": 200,
+      "height": 202,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/iron-wheel.png",
+      "sourceHash": "dff9a9ae1452a4b20d7c8cef8c7bcfdf15b5f73697c784be59a65b2673fc0aea"
+    },
+    "58": {
+      "file": "img/atlas/monsters/web/58-9ce5d54ea4c8.webp",
+      "width": 200,
+      "height": 286,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/tantalus.png",
+      "sourceHash": "9ce5d54ea4c83e89f1c1f9b8b41785aa00341ef0c43f9ef858acbc0ba1068bad"
+    },
+    "74": {
+      "file": "img/atlas/monsters/web/74-bcf40e4cc456.webp",
+      "width": 198,
+      "height": 267,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/alpha-crust.png",
+      "sourceHash": "bcf40e4cc45689388e7bc6e7edeb8b45fd9b32e999f6dca38302c2a6a28b4b08"
+    },
+    "72": {
+      "file": "img/atlas/monsters/web/72-cdd5b582852b.webp",
+      "width": 186,
+      "height": 296,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/phantom-knight.png",
+      "sourceHash": "cdd5b582852bab0dfaf54fb9e608cef39377ff8d101ebcd8df6520c6ae9b106c"
+    },
+    "576": {
+      "file": "img/atlas/monsters/web/576-49e50d3bd5ca.webp",
+      "width": 200,
+      "height": 214,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/narcondra.png",
+      "sourceHash": "49e50d3bd5cadacdd300464b4d5cd479b4118c3ab7a4871b06561ce4b1d4890c"
+    },
+    "47": {
+      "file": "img/atlas/monsters/web/47-702baa9f8f48.webp",
+      "width": 182,
+      "height": 279,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/valkyrie.png",
+      "sourceHash": "702baa9f8f4838ffb321c61327f96bb07d4924e4ffda91c8b14691cc57256cfe"
+    },
+    "52": {
+      "file": "img/atlas/monsters/web/52-0f3602419d20.webp",
+      "width": 200,
+      "height": 275,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/silver-valkyrie.png",
+      "sourceHash": "0f3602419d2049cf40848d0aed8252310f2afe92985a2a86e3136b65a695a5cf"
+    },
+    "48": {
+      "file": "img/atlas/monsters/web/48-68cc25aec3a4.webp",
+      "width": 200,
+      "height": 219,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/lizard-king.png",
+      "sourceHash": "68cc25aec3a4246dbb69a5dc17780028d999285aa0c5085d681581963c1b17b7"
+    },
+    "51": {
+      "file": "img/atlas/monsters/web/51-764a95ee2a77.webp",
+      "width": 200,
+      "height": 102,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/great-bahamut.png",
+      "sourceHash": "764a95ee2a775330f3652743eac6dd869167bf569a462e91a5fd61def32fce10"
+    },
+    "49": {
+      "file": "img/atlas/monsters/web/49-294695533f00.webp",
+      "width": 200,
+      "height": 138,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hydra.png",
+      "sourceHash": "294695533f0027d3c6013a80ef178baa7771053a73911635b3e7cb2235760d54"
+    },
+    "62": {
+      "file": "img/atlas/monsters/web/62-dc7a0ff81c23.webp",
+      "width": 200,
+      "height": 265,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/mutant.png",
+      "sourceHash": "dc7a0ff81c23e2053931e843dc521f0a84b1cdd50b1393f537ee7523348e4d3f"
+    },
+    "60": {
+      "file": "img/atlas/monsters/web/60-dc6fe98c6e1a.webp",
+      "width": 200,
+      "height": 122,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/bloody-wolf.png",
+      "sourceHash": "dc6fe98c6e1a495ceb0697993bd254ba43d7a2674f758e3c9f39d5243d624e8f"
+    },
+    "61": {
+      "file": "img/atlas/monsters/web/61-6a90092cf119.webp",
+      "width": 200,
+      "height": 196,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/beam-knight.png",
+      "sourceHash": "6a90092cf11909d5fbcf3faae32d2b7979aed1570c09efed94159818df72a8c1"
+    },
+    "59": {
+      "file": "img/atlas/monsters/web/59-601086ea702d.webp",
+      "width": 200,
+      "height": 284,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/zaikan.png",
+      "sourceHash": "601086ea702d1b1f8828f7cf7b1b153305734f70a04f2f8447f2af828a4a7c15"
+    },
+    "63": {
+      "file": "img/atlas/monsters/web/63-21541c322f3c.webp",
+      "width": 200,
+      "height": 230,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-beam-knight.png",
+      "sourceHash": "21541c322f3c18e14513b3b4c8a7d684878c16f69636d292820ca1134edb4c11"
+    },
+    "69": {
+      "file": "img/atlas/monsters/web/69-ea50571eea05.webp",
+      "width": 200,
+      "height": 169,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/alquamos.png",
+      "sourceHash": "ea50571eea05462d2bfead485a63b2c649c233a8cd8a77fb156c2f2d2d9a91d1"
+    },
+    "71": {
+      "file": "img/atlas/monsters/web/71-b318698eac94.webp",
+      "width": 200,
+      "height": 185,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/mega-crust.png",
+      "sourceHash": "b318698eac945b204d5d15e5e694ba7e9afc0b434bd31d4ab580d50a37995c07"
+    },
+    "77": {
+      "file": "img/atlas/monsters/web/77-542928a898ca.webp",
+      "width": 200,
+      "height": 85,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/phoenix-of-darkness.png",
+      "sourceHash": "542928a898ca5780db944fbd64edb30f1f6d40d4aa5072e49cabe8acc0712be2"
+    },
+    "351": {
+      "file": "img/atlas/monsters/web/351-fd784a79cfaf.webp",
+      "width": 200,
+      "height": 114,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/splinter-wolf.png",
+      "sourceHash": "fd784a79cfaf0cc5a92446bbcb3e5fa1798e7ebe6cd3d2660ef57bca52a27d5b"
+    },
+    "409": {
+      "file": "img/atlas/monsters/web/409-c9ab6ed22846.webp",
+      "width": 200,
+      "height": 162,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/balram.png",
+      "sourceHash": "c9ab6ed228469b87ae09db835ce4b8a5727604f60aeafb642317d0e82329c2fa"
+    },
+    "410": {
+      "file": "img/atlas/monsters/web/410-5fbc621ebe7d.webp",
+      "width": 200,
+      "height": 194,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-spirit-trainee-soldier.png",
+      "sourceHash": "5fbc621ebe7dc16cd25b2bd1bbaced698bed404979deac1f2ae014caab1b5a99"
+    },
+    "411": {
+      "file": "img/atlas/monsters/web/411-e64baad67047.webp",
+      "width": 200,
+      "height": 236,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/soram.png",
+      "sourceHash": "e64baad67047e330afd8c61edc554158a61de47cfd0a0782c882ef9eda50212a"
+    },
+    "412": {
+      "file": "img/atlas/monsters/web/412-e5b4c2d385ae.webp",
+      "width": 200,
+      "height": 218,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/dark-elf-trainee-soldier.png",
+      "sourceHash": "e5b4c2d385aee3775bd70f70bc844fc5f2d47b70fc025ccc17734c9e0e5d7104"
+    },
+    "481": {
+      "file": "img/atlas/monsters/web/481-68dceaae6478.webp",
+      "width": 178,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/zombie-fighter.png",
+      "sourceHash": "68dceaae64786b8f547d6354263ca3002080736c8c27b088e05e6a4573c22e08"
+    },
+    "483": {
+      "file": "img/atlas/monsters/web/483-c9922eebaaec.webp",
+      "width": 200,
+      "height": 217,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/resurrected-gladiator.png",
+      "sourceHash": "c9922eebaaec751c21415b9a6fb2eb0f1d871cc70cf1b414a8abb5369ae3ccd5"
+    },
+    "485": {
+      "file": "img/atlas/monsters/web/485-03e759310404.webp",
+      "width": 200,
+      "height": 152,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ash-slaughterer.png",
+      "sourceHash": "03e759310404feac5b92e77444d49da67f0224d78f48b8ac3e948fbdc3c984d1"
+    },
+    "488": {
+      "file": "img/atlas/monsters/web/488-fe2ce8b29f04.webp",
+      "width": 197,
+      "height": 227,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cruel-blood-assassin.png",
+      "sourceHash": "fe2ce8b29f0446beae5f378c2b910b1f325e0da43b082844104c4e9b72d0d750"
+    },
+    "491": {
+      "file": "img/atlas/monsters/web/491-c657a50407e8.webp",
+      "width": 200,
+      "height": 250,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ruthless-lava-giant.png",
+      "sourceHash": "c657a50407e871344788621f89eebe1d1500552f925fae2ffeb5446b10627e75"
+    },
+    "480": {
+      "file": "img/atlas/monsters/web/480-68dceaae6478.webp",
+      "width": 178,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/zombie-fighter.png",
+      "sourceHash": "68dceaae64786b8f547d6354263ca3002080736c8c27b088e05e6a4573c22e08"
+    },
+    "482": {
+      "file": "img/atlas/monsters/web/482-c9922eebaaec.webp",
+      "width": 200,
+      "height": 217,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/resurrected-gladiator.png",
+      "sourceHash": "c9922eebaaec751c21415b9a6fb2eb0f1d871cc70cf1b414a8abb5369ae3ccd5"
+    },
+    "484": {
+      "file": "img/atlas/monsters/web/484-03e759310404.webp",
+      "width": 200,
+      "height": 152,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ash-slaughterer.png",
+      "sourceHash": "03e759310404feac5b92e77444d49da67f0224d78f48b8ac3e948fbdc3c984d1"
+    },
+    "486": {
+      "file": "img/atlas/monsters/web/486-335d6b5acf4b.webp",
+      "width": 197,
+      "height": 227,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/blood-assassin.png",
+      "sourceHash": "335d6b5acf4b3a7cab8ac9aa9442cf4fd7e1ce0b53fc5a2703513fa1c772b783"
+    },
+    "487": {
+      "file": "img/atlas/monsters/web/487-fe2ce8b29f04.webp",
+      "width": 197,
+      "height": 227,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cruel-blood-assassin.png",
+      "sourceHash": "fe2ce8b29f0446beae5f378c2b910b1f325e0da43b082844104c4e9b72d0d750"
+    },
+    "489": {
+      "file": "img/atlas/monsters/web/489-8a324a076096.webp",
+      "width": 200,
+      "height": 250,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/burning-lava-giant.png",
+      "sourceHash": "8a324a0760969ce5c71ba5fa029f875d7ff3bc01271b8a91ecad622af4c15d2c"
+    },
+    "490": {
+      "file": "img/atlas/monsters/web/490-c657a50407e8.webp",
+      "width": 200,
+      "height": 250,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ruthless-lava-giant.png",
+      "sourceHash": "c657a50407e871344788621f89eebe1d1500552f925fae2ffeb5446b10627e75"
     }
   },
   "rewards": {

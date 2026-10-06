@@ -4,6 +4,9 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
 const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/atlas-rewards.php')],{encoding:'utf8',maxBuffer:16e6});
 const output=process.env.ATLAS_SCREENSHOT_DIR;
 const eventSnapshot=JSON.parse(fs.readFileSync(path.join(root,'inc/public-events.json'),'utf8'));
+const atlasAssets=JSON.parse(fs.readFileSync(path.join(root,'inc/atlas-assets.json'),'utf8'));
+const balance=JSON.parse(fs.readFileSync(path.join(root,'inc/public-balance.json'),'utf8'));
+for(const map of balance.maps)for(const mob of [...map.monsters,...map.spots.flatMap(spot=>spot.monsters)]){if([105,106].includes(mob.id))continue;assert.ok(atlasAssets.monsters[String(mob.id)],'Missing map mob portrait '+mob.id+' '+mob.name);}
 const enabledEvents=eventSnapshot.events.filter(e=>e.enabled);
 const imagePaths=[...html.matchAll(/<img[^>]+src="([^"]+)"/g)].map(m=>m[1]);
 for(const src of imagePaths){assert.ok(src.startsWith('/templates/mupanic/'));assert.ok(fs.existsSync(path.join(root,src.slice('/templates/mupanic/'.length))),'Missing image '+src);}
@@ -91,7 +94,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.equal(await population.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),lastMonster);
   await page.goto('https://atlas.test/info/'+await monsterOptions.last().getAttribute('data-mob-hash'));assert.equal(await population.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),lastMonster,'Deep link reveals the requested monster');
   await lorencia.locator('[data-atlas-select="7"]').last().click();
-  await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.locator('.atlas-explorer').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-'+width);}
+  await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.locator('.atlas-explorer').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-'+width);await lorencia.locator('.atlas-inspector').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-inspector-'+width);}
   await lorencia.locator('[data-save-map]').click();await page.locator('[data-map-filter]').fill('');await page.locator('[data-map-scope=saved]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),1,'Saved territory filter');
   await lorencia.locator('[data-save-map]').click();assert.equal(await catalogue.locator('[data-map-empty]').isVisible(),true);assert.equal(await page.locator('[data-map-scope=saved]').evaluate(el=>document.activeElement===el),true,'Removing saved territory returns focus to filter');
   await page.goto('https://atlas.test/info/#mapa-2');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),true,'Direct territory link clears filters');

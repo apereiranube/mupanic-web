@@ -201,6 +201,7 @@
 .atlas-mob-tier{display:inline-block;font-size:10px;letter-spacing:.07em;color:#f1d09e;border:1px solid #c7996b60;background:#d1a57415;padding:5px 8px;border-radius:2px}
 .atlas-mob-population{display:block;font-size:11px;color:#c6d3ca;margin-top:8px}
 .atlas-mob-portrait,.atlas-reward-portrait{object-fit:contain;background:radial-gradient(ellipse,#b58a6120,transparent 70%),#0d1618;border:1px solid #c7996b27;border-radius:2px;filter:drop-shadow(0 4px 5px #0006)}
+.atlas-trap-symbol{color:#ddb37d;padding:14px}
 .atlas-mob-portrait{width:110px;height:120px;flex:0 0 110px;background:radial-gradient(ellipse,#c99a5640,transparent 75%),#14252c;border-color:#c7996b50}
 .atlas-reward-portrait{width:150px;height:165px;display:block;margin:20px 0}
 .atlas-mob-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0;font-size:10px;color:#c3d0c8}
