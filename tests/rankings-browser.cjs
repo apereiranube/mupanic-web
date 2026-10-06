@@ -22,7 +22,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
    assert.equal(await page.locator('h1').count(),1);
    const metrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,hero:document.querySelector('.rankings-hero').getBoundingClientRect().height,title:document.querySelector('h1').getBoundingClientRect().top,header:document.querySelector('.site-header').getBoundingClientRect().bottom}));
    assert.equal(metrics.overflow,false,'Page horizontal overflow');assert.ok(metrics.title>=metrics.header,'Heading covered by header');
-   assert.ok(metrics.hero<(width>700?440:450),'Hero is compact');
+   assert.ok(metrics.hero<(width>700?440:450),'Hero is compact: '+JSON.stringify(metrics));
    assert.equal(await page.locator('.rankings_menu a').count(),9);assert.equal(await page.locator('[aria-current=page]').count(),2);
    assert.equal(await page.locator('#rankings-results').count(),1);
    if(mode!=='empty'){
