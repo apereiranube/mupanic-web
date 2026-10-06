@@ -418,3 +418,5 @@
 
 @media(min-width:751px) and (max-height:800px){.atlas-event-copy{padding:24px}.atlas-event-copy h3{margin:9px 0;font-size:33px}.atlas-event-copy>p{margin-bottom:12px}.atlas-event-facts{margin:13px 0;gap:11px 15px}.atlas-event-rewards{padding:11px}.atlas-event-prize{padding:5px}.atlas-event-copy .atlas-event-validation{margin-top:9px;padding:7px 10px}}
 @media(max-width:750px){.atlas-event-prizes{grid-template-columns:repeat(2,minmax(0,1fr))}.atlas-event-copy .atlas-event-validation{font-size:11px}.atlas-event-prize b{font-size:12px}.atlas-event-prize small{font-size:10px}.atlas-event-prize-heading{align-items:flex-start}.atlas-event-delivery{flex-wrap:wrap}.atlas-event-copy{padding:24px 20px}.atlas-event-prize-heading select{font-size:12px}.atlas-event-audit-date{font-size:10px}}
+
+.atlas-boss-event-guide{padding:18px;margin:20px 0;background:linear-gradient(120deg,#b78a5118,#273338);border:1px solid #bc956b40;border-radius:3px}.atlas-boss-event-guide>p{font-size:13px}.atlas-boss-event-guide .atlas-event-validation{border-left:2px solid #bd945e;padding:10px;background:#b98e5017;font-size:11px}.atlas-boss-event-guide .atlas-event-facts dd{font-size:13px}

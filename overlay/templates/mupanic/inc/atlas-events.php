@@ -10,6 +10,9 @@ foreach($eventSnapshot['events'] as &$event) if(preg_match('/^arena-[0-7]$/',$ev
  $event['mode']='manual'; $event['schedule']=[]; $event['group']='staff';
 }
 unset($event);
+// A reader upgrade or editorial revision can change output without changing the
+// server files. Refresh those changes too, while preserving the source hash.
+$eventRenderVersion=hash('sha256',$eventSnapshot['sourceHash'].json_encode($eventSnapshot['events']).hash_file('sha256',__DIR__.'/atlas-event-guides.json'));
 $atlasEvents=array_values(array_filter($eventSnapshot['events'],function($e){return $e['enabled'];}));
 $eventGroups=['classic'=>'Clásicos','custom'=>'Competencias','boss'=>'Desafíos','invasion'=>'Invasiones','staff'=>'Manuales'];
 $eventStories=[];
@@ -42,7 +45,7 @@ $eventImage=function($e) use($atlasAssets,$eventGuides) {
  return 'img/atlas/editorial/'.($e['group']==='classic'?'imperial-temple':($e['group']==='boss'?'devil-square':'pvp-arena')).'.webp';
 };
 ?>
-<section id="eventos" class="wiki-section" aria-labelledby="atlas-events-title" data-events-version="<?php echo $eventSnapshot['sourceHash']; ?>">
+<section id="eventos" class="wiki-section" aria-labelledby="atlas-events-title" data-events-version="<?php echo $eventRenderVersion; ?>">
  <div class="atlas-section-heading"><div><span class="eyebrow">EL CONTINENTE NO SE DETIENE</span><h2 id="atlas-events-title">Respondé al desafío.</h2></div><span class="atlas-section-mark" aria-hidden="true">III</span></div>
  <p>Elegí tu próxima batalla. Conocé el objetivo, los horarios y qué podés conseguir.</p>
  <div class="atlas-agenda"><div class="atlas-agenda-head"><h3>Próximos desafíos</h3><span>Hora Argentina<br>UTC−3</span></div><div data-event-upcoming><p>Los horarios completos están disponibles debajo.</p></div><details class="atlas-full-agenda"><summary>Consultar todos los horarios</summary><?php foreach($atlasEvents as $e) { if($e['mode']!=='scheduled' || !$e['schedule']) continue; ?><div class="atlas-agenda-entry"><span><?php echo panicWikiEscape($e['name']); ?></span><div><?php foreach($e['schedule'] as $r) { ?><small><?php echo panicWikiEscape(($r[3]>0?$dayNames[$r[3]].' ':'').($r[4]<0?'Cada hora · ':str_pad($r[4],2,'0',STR_PAD_LEFT).':').str_pad(max(0,$r[5]),2,'0',STR_PAD_LEFT).($r[2]>0?' · día '.$r[2]:'').($r[1]>0?' · mes '.$r[1]:'').($r[0]>0?' · '.$r[0]:'')); ?></small><?php } ?></div></div><?php } ?></details><p class="atlas-agenda-note">Agenda prevista: confirmá la apertura con los avisos del juego. Los desafíos por acceso no tienen horario fijo. Survivor y arenas por clase: fecha a anunciar. Actualizado: <time datetime="<?php echo panicWikiEscape($eventSnapshot['generatedAt']); ?>" data-event-published></time></p></div>

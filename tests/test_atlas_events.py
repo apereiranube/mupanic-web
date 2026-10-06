@@ -55,6 +55,8 @@ class Events(unittest.TestCase):
    self.assertFalse({'schedule','horarios','enabled','habilitado','mode','modalidad'} & guide.keys())
   self.assertEqual(editorial['guides']['arena-0']['tiers'][0]['rewards'][0]['label'],'5 × Kundun +5')
   self.assertIn('pendientes',editorial['guides']['arena-0']['validation'])
+  self.assertEqual(editorial['guides']['kundun']['tiers'][0]['bag'],32)
+  self.assertEqual(editorial['guides']['erohim']['tiers'][0]['bag'],33)
  def test_signed_receiver_rejects_bad_data_preserves_last_snapshot(self):
   snapshot=json.loads((BASE/'inc/public-events.json').read_text());snapshot['generatedAt']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
   with tempfile.TemporaryDirectory() as folder:

@@ -201,14 +201,15 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  const changed=JSON.parse(JSON.stringify(eventSnapshot));changed.sourceHash='e'.repeat(64);changed.events.find(e=>e.id==='pandora').enabled=false;changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-')).forEach(e=>e.enabled=true);
  fs.writeFileSync(path.join(runtime,'public-events.json'),JSON.stringify(changed));
  const refreshed=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/atlas-rewards.php')],{encoding:'utf8',env:{...process.env,PANIC_ATLAS_RUNTIME_DIR:runtime},maxBuffer:16e6});
+ const refreshVersion=refreshed.match(/data-events-version="([a-f0-9]+)"/)[1];
  const live=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),liveErrors=[];
  await live.clock.install({time:new Date('2026-10-06T13:00:00Z')});await setup(live,liveErrors);let refreshCalls=0;
- await live.route('**/api/atlas-events.php',route=>{refreshCalls++;return route.fulfill({contentType:'application/json',body:JSON.stringify({version:changed.sourceHash,html:refreshed.match(/<section id="eventos"[\s\S]*?<\/section>/)[0]})});});
+ await live.route('**/api/atlas-events.php',route=>{refreshCalls++;return route.fulfill({contentType:'application/json',body:JSON.stringify({version:refreshVersion,html:refreshed.match(/<section id="eventos"[\s\S]*?<\/section>/)[0]})});});
  await live.goto('https://atlas.test/info/#eventos');
  await live.locator('.atlas-event-card [data-atlas-event-open="pandora"]').click();
  await live.clock.fastForward(61000);assert.equal(refreshCalls,0,'Refreshing defers while a dossier is open');
  await live.keyboard.press('Escape');await live.clock.fastForward(61000);
- await live.waitForFunction(()=>document.querySelector('#eventos').dataset.eventsVersion==='e'.repeat(64));
+ await live.waitForFunction(version=>document.querySelector('#eventos').dataset.eventsVersion===version,refreshVersion);
  assert.equal(await live.locator('.atlas-event-card [data-atlas-event-open="pandora"]').count(),0);
  assert.equal(await live.locator('.atlas-event-card').count(),changed.events.filter(e=>e.enabled).length);
  await live.locator('.wiki-nav a[href="#inicio"]').click();await live.locator('#inicio').waitFor({state:'visible'});await live.locator('.wiki-nav a[href="#eventos"]').click();await live.locator('#eventos').waitFor({state:'visible'});

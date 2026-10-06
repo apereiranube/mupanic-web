@@ -803,15 +803,15 @@
       "rewardNote": "Tres piezas Excellent configuradas.",
       "tiers": [
         {
-          "label": "Box of Kundun 1",
-          "bag": 7,
+          "label": "Kundun",
+          "bag": 32,
           "rewards": [
             {
-              "label": "1 × Equipo Ancient",
+              "label": "3 × Equipo Excellent",
               "detail": "Base configurada"
             }
           ],
-          "delivery": "inventario"
+          "delivery": "suelo"
         }
       ],
       "referenceName": "Kundun"
@@ -823,7 +823,19 @@
       "objective": "Enfrentar a Erohim en Land of Trials.",
       "validation": "Drop trabajado; acceso con Castle Siege pausado pendiente.",
       "rewardNote": "Dos piezas Ancient configuradas.",
-      "tiers": [],
+      "tiers": [
+        {
+          "label": "Erohim",
+          "bag": 33,
+          "rewards": [
+            {
+              "label": "2 × Equipo Ancient",
+              "detail": "Base configurada"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
       "referenceName": "Erohim"
     },
     "kanturu": {

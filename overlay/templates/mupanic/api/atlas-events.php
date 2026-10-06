@@ -5,4 +5,4 @@ define('access',true);define('__PATH_TEMPLATE__',rtrim(dirname(dirname($_SERVER[
 function panicWikiEscape($v) {return htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');}
 $wiki=panicAtlasBalance();$atlasAssets=json_decode(file_get_contents(__DIR__.'/../inc/atlas-assets.json'),true);
 ob_start();include(__DIR__.'/../inc/atlas-events.php');$html=ob_get_clean();
-echo json_encode(['version'=>$eventSnapshot['sourceHash'],'html'=>$html],JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT);
+echo json_encode(['version'=>$eventRenderVersion,'html'=>$html],JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT);
