@@ -69,4 +69,20 @@ for module in "${DEPLOY_MODULES[@]}"; do
   cp -a "$MODULE_SOURCE/$module" "$MODULE_DEST/$module"
 done
 
+# Decode visual assets committed as base64 text so cPanel/Git can carry binary artwork.
+SYSTEM_ART_SOURCE="$SOURCE_ROOT/overlay/assets/system-art"
+SYSTEM_ART_DEST="$TEMPLATE_DEST/img/server/systems"
+SYSTEM_ART_FILES=("chronicles" "hero-path" "daily" "fortune" "vault" "vip" "nexus")
+mkdir -p "$SYSTEM_ART_DEST"
+
+for asset in "${SYSTEM_ART_FILES[@]}"; do
+  src="$SYSTEM_ART_SOURCE/$asset.webp.b64"
+  dst="$SYSTEM_ART_DEST/$asset.webp"
+  if [ ! -f "$src" ]; then
+    echo "[MU PANIC] ERROR: Missing system artwork source: $src" >&2
+    exit 1
+  fi
+  /usr/bin/base64 -d "$src" > "$dst"
+done
+
 echo "[MU PANIC] Beta overlay deployed successfully."
