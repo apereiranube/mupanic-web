@@ -4,6 +4,8 @@ require_once(__DIR__.'/atlas-drop-model.php');
 $dropGroups = panicAtlasDropGroups($wiki['drops']);
 $dropImages = json_decode(file_get_contents(__DIR__.'/atlas-drop-items.json'), true);
 $dropCategories = ['all'=>'Todos','joyas'=>'Joyas','alas'=>'Alas','sockets'=>'Sockets','entradas'=>'Entradas','materiales'=>'Materiales','cajas'=>'Cajas'];
+$dropCategoryOrder = ['joyas'=>0,'alas'=>1,'sockets'=>2,'entradas'=>3,'materiales'=>4,'cajas'=>5];
+uasort($dropGroups, function($a,$b) use($dropCategoryOrder) { return $dropCategoryOrder[$a['category']] <=> $dropCategoryOrder[$b['category']]; });
 $dropImage = function($group) use($dropImages) {
     $art = $dropImages[$group['key']] ?? null;
     if(!$art) return '<span class="atlas-drop-art" aria-hidden="true">◇</span>';
