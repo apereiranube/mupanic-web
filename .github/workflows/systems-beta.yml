@@ -1,0 +1,44 @@
+name: Systems UI validation
+on:
+  push:
+    branches: [beta, main]
+    paths:
+      - 'overlay/modules/information.php'
+      - 'overlay/templates/mupanic/css/information.css'
+      - 'overlay/templates/mupanic/js/main.js'
+      - 'overlay/templates/mupanic/img/server/systems/**'
+      - 'scripts/deploy-beta.sh'
+      - 'tests/systems-browser.cjs'
+      - 'tests/fixtures/systems.php'
+      - '.github/workflows/systems-beta.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  systems:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax checks
+        run: |
+          php -l overlay/modules/information.php
+          php -l tests/fixtures/systems.php
+          node --check overlay/templates/mupanic/js/main.js
+          bash -n scripts/deploy-beta.sh
+      - name: Install browser test dependency
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Validate desktop and mobile
+        env:
+          SYSTEMS_SCREENSHOT_DIR: systems-screenshots
+        run: node tests/systems-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: systems-screenshots
+          path: systems-screenshots/

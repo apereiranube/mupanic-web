@@ -88,6 +88,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet">
+    <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>information.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/information.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>account.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/account.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
@@ -96,7 +97,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <noscript><style>@media(max-width:900px){.site-header{position:static}.nav-shell{height:auto;min-height:74px;flex-wrap:wrap;padding:15px 0}.main-nav{display:flex;flex-wrap:wrap;width:100%;order:3;padding:15px 0 0}.main-nav .mobile-account{display:block}.main-nav a{padding:9px;font-size:12px}.menu-toggle{display:none}.nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : '')))); ?>">
+<body class="<?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ''))))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -110,11 +111,12 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
         </button>
 
         <nav class="main-nav" id="main-navigation" aria-label="Navegación principal">
-            <a href="<?php echo __BASE_URL__; ?>#continente">El continente</a>
-            <a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a>
-            <a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a>
-            <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a>
-            <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a>
+            <a class="nav-main-link<?php echo $isHome ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>#continente"<?php echo $isHome ? ' aria-current="page"' : ''; ?>><span>El continente</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'information' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>information/"<?php echo $_REQUEST['page'] === 'information' ? ' aria-current="page"' : ''; ?>><span>El servidor</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'info' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>info/"<?php echo $_REQUEST['page'] === 'info' ? ' aria-current="page"' : ''; ?>><span>Atlas</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'rankings' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>rankings/"<?php echo $_REQUEST['page'] === 'rankings' ? ' aria-current="page"' : ''; ?>><span>Rankings</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page'] === 'downloads' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>downloads/"<?php echo $_REQUEST['page'] === 'downloads' ? ' aria-current="page"' : ''; ?>><span>Descargas</span></a>
+            <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗</b></a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
@@ -164,7 +166,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <details class="hud-item"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span><span class="hud-label">DROP</span><strong><?php echo htmlspecialchars($serverDrop); ?></strong><small>Equipá tu próxima conquista</small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Drop general para cuenta Free. No equivale a la probabilidad de una joya: cada objeto tiene sus propias condiciones.</p><a href="<?php echo __BASE_URL__; ?>info/#drops">Buscá un objeto ↗</a></div></details>
             <details class="hud-item hud-online"><summary><span class="hud-icon" aria-hidden="true"><?php echo mupanicGlyph('party'); ?></span><span class="hud-label">CONECTADOS</span><strong data-online-count><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers); ?></strong><small data-online-note><?php echo $onlinePlayers === null ? 'Sin datos disponibles' : 'Último registro del servidor'; ?></small><span class="hud-toggle" aria-hidden="true">+</span></summary><div class="hud-content"><p>Conexiones registradas por el servidor. La lista de personajes proviene de un registro independiente y puede actualizarse en otro momento.</p><div class="online-roster" data-online-roster><?php if(count($onlineCharacters)) { foreach($onlineCharacters as $name) { ?><span><?php echo htmlspecialchars($name); ?></span><?php } } else { ?><p>La lista de personajes todavía no está disponible.</p><?php } ?></div></div></details>
         </div>
-        <div class="hud-footer"><p role="status" data-status-message data-cache-time="<?php echo $cacheTime ?: ''; ?>"><span class="status-dot" aria-hidden="true"></span><?php echo $cacheTime ? 'Registro: '.gmdate('H:i', $cacheTime).' UTC' : 'Sin hora de registro disponible'; ?></p><button class="status-refresh" type="button">Actualizar registro <span aria-hidden="true">↻</span></button><a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC <span aria-hidden="true">↗</span></a></div>
+        <div class="hud-footer"><p role="status" data-status-message data-cache-time="<?php echo $cacheTime ?: ''; ?>"><span class="status-dot" aria-hidden="true"></span><?php echo $cacheTime ? 'Registro: '.gmdate('H:i', $cacheTime).' UTC' : 'Sin hora de registro disponible'; ?></p><button class="status-refresh" type="button">Actualizar registro <span aria-hidden="true">↻</span></button><a class="text-link" href="<?php echo __BASE_URL__; ?>info/">Atlas <span aria-hidden="true">↗</span></a></div>
     </div>
 </section>
 
@@ -199,17 +201,19 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php include(__DIR__.'/inc/community-home.php'); ?>
 
 <section class="play-gateway" id="empezar" aria-labelledby="play-title">
-    <div class="gateway-art" aria-hidden="true"></div><div class="shell gateway-layout"><div class="gateway-copy"><span class="eyebrow">04 / TU HISTORIA EMPIEZA ACÁ</span><h2 id="play-title">Nos vemos<br><em>en Lorencia.</em></h2><p>Prepará tu cuenta y el cliente.<br>El siguiente paso lo das dentro del juego.</p></div><div class="launch-steps"><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><span>01</span><div><small><?php echo $isLogged ? 'TU PANEL' : 'TU IDENTIDAD'; ?></small><strong><?php echo $isLogged ? 'Abrir mi cuenta' : 'Crear mi cuenta'; ?></strong></div><b aria-hidden="true">↗</b></a><a class="launch-download" href="<?php echo __BASE_URL__; ?>downloads/"><span>02</span><div><small>EL CLIENTE / PC</small><strong>Descargar MU PANIC</strong></div><b aria-hidden="true">↓</b></a><a href="<?php echo __BASE_URL__; ?>info/"><span>03</span><div><small>ANTES DE ENTRAR</small><strong>Explorar el Atlas PANIC</strong></div><b aria-hidden="true">↗</b></a></div></div>
+    <div class="gateway-art" aria-hidden="true"></div><div class="shell gateway-layout"><div class="gateway-copy"><span class="eyebrow">04 / TU HISTORIA EMPIEZA ACÁ</span><h2 id="play-title">Nos vemos<br><em>en Lorencia.</em></h2><p>Prepará tu cuenta y el cliente.<br>El siguiente paso lo das dentro del juego.</p></div><div class="launch-steps"><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><span>01</span><div><small><?php echo $isLogged ? 'TU PANEL' : 'TU IDENTIDAD'; ?></small><strong><?php echo $isLogged ? 'Abrir mi cuenta' : 'Crear mi cuenta'; ?></strong></div><b aria-hidden="true">↗</b></a><a class="launch-download" href="<?php echo __BASE_URL__; ?>downloads/"><span>02</span><div><small>EL CLIENTE / PC</small><strong>Descargar MU PANIC</strong></div><b aria-hidden="true">↓</b></a><a href="<?php echo __BASE_URL__; ?>info/"><span>03</span><div><small>ANTES DE ENTRAR</small><strong>Explorar el Atlas</strong></div><b aria-hidden="true">↗</b></a></div></div>
 </section>
 
 <?php } else { ?>
 
+<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] !== 'information') { ?>
 <section class="inner-hero">
     <div class="shell inner-head">
         <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : ($_REQUEST['page'] === 'usercp' ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
         <?php if($_REQUEST['page'] === 'profile') { ?><a class="profile-back" href="<?php echo __BASE_URL__; ?>rankings/">← Volver al ranking</a><?php } elseif($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] !== '') { ?><a href="<?php echo __BASE_URL__; ?>usercp/">← Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>">← Inicio</a><?php } ?>
     </div>
 </section>
+<?php } ?>
 
 <section class="inner-content">
     <div class="shell">
@@ -235,7 +239,9 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             </div>
         <?php } else { ?>
             <div class="module-surface"><?php
-                if($_REQUEST['page'] === 'info') {
+                if($_REQUEST['page'] === 'information') {
+                    include(__ROOT_DIR__.'modules/information.php');
+                } elseif($_REQUEST['page'] === 'info') {
                     include('inc/guide.php');
                 } elseif($_REQUEST['page'] === 'rankings') {
                     include(__DIR__.'/inc/rankings.php');
@@ -267,7 +273,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
         </div>
         <div class="footer-links">
             <div><small>COMUNIDAD</small><a href="<?php echo htmlspecialchars($discordInvite, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Discord ↗</a></div>
-            <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Atlas PANIC</a></div>
+            <div><small>JUGAR</small><a href="<?php echo __BASE_URL__; ?>downloads/">Descargas</a><a href="<?php echo __BASE_URL__; ?>info/">Atlas</a></div>
             <div><small>CUENTA</small><?php if($isLogged) { ?><a href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>register/">Crear cuenta</a><?php } ?><a href="<?php echo __BASE_URL__; ?>rankings/">Rankings</a></div>
             <div><small>LEGAL</small><a href="<?php echo __BASE_URL__; ?>tos/">Términos y condiciones</a><a href="<?php echo __BASE_URL__; ?>privacy/">Privacidad</a><a href="<?php echo __BASE_URL__; ?>refunds/">Compras y reembolsos</a></div>
         </div>

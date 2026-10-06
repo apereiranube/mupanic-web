@@ -447,3 +447,140 @@
   renderSaved();
   filterMaps(); filterDrops(); revealHash();
 })();
+
+;(function () {
+  if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var last = 0;
+  document.addEventListener('pointermove', function (event) {
+    var now = performance.now();
+    if (now - last < 34) return;
+    last = now;
+
+    var ember = document.createElement('span');
+    ember.className = 'cursor-ember';
+    ember.style.left = event.clientX + 'px';
+    ember.style.top = event.clientY + 'px';
+    ember.style.setProperty('--dx', ((Math.random() - 0.5) * 24).toFixed(1) + 'px');
+    ember.style.setProperty('--dy', (-10 - Math.random() * 22).toFixed(1) + 'px');
+    document.body.appendChild(ember);
+    window.setTimeout(function () { ember.remove(); }, 650);
+  }, {passive:true});
+})();
+
+;(function () {
+  if (!document.body.classList.contains('is-home') && !document.body.classList.contains('is-server-info')) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var layer = document.createElement('div');
+  layer.className = 'ambient-embers';
+  layer.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(layer);
+
+  var mobile = window.matchMedia && window.matchMedia('(max-width: 700px)').matches;
+  var maxAlive = mobile ? 16 : 34;
+  var interval = mobile ? 520 : 280;
+
+  function spawnEmber(seed) {
+    if (!layer.isConnected || layer.childElementCount >= maxAlive) return;
+
+    var ember = document.createElement('i');
+    ember.className = 'ambient-ember' + (Math.random() > .68 ? ' is-soft' : '');
+
+    var size = (mobile ? 2.5 : 3) + Math.random() * (mobile ? 3.8 : 5.5);
+    var duration = 5.8 + Math.random() * 4.4;
+    var x = Math.random() * 100;
+    var drift = (Math.random() - .5) * (mobile ? 90 : 180);
+    var opacity = .24 + Math.random() * .48;
+    var blur = Math.random() > .76 ? .8 : 0;
+
+    ember.style.setProperty('--x', x.toFixed(2) + 'vw');
+    ember.style.setProperty('--size', size.toFixed(2) + 'px');
+    ember.style.setProperty('--duration', duration.toFixed(2) + 's');
+    ember.style.setProperty('--drift', drift.toFixed(1) + 'px');
+    ember.style.setProperty('--opacity', opacity.toFixed(2));
+    ember.style.setProperty('--blur', blur.toFixed(1) + 'px');
+
+    if (seed) {
+      ember.style.bottom = (Math.random() * 82 - 10).toFixed(1) + 'vh';
+      ember.style.animationDelay = (-Math.random() * duration).toFixed(2) + 's';
+    }
+
+    layer.appendChild(ember);
+    window.setTimeout(function () { ember.remove(); }, (duration + 1.2) * 1000);
+  }
+
+  for (var i = 0; i < (mobile ? 8 : 18); i++) spawnEmber(true);
+  var timer = window.setInterval(function () {
+    spawnEmber(false);
+    if (!mobile && Math.random() > .72) spawnEmber(false);
+  }, interval);
+
+  window.addEventListener('pagehide', function () { window.clearInterval(timer); }, {once:true});
+})();
+
+;(function () {
+  var dialog = document.querySelector('[data-system-modal]');
+  if (!dialog || typeof dialog.showModal !== 'function') return;
+  var panels = Array.prototype.slice.call(dialog.querySelectorAll('[data-system-panel]'));
+  var closeButton = dialog.querySelector('[data-system-close]');
+  var lastTrigger = null;
+  var backdropPress = false;
+
+  function outside(event) {
+    var rect = dialog.getBoundingClientRect();
+    return event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+  }
+  document.querySelectorAll('[data-system-open]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var id = button.getAttribute('data-system-open');
+      var panel = panels.find(function (item) { return item.getAttribute('data-system-panel') === id; });
+      if (!panel || dialog.open) return;
+      panels.forEach(function (item) { item.hidden = item !== panel; });
+      dialog.setAttribute('aria-labelledby', 'system-title-' + id);
+      dialog.setAttribute('aria-describedby', 'system-description-' + id);
+      lastTrigger = button;
+      document.documentElement.classList.add('system-modal-open');
+      dialog.showModal();
+      dialog.scrollTop = 0;
+      closeButton.focus({preventScroll: true});
+    });
+  });
+  function restorePage() {
+    document.documentElement.classList.remove('system-modal-open');
+    panels.forEach(function (item) { item.hidden = true; });
+    if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus({preventScroll: true});
+    lastTrigger = null;
+  }
+  function closeSystem() {
+    dialog.close();
+    restorePage();
+  }
+  closeButton.addEventListener('click', closeSystem);
+  dialog.addEventListener('cancel', function (event) {
+    event.preventDefault();
+    closeSystem();
+  });
+  // Keep Tab within the content rather than moving focus into browser chrome.
+  dialog.addEventListener('keydown', function (event) {
+    if (event.key !== 'Tab') return;
+    var controls = Array.prototype.slice.call(dialog.querySelectorAll('button, a[href], input, select, textarea, [tabindex]'))
+      .filter(function (item) { return !item.disabled && item.tabIndex >= 0 && item.getClientRects().length; });
+    var first = controls[0];
+    var last = controls[controls.length - 1];
+    if ((event.shiftKey && document.activeElement === first) || (!event.shiftKey && document.activeElement === last)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    }
+  });
+  // Native dialog supplies Escape and an inert background.
+  dialog.addEventListener('pointerdown', function (event) { backdropPress = outside(event); });
+  dialog.addEventListener('click', function (event) {
+    if (backdropPress && outside(event)) closeSystem();
+    backdropPress = false;
+  });
+  dialog.addEventListener('close', function () {
+    if (!dialog.open) restorePage();
+  });
+})();

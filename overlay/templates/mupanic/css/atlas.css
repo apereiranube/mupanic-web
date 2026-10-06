@@ -205,3 +205,31 @@
 .panic-wiki .wiki-map details>summary{display:list-item;list-style:disclosure-closed;padding:12px 0;min-height:44px;font-size:16px;line-height:1.5;color:#5a4230;border:0}.panic-wiki .wiki-map details[open]>summary{list-style:disclosure-open}.panic-wiki .atlas-loot>summary{font-weight:700}
 
 .panic-wiki input[type="checkbox"]{width:22px;height:22px;min-height:22px;accent-color:#674f3d;flex-shrink:0;padding:0}.panic-wiki .recipe-materials label:has(input:checked){opacity:1;background:#f4ece6;border-radius:6px}
+
+/* Atlas readability pass: slightly larger typography without changing the information architecture. */
+.panic-wiki{font-size:18px}
+.panic-wiki .wiki-content p{font-size:18px;line-height:1.78}
+.panic-wiki .wiki-nav label{font-size:16px}
+.panic-wiki .wiki-nav nav a,.panic-wiki .wiki-nav nav a span{font-size:17px}
+.panic-wiki .wiki-search-results a{font-size:16px}
+.panic-wiki .wiki-search-results small{font-size:15px}
+.panic-wiki :is(.wiki-search-status,[data-drop-status],[data-map-status],[data-reward-status],[data-atlas-find-status]){font-size:16px!important}
+.panic-wiki .wiki-control{font-size:16px}
+.panic-wiki table{font-size:17px}
+.panic-wiki th{font-size:15px}
+.panic-wiki td small{font-size:15px}
+.panic-wiki .wiki-glossary{font-size:17px}
+.panic-wiki .wiki-route a{font-size:17px}
+.panic-wiki .atlas-home-card p{font-size:17px}
+.atlas-home-card strong{font-size:17px}
+.atlas-basics dt{font-size:18px}
+.atlas-basics dd{font-size:17px}
+.atlas-steps li{font-size:17px}
+.panic-wiki .wiki-map>summary small{font-size:16px}
+.panic-wiki .wiki-map>summary b{font-size:16px}
+.atlas-travel,.atlas-combat{font-size:17px}
+.atlas-spot-picker a{font-size:17px}
+.panic-wiki .atlas-spot-panel>header p{font-size:17px}
+.atlas-mob-heading span{font-size:16px}
+.atlas-loot>summary{font-size:17px}
+.atlas-loot li{font-size:17px}

@@ -1,0 +1,41 @@
+name: Profiles UI validation
+on:
+  push:
+    branches: [beta, main]
+    paths:
+      - 'overlay/templates/mupanic/css/profiles.css'
+      - 'overlay/templates/mupanic/js/profiles.js'
+      - 'tests/profiles-browser.cjs'
+      - 'tests/fixtures/profiles.php'
+      - '.github/workflows/profiles-beta.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  profiles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax checks
+        run: |
+          php -l overlay/templates/mupanic/index.php
+          php -l tests/fixtures/profiles.php
+          node --check overlay/templates/mupanic/js/profiles.js
+          node --check tests/profiles-browser.cjs
+      - name: Install browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Validate profiles
+        env:
+          PROFILE_SCREENSHOT_DIR: profile-screenshots
+        run: node tests/profiles-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: profile-screenshots
+          path: profile-screenshots/
