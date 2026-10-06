@@ -162,7 +162,7 @@
       if (target.closest('#progresion')) { mapFilter.value = ''; filterMaps(); }
       if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardKind = ''; rewardFilter.value = ''; filterRewards(); }
       if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
-      requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
+      if (location.hash) requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
     }
   }
   wiki.classList.add('wiki-enhanced');

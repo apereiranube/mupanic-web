@@ -29,7 +29,7 @@
   function closeEvent() { if (dialog.open) dialog.close(); restore(); }
   closeButton.addEventListener('click', closeEvent);
   dialog.addEventListener('cancel', function (event) { event.preventDefault(); closeEvent(); });
-  dialog.addEventListener('close', restore);
+  dialog.addEventListener('close', function () { if (!dialog.open) restore(); });
   function outside(event) {
     var bounds = dialog.getBoundingClientRect();
     return event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;

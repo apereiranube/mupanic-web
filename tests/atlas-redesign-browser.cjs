@@ -26,6 +26,8 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.equal(await page.locator('.wiki-section:visible').count(),1);
   assert.equal(await page.locator('.atlas-home-card').count(),4);
   assert.equal(await page.locator('.atlas-boot').count(),0);
+  assert.equal(await page.evaluate(()=>scrollY),0,'Fresh Atlas visit keeps the hero in view');
+  if(width<=900){assert.equal(await page.locator('.main-nav').isVisible(),false,'Mobile navigation is collapsed');await page.locator('.menu-toggle').click();assert.equal(await page.locator('.main-nav').isVisible(),true);await page.keyboard.press('Escape');assert.equal(await page.locator('.main-nav').isVisible(),false);}
   assert.equal(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor),'rgb(11, 16, 18)');
   await noOverflow(page,'home');if([1920,390].includes(width))await shot(page,'atlas-home-'+width);
   await page.locator('.wiki-nav a[href="#progresion"]').click();
@@ -39,7 +41,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await lorencia.locator('[data-atlas-account]').selectOption('1');
   assert.equal(await lorencia.locator('[data-atlas-account]').inputValue(),'1');
   assert.equal(await lorencia.locator('[data-atlas-panel="1"] [data-atlas-rates]').evaluateAll(rows=>rows.every(row=>row.textContent===JSON.parse(row.dataset.atlasRates)[1].toLocaleString('es-AR',{maximumFractionDigits:6})+'%')),true,'Display configured VIP rates');
-  await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.scrollIntoViewIfNeeded();await shot(page,'atlas-map-'+width);}
+  await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-'+width);}
   await page.locator('.wiki-nav a[href="#recompensas"]').click();
   await page.locator('[data-reward-kind="boss"]').click();
   assert.ok(await page.locator('[data-reward-list]:visible').count()>0);
@@ -76,6 +78,19 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.goto('https://atlas.test/info/#taller');await page.locator('[data-recipe-search]').fill('Fenrir');assert.ok(await page.locator('[data-recipe-nav]:visible').count()>0);await noOverflow(page,'workshop');
   assert.deepEqual(errors,[]);await page.close();console.log('PASS redesigned Atlas',width);
  }
+ // Hold the late app script to verify the first paint without a disappearing header.
+ const boot=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),bootErrors=[];
+ await setup(boot,bootErrors);
+ let releaseMain;const mainGate=new Promise(resolve=>{releaseMain=resolve;});
+ await boot.route('**/js/main.js',async route=>{await mainGate;return route.fulfill({path:path.join(root,'js/main.js')});});
+ await boot.goto('https://atlas.test/info/',{waitUntil:'commit'});
+ await boot.locator('#wiki-data').waitFor({state:'attached'});await boot.evaluate(()=>document.fonts.ready);
+ assert.equal(await boot.locator('.atlas-boot').count(),1);
+ assert.equal(await boot.locator('.wiki-section:visible').count(),1,'First paint exposes one chapter');
+ const firstTop=await boot.locator('#inicio').evaluate(el=>el.getBoundingClientRect().top);
+ releaseMain();await boot.waitForFunction(()=>!document.querySelector('.atlas-boot'));
+ assert.ok(Math.abs((await boot.locator('#inicio').evaluate(el=>el.getBoundingClientRect().top))-firstTop)<2,'No header layout shift after app init');
+ assert.deepEqual(bootErrors,[]);await boot.close();
  const fallback=await browser.newPage({viewport:{width:390,height:844},javaScriptEnabled:false}),errors=[];
  await setup(fallback,errors);await fallback.goto('https://atlas.test/info/');
  assert.ok(await fallback.locator('#progresion').isVisible());assert.equal(await fallback.locator('.atlas-event-full:visible').count(),3);await noOverflow(fallback,'no JS');assert.deepEqual(errors,[]);await fallback.close();
