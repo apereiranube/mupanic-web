@@ -35,7 +35,7 @@
 .rankings-leader-emblem{position:relative;display:grid;place-items:center;width:54px;height:58px;color:#aaa99d;margin-bottom:13px}
 .rankings-leader:before{content:attr(data-place);position:absolute;top:8px;right:18px;font:500 130px/1 var(--display);color:#d7a57d0c;z-index:-1;pointer-events:none}
 .rankings-leader-emblem:before{content:'';position:absolute;inset:0;border:1px solid currentColor;transform:rotate(45deg);background:linear-gradient(135deg,#e3bb8230,#101719 50%,#e3bb8210);box-shadow:inset 0 0 0 5px #101719,0 5px 25px #0006}
-.rankings-leader-emblem svg{width:32px;height:36px}
+.rankings-leader-emblem svg{position:relative;z-index:1;width:32px;height:36px}
 .rankings-leader:first-child .rankings-leader-emblem{width:66px;height:72px;color:#e1b582}
 .rankings-leader:first-child .rankings-leader-emblem svg{width:40px;height:44px}
 .rankings-leader:nth-child(3) .rankings-leader-emblem{color:#b38764}
@@ -89,7 +89,7 @@
 .rankings-presence{display:inline-flex;align-items:center;gap:5px;font-size:8px;letter-spacing:.03em;color:#8b9a91;white-space:nowrap}
 .rankings-presence:before{content:'';width:4px;height:4px;border-radius:50%;background:#877360}
 .rankings-presence.is-online{color:#b6ccae}.rankings-presence.is-online:before{background:#acc393;box-shadow:0 0 9px #adc99040}
-.is-rankings .rankings-table .rankings-score-cell{text-align:right;min-width:120px;background:linear-gradient(180deg,#bc905319,#bc905308)}
+.is-rankings .rankings-table tr[data-rank-position] td.rankings-score-cell{text-align:right;min-width:120px;background:linear-gradient(180deg,#bc905319,#bc905308)}
 .is-rankings .rankings-table .rankings-score-column{text-align:right}
 .rankings-score-value{font:500 33px/1 var(--display);font-variant-numeric:tabular-nums;color:#e1bd89}
 .is-rankings .rankings-table .rankings-detail-cell:not(.rankings-score-cell){color:#a5b7a9;font-size:12px}

@@ -146,7 +146,7 @@
     const status = make('p','rankings-result-status');status.setAttribute('role','status'); tools.append(label,status);
     const listHeading=make('div','rankings-list-heading');
     const listCopy=make('div');listCopy.append(make('span','rankings-stage-overline','CLASIFICACIÓN COMPLETA'),make('h2','','Tabla de posiciones'));
-    listHeading.append(listCopy,make('span','rankings-list-total',`${rows.length} ${isGuild?'guilds':'personajes'}`));
+    listHeading.append(listCopy,make('span','rankings-list-total',`${rows.length} ${isGuild?(rows.length===1?'guild':'guilds'):(rows.length===1?'personaje':'personajes')}`));
     table.before(listHeading,tools);
     const wrap = make('div','rankings-table-scroll'); wrap.id='rankings-results'; wrap.tabIndex = 0; wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Tabla de posiciones; desplazá horizontalmente para ver todas las columnas');table.before(wrap);wrap.append(table);
     const empty = make('p','rankings-empty','No encontramos resultados con esos filtros. Probá otro nombre o elegí Todas.');empty.hidden=true;wrap.after(empty);

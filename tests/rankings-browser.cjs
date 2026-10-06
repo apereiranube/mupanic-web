@@ -36,6 +36,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
     assert.equal(await page.locator('.rankings-profile-link').count(),total);
     assert.equal(await page.locator('.rankings-score-value').first().textContent(),'599');
     assert.equal(await page.locator('.rankings-identity-name a').first().getAttribute('href'),mode==='guilds'?'/profile/guild/Guild1/':'/profile/player/Hero1/');
+    if(width>700) assert.equal(await page.locator('.rankings-score-cell').first().evaluate(el=>getComputedStyle(el).textAlign),'right','Score aligned with column heading');
     if(width<=700) assert.equal(await page.locator('.rankings-table tr[data-rank-position]').first().evaluate(el=>getComputedStyle(el).display),'grid','Mobile roster cards');
     assert.equal(await page.locator('.rankings-table tr[data-rank-position]:visible').count(),Math.min(20,total));
     assert.equal(await page.locator('.rankings-leader').first().locator('.rankings-leader-name').textContent(),mode==='guilds'?'Guild1':'Hero1');
