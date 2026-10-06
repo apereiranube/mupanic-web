@@ -8,7 +8,7 @@
     <div class="wiki-map-list">
     <?php foreach($wiki['eventBags'] as $bag) { $portrait = $atlasAssets['monsters'][(string)$bag['monster']] ?? null; ?>
         <details class="wiki-map" id="recompensa-<?php echo $bag['id']; ?>" data-reward-list data-reward-type="<?php echo $bag['monster'] >= 0 ? 'boss' : ($bag['item'] >= 0 ? 'box' : 'event'); ?>" data-wiki-search>
-            <summary class="atlas-reward-summary"><?php if($portrait) { ?><img loading="lazy" width="90" height="112" src="<?php echo __PATH_TEMPLATE__.panicWikiEscape($portrait['file']); ?>" alt=""><?php } else { ?><span class="atlas-reward-emblem" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span><?php } ?><span class="atlas-reward-name"><strong><?php echo panicWikiEscape($bag['name']); ?></strong><small><?php echo $bag['monster'] >= 0 ? panicWikiEscape($bag['monsterName'] ?: 'Monstruo '.$bag['monster']) : ($bag['item'] >= 0 ? 'Caja u objeto' : 'Evento o sistema'); ?></small><span class="atlas-reward-count"><?php echo in_array($bag['format'],['standard','advanced'],true) ? count($bag['items']).' entradas posibles' : 'Verificación pendiente'; ?></span></span><b aria-hidden="true">+</b></summary>
+            <summary class="atlas-reward-summary"><?php if($portrait) { ?><img loading="eager" decoding="async" fetchpriority="low" width="90" height="112" src="<?php echo __PATH_TEMPLATE__.panicWikiEscape($portrait['file']); ?>" alt=""><?php } else { ?><span class="atlas-reward-emblem" aria-hidden="true"><?php echo mupanicGlyph('gem'); ?></span><?php } ?><span class="atlas-reward-name"><strong><?php echo panicWikiEscape($bag['name']); ?></strong><small><?php echo $bag['monster'] >= 0 ? panicWikiEscape($bag['monsterName'] ?: 'Monstruo '.$bag['monster']) : ($bag['item'] >= 0 ? 'Caja u objeto' : 'Evento o sistema'); ?></small><span class="atlas-reward-count"><?php echo in_array($bag['format'],['standard','advanced'],true) ? count($bag['items']).' entradas posibles' : 'Verificación pendiente'; ?></span></span><b aria-hidden="true">+</b></summary>
             <div class="wiki-map-body">
                 <a href="#recompensa-<?php echo $bag['id']; ?>">Enlace directo ↗</a>
                 <?php if(!in_array($bag['format'], array('standard','advanced'), true)) { ?>
@@ -32,4 +32,5 @@
         </details>
     <?php } ?>
     </div>
+    <p class="atlas-portrait-credit">Retratos del juego: <a href="https://www.muonline.net/guides/" target="_blank" rel="noopener noreferrer">MuOnline.Net</a> y <a href="https://blackrock.games/index.php?id=guide" target="_blank" rel="noopener noreferrer">Blackrock</a>. Modelos de MU Online: Webzen.</p>
 </section>

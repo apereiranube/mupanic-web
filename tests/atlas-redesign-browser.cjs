@@ -87,6 +87,14 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.locator('[data-reward-kind="boss"]').click();
   assert.ok(await page.locator('[data-reward-list]:visible').count()>0);
   assert.equal(await page.locator('[data-reward-list][data-reward-type="box"]:visible').count(),0);
+  const bosses=page.locator('[data-reward-list][data-reward-type="boss"]');
+  assert.equal(await bosses.locator('summary img').count(),await bosses.count(),'Every configured boss has a portrait');
+  for(const boss of await bosses.all()){
+    await boss.scrollIntoViewIfNeeded();
+    await boss.locator('summary img').evaluate(img=>img.decode());
+    assert.equal(await boss.locator('summary img').evaluate(img=>img.complete&&img.naturalWidth>0),true,'Boss portrait decodes');
+  }
+  if([1920,390].includes(width)){await page.locator('#recompensas').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-boss-portraits-'+width);}
   await page.locator('[data-reward-filter]').fill('Medusa');
   const medusa=page.locator('#recompensa-106');await medusa.locator('summary').click();
   await medusa.locator('[data-reward-item-filter]').fill('Hyon');assert.equal(await medusa.locator('[data-reward-item]:visible').count(),4);

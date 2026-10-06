@@ -1,0 +1,562 @@
+{
+  "55": {
+    "name": "Death King",
+    "rewardName": "Skeleton King",
+    "file": "img/atlas/monsters/web/55-da5e3851f26f.webp",
+    "width": 78,
+    "height": 116,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/skeleton_king.webp",
+    "sourceHash": "da5e3851f26ff3ffa32dc4a874a5e268c219150ae626d9c543883c9a7e826e9c",
+    "originalSize": [
+      207,
+      136
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "42": {
+    "name": "Red Dragon",
+    "rewardName": "Red Dragon",
+    "file": "img/atlas/monsters/web/42-c8f88a9a830f.webp",
+    "width": 200,
+    "height": 145,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/red-dragon.png",
+    "sourceHash": "c8f88a9a830fd7cbef6e06dc13c466a758ca4170f7b1be0113619a9e7c8d1ab7",
+    "originalSize": [
+      200,
+      145
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "135": {
+    "name": "White wizard",
+    "rewardName": "White Wizard",
+    "file": "img/atlas/monsters/web/135-bf2394cebc7e.webp",
+    "width": 132,
+    "height": 244,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/white_wizard.png",
+    "sourceHash": "bf2394cebc7ef65b4a17b2cf14d1490fe656494cd767b1f2b4adc4acf30d6bef",
+    "originalSize": [
+      132,
+      244
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "275": {
+    "name": "Kundun",
+    "rewardName": "Kundun",
+    "file": "img/atlas/monsters/web/275-e7ed8d75c163.webp",
+    "width": 200,
+    "height": 162,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/kundun.png",
+    "sourceHash": "e7ed8d75c163008f6068f87e106290c2a0f905f2f6816cd2e9d91c9200b0ced0",
+    "originalSize": [
+      200,
+      162
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "349": {
+    "name": "Balgass",
+    "rewardName": "Balgass",
+    "file": "img/atlas/monsters/web/349-fbca0fb62dcc.webp",
+    "width": 161,
+    "height": 162,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/events/blackrock_crywolf.png",
+    "sourceHash": "fbca0fb62dccd7f9df9199b7142bfdbe4d44b7501423b34a71d6ff98f442c576",
+    "originalSize": [
+      200,
+      200
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "362": {
+    "name": "Maya Hand",
+    "rewardName": "Maya Hand Left",
+    "file": "img/atlas/monsters/web/362-6be40505fcfd.webp",
+    "width": 200,
+    "height": 175,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/maya-hand.png",
+    "sourceHash": "6be40505fcfdb91765486142887a25166d4a5512bb0a0fe82fc0063e7a36db48",
+    "originalSize": [
+      200,
+      175
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "representation": "Shared Maya hand illustration from the Kanturu guide. The card retains its configured left/right name; no side-specific screenshot is claimed."
+  },
+  "363": {
+    "name": "Maya Hand",
+    "rewardName": "Maya Hand Right",
+    "file": "img/atlas/monsters/web/363-6be40505fcfd.webp",
+    "width": 200,
+    "height": 175,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/maya-hand.png",
+    "sourceHash": "6be40505fcfdb91765486142887a25166d4a5512bb0a0fe82fc0063e7a36db48",
+    "originalSize": [
+      200,
+      175
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "representation": "Shared Maya hand illustration from the Kanturu guide. The card retains its configured left/right name; no side-specific screenshot is claimed."
+  },
+  "361": {
+    "name": "Nightmare",
+    "rewardName": "Nightmare",
+    "file": "img/atlas/monsters/web/361-8c6bf4b0fa11.webp",
+    "width": 200,
+    "height": 193,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/nightmare.png",
+    "sourceHash": "8c6bf4b0fa1197c96b70c317834894eba4d0c8c1cbea5a4351ab91b1d86ddf16",
+    "originalSize": [
+      200,
+      193
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "365": {
+    "name": "Pouch of Blessing",
+    "rewardName": "Fortune Pouch",
+    "file": "img/atlas/monsters/web/365-bd4a4a37630b.webp",
+    "width": 155,
+    "height": 114,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/pouch.png",
+    "sourceHash": "bd4a4a37630b706f7ff6194117c2f3f1ed520bd4ce8159a5a6446c7234164b29",
+    "originalSize": [
+      155,
+      114
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "413": {
+    "name": "Lunar Rabbit",
+    "rewardName": "Lunar Rabbit",
+    "file": "img/atlas/monsters/web/413-26e6be55b9f9.webp",
+    "width": 77,
+    "height": 119,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/white_rabbit.png",
+    "sourceHash": "26e6be55b9f9e25c38a55e41fbc52fdbf82f19e12628560763881d390bbbc7aa",
+    "originalSize": [
+      77,
+      119
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "459": {
+    "name": "Selupan",
+    "rewardName": "Selupan",
+    "file": "img/atlas/monsters/web/459-5ce06b3748be.webp",
+    "width": 200,
+    "height": 142,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/selupan.png",
+    "sourceHash": "5ce06b3748bed3b29796acc91c83824638355d2fd4d21a6f99617a9c27e976bc",
+    "originalSize": [
+      200,
+      142
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "463": {
+    "name": "Fire Flame Ghost",
+    "rewardName": "Fire Flame Ghost",
+    "file": "img/atlas/monsters/web/463-ee29a4dd3768.webp",
+    "width": 231,
+    "height": 502,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/fire_flame_ghost.png",
+    "sourceHash": "ee29a4dd376807a4d84c19a0e7a6d2356aecd9726c84cb1ec021350e56d48fc9",
+    "originalSize": [
+      231,
+      502
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "43": {
+    "name": "Golden Budge Dragon",
+    "rewardName": "Golden Budge Dragon",
+    "file": "img/atlas/monsters/web/43-7ce322428e3d.webp",
+    "width": 165,
+    "height": 206,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-budge-dragon.png",
+    "sourceHash": "7ce322428e3d50ff8887d35b79357b700e4645761afe68edafabf20317bc576f",
+    "originalSize": [
+      165,
+      206
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "78": {
+    "name": "Golden Goblin",
+    "rewardName": "Golden Goblin",
+    "file": "img/atlas/monsters/web/78-eb61bbbc5a09.webp",
+    "width": 205,
+    "height": 251,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-goblin.png",
+    "sourceHash": "eb61bbbc5a094c4985a3ea72da67eaa9d9fe0580b1b8e0c615e2c4a97199b1ad",
+    "originalSize": [
+      205,
+      251
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "54": {
+    "name": "Golden Soldier",
+    "rewardName": "Golden Soldier",
+    "file": "img/atlas/monsters/web/54-d37f8236159c.webp",
+    "width": 187,
+    "height": 224,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_soldier.webp",
+    "sourceHash": "d37f8236159c4d838a55e3acbd201f7cdd31819680913af75de383a94520d912",
+    "originalSize": [
+      187,
+      224
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "53": {
+    "name": "Golden Titan",
+    "rewardName": "Golden Titan",
+    "file": "img/atlas/monsters/web/53-02dd63fe1bbc.webp",
+    "width": 187,
+    "height": 224,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_titan.webp",
+    "sourceHash": "02dd63fe1bbc3e45748a6a2dd563cddf9eda4a0d46256a2634e780a49e980ff6",
+    "originalSize": [
+      187,
+      224
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "79": {
+    "name": "Golden Derkon",
+    "rewardName": "Golden Dragon",
+    "file": "img/atlas/monsters/web/79-cf10e06afb64.webp",
+    "width": 170,
+    "height": 152,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-dragon.png",
+    "sourceHash": "cf10e06afb64320d2b0de3201448742696648b221c67ffbc2961f72a2963b9d7",
+    "originalSize": [
+      170,
+      152
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "80": {
+    "name": "Golden Lizard King",
+    "rewardName": "Golden Lizard King",
+    "file": "img/atlas/monsters/web/80-47f90c15ff69.webp",
+    "width": 181,
+    "height": 226,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-lizard-king.png",
+    "sourceHash": "47f90c15ff697b9f430556dbbb6a6d2e5fccb24d566a08ebc3dd4d4652bfc538",
+    "originalSize": [
+      181,
+      226
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "81": {
+    "name": "Golden Vepar",
+    "rewardName": "Golden Vepar",
+    "file": "img/atlas/monsters/web/81-ed2eebf16764.webp",
+    "width": 170,
+    "height": 275,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-vepar.png",
+    "sourceHash": "ed2eebf1676431bc8a70e65ada126985314a13e977b8b34fe44bf74589074091",
+    "originalSize": [
+      170,
+      275
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "82": {
+    "name": "Golden Tantalos",
+    "rewardName": "Golden Tantalos",
+    "file": "img/atlas/monsters/web/82-f763bde740dc.webp",
+    "width": 187,
+    "height": 224,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_tantalos.webp",
+    "sourceHash": "f763bde740dc079668fb61b8a9764aa3f456d56ad31f7677ec481709165aaae7",
+    "originalSize": [
+      187,
+      224
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "83": {
+    "name": "Golden Wheel",
+    "rewardName": "Golden Iron Wheel",
+    "file": "img/atlas/monsters/web/83-271c8af766a0.webp",
+    "width": 177,
+    "height": 212,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-wheel.png",
+    "sourceHash": "271c8af766a051f0343108523c9bfaa906441f82f1cce15bdc2428b7159cb42b",
+    "originalSize": [
+      177,
+      212
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "502": {
+    "name": "Golden Rabbit",
+    "rewardName": "Golden Rabbit",
+    "file": "img/atlas/monsters/web/502-fb73914eaa89.webp",
+    "width": 171,
+    "height": 194,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-rabbit.png",
+    "sourceHash": "fb73914eaa892224ef2258e1267b04717e8d5095ef96e40128ae22c5c629cdf4",
+    "originalSize": [
+      171,
+      194
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "493": {
+    "name": "Golden Dark Knight",
+    "rewardName": "Golden Dark Knight",
+    "file": "img/atlas/monsters/web/493-f4027adaa3dd.webp",
+    "width": 148,
+    "height": 154,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-dark-knight.png",
+    "sourceHash": "f4027adaa3dd7343288da118f66f301f4205173207f2409a63c16fec633ba03c",
+    "originalSize": [
+      148,
+      154
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "494": {
+    "name": "Golden Devil",
+    "rewardName": "Golden Devil",
+    "file": "img/atlas/monsters/web/494-f23fc4930a46.webp",
+    "width": 198,
+    "height": 280,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-devil.png",
+    "sourceHash": "f23fc4930a46307f9c7ed66f347d34be3ba8bd4223c4da64284aecc2de2f9e3e",
+    "originalSize": [
+      198,
+      280
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "495": {
+    "name": "Golden Stone Golem",
+    "rewardName": "Golden Stone Golem",
+    "file": "img/atlas/monsters/web/495-9ddc509fa7a0.webp",
+    "width": 190,
+    "height": 250,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-stone-golem.png",
+    "sourceHash": "9ddc509fa7a0606047983bd83f34d7b5b1d5c674a41bffa4076f6ce4b91d1b41",
+    "originalSize": [
+      190,
+      250
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "496": {
+    "name": "Golden Crust",
+    "rewardName": "Golden Crust",
+    "file": "img/atlas/monsters/web/496-cea92574910b.webp",
+    "width": 187,
+    "height": 224,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_crust.webp",
+    "sourceHash": "cea92574910b7290b73b443e80f8d58bc6d1a4b35c79385d2931c950a11cee6c",
+    "originalSize": [
+      187,
+      224
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "497": {
+    "name": "Golden Satyros",
+    "rewardName": "Golden Satyros",
+    "file": "img/atlas/monsters/web/497-0acf55e519e1.webp",
+    "width": 175,
+    "height": 184,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-satyros.png",
+    "sourceHash": "0acf55e519e149b71a0b91c15a9d63417904ab3958b72c2d1827769547b98671",
+    "originalSize": [
+      175,
+      184
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "498": {
+    "name": "Golden Twin Tail",
+    "rewardName": "Golden Twin Tail",
+    "file": "img/atlas/monsters/web/498-d55606b33e00.webp",
+    "width": 182,
+    "height": 178,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-twin-tail.png",
+    "sourceHash": "d55606b33e00e45a4b50c2b35b805e8267ceb23d7811a7231d68cecbdef97426",
+    "originalSize": [
+      182,
+      178
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "499": {
+    "name": "Golden Iron Knight",
+    "rewardName": "Golden Iron Knight",
+    "file": "img/atlas/monsters/web/499-2dd96a69a2a8.webp",
+    "width": 183,
+    "height": 203,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-iron-knight.png",
+    "sourceHash": "2dd96a69a2a8386cbfd7fdd6f6b5b3ae204c76862e60ef7fe6cdefa0d4df6c3f",
+    "originalSize": [
+      183,
+      203
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "500": {
+    "name": "Golden Napin",
+    "rewardName": "Golden Napin",
+    "file": "img/atlas/monsters/web/500-9322a34f0719.webp",
+    "width": 187,
+    "height": 224,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_napin.webp",
+    "sourceHash": "9322a34f071937c8f5270c23e2cf6f1c8cbb112a4f657d1116429cfbdd18dc16",
+    "originalSize": [
+      187,
+      224
+    ],
+    "credit": "Blackrock game guide",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "501": {
+    "name": "Great Golden Dragon",
+    "rewardName": "Golden Great Dragon",
+    "file": "img/atlas/monsters/web/501-3d587c7dfce3.webp",
+    "width": 144,
+    "height": 125,
+    "source": "external-game-portrait",
+    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/great-golden-dragon.png",
+    "sourceHash": "3d587c7dfce36d876a518432e0dd62ff4d5ffe3e0e7d8640e30bcd1039bab982",
+    "originalSize": [
+      144,
+      125
+    ],
+    "credit": "MuOnline.Net",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "retrievedAt": "2026-10-06",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  }
+}

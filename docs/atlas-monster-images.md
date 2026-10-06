@@ -47,3 +47,14 @@ The CPU reader validates headers, bounds, triangle indices, frame counts and bon
 parents. Only bones referenced by geometry or their ancestors are posed;
 unused dummy branches are ignored. Geometry referencing a dummy bone fails
 explicitly. These still images do not reproduce the client's particle renderer.
+
+
+## Public game portraits for reward cards (2026-10-06)
+
+Added 31 locally stored WebP portraits to complete all 34 configured boss/creature reward cards. The original 88 client renders remain intact. These are public MU Online game illustrations, not newly generated artwork or screenshots claimed to come from MU PANIC.
+
+Sources: [MuOnline.Net guides](https://www.muonline.net/guides/) and [Blackrock game guide](https://blackrock.games/index.php?id=guide). Game models belong to Webzen Inc. Visible attribution appears below the reward catalogue. `tools/atlas-web-portrait-sources.json` records each monster ID, exact image URL, source SHA-256, credit, original dimensions and processing. Only the illustration is reused; MU PANIC's names, stats and reward lists still come from its own snapshot.
+
+Files live in `img/atlas/monsters/web/<monster-ID>-<source-hash>.webp`. No remote image requests or base64 deployment are needed. Images retain their native resolution and colours; only transparent padding is trimmed and the file is encoded as lossless WebP. Several golden creatures are clean game screenshots rather than transparent renders. Maya's left/right cards use the source guide's shared hand illustration, retaining their distinct configured names and rewards; these do not claim side-specific screenshots.
+
+Reward portraits load eagerly with low priority to avoid hidden-section lazy-loading delays without competing with initial page artwork. The common charcoal frame accommodates both transparent renders and game backgrounds. `scripts/deploy-beta.sh` copies the binary assets with the entire template directory. Rebuilding the original BMD portraits preserves these additional manifest entries because their audit status is not `rendered`.
