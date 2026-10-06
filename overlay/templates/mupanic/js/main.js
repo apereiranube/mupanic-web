@@ -138,6 +138,8 @@
   var results = wiki.querySelector('.wiki-search-results');
   var searchStatus = wiki.querySelector('.wiki-search-status');
   var mapFilter = wiki.querySelector('[data-map-filter]');
+  var mapScope = 'all';
+  var mapSort = wiki.querySelector('[data-map-sort]');
   var dropFilter = wiki.querySelector('[data-drop-filter]');
   var dropMap = wiki.querySelector('[data-drop-map]');
   var dropAccount = wiki.querySelector('[data-drop-account]');
@@ -159,7 +161,7 @@
       if (atlasPanel) selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel'));
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
-      if (target.closest('#progresion')) { mapFilter.value = ''; filterMaps(); }
+      if (target.closest('#progresion')) { mapFilter.value = ''; if (target !== panel) setMapScope('all'); else filterMaps(); }
       if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardKind = ''; rewardFilter.value = ''; filterRewards(); }
       if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
       if (location.hash) requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
@@ -210,9 +212,31 @@
   function filterMaps() {
     var query = normalize(mapFilter.value), visible = 0;
     wiki.querySelectorAll('#progresion .wiki-map').forEach(function (map) {
-      map.hidden = !normalize(map.textContent + ' ' + (map.getAttribute('data-map-aliases') || '')).includes(query); if (!map.hidden) visible++;
+      var id = Number(map.id.replace('mapa-', '')), spots = Number(map.getAttribute('data-map-spots'));
+      var matchesScope = mapScope === 'all' || (mapScope === 'spots' && spots > 0) || (mapScope === 'other' && spots === 0) || (mapScope === 'saved' && (saved || []).includes(id));
+      map.hidden = !matchesScope || !normalize(map.getAttribute('data-map-search') || map.textContent).includes(query);
+      if (!map.hidden) visible++;
     });
-    wiki.querySelector('[data-map-status]').textContent = visible + ' mapas' + (visible ? '' : ' · probá otro nombre');
+    wiki.querySelector('[data-map-status]').textContent = visible + (visible === 1 ? ' mapa' : ' mapas') + ' · ' + data.maps.length + ' territorios';
+    var empty = wiki.querySelector('[data-map-empty]'); if (empty) empty.hidden = visible !== 0;
+  }
+  function setMapScope(scope) {
+    mapScope = scope;
+    wiki.querySelectorAll('[data-map-scope]').forEach(function(button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-map-scope') === scope)); });
+    filterMaps();
+  }
+  function sortMaps() {
+    if (!mapSort) return;
+    var list = wiki.querySelector('#progresion>.wiki-map-list');
+    Array.from(list.children).sort(function(a,b) {
+      if (mapSort.value === 'name') return a.getAttribute('data-map-name').localeCompare(b.getAttribute('data-map-name'), 'es', {numeric:true});
+      if (mapSort.value === 'level') {
+        var left = a.getAttribute('data-map-level'), right = b.getAttribute('data-map-level');
+        var difference = (left === '' ? Infinity : Number(left)) - (right === '' ? Infinity : Number(right));
+        if (difference && !Number.isNaN(difference)) return difference;
+      }
+      return Number(a.getAttribute('data-map-index')) - Number(b.getAttribute('data-map-index'));
+    }).forEach(function(map) { list.appendChild(map); });
   }
   function eligible(drop, map) {
     if (drop.map !== -1 && drop.map !== map.id) return false;
@@ -245,6 +269,17 @@
     wiki.querySelector('[data-drop-status]').textContent = visible + ' reglas de drop' + (map ? ' compatibles con monstruos de ' + map.name : '') + (monster ? ' · ' + monster.name : '') + (visible ? '' : ' · probá otro objeto o mapa');
   }
   mapFilter.addEventListener('input', filterMaps);
+  if (mapSort) mapSort.addEventListener('change', sortMaps);
+  wiki.querySelectorAll('[data-map-scope]').forEach(function(button) { button.addEventListener('click', function() { setMapScope(button.getAttribute('data-map-scope')); }); });
+  wiki.querySelectorAll('[data-map-reset]').forEach(function(button) { button.addEventListener('click', function() { mapFilter.value = ''; if (mapSort) mapSort.value = 'atlas'; sortMaps(); setMapScope('all'); mapFilter.focus(); }); });
+  wiki.querySelectorAll('#progresion>.wiki-map-list>.wiki-map').forEach(function(map) {
+    map.addEventListener('toggle', function() {
+      map.querySelector('.atlas-map-open-label>span').textContent = map.open ? 'Cerrar exploración' : 'Explorar mapa';
+      map.querySelector('.atlas-map-open-label>i').textContent = map.open ? '−' : '↗';
+    });
+    var close = map.querySelector('[data-map-close]');
+    if (close) close.addEventListener('click', function() { map.open = false; var summary = map.querySelector('summary'); summary.focus({preventScroll:true}); summary.scrollIntoView({block:'nearest',behavior:'instant'}); });
+  });
   dropFilter.addEventListener('input', filterDrops);
   dropMap.addEventListener('change', function() { dropMonster.value = ''; updateMonsterOptions(); filterDrops(); });
   dropMonster.addEventListener('change', filterDrops);
@@ -458,7 +493,7 @@
     saved.forEach(function (id) { var map = data.maps.find(function (item) { return item.id === id; }); var link = document.createElement('a'); link.href = '#mapa-' + id; link.textContent = map.name + ' ↗'; list.appendChild(link); });
     wiki.querySelectorAll('[data-save-map]').forEach(function (button) { var active = saved.includes(Number(button.getAttribute('data-save-map'))); button.setAttribute('aria-pressed', String(active)); button.textContent = active ? 'Mapa guardado ✓' : 'Guardar mapa'; });
   }
-  wiki.querySelectorAll('[data-save-map]').forEach(function (button) { button.addEventListener('click', function () { var id = Number(button.getAttribute('data-save-map')); saved = saved.includes(id) ? saved.filter(function (value) { return value !== id; }) : saved.concat(id); try { localStorage.setItem('panic-atlas-maps', JSON.stringify(saved)); } catch (e) {} renderSaved(); }); });
+  wiki.querySelectorAll('[data-save-map]').forEach(function (button) { button.addEventListener('click', function () { var id = Number(button.getAttribute('data-save-map')); saved = saved.includes(id) ? saved.filter(function (value) { return value !== id; }) : saved.concat(id); try { localStorage.setItem('panic-atlas-maps', JSON.stringify(saved)); } catch (e) {} renderSaved(); filterMaps(); if (button.closest('.wiki-map').hidden) wiki.querySelector('[data-map-scope="saved"]').focus(); }); });
   renderSaved();
   filterMaps(); filterDrops(); filterRewards(); revealHash();
   wiki.classList.remove('atlas-boot');

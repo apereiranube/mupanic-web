@@ -21,6 +21,8 @@ on:
       - 'overlay/templates/mupanic/css/atlas.css'
       - 'overlay/templates/mupanic/css/style.css'
       - 'overlay/templates/mupanic/inc/atlas-*.php'
+      - 'overlay/templates/mupanic/inc/atlas-territories.json'
+      - 'overlay/templates/mupanic/img/atlas/territories/**'
       - 'overlay/templates/mupanic/inc/guide.php'
       - 'overlay/templates/mupanic/inc/workshop.php'
       - 'overlay/templates/mupanic/js/atlas-ui.js'
@@ -52,6 +54,8 @@ jobs:
           php -l overlay/templates/mupanic/inc/reward-lists.php
           php -l overlay/templates/mupanic/inc/atlas-events.php
           php -l overlay/templates/mupanic/inc/atlas-hero.php
+          php -l overlay/templates/mupanic/inc/atlas-maps.php
+          php -l overlay/templates/mupanic/inc/atlas-explorer.php
           php -l overlay/templates/mupanic/inc/guide.php
           php -l overlay/templates/mupanic/inc/workshop.php
           php -l overlay/templates/mupanic/index.php

@@ -40,6 +40,30 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   if(output&&[1920,390].includes(width))await page.locator('.atlas-home-grid').screenshot({path:path.join(output,'atlas-home-grid-'+width+'.png')});
   await page.locator('.wiki-nav a[href="#progresion"]').click();
   assert.equal(await page.locator('#progresion .wiki-map').count(),30);
+  const catalogue=page.locator('#progresion'),cards=catalogue.locator('.wiki-map');
+  assert.equal(new Set(await cards.locator('>summary img').evaluateAll(images=>images.map(img=>img.getAttribute('src')))).size,30,'Each territory has distinct artwork');
+  await cards.locator('>summary img').evaluateAll(async images=>{await Promise.all(images.map(async img=>{img.loading='eager';await img.decode();if(img.naturalWidth<1536)throw Error('Low resolution territory '+img.src);}));});
+  await page.locator('[data-map-scope=spots]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),JSON.parse(await page.locator('#wiki-data').textContent()).maps.filter(m=>m.spots.length).length);
+  await page.locator('[data-map-scope=other]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),JSON.parse(await page.locator('#wiki-data').textContent()).maps.filter(m=>!m.spots.length).length);
+  await page.locator('[data-map-scope=saved]').click();assert.equal(await catalogue.locator('[data-map-empty]').isVisible(),true);
+  await page.locator('[data-map-scope=all]').click();
+  await page.locator('[data-map-sort]').selectOption('name');assert.equal(await cards.first().getAttribute('id'),'mapa-33');
+  await page.locator('[data-map-sort]').selectOption('level');
+  const levels=await cards.evaluateAll(maps=>maps.map(m=>m.dataset.mapLevel===''?Infinity:Number(m.dataset.mapLevel)));assert.deepEqual(levels,[...levels].sort((a,b)=>a-b));
+  await page.locator('[data-map-sort]').selectOption('atlas');assert.equal(await cards.first().getAttribute('id'),'mapa-0');
+  await page.locator('[data-map-filter]').fill('not-a-map-1234');assert.equal(await catalogue.locator('[data-map-empty]').isVisible(),true);await page.locator('[data-map-reset]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),30);
+  if([1920,390].includes(width)){await catalogue.evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-catalogue-'+width);}
+  if(width===1920){
+   const territoryData=JSON.parse(await page.locator('#wiki-data').textContent()).maps;
+   for(const territory of territoryData){
+    const card=page.locator('#mapa-'+territory.id);await card.locator('>summary').click();assert.equal(await card.evaluate(el=>el.open),true,'Open territory '+territory.name);
+    assert.equal(await card.locator('.atlas-pin').count(),territory.spots.length);
+    const terrain=card.locator('.atlas-terrain img');if(await terrain.count())assert.ok((await terrain.getAttribute('src')).includes('/img/atlas/maps/'),'Coordinate terrain is an actual client map');
+    assert.equal(await card.locator('[data-atlas-panel]:visible').count(),1);
+    await card.locator('[data-map-close]').click();assert.equal(await card.evaluate(el=>el.open),false);assert.equal(await card.locator('>summary').evaluate(el=>document.activeElement===el),true);
+   }
+  }
+
   await page.locator('[data-map-filter]').fill('Lorencia');
   assert.equal(await page.locator('#progresion .wiki-map:visible').count(),1);
   const lorencia=page.locator('#mapa-0');await lorencia.locator('>summary').click();
@@ -50,6 +74,11 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.equal(await lorencia.locator('[data-atlas-account]').inputValue(),'1');
   assert.equal(await lorencia.locator('[data-atlas-panel="1"] [data-atlas-rates]').evaluateAll(rows=>rows.every(row=>row.textContent===JSON.parse(row.dataset.atlasRates)[1].toLocaleString('es-AR',{maximumFractionDigits:6})+'%')),true,'Display configured VIP rates');
   await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-'+width);}
+  await lorencia.locator('[data-save-map]').click();await page.locator('[data-map-filter]').fill('');await page.locator('[data-map-scope=saved]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),1,'Saved territory filter');
+  await lorencia.locator('[data-save-map]').click();assert.equal(await catalogue.locator('[data-map-empty]').isVisible(),true);assert.equal(await page.locator('[data-map-scope=saved]').evaluate(el=>document.activeElement===el),true,'Removing saved territory returns focus to filter');
+  await page.goto('https://atlas.test/info/#mapa-2');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),true,'Direct territory link clears filters');
+  await page.locator('#mapa-2').locator('[data-map-close]').click();await page.locator('#mapa-2>summary').focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),true,'Keyboard opens territory');await page.keyboard.press('Enter');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),false);
+
   await page.locator('.wiki-nav a[href="#recompensas"]').click();
   await page.locator('[data-reward-kind="boss"]').click();
   assert.ok(await page.locator('[data-reward-list]:visible').count()>0);

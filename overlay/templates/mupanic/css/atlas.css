@@ -96,9 +96,6 @@
 .panic-wiki .atlas-home-trail h3{font-size:30px;margin:10px 0}
 .panic-wiki .atlas-home-trail p{font-size:12px;margin:0}
 .atlas-home-trail>a{margin-left:auto;flex-shrink:0;font-size:12px}
-.atlas-steps{list-style:none;display:flex;flex-wrap:wrap;gap:24px;padding:18px 22px;background:#141e20;border:1px solid var(--atlas-line);margin:24px 0}
-.atlas-steps li{display:flex;align-items:center;gap:10px;font-size:12px;color:#9fb0a5}
-.atlas-steps b{font:500 24px var(--display);color:#d7a57d}
 /* Territory cards become a full-width expedition when opened. */
 #progresion>.wiki-map-list,#recompensas>.wiki-map-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}
 .wiki-map{min-width:0;border:1px solid #bd906340;border-radius:3px;background:var(--atlas-panel);overflow:hidden;scroll-margin-top:105px;transition:border-color .2s}
@@ -112,22 +109,68 @@
 .wiki-map[open]>summary{border-bottom:1px solid var(--atlas-line);background:#182325}
 .wiki-map[open]>summary b{color:#f1d7b8}
 .wiki-map-body{padding:0 24px 26px}
-#progresion .wiki-map>summary{display:flex;flex-wrap:wrap;padding:0 20px 20px;gap:12px}
-.atlas-map-preview,.atlas-map-placeholder{display:block;flex:0 0 calc(100% + 40px);width:calc(100% + 40px);height:150px;object-fit:cover;margin:0 -20px 8px;border-bottom:1px solid var(--atlas-line);filter:saturate(.8) brightness(.82)}
-.atlas-map-placeholder{display:grid;place-items:center;background:radial-gradient(ellipse,#c7996b20,transparent),#141e20;color:#b7926d;font:500 52px var(--display)}
-.atlas-map-title{flex:1;min-width:0}
-.atlas-map-title strong,.atlas-map-title small{display:block}
-.atlas-map-title small span{display:inline-block;margin-right:8px}
-.atlas-map-title small{margin:6px 0 0!important}
-.atlas-map-open-label{font-size:11px!important;white-space:nowrap}
-.atlas-explorer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;margin-top:25px}
+/* Map catalogue: cinematic territory art is separate from the client terrain. */
+.atlas-territories-intro{position:relative;display:flex;align-items:end;justify-content:space-between;gap:28px;padding:34px 38px;margin-bottom:26px;border:1px solid var(--atlas-line);border-radius:3px;overflow:hidden;background:linear-gradient(90deg,#111b1fed 15%,#111b1f88 70%),linear-gradient(0deg,#141e22dc,transparent),url('../img/atlas/editorial/atlas-territories.webp') center 48%/cover}
+.panic-wiki .atlas-territories-intro h2{font:500 clamp(40px,4vw,62px)/1.02 var(--display);text-transform:uppercase;margin:16px 0;letter-spacing:.01em;color:#f6ead9}
+.atlas-territories-intro h2 em{color:#e8ba88;font-style:normal}
+.panic-wiki .atlas-territories-intro p{font-size:13px;line-height:1.7;margin:0;color:#cdd3c9}
+.atlas-territories-facts{display:flex;gap:26px;flex-shrink:0;padding:0 0 5px}
+.atlas-territories-facts span{font-size:10px;color:#d8cfbd;white-space:nowrap}
+.atlas-territories-facts strong{display:block;font:500 42px/1.1 var(--display);color:#efd4b1;margin-bottom:7px}
+.atlas-map-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:18px 24px;padding:23px 26px;background:linear-gradient(120deg,#263033,#1b2529);border:1px solid #c7996b42;border-radius:3px}
+.atlas-map-filters{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
+.atlas-map-filters button,.atlas-map-empty button{min-height:40px;padding:10px 16px;border:1px solid #a4856345;background:#162124;color:#c3cfc6;border-radius:2px;font-size:12px;transition:background .2s,border-color .2s,color .2s}
+.atlas-map-filters button:hover{border-color:#d2a87a80;background:#c7996b12}
+.atlas-map-filters button[aria-pressed=true]{background:#c7996b24;border-color:#d9aa78;color:#f2d1a8}
+.atlas-map-results{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:14px;border-top:1px solid #c7996b30;padding-top:15px}
+.panic-wiki .atlas-map-results p{font-size:12px;color:#edcfaa;margin:0;white-space:nowrap}
+.atlas-map-results>span{font-size:10px;line-height:1.6;color:#bac7bf;text-align:right}
+.atlas-map-empty{padding:40px 26px;text-align:center;border:1px dashed #c7996b55;margin-top:24px;background:#192528}
+.panic-wiki .atlas-map-empty h3{font-size:34px;margin:14px 0}.panic-wiki .atlas-map-empty p{font-size:13px;max-width:none}.atlas-map-empty button{color:#efc899;border-color:#c7996b80}
+#progresion .wiki-map{background:linear-gradient(145deg,#263338,#19262a);border-color:#b9956755;box-shadow:0 5px 18px #080d101c}
+#progresion .wiki-map:hover{border-color:#d4a77999;box-shadow:0 8px 26px #080d1033}
+#progresion .wiki-map>summary{display:block;padding:0;min-height:0}
+.atlas-territory-cover{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;isolation:isolate;background:#182427}
+.atlas-territory-cover:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#152025f2,transparent 72%),linear-gradient(180deg,#0c141960,transparent 30%);z-index:1;pointer-events:none}
+.atlas-map-preview{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+.atlas-territory-index{position:absolute;left:24px;top:21px;z-index:2;font-size:9px;letter-spacing:.18em;font-weight:500;color:#f0d8b5;text-shadow:0 1px 6px #0009}
+.atlas-map-title{position:absolute;left:24px;right:24px;bottom:21px;z-index:2}
+.panic-wiki .atlas-map-title strong{display:block;font:500 clamp(30px,2.5vw,42px)/1.05 var(--display);color:#f9e8cf;overflow-wrap:anywhere;text-shadow:0 2px 12px #0005}
+.atlas-territory-stats{display:grid;grid-template-columns:.8fr 1fr 1.2fr;gap:12px;padding:21px 24px;background:linear-gradient(110deg,#263438,#202c30);border-top:1px solid #c7996b2e}
+.atlas-territory-stats>span{min-width:0;border-left:1px solid #c7996b2e;padding-left:16px}
+.atlas-territory-stats>span:first-child{border-left:0;padding-left:0}
+#progresion .atlas-territory-stats small{display:block;color:#c0cdc5;font-size:10px;line-height:1.4;margin:0 0 8px}
+#progresion .atlas-territory-stats b{display:block;color:#edcca3;font:500 25px/1.05 var(--display);margin:0}
+#progresion .atlas-map-open-label{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-top:1px solid #c7996b30;color:#e3bf93;font-size:12px;font-weight:500;background:#152125}
+.atlas-map-open-label i{font-style:normal;font-size:19px;line-height:1}
+#progresion .wiki-map[open]{border-color:#d4a77990}
+#progresion .wiki-map[open] .atlas-territory-cover{aspect-ratio:auto;height:230px}
+#progresion .wiki-map[open] .atlas-territory-stats{grid-template-columns:repeat(3,1fr);padding-top:16px;padding-bottom:16px}
+#progresion .wiki-map[open] .atlas-map-title strong{font-size:48px}
+#progresion .wiki-map-actions{padding:18px 0;margin:0;border-bottom:1px solid #c7996b3a;gap:14px}
+#progresion .wiki-map-actions>.eyebrow{margin-right:auto}
+#progresion .wiki-map-body{background:linear-gradient(120deg,#233036,#1b282d);padding:0 26px 30px}
+.panic-wiki .atlas-territories-note{font-size:12px;line-height:1.8;color:#c1cbbf;margin:24px 0}
+.atlas-explorer{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:26px;align-items:start;margin-top:25px}
 .atlas-explorer>*{min-width:0}.atlas-terrain-column{position:sticky;top:106px}
-.atlas-map-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#b99874;font-size:10px;letter-spacing:.06em;margin-bottom:16px}
+.atlas-map-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#efd1aa;font-size:10px;letter-spacing:.09em;margin-bottom:16px;padding:14px 16px;background:#101e23;border-left:2px solid #c7996b}
 .atlas-map-heading strong,.atlas-map-heading a{font-size:12px;letter-spacing:0}
 .atlas-map-window{width:100%;aspect-ratio:1;overflow:auto;border:1px solid #c7996b65;border-radius:2px;background:#0a1113;scrollbar-width:thin;scrollbar-color:#725840 #12191b}
 .atlas-terrain{position:relative;width:100%;aspect-ratio:1;isolation:isolate;background:#132023}
 .atlas-terrain img{display:block;width:100%;height:100%;object-fit:fill}
 .atlas-terrain-empty{background-image:linear-gradient(#c7996b22 1px,transparent 1px),linear-gradient(90deg,#c7996b22 1px,transparent 1px);background-size:12.5% 12.5%}
+.atlas-coordinates-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#dec69d;background:#142027cf;padding:12px 16px;pointer-events:none;white-space:nowrap}
+.atlas-map-legend{display:flex;align-items:center;gap:9px;padding:13px 15px;background:#142227;border:1px solid #c7996b35;border-top:0;font-size:10px;color:#dec69d;line-height:1.6}.atlas-map-legend i{width:8px;height:8px;border-radius:50%;border:1px solid #e3bb86;background:#ca9b6350;flex-shrink:0}
+#progresion .atlas-mob{background:linear-gradient(135deg,#2b3a40,#223139);border-color:#c7996b48;box-shadow:0 3px 12px #07101825}
+#progresion .atlas-mob-portrait{background:radial-gradient(ellipse,#c59b6750,transparent 75%),#17262c;border-color:#c7996b50}
+#progresion .atlas-mob-facts{gap:14px;padding:16px 0;border-bottom:0;margin-bottom:0}
+#progresion .atlas-mob-facts>span{flex:1;min-width:110px;padding:12px 15px;border:1px solid #c7996b35;background:#13242b;color:#cbd8ca}
+#progresion .atlas-mob-facts strong{font-size:25px;color:#efcf9f}
+#progresion .atlas-loot>summary{padding:14px 16px;margin:0 -2px;background:linear-gradient(90deg,#ba8b5133,#1b2b31);border:1px solid #c7996b66;border-radius:2px;color:#f0d2a7}
+#progresion .atlas-loot>summary span{float:none;margin-left:8px;border-color:#c7996b50;color:#efd1a6}
+#progresion .atlas-loot li{padding:13px 12px;background:#14242b;border-color:#c7996b30}
+#progresion .atlas-loot li strong{padding:5px 9px;background:#c7996b17;border:1px solid #c7996b35;border-radius:2px;color:#f4d8af}
+#progresion .atlas-drop-group{padding:12px 0 4px;color:#edc494}
 .atlas-map-window.is-zoomed .atlas-terrain{width:200%}
 .panic-wiki a.atlas-pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#172022;color:#f7dab2;border:1px solid #dab18a;box-shadow:0 2px 9px #000a;font-size:12px;font-weight:600;text-decoration:none;z-index:1}
 .panic-wiki a.atlas-pin:hover,.panic-wiki a.atlas-pin[aria-current]{background:#d7a57d;color:#161c1c;border-color:#f1d5ae;z-index:2;box-shadow:0 0 0 4px #d7a57d30}
@@ -136,14 +179,14 @@
 .atlas-travel summary,.atlas-combat summary{cursor:pointer;color:#bfa487;font-size:12px;min-height:30px}
 .panic-wiki .atlas-travel p{font-size:12px!important;margin:12px 0!important}.atlas-travel small{font-size:10px;line-height:1.8}
 .atlas-inspector,.atlas-spot-panel{scroll-margin-top:110px}
-.atlas-spot-picker{display:grid;gap:8px;max-height:220px;overflow:auto;padding:2px;scrollbar-width:thin;scrollbar-color:#725840 #12191b}
-.atlas-spot-picker a{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--atlas-line);background:#172123;text-decoration:none;font-size:12px;line-height:1.7;color:#b4c1b6;border-radius:2px;min-height:60px}
+.atlas-spot-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;max-height:260px;overflow:auto;padding:2px;scrollbar-width:thin;scrollbar-color:#725840 #12191b}
+.atlas-spot-picker a{display:flex;align-items:center;gap:12px;min-width:0;padding:12px;border:1px solid #c7996b3a;background:linear-gradient(135deg,#2a393d,#202f33);text-decoration:none;font-size:12px;line-height:1.6;color:#dde0d3;border-radius:2px;min-height:68px}.atlas-spot-picker a>span{min-width:0;overflow-wrap:anywhere}
 .atlas-spot-picker a[aria-current]{background:#c7996b14;border-color:#c7996b90}
 .atlas-spot-picker b{font:500 24px var(--display);color:#d7ad80;flex:0 0 26px}
-.atlas-spot-picker small{display:block;font-size:10px;color:#839a8d;margin-top:4px}
+.atlas-spot-picker small{display:block;font-size:10px;color:#c0ccbd;margin-top:6px}
 .atlas-account{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:#9db0a3;margin:20px 0}
 .atlas-account select{width:140px;flex-shrink:0}
-.atlas-spot-panel>header{margin:24px 0 20px}
+.atlas-spot-panel>header{margin:24px 0 20px;padding:18px 20px;border:1px solid #c7996b40;background:linear-gradient(110deg,#b38b5930,#17252a)}
 .panic-wiki .atlas-spot-panel h3{font:500 34px var(--display);color:#eddac0;margin:8px 0}
 .panic-wiki .atlas-spot-panel>header p{font-size:12px;margin:0}
 .atlas-mob{padding:20px;background:linear-gradient(145deg,#293438,#1b272a);border:1px solid var(--atlas-line);border-radius:3px;margin-bottom:16px}
@@ -278,7 +321,10 @@
 @media(max-width:1150px){.panic-wiki{grid-template-columns:200px minmax(0,1fr);gap:24px}.atlas-find-results{grid-template-columns:1fr}.atlas-event-grid{grid-template-columns:1fr 1fr}.atlas-event-card:last-child{grid-column:1/-1}.atlas-mob-level{display:none}.workshop-layout{grid-template-columns:160px minmax(0,1fr);gap:18px}.recipe-rate{grid-template-columns:1fr;gap:12px}.atlas-world-facts{gap:22px}}
 @media(max-width:950px){.atlas-explorer{grid-template-columns:1fr}.atlas-terrain-column{position:static}.atlas-map-window{max-width:620px;margin:auto}.atlas-spot-picker{grid-template-columns:1fr 1fr}.atlas-home-card>div:last-child{padding:20px}.atlas-home-trail{flex-wrap:wrap}.atlas-home-trail>a{margin-left:68px}.atlas-hero h1{font-size:61px}.atlas-event-dossier{grid-template-columns:35% 65%}.atlas-event-copy{padding:40px 26px 26px}.atlas-event-facts{gap:16px}.atlas-event-visual span{font-size:40px}}
 @media(max-width:750px){.is-wiki .inner-content{padding:22px 0 50px}.atlas-hero{padding-top:116px;background-position:62% 50%}.atlas-hero-layout{display:block;padding-bottom:25px}.atlas-hero h1{font-size:clamp(42px,8vw,60px)}.atlas-hero p{font-size:13px}.atlas-hero-link{display:inline-flex;margin-top:16px;font-size:11px}.atlas-world-facts{flex-wrap:wrap;gap:12px 24px;padding:16px 0;font-size:10px}.atlas-world-facts strong{font-size:22px}.atlas-world-source{display:none}.panic-wiki{display:block}.wiki-nav{position:static;max-height:none;margin-bottom:26px;padding:18px}.wiki-nav nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:14px;gap:6px}.wiki-nav nav a{padding:10px;font-size:10px;min-height:42px}.wiki-nav nav a span{font-size:11px}.atlas-learn-nav{grid-column:1/-1;padding-top:10px;margin-top:8px}.wiki-date{display:none}.wiki-nav>label{margin-top:12px}.wiki-nav>.eyebrow{font-size:9px}.wiki-section{padding-bottom:26px}.atlas-section-mark{font-size:52px}.atlas-home-grid{gap:16px}.atlas-home-card h3{font-size:27px!important}.workshop-layout{display:block}.recipe-nav{position:static;display:flex;max-height:none;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:18px}.recipe-nav>a{flex:0 0 170px}.upgrade-controls{grid-template-columns:1fr 1fr}.atlas-finder-controls{padding:20px;grid-template-columns:1fr 1fr}.atlas-finder-controls>label:first-child{grid-column:1/-1}.equipment-columns{grid-template-columns:1fr}.atlas-event-dialog{width:calc(100vw - 24px);max-height:92dvh;overflow:auto}.atlas-event-dossier{display:block;min-height:0}.atlas-event-visual{height:160px}.atlas-event-visual span{font-size:33px;left:22px;bottom:20px}.atlas-event-copy{padding:26px 24px}.atlas-event-copy h3{font-size:38px}.atlas-event-facts{margin:18px 0}.atlas-event-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.atlas-event-card>div{padding:18px}.atlas-event-card>img{height:140px}.atlas-event-card h3{font-size:27px}.atlas-agenda{padding:20px}.atlas-agenda-head{align-items:start}.atlas-agenda-head span{max-width:80px;text-align:right;line-height:1.6}}
-@media(max-width:540px){.atlas-home-grid,#progresion>.wiki-map-list,#recompensas>.wiki-map-list,.atlas-event-grid{grid-template-columns:1fr}.atlas-event-card:last-child{grid-column:auto}.atlas-event-card>img{height:180px}.atlas-home-trail{padding:22px;gap:16px}.atlas-trail-icon{display:none}.atlas-home-trail>a{margin-left:0}.atlas-home-card h3{font-size:32px!important}.atlas-finder-controls,.wiki-drop-controls{grid-template-columns:1fr;padding:18px}.atlas-finder-controls>label:first-child{grid-column:auto}.wiki-map-body{padding:0 18px 22px}.atlas-spot-picker{grid-template-columns:1fr}.atlas-mob{padding:16px}.atlas-mob-heading{gap:12px}.atlas-mob-portrait{width:75px;height:90px;flex:0 0 75px}.atlas-mob-heading h4{font-size:25px!important}.atlas-mob-facts{gap:22px}.atlas-find-card{padding:20px}.atlas-find-card header img{width:80px;height:90px}.atlas-find-card h3{font-size:27px!important}.wiki-glossary{grid-template-columns:1fr;gap:8px}.wiki-glossary dd{margin-bottom:0}.recipe-article,.upgrade-calculator{padding:20px}.recipe-heading{gap:14px}.recipe-symbol{width:44px;height:54px;flex-basis:44px}.recipe-symbol svg{width:29px;height:34px}.recipe-heading h3{font-size:30px}.recipe-materials li>a{margin-left:0}.workshop-controls{grid-template-columns:1fr 110px;gap:12px}.atlas-event-facts{gap:16px}.atlas-agenda-entry time{font-size:25px;padding:0 12px}.atlas-reward-summary{grid-template-columns:75px 1fr 16px!important;padding:18px;gap:14px!important}.atlas-reward-summary img,.atlas-reward-emblem{width:75px;height:95px}.atlas-reward-summary strong{font-size:27px}.atlas-steps{gap:16px}.atlas-steps li{font-size:11px}.wiki-route strong{font-size:27px}.panic-wiki :is(td,th){padding:12px;font-size:13px}}
+@media(max-width:540px){.atlas-home-grid,#progresion>.wiki-map-list,#recompensas>.wiki-map-list,.atlas-event-grid{grid-template-columns:1fr}.atlas-event-card:last-child{grid-column:auto}.atlas-event-card>img{height:180px}.atlas-home-trail{padding:22px;gap:16px}.atlas-trail-icon{display:none}.atlas-home-trail>a{margin-left:0}.atlas-home-card h3{font-size:32px!important}.atlas-finder-controls,.wiki-drop-controls{grid-template-columns:1fr;padding:18px}.atlas-finder-controls>label:first-child{grid-column:auto}.wiki-map-body{padding:0 18px 22px}.atlas-spot-picker{grid-template-columns:1fr}.atlas-mob{padding:16px}.atlas-mob-heading{gap:12px}.atlas-mob-portrait{width:75px;height:90px;flex:0 0 75px}.atlas-mob-heading h4{font-size:25px!important}.atlas-mob-facts{gap:22px}.atlas-find-card{padding:20px}.atlas-find-card header img{width:80px;height:90px}.atlas-find-card h3{font-size:27px!important}.wiki-glossary{grid-template-columns:1fr;gap:8px}.wiki-glossary dd{margin-bottom:0}.recipe-article,.upgrade-calculator{padding:20px}.recipe-heading{gap:14px}.recipe-symbol{width:44px;height:54px;flex-basis:44px}.recipe-symbol svg{width:29px;height:34px}.recipe-heading h3{font-size:30px}.recipe-materials li>a{margin-left:0}.workshop-controls{grid-template-columns:1fr 110px;gap:12px}.atlas-event-facts{gap:16px}.atlas-agenda-entry time{font-size:25px;padding:0 12px}.atlas-reward-summary{grid-template-columns:75px 1fr 16px!important;padding:18px;gap:14px!important}.atlas-reward-summary img,.atlas-reward-emblem{width:75px;height:95px}.atlas-reward-summary strong{font-size:27px}.wiki-route strong{font-size:27px}.panic-wiki :is(td,th){padding:12px;font-size:13px}}
+@media(max-width:1150px){.atlas-territories-intro{padding:28px;gap:24px}.atlas-territories-facts{display:block}.atlas-territories-facts span{display:block}.atlas-territories-facts span+span{margin-top:18px}.atlas-territories-facts strong{font-size:32px;margin-bottom:4px}.atlas-spot-picker{grid-template-columns:1fr}}
+@media(max-width:750px){.atlas-territories-intro{align-items:start;display:block;padding:26px}.atlas-territories-facts{display:flex;gap:30px;margin-top:22px}.atlas-territories-facts span+span{margin-top:0}.atlas-map-toolbar{grid-template-columns:1fr;padding:20px;gap:16px}.atlas-map-results{align-items:start;flex-direction:column;gap:8px}.atlas-map-results>span{text-align:left}.atlas-territory-index{left:20px;top:18px}.atlas-map-title{left:20px;right:20px;bottom:20px}.atlas-territory-stats{padding:19px 20px;gap:8px}.atlas-territory-stats>span{padding-left:12px}#progresion .atlas-map-open-label{padding:13px 20px}#progresion .wiki-map[open] .atlas-territory-cover{height:190px}#progresion .wiki-map[open] .atlas-map-title strong{font-size:38px}#progresion .wiki-map-body{padding:0 20px 24px}.atlas-spot-picker{grid-template-columns:repeat(2,minmax(0,1fr))}#progresion .wiki-map-actions>.eyebrow{flex-basis:100%}.atlas-map-filters button{flex:1 1 calc(50% - 8px);padding:10px;font-size:11px}}
+@media(max-width:540px){.atlas-spot-picker{grid-template-columns:1fr}#progresion .atlas-territory-stats b{font-size:23px}.atlas-map-title strong{font-size:36px!important}.atlas-map-heading{padding:12px;gap:8px}.atlas-map-heading>span{flex-basis:100%}.atlas-territories-intro h2{font-size:43px!important}}
 @media(prefers-reduced-motion:reduce){.atlas-home-card,.atlas-event-card{transition:none}.atlas-event-dialog[open]{animation:none}}
 .atlas-events-enhanced .atlas-event-full{display:none}
 .atlas-event-dialog .atlas-event-full{display:block}

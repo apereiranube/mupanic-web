@@ -1,0 +1,212 @@
+{
+  "0": {
+    "file": "img/atlas/territories/lorencia-a0c7cfc8d4f1.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "1": {
+    "file": "img/atlas/territories/dungeon-a4ae5d86647a.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "2": {
+    "file": "img/atlas/territories/devias-7bb43c3f8fd1.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "3": {
+    "file": "img/atlas/territories/noria-cda7ef08ff22.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "4": {
+    "file": "img/atlas/territories/lost-tower-a17ab00289fb.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "6": {
+    "file": "img/atlas/territories/stadium-2a3dd9b01bdd.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "7": {
+    "file": "img/atlas/territories/atlans-b70c14f4f5b2.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "8": {
+    "file": "img/atlas/territories/tarkan-ea9b287ce5f4.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "10": {
+    "file": "img/atlas/territories/icarus-7c88f7429743.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "30": {
+    "file": "img/atlas/territories/castle-siege-b96e1c2a4f6f.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "31": {
+    "file": "img/atlas/territories/land-trials-ce95d57b3ca9.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "33": {
+    "file": "img/atlas/territories/aida-460a107b4d30.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "34": {
+    "file": "img/atlas/territories/crywolf-b07007514659.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "37": {
+    "file": "img/atlas/territories/kanturu-one-4e57dfdf4277.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "38": {
+    "file": "img/atlas/territories/kanturu-two-b153450cca63.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "39": {
+    "file": "img/atlas/territories/kanturu-three-93b2fd9c911e.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "40": {
+    "file": "img/atlas/territories/silent-02f6e83d349a.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "41": {
+    "file": "img/atlas/territories/barracks-eb855c5573d5.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "42": {
+    "file": "img/atlas/territories/refuge-f88a3edb257d.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "51": {
+    "file": "img/atlas/territories/elbeland-412b5ae6d76c.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "56": {
+    "file": "img/atlas/territories/swamp-f4ef9d7e0139.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "57": {
+    "file": "img/atlas/territories/lacleon-fa9be9d4f42f.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "58": {
+    "file": "img/atlas/territories/raklion-two-cdb28c27c8b8.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "62": {
+    "file": "img/atlas/territories/santa-town-e2f475f2ef05.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "63": {
+    "file": "img/atlas/territories/vulcanus-9c56bc9896a7.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "64": {
+    "file": "img/atlas/territories/duel-arena-33f9e40fce7f.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "79": {
+    "file": "img/atlas/territories/loren-market-c973033b848d.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "80": {
+    "file": "img/atlas/territories/karutan-one-d966f9ca7313.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "81": {
+    "file": "img/atlas/territories/karutan-two-7ba3a11e9003.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  },
+  "82": {
+    "file": "img/atlas/territories/arkania-0f0c599a0e1c.webp",
+    "width": 1536,
+    "height": 1024,
+    "source": "original-concept-art",
+    "coordinateOverlay": false
+  }
+}
