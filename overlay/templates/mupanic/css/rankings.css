@@ -1,9 +1,9 @@
 /* Ranking presentation only. Native scores, ordering and profile routes stay in the CMS. */
 .is-rankings{background:#0b1012;color:#e6dfd3}
 .is-rankings .site-header{background:#091012ed;border-bottom-color:#d7a57d26}
-.rankings-hero{position:relative;padding:158px 0 46px;border-bottom:1px solid #c7945e35;background:linear-gradient(90deg,#0b1012fa 15%,#0b1012b0 45%,#0b101220),linear-gradient(0deg,#0b1012,transparent 75%),url('../img/rankings-hall-3b70e4154080.webp') right bottom/auto calc(100% - 90px) no-repeat}
+.rankings-hero{position:relative;padding:132px 0 34px;border-bottom:1px solid #c7945e35;background:linear-gradient(90deg,#0b1012fa 15%,#0b1012b0 45%,#0b101220),linear-gradient(0deg,#0b1012,transparent 75%),url('../img/rankings-hall-3b70e4154080.webp') right bottom/auto calc(100% - 90px) no-repeat}
 .rankings-hero-layout{display:flex;align-items:end;justify-content:space-between;gap:36px}
-.rankings-hero h1{font:500 clamp(54px,5.5vw,80px)/.94 var(--display);text-transform:uppercase;letter-spacing:.005em;color:#f0e7da;margin:18px 0 20px}
+.rankings-hero h1{font:500 clamp(54px,5.5vw,72px)/.94 var(--display);text-transform:uppercase;letter-spacing:.005em;color:#f0e7da;margin:18px 0 20px}
 .rankings-hero h1 em{color:#d7a57d;font-style:normal}
 .rankings-hero p{font-size:15px;line-height:1.8;color:#bcc3bf;max-width:480px;margin:0}
 .is-rankings .rankings-hero-link{display:flex;align-items:center;gap:30px;padding:12px 0;border-bottom:1px solid #d7a57d66;color:#e4ba91;font-size:12px;white-space:nowrap}
