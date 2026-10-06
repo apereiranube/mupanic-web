@@ -20,6 +20,10 @@ function setup(page,errors,body=html){
  });
 }
 async function noOverflow(page,label){assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow '+label);}
+async function eventImages(page){
+ await page.waitForFunction(()=>Array.from(document.querySelectorAll('[data-atlas-event-dialog] img')).filter(img=>img.getClientRects().length).every(img=>img.complete&&img.naturalWidth>0));
+ await page.locator('[data-atlas-event-dialog] img:visible').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});
+}
 async function shot(page,name){if(output)await page.screenshot({path:path.join(output,name+'.png')});}
 (async()=>{
  if(output)fs.mkdirSync(output,{recursive:true});
@@ -144,7 +148,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
    const kind=enabledEvents.find(e=>e.id===id).group;await page.locator('[data-event-group="'+kind+'"]').click();
    const trigger=page.locator('.atlas-event-card [data-atlas-event-open="'+id+'"]');await trigger.click();
    const modal=page.locator('[data-atlas-event-dialog]');assert.equal(await modal.evaluate(el=>el.open),true);
-   await modal.locator('img:visible').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});
+   await eventImages(page);
    assert.equal(await modal.locator('img:visible').evaluateAll(imgs=>imgs.every(img=>img.complete&&img.naturalWidth>0)),true,'Dossier images load '+id);
    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).overflowY),'hidden');
    assert.equal(await modal.locator('h3').count(),1);
@@ -156,7 +160,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
     const options=await tierSelect.locator('option').evaluateAll(options=>options.map(o=>o.value));
     for(const value of options){
      await tierSelect.selectOption(value);
-     await modal.locator('img:visible').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});
+     await eventImages(page);
      assert.equal(await modal.locator('[data-event-tier]:visible').count(),1,'Only selected reward category is visible');
      if(width>=1024)assert.equal(await modal.evaluate(el=>el.scrollHeight>el.clientHeight+1),false,'Tier overflow '+id+' '+value+' '+width);
     }
@@ -222,10 +226,10 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  assert.equal(await live.locator('#eventos').isVisible(),true,'Chapter references survive refresh');
  await live.locator('[data-event-group=classic]').click();await live.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),true);await live.keyboard.press('Escape');
  assert.equal(await live.locator('[data-event-upcoming] [data-atlas-event-open^="arena-"]').count(),0,'Manual competitions never join the agenda');
- for(const e of changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-'))){await live.locator('[data-event-group="'+(e.id.startsWith('arena-')?'staff':e.group)+'"]').click();await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();await live.locator('[data-atlas-event-dialog] img:visible').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false);if(e.id.startsWith('arena-'))assert.ok((await live.locator('[data-atlas-event-dialog]').textContent()).includes('Fecha a anunciar'));if(['arena-0','arena-6','arena-1'].includes(e.id))await shot(live,'atlas-event-guide-'+e.id+'-1920');await live.keyboard.press('Escape');}
+ for(const e of changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-'))){await live.locator('[data-event-group="'+(e.id.startsWith('arena-')?'staff':e.group)+'"]').click();await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();await eventImages(live);assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false);if(e.id.startsWith('arena-'))assert.ok((await live.locator('[data-atlas-event-dialog]').textContent()).includes('Fecha a anunciar'));if(['arena-0','arena-6','arena-1'].includes(e.id))await shot(live,'atlas-event-guide-'+e.id+'-1920');await live.keyboard.press('Escape');}
  await live.locator('[data-event-group=staff]').click();await live.locator('.atlas-event-grid').scrollIntoViewIfNeeded();await shot(live,'atlas-events-class-arenas-1920');assert.equal(await live.locator('.atlas-event-card:visible').count(),8);assert.ok((await live.locator('.atlas-event-card:visible').allTextContents()).join(' ').includes('Elf vs Elf'));
  for(const width of [1366,1024]){await live.setViewportSize({width,height:768});for(const e of changed.events.filter(e=>e.id.startsWith('arena-'))){await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();await noOverflow(live,'Manual arena '+width);assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false,'Manual arena modal fits '+e.id+' '+width);if(e.id==='arena-6'&&width===1024)await shot(live,'atlas-event-guide-arena-6-1024');await live.keyboard.press('Escape');}}
- await live.setViewportSize({width:390,height:844});await live.locator('.atlas-event-card [data-atlas-event-open="arena-6"]').click();await live.locator('[data-atlas-event-dialog] img:visible').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});await noOverflow(live,'Elf manual dossier mobile');await shot(live,'atlas-event-guide-arena-6-390');await live.keyboard.press('Escape');assert.deepEqual(liveErrors,[]);await live.close();fs.rmSync(runtime,{recursive:true,force:true});
+ await live.setViewportSize({width:390,height:844});await live.locator('.atlas-event-card [data-atlas-event-open="arena-6"]').click();await eventImages(live);await noOverflow(live,'Elf manual dossier mobile');await shot(live,'atlas-event-guide-arena-6-390');await live.keyboard.press('Escape');assert.deepEqual(liveErrors,[]);await live.close();fs.rmSync(runtime,{recursive:true,force:true});
  // Hold the late app script to verify the first paint without a disappearing header.
  const boot=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),bootErrors=[];
  await setup(boot,bootErrors);
