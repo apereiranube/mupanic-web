@@ -36,9 +36,28 @@
     const source = card.querySelector('.profiles_player_table_info');
     if (!source) return;
     const name = card.querySelector('.cname'), className = card.querySelector('.cclass');
-    if (name) { const title = document.querySelector('.inner-head h1'); if (title) title.textContent = name.textContent.trim(); }
+    if (name) {
+        const heading = make('h2','profile-name',name.textContent.trim()); name.replaceChildren(heading);
+        const title = document.querySelector('.inner-head h1'); if (title) title.textContent = 'Perfil de personaje';
+    }
     const identity = card.querySelector('.profiles_player_table:not(.profiles_player_table_info)');
-    if (identity) { const crest = make('div','profile-crest','MU'); crest.setAttribute('aria-hidden','true'); identity.before(crest); }
+    if (identity) {
+        const crest = make('div','profile-crest'); crest.setAttribute('aria-hidden','true');
+        const paths = {
+            sword:'M25 4l3 9-15 15-5-5zM6 24l10 10M4 36l6-6',
+            magic:'M20 3l5 12 12 5-12 5-5 12-5-12-12-5 12-5zM20 12v16M12 20h16',
+            wings:'M20 31V17M20 23L4 6l2 14 12 11M20 23L36 6l-2 14-12 11M8 14l9 10M32 14l-9 10',
+            crown:'M6 12l7 7 7-13 7 13 7-7-3 19H9zM9 36h22',
+            crest:'M6 9l14-5 14 5v17L20 38 6 26zM12 25V13l8 7 8-7v12l-8 7z'
+        };
+        const cls = className ? className.textContent.toLowerCase() : '';
+        const type = /wizard|master|summoner|mage/.test(cls) && !/blade/.test(cls) ? 'magic' : /elf|muse/.test(cls) ? 'wings' : /lord|emperor/.test(cls) ? 'crown' : /knight|blade|fighter|slayer|gladiator/.test(cls) ? 'sword' : 'crest';
+        const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
+        svg.setAttribute('viewBox','0 0 40 42');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.3');
+        const path = document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d',paths[type]);svg.append(path);crest.append(svg);identity.before(crest);
+        identity.classList.add('profile-identity-table');
+        identity.before(make('span','profile-identity-label','MU PANIC / PERSONAJE'));
+    }
     const labels = {
         level:'Nivel',nivel:'Nivel','master level':'Nivel Master','nivel master':'Nivel Master',resets:'Resets','grand resets':'Master Resets','master resets':'Master Resets',
         strength:'Fuerza',fuerza:'Fuerza',agility:'Agilidad',agilidad:'Agilidad',dexterity:'Agilidad',vitality:'Vitalidad',vitalidad:'Vitalidad',energy:'Energía','energía':'Energía',leadership:'Liderazgo',command:'Liderazgo',liderazgo:'Liderazgo',
@@ -46,9 +65,9 @@
     };
     const normalize = text => text.trim().toLowerCase().replace(/\s+/g,' ');
     const sections = [
-        {title:'Progreso',copy:'Nivel y resets del personaje.',labels:['Nivel','Nivel Master','Resets','Master Resets'],cls:'profile-progress'},
-        {title:'Atributos',copy:'Los valores actuales del personaje.',labels:['Fuerza','Agilidad','Vitalidad','Energía','Liderazgo'],cls:'profile-attributes'},
-        {title:'En el continente',copy:'Actividad y pertenencia.',labels:[],cls:'profile-details'},
+        {title:'La trayectoria',copy:'Progreso del personaje',labels:['Nivel','Nivel Master','Resets','Master Resets'],cls:'profile-progress'},
+        {title:'Atributos',copy:'Poder del personaje',labels:['Fuerza','Agilidad','Vitalidad','Energía','Liderazgo'],cls:'profile-attributes'},
+        {title:'En el continente',copy:'Actividad y pertenencia',labels:[],cls:'profile-details'},
     ];
     const grid = make('div','profile-sections');
     sections.forEach(section => {
@@ -63,6 +82,12 @@
         if (label === 'Estado') {
             if (cell.classList.contains('isonline') || normalize(value.textContent)==='online') { value.textContent='En línea';item.classList.add('profile-online'); }
             else if (cell.classList.contains('isoffline') || normalize(value.textContent)==='offline') { value.textContent='Desconectado';item.classList.add('profile-offline'); }
+        }
+        if (label === 'Estado') {
+            const badge = make('span','profile-presence',value.textContent.trim());
+            if (item.classList.contains('profile-online')) badge.classList.add('is-online');
+            if (item.classList.contains('profile-offline')) badge.classList.add('is-offline');
+            card.querySelector('.profiles_player_content').append(badge);
         }
         item.append(term,value);section.list.append(item);
     });
