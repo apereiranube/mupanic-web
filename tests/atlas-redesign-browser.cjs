@@ -30,7 +30,10 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.equal(await page.locator('.atlas-boot').count(),0);
   assert.equal(await page.evaluate(()=>scrollY),0,'Fresh Atlas visit keeps the hero in view');
   if(width<=900){assert.equal(await page.locator('.main-nav').isVisible(),false,'Mobile navigation is collapsed');await page.locator('.menu-toggle').click();assert.equal(await page.locator('.main-nav').isVisible(),true);await page.keyboard.press('Escape');assert.equal(await page.locator('.main-nav').isVisible(),false);}
-  assert.equal(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor),'rgb(11, 16, 18)');
+  assert.equal(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor),'rgb(27, 34, 35)');
+  assert.deepEqual(await page.locator('[data-recipe-account] option').allTextContents(),['Free','VIP']);
+  assert.deepEqual(await page.locator('[data-recipe-account] option').evaluateAll(options=>options.map(o=>o.value)),['0','1']);
+  assert.equal(await page.locator('#rates tbody').first().locator('tr').count(),2);
   await noOverflow(page,'home');if([1920,390].includes(width))await shot(page,'atlas-home-'+width);
   await page.locator('.wiki-nav a[href="#progresion"]').click();
   assert.equal(await page.locator('#progresion .wiki-map').count(),30);
@@ -82,6 +85,9 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.keyboard.press('Shift+Tab');assert.equal(await page.evaluate(()=>!!document.activeElement.closest('dialog')),true);await page.keyboard.press('Escape');
   // All chapter links still resolve without manufacturing data or changing IDs.
   await page.goto('https://atlas.test/info/#taller');await page.locator('[data-recipe-search]').fill('Fenrir');assert.ok(await page.locator('[data-recipe-nav]:visible').count()>0);await noOverflow(page,'workshop');
+  await page.locator('[data-recipe-search]').fill('');await page.locator('[data-recipe-account]').selectOption('1');
+  const recipeId=await page.locator('[data-recipe-id]:visible').first().getAttribute('data-recipe-id');
+  assert.equal(await page.locator('[data-recipe-id]:visible [data-recipe-rate]').first().textContent(),await page.evaluate(id=>{const d=JSON.parse(document.querySelector('#wiki-data').textContent),r=d.recipes.find(r=>r.id===id),v=d.crafting.mixRates[r.rateKey][1];return v===-1?'Variable':v+'%';},recipeId));
   for(const chapter of ['primeros-pasos','rates','sistemas','mejoras','equipo']){
    await page.goto('https://atlas.test/info/#'+chapter);await page.evaluate(()=>document.fonts.ready);
    await page.locator('#'+chapter).evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));

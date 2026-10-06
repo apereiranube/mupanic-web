@@ -1,11 +1,11 @@
 /* Atlas PANIC — one presentation system. Real terrain, real portraits, live rewards. */
-.is-wiki{--atlas-bg:#0b1012;--atlas-panel:#202a2e;--atlas-panel-raised:#293438;--atlas-line:#c7996b55;--atlas-copper:#e7b887;--atlas-ink:#f5eee1;--atlas-muted:#c6cfc7;background:var(--atlas-bg);color:var(--atlas-ink)}
+.is-wiki{--atlas-bg:#1b2223;--atlas-panel:#202a2e;--atlas-panel-raised:#293438;--atlas-line:#c7996b55;--atlas-copper:#e7b887;--atlas-ink:#f5eee1;--atlas-muted:#c6cfc7;background-color:var(--atlas-bg);background-image:radial-gradient(ellipse 900px 800px at -10% 40%,#b57a4840,transparent 72%),radial-gradient(ellipse 1000px 900px at 110% 80%,#6f8c8930,transparent 72%),url('../img/atlas/atlas-mineral.svg'),linear-gradient(125deg,#262a27,#1b2427 55%,#292823);background-size:auto,auto,240px 240px,auto;background-attachment:fixed;color:var(--atlas-ink)}
 .is-wiki .site-header{background:#091012ed;border-bottom-color:#d7a57d26}
 .is-wiki .inner-content{padding:36px 0 80px}
 .is-wiki .module-surface{padding:0;border:0;background:none;overflow:visible;color:var(--atlas-ink)}
 .is-wiki .module-surface :is(h2,h3,h4){color:var(--atlas-ink)}
 .is-wiki .module-surface a{color:var(--atlas-copper)}
-.atlas-hero{position:relative;padding:145px 0 0;background:linear-gradient(90deg,#0b1012f2 10%,#0b10129e 55%,#0b101225),linear-gradient(0deg,#0b1012,transparent 75%),url('../img/atlas/editorial/atlas-chamber.webp') center 57%/cover;border-bottom:1px solid var(--atlas-line)}
+.atlas-hero{position:relative;padding:145px 0 0;background:linear-gradient(90deg,#0b1012f2 10%,#0b10129e 55%,#0b101225),linear-gradient(0deg,#1b2223,transparent 75%),url('../img/atlas/editorial/atlas-chamber.webp') center 57%/cover;border-bottom:1px solid var(--atlas-line)}
 .atlas-hero-layout{display:flex;justify-content:space-between;align-items:end;gap:32px;padding-bottom:42px}
 .atlas-hero h1{font:500 clamp(54px,5.3vw,78px)/.99 var(--display);text-transform:uppercase;letter-spacing:.01em;margin:20px 0;color:#f4eadc}
 .atlas-hero h1 em{font-style:normal;color:var(--atlas-copper)}

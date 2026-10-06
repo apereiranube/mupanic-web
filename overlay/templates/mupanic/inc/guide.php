@@ -1,6 +1,9 @@
 <?php
 if(!defined('access') or !access) die();
 $wiki = $publicBalance;
+// The deployed single VIP plan uses AccountLevel 1. Preserve its rate index.
+$wiki['accounts'] = array_slice($wiki['accounts'], 0, 2);
+$wiki['accounts'][1]['name'] = 'VIP';
 // Match the administrator-confirmed name shown by this server's client.
 foreach($wiki['maps'] as &$atlasMap) {
     if($atlasMap['id'] === 57) {
