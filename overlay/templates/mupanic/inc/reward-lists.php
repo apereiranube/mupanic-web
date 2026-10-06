@@ -8,5 +8,4 @@
     <div class="wiki-map-list">
     <?php $rewardBags = array_filter($wiki['eventBags'], function($bag) { return $bag['monster'] >= 0 || $bag['item'] >= 0; }); include(__DIR__.'/atlas-reward-cards.php'); ?>
     </div>
-    <p class="atlas-portrait-credit">Imágenes del juego: <a href="https://www.muonline.net/guides/" target="_blank" rel="noopener noreferrer">MuOnline.Net</a> y <a href="https://blackrock.games/index.php?id=guide" target="_blank" rel="noopener noreferrer">Blackrock</a>, <a href="https://bless.gs/en/index.php?page=dropboxes" target="_blank" rel="noopener noreferrer">Bless</a>, <a href="https://wiki.munext.online/db/" target="_blank" rel="noopener noreferrer">MuNext</a>, <a href="https://mureforge.com/about-server/event-drops" target="_blank" rel="noopener noreferrer">MU Reforge</a> y <a href="https://mu.lv/guides/" target="_blank" rel="noopener noreferrer">MU.LV</a>. Assets de MU Online: Webzen. Arte ilustrativo: MU PANIC.</p>
 </section>

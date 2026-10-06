@@ -19,6 +19,7 @@ on:
       - 'overlay/templates/mupanic/js/atlas-search.js'
       - 'overlay/templates/mupanic/js/atlas-drops.js'
       - 'overlay/templates/mupanic/inc/atlas-drop-items.json'
+      - 'overlay/templates/mupanic/inc/atlas-drop-descriptions.json'
       - 'overlay/templates/mupanic/img/atlas/drops/**'
       - 'tools/atlas-drop-image-sources.json'
       - 'overlay/templates/mupanic/js/main.js'

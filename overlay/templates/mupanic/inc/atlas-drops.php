@@ -3,7 +3,8 @@ if(!defined('access') or !access) die();
 require_once(__DIR__.'/atlas-drop-model.php');
 $dropGroups = panicAtlasDropGroups($wiki['drops']);
 $dropImages = json_decode(file_get_contents(__DIR__.'/atlas-drop-items.json'), true);
-$dropCategories = ['all'=>'Todos','joyas'=>'Joyas','alas'=>'Alas','sockets'=>'Sockets','entradas'=>'Entradas','materiales'=>'Materiales','cajas'=>'Cajas'];
+$dropDescriptions = json_decode(file_get_contents(__DIR__.'/atlas-drop-descriptions.json'), true);
+$dropCategories = ['joyas'=>'Joyas','alas'=>'Alas','sockets'=>'Sockets','entradas'=>'Entradas','materiales'=>'Materiales','cajas'=>'Cajas'];
 $dropCategoryOrder = ['joyas'=>0,'alas'=>1,'sockets'=>2,'entradas'=>3,'materiales'=>4,'cajas'=>5];
 uasort($dropGroups, function($a,$b) use($dropCategoryOrder) { return $dropCategoryOrder[$a['category']] <=> $dropCategoryOrder[$b['category']]; });
 $dropImage = function($group) use($dropImages) {
@@ -19,26 +20,27 @@ $dropImage = function($group) use($dropImages) {
         <label class="wiki-control">Mapa<select data-drop-map><option value="">Todos los mapas</option><?php foreach($wiki['maps'] as $map) { ?><option value="<?php echo $map['id']; ?>"><?php echo panicWikiEscape($map['name']); ?></option><?php } ?></select></label>
         <label class="wiki-control">Monstruo<select data-drop-monster><option value="">Todos los monstruos</option></select></label>
         <label class="wiki-control atlas-drop-account">Tu cuenta<select data-drop-account><?php foreach($wiki['accounts'] as $i=>$account) { ?><option value="<?php echo $i; ?>"><?php echo panicWikiEscape($account['name']); ?></option><?php } ?></select></label>
-        <div class="atlas-drop-categories" role="group" aria-label="Categorías de objetos"><?php foreach($dropCategories as $key=>$label) { ?><button type="button" data-drop-category="<?php echo $key; ?>" aria-pressed="<?php echo $key === 'all' ? 'true' : 'false'; ?>"><span aria-hidden="true"><?php echo ['all'=>'◇','joyas'=>'◆','alas'=>'↗','sockets'=>'◉','entradas'=>'✧','materiales'=>'⚒','cajas'=>'▣'][$key]; ?></span><?php echo $label; ?></button><?php } ?></div>
+        <div class="atlas-drop-categories" role="group" aria-label="Categorías de objetos"><?php foreach($dropCategories as $key=>$label) { ?><button type="button" data-drop-category="<?php echo $key; ?>" aria-pressed="<?php echo $key === 'joyas' ? 'true' : 'false'; ?>"><span aria-hidden="true"><?php echo ['joyas'=>'◆','alas'=>'↗','sockets'=>'◉','entradas'=>'✧','materiales'=>'⚒','cajas'=>'▣'][$key]; ?></span><?php echo $label; ?></button><?php } ?></div>
         <div class="atlas-drop-toolbar-foot"><p data-drop-status role="status" aria-live="polite"></p><button type="button" data-drop-reset>Limpiar filtros ↺</button></div>
     </div>
     <details class="atlas-drop-help"><summary>Cómo interpretar los drops y las tasas</summary><p>El nivel indicado es el del <strong>monstruo</strong>, no el de tu personaje. Cada porcentaje pertenece a una regla independiente: no se suman tasas ni se garantiza un objeto cada cierta cantidad de muertes. Deben cumplirse las condiciones de mapa y monstruo.</p><p>Los mobs y spots compatibles se calculan desde la población fija publicada. Los eventos, cajas y combinaciones tienen otras reglas.</p></details>
-    <div class="atlas-drop-empty" data-drop-empty hidden><span class="eyebrow">PROBÁ OTRO OBJETIVO</span><h3>No encontramos objetos.</h3><p>Cambiá el nombre, el mapa o el monstruo para ampliar la búsqueda.</p><button type="button" data-drop-reset>Ver todos los objetos →</button></div>
+    <div class="atlas-drop-empty" data-drop-empty hidden><span class="eyebrow">PROBÁ OTRO OBJETIVO</span><h3>No encontramos objetos.</h3><p>Cambiá el nombre, el mapa o el monstruo para ampliar la búsqueda.</p><button type="button" data-drop-reset>Volver a Joyas →</button></div>
     <div class="atlas-drop-catalogue" data-drop-catalogue>
     <?php foreach($dropGroups as $group) { $rules=$group['rules']; $specific=[]; $global=false; foreach($rules as $rule) { if($rule['map'] === -1) $global=true; else $specific[$rule['map']]=$mapNames[$rule['map']] ?? 'Mapa '.$rule['map']; } ?>
         <a class="atlas-drop-card" href="#drop-item-<?php echo $group['key']; ?>" data-drop-card="<?php echo $group['key']; ?>" data-drop-kind="<?php echo $group['category']; ?>">
             <div class="atlas-drop-card-top"><?php echo $dropImage($group); ?><div><span class="eyebrow"><?php echo $dropCategories[$group['category']]; ?></span><h3><?php echo panicWikiEscape($group['name']); ?></h3></div></div>
             <div class="atlas-drop-tags"><?php foreach(array_slice($specific,0,2) as $name) { ?><span><?php echo panicWikiEscape($name); ?></span><?php } ?><?php if(count($specific)>2) { ?><span>+<?php echo count($specific)-2; ?> mapas</span><?php } ?><?php if($global) { ?><span>Drop general</span><?php } ?></div>
-            <div class="atlas-drop-card-foot"><small><?php echo count($rules); ?> <?php echo $group['numbered'] ? 'niveles' : (count($rules) === 1 ? 'regla' : 'reglas'); ?></small><span>Dónde conseguirlo →</span></div>
+            <div class="atlas-drop-card-foot"><small><?php echo count($rules); ?> <?php echo $group['numbered'] ? 'niveles' : (count($rules) === 1 ? 'regla' : 'reglas'); ?></small><span>Ver objeto →</span></div>
         </a>
     <?php } ?>
     </div>
     <div class="atlas-drop-details">
-    <?php foreach($dropGroups as $group) { $rules=$group['rules']; ?>
+    <?php foreach($dropGroups as $group) { $rules=$group['rules']; $description=$dropDescriptions[$group['key']] ?? null; ?>
         <section class="atlas-drop-detail" id="drop-item-<?php echo $group['key']; ?>" data-drop-item="<?php echo $group['key']; ?>" aria-labelledby="drop-title-<?php echo $group['key']; ?>">
             <div class="atlas-drop-breadcrumb"><a href="#drops" data-drop-back>← Volver a los objetos</a><span>DROP DE MONSTRUOS</span></div>
             <header class="atlas-drop-object"><?php echo $dropImage($group); ?><div><span class="eyebrow"><?php echo $dropCategories[$group['category']]; ?></span><h3 id="drop-title-<?php echo $group['key']; ?>" tabindex="-1"><?php echo panicWikiEscape($group['name']); ?></h3><p>Reglas independientes · tasas para <strong data-account-name>Free</strong></p></div>
             <?php if($group['numbered']) { ?><label>Elegí el nivel<select data-drop-variant><option value="">Todos los niveles</option><?php foreach($rules as $rule) { ?><option value="<?php echo $rule['variant']; ?>">+<?php echo $rule['variant']; ?></option><?php } ?></select></label><?php } ?></header>
+            <?php if($description) { ?><div class="atlas-drop-purpose"><div><span class="eyebrow">QUÉ ES</span><p><?php echo panicWikiEscape($description['what']); ?></p></div><div><span class="eyebrow">PARA QUÉ SIRVE</span><p><?php echo panicWikiEscape($description['use']); ?></p><?php if(isset($description['link'])) { ?><a href="#<?php echo panicWikiEscape($description['link']); ?>"><?php echo panicWikiEscape($description['cta']); ?> ↗</a><?php } ?></div></div><?php } ?>
             <div class="atlas-drop-rules">
             <?php foreach($rules as $index=>$drop) { $mapArt=$territoryArt[(string)$drop['map']] ?? null; ?>
                 <article class="atlas-drop-rule" id="drop-<?php echo $index; ?>" data-drop-row="<?php echo $index; ?>" data-wiki-search>
@@ -52,5 +54,4 @@ $dropImage = function($group) use($dropImages) {
         </section>
     <?php } ?>
     </div>
-    <p class="atlas-drop-credit">Imágenes del juego: MuOnline.Net · MU.LV · Bless · recursos © Webzen.</p>
 </section>

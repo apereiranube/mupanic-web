@@ -22,6 +22,10 @@ class DropCatalogueTest(unittest.TestCase):
   groups=self.groups()
   for key,count in [('6672',8),('6673',8),('6705',6),('6706',6),('7185',7),('7186',7),('7197',7)]:
    self.assertTrue(groups[key]['numbered']);self.assertEqual(len(groups[key]['rules']),count)
+ def test_every_family_explains_its_purpose(self):
+  descriptions=json.loads((INC/'atlas-drop-descriptions.json').read_text());self.assertEqual(set(self.groups()),set(descriptions))
+  for entry in descriptions.values():
+   self.assertTrue(entry['what'].strip());self.assertTrue(entry['use'].strip())
  def test_all_catalogue_images_are_local_real_webp(self):
   self.assertEqual(set(self.groups()),set(self.art))
   for a in self.art.values():

@@ -3,11 +3,11 @@
  'use strict';
  function create(wiki,data){
   var section=wiki.querySelector('#drops'),query=section.querySelector('[data-drop-filter]'),mapSelect=section.querySelector('[data-drop-map]'),monsterSelect=section.querySelector('[data-drop-monster]'),account=section.querySelector('[data-drop-account]');
-  var cards=Array.from(section.querySelectorAll('[data-drop-card]')),items=Array.from(section.querySelectorAll('[data-drop-item]')),rows=Array.from(section.querySelectorAll('[data-drop-row]')),catalogue=section.querySelector('[data-drop-catalogue]'),category='all',current=null;
-  var compatible=root.PanicAtlasSearch.compatible;
+  var cards=Array.from(section.querySelectorAll('[data-drop-card]')),items=Array.from(section.querySelectorAll('[data-drop-item]')),rows=Array.from(section.querySelectorAll('[data-drop-row]')),catalogue=section.querySelector('[data-drop-catalogue]'),category='joyas',current=null;
+  var compatible=root.PanicAtlasSearch.compatible,eligibility=new WeakMap();
   function normalize(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
   function selectedMaps(){return data.maps.filter(function(m){return !mapSelect.value||String(m.id)===mapSelect.value;});}
-  function eligibleMobs(drop,map){return Array.from(new Map(map.monsters.filter(function(m){return (!monsterSelect.value||String(m.id)===monsterSelect.value)&&compatible(drop,map,m);}).map(function(m){return [m.id+':'+m.level,m];})).values());}
+  function eligibleMobs(drop,map){var cached=eligibility.get(drop);if(!cached){cached=new Map();eligibility.set(drop,cached);}if(!cached.has(map.id))cached.set(map.id,Array.from(new Map(map.monsters.filter(function(m){return compatible(drop,map,m);}).map(function(m){return [m.id+':'+m.level,m];})).values()));return cached.get(map.id).filter(function(m){return !monsterSelect.value||String(m.id)===monsterSelect.value;});}
   function routeMaps(drop){return selectedMaps().filter(function(m){return eligibleMobs(drop,m).length;});}
   function closeRoutes(){section.querySelectorAll('[data-drop-route-panel]').forEach(function(p){p.hidden=true;});section.querySelectorAll('[data-drop-routes]').forEach(function(b){b.setAttribute('aria-expanded','false');});}
   function updateMonsters(){
@@ -26,8 +26,9 @@
    closeRoutes();
    rows.forEach(function(row){
     var drop=data.drops[Number(row.getAttribute('data-drop-row'))],item=row.closest('[data-drop-item]'),card=cards.find(function(c){return c.getAttribute('data-drop-card')===item.getAttribute('data-drop-item');}),variant=item.querySelector('[data-drop-variant]');
+    if(category&&card.getAttribute('data-drop-kind')!==category){row.hidden=true;return;}
     var text=normalize(drop.name+' '+card.querySelector('h3').textContent),maps=routeMaps(drop);
-    row.hidden=(category!=='all'&&card.getAttribute('data-drop-kind')!==category)||!words.every(function(w){return text.includes(w);})||((mapSelect.value||monsterSelect.value)&&!maps.length)||(current===item.getAttribute('data-drop-item')&&variant&&variant.value!==''&&String(drop.variant)!==variant.value);
+    row.hidden=!words.every(function(w){return text.includes(w);})||((mapSelect.value||monsterSelect.value)&&!maps.length)||(current===item.getAttribute('data-drop-item')&&variant&&variant.value!==''&&String(drop.variant)!==variant.value);
     row.querySelector('[data-drop-rate]').textContent=Number(drop.rates[Number(account.value)]).toLocaleString('es-AR',{maximumFractionDigits:6})+'%';
     var specific=row.querySelector('[data-drop-monster-name]');if(specific){var m=data.maps.flatMap(function(m){return m.monsters;}).find(function(m){return m.id===drop.monster;});specific.textContent=m?m.name:'ID '+drop.monster;}
     var count=row.querySelector('[data-drop-compatible-count]'),button=row.querySelector('[data-drop-routes]');button.disabled=!maps.length;
@@ -41,12 +42,12 @@
    section.querySelector('[data-drop-status]').textContent=visibleGroups+' '+(visibleGroups===1?'objeto o familia':'objetos y familias')+' · '+visibleRules+' '+(visibleRules===1?'regla':'reglas')+(mapSelect.value?' · '+selectedMaps()[0].name:'');
    view();
   }
-  function reset(options){options=options||{};current=null;category='all';query.value=options.query||'';mapSelect.value=options.map||'';monsterSelect.value='';items.forEach(function(item){var v=item.querySelector('[data-drop-variant]');if(v)v.value='';});updateMonsters();filter();}
+  function reset(options){options=options||{};current=null;category=options.query?null:'joyas';query.value=options.query||'';mapSelect.value=options.map||'';monsterSelect.value='';items.forEach(function(item){var v=item.querySelector('[data-drop-variant]');if(v)v.value='';});updateMonsters();filter();}
   function open(key,options){options=options||{};var card=cards.find(function(c){return c.getAttribute('data-drop-card')===key;}),item=items.find(function(i){return i.getAttribute('data-drop-item')===key;});if(!item)return;
-   if(card.hidden)reset();current=key;view();item.querySelectorAll('img').forEach(function(img){img.loading='eager';});if(options.focus!==false)item.querySelector('h3').focus({preventScroll:true});
+   if(card.hidden)reset();category=card.getAttribute('data-drop-kind');current=key;filter();view();item.querySelectorAll('img').forEach(function(img){img.loading='eager';});if(options.focus!==false)item.querySelector('h3').focus({preventScroll:true});
   }
   function back(options){options=options||{};var previous=current;current=null;items.forEach(function(item){var v=item.querySelector('[data-drop-variant]');if(v)v.value='';});filter();if(previous&&options.focus!==false){var c=cards.find(function(c){return c.getAttribute('data-drop-card')===previous;});if(c&&!c.hidden)c.focus({preventScroll:true});}}
-  function browse(){back({focus:false});if(location.hash.startsWith('#drop-'))history.replaceState(null,'','#drops');}
+  function browse(){current=null;items.forEach(function(item){var v=item.querySelector('[data-drop-variant]');if(v)v.value='';});if(location.hash.startsWith('#drop-'))history.replaceState(null,'','#drops');}
   function node(tag,text,className){var el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;}
   function link(text,hash){var a=node('a',text);a.href=hash;return a;}
   function renderRoutes(button){
@@ -68,7 +69,7 @@
    }
    select.addEventListener('change',function(){page=0;draw();});draw();panel.hidden=false;button.setAttribute('aria-expanded','true');panel.focus({preventScroll:true});
   }
-  query.addEventListener('input',function(){browse();filter();});mapSelect.addEventListener('change',function(){monsterSelect.value='';updateMonsters();filter();});monsterSelect.addEventListener('change',filter);account.addEventListener('change',filter);
+  query.addEventListener('input',function(){browse();category=query.value.trim()?null:'joyas';filter();});mapSelect.addEventListener('change',function(){monsterSelect.value='';updateMonsters();filter();});monsterSelect.addEventListener('change',filter);account.addEventListener('change',filter);
   section.querySelectorAll('[data-drop-category]').forEach(function(b){b.addEventListener('click',function(){browse();category=b.getAttribute('data-drop-category');filter();});});
   section.querySelectorAll('[data-drop-reset]').forEach(function(b){b.addEventListener('click',function(){reset();history.replaceState(null,'','#drops');query.focus();});});
   section.querySelectorAll('[data-drop-variant]').forEach(function(v){v.addEventListener('change',filter);});section.querySelectorAll('[data-drop-routes]').forEach(function(b){b.addEventListener('click',function(){renderRoutes(b);});});
