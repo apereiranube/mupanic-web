@@ -159,7 +159,7 @@
     if (target) {
       target.hidden = false;
       var atlasPanel = target.closest('[data-atlas-panel]');
-      if (atlasPanel) selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel'));
+      if (atlasPanel) { selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel')); if (target.hasAttribute('data-atlas-mob')) selectAtlasMonster(atlasPanel, target.getAttribute('data-atlas-mob')); }
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
       if (target.closest('#progresion')) { mapFilter.value = ''; if (target !== panel) setMapScope('all'); else filterMaps(); }
@@ -373,6 +373,12 @@
     finderQuery.value = ''; finderType.value = ''; finderMap.value = ''; finderLevel.value = ''; renderFinder(true); finderQuery.focus();
   });
   renderFinder(true);
+  function selectAtlasMonster(panel, id) {
+    panel.querySelectorAll('[data-atlas-mob]').forEach(function(card) { card.hidden = card.getAttribute('data-atlas-mob') !== id; });
+    panel.querySelectorAll('[data-atlas-mob-select]').forEach(function(button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-atlas-mob-select') === id)); });
+    var picker = panel.querySelector('[data-atlas-mob-picker]'); if (picker) picker.value = id;
+    if (panel.closest('.wiki-map').open) panel.querySelectorAll('[data-atlas-mob]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
+  }
   function selectAtlasSpot(explorer, key) {
     explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) { panel.hidden = panel.getAttribute('data-atlas-panel') !== key; });
     if (explorer.closest('.wiki-map').open) explorer.querySelectorAll('[data-atlas-panel]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
@@ -382,11 +388,16 @@
     });
   }
   wiki.querySelectorAll('[data-atlas-explorer]').forEach(function(explorer) {
+    explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) {
+      var first = panel.querySelector('[data-atlas-mob]'); if (first) selectAtlasMonster(panel, first.getAttribute('data-atlas-mob'));
+      panel.querySelectorAll('[data-atlas-mob-select]').forEach(function(button) { button.addEventListener('click', function() { selectAtlasMonster(panel, button.getAttribute('data-atlas-mob-select')); }); });
+      var picker = panel.querySelector('[data-atlas-mob-picker]'); if (picker) picker.addEventListener('change', function() { selectAtlasMonster(panel, picker.value); });
+    });
     selectAtlasSpot(explorer, explorer.querySelector('[data-atlas-panel]').getAttribute('data-atlas-panel'));
     explorer.querySelectorAll('[data-atlas-select]').forEach(function(link) { link.addEventListener('click', function(event) {
       event.preventDefault(); selectAtlasSpot(explorer, link.getAttribute('data-atlas-select'));
       var inspector = explorer.querySelector('.atlas-inspector');
-      if (window.matchMedia('(max-width: 900px)').matches) inspector.scrollIntoView({block:'start',behavior:'smooth'});
+      if (window.matchMedia('(max-width: 900px)').matches) inspector.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
     }); });
     explorer.querySelector('[data-atlas-zoom]').addEventListener('click',function(event) {
       var frame = explorer.querySelector('.atlas-map-window');

@@ -63,7 +63,10 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
     assert.equal(await card.locator('.atlas-pin').count(),territory.spots.length);
     const terrain=card.locator('.atlas-terrain img');if(await terrain.count())assert.ok((await terrain.getAttribute('src')).includes('/img/atlas/maps/'),'Coordinate terrain is an actual client map');
     assert.equal(await card.locator('[data-atlas-panel]:visible').count(),1);
-    await card.locator('.atlas-terrain img,[data-atlas-panel]:visible img').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));});
+    const active=card.locator('[data-atlas-panel]:visible');
+    if(territory.spots.length&&territory.spots[0].monsters.length){assert.equal(await active.locator('[data-atlas-mob]:visible').count(),1);}
+    assert.equal(await card.locator('.atlas-spot-picker').evaluate(el=>el.scrollHeight>el.clientHeight+1),false,'Spot navigation has no internal scroll');
+    await card.locator('.atlas-terrain img,[data-atlas-panel]:visible img:visible').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));});
     await card.locator('[data-map-close]').click();assert.equal(await card.evaluate(el=>el.open),false);assert.equal(await card.locator('>summary').evaluate(el=>document.activeElement===el),true);
    }
   }
@@ -71,13 +74,24 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.locator('[data-map-filter]').fill('Lorencia');
   assert.equal(await page.locator('#progresion .wiki-map:visible').count(),1);
   const lorencia=page.locator('#mapa-0');await lorencia.locator('>summary').click();
-  await lorencia.locator('[data-atlas-select="1"]').last().click();
-  assert.equal(await lorencia.locator('[data-atlas-panel="1"]').isVisible(),true);
-  await lorencia.locator('[data-atlas-panel="1"] .atlas-loot>summary').first().click();
+  await lorencia.locator('[data-atlas-select="7"]').last().click();
+  assert.equal(await lorencia.locator('[data-atlas-panel="7"]').isVisible(),true);
+  const zone=lorencia.locator('[data-atlas-panel="7"]');
+  const choices=zone.locator('[data-atlas-mob-select]');
+  if(await choices.count()>1){const second=choices.nth(1);await second.click();assert.equal(await second.getAttribute('aria-pressed'),'true');assert.equal(await zone.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),await second.getAttribute('data-atlas-mob-select'));await choices.first().click();}
+  assert.equal(await zone.locator('[data-atlas-mob]:visible').count(),1);
+  assert.ok(await zone.locator('[data-atlas-rates]').count()>0,'Rate verification uses a populated loot list');
+  await zone.locator('[data-atlas-mob]:visible .atlas-loot>summary').click();
   await lorencia.locator('[data-atlas-account]').selectOption('1');
   assert.equal(await lorencia.locator('[data-atlas-account]').inputValue(),'1');
-  assert.equal(await lorencia.locator('[data-atlas-panel="1"] [data-atlas-rates]').evaluateAll(rows=>rows.every(row=>row.textContent===JSON.parse(row.dataset.atlasRates)[1].toLocaleString('es-AR',{maximumFractionDigits:6})+'%')),true,'Display configured VIP rates');
-  await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-'+width);}
+  assert.equal(await lorencia.locator('[data-atlas-panel="7"] [data-atlas-rates]').evaluateAll(rows=>rows.every(row=>row.textContent===JSON.parse(row.dataset.atlasRates)[1].toLocaleString('es-AR',{maximumFractionDigits:6})+'%')),true,'Display configured VIP rates');
+  await lorencia.locator('[data-atlas-select="all"]').last().click();
+  const population=lorencia.locator('[data-atlas-panel="all"]'),monsterOptions=population.locator('[data-atlas-mob-picker] option');
+  const lastMonster=await monsterOptions.last().getAttribute('value');await population.locator('[data-atlas-mob-picker]').selectOption(lastMonster);
+  assert.equal(await population.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),lastMonster);
+  await page.goto('https://atlas.test/info/#mob-0-'+lastMonster);assert.equal(await population.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),lastMonster,'Deep link reveals the requested monster');
+  await lorencia.locator('[data-atlas-select="7"]').last().click();
+  await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.locator('.atlas-explorer').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-'+width);}
   await lorencia.locator('[data-save-map]').click();await page.locator('[data-map-filter]').fill('');await page.locator('[data-map-scope=saved]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),1,'Saved territory filter');
   await lorencia.locator('[data-save-map]').click();assert.equal(await catalogue.locator('[data-map-empty]').isVisible(),true);assert.equal(await page.locator('[data-map-scope=saved]').evaluate(el=>document.activeElement===el),true,'Removing saved territory returns focus to filter');
   await page.goto('https://atlas.test/info/#mapa-2');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),true,'Direct territory link clears filters');

@@ -101,3 +101,8 @@ jobs:
             atlas-screenshots/atlas-all-rewards-*.png
             atlas-screenshots/atlas-box-rewards-*.png
             atlas-screenshots/atlas-event-rewards-*.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-map-details
+          path: atlas-screenshots/atlas-map-*.png
