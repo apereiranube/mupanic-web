@@ -58,10 +58,10 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.equal(await page.locator('.atlas-event-card').count(),enabledEvents.length);if([1920,390].includes(width)){await page.locator('#eventos').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+width);}
   await page.locator('[data-event-group=staff]').click();assert.equal(await page.locator('.atlas-event-card:visible').count(),6);await page.locator('[data-event-group=all]').click();
   await page.locator('[data-event-search]').fill('Maldito');assert.equal(await page.locator('.atlas-event-card:visible').count(),1);await page.locator('[data-event-search]').fill('');
-  assert.equal(await page.locator('[data-atlas-event-open=auction]').count(),0);
+  assert.equal(await page.locator('.atlas-event-card [data-atlas-event-open=auction]').count(),0);
   const timeResult=await page.evaluate(()=>document.querySelector('[data-wiki]').atlasNextOccurrence([[-1,-1,-1,-1,-1,50,0]],new Date('2026-10-06T13:51:00Z')).toISOString());assert.equal(timeResult,'2026-10-06T14:50:00.000Z');
   for(const id of (width>=1024?enabledEvents.map(e=>e.id):['pandora','blood-castle','devil-square'])){
-   const trigger=page.locator('[data-atlas-event-open="'+id+'"]');await trigger.click();
+   const trigger=page.locator('.atlas-event-card [data-atlas-event-open="'+id+'"]');await trigger.click();
    const modal=page.locator('[data-atlas-event-dialog]');assert.equal(await modal.evaluate(el=>el.open),true);
    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).overflowY),'hidden');
    assert.equal(await modal.locator('h3').count(),1);
@@ -74,11 +74,11 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
    assert.equal(await modal.evaluate(el=>el.open),false);
    assert.equal(await trigger.evaluate(el=>document.activeElement===el),true,'Return event focus');
   }
-  await page.locator('[data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
+  await page.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
   await page.locator('#recompensa-12').waitFor({state:'visible'});assert.equal(await page.locator('#recompensa-12').isVisible(),true,'Reward link clears filters');
   assert.equal(await page.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),false);
   // Keyboard focus stays inside the dossier.
-  await page.locator('.wiki-nav a[href="#eventos"]').click();await page.locator('[data-atlas-event-open="devil-square"]').click();
+  await page.locator('.wiki-nav a[href="#eventos"]').click();await page.locator('.atlas-event-card [data-atlas-event-open="devil-square"]').click();
   await page.keyboard.press('Shift+Tab');assert.equal(await page.evaluate(()=>!!document.activeElement.closest('dialog')),true);await page.keyboard.press('Escape');
   // All chapter links still resolve without manufacturing data or changing IDs.
   await page.goto('https://atlas.test/info/#taller');await page.locator('[data-recipe-search]').fill('Fenrir');assert.ok(await page.locator('[data-recipe-nav]:visible').count()>0);await noOverflow(page,'workshop');
