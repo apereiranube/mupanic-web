@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
  for(const [width,height] of [[1920,1080],[1366,768],[1024,768],[390,844]]){
   for(const mode of ['level','guilds','empty']){
    const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/rankings.php')],{encoding:'utf8',env:{...process.env,RANKINGS_FIXTURE:mode}});
-   const page=await browser.newPage({viewport:{width,height}});const errors=[];
+   const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'});const errors=[];
    page.on('pageerror',e=>errors.push(e.message));
    await page.route('**/*',async route=>{
     const pathname=new URL(route.request().url()).pathname;
@@ -44,7 +44,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
     await page.getByRole('button',{name:'← Anterior'}).click();
     await page.getByRole('searchbox').fill('no-such-name');assert.equal(await page.locator('.rankings-empty').isVisible(),true);await page.getByRole('searchbox').fill('');
    }
-   await page.evaluate(()=>window.scrollTo(0,0));
+   await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
    if(output&&(width===1920||width===390))await page.screenshot({path:path.join(output,`${mode}-${width}.png`),fullPage:true});
    assert.deepEqual(errors,[]);await page.close();console.log(`PASS ${width}x${height} ${mode}: layout, data, filters, navigation and assets.`);
   }
