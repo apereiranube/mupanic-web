@@ -81,9 +81,9 @@
     var entries=data.events.filter(function(e){return e.enabled&&e.schedule.length;}).map(function(e){return {event:e,date:nextOccurrence(e.schedule,now)};}).filter(function(e){return e.date;}).sort(function(a,b){return a.date-b.date;}).slice(0,6);
     var holder=section.querySelector('[data-event-upcoming]');holder.replaceChildren();
     entries.forEach(function(entry){var row=document.createElement('a');row.className='atlas-next-event';row.href='#evento-'+entry.event.id;row.dataset.atlasEventOpen=entry.event.id;
-      var label=document.createElement('span');label.textContent=entry.event.name;var time=document.createElement('time');time.dateTime=entry.date.toISOString();time.textContent=entry.date.toLocaleString('es-AR',{timeZone:data.timezone,weekday:'short',hour:'2-digit',minute:'2-digit'});row.append(label,time);holder.append(row);});
+      var label=document.createElement('span');label.textContent=entry.event.name;var time=document.createElement('time');time.dateTime=entry.date.toISOString();time.textContent=entry.date.toLocaleString('es-AR',{timeZone:data.timezone,weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});row.append(label,time);holder.append(row);});
     if(!entries.length){var empty=document.createElement('p');empty.textContent='No hay eventos programados en la configuración publicada.';holder.append(empty);}
-    section.querySelector('[data-event-published]').textContent=new Date(data.generatedAt).toLocaleString('es-AR',{timeZone:data.timezone,dateStyle:'short',timeStyle:'short'});
+    section.querySelector('[data-event-published]').textContent=new Date(data.generatedAt).toLocaleString('es-AR',{timeZone:data.timezone,dateStyle:'short',timeStyle:'short',hourCycle:'h23'});
   }
   wiki.atlasNextOccurrence=nextOccurrence;
   updateAgenda();window.setInterval(updateAgenda,60000);
