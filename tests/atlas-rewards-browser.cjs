@@ -24,6 +24,9 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   await medusa.locator('[data-reward-item-filter]').fill('Hyon');
   assert.equal(await medusa.locator('[data-reward-item]:visible').count(),4);
   assert.ok((await medusa.locator('[data-reward-item]:visible').allTextContents()).every(t=>t.includes('Hyon')));
+  for(const options of await medusa.locator('[data-reward-item]:visible td:last-child').allTextContents()){
+   const labels=options.split(' · ');assert.equal(new Set(labels).size,labels.length,'Repeated option labels');
+  }
   if(output&&[1920,390].includes(width)){await medusa.scrollIntoViewIfNeeded();await page.screenshot({path:path.join(output,`medusa-${width}.png`)});}
   await medusa.locator('[data-reward-item-filter]').fill('Harmony');assert.equal(await medusa.locator('[data-reward-item]:visible').count(),0,'Old Medusa loot must not appear');
   await page.locator('[data-reward-filter]').fill('Nightmare');const nightmare=page.locator('#recompensa-48');await nightmare.locator('summary').click();
