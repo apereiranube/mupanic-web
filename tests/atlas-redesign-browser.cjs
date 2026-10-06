@@ -82,6 +82,12 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.keyboard.press('Shift+Tab');assert.equal(await page.evaluate(()=>!!document.activeElement.closest('dialog')),true);await page.keyboard.press('Escape');
   // All chapter links still resolve without manufacturing data or changing IDs.
   await page.goto('https://atlas.test/info/#taller');await page.locator('[data-recipe-search]').fill('Fenrir');assert.ok(await page.locator('[data-recipe-nav]:visible').count()>0);await noOverflow(page,'workshop');
+  for(const chapter of ['primeros-pasos','rates','sistemas','mejoras','equipo']){
+   await page.goto('https://atlas.test/info/#'+chapter);await page.evaluate(()=>document.fonts.ready);
+   await page.locator('#'+chapter).evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));
+   await noOverflow(page,chapter);if([1920,390].includes(width))await shot(page,'atlas-'+chapter+'-'+width);
+  }
+  await page.goto('https://atlas.test/info/#taller');await page.locator('.recipe-reference summary').click();await page.locator('.recipe-reference').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await noOverflow(page,'recipe reference');if([1920,390].includes(width))await shot(page,'atlas-recipe-rates-'+width);
   assert.deepEqual(errors,[]);await page.close();console.log('PASS redesigned Atlas',width);
  }
  // A new server catalogue removes disabled events without replacing cached chapter nodes.
