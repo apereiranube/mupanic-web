@@ -548,7 +548,19 @@
     });
   });
   closeButton.addEventListener('click', function () { dialog.close(); });
-  // Native dialog supplies Escape, focus containment and an inert background.
+  // Keep Tab within the content rather than moving focus into browser chrome.
+  dialog.addEventListener('keydown', function (event) {
+    if (event.key !== 'Tab') return;
+    var controls = Array.prototype.slice.call(dialog.querySelectorAll('button, a[href], input, select, textarea, [tabindex]'))
+      .filter(function (item) { return !item.disabled && item.tabIndex >= 0 && item.getClientRects().length; });
+    var first = controls[0];
+    var last = controls[controls.length - 1];
+    if ((event.shiftKey && document.activeElement === first) || (!event.shiftKey && document.activeElement === last)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    }
+  });
+  // Native dialog supplies Escape and an inert background.
   dialog.addEventListener('pointerdown', function (event) { backdropPress = outside(event); });
   dialog.addEventListener('click', function (event) {
     if (backdropPress && outside(event)) dialog.close();
