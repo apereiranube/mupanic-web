@@ -30,6 +30,14 @@ for module in "${DEPLOY_MODULES[@]}"; do
   fi
 done
 
+# Page artwork must be present before any deployment copy.
+for asset in server-world server-progression server-atlas server-events server-portals; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/server/$asset.webp" ]; then
+    echo "[MU PANIC] ERROR: Missing page artwork: $asset.webp" >&2
+    exit 1
+  fi
+done
+
 # System artwork is shipped as real WebP binaries; reject incomplete releases before copying.
 SYSTEM_ART_FILES=(
   "chronicles-d6291c69cf6b.webp"
