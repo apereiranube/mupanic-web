@@ -522,48 +522,42 @@
 
 ;(function () {
   var dialog = document.querySelector('[data-system-modal]');
-  if (!dialog) return;
-
+  if (!dialog || typeof dialog.showModal !== 'function') return;
   var panels = Array.prototype.slice.call(dialog.querySelectorAll('[data-system-panel]'));
   var closeButton = dialog.querySelector('[data-system-close]');
   var lastTrigger = null;
+  var backdropPress = false;
 
-  function openSystem(id, trigger) {
-    var panel = panels.find(function (item) { return item.getAttribute('data-system-panel') === id; });
-    if (!panel) return;
-    panels.forEach(function (item) { item.hidden = item !== panel; });
-    lastTrigger = trigger || null;
-    if (typeof dialog.showModal === 'function') dialog.showModal();
-    else dialog.setAttribute('open', '');
-    document.documentElement.classList.add('system-modal-open');
-    if (closeButton) closeButton.focus();
+  function outside(event) {
+    var rect = dialog.getBoundingClientRect();
+    return event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
   }
-
-  function closeSystem() {
-    if (typeof dialog.close === 'function' && dialog.open) dialog.close();
-    else dialog.removeAttribute('open');
-    document.documentElement.classList.remove('system-modal-open');
-    panels.forEach(function (item) { item.hidden = true; });
-    if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus();
-  }
-
   document.querySelectorAll('[data-system-open]').forEach(function (button) {
     button.addEventListener('click', function () {
-      openSystem(button.getAttribute('data-system-open'), button);
+      var id = button.getAttribute('data-system-open');
+      var panel = panels.find(function (item) { return item.getAttribute('data-system-panel') === id; });
+      if (!panel || dialog.open) return;
+      panels.forEach(function (item) { item.hidden = item !== panel; });
+      dialog.setAttribute('aria-labelledby', 'system-title-' + id);
+      dialog.setAttribute('aria-describedby', 'system-description-' + id);
+      lastTrigger = button;
+      document.documentElement.classList.add('system-modal-open');
+      dialog.showModal();
+      dialog.scrollTop = 0;
+      closeButton.focus({preventScroll: true});
     });
   });
-
-  if (closeButton) closeButton.addEventListener('click', closeSystem);
-  dialog.addEventListener('cancel', function (event) {
-    event.preventDefault();
-    closeSystem();
-  });
+  closeButton.addEventListener('click', function () { dialog.close(); });
+  // Native dialog supplies Escape, focus containment and an inert background.
+  dialog.addEventListener('pointerdown', function (event) { backdropPress = outside(event); });
   dialog.addEventListener('click', function (event) {
-    var rect = dialog.getBoundingClientRect();
-    var outside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
-    if (outside) closeSystem();
+    if (backdropPress && outside(event)) dialog.close();
+    backdropPress = false;
   });
   dialog.addEventListener('close', function () {
     document.documentElement.classList.remove('system-modal-open');
+    panels.forEach(function (item) { item.hidden = true; });
+    if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus({preventScroll: true});
+    lastTrigger = null;
   });
 })();
