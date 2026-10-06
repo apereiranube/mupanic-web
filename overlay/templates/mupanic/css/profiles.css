@@ -9,7 +9,7 @@
 .is-profile .page-title{display:none}
 .is-profile .profile-back{display:inline-flex;align-items:center;min-height:44px;padding:10px 0;border:0;border-bottom:1px solid #ae7a5070;color:#dbaf86;font-size:13px;text-decoration:none;transition:color .2s,border-color .2s}
 .is-profile .profile-back:hover{color:#fff0dd;border-color:#e4ba91}
-.is-profile .profiles_player_card{position:relative;overflow:hidden;padding:34px 40px;border:1px solid #bb89554d;background:linear-gradient(90deg,#101719 28%,#101719b8 64%,#10171940),linear-gradient(0deg,#10171990,#10171960),url('../img/rankings-hall-3b70e4154080.webp') right 55%/cover;color:#fff7e8;box-shadow:0 20px 60px #0003}
+.is-profile .profiles_player_card{position:relative;overflow:hidden;padding:28px 34px;border:1px solid #bb89554d;background:linear-gradient(90deg,#101719 28%,#101719b8 64%,#10171940),linear-gradient(0deg,#10171990,#10171960),url('../img/rankings-hall-3b70e4154080.webp') right 55%/cover;color:#fff7e8;box-shadow:0 20px 60px #0003}
 .profiles_player_card::before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(#d9ab7d,#745030)}
 .profiles_player_content{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:0 26px}
 .profile-identity-label{order:-2;flex:0 0 100%;font-size:10px;letter-spacing:.17em;color:#c59b72;margin-bottom:20px}
@@ -24,19 +24,19 @@
 .profile-presence.is-online{color:#b8d1ae;border-color:#9bbd7840}
 .profile-presence.is-online::before{background:#9cbe82;box-shadow:0 0 10px #9cbe8250}
 .profile-sections{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:22px;margin-top:24px}
-.profile-sections section{position:relative;padding:26px 28px;background:linear-gradient(140deg,#182022,#101719);border:1px solid #bb895535;min-width:0}
+.profile-sections section{position:relative;padding:22px 26px;background:linear-gradient(140deg,#182022,#101719);border:1px solid #bb895535;min-width:0}
 .is-profile .profile-sections h2{font:500 29px/1.2 var(--display);color:#eee2cf;margin:0 0 6px}
-.profile-section-copy{color:#9da7a3;font-size:12px;line-height:1.6;margin:0 0 22px}
+.profile-section-copy{color:#9da7a3;font-size:12px;line-height:1.6;margin:0 0 18px}
 .profile-progress{grid-column:1/-1}
 .profile-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:0}
 .profile-progress .profile-values{grid-template-columns:repeat(4,minmax(0,1fr))}
-.profile-value{padding:18px 20px;border-top:1px solid #b8885430;min-width:0}
+.profile-value{padding:14px 18px;border-top:1px solid #b8885430;min-width:0}
 .profile-value dt{color:#a9b0a8;font-size:12px;font-weight:400;margin-bottom:8px}
 .profile-value dd{font:500 26px/1.25 var(--body);font-variant-numeric:tabular-nums;color:#f1e8d8;margin:0;overflow-wrap:anywhere}
 .profile-progress .profile-value{padding:8px 28px 5px;border-top:0;border-left:1px solid #bc8c5440}
 .profile-progress .profile-value:first-child{padding-left:0;border-left:0}
 .profile-progress .profile-value dt{color:#c4ad94;letter-spacing:.04em}
-.profile-progress dd{font:500 clamp(38px,4vw,54px)/1.1 var(--display);color:#e3b789}
+.profile-progress dd{font:500 clamp(38px,4vw,48px)/1.1 var(--display);color:#e3b789}
 .profile-details .profile-value dd{font-size:19px}
 .is-profile .profile-value a{color:#e3b789;text-decoration:none;border-bottom:1px solid #b8885460;padding-bottom:3px}
 .is-profile .profile-value a:hover{color:#fff0dd;border-color:#e3b789}
