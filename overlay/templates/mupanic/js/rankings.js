@@ -76,7 +76,7 @@
     let scoreIndex = -1;
     for (const group of metricGroups) { scoreIndex = columns.findIndex(x => group.includes(x)); if (scoreIndex >= 0) break; }
     if (nameIndex >= 0 && scoreIndex >= 0 && rows.length) {
-        const podium = make('div','rankings-podium'); podium.setAttribute('aria-label','Primeros puestos del ranking completo');
+        const podium = make('div','rankings-podium'); podium.dataset.leaders=String(Math.min(3,rows.length)); podium.setAttribute('aria-label','Primeros puestos del ranking completo');
         rows.slice(0,3).forEach(row => {
             const place = row.querySelector('.rankings-table-place');
             if (!place) return;
@@ -98,7 +98,7 @@
             const heading = make('div','rankings-stage-heading');
             const activeCategory = menu && menu.querySelector('a.active');
             const copy = make('div');copy.append(make('span','rankings-stage-overline','LOS NOMBRES DE LA CIMA'),make('h2','',activeCategory ? activeCategory.textContent.trim() : 'Líderes del continente'));
-            heading.append(copy,make('span','rankings-stage-note','TOP 3 · RANKING COMPLETO'));stage.append(heading,podium);(menu || table).after(stage);
+            heading.append(copy,make('span','rankings-stage-note',`TOP ${Math.min(3,rows.length)} · RANKING COMPLETO`));stage.append(heading,podium);(menu || table).after(stage);
         }
     }
     // Presentation keeps native cells in place so category-specific data stays intact.
