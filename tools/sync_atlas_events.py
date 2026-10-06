@@ -6,6 +6,7 @@ from atlas_events import build_events
 def sources(root):
  paths=list((root/'Data/Event').rglob('*.dat'))+list((root/'Data/EventItemBag').rglob('*.txt'))
  paths.extend(root/p for p in ('GameServer/Data/GameServerInfo - Event.dat','Data/EventItemBagManager.txt'))
+ paths.extend(root/p for p in ('GameServer/Data/GameServerInfo - Custom.dat','Data/Custom/CustomArena.txt','Data/Custom/CustomEventDrop.txt') if (root/p).is_file())
  if any(not p.is_file() for p in paths):raise ValueError('Missing public event sources')
  return sorted(set(paths))
 

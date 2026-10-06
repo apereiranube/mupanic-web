@@ -8,7 +8,7 @@ A small first-paint bootstrap selects the initial chapter before the late snapsh
 
 ## Events and verified scope
 
-Administrator export `MU_PANIC_EVENTOS_20261006_105011.zip` supplied on 6 October contains 198 event/reward files. The allowlisted event parser finds 37 catalogue entries, 32 enabled: classic events, custom contests, conditional boss instances, nine scheduled invasions and six staff events. Disabled entries stay out of the active catalogue. Silver Invasions has a definition but no matching schedule and is not announced as scheduled. CustomArena activation is not present in the supplied files, so its file alone is not treated as an active system.
+Administrator export `MU_PANIC_EVENTOS_20261006_105011.zip` supplied on 6 October contains 198 event/reward files. The allowlisted event parser finds 37 core catalogue entries, 32 enabled: classic events, custom contests, conditional boss instances, nine scheduled invasions and six staff events. Disabled entries stay out of the active catalogue. Silver Invasions has a definition but no matching schedule and is not announced as scheduled. Eight CustomArena entries and Lluvia de Premios are also parsed, but their activation file is absent from this ZIP, so their presence alone does not mark them active. The first VPS upload reads the two allowlisted switches from `GameServerInfo - Custom.dat` and automatically adds them if enabled, without another ZIP.
 
 `public-events.json` contains only public activation, schedule patterns (including wildcard hours and Windows weekdays), configured durations, reward IDs/item summaries/coin values, map and monster IDs. Original ZIP/configuration, addresses, credentials and processes are never published. Caza del Maldito is the administrator-confirmed public alias for Pandora; aliases and explanations are editorial, activation/times/rewards are configuration. These flags indicate enabled configuration, not a live GameServer state or a successfully reloaded configuration.
 
@@ -30,3 +30,5 @@ Prompt set: original cinematic medieval dark fantasy in charcoal, burnished copp
 Validation uses the actual guide, header, navigation, portrait assets and current snapshot via PHP fixture. CI checks desktop/tablet/mobile, chapter navigation, filters, map selection, account rates, reward set search, event closing/focus, modal fit, reward links across filters, workshop, no-JS fallback, image paths and page overflow. Shared-style regressions cover Systems, Rankings and Profiles.
 
 Additional original concept art: `pvp-arena.webp` depicts a dark copper dueling arena; `imperial-temple.webp` depicts an obsidian temple with an amber relic. No embedded text or UI.
+
+CustomArena/CustomEventDrop activation and table interpretation follow Louis UP42 documentation (`https://www.jogandomu.com.br/louisup42/`); actual exported column counts are checked. The whole Custom.dat is never published; only the two activation switches influence catalogue output.

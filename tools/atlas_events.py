@@ -61,6 +61,9 @@ def build_events(archive):
  key='GameServer/Data/GameServerInfo - Event.dat'
  if key not in members:raise ValueError('Missing event activation configuration')
  settings={k:int(v) for k,v in re.findall(r'^\s*(\w+)\s*=\s*(-?\d+)',read(key),re.M)}
+ custom_key='GameServer/Data/GameServerInfo - Custom.dat'
+ if custom_key in members:
+  for k,v in re.findall(r'^\s*(CustomArenaSwitch|CustomEventDropSwitch)\s*=\s*(-?\d+)',read(custom_key),re.M):settings[k]=int(v)
  def data(file):
   p='Data/Event/'+file+'.dat'
   return sections(read(p)) if p in members else {}
@@ -120,6 +123,20 @@ def build_events(archive):
   rewards=[coins] if any(coins) else []
   if eid=='kill-all':rewards=[[settings.get(prefix+'AutoReward'+str(i)+'Rank'+str(rank),0) for i in (1,2,3)] for rank in (1,2,3)]
   events.append(dict(id=eid,name=name,enabled=settings.get(flag)==1,group='staff',mode='manual',schedule=[],durationMinutes=settings.get(prefix+'MaxTime',0),coins=[c for c in rewards if any(c)],bags=[],items=[],itemCount=0,maps=[],monsters=[]))
+ # Optional custom activation file is read by the VPS publisher, not guessed from filenames.
+ for file,flag,prefix in [('CustomArena','CustomArenaSwitch','arena-'),('CustomEventDrop','CustomEventDropSwitch','event-drop-')]:
+  path='Data/Custom/'+file+'.txt'
+  if path not in members:continue
+  d=sections(read(path))
+  for row in d.get(1,[]):
+   if len(row)!=(26 if file=='CustomArena' else 8):raise ValueError('Unsupported custom event layout')
+   idx=int(row[0]);times=schedule([r for r in d.get(0,[]) if int(r[0])==idx],True)
+   item_names=[]
+   for line in read(path).splitlines():
+    code,_,comment=line.partition('//');values=code.split()
+    if len(values)==(19 if file=='CustomArena' else 5) and values[0]==str(idx) and comment.strip() and len(comment.strip())<100:
+     if comment.strip() not in item_names:item_names.append(comment.strip())
+   events.append(dict(id=prefix+str(idx),name=row[1],enabled=settings.get(flag)==1 and bool(times),group='custom',mode='scheduled',schedule=times,durationMinutes=int(row[4] if file=='CustomArena' else row[7]),coins=[],bags=[],items=item_names[:6],itemCount=len(item_names),maps=[] if file=='CustomArena' else [int(row[2])],monsters=[]))
  inv=data('InvasionManager')
  for row in inv.get(1,[]):
   if len(row)!=8:raise ValueError('Unsupported invasion layout')
@@ -129,7 +146,7 @@ def build_events(archive):
   bags=sorted({b for m in mobs for b in bag_monsters.get(m,[])})
   names,total=item_summary(bags)
   events.append(dict(id='invasion-'+str(idx),name=row[1],enabled=settings.get('InvasionManagerSwitch')==1 and bool(times and maps and mobs),group='invasion',mode='scheduled' if times else 'access',schedule=times,durationMinutes=int(row[6])/60,coins=[],bags=bags,items=names,itemCount=total,maps=maps,monsters=mobs))
- sources=sorted(p for p in members if p==key or p=='Data/EventItemBagManager.txt' or p.startswith(('Data/Event/','Data/EventItemBag/')))
+ sources=sorted(p for p in members if p in (key,custom_key,'Data/Custom/CustomArena.txt','Data/Custom/CustomEventDrop.txt','Data/EventItemBagManager.txt') or p.startswith(('Data/Event/','Data/EventItemBag/')))
  h=hashlib.sha256()
  for p in sources:h.update(p.encode());h.update(b'\0');h.update(z.read(members[p]))
  return dict(schemaVersion=1,generatedAt=datetime.now(timezone.utc).isoformat(),sourceHash=h.hexdigest(),timezone='America/Argentina/Buenos_Aires',events=events)

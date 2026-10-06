@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T14:09:06.024047+00:00",
-  "sourceHash": "d93bf4b45908f574fa1036caf655e0836b7743623ad105c7aca90b5406d94fb0",
+  "generatedAt": "2026-10-06T14:21:35.577743+00:00",
+  "sourceHash": "fae80c1093cafe099595b2078a16d1bc4702ad5e86cd7e70ce333c2fe3322c52",
   "timezone": "America/Argentina/Buenos_Aires",
   "events": [
     {
@@ -1205,6 +1205,251 @@
       "items": [],
       "itemCount": 0,
       "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-0",
+      "name": "SURVIVOR",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          -1,
+          -1,
+          10,
+          0
+        ]
+      ],
+      "durationMinutes": 1,
+      "coins": [],
+      "bags": [],
+      "items": [
+        "Box +5"
+      ],
+      "itemCount": 1,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-1",
+      "name": "DMxDM",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          7,
+          17,
+          0,
+          0
+        ]
+      ],
+      "durationMinutes": 5,
+      "coins": [],
+      "bags": [],
+      "items": [],
+      "itemCount": 0,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-2",
+      "name": "GMxGM",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          7,
+          17,
+          20,
+          0
+        ]
+      ],
+      "durationMinutes": 5,
+      "coins": [],
+      "bags": [],
+      "items": [],
+      "itemCount": 0,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-3",
+      "name": "BMxBM",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          7,
+          17,
+          40,
+          0
+        ]
+      ],
+      "durationMinutes": 5,
+      "coins": [],
+      "bags": [],
+      "items": [],
+      "itemCount": 0,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-4",
+      "name": "FMxFM",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          7,
+          18,
+          0,
+          0
+        ]
+      ],
+      "durationMinutes": 5,
+      "coins": [],
+      "bags": [],
+      "items": [],
+      "itemCount": 0,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-5",
+      "name": "LExLE",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          7,
+          18,
+          20,
+          0
+        ]
+      ],
+      "durationMinutes": 5,
+      "coins": [],
+      "bags": [],
+      "items": [],
+      "itemCount": 0,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-6",
+      "name": "ELFxELF",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          7,
+          18,
+          40,
+          0
+        ]
+      ],
+      "durationMinutes": 5,
+      "coins": [],
+      "bags": [],
+      "items": [],
+      "itemCount": 0,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "arena-7",
+      "name": "SUMxSUM",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          7,
+          19,
+          0,
+          0
+        ]
+      ],
+      "durationMinutes": 5,
+      "coins": [],
+      "bags": [],
+      "items": [],
+      "itemCount": 0,
+      "maps": [],
+      "monsters": []
+    },
+    {
+      "id": "event-drop-0",
+      "name": "Lluvia de Premios",
+      "enabled": false,
+      "group": "custom",
+      "mode": "scheduled",
+      "schedule": [
+        [
+          -1,
+          -1,
+          -1,
+          -1,
+          19,
+          0,
+          0
+        ],
+        [
+          -1,
+          -1,
+          -1,
+          -1,
+          23,
+          0,
+          0
+        ]
+      ],
+      "durationMinutes": 3,
+      "coins": [],
+      "bags": [],
+      "items": [
+        "Jewel of Chaos",
+        "Jewel of Bless",
+        "Jewel of Soul",
+        "Jewel of Life",
+        "Box of Kundun +1",
+        "Box of Kundun +2"
+      ],
+      "itemCount": 6,
+      "maps": [
+        0
+      ],
       "monsters": []
     },
     {

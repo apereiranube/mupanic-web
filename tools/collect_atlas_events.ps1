@@ -13,7 +13,7 @@ if (Test-Path -LiteralPath $atlasEventBags) {
     Get-ChildItem -LiteralPath $atlasEventBags -Recurse -File -Filter '*.txt' |
         ForEach-Object { $atlasEventFiles[$_.FullName] = $_ }
 }
-foreach ($relative in @('GameServer\Data\GameServerInfo - Event.dat','Data\EventItemBagManager.txt','Data\Custom\CustomArena.txt','Data\Custom\CustomEventDrop.txt','Data\MonsterSetBase\Invasion\InvasionSetBase.txt')) {
+foreach ($relative in @('GameServer\Data\GameServerInfo - Custom.dat','GameServer\Data\GameServerInfo - Event.dat','Data\EventItemBagManager.txt','Data\Custom\CustomArena.txt','Data\Custom\CustomEventDrop.txt','Data\MonsterSetBase\Invasion\InvasionSetBase.txt')) {
     $atlasEventPath = Join-Path $ServerRoot $relative
     if (Test-Path -LiteralPath $atlasEventPath -PathType Leaf) { $atlasEventFiles[$atlasEventPath] = Get-Item -LiteralPath $atlasEventPath }
 }

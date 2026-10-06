@@ -86,7 +86,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  }
  // A new server catalogue removes disabled events without replacing cached chapter nodes.
  const runtime=fs.mkdtempSync(path.join(os.tmpdir(),'atlas-events-test-'));
- const changed=JSON.parse(JSON.stringify(eventSnapshot));changed.sourceHash='e'.repeat(64);changed.events.find(e=>e.id==='pandora').enabled=false;
+ const changed=JSON.parse(JSON.stringify(eventSnapshot));changed.sourceHash='e'.repeat(64);changed.events.find(e=>e.id==='pandora').enabled=false;changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-')).forEach(e=>e.enabled=true);
  fs.writeFileSync(path.join(runtime,'public-events.json'),JSON.stringify(changed));
  const refreshed=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/atlas-rewards.php')],{encoding:'utf8',env:{...process.env,PANIC_ATLAS_RUNTIME_DIR:runtime},maxBuffer:16e6});
  const live=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),liveErrors=[];
@@ -98,10 +98,11 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  await live.keyboard.press('Escape');await live.clock.fastForward(61000);
  await live.waitForFunction(()=>document.querySelector('#eventos').dataset.eventsVersion==='e'.repeat(64));
  assert.equal(await live.locator('.atlas-event-card [data-atlas-event-open="pandora"]').count(),0);
- assert.equal(await live.locator('.atlas-event-card').count(),enabledEvents.length-1);
- await live.locator('.wiki-nav a[href="#inicio"]').click();await live.locator('.wiki-nav a[href="#eventos"]').click();
+ assert.equal(await live.locator('.atlas-event-card').count(),changed.events.filter(e=>e.enabled).length);
+ await live.locator('.wiki-nav a[href="#inicio"]').click();await live.locator('#inicio').waitFor({state:'visible'});await live.locator('.wiki-nav a[href="#eventos"]').click();await live.locator('#eventos').waitFor({state:'visible'});
  assert.equal(await live.locator('#eventos').isVisible(),true,'Chapter references survive refresh');
  await live.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),true);await live.keyboard.press('Escape');
+ for(const e of changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-'))){await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false);await live.keyboard.press('Escape');}
  assert.deepEqual(liveErrors,[]);await live.close();fs.rmSync(runtime,{recursive:true,force:true});
  // Hold the late app script to verify the first paint without a disappearing header.
  const boot=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),bootErrors=[];

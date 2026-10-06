@@ -22,6 +22,20 @@ class Events(unittest.TestCase):
    original,event=build();self.assertTrue(event['enabled']);self.assertEqual(event['name'],'Caza del Maldito');self.assertEqual(event['schedule'][0][4:6],[19,15])
    flags.write_text('EventPandoraSwitch = 0\nEventPandoraMaxTime = 5');disabled,event=build();self.assertFalse(event['enabled']);self.assertNotEqual(original['sourceHash'],disabled['sourceHash'])
    file.unlink();removed,event=build();self.assertFalse(event['schedule']);self.assertNotEqual(disabled['sourceHash'],removed['sourceHash'])
+ def test_custom_activation_is_never_inferred_from_file_presence(self):
+  with tempfile.TemporaryDirectory() as folder:
+   path=Path(folder)/'custom.zip'
+   def build(flags):
+    with zipfile.ZipFile(path,'w') as z:
+     z.writestr('GameServer/Data/GameServerInfo - Event.dat','EventPandoraSwitch = 0')
+     if flags is not None:z.writestr('GameServer/Data/GameServerInfo - Custom.dat',flags)
+     z.writestr('Data/Custom/CustomArena.txt','0\n0 * * * * * 10 0\nend\n1\n0 "Test Arena" 5 0 1 0 450 1 2 100 * 0 500 * * * * * * 1 1 1 1 1 1 1\nend\n2\n0 7179 12 0 0 0 0 0 0 0 0 255 255 255 255 255 255 0 * // Box +5\nend')
+     z.writestr('Data/Custom/CustomEventDrop.txt','0\n0 * * * * 19 0 0\nend\n1\n0 "Rain" 0 145 135 5 5 3\nend\n2\n0 7181 0 1 0 // Jewel of Bless\nend')
+    return {e['id']:e for e in build_events(path)['events']}
+   self.assertFalse(build(None)['arena-0']['enabled'])
+   on=build('CustomArenaSwitch = 1\nCustomEventDropSwitch = 1')
+   self.assertTrue(on['arena-0']['enabled']);self.assertEqual(on['arena-0']['schedule'][0][4:6],[-1,10]);self.assertEqual(on['arena-0']['items'],['Box +5']);self.assertTrue(on['event-drop-0']['enabled']);self.assertEqual(on['event-drop-0']['durationMinutes'],3)
+   self.assertFalse(build('CustomArenaSwitch = 0\nCustomEventDropSwitch = 0')['event-drop-0']['enabled'])
  def test_signed_receiver_rejects_bad_data_preserves_last_snapshot(self):
   snapshot=json.loads((BASE/'inc/public-events.json').read_text());snapshot['generatedAt']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
   with tempfile.TemporaryDirectory() as folder:
