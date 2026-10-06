@@ -26,6 +26,7 @@ on:
       - 'overlay/templates/mupanic/css/atlas.css'
       - 'overlay/templates/mupanic/css/style.css'
       - 'overlay/templates/mupanic/inc/atlas-*.php'
+      - 'overlay/templates/mupanic/inc/atlas-event-guides.json'
       - 'overlay/templates/mupanic/inc/atlas-territories.json'
       - 'overlay/templates/mupanic/inc/atlas-assets.json'
       - 'overlay/templates/mupanic/img/atlas/monsters/**'
@@ -121,3 +122,9 @@ jobs:
         with:
           name: atlas-drop-catalogue
           path: atlas-screenshots/atlas-drops-*.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-event-guides
+          path: atlas-screenshots/atlas-event*.png

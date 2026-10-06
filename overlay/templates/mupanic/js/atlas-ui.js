@@ -43,11 +43,20 @@
   });
   dialog.addEventListener('keydown', function (event) {
     if (event.key !== 'Tab') return;
-    var controls = Array.from(dialog.querySelectorAll('button,a[href]')).filter(function (item) { return item.getClientRects().length; });
+    var controls = Array.from(dialog.querySelectorAll('button,a[href],select,input')).filter(function (item) { return item.getClientRects().length; });
     var first = controls[0], last = controls[controls.length-1];
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
     else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
+  function changeTier(event) {
+    if (!event.target.matches('[data-event-tier-select]')) return;
+    var rewards = event.target.closest('.atlas-event-rewards');
+    rewards.querySelectorAll('[data-event-tier]').forEach(function (tier) {
+      tier.toggleAttribute('data-tier-active', tier.dataset.eventTier === event.target.value);
+    });
+  }
+  dialog.addEventListener('change', changeTier);
+  wiki.addEventListener('change', changeTier);
   wiki.addEventListener('click', function (event) {
     var button=event.target.closest('[data-atlas-event-open]');
     if(button){event.preventDefault();openEvent(button.getAttribute('data-atlas-event-open'),button);}
@@ -78,7 +87,7 @@
   }
   function updateAgenda(){
     var section=wiki.querySelector('#eventos'),data=JSON.parse(section.querySelector('[data-event-data]').textContent),now=new Date();
-    var entries=data.events.filter(function(e){return e.enabled&&e.schedule.length;}).map(function(e){return {event:e,date:nextOccurrence(e.schedule,now)};}).filter(function(e){return e.date;}).sort(function(a,b){return a.date-b.date;}).slice(0,6);
+    var entries=data.events.filter(function(e){return e.enabled&&e.mode==='scheduled'&&e.schedule.length;}).map(function(e){return {event:e,date:nextOccurrence(e.schedule,now)};}).filter(function(e){return e.date;}).sort(function(a,b){return a.date-b.date;}).slice(0,6);
     var holder=section.querySelector('[data-event-upcoming]');holder.replaceChildren();
     entries.forEach(function(entry){var row=document.createElement('a');row.className='atlas-next-event';row.href='#evento-'+entry.event.id;row.dataset.atlasEventOpen=entry.event.id;
       var label=document.createElement('span');label.textContent=entry.event.name;var time=document.createElement('time');time.dateTime=entry.date.toISOString();time.textContent=entry.date.toLocaleString('es-AR',{timeZone:data.timezone,weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});row.append(label,time);holder.append(row);});

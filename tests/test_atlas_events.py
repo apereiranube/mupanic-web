@@ -36,6 +36,25 @@ class Events(unittest.TestCase):
    on=build('CustomArenaSwitch = 1\nCustomEventDropSwitch = 1')
    self.assertTrue(on['arena-0']['enabled']);self.assertEqual(on['arena-0']['schedule'][0][4:6],[-1,10]);self.assertEqual(on['arena-0']['items'],['Box +5']);self.assertTrue(on['event-drop-0']['enabled']);self.assertEqual(on['event-drop-0']['durationMinutes'],3)
    self.assertFalse(build('CustomArenaSwitch = 0\nCustomEventDropSwitch = 0')['event-drop-0']['enabled'])
+ def test_manual_arenas_keep_activation_and_stable_identity(self):
+  with tempfile.TemporaryDirectory() as folder:
+   archive=Path(folder)/'manual.zip'
+   def build(enabled,name='Arena MG',calendar=''):
+    with zipfile.ZipFile(archive,'w') as z:
+     z.writestr('GameServer/Data/GameServerInfo - Event.dat','')
+     z.writestr('GameServer/Data/GameServerInfo - Custom.dat','CustomArenaSwitch = '+str(enabled))
+     z.writestr('Data/Custom/CustomArena.txt','0\n; old schedule is intentionally absent\n'+calendar+'end\n1\n1 "'+name+'" 10 0 5 0 451 1 4 100 * 0 400 * * * * * * 0 0 0 1 0 0 0\nend\n2\nend')
+    return next(e for e in build_events(archive)['events'] if e['id']=='arena-1')
+   manual=build(1);self.assertTrue(manual['enabled']);self.assertEqual(manual['mode'],'manual');self.assertEqual(manual['schedule'],[]);self.assertEqual(manual['durationMinutes'],5)
+   self.assertFalse(build(0)['enabled'])
+   renamed=build(1,'Arena; nueva');self.assertEqual(renamed['id'],manual['id']);self.assertEqual(renamed['name'],'Arena; nueva')
+   scheduled=build(1,calendar='1 * * * * 19 0 0\n');self.assertEqual(scheduled['mode'],'scheduled')
+ def test_editorial_has_no_activation_or_agenda(self):
+  editorial=json.loads((BASE/'inc/atlas-event-guides.json').read_text())
+  for guide in editorial['guides'].values():
+   self.assertFalse({'schedule','horarios','enabled','habilitado','mode','modalidad'} & guide.keys())
+  self.assertEqual(editorial['guides']['arena-0']['tiers'][0]['rewards'][0]['label'],'5 × Kundun +5')
+  self.assertIn('pendientes',editorial['guides']['arena-0']['validation'])
  def test_signed_receiver_rejects_bad_data_preserves_last_snapshot(self):
   snapshot=json.loads((BASE/'inc/public-events.json').read_text());snapshot['generatedAt']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
   with tempfile.TemporaryDirectory() as folder:

@@ -146,6 +146,17 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
    assert.equal(await modal.evaluate(el=>el.getBoundingClientRect().width<=innerWidth),true);
    if(width>=1024){assert.equal(await modal.evaluate(el=>el.scrollHeight>el.clientHeight+1),false,'Desktop modal overflow '+id+' '+width);assert.ok((await modal.boundingBox()).height<=height*.85);}
    if(id==='blood-castle'&&[1920,390].includes(width))await shot(page,'atlas-event-modal-'+width);
+   const tierSelect=modal.locator('[data-event-tier-select]');
+   if(await tierSelect.count()){
+    const options=await tierSelect.locator('option').evaluateAll(options=>options.map(o=>o.value));
+    for(const value of options){
+     await tierSelect.selectOption(value);
+     assert.equal(await modal.locator('[data-event-tier]:visible').count(),1,'Only selected reward category is visible');
+     if(width>=1024)assert.equal(await modal.evaluate(el=>el.scrollHeight>el.clientHeight+1),false,'Tier overflow '+id+' '+value+' '+width);
+    }
+    if(['blood-castle','illusion-temple'].includes(id)&&[1920,390].includes(width))await shot(page,'atlas-event-tiers-'+id+'-'+width);
+   }
+   if(['pandora','invasion-8'].includes(id)&&[1920,390].includes(width))await shot(page,'atlas-event-guide-'+id+'-'+width);
    if(id==='pandora'){assert.ok((await modal.textContent()).includes('19:15'));await page.keyboard.press('Escape');}
    else if(id==='blood-castle')await modal.locator('[data-atlas-event-close]').click();
    else await page.mouse.click(3,3);
@@ -203,7 +214,8 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  await live.locator('.wiki-nav a[href="#inicio"]').click();await live.locator('#inicio').waitFor({state:'visible'});await live.locator('.wiki-nav a[href="#eventos"]').click();await live.locator('#eventos').waitFor({state:'visible'});
  assert.equal(await live.locator('#eventos').isVisible(),true,'Chapter references survive refresh');
  await live.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),true);await live.keyboard.press('Escape');
- for(const e of changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-'))){await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false);await live.keyboard.press('Escape');}
+ assert.equal(await live.locator('[data-event-upcoming] [data-atlas-event-open^="arena-"]').count(),0,'Manual competitions never join the agenda');
+ for(const e of changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-'))){await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false);if(e.id.startsWith('arena-'))assert.ok((await live.locator('[data-atlas-event-dialog]').textContent()).includes('Fecha a anunciar'));if(e.id==='arena-0')await shot(live,'atlas-event-guide-survivor-1920');await live.keyboard.press('Escape');}
  assert.deepEqual(liveErrors,[]);await live.close();fs.rmSync(runtime,{recursive:true,force:true});
  // Hold the late app script to verify the first paint without a disappearing header.
  const boot=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),bootErrors=[];

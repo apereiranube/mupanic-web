@@ -22,7 +22,7 @@ def main():
  if len(token)<32:raise ValueError('Private token is not configured')
  state=args.token_file.parent/'last-events-success.json';paths=sources(args.server_root);fingerprint=digest(paths,args.server_root)
  old=json.loads(state.read_text(encoding='utf-8')) if state.exists() else {}
- if old.get('sourceHash')==fingerprint and old.get('exporterVersion')==1 and not args.force:print('Events unchanged. Last published catalogue remains active.');return
+ if old.get('sourceHash')==fingerprint and old.get('exporterVersion')==2 and not args.force:print('Events unchanged. Last published catalogue remains active.');return
  with tempfile.TemporaryDirectory(prefix='panic-events-') as folder:
   archive=Path(folder)/'sources.zip'
   with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED) as z:
@@ -34,7 +34,7 @@ def main():
   request=urllib.request.Request(args.url,data=body,method='POST',headers={'Content-Type':'application/json','X-Panic-Timestamp':stamp,'X-Panic-Signature':signature})
   with urllib.request.urlopen(request,timeout=30) as response:
    if response.status!=200 or json.load(response).get('message')!='Snapshot updated':raise ValueError('Publication was not confirmed')
- tmp=state.with_suffix('.tmp');tmp.write_text(json.dumps({'sourceHash':fingerprint,'exporterVersion':1,'publishedAt':stamp}),encoding='utf-8');tmp.replace(state)
+ tmp=state.with_suffix('.tmp');tmp.write_text(json.dumps({'sourceHash':fingerprint,'exporterVersion':2,'publishedAt':stamp}),encoding='utf-8');tmp.replace(state)
  print('Events published:',sum(e['enabled'] for e in catalogue['events']),'enabled. Game configuration and processes were not changed.')
 
 if __name__=='__main__':

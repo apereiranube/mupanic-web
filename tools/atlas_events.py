@@ -31,7 +31,7 @@ MANUAL=[('quickly','Quickly','QuicklyEvent'),('hide-and-seek','Hide and Seek','E
 def sections(text):
  result={}; section=None
  for line in text.splitlines():
-  code=line.split('//',1)[0].strip()
+  code=re.sub(r'("[^"]*")|//.*|;.*',lambda m:m[1] or '',line).strip()
   if not code:continue
   if code.lower()=='end':section=None;continue
   row=shlex.split(code)
@@ -136,7 +136,7 @@ def build_events(archive):
     code,_,comment=line.partition('//');values=code.split()
     if len(values)==(19 if file=='CustomArena' else 5) and values[0]==str(idx) and comment.strip() and len(comment.strip())<100:
      if comment.strip() not in item_names:item_names.append(comment.strip())
-   events.append(dict(id=prefix+str(idx),name=row[1],enabled=settings.get(flag)==1 and bool(times),group='custom',mode='scheduled',schedule=times,durationMinutes=int(row[4] if file=='CustomArena' else row[7]),coins=[],bags=[],items=item_names[:6],itemCount=len(item_names),maps=[] if file=='CustomArena' else [int(row[2])],monsters=[]))
+   events.append(dict(id=prefix+str(idx),name=row[1],enabled=settings.get(flag)==1 and (file=='CustomArena' or bool(times)),group='staff' if file=='CustomArena' and not times else 'custom',mode='manual' if file=='CustomArena' and not times else 'scheduled',schedule=times,durationMinutes=int(row[4] if file=='CustomArena' else row[7]),coins=[],bags=[],items=item_names[:6],itemCount=len(item_names),maps=[] if file=='CustomArena' else [int(row[2])],monsters=[]))
  inv=data('InvasionManager')
  for row in inv.get(1,[]):
   if len(row)!=8:raise ValueError('Unsupported invasion layout')
