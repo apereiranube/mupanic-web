@@ -27,6 +27,8 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.equal(await page.locator('.wiki-intro').count(),0);
   assert.equal(await page.locator('.wiki-section:visible').count(),1);
   assert.equal(await page.locator('.atlas-home-card').count(),4);
+  assert.equal(await page.locator('.atlas-basics').count(),0);
+  const artSizes=await page.locator('.atlas-home-art').evaluateAll(arts=>arts.map(a=>({w:a.clientWidth,h:a.clientHeight})));assert.equal(new Set(artSizes.map(a=>a.w+'x'+a.h)).size,1,'Home artwork has four matching frames');
   assert.equal(await page.locator('.atlas-boot').count(),0);
   assert.equal(await page.evaluate(()=>scrollY),0,'Fresh Atlas visit keeps the hero in view');
   if(width<=900){assert.equal(await page.locator('.main-nav').isVisible(),false,'Mobile navigation is collapsed');await page.locator('.menu-toggle').click();assert.equal(await page.locator('.main-nav').isVisible(),true);await page.keyboard.press('Escape');assert.equal(await page.locator('.main-nav').isVisible(),false);}
