@@ -24,6 +24,8 @@ on:
       - 'overlay/templates/mupanic/inc/atlas-territories.json'
       - 'overlay/templates/mupanic/inc/atlas-assets.json'
       - 'overlay/templates/mupanic/img/atlas/monsters/**'
+      - 'overlay/templates/mupanic/img/atlas/rewards/**'
+      - 'tools/atlas-reward-image-sources.json'
       - 'tools/atlas-web-portrait-sources.json'
       - 'overlay/templates/mupanic/img/atlas/territories/**'
       - 'overlay/templates/mupanic/inc/guide.php'
@@ -90,3 +92,11 @@ jobs:
         with:
           name: atlas-screenshots
           path: atlas-screenshots/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-reward-images
+          path: |
+            atlas-screenshots/atlas-all-rewards-*.png
+            atlas-screenshots/atlas-box-rewards-*.png
+            atlas-screenshots/atlas-event-rewards-*.png

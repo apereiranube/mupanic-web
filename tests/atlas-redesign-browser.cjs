@@ -84,6 +84,18 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.locator('#mapa-2').locator('[data-map-close]').click();await page.locator('#mapa-2>summary').focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),true,'Keyboard opens territory');await page.keyboard.press('Enter');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),false);
 
   await page.locator('.wiki-nav a[href="#recompensas"]').click();
+  const rewards=page.locator('[data-reward-list]');
+  assert.equal(await rewards.count(),171);
+  assert.equal(await rewards.locator('summary img').count(),171,'Every reward card has an image');
+  await rewards.locator('summary img').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));});
+  assert.equal(await rewards.locator('summary img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true,'All reward images decode without clicking or reloading');
+  await noOverflow(page,'all-rewards');
+  if([1920,390].includes(width)){await page.locator('#recompensas').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-all-rewards-'+width);}
+  for(const kind of ['box','event']){
+   await page.locator('[data-reward-kind="'+kind+'"]').click();
+   assert.equal(await page.locator('[data-reward-list]:visible').count(),await page.locator('[data-reward-list]:visible summary img').count(),'Filtered cards retain their images');
+   if([1920,390].includes(width)){await page.locator('#recompensas').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-'+kind+'-rewards-'+width);}
+  }
   await page.locator('[data-reward-kind="boss"]').click();
   assert.ok(await page.locator('[data-reward-list]:visible').count()>0);
   assert.equal(await page.locator('[data-reward-list][data-reward-type="box"]:visible').count(),0);
