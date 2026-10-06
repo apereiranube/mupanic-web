@@ -27,9 +27,9 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
    if(mode==='unknown')assert.ok((await page.locator('.profile-details').textContent()).includes('Custom metric123'));
    const metrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,title:document.querySelector('h1').getBoundingClientRect().top,header:document.querySelector('.site-header').getBoundingClientRect().bottom,bottom:document.querySelector('.profile-sections').getBoundingClientRect().bottom,bg:getComputedStyle(document.body).backgroundColor}));
    assert.equal(metrics.overflow,false,'No horizontal overflow '+width);assert.ok(metrics.title>=metrics.header,'Heading visible');assert.equal(metrics.bg,'rgb(11, 16, 18)');
-   if(width===1920)assert.ok(metrics.bottom<1080,'Profile fits desktop viewport');
-   assert.deepEqual(errors,[]);
    if(output&&mode==='online'&&[1920,390,320].includes(width))await page.screenshot({path:path.join(output,`profile-${width}.png`),fullPage:true});
+   if(width===1920)assert.ok(metrics.bottom<1080,'Profile fits desktop viewport '+JSON.stringify(metrics));
+   assert.deepEqual(errors,[]);
    await page.close();console.log('PASS profile',mode,width);
   }
  }
