@@ -37,6 +37,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.deepEqual(await page.locator('[data-recipe-account] option').evaluateAll(options=>options.map(o=>o.value)),['0','1']);
   assert.equal(await page.locator('#rates tbody').first().locator('tr').count(),2);
   await noOverflow(page,'home');if([1920,390].includes(width))await shot(page,'atlas-home-'+width);
+  if(output&&[1920,390].includes(width))await page.locator('.atlas-home-grid').screenshot({path:path.join(output,'atlas-home-grid-'+width+'.png')});
   await page.locator('.wiki-nav a[href="#progresion"]').click();
   assert.equal(await page.locator('#progresion .wiki-map').count(),30);
   await page.locator('[data-map-filter]').fill('Lorencia');
