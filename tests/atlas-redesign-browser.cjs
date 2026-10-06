@@ -99,6 +99,20 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.goto('https://atlas.test/info/#taller');await page.locator('#taller .recipe-reference summary').click();await page.locator('#taller .recipe-reference').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await noOverflow(page,'recipe reference');if([1920,390].includes(width))await shot(page,'atlas-recipe-rates-'+width);
   assert.deepEqual(errors,[]);await page.close();console.log('PASS redesigned Atlas',width);
  }
+ // Hover must keep artwork edges stable throughout the normal transition.
+ const hover=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'no-preference'}),hoverErrors=[];
+ await setup(hover,hoverErrors);await hover.goto('https://atlas.test/info/');await hover.evaluate(()=>document.fonts.ready);
+ for(const card of await hover.locator('.atlas-home-card').all()){
+  await card.evaluate(el=>el.scrollIntoView({block:'center',behavior:'instant'}));await hover.mouse.move(0,0);await hover.waitForTimeout(250);
+  const art=card.locator('.atlas-home-art'),img=art.locator('img'),before=await img.boundingBox();
+  await card.hover();
+  for(const delay of [50,100,400]){
+   await hover.waitForTimeout(delay);const after=await img.boundingBox(),frame=await art.boundingBox();
+   for(const key of ['x','y','width','height']){assert.ok(Math.abs(after[key]-before[key])<.5,'Artwork edge moves on hover: '+key);assert.ok(Math.abs(after[key]-frame[key])<.5,'Artwork must fill its frame: '+key);}
+  }
+ }
+ await hover.locator('.atlas-home-card').first().evaluate(el=>el.scrollIntoView({block:'center',behavior:'instant'}));await hover.locator('.atlas-home-card').first().hover();await hover.waitForTimeout(80);await shot(hover,'atlas-home-hover-1920');
+ assert.deepEqual(hoverErrors,[]);await hover.close();
  // A new server catalogue removes disabled events without replacing cached chapter nodes.
  const runtime=fs.mkdtempSync(path.join(os.tmpdir(),'atlas-events-test-'));
  const changed=JSON.parse(JSON.stringify(eventSnapshot));changed.sourceHash='e'.repeat(64);changed.events.find(e=>e.id==='pandora').enabled=false;changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-')).forEach(e=>e.enabled=true);
