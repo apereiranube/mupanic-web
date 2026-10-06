@@ -17,6 +17,10 @@ on:
       - 'overlay/templates/mupanic/inc/atlas-runtime.php'
       - 'overlay/templates/mupanic/api/atlas-sync.php'
       - 'overlay/templates/mupanic/js/atlas-search.js'
+      - 'overlay/templates/mupanic/js/atlas-drops.js'
+      - 'overlay/templates/mupanic/inc/atlas-drop-items.json'
+      - 'overlay/templates/mupanic/img/atlas/drops/**'
+      - 'tools/atlas-drop-image-sources.json'
       - 'overlay/templates/mupanic/js/main.js'
       - 'overlay/templates/mupanic/css/atlas.css'
       - 'overlay/templates/mupanic/css/style.css'
@@ -56,6 +60,9 @@ jobs:
           node --check overlay/templates/mupanic/js/main.js
           node --check overlay/templates/mupanic/js/atlas-ui.js
           node --check overlay/templates/mupanic/js/atlas-search.js
+          node --check overlay/templates/mupanic/js/atlas-drops.js
+          php -l overlay/templates/mupanic/inc/atlas-drops.php
+          php -l overlay/templates/mupanic/inc/atlas-drop-model.php
           php -l overlay/templates/mupanic/inc/reward-lists.php
           php -l overlay/templates/mupanic/inc/atlas-reward-cards.php
           php -l overlay/templates/mupanic/inc/atlas-events.php
@@ -86,6 +93,7 @@ jobs:
         env:
           ATLAS_SCREENSHOT_DIR: atlas-screenshots
         run: |
+          node tests/atlas-drops-browser.cjs
           node tests/atlas-rewards-browser.cjs
           node tests/atlas-redesign-browser.cjs
       - uses: actions/upload-artifact@v4
@@ -106,3 +114,9 @@ jobs:
         with:
           name: atlas-map-details
           path: atlas-screenshots/atlas-map-*.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-drop-catalogue
+          path: atlas-screenshots/atlas-drops-*.png

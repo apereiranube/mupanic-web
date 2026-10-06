@@ -284,6 +284,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-search.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-search.js'), 0, 12); ?>"></script>
+<?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-drops.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-drops.js'), 0, 12); ?>"></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>community.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/community.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'rankings') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>rankings.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/rankings.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($_REQUEST['page'] === 'profile') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>profiles.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/profiles.js'), 0, 12); ?>"></script><?php } ?>

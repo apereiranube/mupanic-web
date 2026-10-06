@@ -140,10 +140,6 @@
   var mapFilter = wiki.querySelector('[data-map-filter]');
   var mapScope = 'all';
   var mapSort = wiki.querySelector('[data-map-sort]');
-  var dropFilter = wiki.querySelector('[data-drop-filter]');
-  var dropMap = wiki.querySelector('[data-drop-map]');
-  var dropAccount = wiki.querySelector('[data-drop-account]');
-  var dropMonster = wiki.querySelector('[data-drop-monster]');
   function normalize(value) { return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
   function clearSearch() { search.value = ''; results.replaceChildren(); results.hidden = true; searchStatus.textContent = ''; }
   function revealHash() {
@@ -164,7 +160,7 @@
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
       if (target.closest('#progresion')) { mapFilter.value = ''; if (target !== panel) setMapScope('all'); else filterMaps(); }
       if (target.hasAttribute('data-reward-list') && target.closest('#recompensas') && rewardFilter) { rewardKind = ''; rewardFilter.value = ''; filterRewards(); }
-      if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
+      if (panel.id === 'drops') { var dropItem = target.closest('[data-drop-item]'); if (target.hasAttribute('data-drop-row')) dropExplorer.reset(); if (dropItem) dropExplorer.open(dropItem.getAttribute('data-drop-item')); else dropExplorer.back({focus:false}); }
       if (location.hash) requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
     }
   }
@@ -239,36 +235,8 @@
       return Number(a.getAttribute('data-map-index')) - Number(b.getAttribute('data-map-index'));
     }).forEach(function(map) { list.appendChild(map); });
   }
-  function eligible(drop, map) {
-    if (drop.map !== -1 && drop.map !== map.id) return false;
-    var mode = map.equipmentDrop && map.equipmentDrop.dropMode;
-    if (mode !== '*' && mode !== 'unknown' && (Number(mode) & 4) === 0) return false;
-    return map.monsters.some(function (monster) { return monster.level >= drop.min && monster.level <= drop.max && (drop.monster === -1 || monster.id === drop.monster); });
-  }
-  var allMonsters = Array.from(new Map(data.maps.flatMap(function(map) { return map.monsters; }).map(function(m) { return [m.id,m]; })).values()).sort(function(a,b) { return a.name.localeCompare(b.name); });
-  function matchesMonster(drop, monster) { return monster.level >= drop.min && monster.level <= drop.max && (drop.monster === -1 || drop.monster === monster.id); }
-  function updateMonsterOptions() {
-    var selected = dropMonster.value;
-    var map = data.maps.find(function(m) { return String(m.id) === dropMap.value; });
-    dropMonster.replaceChildren(new Option('Todos los monstruos', ''));
-    (map ? map.monsters : allMonsters).forEach(function(m) { dropMonster.add(new Option(m.name, String(m.id))); });
-    dropMonster.value = selected;
-  }
-  updateMonsterOptions();
-  function filterDrops() {
-    var query = normalize(dropFilter.value), account = Number(dropAccount.value);
-    var map = data.maps.find(function (item) { return String(item.id) === dropMap.value; });
-    var monster = allMonsters.find(function(m) { return String(m.id) === dropMonster.value; });
-    var visible = 0;
-    wiki.querySelectorAll('[data-drop-row]').forEach(function (row) {
-      var drop = data.drops[Number(row.getAttribute('data-drop-row'))];
-      row.hidden = !normalize(drop.name).includes(query) || (map && !eligible(drop, map)) || (monster && !matchesMonster(drop, monster));
-      row.querySelector('[data-drop-rate]').textContent = drop.rates[account].toLocaleString('es-AR', {maximumFractionDigits: 6}) + '%';
-      if (!row.hidden) visible++;
-    });
-    wiki.querySelector('[data-account-name]').textContent = data.accounts[account].name;
-    wiki.querySelector('[data-drop-status]').textContent = visible + ' reglas de drop' + (map ? ' compatibles con monstruos de ' + map.name : '') + (monster ? ' · ' + monster.name : '') + (visible ? '' : ' · probá otro objeto o mapa');
-  }
+  var dropExplorer = window.PanicAtlasDrops.create(wiki, data);
+  function filterDrops() { dropExplorer.filter(); }
   mapFilter.addEventListener('input', filterMaps);
   if (mapSort) mapSort.addEventListener('change', sortMaps);
   wiki.querySelectorAll('[data-map-scope]').forEach(function(button) { button.addEventListener('click', function() { setMapScope(button.getAttribute('data-map-scope')); }); });
@@ -284,12 +252,7 @@
     var close = map.querySelector('[data-map-close]');
     if (close) close.addEventListener('click', function() { map.open = false; var summary = map.querySelector('summary'); summary.focus({preventScroll:true}); summary.scrollIntoView({block:'nearest',behavior:'instant'}); });
   });
-  dropFilter.addEventListener('input', filterDrops);
-  dropMap.addEventListener('change', function() { dropMonster.value = ''; updateMonsterOptions(); filterDrops(); });
-  dropMonster.addEventListener('change', filterDrops);
-  dropAccount.addEventListener('change', filterDrops);
-  wiki.querySelectorAll('[data-drop-query]').forEach(function (button) { button.addEventListener('click', function () { dropFilter.value = button.getAttribute('data-drop-query'); filterDrops(); }); });
-  wiki.querySelectorAll('[data-map-drops]').forEach(function (link) { link.addEventListener('click', function () { dropMap.value = link.getAttribute('data-map-drops'); dropFilter.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); if (location.hash === '#drops') revealHash(); }); });
+  wiki.querySelectorAll('[data-map-drops]').forEach(function (link) { link.addEventListener('click', function () { dropExplorer.reset({map:link.getAttribute('data-map-drops')}); if (location.hash === '#drops') revealHash(); }); });
   var finderIndex = window.PanicAtlasSearch.build(data);
   var finderQuery = wiki.querySelector('[data-atlas-query]');
   var finderType = wiki.querySelector('[data-atlas-type]');
@@ -469,7 +432,7 @@
   recipeSearch.addEventListener('input', function () { filterRecipes(true); });
   recipeAccount.addEventListener('change', recipeRates);
   wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.addEventListener('click', function () { recipeGroup = button.getAttribute('data-recipe-group'); filterRecipes(true); }); });
-  wiki.querySelectorAll('[data-material-drop]').forEach(function (link) { link.addEventListener('click', function () { dropFilter.value = link.getAttribute('data-material-drop'); dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); if (location.hash === '#drops') revealHash(); }); });
+  wiki.querySelectorAll('[data-material-drop]').forEach(function (link) { link.addEventListener('click', function () { dropExplorer.reset({query:link.getAttribute('data-material-drop')}); if (location.hash === '#drops') revealHash(); }); });
   data.recipes.forEach(function (recipe) { searchable.push({title: recipe.name, context: 'Taller · ' + recipe.group, text: normalize(recipe.name + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')), hash: '#crear-' + recipe.id}); });
   function updateUpgradePlanner() {
     var account = Number(wiki.querySelector('[data-upgrade-account]').value);

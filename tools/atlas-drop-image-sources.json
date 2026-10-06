@@ -1,0 +1,452 @@
+{
+  "6159-0": {
+    "url": "https://mu.lv/img/item/7x112mc.webp?14232",
+    "hash": "cd8d6cb459d68d48ada7bc2131ee19d53ec1c4d0d48197453d9d0be8e53e6ed0",
+    "name": "Jewel of Chaos",
+    "size": [
+      150,
+      285
+    ],
+    "file": "img/atlas/drops/6159-0-cd8d6cb459d6.webp",
+    "width": 108,
+    "height": 243,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6214-0": {
+    "url": "https://mureforge.com/item-images/12/70.webp",
+    "hash": "4292d8890a9d534aa2851b039ee26ec36dc976198285c70619016abf62b367a4",
+    "name": "Sphere (Mono)",
+    "size": [
+      32,
+      32
+    ],
+    "file": "img/atlas/drops/6214-0-4292d8890a9d.webp",
+    "width": 20,
+    "height": 23,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6215-0": {
+    "url": "https://mureforge.com/item-images/12/71.webp",
+    "hash": "5aaaa013cf4190713a7a8d4e51216ba8f5ee232213518333c541ccb72184a3d5",
+    "name": "Sphere (Di)",
+    "size": [
+      32,
+      32
+    ],
+    "file": "img/atlas/drops/6215-0-5aaaa013cf41.webp",
+    "width": 20,
+    "height": 31,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6216-0": {
+    "url": "https://mureforge.com/item-images/12/72.webp",
+    "hash": "24522bb273ab8e68f927d795f5c1ba2d17746a57fad6b23728202ddaf71acaee",
+    "name": "Sphere (Tri)",
+    "size": [
+      32,
+      32
+    ],
+    "file": "img/atlas/drops/6216-0-24522bb273ab.webp",
+    "width": 32,
+    "height": 31,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6670-0": {
+    "url": "https://bless.gs/images/items/13-14.webp",
+    "hash": "e5ff1cefedb4e0639128a3ab6541cd7db5c4c424025f79f2bfe6b6411ebe14c9",
+    "name": "Loch's Feather",
+    "size": [
+      16,
+      66
+    ],
+    "file": "img/atlas/drops/6670-0-e5ff1cefedb4.webp",
+    "width": 16,
+    "height": 66,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6670-1": {
+    "url": "https://bless.gs/images/items/13-14-1.webp",
+    "hash": "4660626648ab8a814e792a04814cd619540b53461862347e240f76cc8d2b0f0c",
+    "name": "Monarch's Crest",
+    "size": [
+      16,
+      41
+    ],
+    "file": "img/atlas/drops/6670-1-4660626648ab.webp",
+    "width": 16,
+    "height": 41,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6672": {
+    "url": "https://bless.gs/images/items/13-16.webp",
+    "hash": "728cac53721b448f8aaeb2608fb1ac0910749acd831bec91ddaeb5428b686e94",
+    "name": "Scroll of Archangel 1",
+    "size": [
+      37,
+      48
+    ],
+    "file": "img/atlas/drops/6672-728cac53721b.webp",
+    "width": 37,
+    "height": 48,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6673": {
+    "url": "https://bless.gs/images/items/13-17.webp",
+    "hash": "0921cfa9cefdb72c75766da75f298c58bd12d96cadea6ee74d7c291181518fd8",
+    "name": "Blood Bone 1",
+    "size": [
+      20,
+      52
+    ],
+    "file": "img/atlas/drops/6673-0921cfa9cefd.webp",
+    "width": 20,
+    "height": 52,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6687-0": {
+    "url": "https://bless.gs/images/items/13-31.webp",
+    "hash": "4ce92a01991ea0b5b81875549cf3b0f1d4ecf45df9b1f242ac4cfe3820561b21",
+    "name": "Spirit of Dark Horse",
+    "size": [
+      16,
+      37
+    ],
+    "file": "img/atlas/drops/6687-0-4ce92a01991e.webp",
+    "width": 16,
+    "height": 37,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6687-1": {
+    "url": "https://bless.gs/images/items/13-31-1.webp",
+    "hash": "f9bc466a354a937fb04b8d28668b460d428019f44e7ae0a5a66b8f5d74384911",
+    "name": "Spirit of Dark Spirit",
+    "size": [
+      16,
+      37
+    ],
+    "file": "img/atlas/drops/6687-1-f9bc466a354a.webp",
+    "width": 16,
+    "height": 37,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6688-0": {
+    "url": "https://bless.gs/images/items/13-32.webp",
+    "hash": "51adc62c274ca7c28779774d54edb23006853722b9c3f671e7f19a09301c5c6c",
+    "name": "Splinter of Armor",
+    "size": [
+      30,
+      38
+    ],
+    "file": "img/atlas/drops/6688-0-51adc62c274c.webp",
+    "width": 30,
+    "height": 38,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6689-0": {
+    "url": "https://bless.gs/images/items/13-33.webp",
+    "hash": "d9a08f9f9a144ae6243d67179f0043c4db7c34acf1b8f439136812cdd055530b",
+    "name": "Bless of Guardian",
+    "size": [
+      22,
+      27
+    ],
+    "file": "img/atlas/drops/6689-0-d9a08f9f9a14.webp",
+    "width": 22,
+    "height": 27,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6690-0": {
+    "url": "https://bless.gs/images/items/13-34.webp",
+    "hash": "2e407ec3d9deeff2b94a99ab9c97b3ca6661570016b5c8963c2b912268a959ab",
+    "name": "Claw of Beast",
+    "size": [
+      20,
+      28
+    ],
+    "file": "img/atlas/drops/6690-0-2e407ec3d9de.webp",
+    "width": 20,
+    "height": 28,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6694-0": {
+    "url": "https://bless.gs/images/items/13-38.webp",
+    "hash": "56d0e6918fdb30d6b631a815e8451d130c187feb56eb07fceae69896c00d183b",
+    "name": "Moonstone Pendant",
+    "size": [
+      20,
+      25
+    ],
+    "file": "img/atlas/drops/6694-0-56d0e6918fdb.webp",
+    "width": 20,
+    "height": 25,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6705": {
+    "url": "https://bless.gs/images/items/13-49.webp",
+    "hash": "138860b362e88e8b49d8e12f1f73ccf039b575f87ea08b056ebda172cd680083",
+    "name": "Old Scroll 1",
+    "size": [
+      44,
+      42
+    ],
+    "file": "img/atlas/drops/6705-138860b362e8.webp",
+    "width": 44,
+    "height": 42,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6706": {
+    "url": "https://bless.gs/images/items/13-50.webp",
+    "hash": "67cd08873ea1905b25000bc0844a4936c4415480ee4f2c926bb60fdfb3d67bcf",
+    "name": "Illusion Sorcerer Covenant 1",
+    "size": [
+      24,
+      61
+    ],
+    "file": "img/atlas/drops/6706-67cd08873ea1.webp",
+    "width": 24,
+    "height": 61,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "6708-0": {
+    "url": "https://bless.gs/images/items/13-52.webp",
+    "hash": "94aa8c6226f53ce9c2c363000ab08ad83aa26b13e163d59eb9d4caededebb092",
+    "name": "Condor Flame",
+    "size": [
+      16,
+      51
+    ],
+    "file": "img/atlas/drops/6708-0-94aa8c6226f5.webp",
+    "width": 16,
+    "height": 51,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7181-0": {
+    "url": "https://www.muonline.net/guides/images/jewel-of-bless.png",
+    "hash": "29ae502f9fef178874a88ae035c6634778f967aa71e2b2ce6daf27899007be01",
+    "name": "jewel-of-bless",
+    "size": [
+      58,
+      73
+    ],
+    "file": "img/atlas/drops/7181-0-29ae502f9fef.webp",
+    "width": 48,
+    "height": 63,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7182-0": {
+    "url": "https://www.muonline.net/guides/images/jewel-of-soul.png",
+    "hash": "55910930295dbff1f2aff67d0b1d94eadfc07e6256eac36a5265ab1993c78ed9",
+    "name": "jewel-of-soul",
+    "size": [
+      63,
+      65
+    ],
+    "file": "img/atlas/drops/7182-0-55910930295d.webp",
+    "width": 53,
+    "height": 55,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7184-0": {
+    "url": "https://www.muonline.net/guides/images/jewel-of-life.png",
+    "hash": "685e3ef7832d5ef89f503fa624c74dbf34757998cd1c04f7544910ba7cbbac11",
+    "name": "jewel-of-life",
+    "size": [
+      54,
+      77
+    ],
+    "file": "img/atlas/drops/7184-0-685e3ef7832d.webp",
+    "width": 44,
+    "height": 67,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7185": {
+    "url": "https://bless.gs/images/items/14-17.webp",
+    "hash": "1cdcd4952cea02b265375a62ddf1ea95cbd2fbe9bedaabfa0b25699c5b94ea69",
+    "name": "Devil's Eye 1",
+    "size": [
+      42,
+      34
+    ],
+    "file": "img/atlas/drops/7185-1cdcd4952cea.webp",
+    "width": 42,
+    "height": 34,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7186": {
+    "url": "https://bless.gs/images/items/14-18.webp",
+    "hash": "f81464312f114edcbd91f57b3423d474b4b8c4273144583f628704d8f91c001e",
+    "name": "Devil's Key 1",
+    "size": [
+      48,
+      24
+    ],
+    "file": "img/atlas/drops/7186-f81464312f11.webp",
+    "width": 48,
+    "height": 24,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7189-3": {
+    "url": "https://bless.gs/images/items/14-21.webp",
+    "hash": "96164d4ff7e252c360d23e94a3bf3d0b4c5c28e1c66abc866e0adc87281e6473",
+    "name": "Sign of the Lord",
+    "size": [
+      28,
+      26
+    ],
+    "file": "img/atlas/drops/7189-3-96164d4ff7e2.webp",
+    "width": 28,
+    "height": 26,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7190-0": {
+    "url": "https://www.muonline.net/guides/images/jewel-of-creation.png",
+    "hash": "1c1bb600aa8cf0a69da9cd547c2c0fa3e603a821f0757e237d207cd126ab02fc",
+    "name": "jewel-of-creation",
+    "size": [
+      78,
+      74
+    ],
+    "file": "img/atlas/drops/7190-0-1c1bb600aa8c.webp",
+    "width": 68,
+    "height": 64,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7197": {
+    "url": "https://bless.gs/images/items/14-29.webp",
+    "hash": "248f3ce4d2922a1f97c96781c6c5dbfc0839206a8e965eaad2034961d5e46fcd",
+    "name": "Symbol of Kundun 1",
+    "size": [
+      44,
+      39
+    ],
+    "file": "img/atlas/drops/7197-248f3ce4d292.webp",
+    "width": 44,
+    "height": 39,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7209-0": {
+    "url": "https://www.muonline.net/guides/images/gemstone.png",
+    "hash": "ad95e9dee78b30221ccaa6476a1c68915743dc83abc074f25badf1ee809c78ba",
+    "name": "gemstone",
+    "size": [
+      100,
+      85
+    ],
+    "file": "img/atlas/drops/7209-0-ad95e9dee78b.webp",
+    "width": 90,
+    "height": 75,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7269-0": {
+    "url": "https://mureforge.com/item-images/14/101.webp",
+    "hash": "15e63143acac1111ef5a951681b0a24b5a9b6d8fb34ba43bc6d54cd40215a5a9",
+    "name": "Suspicious Scrap of Paper",
+    "size": [
+      32,
+      32
+    ],
+    "file": "img/atlas/drops/7269-0-15e63143acac.webp",
+    "width": 18,
+    "height": 21,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7278-0": {
+    "url": "https://mureforge.com/item-images/14/110.webp",
+    "hash": "0767c29d2e0f827dbe4924e57cbed13084f672c320e5a013ef2311eaf430b8c2",
+    "name": "Sign of Dimensions",
+    "size": [
+      32,
+      32
+    ],
+    "file": "img/atlas/drops/7278-0-0767c29d2e0f.webp",
+    "width": 10,
+    "height": 30,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7289-0": {
+    "url": "https://mureforge.com/item-images/14/121.webp",
+    "hash": "4fed847c48b5c20d7bf75923cc4b91f53ee6fd58b97409315628d2e37987c249",
+    "name": "Sealed Golden Box",
+    "size": [
+      32,
+      32
+    ],
+    "file": "img/atlas/drops/7289-0-4fed847c48b5.webp",
+    "width": 32,
+    "height": 28,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "7290-0": {
+    "url": "https://mureforge.com/item-images/14/122.webp",
+    "hash": "af62c96574dfea86df62e113cb54720167c9c3557a40b981cb62e0bad208990b",
+    "name": "Sealed Silver Box",
+    "size": [
+      32,
+      32
+    ],
+    "file": "img/atlas/drops/7290-0-af62c96574df.webp",
+    "width": 32,
+    "height": 28,
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc.",
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  }
+}
