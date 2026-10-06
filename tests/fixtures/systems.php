@@ -6,7 +6,7 @@ define('__BASE_URL__', '/');
 ob_start();
 include __DIR__.'/../../overlay/modules/information.php';
 $module = ob_get_clean();
-$start = strpos($module, '<section class="panic-systems"');
+$start = strpos($module, '<section class="server-features"');
 $end = strpos($module, '<section class="server-atlas-showcase"', $start);
 if($start === false || $end === false) throw new RuntimeException('Systems section not found');
 ?>

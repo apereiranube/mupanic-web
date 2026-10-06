@@ -26,7 +26,10 @@ const ids = ['chronicles','hero-path','daily','fortune','vault','vip','nexus'];
   await page.evaluate(() => document.fonts.ready);
   assert.equal(await page.locator('[data-system-open]').count(),7);
   assert.equal(await page.locator('details').count(),0);
-  assert.equal(await page.locator('.panic-systems-grid').evaluate(el => getComputedStyle(el).gridTemplateColumns.split(' ').length),columns);
+  assert.equal(await page.locator('.server-features-grid').evaluate(el => getComputedStyle(el).gridTemplateColumns.split(' ').length),columns);
+  const shading = await page.locator('.server-feature-card').first().evaluate(el => ({card:el.clientHeight,shade:parseFloat(getComputedStyle(el,'::after').height),padding:getComputedStyle(el).padding}));
+  assert.ok(Math.abs(shading.card-shading.shade)<=2, 'Card shading must cover the artwork: '+JSON.stringify(shading));
+  assert.equal(shading.padding,'0px');
   for (const id of ids) {
    const button = page.locator(`[data-system-open="${id}"]`);
    const dialog = page.locator('[data-system-modal]');
@@ -49,8 +52,8 @@ const ids = ['chronicles','hero-path','daily','fortune','vault','vip','nexus'];
    await button.click(); await page.mouse.click(2,2); assert.equal(await dialog.isVisible(),false);
    assert.equal(await page.evaluate(()=>document.documentElement.classList.contains('system-modal-open')),false);
   }
-  await page.locator('.panic-system-card-nexus').scrollIntoViewIfNeeded();
-  const allImages=await page.locator('.panic-system-card img').evaluateAll(ims=>ims.every(im=>im.complete&&im.naturalWidth===1536));
+  await page.locator('.server-feature-card-nexus').scrollIntoViewIfNeeded();
+  const allImages=await page.locator('.server-feature-card img').evaluateAll(ims=>ims.every(im=>im.complete&&im.naturalWidth===1536));
   assert.equal(allImages,true,'Broken card image');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow');
   if(output && (width===1920||width===390)) await page.locator('#sistemas').screenshot({path:path.join(output,`systems-${width}.png`)});

@@ -136,47 +136,47 @@ $systemEscape = function($text) { return htmlspecialchars($text, ENT_QUOTES, 'UT
     </div>
 </section>
 
-<section class="panic-systems" id="sistemas" aria-labelledby="server-systems-title">
+<section class="server-features" id="sistemas" aria-labelledby="server-systems-title">
     <div class="shell">
-        <header class="panic-systems-heading">
+        <header class="server-features-heading">
             <span class="eyebrow">MÁS ALLÁ DEL LEVEL</span>
             <h2 id="server-systems-title">Siempre hay<br><em>algo más que buscar.</em></h2>
             <p>Siete formas de seguir escribiendo tu historia.</p>
         </header>
-        <div class="panic-systems-grid">
+        <div class="server-features-grid">
         <?php $systemNumber = 0; foreach($panicSystems as $id => $system): $systemNumber++; ?>
-            <article class="panic-system-card<?php echo $id === 'nexus' ? ' panic-system-card-nexus' : ''; ?>">
-                <img class="panic-system-art" src="<?php echo $serverImage('systems/'.$id.'.webp'); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
-                <div class="panic-system-copy">
-                    <span class="panic-system-category"><?php echo $system['category']; ?></span>
+            <article class="server-feature-card<?php echo $id === 'nexus' ? ' server-feature-card-nexus' : ''; ?>">
+                <img class="server-feature-art" src="<?php echo $serverImage('systems/'.$id.'.webp'); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
+                <div class="server-feature-copy">
+                    <span class="server-feature-category"><?php echo $system['category']; ?></span>
                     <h3><?php echo $system['title']; ?></h3>
                     <p><?php echo $system['short']; ?></p>
-                    <button type="button" data-system-open="<?php echo $id; ?>" aria-haspopup="dialog" aria-controls="panic-system-dialog" aria-label="Ver sistema: <?php echo $systemEscape($system['title']); ?>">Ver sistema <span aria-hidden="true">→</span></button>
+                    <button type="button" data-system-open="<?php echo $id; ?>" aria-haspopup="dialog" aria-controls="server-feature-dialog" aria-label="Ver sistema: <?php echo $systemEscape($system['title']); ?>">Ver sistema <span aria-hidden="true">→</span></button>
                 </div>
-                <span class="panic-system-number" aria-hidden="true"><?php echo sprintf('%02d', $systemNumber); ?></span>
+                <span class="server-feature-number" aria-hidden="true"><?php echo sprintf('%02d', $systemNumber); ?></span>
             </article>
         <?php endforeach; ?>
         </div>
     </div>
-    <dialog class="panic-system-dialog" id="panic-system-dialog" data-system-modal>
-        <button type="button" class="panic-system-close" data-system-close aria-label="Cerrar sistema" autofocus>×</button>
+    <dialog class="server-feature-dialog" id="server-feature-dialog" data-system-modal>
+        <button type="button" class="server-feature-close" data-system-close aria-label="Cerrar sistema" autofocus>×</button>
         <?php foreach($panicSystems as $id => $system): ?>
-        <article class="panic-system-panel" data-system-panel="<?php echo $id; ?>" hidden>
-            <figure class="panic-system-visual">
+        <article class="server-feature-panel" data-system-panel="<?php echo $id; ?>" hidden>
+            <figure class="server-feature-visual">
                 <img src="<?php echo $serverImage('systems/'.$id.'.webp'); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
                 <figcaption>MU PANIC <span>Arte conceptual</span></figcaption>
             </figure>
-            <div class="panic-system-content">
-                <span class="panic-system-category"><?php echo $system['category']; ?></span>
+            <div class="server-feature-content">
+                <span class="server-feature-category"><?php echo $system['category']; ?></span>
                 <h2 id="system-title-<?php echo $id; ?>"><?php echo $system['title']; ?></h2>
-                <p class="panic-system-tagline" id="system-description-<?php echo $id; ?>"><?php echo $system['tagline']; ?></p>
-                <p class="panic-system-intro"><?php echo $system['intro']; ?></p>
-                <dl class="panic-system-facts">
+                <p class="server-feature-tagline" id="system-description-<?php echo $id; ?>"><?php echo $system['tagline']; ?></p>
+                <p class="server-feature-intro"><?php echo $system['intro']; ?></p>
+                <dl class="server-feature-facts">
                 <?php foreach($system['facts'] as $index => $fact): ?>
-                    <div<?php echo $id === 'fortune' && $index === 0 ? ' class="panic-system-price"' : ''; ?>><dt><?php echo $fact[0]; ?></dt><dd><?php echo $fact[1]; ?><?php if($id === 'fortune' && $index === 0) { ?><small>por giro</small><?php } ?></dd></div>
+                    <div<?php echo $id === 'fortune' && $index === 0 ? ' class="server-feature-price"' : ''; ?>><dt><?php echo $fact[0]; ?></dt><dd><?php echo $fact[1]; ?><?php if($id === 'fortune' && $index === 0) { ?><small>por giro</small><?php } ?></dd></div>
                 <?php endforeach; ?>
                 </dl>
-                <footer class="panic-system-status"><span><?php echo $system['kind']; ?></span><span class="panic-system-state"><?php echo $system['state']; ?></span></footer>
+                <footer class="server-feature-status"><span><?php echo $system['kind']; ?></span><span class="server-feature-state"><?php echo $system['state']; ?></span></footer>
             </div>
         </article>
         <?php endforeach; ?>
