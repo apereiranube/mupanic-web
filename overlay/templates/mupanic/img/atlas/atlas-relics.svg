@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <!-- Original line drawings: equipment and relics, arranged as a seamless engraving. -->
+  <defs>
+    <g id="blade"><path d="M32 3 23 19v38h18V19L32 3Zm0 10v44M17 58h30l-4 7H21l-4-7Zm11 7v17h8V65M26 83h12l-2 6h-8l-2-6"/><path d="m23 24 9 6 9-6"/></g>
+    <g id="shield"><path d="M32 4 58 15v25C56 61 42 76 32 82 22 76 8 61 6 40V15L32 4Z"/><path d="m32 13 18 9v18c-2 16-12 27-18 33-6-6-16-17-18-33V22l18-9Zm0 0v60M15 38h34m-25 6 8-11 8 11-8 11-8-11Z"/></g>
+    <g id="jewel"><path d="m6 27 14-19h34l14 19-31 48L6 27Zm0 0h62M20 8l-1 19 18 48 18-48-1-19M19 27 37 8l18 19M37 8v67"/></g>
+    <g id="wings"><path d="M40 30C29 17 18 10 3 6l6 24 12 7-11-1 11 18 14-7-6 8 11 13 11-13-6-8 14 7 11-18-11 1 12-7 6-24C62 10 51 17 40 30Zm0 0v38M10 16l25 26M70 16 45 42M20 28l11 3M60 28l-11 3"/></g>
+    <g id="chest"><path d="M8 35V24c0-12 10-18 27-18s27 6 27 18v11M5 35h60v33H5V35Zm0 10h60M14 35V24c0-8 7-12 21-12s21 4 21 12v11M17 45v23m36-23v23M29 30h12v23H29V30Z"/><path d="M35 36v9M11 68v5h10v-5m28 0v5h10v-5"/></g>
+    <g id="potion"><path d="M24 5h22v9H24V5Zm3 9v18C11 43 10 63 16 74c8 10 30 10 38 0 6-11 5-31-11-42V14M27 23h16M17 55c10-4 25 5 36 0M22 65c0 4 3 7 6 8"/><path d="m35 38 7 9-7 9-7-9 7-9Z"/></g>
+    <g id="staff"><path d="m31 31-3 50h8l-3-50M32 4l9 12-9 14-9-14 9-12Zm-12 0c-9 7-10 21 0 29l12 4 12-4c10-8 9-22 0-29M20 33l-5 6m29-6 5 6M27 71h10M26 80h12"/></g>
+    <g id="helm"><path d="M10 53V30C10 10 24 7 35 7s25 3 25 23v23L45 73H25L10 53ZM35 7v66M10 35l25 7 25-7M15 44l15 5v8H20l-5-13Zm40 0-15 5v8h10l5-13ZM23 66h24"/><path d="m10 28-7-9 4 24m53-15 7-9-4 24M28 8l7-7 7 7"/></g>
+    <g id="scroll"><path d="M15 13h40v50H15V13Zm0 0c-13 0-13-11-4-11h43M55 63c13 0 13 11 4 11H17c-10 0-12-7-2-11M23 25h24m-24 9h18m-18 9h24M28 54l6-5 6 5-6 5-6-5Z"/></g>
+  </defs>
+  <g fill="none" stroke="#cc9b6e" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" opacity=".19">
+    <use href="#blade" transform="translate(45 30) rotate(-24 32 44)"/>
+    <use href="#jewel" transform="translate(230 63) rotate(14 37 37)"/>
+    <use href="#wings" transform="translate(443 24) rotate(-12 40 35)"/>
+    <use href="#potion" transform="translate(555 153) rotate(20 35 40)"/>
+    <use href="#shield" transform="translate(135 199) rotate(16 32 43)"/>
+    <use href="#chest" transform="translate(346 196) rotate(-14 35 37)"/>
+    <use href="#staff" transform="translate(27 345) rotate(22 32 43)"/>
+    <use href="#helm" transform="translate(235 356) rotate(-16 35 38)"/>
+    <use href="#scroll" transform="translate(458 354) rotate(18 35 37)"/>
+    <use href="#wings" transform="translate(116 514) rotate(12 40 35)"/>
+    <use href="#jewel" transform="translate(335 520) rotate(-18 37 37)"/>
+    <use href="#blade" transform="translate(542 515) rotate(27 32 44)"/>
+    <g opacity=".7"><path d="m182 101 4-6 4 6-4 6-4-6Zm143 210 4-6 4 6-4 6-4-6Zm-254 177 4-6 4 6-4 6-4-6Zm487-192 4-6 4 6-4 6-4-6Z"/></g>
+  </g>
+</svg>
