@@ -180,4 +180,10 @@ for legacy in chronicles hero-path daily fortune vault vip nexus; do
   rm -f "$TEMPLATE_DEST/img/server/systems/$legacy.webp"
 done
 
+
+# Remove the six inventory icons replaced by the new Atlas jewel artwork.
+for asset in 6159-0-cd8d6cb459d6.webp 7181-0-29ae502f9fef.webp 7182-0-55910930295d.webp 7184-0-685e3ef7832d.webp 7190-0-1c1bb600aa8c.webp 7209-0-ad95e9dee78b.webp; do
+  rm -f "$TEMPLATE_DEST/img/atlas/drops/$asset"
+done
+
 echo "[MU PANIC] Beta overlay deployed successfully."

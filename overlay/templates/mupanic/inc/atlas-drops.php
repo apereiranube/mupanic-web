@@ -10,7 +10,7 @@ uasort($dropGroups, function($a,$b) use($dropCategoryOrder) { return $dropCatego
 $dropImage = function($group) use($dropImages) {
     $art = $dropImages[$group['key']] ?? null;
     if(!$art) return '<span class="atlas-drop-art" aria-hidden="true">◇</span>';
-    return '<span class="atlas-drop-art" aria-hidden="true"><img loading="eager" decoding="async" width="'.$art['width'].'" height="'.$art['height'].'" src="'.__PATH_TEMPLATE__.panicWikiEscape($art['file']).'" alt=""></span>';
+    return '<span class="atlas-drop-art'.($group['category'] === 'joyas' ? ' atlas-drop-art--jewel' : '').'" aria-hidden="true"><img loading="eager" decoding="async" width="'.$art['width'].'" height="'.$art['height'].'" src="'.__PATH_TEMPLATE__.panicWikiEscape($art['file']).'" alt=""></span>';
 };
 ?>
 <section id="drops" class="wiki-section" aria-labelledby="atlas-drops-title">

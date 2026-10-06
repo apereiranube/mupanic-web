@@ -1,18 +1,16 @@
 {
   "6159-0": {
-    "url": "https://mu.lv/img/item/7x112mc.webp?14232",
-    "hash": "cd8d6cb459d68d48ada7bc2131ee19d53ec1c4d0d48197453d9d0be8e53e6ed0",
+    "kind": "illustration",
     "name": "Jewel of Chaos",
-    "size": [
-      150,
-      285
-    ],
-    "file": "img/atlas/drops/6159-0-cd8d6cb459d6.webp",
-    "width": 108,
-    "height": 243,
-    "retrievedAt": "2026-10-06",
-    "gameAssetsCopyright": "Webzen Inc.",
-    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+    "referenceUrl": "https://mu.lv/img/item/7x112mc.webp?14232",
+    "file": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "hash": "80938451651286a0e21ed755f6f0be32316f71602f9eab011d63fa62b0d441d7",
+    "width": 512,
+    "height": 512,
+    "createdAt": "2026-10-06",
+    "generator": "built-in image_gen",
+    "processing": "Generated RGBA artwork; resized to 512px with Lanczos; WebP quality 94; alpha preserved.",
+    "direction": "Premium crystalline 3D fantasy item render; retain reference silhouette and color; transparent background; no text, frame, pedestal or UI."
   },
   "6214-0": {
     "url": "https://mureforge.com/item-images/12/70.webp",
@@ -255,49 +253,43 @@
     "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
   },
   "7181-0": {
-    "url": "https://www.muonline.net/guides/images/jewel-of-bless.png",
-    "hash": "29ae502f9fef178874a88ae035c6634778f967aa71e2b2ce6daf27899007be01",
+    "kind": "illustration",
     "name": "jewel-of-bless",
-    "size": [
-      58,
-      73
-    ],
-    "file": "img/atlas/drops/7181-0-29ae502f9fef.webp",
-    "width": 48,
-    "height": 63,
-    "retrievedAt": "2026-10-06",
-    "gameAssetsCopyright": "Webzen Inc.",
-    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+    "referenceUrl": "https://www.muonline.net/guides/images/jewel-of-bless.png",
+    "file": "img/atlas/drops/jewel-bless-2c80b97e4d75.webp",
+    "hash": "2c80b97e4d75f32f5e817acb74098d9e654fc026d13c94017cbd3801fce1753b",
+    "width": 512,
+    "height": 512,
+    "createdAt": "2026-10-06",
+    "generator": "built-in image_gen",
+    "processing": "Generated RGBA artwork; resized to 512px with Lanczos; WebP quality 94; alpha preserved.",
+    "direction": "Premium crystalline 3D fantasy item render; retain reference silhouette and color; transparent background; no text, frame, pedestal or UI."
   },
   "7182-0": {
-    "url": "https://www.muonline.net/guides/images/jewel-of-soul.png",
-    "hash": "55910930295dbff1f2aff67d0b1d94eadfc07e6256eac36a5265ab1993c78ed9",
+    "kind": "illustration",
     "name": "jewel-of-soul",
-    "size": [
-      63,
-      65
-    ],
-    "file": "img/atlas/drops/7182-0-55910930295d.webp",
-    "width": 53,
-    "height": 55,
-    "retrievedAt": "2026-10-06",
-    "gameAssetsCopyright": "Webzen Inc.",
-    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+    "referenceUrl": "https://www.muonline.net/guides/images/jewel-of-soul.png",
+    "file": "img/atlas/drops/jewel-soul-05f3890104b2.webp",
+    "hash": "05f3890104b27e865ace19db78d732338e7cc3f6e2ac91e6b4b93b9c03bebd7b",
+    "width": 512,
+    "height": 512,
+    "createdAt": "2026-10-06",
+    "generator": "built-in image_gen",
+    "processing": "Generated RGBA artwork; resized to 512px with Lanczos; WebP quality 94; alpha preserved.",
+    "direction": "Premium crystalline 3D fantasy item render; retain reference silhouette and color; transparent background; no text, frame, pedestal or UI."
   },
   "7184-0": {
-    "url": "https://www.muonline.net/guides/images/jewel-of-life.png",
-    "hash": "685e3ef7832d5ef89f503fa624c74dbf34757998cd1c04f7544910ba7cbbac11",
+    "kind": "illustration",
     "name": "jewel-of-life",
-    "size": [
-      54,
-      77
-    ],
-    "file": "img/atlas/drops/7184-0-685e3ef7832d.webp",
-    "width": 44,
-    "height": 67,
-    "retrievedAt": "2026-10-06",
-    "gameAssetsCopyright": "Webzen Inc.",
-    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+    "referenceUrl": "https://www.muonline.net/guides/images/jewel-of-life.png",
+    "file": "img/atlas/drops/jewel-life-6e1a802e1074.webp",
+    "hash": "6e1a802e1074ab8f7dbcca15d26697ff5cf4cf0fcafddc6493487bbbe8fb1bde",
+    "width": 512,
+    "height": 512,
+    "createdAt": "2026-10-06",
+    "generator": "built-in image_gen",
+    "processing": "Generated RGBA artwork; resized to 512px with Lanczos; WebP quality 94; alpha preserved.",
+    "direction": "Premium crystalline 3D fantasy item render; retain reference silhouette and color; transparent background; no text, frame, pedestal or UI."
   },
   "7185": {
     "url": "https://bless.gs/images/items/14-17.webp",
@@ -345,19 +337,17 @@
     "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
   },
   "7190-0": {
-    "url": "https://www.muonline.net/guides/images/jewel-of-creation.png",
-    "hash": "1c1bb600aa8cf0a69da9cd547c2c0fa3e603a821f0757e237d207cd126ab02fc",
+    "kind": "illustration",
     "name": "jewel-of-creation",
-    "size": [
-      78,
-      74
-    ],
-    "file": "img/atlas/drops/7190-0-1c1bb600aa8c.webp",
-    "width": 68,
-    "height": 64,
-    "retrievedAt": "2026-10-06",
-    "gameAssetsCopyright": "Webzen Inc.",
-    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+    "referenceUrl": "https://www.muonline.net/guides/images/jewel-of-creation.png",
+    "file": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "hash": "9b7e2a3220740b44d0da2de274f651273012129246951d4367e069583eb609a6",
+    "width": 512,
+    "height": 512,
+    "createdAt": "2026-10-06",
+    "generator": "built-in image_gen",
+    "processing": "Generated RGBA artwork; resized to 512px with Lanczos; WebP quality 94; alpha preserved.",
+    "direction": "Premium crystalline 3D fantasy item render; retain reference silhouette and color; transparent background; no text, frame, pedestal or UI."
   },
   "7197": {
     "url": "https://bless.gs/images/items/14-29.webp",
@@ -375,19 +365,17 @@
     "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
   },
   "7209-0": {
-    "url": "https://www.muonline.net/guides/images/gemstone.png",
-    "hash": "ad95e9dee78b30221ccaa6476a1c68915743dc83abc074f25badf1ee809c78ba",
+    "kind": "illustration",
     "name": "gemstone",
-    "size": [
-      100,
-      85
-    ],
-    "file": "img/atlas/drops/7209-0-ad95e9dee78b.webp",
-    "width": 90,
-    "height": 75,
-    "retrievedAt": "2026-10-06",
-    "gameAssetsCopyright": "Webzen Inc.",
-    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+    "referenceUrl": "https://www.muonline.net/guides/images/gemstone.png",
+    "file": "img/atlas/drops/jewel-gemstone-5edf360037d7.webp",
+    "hash": "5edf360037d7d60fbcb95559da634bd67a976380ef2ce29c140dfe5f10033c0c",
+    "width": 512,
+    "height": 512,
+    "createdAt": "2026-10-06",
+    "generator": "built-in image_gen",
+    "processing": "Generated RGBA artwork; resized to 512px with Lanczos; WebP quality 94; alpha preserved.",
+    "direction": "Premium crystalline 3D fantasy item render; retain reference silhouette and color; transparent background; no text, frame, pedestal or UI."
   },
   "7269-0": {
     "url": "https://mureforge.com/item-images/14/101.webp",
