@@ -155,6 +155,7 @@
     nav.forEach(function (link) { if (link.hash === '#' + panel.id) { link.setAttribute('aria-current', 'page'); var group = link.closest('details'); if (group) group.open = true; } else link.removeAttribute('aria-current'); });
     if (panel.id === 'taller') selectRecipe(target && target.hasAttribute('data-recipe-id') ? target.getAttribute('data-recipe-id') : currentRecipe);
     // A shared deep link must reveal a map/row even after local filtering.
+    wiki.querySelectorAll('[data-event-reward-list]').forEach(function(list) { list.hidden = true; });
     if (target) {
       target.hidden = false;
       var atlasPanel = target.closest('[data-atlas-panel]');
@@ -162,7 +163,7 @@
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
       if (target.closest('#progresion')) { mapFilter.value = ''; if (target !== panel) setMapScope('all'); else filterMaps(); }
-      if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardKind = ''; rewardFilter.value = ''; filterRewards(); }
+      if (target.hasAttribute('data-reward-list') && target.closest('#recompensas') && rewardFilter) { rewardKind = ''; rewardFilter.value = ''; filterRewards(); }
       if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
       if (location.hash) requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
     }
@@ -172,19 +173,19 @@
   nav.forEach(function (link) { link.addEventListener('click', function () { clearSearch(); if (location.hash === link.hash) revealHash(); }); });
   var searchable = [];
   panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.querySelector('h2').textContent), hash: '#' + panel.id}); });
-  wiki.querySelectorAll('[data-reward-item-filter]').forEach(function(input) {
-    input.addEventListener('input', function() {
+  wiki.addEventListener('input', function(event) {
+      var input = event.target;
+      if (!input.matches('[data-reward-item-filter]')) return;
       var list = input.closest('[data-reward-list]'), query = normalize(input.value), visible = 0;
       list.querySelectorAll('[data-reward-item]').forEach(function(row) { row.hidden = !normalize(row.textContent).includes(query); if(!row.hidden) visible++; });
       list.querySelector('[data-reward-item-status]').textContent = visible + ' objetos posibles' + (visible ? '' : ' · probá otro nombre');
-    });
   });
   var rewardFilter = wiki.querySelector('[data-reward-filter]');
   var rewardKind = '';
   function filterRewards() {
     if (!rewardFilter) return;
     var query = normalize(rewardFilter.value), visible = 0;
-    wiki.querySelectorAll('[data-reward-list]').forEach(function(list) {
+    wiki.querySelectorAll('#recompensas [data-reward-list]').forEach(function(list) {
       list.hidden = (rewardKind && list.getAttribute('data-reward-type') !== rewardKind) || !normalize(list.textContent).includes(query);
       if (!list.hidden) visible++;
     });

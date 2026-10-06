@@ -84,14 +84,16 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.locator('#mapa-2').locator('[data-map-close]').click();await page.locator('#mapa-2>summary').focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),true,'Keyboard opens territory');await page.keyboard.press('Enter');assert.equal(await page.locator('#mapa-2').evaluate(el=>el.open),false);
 
   await page.locator('.wiki-nav a[href="#recompensas"]').click();
-  const rewards=page.locator('[data-reward-list]');
-  assert.equal(await rewards.count(),171);
-  assert.equal(await rewards.locator('summary img').count(),171,'Every reward card has an image');
+  const rewards=page.locator('#recompensas [data-reward-list]');
+  assert.equal(await rewards.count(),70);
+  assert.equal(await rewards.locator('summary img').count(),70,'Every reward card has an image');
   await rewards.locator('summary img').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));});
   assert.equal(await rewards.locator('summary img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true,'All reward images decode without clicking or reloading');
   await noOverflow(page,'all-rewards');
   if([1920,390].includes(width)){await page.locator('#recompensas').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-all-rewards-'+width);}
-  for(const kind of ['box','event']){
+  assert.equal(await page.locator('[data-reward-kind="event"]').count(),0);
+  assert.equal(await page.locator('#recompensas [data-reward-type="event"]').count(),0);
+  for(const kind of ['box']){
    await page.locator('[data-reward-kind="'+kind+'"]').click();
    assert.equal(await page.locator('[data-reward-list]:visible').count(),await page.locator('[data-reward-list]:visible summary img').count(),'Filtered cards retain their images');
    if([1920,390].includes(width)){await page.locator('#recompensas').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-'+kind+'-rewards-'+width);}
@@ -133,8 +135,8 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
    assert.equal(await modal.evaluate(el=>el.open),false);
    assert.equal(await trigger.evaluate(el=>document.activeElement===el),true,'Return event focus');
   }
-  await page.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
-  await page.locator('#recompensa-12').waitFor({state:'visible'});assert.equal(await page.locator('#recompensa-12').isVisible(),true,'Reward link clears filters');
+  assert.equal(await page.locator('[data-event-reward-list]:visible').count(),0,'No duplicate reward catalogue in Events');await page.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
+  await page.locator('#recompensa-12').waitFor({state:'visible'});assert.equal(await page.locator('#recompensa-12').isVisible(),true,'Event reward link reveals its list');assert.equal(await page.locator('#eventos').isVisible(),true);assert.equal(await page.locator('#recompensas').isVisible(),false);await page.locator('#recompensa-12 [data-reward-item-filter]').fill('Jewel');assert.ok(await page.locator('#recompensa-12 [data-reward-item]:visible').count()>0);
   assert.equal(await page.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),false);
   // Keyboard focus stays inside the dossier.
   await page.locator('.wiki-nav a[href="#eventos"]').click();await page.locator('.atlas-event-card [data-atlas-event-open="devil-square"]').click();

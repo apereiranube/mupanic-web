@@ -57,6 +57,7 @@ jobs:
           node --check overlay/templates/mupanic/js/atlas-ui.js
           node --check overlay/templates/mupanic/js/atlas-search.js
           php -l overlay/templates/mupanic/inc/reward-lists.php
+          php -l overlay/templates/mupanic/inc/atlas-reward-cards.php
           php -l overlay/templates/mupanic/inc/atlas-events.php
           php -l overlay/templates/mupanic/inc/atlas-hero.php
           php -l overlay/templates/mupanic/inc/atlas-maps.php

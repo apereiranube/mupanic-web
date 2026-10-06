@@ -92,7 +92,7 @@
     if(refreshing||document.hidden||dialog.open)return;refreshing=true;
     try{var response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)return;var result=await response.json(),section=wiki.querySelector('#eventos');
       if(result.version!==section.dataset.eventsVersion){var template=document.createElement('template');template.innerHTML=result.html;var replacement=template.content.querySelector('#eventos');if(!replacement)return;
-        section.innerHTML=replacement.innerHTML;section.dataset.eventsVersion=result.version;group='all';updateAgenda();filterEvents();}
+        section.innerHTML=replacement.innerHTML;section.dataset.eventsVersion=result.version;group='all';updateAgenda();filterEvents();window.dispatchEvent(new Event('hashchange'));}
     }catch(error){/* Retain the last confirmed catalogue on network errors. */}finally{refreshing=false;}
   }
   window.setInterval(refreshEvents,60000);document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshEvents();});
