@@ -32,7 +32,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   await page.locator('[data-reward-filter]').fill('Nightmare');const nightmare=page.locator('#recompensa-48');await nightmare.locator('summary').click();
   assert.deepEqual(await nightmare.locator('[data-reward-item] td:first-child').allTextContents(),['Jewel of Harmony','Higher refining stone','Lower refining stone']);
   await page.locator('[data-reward-filter]').fill('Selupan');const selupan=page.locator('#recompensa-67');await selupan.locator('summary').click();assert.ok((await selupan.textContent()).includes('Socket'));
-  await page.locator('[data-reward-filter]').fill('Chaos mix');assert.ok((await page.locator('#recompensa-200').textContent()).includes('requiere verificación'));
+  await page.locator('[data-reward-filter]').fill('Chaos mix');assert.ok((await page.locator('#recompensa-1014').textContent()).includes('Consultá las recompensas de este evento dentro del juego.'));assert.equal(await page.locator('#recompensa-1014 [data-reward-item]').count(),0);assert.ok(!(await page.locator('#recompensa-1014').textContent()).includes('verificación'));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow');assert.deepEqual(errors,[]);
   await page.close();console.log('PASS Atlas rewards',width);
  }

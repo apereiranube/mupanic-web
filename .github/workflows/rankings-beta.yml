@@ -3,6 +3,7 @@ on:
   push:
     branches: [beta, main]
     paths:
+      - 'overlay/templates/mupanic/css/style.css'
       - 'overlay/templates/mupanic/index.php'
       - 'overlay/templates/mupanic/inc/rankings-hero.php'
       - 'overlay/templates/mupanic/css/rankings.css'

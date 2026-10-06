@@ -683,6 +683,1551 @@
       "width": 384,
       "height": 384,
       "sourceHash": "f36b620e1dd83b6f5e044bd665f05d9a517c812da30e329c1acddebda406b103"
+    },
+    "55": {
+      "file": "img/atlas/monsters/web/55-da5e3851f26f.webp",
+      "width": 78,
+      "height": 116,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/skeleton_king.webp",
+      "sourceHash": "da5e3851f26ff3ffa32dc4a874a5e268c219150ae626d9c543883c9a7e826e9c"
+    },
+    "42": {
+      "file": "img/atlas/monsters/web/42-c8f88a9a830f.webp",
+      "width": 200,
+      "height": 145,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/red-dragon.png",
+      "sourceHash": "c8f88a9a830fd7cbef6e06dc13c466a758ca4170f7b1be0113619a9e7c8d1ab7"
+    },
+    "135": {
+      "file": "img/atlas/monsters/web/135-bf2394cebc7e.webp",
+      "width": 132,
+      "height": 244,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/white_wizard.png",
+      "sourceHash": "bf2394cebc7ef65b4a17b2cf14d1490fe656494cd767b1f2b4adc4acf30d6bef"
+    },
+    "275": {
+      "file": "img/atlas/monsters/web/275-e7ed8d75c163.webp",
+      "width": 200,
+      "height": 162,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/kundun.png",
+      "sourceHash": "e7ed8d75c163008f6068f87e106290c2a0f905f2f6816cd2e9d91c9200b0ced0"
+    },
+    "349": {
+      "file": "img/atlas/monsters/web/349-fbca0fb62dcc.webp",
+      "width": 161,
+      "height": 162,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/events/blackrock_crywolf.png",
+      "sourceHash": "fbca0fb62dccd7f9df9199b7142bfdbe4d44b7501423b34a71d6ff98f442c576"
+    },
+    "362": {
+      "file": "img/atlas/monsters/web/362-6be40505fcfd.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/maya-hand.png",
+      "sourceHash": "6be40505fcfdb91765486142887a25166d4a5512bb0a0fe82fc0063e7a36db48"
+    },
+    "363": {
+      "file": "img/atlas/monsters/web/363-6be40505fcfd.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/maya-hand.png",
+      "sourceHash": "6be40505fcfdb91765486142887a25166d4a5512bb0a0fe82fc0063e7a36db48"
+    },
+    "361": {
+      "file": "img/atlas/monsters/web/361-8c6bf4b0fa11.webp",
+      "width": 200,
+      "height": 193,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/nightmare.png",
+      "sourceHash": "8c6bf4b0fa1197c96b70c317834894eba4d0c8c1cbea5a4351ab91b1d86ddf16"
+    },
+    "365": {
+      "file": "img/atlas/monsters/web/365-bd4a4a37630b.webp",
+      "width": 155,
+      "height": 114,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/pouch.png",
+      "sourceHash": "bd4a4a37630b706f7ff6194117c2f3f1ed520bd4ce8159a5a6446c7234164b29"
+    },
+    "413": {
+      "file": "img/atlas/monsters/web/413-26e6be55b9f9.webp",
+      "width": 77,
+      "height": 119,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/white_rabbit.png",
+      "sourceHash": "26e6be55b9f9e25c38a55e41fbc52fdbf82f19e12628560763881d390bbbc7aa"
+    },
+    "459": {
+      "file": "img/atlas/monsters/web/459-5ce06b3748be.webp",
+      "width": 200,
+      "height": 142,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/selupan.png",
+      "sourceHash": "5ce06b3748bed3b29796acc91c83824638355d2fd4d21a6f99617a9c27e976bc"
+    },
+    "463": {
+      "file": "img/atlas/monsters/web/463-ee29a4dd3768.webp",
+      "width": 231,
+      "height": 502,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/fire_flame_ghost.png",
+      "sourceHash": "ee29a4dd376807a4d84c19a0e7a6d2356aecd9726c84cb1ec021350e56d48fc9"
+    },
+    "43": {
+      "file": "img/atlas/monsters/web/43-7ce322428e3d.webp",
+      "width": 165,
+      "height": 206,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-budge-dragon.png",
+      "sourceHash": "7ce322428e3d50ff8887d35b79357b700e4645761afe68edafabf20317bc576f"
+    },
+    "78": {
+      "file": "img/atlas/monsters/web/78-eb61bbbc5a09.webp",
+      "width": 205,
+      "height": 251,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-goblin.png",
+      "sourceHash": "eb61bbbc5a094c4985a3ea72da67eaa9d9fe0580b1b8e0c615e2c4a97199b1ad"
+    },
+    "54": {
+      "file": "img/atlas/monsters/web/54-d37f8236159c.webp",
+      "width": 187,
+      "height": 224,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_soldier.webp",
+      "sourceHash": "d37f8236159c4d838a55e3acbd201f7cdd31819680913af75de383a94520d912"
+    },
+    "53": {
+      "file": "img/atlas/monsters/web/53-02dd63fe1bbc.webp",
+      "width": 187,
+      "height": 224,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_titan.webp",
+      "sourceHash": "02dd63fe1bbc3e45748a6a2dd563cddf9eda4a0d46256a2634e780a49e980ff6"
+    },
+    "79": {
+      "file": "img/atlas/monsters/web/79-cf10e06afb64.webp",
+      "width": 170,
+      "height": 152,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-dragon.png",
+      "sourceHash": "cf10e06afb64320d2b0de3201448742696648b221c67ffbc2961f72a2963b9d7"
+    },
+    "80": {
+      "file": "img/atlas/monsters/web/80-47f90c15ff69.webp",
+      "width": 181,
+      "height": 226,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-lizard-king.png",
+      "sourceHash": "47f90c15ff697b9f430556dbbb6a6d2e5fccb24d566a08ebc3dd4d4652bfc538"
+    },
+    "81": {
+      "file": "img/atlas/monsters/web/81-ed2eebf16764.webp",
+      "width": 170,
+      "height": 275,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-vepar.png",
+      "sourceHash": "ed2eebf1676431bc8a70e65ada126985314a13e977b8b34fe44bf74589074091"
+    },
+    "82": {
+      "file": "img/atlas/monsters/web/82-f763bde740dc.webp",
+      "width": 187,
+      "height": 224,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_tantalos.webp",
+      "sourceHash": "f763bde740dc079668fb61b8a9764aa3f456d56ad31f7677ec481709165aaae7"
+    },
+    "83": {
+      "file": "img/atlas/monsters/web/83-271c8af766a0.webp",
+      "width": 177,
+      "height": 212,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-wheel.png",
+      "sourceHash": "271c8af766a051f0343108523c9bfaa906441f82f1cce15bdc2428b7159cb42b"
+    },
+    "502": {
+      "file": "img/atlas/monsters/web/502-fb73914eaa89.webp",
+      "width": 171,
+      "height": 194,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-rabbit.png",
+      "sourceHash": "fb73914eaa892224ef2258e1267b04717e8d5095ef96e40128ae22c5c629cdf4"
+    },
+    "493": {
+      "file": "img/atlas/monsters/web/493-f4027adaa3dd.webp",
+      "width": 148,
+      "height": 154,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-dark-knight.png",
+      "sourceHash": "f4027adaa3dd7343288da118f66f301f4205173207f2409a63c16fec633ba03c"
+    },
+    "494": {
+      "file": "img/atlas/monsters/web/494-f23fc4930a46.webp",
+      "width": 198,
+      "height": 280,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-devil.png",
+      "sourceHash": "f23fc4930a46307f9c7ed66f347d34be3ba8bd4223c4da64284aecc2de2f9e3e"
+    },
+    "495": {
+      "file": "img/atlas/monsters/web/495-9ddc509fa7a0.webp",
+      "width": 190,
+      "height": 250,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-stone-golem.png",
+      "sourceHash": "9ddc509fa7a0606047983bd83f34d7b5b1d5c674a41bffa4076f6ce4b91d1b41"
+    },
+    "496": {
+      "file": "img/atlas/monsters/web/496-cea92574910b.webp",
+      "width": 187,
+      "height": 224,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_crust.webp",
+      "sourceHash": "cea92574910b7290b73b443e80f8d58bc6d1a4b35c79385d2931c950a11cee6c"
+    },
+    "497": {
+      "file": "img/atlas/monsters/web/497-0acf55e519e1.webp",
+      "width": 175,
+      "height": 184,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-satyros.png",
+      "sourceHash": "0acf55e519e149b71a0b91c15a9d63417904ab3958b72c2d1827769547b98671"
+    },
+    "498": {
+      "file": "img/atlas/monsters/web/498-d55606b33e00.webp",
+      "width": 182,
+      "height": 178,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-twin-tail.png",
+      "sourceHash": "d55606b33e00e45a4b50c2b35b805e8267ceb23d7811a7231d68cecbdef97426"
+    },
+    "499": {
+      "file": "img/atlas/monsters/web/499-2dd96a69a2a8.webp",
+      "width": 183,
+      "height": 203,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/golden-iron-knight.png",
+      "sourceHash": "2dd96a69a2a8386cbfd7fdd6f6b5b3ae204c76862e60ef7fe6cdefa0d4df6c3f"
+    },
+    "500": {
+      "file": "img/atlas/monsters/web/500-9322a34f0719.webp",
+      "width": 187,
+      "height": 224,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_napin.webp",
+      "sourceHash": "9322a34f071937c8f5270c23e2cf6f1c8cbb112a4f657d1116429cfbdd18dc16"
+    },
+    "501": {
+      "file": "img/atlas/monsters/web/501-5b0f616a91e7.webp",
+      "width": 187,
+      "height": 224,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_great_dragon.webp",
+      "sourceHash": "5b0f616a91e7ff5a9d5b61415f025df6ca9df4ca14359434f2c1de1d50235bc9"
+    },
+    "0": {
+      "file": "img/atlas/monsters/web/0-ea63aa3f384b.webp",
+      "width": 200,
+      "height": 249,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/bull-fighter.png",
+      "sourceHash": "ea63aa3f384be3b2e82190652bff0e5270308a44cd985362914eab28bf2e579d"
+    },
+    "6": {
+      "file": "img/atlas/monsters/web/6-0c017ada7a37.webp",
+      "width": 200,
+      "height": 299,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/lich.png",
+      "sourceHash": "0c017ada7a37c9677fb778a3c9bac4cfa52e2577507903ef2d82fce56ba07c23"
+    },
+    "14": {
+      "file": "img/atlas/monsters/web/14-1065d3874830.webp",
+      "width": 146,
+      "height": 297,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/skeleton.png",
+      "sourceHash": "1065d3874830f4a224cb7ea148744d94b1227dc556a5fc6bbf2310a03eb98473"
+    },
+    "1": {
+      "file": "img/atlas/monsters/web/1-f290d442a64f.webp",
+      "width": 200,
+      "height": 244,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hound.png",
+      "sourceHash": "f290d442a64fc60c750b6cd70e002c0dc3c42d061b2fc0dea95f694834eea154"
+    },
+    "4": {
+      "file": "img/atlas/monsters/web/4-25b1cd754f9a.webp",
+      "width": 200,
+      "height": 269,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/elite-bull-fighter.png",
+      "sourceHash": "25b1cd754f9a69ebad907645e6fc6bd4a4533871c86be56188c9ddf2c49b3d91"
+    },
+    "7": {
+      "file": "img/atlas/monsters/web/7-495308a473f7.webp",
+      "width": 190,
+      "height": 297,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/giant.png",
+      "sourceHash": "495308a473f7878b999dd7f422ca81996935dd44d417bf91fe04c25b411856be"
+    },
+    "17": {
+      "file": "img/atlas/monsters/web/17-25b1cd754f9a.webp",
+      "width": 200,
+      "height": 269,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cyclops.png",
+      "sourceHash": "25b1cd754f9a69ebad907645e6fc6bd4a4533871c86be56188c9ddf2c49b3d91"
+    },
+    "11": {
+      "file": "img/atlas/monsters/web/11-4cf914003ddc.webp",
+      "width": 200,
+      "height": 208,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ghost.png",
+      "sourceHash": "4cf914003ddc71cdd42a12aa54f20068ef78597bfd87acc29e2d781c99e144b7"
+    },
+    "15": {
+      "file": "img/atlas/monsters/web/15-838144f61266.webp",
+      "width": 200,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/skeleton-archer.png",
+      "sourceHash": "838144f6126698315f4988658b93d6e761e8ea52fbd3f649add32dac0ca09082"
+    },
+    "16": {
+      "file": "img/atlas/monsters/web/16-52ef3c47432a.webp",
+      "width": 155,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/chief-skeleton-warrior.png",
+      "sourceHash": "52ef3c47432aaa436254e939a3e910cd0b6ada0181aea51b38447c9c0158b761"
+    },
+    "9": {
+      "file": "img/atlas/monsters/web/9-a21c14175d9a.webp",
+      "width": 200,
+      "height": 299,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/thunder-lich.png",
+      "sourceHash": "a21c14175d9ae086178a827b98f463e6fac4379639a612a6d3aeb94300b994ee"
+    },
+    "8": {
+      "file": "img/atlas/monsters/web/8-86c2365394a4.webp",
+      "width": 200,
+      "height": 249,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/poison-bull-fighter.png",
+      "sourceHash": "86c2365394a48e836192fdbfd396ccc749ac6db9c3da0e0b00e9bc723967b04b"
+    },
+    "5": {
+      "file": "img/atlas/monsters/web/5-f290d442a64f.webp",
+      "width": 200,
+      "height": 244,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hellhound.png",
+      "sourceHash": "f290d442a64fc60c750b6cd70e002c0dc3c42d061b2fc0dea95f694834eea154"
+    },
+    "10": {
+      "file": "img/atlas/monsters/web/10-a4ae392da075.webp",
+      "width": 200,
+      "height": 146,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/dark-knight.png",
+      "sourceHash": "a4ae392da075784d9c021f6042fd373615eec0116ebd575ab6f0c029e55176d8"
+    },
+    "13": {
+      "file": "img/atlas/monsters/web/13-2d145e6c0151.webp",
+      "width": 200,
+      "height": 200,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hell-spider.png",
+      "sourceHash": "2d145e6c0151ef9068d947edfd204d248f37be9db6f998b26efe2395a40dcab0"
+    },
+    "18": {
+      "file": "img/atlas/monsters/web/18-5240080541b2.webp",
+      "width": 200,
+      "height": 228,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/gorgon.png",
+      "sourceHash": "5240080541b2198dad9feeab74676883addfa9d7e81cecc701db37485bf40e55"
+    },
+    "23": {
+      "file": "img/atlas/monsters/web/23-185e50714a3a.webp",
+      "width": 194,
+      "height": 299,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hommerd.png",
+      "sourceHash": "185e50714a3a44b888419b021ef48b45e1292fef7caef1ff3c58db178d5846c0"
+    },
+    "22": {
+      "file": "img/atlas/monsters/web/22-4faf4e566fc0.webp",
+      "width": 200,
+      "height": 161,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ice-monster.png",
+      "sourceHash": "4faf4e566fc09f22a3391832c71dce97a25c433103689b57a58b9364cabdde00"
+    },
+    "25": {
+      "file": "img/atlas/monsters/web/25-d7183e633b55.webp",
+      "width": 200,
+      "height": 256,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ice-queen.png",
+      "sourceHash": "d7183e633b55e4b0a81d70e4395a375dce2259f79ddd4bc359ab7cd74c1eed95"
+    },
+    "26": {
+      "file": "img/atlas/monsters/web/26-2937e7d1e1a8.webp",
+      "width": 200,
+      "height": 241,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/goblin.png",
+      "sourceHash": "2937e7d1e1a811f2fb544e050f759f5c1fd947aeddf243f78c513550a043842b"
+    },
+    "33": {
+      "file": "img/atlas/monsters/web/33-036579bb2e53.webp",
+      "width": 200,
+      "height": 241,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/elite-goblin.png",
+      "sourceHash": "036579bb2e539fc6b9f0756518110ad5036d157713e75062331b86ea797741e9"
+    },
+    "28": {
+      "file": "img/atlas/monsters/web/28-09194c1d6596.webp",
+      "width": 200,
+      "height": 248,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/beetle-monster.png",
+      "sourceHash": "09194c1d659683e113bb90b7c11f6e22155bd4b86448cfb35817d0a561dbdc71"
+    },
+    "29": {
+      "file": "img/atlas/monsters/web/29-3a9cc3e04a80.webp",
+      "width": 193,
+      "height": 298,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hunter.png",
+      "sourceHash": "3a9cc3e04a80c8959d0a3ab8b7fad699f0f70c31475890a5d96fbcb6c3d86d5f"
+    },
+    "31": {
+      "file": "img/atlas/monsters/web/31-98ba7b83463f.webp",
+      "width": 200,
+      "height": 259,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/agon.png",
+      "sourceHash": "98ba7b83463f5ecdd9774dfe71dcf3a7f193bedb1e51d0e44a21544233aa01d5"
+    },
+    "36": {
+      "file": "img/atlas/monsters/web/36-80f0a62b81c9.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/shadow.png",
+      "sourceHash": "80f0a62b81c934d0a90e12eaf12bfc0fd79c4bf9b3aa8886377b6863883eb13f"
+    },
+    "39": {
+      "file": "img/atlas/monsters/web/39-4d0080877c99.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/poison-shadow.png",
+      "sourceHash": "4d0080877c99ebc124c6589b5f40d767c4fbf8c076414ec75a2b3785f2c6566c"
+    },
+    "34": {
+      "file": "img/atlas/monsters/web/34-42f8e046a412.webp",
+      "width": 198,
+      "height": 296,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cursed-wizard.png",
+      "sourceHash": "42f8e046a4120dd865c3fe64df839b68402027f730fddb17ef9161c77c5e094c"
+    },
+    "41": {
+      "file": "img/atlas/monsters/web/41-ba0eb4a790bf.webp",
+      "width": 200,
+      "height": 202,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-cow.png",
+      "sourceHash": "ba0eb4a790bf4881a81eb33d7e6d5b716cba9a55e3e0eaa095318613d97bc3d3"
+    },
+    "40": {
+      "file": "img/atlas/monsters/web/40-aef9b64a1c95.webp",
+      "width": 187,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-knight.png",
+      "sourceHash": "aef9b64a1c95b6b00685d7feea201f13fffc11f303a8f9a21780a644a2c03cb7"
+    },
+    "35": {
+      "file": "img/atlas/monsters/web/35-8a1214e02f40.webp",
+      "width": 200,
+      "height": 228,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-gorgon.png",
+      "sourceHash": "8a1214e02f40cf237eeeb7a6c2b2d9d0d6f187dbd324b021be4735fb60c42127"
+    },
+    "38": {
+      "file": "img/atlas/monsters/web/38-06291d457f13.webp",
+      "width": 200,
+      "height": 222,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/balrog.png",
+      "sourceHash": "06291d457f1372e8aedd14e9c8ebcce49f25235ae06c5f0dfaeaa8887eb3157d"
+    },
+    "57": {
+      "file": "img/atlas/monsters/web/57-dff9a9ae1452.webp",
+      "width": 200,
+      "height": 202,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/iron-wheel.png",
+      "sourceHash": "dff9a9ae1452a4b20d7c8cef8c7bcfdf15b5f73697c784be59a65b2673fc0aea"
+    },
+    "58": {
+      "file": "img/atlas/monsters/web/58-9ce5d54ea4c8.webp",
+      "width": 200,
+      "height": 286,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/tantalus.png",
+      "sourceHash": "9ce5d54ea4c83e89f1c1f9b8b41785aa00341ef0c43f9ef858acbc0ba1068bad"
+    },
+    "74": {
+      "file": "img/atlas/monsters/web/74-bcf40e4cc456.webp",
+      "width": 198,
+      "height": 267,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/alpha-crust.png",
+      "sourceHash": "bcf40e4cc45689388e7bc6e7edeb8b45fd9b32e999f6dca38302c2a6a28b4b08"
+    },
+    "72": {
+      "file": "img/atlas/monsters/web/72-cdd5b582852b.webp",
+      "width": 186,
+      "height": 296,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/phantom-knight.png",
+      "sourceHash": "cdd5b582852bab0dfaf54fb9e608cef39377ff8d101ebcd8df6520c6ae9b106c"
+    },
+    "576": {
+      "file": "img/atlas/monsters/web/576-49e50d3bd5ca.webp",
+      "width": 200,
+      "height": 214,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/narcondra.png",
+      "sourceHash": "49e50d3bd5cadacdd300464b4d5cd479b4118c3ab7a4871b06561ce4b1d4890c"
+    },
+    "47": {
+      "file": "img/atlas/monsters/web/47-702baa9f8f48.webp",
+      "width": 182,
+      "height": 279,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/valkyrie.png",
+      "sourceHash": "702baa9f8f4838ffb321c61327f96bb07d4924e4ffda91c8b14691cc57256cfe"
+    },
+    "52": {
+      "file": "img/atlas/monsters/web/52-0f3602419d20.webp",
+      "width": 200,
+      "height": 275,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/silver-valkyrie.png",
+      "sourceHash": "0f3602419d2049cf40848d0aed8252310f2afe92985a2a86e3136b65a695a5cf"
+    },
+    "48": {
+      "file": "img/atlas/monsters/web/48-68cc25aec3a4.webp",
+      "width": 200,
+      "height": 219,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/lizard-king.png",
+      "sourceHash": "68cc25aec3a4246dbb69a5dc17780028d999285aa0c5085d681581963c1b17b7"
+    },
+    "51": {
+      "file": "img/atlas/monsters/web/51-764a95ee2a77.webp",
+      "width": 200,
+      "height": 102,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/great-bahamut.png",
+      "sourceHash": "764a95ee2a775330f3652743eac6dd869167bf569a462e91a5fd61def32fce10"
+    },
+    "49": {
+      "file": "img/atlas/monsters/web/49-294695533f00.webp",
+      "width": 200,
+      "height": 138,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/hydra.png",
+      "sourceHash": "294695533f0027d3c6013a80ef178baa7771053a73911635b3e7cb2235760d54"
+    },
+    "62": {
+      "file": "img/atlas/monsters/web/62-dc7a0ff81c23.webp",
+      "width": 200,
+      "height": 265,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/mutant.png",
+      "sourceHash": "dc7a0ff81c23e2053931e843dc521f0a84b1cdd50b1393f537ee7523348e4d3f"
+    },
+    "60": {
+      "file": "img/atlas/monsters/web/60-dc6fe98c6e1a.webp",
+      "width": 200,
+      "height": 122,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/bloody-wolf.png",
+      "sourceHash": "dc6fe98c6e1a495ceb0697993bd254ba43d7a2674f758e3c9f39d5243d624e8f"
+    },
+    "61": {
+      "file": "img/atlas/monsters/web/61-6a90092cf119.webp",
+      "width": 200,
+      "height": 196,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/beam-knight.png",
+      "sourceHash": "6a90092cf11909d5fbcf3faae32d2b7979aed1570c09efed94159818df72a8c1"
+    },
+    "59": {
+      "file": "img/atlas/monsters/web/59-601086ea702d.webp",
+      "width": 200,
+      "height": 284,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/zaikan.png",
+      "sourceHash": "601086ea702d1b1f8828f7cf7b1b153305734f70a04f2f8447f2af828a4a7c15"
+    },
+    "63": {
+      "file": "img/atlas/monsters/web/63-21541c322f3c.webp",
+      "width": 200,
+      "height": 230,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-beam-knight.png",
+      "sourceHash": "21541c322f3c18e14513b3b4c8a7d684878c16f69636d292820ca1134edb4c11"
+    },
+    "69": {
+      "file": "img/atlas/monsters/web/69-ea50571eea05.webp",
+      "width": 200,
+      "height": 169,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/alquamos.png",
+      "sourceHash": "ea50571eea05462d2bfead485a63b2c649c233a8cd8a77fb156c2f2d2d9a91d1"
+    },
+    "71": {
+      "file": "img/atlas/monsters/web/71-b318698eac94.webp",
+      "width": 200,
+      "height": 185,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/mega-crust.png",
+      "sourceHash": "b318698eac945b204d5d15e5e694ba7e9afc0b434bd31d4ab580d50a37995c07"
+    },
+    "77": {
+      "file": "img/atlas/monsters/web/77-542928a898ca.webp",
+      "width": 200,
+      "height": 85,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/phoenix-of-darkness.png",
+      "sourceHash": "542928a898ca5780db944fbd64edb30f1f6d40d4aa5072e49cabe8acc0712be2"
+    },
+    "351": {
+      "file": "img/atlas/monsters/web/351-fd784a79cfaf.webp",
+      "width": 200,
+      "height": 114,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/splinter-wolf.png",
+      "sourceHash": "fd784a79cfaf0cc5a92446bbcb3e5fa1798e7ebe6cd3d2660ef57bca52a27d5b"
+    },
+    "409": {
+      "file": "img/atlas/monsters/web/409-c9ab6ed22846.webp",
+      "width": 200,
+      "height": 162,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/balram.png",
+      "sourceHash": "c9ab6ed228469b87ae09db835ce4b8a5727604f60aeafb642317d0e82329c2fa"
+    },
+    "410": {
+      "file": "img/atlas/monsters/web/410-5fbc621ebe7d.webp",
+      "width": 200,
+      "height": 194,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/death-spirit-trainee-soldier.png",
+      "sourceHash": "5fbc621ebe7dc16cd25b2bd1bbaced698bed404979deac1f2ae014caab1b5a99"
+    },
+    "411": {
+      "file": "img/atlas/monsters/web/411-e64baad67047.webp",
+      "width": 200,
+      "height": 236,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/soram.png",
+      "sourceHash": "e64baad67047e330afd8c61edc554158a61de47cfd0a0782c882ef9eda50212a"
+    },
+    "412": {
+      "file": "img/atlas/monsters/web/412-e5b4c2d385ae.webp",
+      "width": 200,
+      "height": 218,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/dark-elf-trainee-soldier.png",
+      "sourceHash": "e5b4c2d385aee3775bd70f70bc844fc5f2d47b70fc025ccc17734c9e0e5d7104"
+    },
+    "481": {
+      "file": "img/atlas/monsters/web/481-68dceaae6478.webp",
+      "width": 178,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/zombie-fighter.png",
+      "sourceHash": "68dceaae64786b8f547d6354263ca3002080736c8c27b088e05e6a4573c22e08"
+    },
+    "483": {
+      "file": "img/atlas/monsters/web/483-c9922eebaaec.webp",
+      "width": 200,
+      "height": 217,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/resurrected-gladiator.png",
+      "sourceHash": "c9922eebaaec751c21415b9a6fb2eb0f1d871cc70cf1b414a8abb5369ae3ccd5"
+    },
+    "485": {
+      "file": "img/atlas/monsters/web/485-03e759310404.webp",
+      "width": 200,
+      "height": 152,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ash-slaughterer.png",
+      "sourceHash": "03e759310404feac5b92e77444d49da67f0224d78f48b8ac3e948fbdc3c984d1"
+    },
+    "488": {
+      "file": "img/atlas/monsters/web/488-fe2ce8b29f04.webp",
+      "width": 197,
+      "height": 227,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cruel-blood-assassin.png",
+      "sourceHash": "fe2ce8b29f0446beae5f378c2b910b1f325e0da43b082844104c4e9b72d0d750"
+    },
+    "491": {
+      "file": "img/atlas/monsters/web/491-c657a50407e8.webp",
+      "width": 200,
+      "height": 250,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ruthless-lava-giant.png",
+      "sourceHash": "c657a50407e871344788621f89eebe1d1500552f925fae2ffeb5446b10627e75"
+    },
+    "480": {
+      "file": "img/atlas/monsters/web/480-68dceaae6478.webp",
+      "width": 178,
+      "height": 300,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/zombie-fighter.png",
+      "sourceHash": "68dceaae64786b8f547d6354263ca3002080736c8c27b088e05e6a4573c22e08"
+    },
+    "482": {
+      "file": "img/atlas/monsters/web/482-c9922eebaaec.webp",
+      "width": 200,
+      "height": 217,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/resurrected-gladiator.png",
+      "sourceHash": "c9922eebaaec751c21415b9a6fb2eb0f1d871cc70cf1b414a8abb5369ae3ccd5"
+    },
+    "484": {
+      "file": "img/atlas/monsters/web/484-03e759310404.webp",
+      "width": 200,
+      "height": 152,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ash-slaughterer.png",
+      "sourceHash": "03e759310404feac5b92e77444d49da67f0224d78f48b8ac3e948fbdc3c984d1"
+    },
+    "486": {
+      "file": "img/atlas/monsters/web/486-335d6b5acf4b.webp",
+      "width": 197,
+      "height": 227,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/blood-assassin.png",
+      "sourceHash": "335d6b5acf4b3a7cab8ac9aa9442cf4fd7e1ce0b53fc5a2703513fa1c772b783"
+    },
+    "487": {
+      "file": "img/atlas/monsters/web/487-fe2ce8b29f04.webp",
+      "width": 197,
+      "height": 227,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/cruel-blood-assassin.png",
+      "sourceHash": "fe2ce8b29f0446beae5f378c2b910b1f325e0da43b082844104c4e9b72d0d750"
+    },
+    "489": {
+      "file": "img/atlas/monsters/web/489-8a324a076096.webp",
+      "width": 200,
+      "height": 250,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/burning-lava-giant.png",
+      "sourceHash": "8a324a0760969ce5c71ba5fa029f875d7ff3bc01271b8a91ecad622af4c15d2c"
+    },
+    "490": {
+      "file": "img/atlas/monsters/web/490-c657a50407e8.webp",
+      "width": 200,
+      "height": 250,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ruthless-lava-giant.png",
+      "sourceHash": "c657a50407e871344788621f89eebe1d1500552f925fae2ffeb5446b10627e75"
+    }
+  },
+  "rewards": {
+    "0": {
+      "file": "img/atlas/rewards/reward-0-80a508816e66.webp",
+      "kind": "item",
+      "width": 25,
+      "height": 21,
+      "name": "Box of Luck"
+    },
+    "3": {
+      "file": "img/atlas/rewards/reward-3-4c8dac918f5f.webp",
+      "kind": "item",
+      "width": 24,
+      "height": 27,
+      "name": "Star of Christmas"
+    },
+    "4": {
+      "file": "img/atlas/rewards/reward-4-f9e2d7ad9024.webp",
+      "kind": "item",
+      "width": 28,
+      "height": 30,
+      "name": "Heart of Love"
+    },
+    "5": {
+      "file": "img/atlas/rewards/reward-5-b2fd43d901a9.webp",
+      "kind": "item",
+      "width": 16,
+      "height": 30,
+      "name": "Silver Medal"
+    },
+    "6": {
+      "file": "img/atlas/rewards/reward-6-e9787c6a668f.webp",
+      "kind": "item",
+      "width": 20,
+      "height": 38,
+      "name": "Gold Medal"
+    },
+    "7": {
+      "file": "img/atlas/rewards/reward-7-938fc7f38d57.webp",
+      "kind": "item",
+      "width": 37,
+      "height": 31,
+      "name": "Box of Kundun 1"
+    },
+    "8": {
+      "file": "img/atlas/rewards/reward-8-932a612a1257.webp",
+      "kind": "item",
+      "width": 37,
+      "height": 31,
+      "name": "Box of Kundun 2"
+    },
+    "9": {
+      "file": "img/atlas/rewards/reward-9-59bea34f8922.webp",
+      "kind": "item",
+      "width": 37,
+      "height": 31,
+      "name": "Box of Kundun 3"
+    },
+    "10": {
+      "file": "img/atlas/rewards/reward-10-f797bf025d45.webp",
+      "kind": "item",
+      "width": 37,
+      "height": 31,
+      "name": "Box of Kundun 4"
+    },
+    "11": {
+      "file": "img/atlas/rewards/reward-11-5d496dffa832.webp",
+      "kind": "item",
+      "width": 37,
+      "height": 31,
+      "name": "Box of Kundun 5"
+    },
+    "12": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 1"
+    },
+    "13": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 2"
+    },
+    "14": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 3"
+    },
+    "15": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 4"
+    },
+    "16": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 5"
+    },
+    "17": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 6"
+    },
+    "18": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 7"
+    },
+    "19": {
+      "file": "img/atlas/editorial/blood-castle.webp",
+      "kind": "illustration",
+      "name": "Blood Castle 8"
+    },
+    "20": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Chaos Castle 1"
+    },
+    "21": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Chaos Castle 2"
+    },
+    "22": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Chaos Castle 3"
+    },
+    "23": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Chaos Castle 4"
+    },
+    "24": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Chaos Castle 5"
+    },
+    "25": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Chaos Castle 6"
+    },
+    "26": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Chaos Castle 7"
+    },
+    "28": {
+      "file": "img/atlas/rewards/starter-ring-40-1b58f215356f.webp",
+      "kind": "item",
+      "width": 14,
+      "height": 16,
+      "name": "Starter Ring 40"
+    },
+    "29": {
+      "file": "img/atlas/rewards/starter-ring-80-aecc922e51d3.webp",
+      "kind": "item",
+      "width": 14,
+      "height": 16,
+      "name": "Starter Ring 80"
+    },
+    "30": {
+      "file": "img/atlas/rewards/reward-30-ff16a1cc37a1.webp",
+      "kind": "item",
+      "width": 25,
+      "height": 21,
+      "name": "Box of Heaven"
+    },
+    "31": {
+      "file": "img/atlas/rewards/reward-31-aa4444ee988e.webp",
+      "kind": "item",
+      "width": 21,
+      "height": 24,
+      "name": "Blue Heart"
+    },
+    "34": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Senior Mix"
+    },
+    "35": {
+      "file": "img/atlas/rewards/reward-35-5cbb8bf0a653.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 32,
+      "name": "Red Ribbon Box"
+    },
+    "36": {
+      "file": "img/atlas/rewards/reward-36-2bbe6dd585f1.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 32,
+      "name": "Green Ribbon Box"
+    },
+    "37": {
+      "file": "img/atlas/rewards/reward-37-56a425a07c0c.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 32,
+      "name": "Blue Ribbon Box"
+    },
+    "38": {
+      "file": "img/atlas/rewards/reward-38-7277d2262f51.webp",
+      "kind": "item",
+      "width": 33,
+      "height": 34,
+      "name": "Pink Chocolate Box"
+    },
+    "39": {
+      "file": "img/atlas/rewards/reward-39-40caafcf42cf.webp",
+      "kind": "item",
+      "width": 33,
+      "height": 34,
+      "name": "Red Chocolate Box"
+    },
+    "40": {
+      "file": "img/atlas/rewards/reward-40-b48351e50cdf.webp",
+      "kind": "item",
+      "width": 34,
+      "height": 34,
+      "name": "Blue Chocolate Box"
+    },
+    "41": {
+      "file": "img/atlas/rewards/reward-41-98cab8100bce.webp",
+      "kind": "item",
+      "width": 30,
+      "height": 28,
+      "name": "Purple Candy Box"
+    },
+    "42": {
+      "file": "img/atlas/rewards/reward-42-9400678102a2.webp",
+      "kind": "item",
+      "width": 31,
+      "height": 27,
+      "name": "Red Candy Box"
+    },
+    "43": {
+      "file": "img/atlas/rewards/reward-43-5e9a59f6a557.webp",
+      "kind": "item",
+      "width": 31,
+      "height": 28,
+      "name": "Blue Candy Box"
+    },
+    "49": {
+      "file": "img/atlas/rewards/reward-49-d1267b79d4ed.webp",
+      "kind": "item",
+      "width": 28,
+      "height": 42,
+      "name": "Halloween Pumpkin"
+    },
+    "51": {
+      "file": "img/atlas/rewards/reward-51-8d2207b52665.webp",
+      "kind": "item",
+      "width": 44,
+      "height": 41,
+      "name": "GameMaster Box"
+    },
+    "52": {
+      "file": "img/atlas/rewards/reward-52-f9e7f0eaa6cd.webp",
+      "kind": "item",
+      "width": 34,
+      "height": 24,
+      "name": "Green Mistery Box"
+    },
+    "53": {
+      "file": "img/atlas/rewards/reward-53-f96a1b7a0485.webp",
+      "kind": "item",
+      "width": 34,
+      "height": 24,
+      "name": "Pink Mistery Box"
+    },
+    "54": {
+      "file": "img/atlas/rewards/reward-54-afd59b3dde45.webp",
+      "kind": "item",
+      "width": 34,
+      "height": 24,
+      "name": "Purple Mistery Box"
+    },
+    "55": {
+      "file": "img/server/systems/hero-path-5331edd1e310.webp",
+      "kind": "illustration",
+      "name": "Leo The Helper"
+    },
+    "56": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "Illusion Temple 1"
+    },
+    "57": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "Illusion Temple 2"
+    },
+    "58": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "Illusion Temple 3"
+    },
+    "59": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "Illusion Temple 4"
+    },
+    "60": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "Illusion Temple 5"
+    },
+    "61": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "Illusion Temple 6"
+    },
+    "63": {
+      "file": "img/atlas/rewards/reward-63-14d5e63169cb.webp",
+      "kind": "item",
+      "width": 38,
+      "height": 25,
+      "name": "Cherry Blossom Box"
+    },
+    "64": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Cherry Blossom Mix 1"
+    },
+    "65": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Cherry Blossom Mix 2"
+    },
+    "66": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Cherry Blossom Mix 3"
+    },
+    "69": {
+      "file": "img/atlas/territories/devias-7bb43c3f8fd1.webp",
+      "kind": "illustration",
+      "name": "Santa Claus"
+    },
+    "70": {
+      "file": "img/atlas/rewards/lucky-coin-9c1cffb12368.webp",
+      "kind": "item",
+      "width": 20,
+      "height": 22,
+      "name": "Lucky Coin 1"
+    },
+    "71": {
+      "file": "img/atlas/rewards/lucky-coin-9c1cffb12368.webp",
+      "kind": "item",
+      "width": 20,
+      "height": 22,
+      "name": "Lucky Coin 2"
+    },
+    "72": {
+      "file": "img/atlas/rewards/lucky-coin-9c1cffb12368.webp",
+      "kind": "item",
+      "width": 20,
+      "height": 22,
+      "name": "Lucky Coin 3"
+    },
+    "73": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Chaos Card Mix 1"
+    },
+    "74": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Chaos Card Mix 2"
+    },
+    "75": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Chaos Card Mix 3"
+    },
+    "76": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Chaos Card Mix 4"
+    },
+    "77": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Chaos Card Mix 5"
+    },
+    "78": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Silver Chest 1"
+    },
+    "79": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Silver Chest 2"
+    },
+    "80": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Silver Chest 3"
+    },
+    "81": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Silver Chest 4"
+    },
+    "82": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Silver Chest 5"
+    },
+    "83": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Golden Chest 1"
+    },
+    "84": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Golden Chest 2"
+    },
+    "85": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Golden Chest 3"
+    },
+    "86": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Golden Chest 4"
+    },
+    "87": {
+      "file": "img/atlas/editorial/atlas-chamber.webp",
+      "kind": "illustration",
+      "name": "DG Golden Chest 5"
+    },
+    "88": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Side Boss 1"
+    },
+    "89": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Side Boss 2"
+    },
+    "90": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Side Boss 3"
+    },
+    "91": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Side Boss 4"
+    },
+    "92": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Side Boss 5"
+    },
+    "93": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Main Boss 1"
+    },
+    "94": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Main Boss 2"
+    },
+    "95": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Main Boss 3"
+    },
+    "96": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Main Boss 4"
+    },
+    "97": {
+      "file": "img/atlas/editorial/imperial-temple.webp",
+      "kind": "illustration",
+      "name": "IG Main Boss 5"
+    },
+    "98": {
+      "file": "img/atlas/rewards/reward-98-c741e8cc3d16.webp",
+      "kind": "item",
+      "width": 138,
+      "height": 208,
+      "name": "Blue Luck Pouch"
+    },
+    "99": {
+      "file": "img/atlas/rewards/reward-99-27b7747faf24.webp",
+      "kind": "item",
+      "width": 138,
+      "height": 208,
+      "name": "Red Luck Pouch"
+    },
+    "100": {
+      "file": "img/atlas/rewards/reward-100-9ed43a936463.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 25,
+      "name": "Gold Chest"
+    },
+    "101": {
+      "file": "img/atlas/rewards/reward-101-205bdfb9a91d.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 25,
+      "name": "Silver Chest"
+    },
+    "102": {
+      "file": "img/atlas/rewards/reward-102-9ce4a30b37e3.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 25,
+      "name": "Red Chest"
+    },
+    "103": {
+      "file": "img/atlas/rewards/reward-103-c50c8a7951aa.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 25,
+      "name": "Purple Chest"
+    },
+    "104": {
+      "file": "img/atlas/rewards/reward-104-31d37c560cdc.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 25,
+      "name": "Blue Chest"
+    },
+    "105": {
+      "file": "img/atlas/rewards/reward-105-2c515605b51b.webp",
+      "kind": "item",
+      "width": 32,
+      "height": 25,
+      "name": "Yellow Chest"
+    },
+    "107": {
+      "file": "img/atlas/territories/crywolf-768-3e7a1e403f10.webp",
+      "kind": "illustration",
+      "name": "Crywolf"
+    },
+    "127": {
+      "file": "img/server/systems/fortune-a300dc40b62a.webp",
+      "kind": "illustration",
+      "name": "Online Lottery"
+    },
+    "128": {
+      "file": "img/server/systems/daily-e36b93392874.webp",
+      "kind": "illustration",
+      "name": "Gift"
+    },
+    "129": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Battle Royale"
+    },
+    "130": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Team vs Team"
+    },
+    "131": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Guild vs Guild"
+    },
+    "132": {
+      "file": "img/atlas/editorial/atlas-territories.webp",
+      "kind": "illustration",
+      "name": "Hide and Seek"
+    },
+    "133": {
+      "file": "img/atlas/editorial/atlas-territories.webp",
+      "kind": "illustration",
+      "name": "Run and Catch"
+    },
+    "134": {
+      "file": "img/server/systems/fortune-a300dc40b62a.webp",
+      "kind": "illustration",
+      "name": "Russian Roulette"
+    },
+    "135": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Player vs Player"
+    },
+    "136": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 1"
+    },
+    "137": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 2"
+    },
+    "138": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 3"
+    },
+    "139": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 3"
+    },
+    "140": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 3"
+    },
+    "141": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 3"
+    },
+    "142": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 3"
+    },
+    "143": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 3"
+    },
+    "144": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "Kill All Rank 3"
+    },
+    "145": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Devil Square 1"
+    },
+    "146": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Devil Square 2"
+    },
+    "147": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Devil Square 3"
+    },
+    "148": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Devil Square 4"
+    },
+    "149": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Devil Square 5"
+    },
+    "150": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Devil Square 6"
+    },
+    "151": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Devil Square 7"
+    },
+    "152": {
+      "file": "img/atlas/editorial/atlas-territories.webp",
+      "kind": "illustration",
+      "name": "Quickly Event"
+    },
+    "153": {
+      "file": "img/server/systems/hero-path-5331edd1e310.webp",
+      "kind": "illustration",
+      "name": "Reset Reward"
+    },
+    "154": {
+      "file": "img/server/systems/hero-path-5331edd1e310.webp",
+      "kind": "illustration",
+      "name": "Master Reset Reward"
+    },
+    "155": {
+      "file": "img/server/systems/daily-e36b93392874.webp",
+      "kind": "illustration",
+      "name": "Online Reward 1"
+    },
+    "156": {
+      "file": "img/server/systems/daily-e36b93392874.webp",
+      "kind": "illustration",
+      "name": "Online Reward 2"
+    },
+    "157": {
+      "file": "img/server/systems/daily-e36b93392874.webp",
+      "kind": "illustration",
+      "name": "Online Reward 3"
+    },
+    "158": {
+      "file": "img/server/systems/hero-path-5331edd1e310.webp",
+      "kind": "illustration",
+      "name": "Marathon Reward 1"
+    },
+    "159": {
+      "file": "img/server/systems/hero-path-5331edd1e310.webp",
+      "kind": "illustration",
+      "name": "Marathon Reward 1"
+    },
+    "160": {
+      "file": "img/server/systems/hero-path-5331edd1e310.webp",
+      "kind": "illustration",
+      "name": "Marathon Reward 1"
+    },
+    "161": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "PvpChampionship Final"
+    },
+    "162": {
+      "file": "img/atlas/editorial/pvp-arena.webp",
+      "kind": "illustration",
+      "name": "PvpChampionship Round"
+    },
+    "163": {
+      "file": "img/atlas/editorial/pandora.webp",
+      "kind": "illustration",
+      "name": "Pandora Event"
+    },
+    "164": {
+      "file": "img/atlas/territories/castle-siege-768-8e2b9831da3f.webp",
+      "kind": "illustration",
+      "name": "CS Switch Time"
+    },
+    "165": {
+      "file": "img/atlas/territories/castle-siege-768-8e2b9831da3f.webp",
+      "kind": "illustration",
+      "name": "CS Crown time"
+    },
+    "166": {
+      "file": "img/atlas/territories/castle-siege-768-8e2b9831da3f.webp",
+      "kind": "illustration",
+      "name": "CS Kills"
+    },
+    "167": {
+      "file": "img/atlas/territories/castle-siege-768-8e2b9831da3f.webp",
+      "kind": "illustration",
+      "name": "CS points"
+    },
+    "168": {
+      "file": "img/atlas/editorial/devil-square.webp",
+      "kind": "illustration",
+      "name": "Demon Guardian"
+    },
+    "200": {
+      "file": "img/server/systems/vault-47074095857a.webp",
+      "kind": "illustration",
+      "name": "Chaos mix 1"
+    },
+    "1014": {
+      "file": "img/atlas/rewards/reward-1014-6c40eb1b041c.webp",
+      "kind": "item",
+      "width": 20,
+      "height": 42,
+      "name": "Chaos mix 1"
     }
   }
 }

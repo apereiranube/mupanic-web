@@ -4,6 +4,11 @@ on:
     branches: [main, beta]
     paths:
       - 'tools/atlas_event_bags.py'
+      - 'tools/atlas_events.py'
+      - 'tools/sync_atlas_events.py'
+      - 'tools/update_atlas_events_sync.ps1'
+      - 'overlay/templates/mupanic/inc/public-events.json'
+      - 'overlay/templates/mupanic/api/atlas-events*.php'
       - 'tools/build_public_balance.py'
       - 'tools/sync_atlas.py'
       - 'tools/update_atlas_sync.ps1'
@@ -12,7 +17,30 @@ on:
       - 'overlay/templates/mupanic/inc/atlas-runtime.php'
       - 'overlay/templates/mupanic/api/atlas-sync.php'
       - 'overlay/templates/mupanic/js/atlas-search.js'
+      - 'overlay/templates/mupanic/js/atlas-drops.js'
+      - 'overlay/templates/mupanic/inc/atlas-drop-items.json'
+      - 'overlay/templates/mupanic/inc/atlas-drop-descriptions.json'
+      - 'overlay/templates/mupanic/img/atlas/drops/**'
+      - 'tools/atlas-drop-image-sources.json'
       - 'overlay/templates/mupanic/js/main.js'
+      - 'overlay/templates/mupanic/css/atlas.css'
+      - 'overlay/templates/mupanic/css/style.css'
+      - 'overlay/templates/mupanic/inc/atlas-*.php'
+      - 'overlay/templates/mupanic/inc/atlas-event-guides.json'
+      - 'overlay/templates/mupanic/inc/atlas-territories.json'
+      - 'overlay/templates/mupanic/inc/atlas-assets.json'
+      - 'overlay/templates/mupanic/img/atlas/monsters/**'
+      - 'overlay/templates/mupanic/img/atlas/rewards/**'
+      - 'tools/atlas-reward-image-sources.json'
+      - 'tools/atlas-web-portrait-sources.json'
+      - 'overlay/templates/mupanic/img/atlas/territories/**'
+      - 'overlay/templates/mupanic/inc/guide.php'
+      - 'overlay/templates/mupanic/inc/workshop.php'
+      - 'overlay/templates/mupanic/js/atlas-ui.js'
+      - 'overlay/templates/mupanic/img/atlas/editorial/**'
+      - 'overlay/templates/mupanic/img/atlas/events/**'
+      - 'overlay/templates/mupanic/index.php'
+      - 'tools/collect_atlas_events.ps1'
       - 'tests/*atlas*'
       - 'tests/fixtures/atlas-rewards.php'
       - '.github/workflows/atlas-rewards.yml'
@@ -33,15 +61,32 @@ jobs:
           python -m unittest discover -s tests -p 'test_atlas*.py'
           node tools/test_atlas_search.cjs
           node --check overlay/templates/mupanic/js/main.js
+          node --check overlay/templates/mupanic/js/atlas-ui.js
           node --check overlay/templates/mupanic/js/atlas-search.js
+          node --check overlay/templates/mupanic/js/atlas-drops.js
+          php -l overlay/templates/mupanic/inc/atlas-drops.php
+          php -l overlay/templates/mupanic/inc/atlas-drop-model.php
           php -l overlay/templates/mupanic/inc/reward-lists.php
+          php -l overlay/templates/mupanic/inc/atlas-reward-cards.php
+          php -l overlay/templates/mupanic/inc/atlas-events.php
+          php -l overlay/templates/mupanic/inc/atlas-hero.php
+          php -l overlay/templates/mupanic/inc/atlas-maps.php
+          php -l overlay/templates/mupanic/inc/atlas-explorer.php
+          php -l overlay/templates/mupanic/inc/guide.php
+          php -l overlay/templates/mupanic/inc/workshop.php
+          php -l overlay/templates/mupanic/index.php
           php -l overlay/templates/mupanic/inc/atlas-runtime.php
           php -l overlay/templates/mupanic/api/atlas-sync.php
+          php -l overlay/templates/mupanic/api/atlas-events.php
+          php -l overlay/templates/mupanic/api/atlas-events-sync.php
+          php -l overlay/templates/mupanic/inc/atlas-event-runtime.php
       - name: Check updater syntax
         shell: pwsh
         run: |
           $parseErrors = $null
           [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/update_atlas_sync.ps1'), [ref]$null, [ref]$parseErrors) | Out-Null
+          if ($parseErrors.Count) { $parseErrors | Format-List; exit 1 }
+          [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/update_atlas_events_sync.ps1'), [ref]$null, [ref]$parseErrors) | Out-Null
           if ($parseErrors.Count) { $parseErrors | Format-List; exit 1 }
       - name: Install browser
         run: |
@@ -50,9 +95,37 @@ jobs:
       - name: Verify Atlas rewards in browser
         env:
           ATLAS_SCREENSHOT_DIR: atlas-screenshots
-        run: node tests/atlas-rewards-browser.cjs
+        run: |
+          node tests/atlas-drops-browser.cjs
+          node tests/atlas-rewards-browser.cjs
+          node tests/atlas-redesign-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: atlas-screenshots
           path: atlas-screenshots/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-reward-images
+          path: |
+            atlas-screenshots/atlas-all-rewards-*.png
+            atlas-screenshots/atlas-box-rewards-*.png
+            atlas-screenshots/atlas-event-rewards-*.png
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-map-details
+          path: atlas-screenshots/atlas-map-*.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-drop-catalogue
+          path: atlas-screenshots/atlas-drops-*.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-event-guides
+          path: atlas-screenshots/atlas-event*.png

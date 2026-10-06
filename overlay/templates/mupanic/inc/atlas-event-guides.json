@@ -1,0 +1,1104 @@
+{
+  "schemaVersion": 1,
+  "guides": {
+    "blood-castle": {
+      "tagline": "Abrí el camino. Recuperá el objetivo.",
+      "intro": "Avanzá por el puente, derribá la estatua y devolvé el arma del ángel antes del cierre.",
+      "entry": "Invisibility Cloak de tu categoría, desde el NPC del evento.",
+      "objective": "Completar la entrega del arma del ángel.",
+      "rewardNote": "El premio no se extiende automáticamente a toda la party.",
+      "tiers": [
+        {
+          "label": "Blood Castle 1",
+          "bag": 12,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Blood Castle 2",
+          "bag": 13,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Blood Castle 3",
+          "bag": 14,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Bless 50% o Soul 50%",
+              "detail": "25% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Blood Castle 4",
+          "bag": 15,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Bless 50% o Soul 50%",
+              "detail": "25% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Blood Castle 5",
+          "bag": 16,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Bless 50% o Soul 50%",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Blood Castle 6",
+          "bag": 17,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Bless 50% o Soul 50%",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Blood Castle 7",
+          "bag": 18,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Bless 50% o Soul 50%",
+              "detail": "75% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Blood Castle 8",
+          "bag": 19,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Bless 50% o Soul 50%",
+              "detail": "75% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Blood Castle"
+    },
+    "devil-square": {
+      "tagline": "Las oleadas no esperan.",
+      "intro": "Resistí las oleadas de monstruos y aprovechá la experiencia del combate.",
+      "entry": "Entrada de la categoría habilitada por el cliente, desde el NPC del evento.",
+      "objective": "Sobrevivir a las oleadas y derrotar criaturas.",
+      "rewardNote": "Cada sorteo elige una joya: no se entregan todas las alternativas juntas.",
+      "tiers": [
+        {
+          "label": "Devil Square 1",
+          "bag": 145,
+          "rewards": [
+            {
+              "label": "Chaos 50% o Bless 25% o Soul 25%",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Devil Square 2",
+          "bag": 146,
+          "rewards": [
+            {
+              "label": "Chaos 50% o Bless 25% o Soul 25%",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Devil Square 3",
+          "bag": 147,
+          "rewards": [
+            {
+              "label": "Chaos 30% o Bless 35% o Soul 35%",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Devil Square 4",
+          "bag": 148,
+          "rewards": [
+            {
+              "label": "Chaos 30% o Bless 35% o Soul 35%",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Devil Square 5",
+          "bag": 149,
+          "rewards": [
+            {
+              "label": "Chaos 20% o Bless 35% o Soul 35% o Life 10%",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Devil Square 6",
+          "bag": 150,
+          "rewards": [
+            {
+              "label": "Chaos 20% o Bless 35% o Soul 35% o Life 10%",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Devil Square 7",
+          "bag": 151,
+          "rewards": [
+            {
+              "label": "Chaos 10% o Bless 35% o Soul 35% o Life 20%",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Devil Square"
+    },
+    "chaos-castle": {
+      "tagline": "Cada paso puede decidir la batalla.",
+      "intro": "Combatí contra jugadores y monstruos. Los empujones y las caídas también deciden quién sobrevive.",
+      "entry": "Usá Armor of Guardsman durante la apertura; revisá tu categoría en el cliente.",
+      "objective": "Sobrevivir dentro de la arena.",
+      "rewardNote": "Recompensa según la categoría del evento.",
+      "tiers": [
+        {
+          "label": "Chaos Castle 1",
+          "bag": 20,
+          "rewards": [
+            {
+              "label": "Bless/Soul/Chaos (un sorteo)",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Chaos Castle 2",
+          "bag": 21,
+          "rewards": [
+            {
+              "label": "1 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Chaos Castle 3",
+          "bag": 22,
+          "rewards": [
+            {
+              "label": "1 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Chaos Castle 4",
+          "bag": 23,
+          "rewards": [
+            {
+              "label": "1 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Life",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Chaos Castle 5",
+          "bag": 24,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Chaos Castle 6",
+          "bag": 25,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Equipo Ancient",
+              "detail": "10% adicional"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Chaos Castle 7",
+          "bag": 26,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Life",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Equipo Ancient",
+              "detail": "15% adicional"
+            }
+          ],
+          "delivery": "inventario"
+        }
+      ],
+      "referenceName": "Chaos Castle",
+      "art": "img/atlas/editorial/pvp-arena.webp"
+    },
+    "illusion-temple": {
+      "tagline": "La estrategia también conquista.",
+      "intro": "Recuperá la reliquia, escoltá al portador y entregala en tu base para sumar puntos con tu equipo.",
+      "entry": "Scroll of Blood y NPC Mirage durante la inscripción. Mínimo: 4 jugadores.",
+      "objective": "Llevar la reliquia a tu base y sumar puntos.",
+      "rewardNote": "Recompensa para el ganador elegible: joyas según categoría y 5 WCoin C.",
+      "tiers": [
+        {
+          "label": "Illusion Temple 1",
+          "bag": 56,
+          "rewards": [
+            {
+              "label": "1 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Life",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Illusion Temple 2",
+          "bag": 57,
+          "rewards": [
+            {
+              "label": "1 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Life",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Illusion Temple 3",
+          "bag": 58,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Life",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Illusion Temple 4",
+          "bag": 59,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Life",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Illusion Temple 5",
+          "bag": 60,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Life",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Equipo Ancient",
+              "detail": "10% adicional"
+            }
+          ],
+          "delivery": "inventario"
+        },
+        {
+          "label": "Illusion Temple 6",
+          "bag": 61,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Life",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Equipo Ancient",
+              "detail": "15% adicional"
+            }
+          ],
+          "delivery": "inventario"
+        }
+      ],
+      "referenceName": "Illusion Temple",
+      "art": "img/atlas/events/illusion-temple-862b30bc2306.webp"
+    },
+    "pandora": {
+      "tagline": "El maldito no está a salvo.",
+      "intro": "Disputá la transformación del maldito: perseguí al portador y defendé tu posición durante la competencia.",
+      "entry": "Área del evento: Devias, 216 · 215. Seguí el aviso del juego.",
+      "objective": "Disputar la transformación y defender tu posición.",
+      "rewardNote": "Joyas al inventario y 5 WCoin C.",
+      "tiers": [
+        {
+          "label": "Pandora Event",
+          "bag": 163,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Life",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "inventario"
+        }
+      ],
+      "referenceName": "Caza del Maldito — Pandora"
+    },
+    "invasion-0": {
+      "tagline": "El rey reclama el continente.",
+      "intro": "Buscá al Skeleton King en los mapas anunciados y derrotalo antes del cierre de la invasión.",
+      "entry": "Seguí el anuncio del juego. Las coordenadas de aparición pueden variar.",
+      "objective": "Encontrar y derrotar al Skeleton King.",
+      "rewardNote": "Chaos y una Bless o Soul. 10 WCoin C por ejecución elegible; no para todos los participantes.",
+      "tiers": [
+        {
+          "label": "Skeleton King",
+          "bag": 1,
+          "rewards": [
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Bless/Soul (un sorteo)",
+              "detail": "Una selección"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Skeleton King",
+      "art": "img/atlas/events/invasion-0-aa3bf042f5e6.webp"
+    },
+    "invasion-1": {
+      "tagline": "La amenaza desciende del cielo.",
+      "intro": "Localizá al Red Dragon en el mapa anunciado y preparate para el combate.",
+      "entry": "Seguí el anuncio de invasión; ubicación variable.",
+      "objective": "Derrotar al dragón antes del cierre.",
+      "rewardNote": "Bless y Soul, con una selección adicional de Life al 25%.",
+      "tiers": [
+        {
+          "label": "Red Dragon",
+          "bag": 2,
+          "rewards": [
+            {
+              "label": "1 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Life",
+              "detail": "25% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Red Dragon",
+      "art": "img/atlas/events/invasion-1-117673c35473.webp"
+    },
+    "invasion-3": {
+      "tagline": "Un ejército cruza el continente.",
+      "intro": "Buscá al White Wizard y combatí la invasión en los mapas anunciados.",
+      "entry": "Seguí el anuncio del juego; coordenadas de aparición variables.",
+      "objective": "Derrotar al White Wizard antes del cierre.",
+      "rewardNote": "Joyas como recompensa de la invasión.",
+      "tiers": [
+        {
+          "label": "White Wizard",
+          "bag": 27,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Life",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "White Wizard",
+      "art": "img/atlas/events/invasion-3-4b7cf8edb4ff.webp"
+    },
+    "invasion-2": {
+      "tagline": "Buscá el brillo. Enfrentá la invasión.",
+      "intro": "Rastreá a los dorados en los mapas anunciados. Cada criatura puede tener una recompensa distinta.",
+      "entry": "Acudí a los mapas indicados por el aviso del juego.",
+      "objective": "Encontrar y derrotar a los dorados.",
+      "rewardNote": "Cajas Kundun y equipo Excellent según el dorado; sin un premio único para toda la invasión.",
+      "tiers": [
+        {
+          "label": "Según el dorado",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "Cajas Kundun",
+              "detail": "Según criatura"
+            },
+            {
+              "label": "Equipo Excellent",
+              "detail": "Según criatura"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Invasión de Dorados",
+      "art": "img/atlas/events/invasion-2-95ec58a9ca92.webp"
+    },
+    "invasion-8": {
+      "tagline": "Una conquista a la altura del desafío.",
+      "intro": "Buscá a Medusa en Swamp of Calmness y enfrentá la amenaza antes del cierre de la invasión.",
+      "entry": "Acudí al mapa anunciado y prepará tu personaje para el combate.",
+      "objective": "Encontrar y derrotar a Medusa.",
+      "rewardNote": "Drop compartido al suelo; no un paquete Ancient por cada jugador.",
+      "tiers": [
+        {
+          "label": "Medusa",
+          "bag": 106,
+          "rewards": [
+            {
+              "label": "2 × Equipo Ancient",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Equipo Ancient",
+              "detail": "25% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Medusa",
+      "art": "img/atlas/events/invasion-8-ac5d6b7cc041.webp"
+    },
+    "double-goer": {
+      "tagline": "Sostené la línea. Defendé el camino.",
+      "intro": "Doppelganger es el desafío de defensa también llamado Double Goer: frená el avance de los monstruos, en solitario o en party.",
+      "entry": "Acceso por entrada al evento. Consultá la opción del cliente.",
+      "objective": "Evitar que los monstruos atraviesen el camino.",
+      "rewardNote": "Recompensa por apertura del cofre final; no un paquete automático por integrante.",
+      "tiers": [
+        {
+          "label": "Double Goer Golden Chest 1",
+          "bag": 83,
+          "rewards": [
+            {
+              "label": "1 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Life",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Doppelganger",
+      "art": "img/atlas/events/double-goer-5a6c0c4edd3e.webp",
+      "displayName": "Doppelganger"
+    },
+    "imperial-guardian": {
+      "tagline": "Conquistá la fortaleza. Enfrentá a Gaion.",
+      "intro": "Avanzá por las zonas, derrotá a sus guardianes y completá el recorrido del día.",
+      "entry": "Por entrada al evento. La ruta depende del día; consultá el acceso en el cliente.",
+      "objective": "Completar las zonas y derrotar al jefe final.",
+      "rewardNote": "Premios compartidos al suelo; no un paquete por jugador.",
+      "tiers": [
+        {
+          "label": "Imperial Guardian Side Boss 1",
+          "bag": 88,
+          "rewards": [
+            {
+              "label": "2 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Life",
+              "detail": "50% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        },
+        {
+          "label": "Imperial Guardian Main Boss 1",
+          "bag": 93,
+          "rewards": [
+            {
+              "label": "3 × Bless",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "3 × Soul",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "2 × Chaos",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Life",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "1 × Equipo Ancient",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Imperial Guardian / Gaion",
+      "art": "img/atlas/editorial/imperial-temple.webp"
+    },
+    "kundun": {
+      "tagline": "Kalima guarda su última amenaza.",
+      "intro": "Enfrentá al boss de Kalima 7. Es un encuentro de mapa, sin agenda de invasión fija.",
+      "entry": "Cinco Symbol of Kundun +7 forman Lost Map +7; usalo fuera de una zona segura.",
+      "objective": "Encontrar y derrotar a Kundun.",
+      "rewardNote": "Tres piezas Excellent.",
+      "tiers": [
+        {
+          "label": "Kundun",
+          "bag": 32,
+          "rewards": [
+            {
+              "label": "3 × Equipo Excellent",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Kundun"
+    },
+    "erohim": {
+      "tagline": "Land of Trials espera su conquista.",
+      "intro": "Erohim custodia Land of Trials. Buscalo en el escenario del desafío.",
+      "entry": "Consultá la disponibilidad de acceso a Land of Trials dentro del juego.",
+      "objective": "Enfrentar a Erohim en Land of Trials.",
+      "rewardNote": "Dos piezas Ancient.",
+      "tiers": [
+        {
+          "label": "Erohim",
+          "bag": 33,
+          "rewards": [
+            {
+              "label": "2 × Equipo Ancient",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Erohim"
+    },
+    "kanturu": {
+      "tagline": "Las ruinas guardan algo más.",
+      "intro": "Superá las fases de Kanturu y enfrentá a Nightmare para habilitar la refinería.",
+      "entry": "Acceso según el ciclo del escenario de Kanturu.",
+      "objective": "Superar las fases y enfrentar a Nightmare.",
+      "rewardNote": "Una piedra de refinación por selección: 70% Higher / 30% Lower.",
+      "tiers": [
+        {
+          "label": "Nightmare",
+          "bag": 48,
+          "rewards": [
+            {
+              "label": "1 × Harmony",
+              "detail": "Recompensa base"
+            },
+            {
+              "label": "Higher / Lower refining stone",
+              "detail": "Una piedra · 70% Higher / 30% Lower"
+            },
+            {
+              "label": "Harmony",
+              "detail": "25% adicional"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Kanturu / Nightmare",
+      "art": "img/atlas/territories/kanturu-three-93b2fd9c911e.webp"
+    },
+    "raklion": {
+      "tagline": "LaCleon esconde una amenaza mayor.",
+      "intro": "Entrá al escenario de Raklion y enfrentá a Selupan cuando el ciclo de la zona lo permita.",
+      "entry": "En la zona de Raklion / LaCleon, según el ciclo del escenario.",
+      "objective": "Enfrentar y derrotar a Selupan.",
+      "rewardNote": "Bases Socket sin seeds instaladas.",
+      "tiers": [
+        {
+          "label": "Selupan",
+          "bag": 67,
+          "rewards": [
+            {
+              "label": "2 × Bases Socket",
+              "detail": "Recompensa base"
+            }
+          ],
+          "delivery": "suelo"
+        }
+      ],
+      "referenceName": "Selupan",
+      "art": "img/atlas/territories/raklion-two-cdb28c27c8b8.webp"
+    },
+    "arena-0": {
+      "tagline": "Todas las clases. Una misma arena.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Participan todas las clases.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Participan todas las clases.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "5 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Survivor",
+      "displayName": "Survivor",
+      "artLabel": "Survivor",
+      "art": "img/atlas/events/arena-0-518f387c7872.webp"
+    },
+    "arena-1": {
+      "tagline": "Un duelo para dominar tu clase.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Magic Gladiator.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Magic Gladiator.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "2 × Kundun +4",
+              "detail": "Recompensa"
+            },
+            {
+              "label": "1 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Arena MG",
+      "displayName": "Magic Gladiator vs Magic Gladiator",
+      "artLabel": "Magic Gladiator",
+      "art": "img/atlas/events/arena-1-3a97922d5101.webp"
+    },
+    "arena-2": {
+      "tagline": "Un duelo para dominar tu clase.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Dark Wizard / Soul Master.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Soul Master.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "2 × Kundun +4",
+              "detail": "Recompensa"
+            },
+            {
+              "label": "1 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Arena DW / SM",
+      "displayName": "Soul Master vs Soul Master",
+      "artLabel": "Soul Master",
+      "art": "img/atlas/events/arena-2-0403a1fd5c83.webp"
+    },
+    "arena-3": {
+      "tagline": "Un duelo para dominar tu clase.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Dark Knight / Blade Knight.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Blade Knight.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "2 × Kundun +4",
+              "detail": "Recompensa"
+            },
+            {
+              "label": "1 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Arena DK / BK",
+      "displayName": "Blade Knight vs Blade Knight",
+      "artLabel": "Blade Knight",
+      "art": "img/atlas/events/arena-3-8f44228bf0bb.webp"
+    },
+    "arena-4": {
+      "tagline": "Un duelo para dominar tu clase.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Rage Fighter.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Rage Fighter.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "2 × Kundun +4",
+              "detail": "Recompensa"
+            },
+            {
+              "label": "1 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Arena RF",
+      "displayName": "Rage Fighter vs Rage Fighter",
+      "artLabel": "Rage Fighter",
+      "art": "img/atlas/events/arena-4-e83a1b946885.webp"
+    },
+    "arena-5": {
+      "tagline": "Un duelo para dominar tu clase.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Dark Lord.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Dark Lord.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "2 × Kundun +4",
+              "detail": "Recompensa"
+            },
+            {
+              "label": "1 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Arena DL",
+      "displayName": "Dark Lord vs Dark Lord",
+      "artLabel": "Dark Lord",
+      "art": "img/atlas/events/arena-5-adc15f68664a.webp"
+    },
+    "arena-6": {
+      "tagline": "Un duelo para dominar tu clase.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Elf.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Elf.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "2 × Kundun +4",
+              "detail": "Recompensa"
+            },
+            {
+              "label": "1 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Arena Elf",
+      "displayName": "Elf vs Elf",
+      "artLabel": "Elf",
+      "art": "img/atlas/events/arena-6-6068736f1420.webp"
+    },
+    "arena-7": {
+      "tagline": "Un duelo para dominar tu clase.",
+      "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Summoner.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Summoner.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
+      "tiers": [
+        {
+          "label": "Ganador",
+          "bag": null,
+          "rewards": [
+            {
+              "label": "2 × Kundun +4",
+              "detail": "Recompensa"
+            },
+            {
+              "label": "1 × Kundun +5",
+              "detail": "Recompensa"
+            }
+          ],
+          "delivery": ""
+        }
+      ],
+      "referenceName": "Arena Summoner",
+      "displayName": "Summoner vs Summoner",
+      "artLabel": "Summoner",
+      "art": "img/atlas/events/arena-7-39c578be7f53.webp"
+    }
+  }
+}

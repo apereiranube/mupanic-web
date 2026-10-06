@@ -138,10 +138,8 @@
   var results = wiki.querySelector('.wiki-search-results');
   var searchStatus = wiki.querySelector('.wiki-search-status');
   var mapFilter = wiki.querySelector('[data-map-filter]');
-  var dropFilter = wiki.querySelector('[data-drop-filter]');
-  var dropMap = wiki.querySelector('[data-drop-map]');
-  var dropAccount = wiki.querySelector('[data-drop-account]');
-  var dropMonster = wiki.querySelector('[data-drop-monster]');
+  var mapScope = 'all';
+  var mapSort = wiki.querySelector('[data-map-sort]');
   function normalize(value) { return value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
   function clearSearch() { search.value = ''; results.replaceChildren(); results.hidden = true; searchStatus.textContent = ''; }
   function revealHash() {
@@ -153,16 +151,17 @@
     nav.forEach(function (link) { if (link.hash === '#' + panel.id) { link.setAttribute('aria-current', 'page'); var group = link.closest('details'); if (group) group.open = true; } else link.removeAttribute('aria-current'); });
     if (panel.id === 'taller') selectRecipe(target && target.hasAttribute('data-recipe-id') ? target.getAttribute('data-recipe-id') : currentRecipe);
     // A shared deep link must reveal a map/row even after local filtering.
+    wiki.querySelectorAll('[data-event-reward-list]').forEach(function(list) { list.hidden = true; });
     if (target) {
       target.hidden = false;
       var atlasPanel = target.closest('[data-atlas-panel]');
-      if (atlasPanel) selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel'));
+      if (atlasPanel) { selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel')); if (target.hasAttribute('data-atlas-mob')) selectAtlasMonster(atlasPanel, target.getAttribute('data-atlas-mob')); }
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
-      if (target.closest('#progresion')) { mapFilter.value = ''; filterMaps(); }
-      if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardFilter.value = ''; rewardFilter.dispatchEvent(new Event('input')); }
-      if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
-      requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
+      if (target.closest('#progresion')) { mapFilter.value = ''; if (target !== panel) setMapScope('all'); else filterMaps(); }
+      if (target.hasAttribute('data-reward-list') && target.closest('#recompensas') && rewardFilter) { rewardKind = ''; rewardFilter.value = ''; filterRewards(); }
+      if (panel.id === 'drops') { var dropItem = target.closest('[data-drop-item]'); if (target.hasAttribute('data-drop-row')) dropExplorer.reset(); if (dropItem) dropExplorer.open(dropItem.getAttribute('data-drop-item')); else dropExplorer.back({focus:false}); }
+      if (location.hash) requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
     }
   }
   wiki.classList.add('wiki-enhanced');
@@ -170,19 +169,27 @@
   nav.forEach(function (link) { link.addEventListener('click', function () { clearSearch(); if (location.hash === link.hash) revealHash(); }); });
   var searchable = [];
   panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.querySelector('h2').textContent), hash: '#' + panel.id}); });
-  wiki.querySelectorAll('[data-reward-item-filter]').forEach(function(input) {
-    input.addEventListener('input', function() {
+  wiki.addEventListener('input', function(event) {
+      var input = event.target;
+      if (!input.matches('[data-reward-item-filter]')) return;
       var list = input.closest('[data-reward-list]'), query = normalize(input.value), visible = 0;
       list.querySelectorAll('[data-reward-item]').forEach(function(row) { row.hidden = !normalize(row.textContent).includes(query); if(!row.hidden) visible++; });
       list.querySelector('[data-reward-item-status]').textContent = visible + ' objetos posibles' + (visible ? '' : ' · probá otro nombre');
-    });
   });
   var rewardFilter = wiki.querySelector('[data-reward-filter]');
-  if (rewardFilter) rewardFilter.addEventListener('input',function() {
+  var rewardKind = '';
+  function filterRewards() {
+    if (!rewardFilter) return;
     var query = normalize(rewardFilter.value), visible = 0;
-    wiki.querySelectorAll('[data-reward-list]').forEach(function(list) { list.hidden = !normalize(list.textContent).includes(query); if (!list.hidden) visible++; });
+    wiki.querySelectorAll('#recompensas [data-reward-list]').forEach(function(list) {
+      list.hidden = (rewardKind && list.getAttribute('data-reward-type') !== rewardKind) || !normalize(list.textContent).includes(query);
+      if (!list.hidden) visible++;
+    });
     wiki.querySelector('[data-reward-status]').textContent = visible + ' listas de recompensas' + (visible ? '' : ' · probá otro nombre');
-  });
+    wiki.querySelectorAll('[data-reward-kind]').forEach(function(button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-reward-kind') === rewardKind)); });
+  }
+  if (rewardFilter) rewardFilter.addEventListener('input',filterRewards);
+  wiki.querySelectorAll('[data-reward-kind]').forEach(function(button) { button.addEventListener('click',function() { rewardKind = button.getAttribute('data-reward-kind'); filterRewards(); }); });
   search.addEventListener('input', function () {
     var query = normalize(search.value); results.replaceChildren();
     if (!query) { clearSearch(); return; }
@@ -202,47 +209,50 @@
   function filterMaps() {
     var query = normalize(mapFilter.value), visible = 0;
     wiki.querySelectorAll('#progresion .wiki-map').forEach(function (map) {
-      map.hidden = !normalize(map.textContent + ' ' + (map.getAttribute('data-map-aliases') || '')).includes(query); if (!map.hidden) visible++;
+      var id = Number(map.id.replace('mapa-', '')), spots = Number(map.getAttribute('data-map-spots'));
+      var matchesScope = mapScope === 'all' || (mapScope === 'spots' && spots > 0) || (mapScope === 'other' && spots === 0) || (mapScope === 'saved' && (saved || []).includes(id));
+      map.hidden = !matchesScope || !normalize(map.getAttribute('data-map-search') || map.textContent).includes(query);
+      if (!map.hidden) visible++;
     });
-    wiki.querySelector('[data-map-status]').textContent = visible + ' mapas' + (visible ? '' : ' · probá otro nombre');
+    wiki.querySelector('[data-map-status]').textContent = visible + (visible === 1 ? ' mapa' : ' mapas') + ' · ' + data.maps.length + ' territorios';
+    var empty = wiki.querySelector('[data-map-empty]'); if (empty) empty.hidden = visible !== 0;
   }
-  function eligible(drop, map) {
-    if (drop.map !== -1 && drop.map !== map.id) return false;
-    var mode = map.equipmentDrop && map.equipmentDrop.dropMode;
-    if (mode !== '*' && mode !== 'unknown' && (Number(mode) & 4) === 0) return false;
-    return map.monsters.some(function (monster) { return monster.level >= drop.min && monster.level <= drop.max && (drop.monster === -1 || monster.id === drop.monster); });
+  function setMapScope(scope) {
+    mapScope = scope;
+    wiki.querySelectorAll('[data-map-scope]').forEach(function(button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-map-scope') === scope)); });
+    filterMaps();
   }
-  var allMonsters = Array.from(new Map(data.maps.flatMap(function(map) { return map.monsters; }).map(function(m) { return [m.id,m]; })).values()).sort(function(a,b) { return a.name.localeCompare(b.name); });
-  function matchesMonster(drop, monster) { return monster.level >= drop.min && monster.level <= drop.max && (drop.monster === -1 || drop.monster === monster.id); }
-  function updateMonsterOptions() {
-    var selected = dropMonster.value;
-    var map = data.maps.find(function(m) { return String(m.id) === dropMap.value; });
-    dropMonster.replaceChildren(new Option('Todos los monstruos', ''));
-    (map ? map.monsters : allMonsters).forEach(function(m) { dropMonster.add(new Option(m.name, String(m.id))); });
-    dropMonster.value = selected;
+  function sortMaps() {
+    if (!mapSort) return;
+    var list = wiki.querySelector('#progresion>.wiki-map-list');
+    Array.from(list.children).sort(function(a,b) {
+      if (mapSort.value === 'name') return a.getAttribute('data-map-name').localeCompare(b.getAttribute('data-map-name'), 'es', {numeric:true});
+      if (mapSort.value === 'level') {
+        var left = a.getAttribute('data-map-level'), right = b.getAttribute('data-map-level');
+        var difference = (left === '' ? Infinity : Number(left)) - (right === '' ? Infinity : Number(right));
+        if (difference && !Number.isNaN(difference)) return difference;
+      }
+      return Number(a.getAttribute('data-map-index')) - Number(b.getAttribute('data-map-index'));
+    }).forEach(function(map) { list.appendChild(map); });
   }
-  updateMonsterOptions();
-  function filterDrops() {
-    var query = normalize(dropFilter.value), account = Number(dropAccount.value);
-    var map = data.maps.find(function (item) { return String(item.id) === dropMap.value; });
-    var monster = allMonsters.find(function(m) { return String(m.id) === dropMonster.value; });
-    var visible = 0;
-    wiki.querySelectorAll('[data-drop-row]').forEach(function (row) {
-      var drop = data.drops[Number(row.getAttribute('data-drop-row'))];
-      row.hidden = !normalize(drop.name).includes(query) || (map && !eligible(drop, map)) || (monster && !matchesMonster(drop, monster));
-      row.querySelector('[data-drop-rate]').textContent = drop.rates[account].toLocaleString('es-AR', {maximumFractionDigits: 6}) + '%';
-      if (!row.hidden) visible++;
-    });
-    wiki.querySelector('[data-account-name]').textContent = data.accounts[account].name;
-    wiki.querySelector('[data-drop-status]').textContent = visible + ' reglas de drop' + (map ? ' compatibles con monstruos de ' + map.name : '') + (monster ? ' · ' + monster.name : '') + (visible ? '' : ' · probá otro objeto o mapa');
-  }
+  var dropExplorer = window.PanicAtlasDrops.create(wiki, data);
+  function filterDrops() { dropExplorer.filter(); }
   mapFilter.addEventListener('input', filterMaps);
-  dropFilter.addEventListener('input', filterDrops);
-  dropMap.addEventListener('change', function() { dropMonster.value = ''; updateMonsterOptions(); filterDrops(); });
-  dropMonster.addEventListener('change', filterDrops);
-  dropAccount.addEventListener('change', filterDrops);
-  wiki.querySelectorAll('[data-drop-query]').forEach(function (button) { button.addEventListener('click', function () { dropFilter.value = button.getAttribute('data-drop-query'); filterDrops(); }); });
-  wiki.querySelectorAll('[data-map-drops]').forEach(function (link) { link.addEventListener('click', function () { dropMap.value = link.getAttribute('data-map-drops'); dropFilter.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); if (location.hash === '#drops') revealHash(); }); });
+  if (mapSort) mapSort.addEventListener('change', sortMaps);
+  wiki.querySelectorAll('[data-map-scope]').forEach(function(button) { button.addEventListener('click', function() { setMapScope(button.getAttribute('data-map-scope')); }); });
+  wiki.querySelectorAll('[data-map-reset]').forEach(function(button) { button.addEventListener('click', function() { mapFilter.value = ''; if (mapSort) mapSort.value = 'atlas'; sortMaps(); setMapScope('all'); mapFilter.focus(); }); });
+  wiki.querySelectorAll('#progresion>.wiki-map-list>.wiki-map').forEach(function(map) {
+    map.addEventListener('toggle', function() {
+      var preview = map.querySelector('.atlas-map-preview');
+      if (preview && preview.srcset) preview.sizes = map.open ? '(max-width: 750px) 92vw, (max-width: 1400px) 68vw, 1140px' : '(max-width: 540px) 92vw, (max-width: 750px) 44vw, (max-width: 1400px) 34vw, 560px';
+      if (map.open) map.querySelectorAll('.atlas-terrain img,[data-atlas-panel]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
+      map.querySelector('.atlas-map-open-label>span').textContent = map.open ? 'Cerrar exploración' : 'Explorar mapa';
+      map.querySelector('.atlas-map-open-label>i').textContent = map.open ? '−' : '↗';
+    });
+    var close = map.querySelector('[data-map-close]');
+    if (close) close.addEventListener('click', function() { map.open = false; var summary = map.querySelector('summary'); summary.focus({preventScroll:true}); summary.scrollIntoView({block:'nearest',behavior:'instant'}); });
+  });
+  wiki.querySelectorAll('[data-map-drops]').forEach(function (link) { link.addEventListener('click', function () { dropExplorer.reset({map:link.getAttribute('data-map-drops')}); if (location.hash === '#drops') revealHash(); }); });
   var finderIndex = window.PanicAtlasSearch.build(data);
   var finderQuery = wiki.querySelector('[data-atlas-query]');
   var finderType = wiki.querySelector('[data-atlas-type]');
@@ -326,19 +336,31 @@
     finderQuery.value = ''; finderType.value = ''; finderMap.value = ''; finderLevel.value = ''; renderFinder(true); finderQuery.focus();
   });
   renderFinder(true);
+  function selectAtlasMonster(panel, id) {
+    panel.querySelectorAll('[data-atlas-mob]').forEach(function(card) { card.hidden = card.getAttribute('data-atlas-mob') !== id; });
+    panel.querySelectorAll('[data-atlas-mob-select]').forEach(function(button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-atlas-mob-select') === id)); });
+    var picker = panel.querySelector('[data-atlas-mob-picker]'); if (picker) picker.value = id;
+    if (panel.closest('.wiki-map').open) panel.querySelectorAll('[data-atlas-mob]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
+  }
   function selectAtlasSpot(explorer, key) {
     explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) { panel.hidden = panel.getAttribute('data-atlas-panel') !== key; });
+    if (explorer.closest('.wiki-map').open) explorer.querySelectorAll('[data-atlas-panel]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
     explorer.querySelectorAll('[data-atlas-select]').forEach(function(link) {
       if (link.getAttribute('data-atlas-select') === key) link.setAttribute('aria-current', 'true');
       else link.removeAttribute('aria-current');
     });
   }
   wiki.querySelectorAll('[data-atlas-explorer]').forEach(function(explorer) {
+    explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) {
+      var first = panel.querySelector('[data-atlas-mob]'); if (first) selectAtlasMonster(panel, first.getAttribute('data-atlas-mob'));
+      panel.querySelectorAll('[data-atlas-mob-select]').forEach(function(button) { button.addEventListener('click', function() { selectAtlasMonster(panel, button.getAttribute('data-atlas-mob-select')); }); });
+      var picker = panel.querySelector('[data-atlas-mob-picker]'); if (picker) picker.addEventListener('change', function() { selectAtlasMonster(panel, picker.value); });
+    });
     selectAtlasSpot(explorer, explorer.querySelector('[data-atlas-panel]').getAttribute('data-atlas-panel'));
     explorer.querySelectorAll('[data-atlas-select]').forEach(function(link) { link.addEventListener('click', function(event) {
       event.preventDefault(); selectAtlasSpot(explorer, link.getAttribute('data-atlas-select'));
       var inspector = explorer.querySelector('.atlas-inspector');
-      if (window.matchMedia('(max-width: 900px)').matches) inspector.scrollIntoView({block:'start',behavior:'smooth'});
+      if (window.matchMedia('(max-width: 900px)').matches) inspector.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
     }); });
     explorer.querySelector('[data-atlas-zoom]').addEventListener('click',function(event) {
       var frame = explorer.querySelector('.atlas-map-window');
@@ -410,7 +432,7 @@
   recipeSearch.addEventListener('input', function () { filterRecipes(true); });
   recipeAccount.addEventListener('change', recipeRates);
   wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.addEventListener('click', function () { recipeGroup = button.getAttribute('data-recipe-group'); filterRecipes(true); }); });
-  wiki.querySelectorAll('[data-material-drop]').forEach(function (link) { link.addEventListener('click', function () { dropFilter.value = link.getAttribute('data-material-drop'); dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); if (location.hash === '#drops') revealHash(); }); });
+  wiki.querySelectorAll('[data-material-drop]').forEach(function (link) { link.addEventListener('click', function () { dropExplorer.reset({query:link.getAttribute('data-material-drop')}); if (location.hash === '#drops') revealHash(); }); });
   data.recipes.forEach(function (recipe) { searchable.push({title: recipe.name, context: 'Taller · ' + recipe.group, text: normalize(recipe.name + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')), hash: '#crear-' + recipe.id}); });
   function updateUpgradePlanner() {
     var account = Number(wiki.querySelector('[data-upgrade-account]').value);
@@ -450,9 +472,10 @@
     saved.forEach(function (id) { var map = data.maps.find(function (item) { return item.id === id; }); var link = document.createElement('a'); link.href = '#mapa-' + id; link.textContent = map.name + ' ↗'; list.appendChild(link); });
     wiki.querySelectorAll('[data-save-map]').forEach(function (button) { var active = saved.includes(Number(button.getAttribute('data-save-map'))); button.setAttribute('aria-pressed', String(active)); button.textContent = active ? 'Mapa guardado ✓' : 'Guardar mapa'; });
   }
-  wiki.querySelectorAll('[data-save-map]').forEach(function (button) { button.addEventListener('click', function () { var id = Number(button.getAttribute('data-save-map')); saved = saved.includes(id) ? saved.filter(function (value) { return value !== id; }) : saved.concat(id); try { localStorage.setItem('panic-atlas-maps', JSON.stringify(saved)); } catch (e) {} renderSaved(); }); });
+  wiki.querySelectorAll('[data-save-map]').forEach(function (button) { button.addEventListener('click', function () { var id = Number(button.getAttribute('data-save-map')); saved = saved.includes(id) ? saved.filter(function (value) { return value !== id; }) : saved.concat(id); try { localStorage.setItem('panic-atlas-maps', JSON.stringify(saved)); } catch (e) {} renderSaved(); filterMaps(); if (button.closest('.wiki-map').hidden) wiki.querySelector('[data-map-scope="saved"]').focus(); }); });
   renderSaved();
-  filterMaps(); filterDrops(); revealHash();
+  filterMaps(); filterDrops(); filterRewards(); revealHash();
+  wiki.classList.remove('atlas-boot');
 })();
 
 ;(function () {

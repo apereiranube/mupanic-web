@@ -3,6 +3,7 @@ on:
   push:
     branches: [beta, main]
     paths:
+      - 'overlay/templates/mupanic/css/style.css'
       - 'overlay/templates/mupanic/css/profiles.css'
       - 'overlay/templates/mupanic/js/profiles.js'
       - 'tests/profiles-browser.cjs'

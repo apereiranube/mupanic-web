@@ -1,0 +1,73 @@
+{
+  "type": "original conceptual artwork, not client screenshots",
+  "generator": "built-in image_gen",
+  "date": "2026-10-06",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "webpQuality": 90,
+  "style": "Cinematic medieval dark fantasy; charcoal, aged copper/gold, crimson. No text, UI, logos, brands or recognizable copyrighted character designs. Central action for web card and modal crops.",
+  "scenes": {
+    "double-goer": {
+      "file": "img/atlas/events/double-goer-5a6c0c4edd3e.webp",
+      "prompt": "Doppelganger defense: a small party of armored adventurers holds a narrow frozen bridge against a wave of shadowy spectral doubles mimicking their silhouettes. Clearly a defensive PvE battle, not a duel. A warm copper-lit reward chest visible beyond the battle."
+    },
+    "invasion-0": {
+      "file": "img/atlas/events/invasion-0-aa3bf042f5e6.webp",
+      "prompt": "Skeleton King invasion: a towering crowned skeletal warlord in blackened copper armor raises an enormous axe, a skeletal army advancing through the mist toward small armored defenders in a ruined medieval plain."
+    },
+    "invasion-1": {
+      "file": "img/atlas/events/invasion-1-117673c35473.webp",
+      "prompt": "Red Dragon invasion: a colossal crimson dragon descending over a medieval stone fortress and valley, roaring wings and copper firelight, adventurers rallying beneath it. Dragon clearly recognizable, dynamic epic scale."
+    },
+    "invasion-2": {
+      "file": "img/atlas/events/invasion-2-95ec58a9ca92.webp",
+      "prompt": "Golden invasion: several distinct imposing gold-armored fantasy beasts, a horned titan, a dragon and an armored ogre, advancing through a rugged valley toward tiny adventurers; worn gold and copper gleaming, not yellow cartoon creatures."
+    },
+    "invasion-3": {
+      "file": "img/atlas/events/invasion-3-4b7cf8edb4ff.webp",
+      "prompt": "White Wizard invasion: an ominous elderly white-robed wizard holding a carved staff radiating pale arcane power, flanked by hostile armored minions, advancing toward adventurers outside medieval fortress gates. White wizard unmistakable against charcoal and copper setting."
+    },
+    "invasion-8": {
+      "file": "img/atlas/events/invasion-8-ac5d6b7cc041.webp",
+      "prompt": "Medusa invasion: a regal formidable serpent-haired sorceress in dark copper armor in a misty swamp temple, her coiled serpents silhouetted with crimson magical light, adventurers facing her. Epic boss scale, dignified and intimidating."
+    },
+    "arena-0": {
+      "file": "img/atlas/events/arena-0-518f387c7872.webp",
+      "prompt": "Survivor arena: an epic free-for-all battle with seven visually different champions, sword knight, male robed mage, female elven archer, male sword-and-spell hybrid, male dark lord with command staff, female summoner, and muscular male gauntlet fighter. A melee of champions in a medieval arena, not a lineup or character selection screen."
+    },
+    "arena-1": {
+      "file": "img/atlas/events/arena-1-3a97922d5101.webp",
+      "prompt": "Magic Gladiator versus Magic Gladiator: exactly two adult male arcane gladiators fighting each other, both wielding long swords and spell energy, hybrid armored warrior-mages with uncovered faces, one copper gold and the other charcoal crimson, crossed blades central action in medieval arena."
+    },
+    "arena-2": {
+      "file": "img/atlas/events/arena-2-0403a1fd5c83.webp",
+      "prompt": "Dark Wizard / Soul Master versus Dark Wizard / Soul Master: exactly two adult male wizards in elegant armored robes fighting each other with ornate staffs and powerful opposing arcane spells; intricate tall hoods, pale gold versus crimson spell collision at center in medieval arena."
+    },
+    "arena-3": {
+      "file": "img/atlas/events/arena-3-8f44228bf0bb.webp",
+      "prompt": "Dark Knight / Blade Knight versus Dark Knight / Blade Knight: exactly two massive adult male knights in intricate heavy plate armor dueling each other, enormous swords clashing centrally, copper plate versus dark iron with crimson cloth, strong readable martial action in medieval arena."
+    },
+    "arena-4": {
+      "file": "img/atlas/events/arena-4-e83a1b946885.webp",
+      "prompt": "Rage Fighter versus Rage Fighter: exactly two muscular adult male martial fighters dueling, armored gauntlets and fists colliding, visible muscular arms, no swords or staffs; copper and dark crimson armor, impact sparks in medieval arena."
+    },
+    "arena-5": {
+      "file": "img/atlas/events/arena-5-adc15f68664a.webp",
+      "prompt": "Dark Lord versus Dark Lord: exactly two adult male regal dark lords in commanding capes and intricate noble armor dueling with elaborate scepters emitting opposing magic, one copper gold and one charcoal crimson; dark raven silhouettes around them in a medieval arena, not generic knights."
+    },
+    "arena-6": {
+      "file": "img/atlas/events/arena-6-6068736f1420.webp",
+      "prompt": "Elf versus Elf: exactly TWO adult female elven archers fighting EACH OTHER in an epic duel. Both clearly female elves with pointed ears, elegant practical intricate armor, sweeping silver and dark hair, each drawing ornate bows at the opposing elf, crossing magical arrow trails at center. Copper gold versus charcoal crimson, medieval arena. No male fighters, no extra combatants."
+    },
+    "arena-7": {
+      "file": "img/atlas/events/arena-7-39c578be7f53.webp",
+      "prompt": "Summoner versus Summoner: exactly two adult female summoners fighting each other, elegant dark magical robes and armored shoulders, one summoning a translucent copper spectral beast and the other a crimson spirit, rune magic collision central action, medieval fantasy arena. No male fighters."
+    },
+    "illusion-temple": {
+      "file": "img/atlas/events/illusion-temple-862b30bc2306.webp",
+      "prompt": "Two opposing armored squads contest a luminous ceremonial relic in a vast copper and charcoal temple; one champion carries the relic toward a distant sanctuary, spell trails and sparks."
+    }
+  }
+}

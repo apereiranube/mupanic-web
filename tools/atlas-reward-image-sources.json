@@ -1,0 +1,509 @@
+{
+  "img/atlas/rewards/reward-0-80a508816e66.webp": {
+    "url": "https://mureforge.com/item-images/14/11.webp",
+    "hash": "80a508816e661be83730c7316197da56fdce3469f615eca3eaed0fdfd84effb4",
+    "size": [
+      32,
+      32
+    ],
+    "width": 25,
+    "height": 21,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-3-4c8dac918f5f.webp": {
+    "url": "https://bless.gs/images/items/14-11-1.webp",
+    "hash": "4c8dac918f5f21096a233735bf391758e7befce556d80447029684cd1f4b5356",
+    "size": [
+      24,
+      27
+    ],
+    "width": 24,
+    "height": 27,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-4-f9e2d7ad9024.webp": {
+    "url": "https://bless.gs/images/items/14-11-3.webp",
+    "hash": "f9e2d7ad9024c1ba6930cbc270454e6b7b8bd42c549d18dd88b7bdbfbd52b0b1",
+    "size": [
+      28,
+      30
+    ],
+    "width": 28,
+    "height": 30,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-5-b2fd43d901a9.webp": {
+    "url": "https://bless.gs/images/items/14-11-5.webp",
+    "hash": "b2fd43d901a9520a26092bfab4a45b0fece747f6ec66a800c17882b010d716b7",
+    "size": [
+      16,
+      30
+    ],
+    "width": 16,
+    "height": 30,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-6-e9787c6a668f.webp": {
+    "url": "https://bless.gs/images/items/14-11-6.webp",
+    "hash": "e9787c6a668f4fddaee6d3419f85ee39649a32ccc4bfa256898cc011f9d36346",
+    "size": [
+      20,
+      38
+    ],
+    "width": 20,
+    "height": 38,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-7-938fc7f38d57.webp": {
+    "url": "https://bless.gs/images/items/14-11-8.webp",
+    "hash": "938fc7f38d57b5aa3a3c138a60ac479beaa474e1da0c8cd40ea15cc89ea5e359",
+    "size": [
+      37,
+      31
+    ],
+    "width": 37,
+    "height": 31,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-8-932a612a1257.webp": {
+    "url": "https://bless.gs/images/items/14-11-9.webp",
+    "hash": "932a612a125730ed1a99ac52d80546fddb1be3d968496c70cf17717cb38b30d3",
+    "size": [
+      37,
+      31
+    ],
+    "width": 37,
+    "height": 31,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-9-59bea34f8922.webp": {
+    "url": "https://bless.gs/images/items/14-11-10.webp",
+    "hash": "59bea34f8922e48c6a013c1c2d7dec563a8f5246489c538ccd8f9577cc5c24d6",
+    "size": [
+      37,
+      31
+    ],
+    "width": 37,
+    "height": 31,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-10-f797bf025d45.webp": {
+    "url": "https://bless.gs/images/items/14-11-11.webp",
+    "hash": "f797bf025d45b4e4bd9f4dc376354ad1a4cff9913c7efa02fe1fd1cfa9e8272f",
+    "size": [
+      37,
+      31
+    ],
+    "width": 37,
+    "height": 31,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-11-5d496dffa832.webp": {
+    "url": "https://bless.gs/images/items/14-11-12.webp",
+    "hash": "5d496dffa832ab76a35b3898dcec691af7f6db481674440b87c1db038c7af659",
+    "size": [
+      37,
+      31
+    ],
+    "width": 37,
+    "height": 31,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/starter-ring-40-1b58f215356f.webp": {
+    "url": "https://blackrock.games/system/images/guides/items/ring_starter_40.gif",
+    "hash": "1b58f215356fcda7e7449287c307d5bb52ac00b727dc7dcd4c768647704bfcb7",
+    "size": [
+      32,
+      32
+    ],
+    "width": 14,
+    "height": 16,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/starter-ring-80-aecc922e51d3.webp": {
+    "url": "https://blackrock.games/system/images/guides/items/ring_starter_80.gif",
+    "hash": "aecc922e51d340596c0682bea690122af87b8ccdd56052684c790a31f8bc221f",
+    "size": [
+      32,
+      32
+    ],
+    "width": 14,
+    "height": 16,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-30-ff16a1cc37a1.webp": {
+    "url": "https://mureforge.com/item-images/14/11-7.webp",
+    "hash": "ff16a1cc37a1d8ea243ae70a7ce84001b04206aa19c98c051b7317a8efcf16de",
+    "size": [
+      33,
+      32
+    ],
+    "width": 25,
+    "height": 21,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-31-aa4444ee988e.webp": {
+    "url": "https://mureforge.com/item-images/14/11-13.webp",
+    "hash": "aa4444ee988e5889b1d52092674d86ae49e8f70643ea2df905d383b8da596713",
+    "size": [
+      32,
+      32
+    ],
+    "width": 21,
+    "height": 24,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-35-5cbb8bf0a653.webp": {
+    "url": "https://bless.gs/images/items/12-32.webp",
+    "hash": "5cbb8bf0a653770eb84a74d7dcb5c1135fc5cc700e068b721886062a9a9e9cf1",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 32,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-36-2bbe6dd585f1.webp": {
+    "url": "https://bless.gs/images/items/12-33.webp",
+    "hash": "2bbe6dd585f1e5c0c5bdc2ff6bd69868d7d6bc057c02384d5e2834e9cf9fee73",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 32,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-37-56a425a07c0c.webp": {
+    "url": "https://bless.gs/images/items/12-34.webp",
+    "hash": "56a425a07c0c6a5739ab5903f91ff6aa9fdd3224771e21552102d5ce79367af9",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 32,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-38-7277d2262f51.webp": {
+    "url": "https://bless.gs/images/items/14-32.webp",
+    "hash": "7277d2262f51b0016673272e862eda9f0eec7669c42812bbb4fe90beb48fc17b",
+    "size": [
+      33,
+      34
+    ],
+    "width": 33,
+    "height": 34,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-39-40caafcf42cf.webp": {
+    "url": "https://bless.gs/images/items/14-33.webp",
+    "hash": "40caafcf42cf9088935ff42a26f64c54ea1dfdeb0ed5c8bd468812f6ffd5433a",
+    "size": [
+      33,
+      34
+    ],
+    "width": 33,
+    "height": 34,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-40-b48351e50cdf.webp": {
+    "url": "https://bless.gs/images/items/14-34.webp",
+    "hash": "b48351e50cdf86089a734a373e322e87165d5ec39bca46708206311debffa7ab",
+    "size": [
+      34,
+      34
+    ],
+    "width": 34,
+    "height": 34,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-41-98cab8100bce.webp": {
+    "url": "https://bless.gs/images/items/14-32-1.webp",
+    "hash": "98cab8100bcef1071edf3fed7403e2bcbc574fc170f2f6a31301d39eefb0fc10",
+    "size": [
+      30,
+      28
+    ],
+    "width": 30,
+    "height": 28,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-42-9400678102a2.webp": {
+    "url": "https://bless.gs/images/items/14-33-1.webp",
+    "hash": "9400678102a2d715a75c6e3045d3f86de26ce5827c3e2d01ea0ed00bf5a4a0ce",
+    "size": [
+      31,
+      27
+    ],
+    "width": 31,
+    "height": 27,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-43-5e9a59f6a557.webp": {
+    "url": "https://bless.gs/images/items/14-34-1.webp",
+    "hash": "5e9a59f6a5574b53e14845a5a1a9cc04cc9b9c05cbbc677f09ac231e969c59a8",
+    "size": [
+      31,
+      28
+    ],
+    "width": 31,
+    "height": 28,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-49-d1267b79d4ed.webp": {
+    "url": "https://bless.gs/images/items/14-45.webp",
+    "hash": "d1267b79d4ed39ed8e6df8b565a779e9b4facb76b7078bb550fb531c55184461",
+    "size": [
+      28,
+      42
+    ],
+    "width": 28,
+    "height": 42,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-51-8d2207b52665.webp": {
+    "url": "https://bless.gs/images/items/14-52.webp",
+    "hash": "8d2207b5266578a6a67e21dfbb39e5e4ea483f0fce6462ecd1e3953211d1b6dd",
+    "size": [
+      44,
+      41
+    ],
+    "width": 44,
+    "height": 41,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-52-f9e7f0eaa6cd.webp": {
+    "url": "https://bless.gs/images/items/14-55.webp",
+    "hash": "f9e7f0eaa6cde5fe1579e7b59ffb0221b1240988bf2a4a96a7a47a73c2f68cb3",
+    "size": [
+      34,
+      24
+    ],
+    "width": 34,
+    "height": 24,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-53-f96a1b7a0485.webp": {
+    "url": "https://bless.gs/images/items/14-56.webp",
+    "hash": "f96a1b7a04851cca100e5af3284c9f617fff97fdf37ae2bab558083af2e4f28d",
+    "size": [
+      34,
+      24
+    ],
+    "width": 34,
+    "height": 24,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-54-afd59b3dde45.webp": {
+    "url": "https://bless.gs/images/items/14-57.webp",
+    "hash": "afd59b3dde45aa67bdf2a37609d796b984547be22a9198312a7fac95ddbdaef5",
+    "size": [
+      34,
+      24
+    ],
+    "width": 34,
+    "height": 24,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-63-14d5e63169cb.webp": {
+    "url": "https://bless.gs/images/items/14-84.webp",
+    "hash": "14d5e63169cb391ce1f2a348b55a79d408dea5af62f24a1aa4d659133ca97384",
+    "size": [
+      38,
+      25
+    ],
+    "width": 38,
+    "height": 25,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/lucky-coin-9c1cffb12368.webp": {
+    "url": "https://blackrock.games/system/images/guides/items/lucky_coin.gif",
+    "hash": "9c1cffb12368f98b64a93213a61c37163d863d4a1e86f8b01267b0aef5a53ca2",
+    "size": [
+      32,
+      32
+    ],
+    "width": 20,
+    "height": 22,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-98-c741e8cc3d16.webp": {
+    "url": "https://mu.lv/img/item/lk090m8.webp?213838",
+    "hash": "c741e8cc3d161e8ac40f6b727ef89f0a917c3c799d65d2e8c881d5cdc59723e7",
+    "size": [
+      150,
+      220
+    ],
+    "width": 138,
+    "height": 208,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-99-27b7747faf24.webp": {
+    "url": "https://mu.lv/img/item/a89kwbmw.webp?21453",
+    "hash": "27b7747faf24cb86210bd4327a617fb19ad576c1a6e97a10bc0c57c870ac4042",
+    "size": [
+      150,
+      220
+    ],
+    "width": 138,
+    "height": 208,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-100-9ed43a936463.webp": {
+    "url": "https://wiki.munext.online/db/img/14-123.png",
+    "hash": "9ed43a93646314d8f999d73faaa2d700a6736969b4f25c50722206a0fd7eae45",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 25,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-101-205bdfb9a91d.webp": {
+    "url": "https://wiki.munext.online/db/img/14-124.png",
+    "hash": "205bdfb9a91d3a821b84a33e00557a423e0e9d2960921c9b6841de251928ea1a",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 25,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-102-9ce4a30b37e3.webp": {
+    "url": "https://wiki.munext.online/db/img/14-141.png",
+    "hash": "9ce4a30b37e3d9104ded706058aefd1e33b3d75537136fc138d70e1d7a9a4454",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 25,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-103-c50c8a7951aa.webp": {
+    "url": "https://wiki.munext.online/db/img/14-142.png",
+    "hash": "c50c8a7951aa1302e8c67c6d93038e3ec24ef6e6554b0b783af4248cc9498093",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 25,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-104-31d37c560cdc.webp": {
+    "url": "https://wiki.munext.online/db/img/14-143.png",
+    "hash": "31d37c560cdc42ee958e17ef88c5a7e65617faf46da813523d29fce615152e8a",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 25,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-105-2c515605b51b.webp": {
+    "url": "https://wiki.munext.online/db/img/14-144.png",
+    "hash": "2c515605b51b88825981d628dc867d92594e9380054a4cefa61629a6ef8b39f7",
+    "size": [
+      32,
+      32
+    ],
+    "width": 32,
+    "height": 25,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "img/atlas/rewards/reward-1014-6c40eb1b041c.webp": {
+    "url": "https://bless.gs/images/items/14-11-2.webp",
+    "hash": "6c40eb1b041c9212dd410053b895215aa080dd539ab846345778682ab495b9d3",
+    "size": [
+      20,
+      42
+    ],
+    "width": 20,
+    "height": 42,
+    "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification.",
+    "retrievedAt": "2026-10-06",
+    "gameAssetsCopyright": "Webzen Inc."
+  }
+}
