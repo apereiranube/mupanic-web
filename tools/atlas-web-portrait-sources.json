@@ -544,17 +544,17 @@
   "501": {
     "name": "Great Golden Dragon",
     "rewardName": "Golden Great Dragon",
-    "file": "img/atlas/monsters/web/501-3d587c7dfce3.webp",
-    "width": 144,
-    "height": 125,
+    "file": "img/atlas/monsters/web/501-5b0f616a91e7.webp",
+    "width": 187,
+    "height": 224,
     "source": "external-game-portrait",
-    "sourceUrl": "https://www.muonline.net/guides/images/monsters/golden/great-golden-dragon.png",
-    "sourceHash": "3d587c7dfce36d876a518432e0dd62ff4d5ffe3e0e7d8640e30bcd1039bab982",
+    "sourceUrl": "https://blackrock.games/system/images/guides/monster/golden_great_dragon.webp",
+    "sourceHash": "5b0f616a91e7ff5a9d5b61415f025df6ca9df4ca14359434f2c1de1d50235bc9",
     "originalSize": [
-      144,
-      125
+      187,
+      224
     ],
-    "credit": "MuOnline.Net",
+    "credit": "Blackrock game guide",
     "gameAssetsCopyright": "Webzen Inc.",
     "retrievedAt": "2026-10-06",
     "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
