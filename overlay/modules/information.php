@@ -78,16 +78,18 @@ $panicSystems = [
         'facts' => [['Beneficios', 'Según configuración'], ['Vigencia', 'Temporal'], ['Estado', 'Visible en juego y web'], ['Sistema', 'Membresía VIP']],
     ],
     'nexus' => [
-        'art' => 'nexus-5696e2bab745.webp',
+        'art' => 'nexus-4a6cbef57b72.webp',
+        'detail_art' => 'hub-f11-03b5aefe024d.webp',
         'category' => 'CENTRO DE MANDO',
         'title' => 'Nexo PANIC',
         'short' => 'Tu mundo, reunido en un solo lugar.',
         'tagline' => 'El punto donde el cliente se vuelve centro de mando.',
         'kind' => 'Hub F11',
-        'intro' => 'La interfaz propia de MU PANIC reúne tus herramientas.',
+        'intro' => 'Abrí F11 para consultar tu progreso y entrar a los sistemas del servidor.',
         'state' => 'Operativo',
-        'alt' => 'Hub F11 del cliente MU PANIC con los datos del personaje ocultos',
-        'facts' => [['Acceso', 'Tecla F11'], ['Personaje', 'Estadísticas'], ['Funciones', 'Accesos y eventos'], ['Identidad', 'Cliente MU PANIC']],
+        'alt' => 'Centro de mando fantástico con portales',
+        'detail_alt' => 'Hub F11: datos personales ocultos y barras de progreso ilustrativas',
+        'facts' => [['Tu progreso', 'Nivel, resets y estadísticas del personaje.'], ['Accesos rápidos', 'Logros, Battle Pass y recompensa diaria.'], ['Más herramientas', 'Ruleta, VIP, rankings y eventos.'], ['En el cliente', 'Un centro de mando propio de MU PANIC.']],
     ],
 ];
 $systemEscape = function($text) { return htmlspecialchars($text, ENT_QUOTES, 'UTF-8'); };
@@ -153,7 +155,7 @@ $systemEscape = function($text) { return htmlspecialchars($text, ENT_QUOTES, 'UT
         <div class="server-features-grid">
         <?php $systemNumber = 0; foreach($panicSystems as $id => $system): $systemNumber++; ?>
             <article class="server-feature-card<?php echo $id === 'nexus' ? ' server-feature-card-nexus' : ''; ?>">
-                <img class="server-feature-art" src="<?php echo $serverImage('systems/'.$system['art']); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="<?php echo $id === 'nexus' ? 1522 : 1536; ?>" height="<?php echo $id === 'nexus' ? 1033 : 1024; ?>" loading="lazy">
+                <img class="server-feature-art" src="<?php echo $serverImage('systems/'.$system['art']); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
                 <div class="server-feature-copy">
                     <span class="server-feature-category"><?php echo $system['category']; ?></span>
                     <h3><?php echo $system['title']; ?></h3>
@@ -170,8 +172,8 @@ $systemEscape = function($text) { return htmlspecialchars($text, ENT_QUOTES, 'UT
         <?php foreach($panicSystems as $id => $system): ?>
         <article class="server-feature-panel" data-system-panel="<?php echo $id; ?>" hidden>
             <figure class="server-feature-visual">
-                <img src="<?php echo $serverImage('systems/'.$system['art']); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="<?php echo $id === 'nexus' ? 1522 : 1536; ?>" height="<?php echo $id === 'nexus' ? 1033 : 1024; ?>" loading="lazy">
-                <figcaption>MU PANIC <span><?php echo $id === 'nexus' ? 'Cliente · datos ocultos' : 'Arte conceptual'; ?></span></figcaption>
+                <img src="<?php echo $serverImage('systems/'.($system['detail_art'] ?? $system['art'])); ?>" alt="<?php echo $systemEscape($system['detail_alt'] ?? $system['alt']); ?>" width="<?php echo $id === 'nexus' ? 1522 : 1536; ?>" height="<?php echo $id === 'nexus' ? 1033 : 1024; ?>" loading="lazy">
+                <figcaption>MU PANIC <span><?php echo $id === 'nexus' ? 'Datos ocultos · barras ilustrativas' : 'Arte conceptual'; ?></span></figcaption>
             </figure>
             <div class="server-feature-content">
                 <span class="server-feature-category"><?php echo $system['category']; ?></span>

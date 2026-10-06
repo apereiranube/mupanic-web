@@ -16,6 +16,9 @@ for (const id of ids) {
  assert.ok(html.includes('/systems/'+name));
  assert.ok(!html.includes('/systems/'+id+'.webp'));
 }
+const hubName=fs.readdirSync(path.join(root,'img/server/systems')).find(name=>name.startsWith('hub-f11-'));
+assert.ok(hubName,'Missing client capture');
+assert.equal(hubName,'hub-f11-'+createHash('sha256').update(fs.readFileSync(path.join(root,'img/server/systems',hubName))).digest('hex').slice(0,12)+'.webp');
 (async () => {
  const browser = await chromium.launch({headless:true,args:['--no-sandbox']});
  const output = process.env.SYSTEMS_SCREENSHOT_DIR;
@@ -54,7 +57,12 @@ for (const id of ids) {
    await page.locator('[data-system-close]').press('Tab');
    assert.equal(await page.evaluate(()=>document.activeElement.hasAttribute('data-system-close')),true,'Focus trap');
    assert.equal(await page.locator('[data-system-panel]:visible img').evaluate(im=>im.complete&&im.naturalWidth===Number(im.getAttribute('width'))&&im.naturalHeight===Number(im.getAttribute('height'))),true);
-   assert.equal(await page.locator('[data-system-panel]:visible img').getAttribute('src'), await page.locator('[data-system-open="'+id+'"]').locator('xpath=ancestor::article').locator('img').getAttribute('src'));
+   if(id!=='nexus') assert.equal(await page.locator('[data-system-panel]:visible img').getAttribute('src'), await page.locator('[data-system-open="'+id+'"]').locator('xpath=ancestor::article').locator('img').getAttribute('src'));
+   if(id==='nexus') {
+    assert.ok((await page.locator('[data-system-panel]:visible img').getAttribute('src')).includes('hub-f11-'));
+    assert.ok(!(await button.locator('xpath=ancestor::article').locator('img').getAttribute('src')).includes('hub-f11-'));
+    if(width>700) assert.ok(await button.locator('xpath=ancestor::article').evaluate(el=>el.getBoundingClientRect().height<=320),'Nexus card stays compact');
+   }
    if(id==='nexus') assert.equal(await page.locator('[data-system-panel]:visible img').evaluate(im=>getComputedStyle(im).objectFit),'contain','Show the entire real Hub');
    if(output && (width===1920||width===390) && ['chronicles','fortune','nexus'].includes(id)) await page.screenshot({path:path.join(output,`${id}-${width}.png`)});
    await page.keyboard.press('Escape');

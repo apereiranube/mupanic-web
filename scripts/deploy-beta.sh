@@ -38,7 +38,8 @@ SYSTEM_ART_FILES=(
   "fortune-a300dc40b62a.webp"
   "vault-47074095857a.webp"
   "vip-66179e5e17f8.webp"
-  "nexus-5696e2bab745.webp"
+  "nexus-4a6cbef57b72.webp"
+  "hub-f11-03b5aefe024d.webp"
 )
 for asset in "${SYSTEM_ART_FILES[@]}"; do
   if [ ! -s "$TEMPLATE_SOURCE/img/server/systems/$asset" ]; then
@@ -88,7 +89,7 @@ done
 
 # Remove the replaced, unversioned artwork only after the new template/modules are copied.
 # Content-versioned filenames prevent browsers and CDNs from serving the previous low-res art.
-rm -f "$TEMPLATE_DEST/img/server/systems/nexus-4a6cbef57b72.webp"
+rm -f "$TEMPLATE_DEST/img/server/systems/nexus-5696e2bab745.webp"
 for legacy in chronicles hero-path daily fortune vault vip nexus; do
   rm -f "$TEMPLATE_DEST/img/server/systems/$legacy.webp"
 done
