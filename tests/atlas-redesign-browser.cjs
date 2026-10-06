@@ -89,7 +89,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   const population=lorencia.locator('[data-atlas-panel="all"]'),monsterOptions=population.locator('[data-atlas-mob-picker] option');
   const lastMonster=await monsterOptions.last().getAttribute('value');await population.locator('[data-atlas-mob-picker]').selectOption(lastMonster);
   assert.equal(await population.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),lastMonster);
-  await page.goto('https://atlas.test/info/#mob-0-'+lastMonster);assert.equal(await population.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),lastMonster,'Deep link reveals the requested monster');
+  await page.goto('https://atlas.test/info/'+await monsterOptions.last().getAttribute('data-mob-hash'));assert.equal(await population.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),lastMonster,'Deep link reveals the requested monster');
   await lorencia.locator('[data-atlas-select="7"]').last().click();
   await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.locator('.atlas-explorer').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-'+width);}
   await lorencia.locator('[data-save-map]').click();await page.locator('[data-map-filter]').fill('');await page.locator('[data-map-scope=saved]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),1,'Saved territory filter');
