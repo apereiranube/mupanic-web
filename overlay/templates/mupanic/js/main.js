@@ -160,7 +160,7 @@
       var details = target.closest('details');
       while (details) { details.open = true; details = details.parentElement && details.parentElement.closest('details'); }
       if (target.closest('#progresion')) { mapFilter.value = ''; filterMaps(); }
-      if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardFilter.value = ''; rewardFilter.dispatchEvent(new Event('input')); }
+      if (target.hasAttribute('data-reward-list') && rewardFilter) { rewardKind = ''; rewardFilter.value = ''; filterRewards(); }
       if (target.hasAttribute('data-drop-row')) { dropFilter.value = ''; dropMap.value = ''; dropMonster.value = ''; updateMonsterOptions(); filterDrops(); }
       requestAnimationFrame(function () { target.scrollIntoView({block: 'start', behavior: 'instant'}); });
     }
@@ -170,12 +170,27 @@
   nav.forEach(function (link) { link.addEventListener('click', function () { clearSearch(); if (location.hash === link.hash) revealHash(); }); });
   var searchable = [];
   panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.querySelector('h2').textContent), hash: '#' + panel.id}); });
-  var rewardFilter = wiki.querySelector('[data-reward-filter]');
-  if (rewardFilter) rewardFilter.addEventListener('input',function() {
-    var query = normalize(rewardFilter.value), visible = 0;
-    wiki.querySelectorAll('[data-reward-list]').forEach(function(list) { list.hidden = !normalize(list.textContent).includes(query); if (!list.hidden) visible++; });
-    wiki.querySelector('[data-reward-status]').textContent = visible + ' listas de recompensas' + (visible ? '' : ' · probá otro nombre');
+  wiki.querySelectorAll('[data-reward-item-filter]').forEach(function(input) {
+    input.addEventListener('input', function() {
+      var list = input.closest('[data-reward-list]'), query = normalize(input.value), visible = 0;
+      list.querySelectorAll('[data-reward-item]').forEach(function(row) { row.hidden = !normalize(row.textContent).includes(query); if(!row.hidden) visible++; });
+      list.querySelector('[data-reward-item-status]').textContent = visible + ' objetos posibles' + (visible ? '' : ' · probá otro nombre');
+    });
   });
+  var rewardFilter = wiki.querySelector('[data-reward-filter]');
+  var rewardKind = '';
+  function filterRewards() {
+    if (!rewardFilter) return;
+    var query = normalize(rewardFilter.value), visible = 0;
+    wiki.querySelectorAll('[data-reward-list]').forEach(function(list) {
+      list.hidden = (rewardKind && list.getAttribute('data-reward-type') !== rewardKind) || !normalize(list.textContent).includes(query);
+      if (!list.hidden) visible++;
+    });
+    wiki.querySelector('[data-reward-status]').textContent = visible + ' listas de recompensas' + (visible ? '' : ' · probá otro nombre');
+    wiki.querySelectorAll('[data-reward-kind]').forEach(function(button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-reward-kind') === rewardKind)); });
+  }
+  if (rewardFilter) rewardFilter.addEventListener('input',filterRewards);
+  wiki.querySelectorAll('[data-reward-kind]').forEach(function(button) { button.addEventListener('click',function() { rewardKind = button.getAttribute('data-reward-kind'); filterRewards(); }); });
   search.addEventListener('input', function () {
     var query = normalize(search.value); results.replaceChildren();
     if (!query) { clearSearch(); return; }
@@ -445,7 +460,8 @@
   }
   wiki.querySelectorAll('[data-save-map]').forEach(function (button) { button.addEventListener('click', function () { var id = Number(button.getAttribute('data-save-map')); saved = saved.includes(id) ? saved.filter(function (value) { return value !== id; }) : saved.concat(id); try { localStorage.setItem('panic-atlas-maps', JSON.stringify(saved)); } catch (e) {} renderSaved(); }); });
   renderSaved();
-  filterMaps(); filterDrops(); revealHash();
+  filterMaps(); filterDrops(); filterRewards(); revealHash();
+  wiki.classList.remove('atlas-boot');
 })();
 
 ;(function () {

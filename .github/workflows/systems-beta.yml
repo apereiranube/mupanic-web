@@ -1,13 +1,15 @@
-name: Beta systems validation
+name: Systems UI validation
 on:
   push:
-    branches: [beta]
+    branches: [beta, main]
     paths:
+      - 'overlay/templates/mupanic/css/style.css'
       - 'overlay/modules/information.php'
       - 'overlay/templates/mupanic/css/information.css'
       - 'overlay/templates/mupanic/js/main.js'
-      - 'overlay/templates/mupanic/img/server/systems/**'
+      - 'overlay/templates/mupanic/img/server/**'
       - 'scripts/deploy-beta.sh'
+      - 'scripts/deploy-prod.sh'
       - 'tests/systems-browser.cjs'
       - 'tests/fixtures/systems.php'
       - '.github/workflows/systems-beta.yml'
@@ -29,6 +31,7 @@ jobs:
           php -l tests/fixtures/systems.php
           node --check overlay/templates/mupanic/js/main.js
           bash -n scripts/deploy-beta.sh
+          bash -n scripts/deploy-prod.sh
       - name: Install browser test dependency
         run: |
           npm install --no-save --package-lock=false playwright@1.58.2

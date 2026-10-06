@@ -1,8 +1,9 @@
-name: Beta profiles validation
+name: Profiles UI validation
 on:
   push:
-    branches: [beta]
+    branches: [beta, main]
     paths:
+      - 'overlay/templates/mupanic/css/style.css'
       - 'overlay/templates/mupanic/css/profiles.css'
       - 'overlay/templates/mupanic/js/profiles.js'
       - 'tests/profiles-browser.cjs'

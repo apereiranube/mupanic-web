@@ -28,12 +28,26 @@ function panicWikiRate($value) { return rtrim(rtrim(number_format($value, 6, ','
 $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map['name'];
 ?>
 <div class="panic-wiki" data-wiki>
+    <script>
+    (function(script){
+        var root=script.parentElement, hash=location.hash.slice(1), section='inicio';
+        if(/^(mapa-|spot-|mob-|mob-list-)/.test(hash)) section='progresion';
+        else if(/^recompensa-/.test(hash)) section='recompensas';
+        else if(/^evento-/.test(hash)) section='eventos';
+        else if(/^crear-/.test(hash)) section='taller';
+        else if(/^equipo-/.test(hash)) section='equipo';
+        else if(/^drop-/.test(hash)) section='drops';
+        else if(['inicio','progresion','buscar','recompensas','eventos','primeros-pasos','drops','rates','sistemas','taller','mejoras','equipo'].indexOf(hash)>=0) section=hash;
+        root.dataset.atlasInitial=section;root.classList.add('wiki-enhanced','atlas-boot');
+        window.setTimeout(function(){if(root.classList.contains('atlas-boot')) root.classList.remove('atlas-boot','wiki-enhanced');},5000);
+    })(document.currentScript);
+    </script>
     <aside class="wiki-nav">
         <span class="eyebrow">EXPLORÁ MU PANIC</span>
         <label for="wiki-search">¿Qué estás buscando?</label><input id="wiki-search" type="search" placeholder="Chaos, Lorencia, reset…" autocomplete="off">
         <div class="wiki-search-results" hidden></div><p class="wiki-search-status" role="status" aria-live="polite"></p>
         <nav aria-label="Guía de MU PANIC">
-            <a href="#inicio"><span>Inicio del Atlas</span> →</a><a href="#progresion"><span>Mapas y spots</span> →</a><a href="#buscar"><span>Buscar objetos y mobs</span> →</a><a href="#recompensas"><span>Bosses y recompensas</span> →</a>
+            <a href="#inicio"><span>Inicio del Atlas</span> →</a><a href="#progresion"><span>Mapas y spots</span> →</a><a href="#buscar"><span>Buscar objetos y mobs</span> →</a><a href="#recompensas"><span>Bosses y recompensas</span> →</a><a href="#eventos"><span>Eventos y agenda</span> →</a>
             <details class="atlas-learn-nav"><summary>Aprender a jugar</summary><a href="#primeros-pasos"><span>Primeros pasos</span> →</a><a href="#sistemas"><span>Reset y mejoras</span> →</a><a href="#taller"><span>Crear objetos y alas</span> →</a><a href="#mejoras"><span>Mejorar mi equipo</span> →</a><a href="#equipo"><span>Tipos de equipo</span> →</a><a href="#rates"><span>Experiencia y tasas</span> →</a><a href="#drops"><span>Tabla de drops</span> →</a></details>
         </nav>
         <div class="wiki-saved" hidden><span class="eyebrow">TUS MAPAS GUARDADOS</span><div data-saved-maps></div></div><p class="wiki-date">Datos del servidor<br>Revisión: <?php echo panicWikiEscape($wiki['revision']); ?></p>
@@ -41,6 +55,7 @@ $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map
     <div class="wiki-content">
         <?php include(__DIR__.'/atlas-home.php'); ?>
         <?php include(__DIR__.'/atlas-search.php'); ?>
+        <?php include(__DIR__.'/atlas-events.php'); ?>
         <section id="primeros-pasos" class="wiki-section" data-wiki-search>
             <span class="eyebrow">01 / EMPEZÁ ACÁ</span><h2>Entrá al continente.</h2>
             <ol class="wiki-route"><li><strong>Prepará tu cuenta y el cliente.</strong><p>Registrate y descargá el cliente de MU PANIC desde Descargas. Conservá tus datos de acceso.</p><a href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'register/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Crear cuenta'; ?> →</a> <a href="<?php echo __BASE_URL__; ?>downloads/">Descargas →</a></li><li><strong>Conocé tu personaje.</strong><p>Empezá en Lorencia, Noria o Elbeland. Equipá las habilidades de tu clase, llevá pociones y probá un spot inicial.</p></li><li><strong>Buscá un spot que puedas sostener.</strong><p>Un spot es una zona con monstruos que reaparecen. Si gastás más pociones de las que podés reponer o tardás demasiado en matar, volvé a una zona más tranquila. El nivel de traslado no mide la dificultad del mapa.</p><a href="#progresion">Elegir mapa y coordenadas →</a></li><li><strong>Prepará el siguiente salto.</strong><p>Guardá Zen para moverte y resetear, y separá las joyas de los objetos que vas a vender. No confirmes una mezcla sin revisar sus ingredientes y su probabilidad dentro del juego.</p><a href="#sistemas">Entender el reset →</a></li></ol>

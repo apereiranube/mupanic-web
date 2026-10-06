@@ -1,0 +1,83 @@
+const fs=require('fs'),path=require('path'),assert=require('node:assert/strict');
+const {execFileSync}=require('child_process'),{chromium}=require('playwright');
+const root=path.resolve(__dirname,'../overlay/templates/mupanic');
+const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/atlas-rewards.php')],{encoding:'utf8',maxBuffer:16e6});
+const output=process.env.ATLAS_SCREENSHOT_DIR;
+const imagePaths=[...html.matchAll(/<img[^>]+src="([^"]+)"/g)].map(m=>m[1]);
+for(const src of imagePaths){assert.ok(src.startsWith('/templates/mupanic/'));assert.ok(fs.existsSync(path.join(root,src.slice('/templates/mupanic/'.length))),'Missing image '+src);}
+function setup(page,errors,body=html){
+ page.on('pageerror',e=>errors.push(e.message));
+ return page.route('**/*',route=>{
+  const name=new URL(route.request().url()).pathname;
+  if(name==='/info/')return route.fulfill({contentType:'text/html',body});
+  if(name.startsWith('/templates/mupanic/')){const file=path.join(root,name.slice('/templates/mupanic/'.length));if(fs.existsSync(file))return route.fulfill({path:file});}
+  errors.push('Missing asset '+name);return route.abort();
+ });
+}
+async function noOverflow(page,label){assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow '+label);}
+async function shot(page,name){if(output)await page.screenshot({path:path.join(output,name+'.png')});}
+(async()=>{
+ if(output)fs.mkdirSync(output,{recursive:true});
+ const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ for(const [width,height] of [[1920,1080],[1366,768],[1024,768],[390,844],[320,700]]){
+  const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'}),errors=[];
+  await setup(page,errors);await page.goto('https://atlas.test/info/');await page.evaluate(()=>document.fonts.ready);
+  assert.equal(await page.locator('.wiki-intro').count(),0);
+  assert.equal(await page.locator('.wiki-section:visible').count(),1);
+  assert.equal(await page.locator('.atlas-home-card').count(),4);
+  assert.equal(await page.locator('.atlas-boot').count(),0);
+  assert.equal(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor),'rgb(11, 16, 18)');
+  await noOverflow(page,'home');if([1920,390].includes(width))await shot(page,'atlas-home-'+width);
+  await page.locator('.wiki-nav a[href="#progresion"]').click();
+  assert.equal(await page.locator('#progresion .wiki-map').count(),30);
+  await page.locator('[data-map-filter]').fill('Lorencia');
+  assert.equal(await page.locator('#progresion .wiki-map:visible').count(),1);
+  const lorencia=page.locator('#mapa-0');await lorencia.locator('>summary').click();
+  await lorencia.locator('[data-atlas-select="1"]').last().click();
+  assert.equal(await lorencia.locator('[data-atlas-panel="1"]').isVisible(),true);
+  await lorencia.locator('[data-atlas-panel="1"] .atlas-loot>summary').first().click();
+  await lorencia.locator('[data-atlas-account]').selectOption('1');
+  assert.equal(await lorencia.locator('[data-atlas-account]').inputValue(),'1');
+  assert.equal(await lorencia.locator('[data-atlas-panel="1"] [data-atlas-rates]').evaluateAll(rows=>rows.every(row=>row.textContent===JSON.parse(row.dataset.atlasRates)[1].toLocaleString('es-AR',{maximumFractionDigits:6})+'%')),true,'Display configured VIP rates');
+  await noOverflow(page,'map');if([1920,390].includes(width)){await lorencia.scrollIntoViewIfNeeded();await shot(page,'atlas-map-'+width);}
+  await page.locator('.wiki-nav a[href="#recompensas"]').click();
+  await page.locator('[data-reward-kind="boss"]').click();
+  assert.ok(await page.locator('[data-reward-list]:visible').count()>0);
+  assert.equal(await page.locator('[data-reward-list][data-reward-type="box"]:visible').count(),0);
+  await page.locator('[data-reward-filter]').fill('Medusa');
+  const medusa=page.locator('#recompensa-106');await medusa.locator('summary').click();
+  await medusa.locator('[data-reward-item-filter]').fill('Hyon');assert.equal(await medusa.locator('[data-reward-item]:visible').count(),4);
+  await noOverflow(page,'boss');if([1920,390].includes(width)){await medusa.scrollIntoViewIfNeeded();await shot(page,'atlas-boss-'+width);}
+  await page.locator('.wiki-nav a[href="#buscar"]').click();await page.locator('[data-atlas-query]').fill('Harmony');
+  assert.ok(await page.locator('.atlas-find-card').count()>0);await noOverflow(page,'finder');
+  await page.locator('.wiki-nav a[href="#eventos"]').click();
+  assert.equal(await page.locator('.atlas-event-card').count(),3);if([1920,390].includes(width)){await page.locator('#eventos').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+width);}
+  for(const id of ['pandora','blood-castle','devil-square']){
+   const trigger=page.locator('[data-atlas-event-open="'+id+'"]');await trigger.click();
+   const modal=page.locator('[data-atlas-event-dialog]');assert.equal(await modal.evaluate(el=>el.open),true);
+   assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).overflowY),'hidden');
+   assert.equal(await modal.locator('h3').count(),1);
+   assert.equal(await modal.evaluate(el=>el.getBoundingClientRect().width<=innerWidth),true);
+   if(width>=1024){assert.equal(await modal.evaluate(el=>el.scrollHeight>el.clientHeight+1),false,'Desktop modal overflow '+id+' '+width);assert.ok((await modal.boundingBox()).height<=height*.85);}
+   if(id==='blood-castle'&&[1920,390].includes(width))await shot(page,'atlas-event-modal-'+width);
+   if(id==='pandora'){assert.ok((await modal.textContent()).includes('19:15'));await page.keyboard.press('Escape');}
+   else if(id==='blood-castle')await modal.locator('[data-atlas-event-close]').click();
+   else await page.mouse.click(3,3);
+   assert.equal(await modal.evaluate(el=>el.open),false);
+   assert.equal(await trigger.evaluate(el=>document.activeElement===el),true,'Return event focus');
+  }
+  await page.locator('[data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
+  assert.equal(await page.locator('#recompensa-12').isVisible(),true,'Reward link clears filters');
+  assert.equal(await page.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),false);
+  // Keyboard focus stays inside the dossier.
+  await page.locator('.wiki-nav a[href="#eventos"]').click();await page.locator('[data-atlas-event-open="devil-square"]').click();
+  await page.keyboard.press('Shift+Tab');assert.equal(await page.evaluate(()=>!!document.activeElement.closest('dialog')),true);await page.keyboard.press('Escape');
+  // All chapter links still resolve without manufacturing data or changing IDs.
+  await page.goto('https://atlas.test/info/#taller');await page.locator('[data-recipe-search]').fill('Fenrir');assert.ok(await page.locator('[data-recipe-nav]:visible').count()>0);await noOverflow(page,'workshop');
+  assert.deepEqual(errors,[]);await page.close();console.log('PASS redesigned Atlas',width);
+ }
+ const fallback=await browser.newPage({viewport:{width:390,height:844},javaScriptEnabled:false}),errors=[];
+ await setup(fallback,errors);await fallback.goto('https://atlas.test/info/');
+ assert.ok(await fallback.locator('#progresion').isVisible());assert.equal(await fallback.locator('.atlas-event-full:visible').count(),3);await noOverflow(fallback,'no JS');assert.deepEqual(errors,[]);await fallback.close();
+ await browser.close();
+})().catch(error=>{console.error(error);process.exit(1)});

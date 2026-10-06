@@ -6,6 +6,10 @@ const {execFileSync} = require('child_process');
 const {chromium} = require('playwright');
 const root = path.resolve(__dirname, '../overlay/templates/mupanic');
 const html = execFileSync(process.env.PHP_BIN || 'php', [path.join(__dirname, 'fixtures/systems.php')], {encoding:'utf8'});
+for (const src of [...html.matchAll(/<img[^>]+src="([^"]+)"/g)].map(match=>match[1])) {
+ assert.ok(src.startsWith('/templates/mupanic/'));
+ assert.ok(fs.existsSync(path.join(root,src.slice('/templates/mupanic/'.length))), 'Missing page image: '+src);
+}
 const ids = ['chronicles','hero-path','daily','fortune','vault','vip','nexus'];
 // Artwork URLs must change with the bytes, including clients with old assets cached.
 for (const id of ids) {
@@ -77,6 +81,8 @@ assert.equal(hubName,'hub-f11-'+createHash('sha256').update(fs.readFileSync(path
   assert.equal(allImages,true,'Broken card image');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow');
   if(output && (width===1920||width===390)) await page.locator('#sistemas').screenshot({path:path.join(output,`systems-${width}.png`)});
+  assert.equal(await page.locator('main img').evaluateAll(ims=>ims.every(im=>im.complete&&im.naturalWidth>0)),true,'Broken image anywhere in the server page');
+  if(output && (width===1920||width===390)) await page.screenshot({path:path.join(output,`server-page-${width}.png`),fullPage:true});
   assert.deepEqual(errors,[]);
   console.log(`PASS ${width}x${height}: seven systems, images, X/Escape/backdrop, focus, layout and scroll.`);
   await page.close();

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SOURCE_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-DEPLOY_ROOT="/home/mupanic/public_html/beta"
+DEPLOY_ROOT="/home/mupanic/public_html"
 
 TEMPLATE_SOURCE="$SOURCE_ROOT/overlay/templates/mupanic"
 TEMPLATE_DEST="$DEPLOY_ROOT/templates/mupanic"
@@ -11,10 +11,10 @@ MODULE_SOURCE="$SOURCE_ROOT/overlay/modules"
 MODULE_DEST="$DEPLOY_ROOT/modules"
 DEPLOY_MODULES=("tos.php" "privacy.php" "refunds.php" "information.php")
 
-echo "[MU PANIC] Deploying beta overlay..."
+echo "[MU PANIC] Deploying production overlay..."
 
 if [ ! -f "$DEPLOY_ROOT/index.php" ]; then
-  echo "[MU PANIC] ERROR: WebEngine core not found in beta." >&2
+  echo "[MU PANIC] ERROR: WebEngine core not found in production root." >&2
   exit 1
 fi
 
@@ -56,14 +56,6 @@ for asset in "${SYSTEM_ART_FILES[@]}"; do
   fi
 done
 
-# The Atlas redesign ships real binary artwork with the overlay.
-for atlas_art in atlas-chamber blood-castle devil-square pandora; do
-  if [ ! -s "$TEMPLATE_SOURCE/img/atlas/editorial/$atlas_art.webp" ]; then
-    echo "[MU PANIC] ERROR: Missing Atlas artwork: $atlas_art" >&2
-    exit 1
-  fi
-done
-
 # Never read, rewrite or copy live config or credentials.
 if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ] || [ -L "$DEPLOY_ROOT/modules" ]; then
   echo "[MU PANIC] ERROR: Deployment destinations must not be symlinks." >&2
@@ -85,7 +77,7 @@ mkdir -p "$TEMPLATE_DEST" "$MODULE_DEST"
 # Keep the approved hero artwork that is managed directly on the server.
 # This prevents Git deploys from restoring the older cropped source image.
 HERO_DEST="$TEMPLATE_DEST/img/knight-v6.webp"
-HERO_KEEP="/home/mupanic/.mupanic-beta-knight-v6.keep"
+HERO_KEEP="/home/mupanic/.mupanic-prod-knight-v6.keep"
 HERO_PRESENT=0
 if [ -f "$HERO_DEST" ]; then
   cp -a "$HERO_DEST" "$HERO_KEEP"
@@ -110,4 +102,4 @@ for legacy in chronicles hero-path daily fortune vault vip nexus; do
   rm -f "$TEMPLATE_DEST/img/server/systems/$legacy.webp"
 done
 
-echo "[MU PANIC] Beta overlay deployed successfully."
+echo "[MU PANIC] Production overlay deployed successfully."

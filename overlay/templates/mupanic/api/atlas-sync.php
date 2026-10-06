@@ -46,13 +46,36 @@ foreach($snapshot['drops'] as $drop) {
 if(isset($snapshot['eventBags'])) {
     if(!is_array($snapshot['eventBags']) || count($snapshot['eventBags']) > 2000) atlasReply(422, 'Invalid reward lists');
     foreach($snapshot['eventBags'] as $bag) {
-        if(!is_array($bag) || !isset($bag['id'],$bag['name'],$bag['monster'],$bag['monsterName'],$bag['item'],$bag['variant'],$bag['topHit'],$bag['special'],$bag['coins'],$bag['format'],$bag['settings'],$bag['items'],$bag['unsupportedSections']) || !is_int($bag['id']) || !is_int($bag['monster']) || !is_string($bag['name']) || !is_string($bag['monsterName']) || !in_array($bag['format'],array('standard','unsupported','missing'),true) || !is_array($bag['items']) || count($bag['items']) > 5000 || !is_array($bag['settings']) || !is_array($bag['coins']) || count($bag['coins']) !== 3 || !is_array($bag['unsupportedSections'])) atlasReply(422, 'Invalid reward list');
+        if(!is_array($bag) || !isset($bag['id'],$bag['name'],$bag['monster'],$bag['monsterName'],$bag['item'],$bag['variant'],$bag['topHit'],$bag['special'],$bag['coins'],$bag['format'],$bag['settings'],$bag['items'],$bag['unsupportedSections']) || !is_int($bag['id']) || !is_int($bag['monster']) || !is_string($bag['name']) || !is_string($bag['monsterName']) || !in_array($bag['format'],array('standard','advanced','unsupported','missing'),true) || !is_array($bag['items']) || count($bag['items']) > 5000 || !is_array($bag['settings']) || !is_array($bag['coins']) || count($bag['coins']) !== 3 || !is_array($bag['unsupportedSections'])) atlasReply(422, 'Invalid reward list');
         if($bag['format'] === 'standard') {
             foreach(array('dropZen','itemDropRate','itemDropCount','setItemDropRate','itemDropType','fireworks','dropInventory') as $field) if(!isset($bag['settings'][$field]) || !is_int($bag['settings'][$field])) atlasReply(422, 'Invalid reward settings');
+        }
+        if($bag['format'] === 'advanced') {
+            if(!isset($bag['selection']['attempts'],$bag['selection']['groups']) || !is_array($bag['selection']['attempts']) || !is_array($bag['selection']['groups']) || count($bag['selection']['attempts']) > 100 || count($bag['selection']['groups']) > 5000) atlasReply(422, 'Invalid advanced selection');
+            $attempts = array();
+            foreach($bag['selection']['attempts'] as $attempt) {
+                foreach(array('index','dropRate','dropInventory') as $field) if(!isset($attempt[$field]) || !is_int($attempt[$field])) atlasReply(422, 'Invalid advanced attempt');
+                if($attempt['index'] < 0 || isset($attempts[$attempt['index']]) || $attempt['dropRate'] < 0 || $attempt['dropRate'] > 10000 || !in_array($attempt['dropInventory'],array(0,1),true)) atlasReply(422, 'Invalid advanced attempt range');
+                $attempts[$attempt['index']] = true;
+            }
+            foreach($bag['selection']['groups'] as $group) {
+                foreach(array('index','section','sectionRate','moneyAmount','optionValue') as $field) if(!isset($group[$field]) || !is_int($group[$field])) atlasReply(422, 'Invalid advanced group');
+                if(!isset($attempts[$group['index']]) || $group['section'] < 5 || $group['sectionRate'] < 0 || $group['moneyAmount'] < 0 || $group['optionValue'] < 0 || $group['optionValue'] > 15 || !isset($group['classes'],$group['label']) || !is_string($group['label']) || !is_array($group['classes']) || count($group['classes']) !== 7) atlasReply(422, 'Invalid advanced group range');
+                foreach($group['classes'] as $class) if(!in_array($class,array(0,1),true)) atlasReply(422, 'Invalid advanced class');
+            }
         }
         foreach($bag['items'] as $item) {
             if(!is_array($item) || !isset($item['name']) || !is_string($item['name'])) atlasReply(422, 'Invalid reward item');
             foreach(array('id','min','max','skill','luck','option','excellent','setOption','socketOption','pool') as $field) if(!isset($item[$field]) || !is_int($item[$field])) atlasReply(422, 'Invalid reward item fields');
+            if($bag['format'] === 'advanced') {
+                if(!isset($item['duration'],$item['grade'],$item['optionCodes'],$item['optionValues']) || !is_int($item['duration']) || $item['duration'] < 0 || !is_int($item['grade']) || !is_array($item['optionCodes']) || count($item['optionCodes']) !== 7 || !is_array($item['optionValues']) || count($item['optionValues']) !== 7) atlasReply(422, 'Invalid advanced item');
+                foreach($item['optionCodes'] as $code) if(!is_int($code)) atlasReply(422, 'Invalid option code');
+                foreach($item['optionValues'] as $values) {
+                    if(!is_array($values) || count($values) < 1 || count($values) > 256) atlasReply(422, 'Invalid option outcomes');
+                    foreach($values as $value) if(!is_int($value) || $value < 0 || $value > 255) atlasReply(422, 'Invalid option outcome');
+                }
+                if(isset($item['setName']) && !is_string($item['setName'])) atlasReply(422, 'Invalid set name');
+            }
         }
     }
 }
