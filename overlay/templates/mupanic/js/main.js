@@ -547,7 +547,21 @@
       closeButton.focus({preventScroll: true});
     });
   });
-  closeButton.addEventListener('click', function () { dialog.close(); });
+  function restorePage() {
+    document.documentElement.classList.remove('system-modal-open');
+    panels.forEach(function (item) { item.hidden = true; });
+    if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus({preventScroll: true});
+    lastTrigger = null;
+  }
+  function closeSystem() {
+    dialog.close();
+    restorePage();
+  }
+  closeButton.addEventListener('click', closeSystem);
+  dialog.addEventListener('cancel', function (event) {
+    event.preventDefault();
+    closeSystem();
+  });
   // Keep Tab within the content rather than moving focus into browser chrome.
   dialog.addEventListener('keydown', function (event) {
     if (event.key !== 'Tab') return;
@@ -563,13 +577,10 @@
   // Native dialog supplies Escape and an inert background.
   dialog.addEventListener('pointerdown', function (event) { backdropPress = outside(event); });
   dialog.addEventListener('click', function (event) {
-    if (backdropPress && outside(event)) dialog.close();
+    if (backdropPress && outside(event)) closeSystem();
     backdropPress = false;
   });
   dialog.addEventListener('close', function () {
-    document.documentElement.classList.remove('system-modal-open');
-    panels.forEach(function (item) { item.hidden = true; });
-    if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus({preventScroll: true});
-    lastTrigger = null;
+    if (!dialog.open) restorePage();
   });
 })();
