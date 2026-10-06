@@ -118,12 +118,13 @@
 .server-feature-card:hover .server-feature-art{transform:scale(1.035)}
 .server-feature-card:hover button span{transform:translateX(4px)}
 .server-feature-copy button:focus-visible{outline:2px solid #e7b885;outline-offset:6px}
-.server-feature-card-nexus{grid-column:1/-1;min-height:300px}
-.server-feature-card-nexus .server-feature-copy{min-height:300px;max-width:530px;padding:38px 44px}
-.server-feature-card-nexus .server-feature-art{object-position:50% 54%}
-.server-feature-card-nexus:after{background:linear-gradient(90deg,#080c0ef2,#080c0ec4 35%,#080c0e20 75%),linear-gradient(0deg,#080c0e80,transparent)}
+.server-feature-card-nexus{grid-column:1/-1;display:grid;grid-template-columns:35% 65%;min-height:390px;background:radial-gradient(ellipse at 75% 50%,#73362025,transparent 65%),#0b0f10}
+.server-feature-card-nexus .server-feature-copy{grid-column:1;grid-row:1;min-height:390px;max-width:none;padding:38px 44px;z-index:1}
+.server-feature-card-nexus .server-feature-art{position:relative;inset:auto;grid-column:2;grid-row:1;z-index:0;object-fit:contain;object-position:center;padding:28px 32px;box-sizing:border-box}
+.server-feature-card-nexus:after{background:linear-gradient(90deg,#080c0e80,transparent 45%)}
 .server-feature-card-nexus h3{font-size:48px}
-.server-feature-card-nexus .server-feature-number{left:auto;right:25px}
+.server-feature-card-nexus .server-feature-number{left:44px;right:auto}
+.server-feature-card-nexus:hover .server-feature-art{transform:none}
 html.system-modal-open,html.system-modal-open body{overflow:hidden}
 html{scrollbar-gutter:stable}
 .server-feature-dialog{position:fixed;inset:0;width:min(1000px,calc(100% - 64px));max-width:none;max-height:85vh;max-height:85dvh;margin:auto;padding:0;overflow:hidden;border:1px solid #bf865866;background:#101415;color:#efe5d7;box-shadow:0 32px 120px #000c}
@@ -153,14 +154,23 @@ html{scrollbar-gutter:stable}
 .server-feature-status{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:16px;border-top:1px solid #c4945f30;font-size:10px;color:#a2a9a6}
 .server-feature-state{color:#d6bc98;display:flex;align-items:center;gap:7px}
 .server-feature-state:before{content:'';width:5px;height:5px;background:#c6a677;border-radius:50%;box-shadow:0 0 8px #bd885d66}
+/* The real F11 Hub stays fully visible, without character data or a portrait crop. */
+.server-feature-panel[data-system-panel="nexus"]{grid-template-columns:60% 40%}
+[data-system-panel="nexus"] .server-feature-visual{background:radial-gradient(ellipse at center,#74331e22,transparent 70%),#090d0e}
+[data-system-panel="nexus"] .server-feature-visual img{object-fit:contain;padding:28px 16px 60px;box-sizing:border-box}
+[data-system-panel="nexus"] .server-feature-visual:after{display:none}
+[data-system-panel="nexus"] .server-feature-content{padding-left:28px;padding-right:28px}
+[data-system-panel="nexus"] .server-feature-content h2{font-size:40px}
+[data-system-panel="nexus"] .server-feature-facts{gap:0 14px}
 @keyframes panicSystemEnter{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 @media(max-width:1100px){.server-features-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:701px) and (max-height:760px){.server-feature-panel{min-height:0}.server-feature-content{padding:28px 32px 22px}.server-feature-content h2{font-size:34px;margin:10px 0 12px}.server-feature-tagline{font-size:14px;margin-bottom:10px}.server-feature-intro{margin-bottom:14px}.server-feature-facts{margin-bottom:12px}.server-feature-facts>div{padding:9px 0}}
 @media(max-width:700px){
  .server-features{padding:70px 0}.server-features-heading h2{font-size:52px}.server-features-grid{grid-template-columns:1fr;gap:18px}
- .server-feature-card,.server-feature-copy{min-height:430px}.server-feature-card-nexus{grid-column:auto}.server-feature-card-nexus .server-feature-copy{min-height:430px;max-width:none;padding:28px}.server-feature-card-nexus h3{font-size:34px}.server-feature-card-nexus:after{background:linear-gradient(0deg,#080c0efc,#080c0e90 45%,transparent 80%)}
+ .server-feature-card,.server-feature-copy{min-height:430px}.server-feature-card-nexus{grid-column:auto;display:flex;flex-direction:column;min-height:0}.server-feature-card-nexus .server-feature-art{width:100%;height:auto;padding:24px 12px 0;order:0}.server-feature-card-nexus .server-feature-copy{min-height:0;max-width:none;padding:28px;order:1}.server-feature-card-nexus h3{font-size:34px}.server-feature-card-nexus:after{background:none}.server-feature-card-nexus .server-feature-number{top:10px;left:14px}
  .server-feature-dialog{width:calc(100% - 20px);max-height:94vh;max-height:94dvh;overflow-y:auto;overscroll-behavior:contain}
  .server-feature-panel{display:flex;flex-direction:column;min-height:0}.server-feature-visual{height:220px;flex-shrink:0}.server-feature-visual img{object-position:50% 44%}.server-feature-visual figcaption{bottom:18px;left:22px;right:22px}
+ [data-system-panel="nexus"] .server-feature-visual{height:auto;aspect-ratio:1522/1033;min-height:240px}[data-system-panel="nexus"] .server-feature-visual img{padding:28px 10px 38px}[data-system-panel="nexus"] .server-feature-visual figcaption{left:14px;right:14px;font-size:9px;letter-spacing:.1em}[data-system-panel="nexus"] .server-feature-content{padding:27px 24px 24px}[data-system-panel="nexus"] .server-feature-content h2{font-size:36px}
  .server-feature-content{padding:27px 24px 24px}.server-feature-content h2{font-size:36px}.server-feature-tagline{font-size:15px}.server-feature-intro{margin-bottom:20px}.server-feature-facts{gap:0 16px}.server-feature-close{position:sticky;float:right;margin:14px 14px -54px 0;top:14px}
 }
 @media(prefers-reduced-motion:reduce){.server-feature-dialog[open]{animation:none}.server-feature-card,.server-feature-art,.server-feature-copy button span{transition:none}}

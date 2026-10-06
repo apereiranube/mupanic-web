@@ -53,8 +53,9 @@ for (const id of ids) {
    if (width>700) { assert.equal(metrics.overflow,false,JSON.stringify({width,id,metrics})); assert.ok(metrics.height<=height*.85+2); assert.ok(metrics.width<=1050); }
    await page.locator('[data-system-close]').press('Tab');
    assert.equal(await page.evaluate(()=>document.activeElement.hasAttribute('data-system-close')),true,'Focus trap');
-   assert.equal(await page.locator('[data-system-panel]:visible img').evaluate(im=>im.complete&&im.naturalWidth===1536),true);
+   assert.equal(await page.locator('[data-system-panel]:visible img').evaluate(im=>im.complete&&im.naturalWidth===Number(im.getAttribute('width'))&&im.naturalHeight===Number(im.getAttribute('height'))),true);
    assert.equal(await page.locator('[data-system-panel]:visible img').getAttribute('src'), await page.locator('[data-system-open="'+id+'"]').locator('xpath=ancestor::article').locator('img').getAttribute('src'));
+   if(id==='nexus') assert.equal(await page.locator('[data-system-panel]:visible img').evaluate(im=>getComputedStyle(im).objectFit),'contain','Show the entire real Hub');
    if(output && (width===1920||width===390) && ['chronicles','fortune','nexus'].includes(id)) await page.screenshot({path:path.join(output,`${id}-${width}.png`)});
    await page.keyboard.press('Escape');
    assert.equal(await dialog.isVisible(),false);
@@ -64,7 +65,7 @@ for (const id of ids) {
    assert.equal(await page.evaluate(()=>document.documentElement.classList.contains('system-modal-open')),false);
   }
   await page.locator('.server-feature-card-nexus').scrollIntoViewIfNeeded();
-  const allImages=await page.locator('.server-feature-card img').evaluateAll(ims=>ims.every(im=>im.complete&&im.naturalWidth===1536));
+  const allImages=await page.locator('.server-feature-card img').evaluateAll(ims=>ims.every(im=>im.complete&&im.naturalWidth===Number(im.getAttribute('width'))&&im.naturalHeight===Number(im.getAttribute('height'))));
   assert.equal(allImages,true,'Broken card image');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow');
   if(output && (width===1920||width===390)) await page.locator('#sistemas').screenshot({path:path.join(output,`systems-${width}.png`)});
