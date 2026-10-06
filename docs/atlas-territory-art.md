@@ -1,6 +1,6 @@
 # Atlas territory artwork
 
-Thirty original illustrations are shipped as real WebP files in `overlay/templates/mupanic/img/atlas/territories/`. The separate `inc/atlas-territories.json` maps server IDs to artwork, dimensions and provenance. Every current territory has a different illustration; content hashes in filenames prevent stale image caches. Source size: 1536 × 1024; WebP quality 90.
+Thirty original illustrations are shipped as real WebP files in `overlay/templates/mupanic/img/atlas/territories/`. The separate `inc/atlas-territories.json` maps server IDs to artwork, dimensions and provenance. Every current territory has a different illustration; content hashes in filenames prevent stale image caches. Source size: 1536 × 1024; WebP quality 90. Each illustration also has a 768 × 512 WebP preview at quality 88. Responsive source sets select the appropriate resolution, and cover images load eagerly with the first two prioritized. Opening an expedition selects a wider source and explicitly starts loading its client terrain and visible portraits.
 
 Generated with the built-in ImageGen tool. Shared direction: premium cinematic dark fantasy environmental concept art; readable charcoal shadows, copper/antique gold lighting and natural biome colors; a wide composition suitable for a 16:9 card; detailed original architecture and atmospheric depth. No text, logos, interfaces, map markers, foreground heroes, or copied game artwork.
 

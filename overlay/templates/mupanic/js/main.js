@@ -274,6 +274,9 @@
   wiki.querySelectorAll('[data-map-reset]').forEach(function(button) { button.addEventListener('click', function() { mapFilter.value = ''; if (mapSort) mapSort.value = 'atlas'; sortMaps(); setMapScope('all'); mapFilter.focus(); }); });
   wiki.querySelectorAll('#progresion>.wiki-map-list>.wiki-map').forEach(function(map) {
     map.addEventListener('toggle', function() {
+      var preview = map.querySelector('.atlas-map-preview');
+      if (preview && preview.srcset) preview.sizes = map.open ? '(max-width: 750px) 92vw, (max-width: 1400px) 68vw, 1140px' : '(max-width: 540px) 92vw, (max-width: 750px) 44vw, (max-width: 1400px) 34vw, 560px';
+      if (map.open) map.querySelectorAll('.atlas-terrain img,[data-atlas-panel]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
       map.querySelector('.atlas-map-open-label>span').textContent = map.open ? 'Cerrar exploración' : 'Explorar mapa';
       map.querySelector('.atlas-map-open-label>i').textContent = map.open ? '−' : '↗';
     });
@@ -371,6 +374,7 @@
   renderFinder(true);
   function selectAtlasSpot(explorer, key) {
     explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) { panel.hidden = panel.getAttribute('data-atlas-panel') !== key; });
+    if (explorer.closest('.wiki-map').open) explorer.querySelectorAll('[data-atlas-panel]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
     explorer.querySelectorAll('[data-atlas-select]').forEach(function(link) {
       if (link.getAttribute('data-atlas-select') === key) link.setAttribute('aria-current', 'true');
       else link.removeAttribute('aria-current');

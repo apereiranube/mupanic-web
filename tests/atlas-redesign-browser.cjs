@@ -38,11 +38,13 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   assert.equal(await page.locator('#rates tbody').first().locator('tr').count(),2);
   await noOverflow(page,'home');if([1920,390].includes(width))await shot(page,'atlas-home-'+width);
   if(output&&[1920,390].includes(width))await page.locator('.atlas-home-grid').screenshot({path:path.join(output,'atlas-home-grid-'+width+'.png')});
+  // Artwork must load before navigating or clicking cards; do not override loading in the test.
+  await page.waitForFunction(()=>Array.from(document.querySelectorAll('.atlas-map-preview')).every(img=>img.complete&&img.naturalWidth>=768));
   await page.locator('.wiki-nav a[href="#progresion"]').click();
   assert.equal(await page.locator('#progresion .wiki-map').count(),30);
   const catalogue=page.locator('#progresion'),cards=catalogue.locator('.wiki-map');
   assert.equal(new Set(await cards.locator('>summary img').evaluateAll(images=>images.map(img=>img.getAttribute('src')))).size,30,'Each territory has distinct artwork');
-  await cards.locator('>summary img').evaluateAll(async images=>{await Promise.all(images.map(async img=>{img.loading='eager';await img.decode();if(img.naturalWidth<1536)throw Error('Low resolution territory '+img.src);}));});
+  await cards.locator('>summary img').evaluateAll(async images=>{await Promise.all(images.map(async img=>{await img.decode();if(img.naturalWidth<768)throw Error('Low resolution territory '+img.src);}));});
   if([1920,390].includes(width)){await catalogue.evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-catalogue-'+width);}
   if([1920,390].includes(width)){await catalogue.locator('>.wiki-map-list').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-cards-'+width);}
   await page.locator('[data-map-scope=spots]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),JSON.parse(await page.locator('#wiki-data').textContent()).maps.filter(m=>m.spots.length).length);
@@ -61,6 +63,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
     assert.equal(await card.locator('.atlas-pin').count(),territory.spots.length);
     const terrain=card.locator('.atlas-terrain img');if(await terrain.count())assert.ok((await terrain.getAttribute('src')).includes('/img/atlas/maps/'),'Coordinate terrain is an actual client map');
     assert.equal(await card.locator('[data-atlas-panel]:visible').count(),1);
+    await card.locator('.atlas-terrain img,[data-atlas-panel]:visible img').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));});
     await card.locator('[data-map-close]').click();assert.equal(await card.evaluate(el=>el.open),false);assert.equal(await card.locator('>summary').evaluate(el=>document.activeElement===el),true);
    }
   }
