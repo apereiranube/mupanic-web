@@ -9,7 +9,12 @@ function panicAtlasBalance() {
     $path = panicAtlasRuntimeDirectory().'/public-balance.json';
     if(is_file($path) && !is_link($path) && filesize($path) <= 8000000) {
         $candidate = json_decode(file_get_contents($path), true);
-        if(is_array($candidate) && isset($candidate['schemaVersion']) && $candidate['schemaVersion'] === 2 && isset($candidate['accounts'], $candidate['maps'], $candidate['drops'], $candidate['crafting'])) return $candidate;
+        if(is_array($candidate) && isset($candidate['schemaVersion']) && $candidate['schemaVersion'] === 2 && isset($candidate['accounts'], $candidate['maps'], $candidate['drops'], $candidate['crafting'])) {
+            // Upgrade reward interpretation only for byte-identical gameplay sources.
+            // A changed server configuration always retains its own live reward lists.
+            if(isset($candidate['sourceHash'], $fallback['sourceHash'], $fallback['eventBags']) && hash_equals($fallback['sourceHash'], $candidate['sourceHash'])) $candidate['eventBags'] = $fallback['eventBags'];
+            return $candidate;
+        }
     }
     return $fallback;
 }

@@ -1,0 +1,58 @@
+name: Atlas reward validation
+on:
+  push:
+    branches: [main, beta]
+    paths:
+      - 'tools/atlas_event_bags.py'
+      - 'tools/build_public_balance.py'
+      - 'tools/sync_atlas.py'
+      - 'tools/update_atlas_sync.ps1'
+      - 'overlay/templates/mupanic/inc/public-balance.json'
+      - 'overlay/templates/mupanic/inc/reward-lists.php'
+      - 'overlay/templates/mupanic/inc/atlas-runtime.php'
+      - 'overlay/templates/mupanic/api/atlas-sync.php'
+      - 'overlay/templates/mupanic/js/atlas-search.js'
+      - 'overlay/templates/mupanic/js/main.js'
+      - 'tests/*atlas*'
+      - 'tests/fixtures/atlas-rewards.php'
+      - '.github/workflows/atlas-rewards.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  atlas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check export, receiver and search
+        run: |
+          python -m unittest discover -s tests -p 'test_atlas*.py'
+          node tools/test_atlas_search.cjs
+          node --check overlay/templates/mupanic/js/main.js
+          node --check overlay/templates/mupanic/js/atlas-search.js
+          php -l overlay/templates/mupanic/inc/reward-lists.php
+          php -l overlay/templates/mupanic/inc/atlas-runtime.php
+          php -l overlay/templates/mupanic/api/atlas-sync.php
+      - name: Check updater syntax
+        shell: pwsh
+        run: |
+          $parseErrors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/update_atlas_sync.ps1'), [ref]$null, [ref]$parseErrors) | Out-Null
+          if ($parseErrors.Count) { $parseErrors | Format-List; exit 1 }
+      - name: Install browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Verify Atlas rewards in browser
+        env:
+          ATLAS_SCREENSHOT_DIR: atlas-screenshots
+        run: node tests/atlas-rewards-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: atlas-screenshots
+          path: atlas-screenshots/

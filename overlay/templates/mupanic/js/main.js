@@ -170,6 +170,13 @@
   nav.forEach(function (link) { link.addEventListener('click', function () { clearSearch(); if (location.hash === link.hash) revealHash(); }); });
   var searchable = [];
   panels.forEach(function (panel) { searchable.push({title: panel.querySelector('h2').textContent, context: 'Guía del servidor', text: normalize(panel.querySelector('h2').textContent), hash: '#' + panel.id}); });
+  wiki.querySelectorAll('[data-reward-item-filter]').forEach(function(input) {
+    input.addEventListener('input', function() {
+      var list = input.closest('[data-reward-list]'), query = normalize(input.value), visible = 0;
+      list.querySelectorAll('[data-reward-item]').forEach(function(row) { row.hidden = !normalize(row.textContent).includes(query); if(!row.hidden) visible++; });
+      list.querySelector('[data-reward-item-status]').textContent = visible + ' objetos posibles' + (visible ? '' : ' · probá otro nombre');
+    });
+  });
   var rewardFilter = wiki.querySelector('[data-reward-filter]');
   if (rewardFilter) rewardFilter.addEventListener('input',function() {
     var query = normalize(rewardFilter.value), visible = 0;

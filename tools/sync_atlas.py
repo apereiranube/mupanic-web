@@ -50,7 +50,7 @@ def main():
     paths = sources(args.server_root)
     fingerprint = digest(paths, args.server_root)
     old = json.loads(state.read_text(encoding='utf-8')) if state.exists() else {}
-    if old.get('sourceHash') == fingerprint and not args.force:
+    if old.get('sourceHash') == fingerprint and old.get('exporterVersion') == 2 and not args.force:
         print('Unchanged. Last successfully published snapshot remains active.')
         return
     with tempfile.TemporaryDirectory(prefix='panic-atlas-') as temporary:
@@ -72,7 +72,7 @@ def main():
             acknowledgement = json.load(response)
             if acknowledgement.get('message') != 'Snapshot updated': raise ValueError('Unexpected publication response')
     temporary_state = state.with_suffix('.tmp')
-    temporary_state.write_text(json.dumps({'sourceHash':fingerprint,'publishedAt':stamp}), encoding='utf-8')
+    temporary_state.write_text(json.dumps({'sourceHash':fingerprint,'publishedAt':stamp,'exporterVersion':2}), encoding='utf-8')
     temporary_state.replace(state)
     print('Public snapshot updated. Original configuration and game processes were not changed.')
 

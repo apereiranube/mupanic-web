@@ -119,3 +119,16 @@ Validation: PHP rendering and lint, JavaScript syntax, 149 pins / 179 panels / 3
 The administrator confirms map 57 is called **LaCleon** in the client. The Atlas uses that display name in maps, transfers, drop filters and links; Raklion remains a search alias. Presentation normalization applies to subsequent VPS snapshots without modifying server files or IDs. Map 58 is not renamed without confirmation of its client label.
 
 Windows scheduled task `MU PANIC Atlas Sync` was created with a 30-minute interval and executed as SYSTEM successfully. The administrator reported `LastTaskResult = 0`, last run 1 October 2026 11:53:53, next run 12:23:23. The log records `Unchanged. Last successfully published snapshot remains active.` Automated registration and its first unchanged run are now confirmed; terrain alignment and monster portraits remain pending.
+
+
+## Advanced rewards — 6 October 2026
+
+The administrator export `MU_PANIC_SERVIDOR_20261006_094212.zip` matches the current runtime source fingerprint `3366db3de0641bf9ba30ec0f14b757b4bd0d885f914895c78e7a907b54b01490`. The updated public snapshot reads all 25 advanced reward bags (sections 3/4/X), including Medusa, Kundun, Erohim, Nightmare, Selupan, Kundun boxes, Blood Castle and Devil Square. Golden Napin now has a standard bag. Only associations 200 and 1014 remain missing their source bag; they remain explicitly unverified. Original server configurations are not committed.
+
+Advanced option columns are profile references, not direct option values. The exporter resolves them through ItemOptionRate and publishes possible levels, Skill/Luck, Excellent/Ancient/Socket flags and duration. Pool eligibility and disabled attempts are respected. Selection groups, class gates and relative weights are retained without making per-kill probability claims. Medusa has 157 configured entries, with Ancient set names and a per-list search.
+
+The renderer can upgrade an old exporter snapshot with the checked-in reward interpretation only when the full gameplay-source fingerprint matches exactly. A different runtime hash keeps its own lists. This makes the current verified export available through cPanel deployment while avoiding stale replacements after server changes.
+
+`tools/update_atlas_sync.ps1` updates the three exporter files on the VPS, backs up the existing exporter outside public web roots, keeps the private token, redirects the existing task wrapper to the production receiver and publishes once. Run after the main cPanel deployment. Exporter version 2 triggers a new publication even if gameplay files have not changed. Game configuration, processes and SQL remain untouched.
+
+References: Louis UP42 documentation, EventItemBag Advanced and ItemOptionRate (`https://www.jogandomu.com.br/louisup42/`). The exported UP43 column layouts match those documented structures; unknown layouts remain unpublished.

@@ -45,9 +45,10 @@
         mob.routes.push({label:'Recompensa: ' + bag.name, hash:'#recompensa-' + bag.id});
       }
       // Unsupported lists are explicitly unverified and must not create item claims.
-      if (bag.format !== 'standard') return;
+      if (!['standard','advanced'].includes(bag.format)) return;
       var seen = new Set();
       bag.items.forEach(function (item) {
+        if (item.setName) { var obj = object(item); obj.aliases = Array.from(new Set((obj.aliases || []).concat(item.setName))); }
         if (seen.has(item.id)) return;
         seen.add(item.id);
         object(item).routes.push({kind:'reward', label:bag.name, detail:bag.monster >= 0 ? 'Recompensa de ' + (bag.monsterName || bag.name) : 'Caja o evento',
