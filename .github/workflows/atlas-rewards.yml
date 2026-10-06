@@ -38,6 +38,7 @@ on:
       - 'overlay/templates/mupanic/inc/workshop.php'
       - 'overlay/templates/mupanic/js/atlas-ui.js'
       - 'overlay/templates/mupanic/img/atlas/editorial/**'
+      - 'overlay/templates/mupanic/img/atlas/events/**'
       - 'overlay/templates/mupanic/index.php'
       - 'tools/collect_atlas_events.ps1'
       - 'tests/*atlas*'

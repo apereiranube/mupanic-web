@@ -64,10 +64,12 @@
     if(filter){group=filter.dataset.eventGroup;filterEvents();}
   });
   wiki.addEventListener('input',function(event){if(event.target.matches('[data-event-search]'))filterEvents();});
-  var group='all';
+  var group=wiki.querySelector('#eventos').dataset.eventDefaultGroup;
   function filterEvents(){
-    var section=wiki.querySelector('#eventos'),query=section.querySelector('[data-event-search]').value.toLocaleLowerCase('es'),count=0;
-    section.querySelectorAll('[data-event-kind]').forEach(function(card){card.hidden=!((group==='all'||card.dataset.eventKind===group)&&card.dataset.eventName.toLocaleLowerCase('es').includes(query));if(!card.hidden)count++;});
+    var section=wiki.querySelector('#eventos');
+    if(!section.querySelector('[data-event-group="'+group+'"]:not(:disabled)'))group=section.dataset.eventDefaultGroup;
+    var query=section.querySelector('[data-event-search]').value.toLocaleLowerCase('es'),count=0;
+    section.querySelectorAll('[data-event-kind]').forEach(function(card){card.hidden=!(card.dataset.eventKind===group&&card.dataset.eventName.toLocaleLowerCase('es').includes(query));if(!card.hidden)count++;});
     section.querySelectorAll('[data-event-group]').forEach(function(button){button.setAttribute('aria-pressed',String(button.dataset.eventGroup===group));});
     section.querySelector('[data-event-empty]').hidden=count>0;
   }
@@ -95,13 +97,13 @@
     section.querySelector('[data-event-published]').textContent=new Date(data.generatedAt).toLocaleString('es-AR',{timeZone:data.timezone,dateStyle:'short',timeStyle:'short',hourCycle:'h23'});
   }
   wiki.atlasNextOccurrence=nextOccurrence;
-  updateAgenda();window.setInterval(updateAgenda,60000);
+  filterEvents();updateAgenda();window.setInterval(updateAgenda,60000);
   var endpoint=new URL('../api/atlas-events.php',document.currentScript.src).href,refreshing=false;
   async function refreshEvents(){
     if(refreshing||document.hidden||dialog.open)return;refreshing=true;
     try{var response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)return;var result=await response.json(),section=wiki.querySelector('#eventos');
       if(result.version!==section.dataset.eventsVersion){var template=document.createElement('template');template.innerHTML=result.html;var replacement=template.content.querySelector('#eventos');if(!replacement)return;
-        section.innerHTML=replacement.innerHTML;section.dataset.eventsVersion=result.version;group='all';updateAgenda();filterEvents();window.dispatchEvent(new Event('hashchange'));}
+        section.innerHTML=replacement.innerHTML;section.dataset.eventDefaultGroup=replacement.dataset.eventDefaultGroup;section.dataset.eventsVersion=result.version;updateAgenda();filterEvents();window.dispatchEvent(new Event('hashchange'));}
     }catch(error){/* Retain the last confirmed catalogue on network errors. */}finally{refreshing=false;}
   }
   window.setInterval(refreshEvents,60000);document.addEventListener('visibilitychange',function(){if(!document.hidden)refreshEvents();});

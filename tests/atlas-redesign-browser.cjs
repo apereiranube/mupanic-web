@@ -133,14 +133,19 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.locator('.wiki-nav a[href="#buscar"]').click();await page.locator('[data-atlas-query]').fill('Harmony');
   assert.ok(await page.locator('.atlas-find-card').count()>0);await noOverflow(page,'finder');
   await page.locator('.wiki-nav a[href="#eventos"]').click();
-  assert.equal(await page.locator('.atlas-event-card').count(),enabledEvents.length);if([1920,390].includes(width)){await page.locator('#eventos').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+width);}
-  await page.locator('[data-event-group=staff]').click();assert.equal(await page.locator('.atlas-event-card:visible').count(),6);await page.locator('[data-event-group=all]').click();
+  assert.equal(await page.locator('.atlas-event-card').count(),enabledEvents.length);assert.equal(await page.locator('[data-event-group=all]').count(),0);assert.equal(await page.locator('.atlas-event-card:visible').count(),enabledEvents.filter(e=>e.group==='classic').length);if([1920,390].includes(width)){await page.locator('#eventos').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+width);}
+  if([1920,390].includes(width)){for(const kind of ['classic','invasion','staff']){await page.locator('[data-event-group="'+kind+'"]').click();await page.locator('.atlas-event-grid').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+kind+'-'+width);}}
+  await page.locator('[data-event-group=staff]').click();assert.equal(await page.locator('.atlas-event-card:visible').count(),6);await page.locator('[data-event-group=custom]').click();
   await page.locator('[data-event-search]').fill('Maldito');assert.equal(await page.locator('.atlas-event-card:visible').count(),1);await page.locator('[data-event-search]').fill('');
   assert.equal(await page.locator('.atlas-event-card [data-atlas-event-open=auction]').count(),0);
+  assert.equal(await page.locator('.atlas-event-validation,.atlas-event-audit-date').count(),0);
   const timeResult=await page.evaluate(()=>document.querySelector('[data-wiki]').atlasNextOccurrence([[-1,-1,-1,-1,-1,50,0]],new Date('2026-10-06T13:51:00Z')).toISOString());assert.equal(timeResult,'2026-10-06T14:50:00.000Z');
   for(const id of (width>=1024?enabledEvents.map(e=>e.id):['pandora','blood-castle','devil-square'])){
+   const kind=enabledEvents.find(e=>e.id===id).group;await page.locator('[data-event-group="'+kind+'"]').click();
    const trigger=page.locator('.atlas-event-card [data-atlas-event-open="'+id+'"]');await trigger.click();
    const modal=page.locator('[data-atlas-event-dialog]');assert.equal(await modal.evaluate(el=>el.open),true);
+   await modal.locator('img').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});
+   assert.equal(await modal.locator('img').evaluateAll(imgs=>imgs.every(img=>img.complete&&img.naturalWidth>0)),true,'Dossier images load '+id);
    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).overflowY),'hidden');
    assert.equal(await modal.locator('h3').count(),1);
    assert.equal(await modal.evaluate(el=>el.getBoundingClientRect().width<=innerWidth),true);
@@ -163,7 +168,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
    assert.equal(await modal.evaluate(el=>el.open),false);
    assert.equal(await trigger.evaluate(el=>document.activeElement===el),true,'Return event focus');
   }
-  assert.equal(await page.locator('[data-event-reward-list]:visible').count(),0,'No duplicate reward catalogue in Events');await page.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
+  await page.locator('[data-event-group=classic]').click();assert.equal(await page.locator('[data-event-reward-list]:visible').count(),0,'No duplicate reward catalogue in Events');await page.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
   await page.locator('#recompensa-12').waitFor({state:'visible'});assert.equal(await page.locator('#recompensa-12').isVisible(),true,'Event reward link reveals its list');assert.equal(await page.locator('#eventos').isVisible(),true);assert.equal(await page.locator('#recompensas').isVisible(),false);await page.locator('#recompensa-12 [data-reward-item-filter]').fill('Jewel');assert.ok(await page.locator('#recompensa-12 [data-reward-item]:visible').count()>0);
   assert.equal(await page.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),false);
   // Keyboard focus stays inside the dossier.
@@ -198,7 +203,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  assert.deepEqual(hoverErrors,[]);await hover.close();
  // A new server catalogue removes disabled events without replacing cached chapter nodes.
  const runtime=fs.mkdtempSync(path.join(os.tmpdir(),'atlas-events-test-'));
- const changed=JSON.parse(JSON.stringify(eventSnapshot));changed.sourceHash='e'.repeat(64);changed.events.find(e=>e.id==='pandora').enabled=false;changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-')).forEach(e=>e.enabled=true);
+ const changed=JSON.parse(JSON.stringify(eventSnapshot));changed.sourceHash='e'.repeat(64);changed.events.find(e=>e.id==='pandora').enabled=false;changed.events.filter(e=>e.group==='staff').forEach(e=>e.enabled=false);changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-')).forEach(e=>{e.enabled=true;if(e.id.startsWith('arena-'))e.durationMinutes=5;});
  fs.writeFileSync(path.join(runtime,'public-events.json'),JSON.stringify(changed));
  const refreshed=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/atlas-rewards.php')],{encoding:'utf8',env:{...process.env,PANIC_ATLAS_RUNTIME_DIR:runtime},maxBuffer:16e6});
  const refreshVersion=refreshed.match(/data-events-version="([a-f0-9]+)"/)[1];
@@ -206,7 +211,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  await live.clock.install({time:new Date('2026-10-06T13:00:00Z')});await setup(live,liveErrors);let refreshCalls=0;
  await live.route('**/api/atlas-events.php',route=>{refreshCalls++;return route.fulfill({contentType:'application/json',body:JSON.stringify({version:refreshVersion,html:refreshed.match(/<section id="eventos"[\s\S]*?<\/section>/)[0]})});});
  await live.goto('https://atlas.test/info/#eventos');
- await live.locator('.atlas-event-card [data-atlas-event-open="pandora"]').click();
+ await live.locator('[data-event-group=custom]').click();await live.locator('.atlas-event-card [data-atlas-event-open="pandora"]').click();
  await live.clock.fastForward(61000);assert.equal(refreshCalls,0,'Refreshing defers while a dossier is open');
  await live.keyboard.press('Escape');await live.clock.fastForward(61000);
  await live.waitForFunction(version=>document.querySelector('#eventos').dataset.eventsVersion===version,refreshVersion);
@@ -214,10 +219,11 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  assert.equal(await live.locator('.atlas-event-card').count(),changed.events.filter(e=>e.enabled).length);
  await live.locator('.wiki-nav a[href="#inicio"]').click();await live.locator('#inicio').waitFor({state:'visible'});await live.locator('.wiki-nav a[href="#eventos"]').click();await live.locator('#eventos').waitFor({state:'visible'});
  assert.equal(await live.locator('#eventos').isVisible(),true,'Chapter references survive refresh');
- await live.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),true);await live.keyboard.press('Escape');
+ await live.locator('[data-event-group=classic]').click();await live.locator('.atlas-event-card [data-atlas-event-open="blood-castle"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),true);await live.keyboard.press('Escape');
  assert.equal(await live.locator('[data-event-upcoming] [data-atlas-event-open^="arena-"]').count(),0,'Manual competitions never join the agenda');
- for(const e of changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-'))){await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false);if(e.id.startsWith('arena-'))assert.ok((await live.locator('[data-atlas-event-dialog]').textContent()).includes('Fecha a anunciar'));if(e.id==='arena-0')await shot(live,'atlas-event-guide-survivor-1920');await live.keyboard.press('Escape');}
- assert.deepEqual(liveErrors,[]);await live.close();fs.rmSync(runtime,{recursive:true,force:true});
+ for(const e of changed.events.filter(e=>e.id.startsWith('arena-')||e.id.startsWith('event-drop-'))){await live.locator('[data-event-group="'+(e.id.startsWith('arena-')?'staff':e.group)+'"]').click();await live.locator('.atlas-event-card [data-atlas-event-open="'+e.id+'"]').click();await live.locator('[data-atlas-event-dialog] img').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});assert.equal(await live.locator('[data-atlas-event-dialog]').evaluate(el=>el.scrollHeight>el.clientHeight+1),false);if(e.id.startsWith('arena-'))assert.ok((await live.locator('[data-atlas-event-dialog]').textContent()).includes('Fecha a anunciar'));if(['arena-0','arena-6','arena-1'].includes(e.id))await shot(live,'atlas-event-guide-'+e.id+'-1920');await live.keyboard.press('Escape');}
+ await live.locator('[data-event-group=staff]').click();await live.locator('.atlas-event-grid').scrollIntoViewIfNeeded();await shot(live,'atlas-events-class-arenas-1920');assert.equal(await live.locator('.atlas-event-card:visible').count(),8);assert.ok((await live.locator('.atlas-event-card:visible').allTextContents()).join(' ').includes('Elf vs Elf'));
+ await live.setViewportSize({width:390,height:844});await live.locator('.atlas-event-card [data-atlas-event-open="arena-6"]').click();await live.locator('[data-atlas-event-dialog] img').evaluateAll(async imgs=>{await Promise.all(imgs.map(img=>img.decode()));});await noOverflow(live,'Elf manual dossier mobile');await shot(live,'atlas-event-guide-arena-6-390');await live.keyboard.press('Escape');assert.deepEqual(liveErrors,[]);await live.close();fs.rmSync(runtime,{recursive:true,force:true});
  // Hold the late app script to verify the first paint without a disappearing header.
  const boot=await browser.newPage({viewport:{width:1920,height:1080},reducedMotion:'reduce'}),bootErrors=[];
  await setup(boot,bootErrors);

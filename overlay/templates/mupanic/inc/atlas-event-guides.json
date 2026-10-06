@@ -1,13 +1,11 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-10-06T16:07:17-03:00",
   "guides": {
     "blood-castle": {
       "tagline": "Abrí el camino. Recuperá el objetivo.",
       "intro": "Avanzá por el puente, derribá la estatua y devolvé el arma del ángel antes del cierre.",
       "entry": "Invisibility Cloak de tu categoría, desde el NPC del evento.",
       "objective": "Completar la entrega del arma del ángel.",
-      "validation": "El premio de victoria y el reinicio diario de entradas están pendientes de validación.",
       "rewardNote": "El premio no se extiende automáticamente a toda la party.",
       "tiers": [
         {
@@ -16,7 +14,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "suelo"
@@ -27,7 +25,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "suelo"
@@ -38,7 +36,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Bless 50% o Soul 50%",
@@ -53,7 +51,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Bless 50% o Soul 50%",
@@ -68,7 +66,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Bless 50% o Soul 50%",
@@ -83,7 +81,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Bless 50% o Soul 50%",
@@ -98,7 +96,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Bless 50% o Soul 50%",
@@ -113,7 +111,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Bless 50% o Soul 50%",
@@ -130,7 +128,6 @@
       "intro": "Resistí las oleadas de monstruos y aprovechá la experiencia del combate.",
       "entry": "Entrada de la categoría habilitada por el cliente, desde el NPC del evento.",
       "objective": "Sobrevivir a las oleadas y derrotar criaturas.",
-      "validation": "La entrega final y el reinicio diario de entradas están pendientes de validación.",
       "rewardNote": "Cada sorteo elige una joya: no se entregan todas las alternativas juntas.",
       "tiers": [
         {
@@ -218,7 +215,6 @@
       "intro": "Combatí contra jugadores y monstruos. Los empujones y las caídas también deciden quién sobrevive.",
       "entry": "Usá Armor of Guardsman durante la apertura; revisá tu categoría en el cliente.",
       "objective": "Sobrevivir dentro de la arena.",
-      "validation": "La entrada y la mecánica fueron probadas; falta validar el premio final.",
       "rewardNote": "Recompensa según la categoría del evento.",
       "tiers": [
         {
@@ -238,11 +234,11 @@
           "rewards": [
             {
               "label": "1 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "inventario"
@@ -253,15 +249,15 @@
           "rewards": [
             {
               "label": "1 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "inventario"
@@ -272,15 +268,15 @@
           "rewards": [
             {
               "label": "1 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Life",
@@ -295,15 +291,15 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "inventario"
@@ -314,15 +310,15 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Equipo Ancient",
@@ -337,19 +333,19 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Life",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Equipo Ancient",
@@ -365,10 +361,9 @@
     "illusion-temple": {
       "tagline": "La estrategia también conquista.",
       "intro": "Recuperá la reliquia, escoltá al portador y entregala en tu base para sumar puntos con tu equipo.",
-      "entry": "Scroll of Blood y NPC Mirage durante la inscripción. Mínimo configurado: 4 jugadores.",
+      "entry": "Scroll of Blood y NPC Mirage durante la inscripción. Mínimo: 4 jugadores.",
       "objective": "Llevar la reliquia a tu base y sumar puntos.",
-      "validation": "Pendiente: prueba con cuatro jugadores y entrega final de recompensas.",
-      "rewardNote": "Premio configurado para el ganador elegible; 5 WCoin C adicionales.",
+      "rewardNote": "Recompensa para el ganador elegible: joyas según categoría y 5 WCoin C.",
       "tiers": [
         {
           "label": "Illusion Temple 1",
@@ -376,15 +371,15 @@
           "rewards": [
             {
               "label": "1 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Life",
@@ -399,19 +394,19 @@
           "rewards": [
             {
               "label": "1 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Life",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "inventario"
@@ -422,19 +417,19 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Life",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "inventario"
@@ -445,19 +440,19 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Life",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "inventario"
@@ -468,19 +463,19 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Life",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Equipo Ancient",
@@ -495,19 +490,19 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Life",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Equipo Ancient",
@@ -518,15 +513,14 @@
         }
       ],
       "referenceName": "Illusion Temple",
-      "art": "img/atlas/editorial/imperial-temple.webp"
+      "art": "img/atlas/events/illusion-temple-862b30bc2306.webp"
     },
     "pandora": {
       "tagline": "El maldito no está a salvo.",
       "intro": "Disputá la transformación del maldito: perseguí al portador y defendé tu posición durante la competencia.",
-      "entry": "Área configurada: Devias, 216 · 215. Seguí el aviso del juego.",
+      "entry": "Área del evento: Devias, 216 · 215. Seguí el aviso del juego.",
       "objective": "Disputar la transformación y defender tu posición.",
-      "validation": "La mecánica y el regreso al área fueron probados. El criterio final de victoria sigue por confirmar.",
-      "rewardNote": "Joyas al inventario y 5 WCoin C configurados.",
+      "rewardNote": "Joyas al inventario y 5 WCoin C.",
       "tiers": [
         {
           "label": "Pandora Event",
@@ -534,15 +528,15 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Life",
@@ -559,7 +553,6 @@
       "intro": "Buscá al Skeleton King en los mapas anunciados y derrotalo antes del cierre de la invasión.",
       "entry": "Seguí el anuncio del juego. Las coordenadas de aparición pueden variar.",
       "objective": "Encontrar y derrotar al Skeleton King.",
-      "validation": "Falta confirmar aparición natural y reparto de recompensas con personajes normales.",
       "rewardNote": "Chaos y una Bless o Soul. 10 WCoin C por ejecución elegible; no para todos los participantes.",
       "tiers": [
         {
@@ -568,7 +561,7 @@
           "rewards": [
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Bless/Soul (un sorteo)",
@@ -578,14 +571,14 @@
           "delivery": "suelo"
         }
       ],
-      "referenceName": "Skeleton King"
+      "referenceName": "Skeleton King",
+      "art": "img/atlas/events/invasion-0-aa3bf042f5e6.webp"
     },
     "invasion-1": {
       "tagline": "La amenaza desciende del cielo.",
       "intro": "Localizá al Red Dragon en el mapa anunciado y preparate para el combate.",
       "entry": "Seguí el anuncio de invasión; ubicación variable.",
       "objective": "Derrotar al dragón antes del cierre.",
-      "validation": "La auditoría de premios no valida la dificultad ni el reparto en un combate natural.",
       "rewardNote": "Bless y Soul, con una selección adicional de Life al 25%.",
       "tiers": [
         {
@@ -594,11 +587,11 @@
           "rewards": [
             {
               "label": "1 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Life",
@@ -608,15 +601,15 @@
           "delivery": "suelo"
         }
       ],
-      "referenceName": "Red Dragon"
+      "referenceName": "Red Dragon",
+      "art": "img/atlas/events/invasion-1-117673c35473.webp"
     },
     "invasion-3": {
       "tagline": "Un ejército cruza el continente.",
       "intro": "Buscá al White Wizard y combatí la invasión en los mapas anunciados.",
       "entry": "Seguí el anuncio del juego; coordenadas de aparición variables.",
       "objective": "Derrotar al White Wizard antes del cierre.",
-      "validation": "La auditoría de premios no confirma la dificultad ni el reparto en un combate natural.",
-      "rewardNote": "Joyas configuradas para la recompensa de la invasión.",
+      "rewardNote": "Joyas como recompensa de la invasión.",
       "tiers": [
         {
           "label": "White Wizard",
@@ -624,15 +617,15 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Life",
@@ -642,14 +635,14 @@
           "delivery": "suelo"
         }
       ],
-      "referenceName": "White Wizard"
+      "referenceName": "White Wizard",
+      "art": "img/atlas/events/invasion-3-4b7cf8edb4ff.webp"
     },
     "invasion-2": {
       "tagline": "Buscá el brillo. Enfrentá la invasión.",
       "intro": "Rastreá a los dorados en los mapas anunciados. Cada criatura puede tener una recompensa distinta.",
       "entry": "Acudí a los mapas indicados por el aviso del juego.",
       "objective": "Encontrar y derrotar a los dorados.",
-      "validation": "Las correspondencias y porcentajes de todos los dorados no están documentados en esta revisión.",
       "rewardNote": "Cajas Kundun y equipo Excellent según el dorado; sin un premio único para toda la invasión.",
       "tiers": [
         {
@@ -665,17 +658,17 @@
               "detail": "Según criatura"
             }
           ],
-          "delivery": "Correspondencias por confirmar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Invasión de Dorados"
+      "referenceName": "Invasión de Dorados",
+      "art": "img/atlas/events/invasion-2-95ec58a9ca92.webp"
     },
     "invasion-8": {
       "tagline": "Una conquista a la altura del desafío.",
       "intro": "Buscá a Medusa en Swamp of Calmness y enfrentá la amenaza antes del cierre de la invasión.",
       "entry": "Acudí al mapa anunciado y prepará tu personaje para el combate.",
       "objective": "Encontrar y derrotar a Medusa.",
-      "validation": "Falta confirmar combate natural y dificultad con personajes normales.",
       "rewardNote": "Drop compartido al suelo; no un paquete Ancient por cada jugador.",
       "tiers": [
         {
@@ -684,7 +677,7 @@
           "rewards": [
             {
               "label": "2 × Equipo Ancient",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Equipo Ancient",
@@ -695,14 +688,13 @@
         }
       ],
       "referenceName": "Medusa",
-      "art": "img/atlas/editorial/atlas-medusa.webp"
+      "art": "img/atlas/events/invasion-8-ac5d6b7cc041.webp"
     },
     "double-goer": {
       "tagline": "Sostené la línea. Defendé el camino.",
-      "intro": "Frená el avance de los monstruos, en solitario o en party, y buscá completar la defensa.",
-      "entry": "Por entrada al evento; ticket y NPC de acceso pendientes de confirmación.",
+      "intro": "Doppelganger es el desafío de defensa también llamado Double Goer: frená el avance de los monstruos, en solitario o en party.",
+      "entry": "Acceso por entrada al evento. Consultá la opción del cliente.",
       "objective": "Evitar que los monstruos atraviesen el camino.",
-      "validation": "Mecánica probada; premio actualizado y prueba en party pendientes.",
       "rewardNote": "Recompensa por apertura del cofre final; no un paquete automático por integrante.",
       "tiers": [
         {
@@ -711,15 +703,15 @@
           "rewards": [
             {
               "label": "1 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Life",
@@ -730,14 +722,14 @@
         }
       ],
       "referenceName": "Doppelganger",
-      "art": "img/atlas/editorial/atlas-chamber.webp"
+      "art": "img/atlas/events/double-goer-5a6c0c4edd3e.webp",
+      "displayName": "Doppelganger"
     },
     "imperial-guardian": {
       "tagline": "Conquistá la fortaleza. Enfrentá a Gaion.",
       "intro": "Avanzá por las zonas, derrotá a sus guardianes y completá el recorrido del día.",
       "entry": "Por entrada al evento. La ruta depende del día; consultá el acceso en el cliente.",
       "objective": "Completar las zonas y derrotar al jefe final.",
-      "validation": "Los nuevos premios están configurados; su entrega final sigue pendiente de prueba.",
       "rewardNote": "Premios compartidos al suelo; no un paquete por jugador.",
       "tiers": [
         {
@@ -746,15 +738,15 @@
           "rewards": [
             {
               "label": "2 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Life",
@@ -769,23 +761,23 @@
           "rewards": [
             {
               "label": "3 × Bless",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "3 × Soul",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "2 × Chaos",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Life",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "1 × Equipo Ancient",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "suelo"
@@ -799,8 +791,7 @@
       "intro": "Enfrentá al boss de Kalima 7. Es un encuentro de mapa, sin agenda de invasión fija.",
       "entry": "Cinco Symbol of Kundun +7 forman Lost Map +7; usalo fuera de una zona segura.",
       "objective": "Encontrar y derrotar a Kundun.",
-      "validation": "Acceso y drop probados; dificultad normal y tiempo de reaparición por confirmar.",
-      "rewardNote": "Tres piezas Excellent configuradas.",
+      "rewardNote": "Tres piezas Excellent.",
       "tiers": [
         {
           "label": "Kundun",
@@ -808,7 +799,7 @@
           "rewards": [
             {
               "label": "3 × Equipo Excellent",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "suelo"
@@ -818,11 +809,10 @@
     },
     "erohim": {
       "tagline": "Land of Trials espera su conquista.",
-      "intro": "Erohim es el boss de Land of Trials. La disponibilidad de acceso debe confirmarse dentro del juego.",
-      "entry": "Acceso de jugadores con Castle Siege pausado: pendiente de confirmación.",
+      "intro": "Erohim custodia Land of Trials. Buscalo en el escenario del desafío.",
+      "entry": "Consultá la disponibilidad de acceso a Land of Trials dentro del juego.",
       "objective": "Enfrentar a Erohim en Land of Trials.",
-      "validation": "Drop trabajado; acceso con Castle Siege pausado pendiente.",
-      "rewardNote": "Dos piezas Ancient configuradas.",
+      "rewardNote": "Dos piezas Ancient.",
       "tiers": [
         {
           "label": "Erohim",
@@ -830,7 +820,7 @@
           "rewards": [
             {
               "label": "2 × Equipo Ancient",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "suelo"
@@ -841,9 +831,8 @@
     "kanturu": {
       "tagline": "Las ruinas guardan algo más.",
       "intro": "Superá las fases de Kanturu y enfrentá a Nightmare para habilitar la refinería.",
-      "entry": "Depende del ciclo del escenario; requisitos exactos de acceso por confirmar.",
+      "entry": "Acceso según el ciclo del escenario de Kanturu.",
       "objective": "Superar las fases y enfrentar a Nightmare.",
-      "validation": "El acceso y el evento fueron trabajados; falta reconfirmar el premio actualizado.",
       "rewardNote": "Una piedra de refinación por selección: 70% Higher / 30% Lower.",
       "tiers": [
         {
@@ -852,7 +841,7 @@
           "rewards": [
             {
               "label": "1 × Harmony",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             },
             {
               "label": "Higher / Lower refining stone",
@@ -872,9 +861,8 @@
     "raklion": {
       "tagline": "LaCleon esconde una amenaza mayor.",
       "intro": "Entrá al escenario de Raklion y enfrentá a Selupan cuando el ciclo de la zona lo permita.",
-      "entry": "Zona de Raklion / LaCleon; condiciones de acceso natural por confirmar.",
+      "entry": "En la zona de Raklion / LaCleon, según el ciclo del escenario.",
       "objective": "Enfrentar y derrotar a Selupan.",
-      "validation": "Drop probado; dificultad y acceso en el escenario natural pendientes de validación.",
       "rewardNote": "Bases Socket sin seeds instaladas.",
       "tiers": [
         {
@@ -883,7 +871,7 @@
           "rewards": [
             {
               "label": "2 × Bases Socket",
-              "detail": "Base configurada"
+              "detail": "Recompensa base"
             }
           ],
           "delivery": "suelo"
@@ -893,12 +881,11 @@
       "art": "img/atlas/territories/raklion-two-cdb28c27c8b8.webp"
     },
     "arena-0": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Todas las clases. Una misma arena.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Participan todas las clases.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Todas las clases.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Participan todas las clases.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -906,21 +893,23 @@
           "rewards": [
             {
               "label": "5 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Survivor"
+      "referenceName": "Survivor",
+      "displayName": "Survivor",
+      "artLabel": "Survivor",
+      "art": "img/atlas/events/arena-0-518f387c7872.webp"
     },
     "arena-1": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Un duelo para dominar tu clase.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Magic Gladiator.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Clase habilitada: Magic Gladiator.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Magic Gladiator.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -928,25 +917,27 @@
           "rewards": [
             {
               "label": "2 × Kundun +4",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             },
             {
               "label": "1 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Arena MG"
+      "referenceName": "Arena MG",
+      "displayName": "Magic Gladiator vs Magic Gladiator",
+      "artLabel": "Magic Gladiator",
+      "art": "img/atlas/events/arena-1-3a97922d5101.webp"
     },
     "arena-2": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Un duelo para dominar tu clase.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Dark Wizard / Soul Master.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Clase habilitada: Dark Wizard / Soul Master.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Soul Master.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -954,25 +945,27 @@
           "rewards": [
             {
               "label": "2 × Kundun +4",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             },
             {
               "label": "1 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Arena DW / SM"
+      "referenceName": "Arena DW / SM",
+      "displayName": "Soul Master vs Soul Master",
+      "artLabel": "Soul Master",
+      "art": "img/atlas/events/arena-2-0403a1fd5c83.webp"
     },
     "arena-3": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Un duelo para dominar tu clase.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Dark Knight / Blade Knight.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Clase habilitada: Dark Knight / Blade Knight.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Blade Knight.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -980,25 +973,27 @@
           "rewards": [
             {
               "label": "2 × Kundun +4",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             },
             {
               "label": "1 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Arena DK / BK"
+      "referenceName": "Arena DK / BK",
+      "displayName": "Blade Knight vs Blade Knight",
+      "artLabel": "Blade Knight",
+      "art": "img/atlas/events/arena-3-8f44228bf0bb.webp"
     },
     "arena-4": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Un duelo para dominar tu clase.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Rage Fighter.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Clase habilitada: Rage Fighter.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Rage Fighter.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -1006,25 +1001,27 @@
           "rewards": [
             {
               "label": "2 × Kundun +4",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             },
             {
               "label": "1 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Arena RF"
+      "referenceName": "Arena RF",
+      "displayName": "Rage Fighter vs Rage Fighter",
+      "artLabel": "Rage Fighter",
+      "art": "img/atlas/events/arena-4-e83a1b946885.webp"
     },
     "arena-5": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Un duelo para dominar tu clase.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Dark Lord.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Clase habilitada: Dark Lord.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Dark Lord.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -1032,25 +1029,27 @@
           "rewards": [
             {
               "label": "2 × Kundun +4",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             },
             {
               "label": "1 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Arena DL"
+      "referenceName": "Arena DL",
+      "displayName": "Dark Lord vs Dark Lord",
+      "artLabel": "Dark Lord",
+      "art": "img/atlas/events/arena-5-adc15f68664a.webp"
     },
     "arena-6": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Un duelo para dominar tu clase.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Elf.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Clase habilitada: Elf.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Elf.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -1058,25 +1057,27 @@
           "rewards": [
             {
               "label": "2 × Kundun +4",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             },
             {
               "label": "1 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Arena Elf"
+      "referenceName": "Arena Elf",
+      "displayName": "Elf vs Elf",
+      "artLabel": "Elf",
+      "art": "img/atlas/events/arena-6-6068736f1420.webp"
     },
     "arena-7": {
-      "tagline": "Cinco minutos para imponer tu dominio.",
+      "tagline": "Un duelo para dominar tu clase.",
       "intro": "PvP por puntuación: sumá puntos durante el combate. Una competencia exclusiva para Summoner.",
-      "entry": "Menú M / lista de movimientos durante los 10 minutos de inscripción. Clase habilitada: Summoner.",
-      "objective": "Sumar puntos durante 5 minutos de combate.",
-      "validation": "El premio y su entrega en Gremory Case están pendientes de validación.",
-      "rewardNote": "Premio configurado para el ganador; sin entrega final comprobada.",
+      "entry": "Menú M / lista de movimientos durante la inscripción. Exclusivo para Summoner.",
+      "objective": "Sumar puntos durante el combate.",
+      "rewardNote": "Recompensa para el ganador.",
       "tiers": [
         {
           "label": "Ganador",
@@ -1084,17 +1085,20 @@
           "rewards": [
             {
               "label": "2 × Kundun +4",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             },
             {
               "label": "1 × Kundun +5",
-              "detail": "Premio configurado"
+              "detail": "Recompensa"
             }
           ],
-          "delivery": "Gremory Case · entrega por validar"
+          "delivery": ""
         }
       ],
-      "referenceName": "Arena Summoner"
+      "referenceName": "Arena Summoner",
+      "displayName": "Summoner vs Summoner",
+      "artLabel": "Summoner",
+      "art": "img/atlas/events/arena-7-39c578be7f53.webp"
     }
   }
 }

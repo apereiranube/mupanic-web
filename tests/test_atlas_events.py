@@ -54,9 +54,26 @@ class Events(unittest.TestCase):
   for guide in editorial['guides'].values():
    self.assertFalse({'schedule','horarios','enabled','habilitado','mode','modalidad'} & guide.keys())
   self.assertEqual(editorial['guides']['arena-0']['tiers'][0]['rewards'][0]['label'],'5 × Kundun +5')
-  self.assertIn('pendientes',editorial['guides']['arena-0']['validation'])
+  self.assertNotIn('validation',editorial['guides']['arena-0'])
   self.assertEqual(editorial['guides']['kundun']['tiers'][0]['bag'],32)
   self.assertEqual(editorial['guides']['erohim']['tiers'][0]['bag'],33)
+ def test_player_guides_have_clear_names_and_dedicated_art(self):
+  guides=json.loads((BASE/'inc/atlas-event-guides.json').read_text())['guides']
+  ids=['illusion-temple','double-goer']+['invasion-'+str(i) for i in [0,1,2,3,8]]+['arena-'+str(i) for i in range(8)]
+  self.assertEqual(len({guides[k]['art'] for k in ids}),15)
+  for key in ids:
+   art=BASE/guides[key]['art'];self.assertTrue(art.is_file(),str(art))
+   data=art.read_bytes();self.assertEqual(data[:4],b'RIFF');self.assertEqual(data[8:12],b'WEBP')
+   self.assertGreater(len(data),100000)
+  for guide in guides.values():
+   self.assertNotIn('validation',guide)
+   self.assertNotRegex(json.dumps(guide,ensure_ascii=False).lower(),r'por validar|por confirmar|pendiente|auditor[ií]a|base configurada')
+  self.assertEqual(guides['arena-1']['displayName'],'Magic Gladiator vs Magic Gladiator')
+  self.assertEqual(guides['arena-6']['displayName'],'Elf vs Elf')
+  view=(BASE/'inc/atlas-events.php').read_text()
+  self.assertNotIn('data-event-group="all"',view)
+  self.assertNotIn('atlas-event-validation',view)
+  self.assertIn('data-event-default-group',view)
  def test_signed_receiver_rejects_bad_data_preserves_last_snapshot(self):
   snapshot=json.loads((BASE/'inc/public-events.json').read_text());snapshot['generatedAt']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
   with tempfile.TemporaryDirectory() as folder:
