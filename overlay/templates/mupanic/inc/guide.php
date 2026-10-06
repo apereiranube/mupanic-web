@@ -39,7 +39,6 @@ $mapNames = array(); foreach($wiki['maps'] as $map) $mapNames[$map['id']] = $map
         <div class="wiki-saved" hidden><span class="eyebrow">TUS MAPAS GUARDADOS</span><div data-saved-maps></div></div><p class="wiki-date">Datos del servidor<br>Revisión: <?php echo panicWikiEscape($wiki['revision']); ?></p>
     </aside>
     <div class="wiki-content">
-        <header class="wiki-intro"><span class="eyebrow">CONOCÉ EL TERRENO</span><h2>Tu próximo paso.<br><em>Con un rumbo.</em></h2><p>Elegí dónde entrenar, encontrá lo que necesitás y entendé cómo progresa tu personaje en MU PANIC.</p></header>
         <?php include(__DIR__.'/atlas-home.php'); ?>
         <?php include(__DIR__.'/atlas-search.php'); ?>
         <section id="primeros-pasos" class="wiki-section" data-wiki-search>
