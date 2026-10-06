@@ -60,133 +60,230 @@ $serverImage = function($name) {
     <div class="shell">
         <header class="server-section-heading">
             <div>
-                <span class="eyebrow">SISTEMAS PROPIOS DE TU AVENTURA</span>
+                <span class="eyebrow">SISTEMAS QUE SIGUEN IMPORTANDO DESPUÉS DEL LEVEL</span>
                 <h2 id="server-systems-title">Siempre hay<br><em>algo más que buscar.</em></h2>
             </div>
-            <p>Los nombres cuentan una historia; debajo te mostramos qué sistema representa cada uno para que sea fácil entenderlo.</p>
+            <p>Progreso, recompensas, fortuna, reserva y herramientas propias del servidor. Elegí un sistema y conocelo sin salir de la página.</p>
         </header>
 
-        <div class="server-feature-stage">
-            <figure class="server-feature-image">
-                <img src="<?php echo $serverImage('server-systems.webp'); ?>" alt="Salón fantástico con portales, recompensas y sistemas de progresión">
-            </figure>
-            <div class="server-feature-copy">
-                <span class="eyebrow">EL NEXO DE TU CUENTA</span>
-                <h3>Nexo PANIC</h3>
-                <p>El Hub F11 reúne accesos, eventos, estadísticas y funciones del cliente para que no tengas que memorizar cada comando o ventana.</p>
-                <span class="server-system-plain">En el juego: Hub F11</span>
-                <details class="server-system-details server-system-details-featured">
-                    <summary>Ver qué reúne <span aria-hidden="true">→</span></summary>
-                    <div>
-                        <dl>
-                            <dt>Acceso</dt><dd>Se abre directamente desde el cliente con F11.</dd>
-                            <dt>Qué concentra</dt><dd>Información de personaje, accesos del servidor y ventanas que antes estaban dispersas.</dd>
-                            <dt>Objetivo</dt><dd>Que las funciones propias de MU PANIC estén en un único lugar reconocible.</dd>
-                        </dl>
-                    </div>
-                </details>
-            </div>
-        </div>
+        <div class="server-system-cards server-system-cards-visual">
+            <article class="server-system-card-visual">
+                <div class="server-system-card-art"><img src="<?php echo $serverImage('systems/chronicles.webp'); ?>" alt=""></div>
+                <div class="server-system-card-body">
+                    <span class="server-system-icon"><?php echo mupanicGlyph('crest'); ?></span>
+                    <small>PROGRESIÓN · LOGROS</small>
+                    <h3>Crónicas del Conquistador</h3>
+                    <p>Convertí tus objetivos en avance real. Sumá hitos, completá desafíos y hacé que tu recorrido deje marca.</p>
+                    <button type="button" class="server-system-open" data-system-open="chronicles">Ver sistema <span aria-hidden="true">↗</span></button>
+                </div>
+            </article>
 
-        <div class="server-system-cards">
-            <article>
-                <span class="server-system-icon"><?php echo mupanicGlyph('crest'); ?></span>
-                <small>LOGROS</small>
-                <h3>Crónicas del Conquistador</h3>
-                <p>Convertí tu recorrido en hitos y objetivos que quedan registrados.</p>
-                <details class="server-system-details">
-                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
-                    <div>
-                        <dl>
-                            <dt>Qué es</dt><dd>El sistema de Achievements de MU PANIC.</dd>
-                            <dt>Qué buscás</dt><dd>Completar objetivos concretos y sumar progreso más allá del level.</dd>
-                            <dt>Dónde</dt><dd>Dentro del cliente, con su propia ventana de logros.</dd>
-                        </dl>
-                    </div>
-                </details>
+            <article class="server-system-card-visual">
+                <div class="server-system-card-art"><img src="<?php echo $serverImage('systems/hero-path.webp'); ?>" alt=""></div>
+                <div class="server-system-card-body">
+                    <span class="server-system-icon"><?php echo mupanicGlyph('sword'); ?></span>
+                    <small>RECOMPENSAS · BATTLE PASS</small>
+                    <h3>Camino del Héroe</h3>
+                    <p>Una ruta de progreso para que cada etapa del juego te devuelva algo concreto.</p>
+                    <button type="button" class="server-system-open" data-system-open="hero-path">Ver sistema <span aria-hidden="true">↗</span></button>
+                </div>
             </article>
-            <article>
-                <span class="server-system-icon"><?php echo mupanicGlyph('sword'); ?></span>
-                <small>BATTLE PASS</small>
-                <h3>Camino del Héroe</h3>
-                <p>Una ruta de recompensas que acompaña lo que ya hacés dentro del servidor.</p>
-                <details class="server-system-details">
-                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
-                    <div>
-                        <dl>
-                            <dt>Qué es</dt><dd>El Battle Pass integrado al cliente.</dd>
-                            <dt>Qué buscás</dt><dd>Avanzar por objetivos y desbloquear recompensas por etapas.</dd>
-                            <dt>Dónde</dt><dd>Se consulta y reclama directamente dentro del juego.</dd>
-                        </dl>
-                    </div>
-                </details>
+
+            <article class="server-system-card-visual">
+                <div class="server-system-card-art"><img src="<?php echo $serverImage('systems/daily.webp'); ?>" alt=""></div>
+                <div class="server-system-card-body">
+                    <span class="server-system-icon"><?php echo mupanicGlyph('party'); ?></span>
+                    <small>CADA DÍA · DAILY REWARD</small>
+                    <h3>Tributo Diario</h3>
+                    <p>Entrá, reclamá y sostené una cadena de beneficios que acompaña tu cuenta día tras día.</p>
+                    <button type="button" class="server-system-open" data-system-open="daily">Ver sistema <span aria-hidden="true">↗</span></button>
+                </div>
             </article>
-            <article>
-                <span class="server-system-icon"><?php echo mupanicGlyph('party'); ?></span>
-                <small>DAILY REWARD</small>
-                <h3>Tributo Diario</h3>
-                <p>Volvé, reclamá tu premio y mantené activa una cadena de beneficios.</p>
-                <details class="server-system-details">
-                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
-                    <div>
-                        <dl>
-                            <dt>Qué es</dt><dd>La recompensa diaria de cuenta.</dd>
-                            <dt>Qué buscás</dt><dd>Sumar premios por conectarte y reclamar el día correspondiente.</dd>
-                            <dt>Dónde</dt><dd>Desde la interfaz de recompensas del cliente.</dd>
-                        </dl>
-                    </div>
-                </details>
+
+            <article class="server-system-card-visual">
+                <div class="server-system-card-art"><img src="<?php echo $serverImage('systems/fortune.webp'); ?>" alt=""></div>
+                <div class="server-system-card-body">
+                    <span class="server-system-icon"><?php echo mupanicGlyph('gem'); ?></span>
+                    <small>FORTUNA · RULETA</small>
+                    <h3>Fortuna del Caos</h3>
+                    <p>Poné a prueba tu suerte con premios definidos por el servidor y una dinámica pensada para WCoin C.</p>
+                    <button type="button" class="server-system-open" data-system-open="fortune">Ver sistema <span aria-hidden="true">↗</span></button>
+                </div>
             </article>
-            <article>
-                <span class="server-system-icon"><?php echo mupanicGlyph('gem'); ?></span>
-                <small>RULETA</small>
-                <h3>Fortuna del Caos</h3>
-                <p>Usá WCoin C y probá tu suerte con una selección de premios definida por el servidor.</p>
-                <details class="server-system-details">
-                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
-                    <div>
-                        <dl>
-                            <dt>Qué es</dt><dd>La ruleta de premios de MU PANIC.</dd>
-                            <dt>Costo</dt><dd>300 WCoin C por giro.</dd>
-                            <dt>Qué pasa después</dt><dd>El premio queda en la propia interfaz para retirarlo cuando corresponda.</dd>
-                        </dl>
-                    </div>
-                </details>
+
+            <article class="server-system-card-visual">
+                <div class="server-system-card-art"><img src="<?php echo $serverImage('systems/vault.webp'); ?>" alt=""></div>
+                <div class="server-system-card-body">
+                    <span class="server-system-icon"><?php echo mupanicGlyph('gem'); ?></span>
+                    <small>INVENTARIO · JEWEL BANK</small>
+                    <h3>Bóveda Arcana</h3>
+                    <p>Guardá tus joyas a nivel de cuenta y mantené tu inventario limpio para jugar y mejorar.</p>
+                    <button type="button" class="server-system-open" data-system-open="vault">Ver sistema <span aria-hidden="true">↗</span></button>
+                </div>
             </article>
-            <article>
-                <span class="server-system-icon"><?php echo mupanicGlyph('gem'); ?></span>
-                <small>JEWEL BANK</small>
-                <h3>Bóveda Arcana</h3>
-                <p>Guardá joyas a nivel de cuenta y prepará mejoras sin saturar tu inventario.</p>
-                <details class="server-system-details">
-                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
-                    <div>
-                        <dl>
-                            <dt>Qué es</dt><dd>Un banco de joyas integrado al servidor.</dd>
-                            <dt>Qué buscás</dt><dd>Depositar y consultar joyas desde una reserva separada del inventario.</dd>
-                            <dt>Estado</dt><dd>El sistema fue probado y está operativo.</dd>
-                        </dl>
-                    </div>
-                </details>
+
+            <article class="server-system-card-visual">
+                <div class="server-system-card-art"><img src="<?php echo $serverImage('systems/vip.webp'); ?>" alt=""></div>
+                <div class="server-system-card-body">
+                    <span class="server-system-icon"><?php echo mupanicGlyph('wings'); ?></span>
+                    <small>MEMBRESÍA · VIP</small>
+                    <h3>Sello Imperial</h3>
+                    <p>Beneficios temporales, estado visible y una membresía pensada para acompañar tu progreso.</p>
+                    <button type="button" class="server-system-open" data-system-open="vip">Ver sistema <span aria-hidden="true">↗</span></button>
+                </div>
             </article>
-            <article>
-                <span class="server-system-icon"><?php echo mupanicGlyph('wings'); ?></span>
-                <small>VIP</small>
-                <h3>Sello Imperial</h3>
-                <p>Beneficios temporales de cuenta con estado visible desde la web.</p>
-                <details class="server-system-details">
-                    <summary>Ver cómo funciona <span aria-hidden="true">→</span></summary>
-                    <div>
-                        <dl>
-                            <dt>Qué es</dt><dd>La membresía VIP de MU PANIC.</dd>
-                            <dt>Qué cambia</dt><dd>Activa beneficios definidos por nivel y por tiempo de vigencia.</dd>
-                            <dt>Dónde lo ves</dt><dd>En el juego y también desde tu cuenta en la web.</dd>
-                        </dl>
-                    </div>
-                </details>
+
+            <article class="server-system-card-visual server-system-card-nexus">
+                <div class="server-system-card-art"><img src="<?php echo $serverImage('systems/nexus.webp'); ?>" alt=""></div>
+                <div class="server-system-card-body">
+                    <span class="server-system-icon"><?php echo mupanicGlyph('crest'); ?></span>
+                    <small>DENTRO DEL JUEGO · HUB F11</small>
+                    <h3>Nexo PANIC</h3>
+                    <p>El centro de mando del cliente. Accesos, estadísticas, funciones y utilidades reunidas en un solo lugar.</p>
+                    <button type="button" class="server-system-open" data-system-open="nexus">Ver sistema <span aria-hidden="true">↗</span></button>
+                </div>
             </article>
         </div>
     </div>
+
+    <dialog class="server-system-modal" data-system-modal aria-labelledby="server-system-modal-title">
+        <div class="server-system-modal-shell">
+            <button type="button" class="server-system-modal-close" data-system-close aria-label="Cerrar">×</button>
+
+            <article class="server-system-panel" data-system-panel="chronicles" hidden>
+                <div class="server-system-modal-hero">
+                    <img src="<?php echo $serverImage('systems/chronicles.webp'); ?>" alt="Salón ceremonial de logros y conquistas">
+                    <div><small>PROGRESIÓN</small><h2 id="server-system-modal-title">Crónicas del Conquistador</h2><p>Tu progreso no se mide solo en level. También se escribe en todo lo que conquistás.</p></div>
+                </div>
+                <div class="server-system-modal-content">
+                    <div class="server-system-modal-main">
+                        <p class="server-system-lead">Este sistema convierte tu recorrido por MU PANIC en una colección de hitos reales. Cada objetivo completado suma valor a tu avance y le da más profundidad a la experiencia más allá del leveleo tradicional.</p>
+                        <div class="server-system-info-grid">
+                            <section><b>Qué es</b><p>El sistema de Achievements integrado al cliente.</p></section>
+                            <section><b>Cómo funciona</b><p>Completás metas, desbloqueás hitos y acumulás progreso fuera del circuito clásico de level/reset.</p></section>
+                            <section><b>Qué buscás</b><p>Objetivos paralelos, avance constante y una referencia visible de todo lo que ya construiste.</p></section>
+                            <section><b>Dónde</b><p>Dentro del cliente, en su propia ventana de logros.</p></section>
+                        </div>
+                    </div>
+                    <aside class="server-system-facts"><span>ACTIVO</span><dl><dt>Tipo</dt><dd>Achievements</dd><dt>Uso</dt><dd>Dentro del juego</dd><dt>Objetivo</dt><dd>Progreso extendido</dd></dl></aside>
+                </div>
+            </article>
+
+            <article class="server-system-panel" data-system-panel="hero-path" hidden>
+                <div class="server-system-modal-hero">
+                    <img src="<?php echo $serverImage('systems/hero-path.webp'); ?>" alt="Guerrero ascendiendo hacia una recompensa">
+                    <div><small>RECOMPENSAS</small><h2>Camino del Héroe</h2><p>Cada etapa que superás te acerca a una nueva recompensa.</p></div>
+                </div>
+                <div class="server-system-modal-content">
+                    <div class="server-system-modal-main">
+                        <p class="server-system-lead">El Camino del Héroe es una ruta de progreso por etapas. Jugar, completar objetivos y avanzar se traduce en recompensas visibles a lo largo del recorrido.</p>
+                        <div class="server-system-info-grid">
+                            <section><b>Qué es</b><p>El Battle Pass integrado a MU PANIC.</p></section>
+                            <section><b>Cómo funciona</b><p>Avanzás por objetivos y desbloqueás recompensas por tramos.</p></section>
+                            <section><b>Qué aporta</b><p>Dirección de progreso, continuidad y una meta estructurada dentro del juego.</p></section>
+                            <section><b>Dónde</b><p>Se consulta y reclama directamente dentro del cliente.</p></section>
+                        </div>
+                    </div>
+                    <aside class="server-system-facts"><span>ACTIVO</span><dl><dt>Tipo</dt><dd>Battle Pass</dd><dt>Progreso</dt><dd>Por etapas</dd><dt>Recompensas</dt><dd>Dentro del juego</dd></dl></aside>
+                </div>
+            </article>
+
+            <article class="server-system-panel" data-system-panel="daily" hidden>
+                <div class="server-system-modal-hero">
+                    <img src="<?php echo $serverImage('systems/daily.webp'); ?>" alt="Cofre y calendario de recompensa diaria">
+                    <div><small>CADA DÍA</small><h2>Tributo Diario</h2><p>Volvé cada día. El continente también recompensa la constancia.</p></div>
+                </div>
+                <div class="server-system-modal-content">
+                    <div class="server-system-modal-main">
+                        <p class="server-system-lead">Tributo Diario convierte la presencia diaria en un beneficio concreto. No necesita sesiones eternas: premia el regreso y mantiene vivo el circuito de tu cuenta.</p>
+                        <div class="server-system-info-grid">
+                            <section><b>Qué es</b><p>La recompensa diaria de cuenta.</p></section>
+                            <section><b>Cómo funciona</b><p>Ingresás, reclamás el día correspondiente y sostenés continuidad.</p></section>
+                            <section><b>Qué buscás</b><p>Premios por constancia y una razón útil para volver incluso en días cortos.</p></section>
+                            <section><b>Dónde</b><p>Desde la interfaz de recompensas del cliente.</p></section>
+                        </div>
+                    </div>
+                    <aside class="server-system-facts"><span>ACTIVO</span><dl><dt>Frecuencia</dt><dd>Diaria</dd><dt>Tipo</dt><dd>Cuenta</dd><dt>Acción</dt><dd>Reclamar</dd></dl></aside>
+                </div>
+            </article>
+
+            <article class="server-system-panel" data-system-panel="fortune" hidden>
+                <div class="server-system-modal-hero">
+                    <img src="<?php echo $serverImage('systems/fortune.webp'); ?>" alt="Ruleta de premios rodeada de joyas">
+                    <div><small>FORTUNA</small><h2>Fortuna del Caos</h2><p>El caos decide. Vos girás.</p></div>
+                </div>
+                <div class="server-system-modal-content">
+                    <div class="server-system-modal-main">
+                        <p class="server-system-lead">La ruleta de premios de MU PANIC usa WCoin C dentro de una mecánica simple y directa. Realizás el giro, el sistema determina el resultado y el premio queda disponible en su propia interfaz.</p>
+                        <div class="server-system-info-grid">
+                            <section><b>Qué es</b><p>La ruleta de premios del servidor.</p></section>
+                            <section><b>Cómo funciona</b><p>Girás, obtenés un resultado y retirás el premio cuando corresponda.</p></section>
+                            <section><b>Costo</b><p>300 WCoin C por giro.</p></section>
+                            <section><b>Dónde</b><p>Dentro del juego, en la ventana de la ruleta.</p></section>
+                        </div>
+                    </div>
+                    <aside class="server-system-facts"><span>OPERATIVO</span><dl><dt>Costo</dt><dd>300 WCoin C</dd><dt>Tipo</dt><dd>Azar</dd><dt>Retiro</dt><dd>Desde la interfaz</dd></dl></aside>
+                </div>
+            </article>
+
+            <article class="server-system-panel" data-system-panel="vault" hidden>
+                <div class="server-system-modal-hero">
+                    <img src="<?php echo $serverImage('systems/vault.webp'); ?>" alt="Bóveda con cofres y joyas">
+                    <div><small>INVENTARIO</small><h2>Bóveda Arcana</h2><p>Tus joyas no tienen por qué vivir apretadas en el inventario.</p></div>
+                </div>
+                <div class="server-system-modal-content">
+                    <div class="server-system-modal-main">
+                        <p class="server-system-lead">Bóveda Arcana es una mejora de calidad de vida: separa la reserva de joyas del inventario de tu personaje para que administrar recursos sea mucho más cómodo.</p>
+                        <div class="server-system-info-grid">
+                            <section><b>Qué es</b><p>El Jewel Bank de MU PANIC.</p></section>
+                            <section><b>Cómo funciona</b><p>Depositás joyas, consultás tu reserva y las mantenés asociadas a la cuenta.</p></section>
+                            <section><b>Qué ganás</b><p>Orden, espacio de inventario y una preparación más simple para mejorar equipo.</p></section>
+                            <section><b>Estado</b><p>El sistema fue probado y está operativo.</p></section>
+                        </div>
+                    </div>
+                    <aside class="server-system-facts"><span>OPERATIVO</span><dl><dt>Tipo</dt><dd>Jewel Bank</dd><dt>Alcance</dt><dd>Cuenta</dd><dt>Beneficio</dt><dd>Reserva de joyas</dd></dl></aside>
+                </div>
+            </article>
+
+            <article class="server-system-panel" data-system-panel="vip" hidden>
+                <div class="server-system-modal-hero">
+                    <img src="<?php echo $serverImage('systems/vip.webp'); ?>" alt="Corona imperial en una sala ceremonial">
+                    <div><small>MEMBRESÍA</small><h2>Sello Imperial</h2><p>Una membresía pensada para acompañar tu recorrido con beneficios definidos.</p></div>
+                </div>
+                <div class="server-system-modal-content">
+                    <div class="server-system-modal-main">
+                        <p class="server-system-lead">Sello Imperial es la capa VIP de MU PANIC: beneficios temporales de cuenta, estado visible y una experiencia integrada entre el juego y la web.</p>
+                        <div class="server-system-info-grid">
+                            <section><b>Qué es</b><p>La membresía VIP de MU PANIC.</p></section>
+                            <section><b>Cómo funciona</b><p>Activás la membresía y obtenés los beneficios definidos para el nivel y período vigente.</p></section>
+                            <section><b>Qué cambia</b><p>Bonificaciones temporales y lectura clara del estado de tu cuenta.</p></section>
+                            <section><b>Dónde</b><p>En el juego y también desde Mi cuenta en la web.</p></section>
+                        </div>
+                    </div>
+                    <aside class="server-system-facts"><span>OPERATIVO</span><dl><dt>Tipo</dt><dd>VIP</dd><dt>Duración</dt><dd>Temporal</dd><dt>Estado</dt><dd>Web + juego</dd></dl></aside>
+                </div>
+            </article>
+
+            <article class="server-system-panel" data-system-panel="nexus" hidden>
+                <div class="server-system-modal-hero">
+                    <img src="<?php echo $serverImage('systems/nexus.webp'); ?>" alt="Panel central de mando de MU PANIC">
+                    <div><small>DENTRO DEL JUEGO</small><h2>Nexo PANIC</h2><p>El punto donde el cliente se vuelve centro de mando.</p></div>
+                </div>
+                <div class="server-system-modal-content">
+                    <div class="server-system-modal-main">
+                        <p class="server-system-lead">Nexo PANIC reúne funciones, accesos y lecturas clave del cliente en una misma interfaz para que no dependas de ventanas dispersas o comandos difíciles de recordar.</p>
+                        <div class="server-system-info-grid">
+                            <section><b>Qué es</b><p>El Hub F11 propio de MU PANIC.</p></section>
+                            <section><b>Qué reúne</b><p>Estadísticas, accesos, eventos y utilidades del cliente.</p></section>
+                            <section><b>Qué aporta</b><p>Más control, mejor lectura del personaje y una identidad propia del cliente.</p></section>
+                            <section><b>Acceso</b><p>Se abre directamente dentro del juego con F11.</p></section>
+                        </div>
+                    </div>
+                    <aside class="server-system-facts"><span>OPERATIVO</span><dl><dt>Acceso</dt><dd>F11</dd><dt>Tipo</dt><dd>Hub</dd><dt>Uso</dt><dd>Centro de mando</dd></dl></aside>
+                </div>
+            </article>
+        </div>
+    </dialog>
 </section>
 
 <section class="server-atlas-showcase" aria-labelledby="server-atlas-title">
