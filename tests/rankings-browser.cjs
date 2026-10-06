@@ -27,6 +27,12 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
    assert.equal(await page.locator('#rankings-results').count(),1);
    if(mode!=='empty'){
     assert.equal(await page.locator('.rankings-leader').count(),3);
+    assert.equal(await page.locator('.rankings-identity').count(),45);
+    assert.equal(await page.locator('.rankings-place-medal').count(),45);
+    assert.equal(await page.locator('.rankings-profile-link').count(),45);
+    assert.equal(await page.locator('.rankings-score-value').first().textContent(),'599');
+    assert.equal(await page.locator('.rankings-identity-name a').first().getAttribute('href'),mode==='guilds'?'/profile/guild/Guild1/':'/profile/player/Hero1/');
+    if(width<=700) assert.equal(await page.locator('.rankings-table tr[data-rank-position]').first().evaluate(el=>getComputedStyle(el).display),'grid','Mobile roster cards');
     assert.equal(await page.locator('.rankings-table tr[data-rank-position]:visible').count(),20);
     assert.equal(await page.locator('.rankings-leader').first().locator('.rankings-leader-name').textContent(),mode==='guilds'?'Guild1':'Hero1');
     assert.equal(await page.locator('.rankings-leader-score').first().textContent(),mode==='guilds'?'Puntos: 599':'Nivel: 599');
@@ -46,6 +52,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
    }
    await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
    if(output&&(width===1920||width===390))await page.screenshot({path:path.join(output,`${mode}-${width}.png`),fullPage:true});
+   if(output&&mode==='level'&&(width===1920||width===390)){await page.locator('#rankings-results').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(output,`roster-${width}.png`)});}
    assert.deepEqual(errors,[]);await page.close();console.log(`PASS ${width}x${height} ${mode}: layout, data, filters, navigation and assets.`);
   }
  }

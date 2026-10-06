@@ -88,7 +88,8 @@
             const name = original ? original.cloneNode(true) : make('strong','',row.cells[nameIndex].textContent.trim());
             name.className = 'rankings-leader-name'; card.append(name);
             card.append(make('span','rankings-leader-class',classIndex >= 0 ? row.cells[classIndex].textContent.trim() : 'Guild de MU PANIC'));
-            card.append(make('span','rankings-leader-score',`${header.cells[scoreIndex].textContent}: ${row.cells[scoreIndex].textContent.trim()}`));
+            const score = make('div','rankings-leader-score');
+            score.append(make('span','',header.cells[scoreIndex].textContent+': '),make('strong','',row.cells[scoreIndex].textContent.trim()));card.append(score);
             const inspect = make('button','rankings-inspect','Ver en la tabla ↓');inspect.type='button';inspect.addEventListener('click',()=>focusRow(row));card.append(inspect);
             podium.append(card);
         });
@@ -100,19 +101,59 @@
             heading.append(copy,make('span','rankings-stage-note','TOP 3 · RANKING COMPLETO'));stage.append(heading,podium);(menu || table).after(stage);
         }
     }
+    // Presentation keeps native cells in place so category-specific data stays intact.
+    const countryIndex = columns.findIndex(x => ['country','país'].includes(x));
+    header.querySelectorAll('th').forEach((cell,index)=>{
+        if(index===classIndex || index===countryIndex) cell.classList.add('rankings-merged-column');
+        if(index===nameIndex) cell.classList.add('rankings-identity-column');
+        if(index===scoreIndex) cell.classList.add('rankings-score-column');
+    });
+    rows.forEach(row=>{
+        row.dataset.rankingSearch = nameIndex>=0 ? row.cells[nameIndex].textContent+(isGuild?' '+row.textContent:'') : row.textContent;
+        [...row.cells].forEach((cell,index)=>{
+            cell.dataset.label=header.cells[index].textContent;
+            if(index===classIndex || index===countryIndex) cell.classList.add('rankings-merged-column');
+            if(index!==nameIndex && index!==classIndex && index!==countryIndex && !cell.classList.contains('rankings-table-place')) cell.classList.add('rankings-detail-cell');
+        });
+        const place=row.querySelector('.rankings-table-place');
+        if(place){const number=place.textContent.trim();place.textContent='';const medal=make('span','rankings-place-medal');medal.append(make('b','',number));if(Number(number)<=3) medal.prepend(glyph('crown'));place.append(medal);}
+        if(nameIndex>=0){
+            const cell=row.cells[nameIndex];cell.classList.add('rankings-identity-cell');
+            const identity=make('div','rankings-identity');
+            const emblem=make('span','rankings-identity-emblem');emblem.append(glyph(isGuild?'crest':classGlyph(row.dataset.classId)));
+            const copy=make('div','rankings-identity-copy');const line=make('div','rankings-identity-name');
+            while(cell.firstChild) line.append(cell.firstChild);
+            const status=line.querySelector('.online-status-indicator');
+            if(status){const presence=make('span','rankings-presence',status.alt);presence.classList.toggle('is-online',status.alt==='En línea');status.replaceWith(presence);}
+            copy.append(line);
+            const meta=make('div','rankings-identity-meta');
+            if(classIndex>=0) meta.append(make('span','',row.cells[classIndex].textContent.trim()));
+            if(countryIndex>=0) [...row.cells[countryIndex].childNodes].forEach(node=>meta.append(node.cloneNode(true)));
+            if(meta.childNodes.length) copy.append(meta);
+            identity.append(emblem,copy);cell.append(identity);
+        }
+        if(scoreIndex>=0){const cell=row.cells[scoreIndex];cell.classList.add('rankings-score-cell');const value=cell.textContent.trim();cell.textContent='';cell.append(make('strong','rankings-score-value',value));}
+        const original=nameIndex>=0?row.cells[nameIndex].querySelector('a'):null;
+        if(original){const cell=document.createElement('td');cell.className='rankings-profile-cell';cell.dataset.label='Perfil';const link=original.cloneNode(false);link.className='rankings-profile-link';link.textContent='Ver perfil ↗';link.setAttribute('aria-label','Ver perfil de '+original.textContent.trim());cell.append(link);row.append(cell);}
+    });
+    if(rows.length && rows.every(row=>row.querySelector('.rankings-profile-cell'))){const th=make('th','rankings-profile-column','Perfil');th.scope='col';header.append(th);}
+    table.classList.add('rankings-designed-table');
     let classIds = null, query = '', page = 0;
     const pageSize = 20;
     const tools = make('div','rankings-tools');
     const label = make('label','rankings-search',isGuild ? 'Buscar guild o líder' : 'Buscar personaje');
     const input = make('input'); input.type = 'search'; input.placeholder = 'Escribí un nombre…'; input.autocomplete = 'off'; label.append(input);
     const status = make('p','rankings-result-status');status.setAttribute('role','status'); tools.append(label,status);
-    table.before(tools);
+    const listHeading=make('div','rankings-list-heading');
+    const listCopy=make('div');listCopy.append(make('span','rankings-stage-overline','CLASIFICACIÓN COMPLETA'),make('h2','','Tabla de posiciones'));
+    listHeading.append(listCopy,make('span','rankings-list-total',`${rows.length} ${isGuild?'guilds':'personajes'}`));
+    table.before(listHeading,tools);
     const wrap = make('div','rankings-table-scroll'); wrap.id='rankings-results'; wrap.tabIndex = 0; wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Tabla de posiciones; desplazá horizontalmente para ver todas las columnas');table.before(wrap);wrap.append(table);
     const empty = make('p','rankings-empty','No encontramos resultados con esos filtros. Probá otro nombre o elegí Todas.');empty.hidden=true;wrap.after(empty);
     const nav = make('div','rankings-pagination');const prev=make('button','','← Anterior'),next=make('button','','Siguiente →'),counter=make('span');prev.type=next.type='button';nav.append(prev,counter,next);empty.after(nav);
     const normalize = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
     function render() {
-        const matching = rows.filter(row => (!classIds || classIds.includes(Number(row.dataset.classId))) && normalize(nameIndex >= 0 ? row.cells[nameIndex].textContent + (isGuild ? row.textContent : '') : row.textContent).includes(query));
+        const matching = rows.filter(row => (!classIds || classIds.includes(Number(row.dataset.classId))) && normalize(row.dataset.rankingSearch).includes(query));
         const pages = Math.max(1,Math.ceil(matching.length/pageSize));page=Math.min(page,pages-1);
         const visible = new Set(matching.slice(page*pageSize,(page+1)*pageSize));rows.forEach(row => {row.hidden=!visible.has(row);});
         status.textContent = matching.length ? `${page*pageSize+1}–${Math.min((page+1)*pageSize,matching.length)} de ${matching.length} resultados · Se conserva el puesto original` : 'Sin resultados';
