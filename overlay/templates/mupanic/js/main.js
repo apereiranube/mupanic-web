@@ -519,3 +519,51 @@
 
   window.addEventListener('pagehide', function () { window.clearInterval(timer); }, {once:true});
 })();
+
+;(function () {
+  var dialog = document.querySelector('[data-system-modal]');
+  if (!dialog) return;
+
+  var panels = Array.prototype.slice.call(dialog.querySelectorAll('[data-system-panel]'));
+  var closeButton = dialog.querySelector('[data-system-close]');
+  var lastTrigger = null;
+
+  function openSystem(id, trigger) {
+    var panel = panels.find(function (item) { return item.getAttribute('data-system-panel') === id; });
+    if (!panel) return;
+    panels.forEach(function (item) { item.hidden = item !== panel; });
+    lastTrigger = trigger || null;
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+    document.documentElement.classList.add('system-modal-open');
+    if (closeButton) closeButton.focus();
+  }
+
+  function closeSystem() {
+    if (typeof dialog.close === 'function' && dialog.open) dialog.close();
+    else dialog.removeAttribute('open');
+    document.documentElement.classList.remove('system-modal-open');
+    panels.forEach(function (item) { item.hidden = true; });
+    if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus();
+  }
+
+  document.querySelectorAll('[data-system-open]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      openSystem(button.getAttribute('data-system-open'), button);
+    });
+  });
+
+  if (closeButton) closeButton.addEventListener('click', closeSystem);
+  dialog.addEventListener('cancel', function (event) {
+    event.preventDefault();
+    closeSystem();
+  });
+  dialog.addEventListener('click', function (event) {
+    var rect = dialog.getBoundingClientRect();
+    var outside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+    if (outside) closeSystem();
+  });
+  dialog.addEventListener('close', function () {
+    document.documentElement.classList.remove('system-modal-open');
+  });
+})();
