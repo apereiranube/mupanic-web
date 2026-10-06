@@ -5,7 +5,7 @@ $territorySpotCount = array_sum(array_map(function($m) { return count($m['spots'
 ?>
 <section id="progresion" class="wiki-section" aria-labelledby="atlas-maps-title">
     <header class="atlas-territories-intro">
-        <div><span class="eyebrow">LOS TERRITORIOS DE PANIC</span><h2 id="atlas-maps-title">Elegí tu próxima<br><em>frontera.</em></h2><p>Encontrá tu zona. Conocé sus monstruos.<br>Prepará el siguiente paso de tu aventura.</p></div>
+        <div><span class="eyebrow">LOS TERRITORIOS DE PANIC</span><h2 id="atlas-maps-title">Elegí tu próxima<br><em>frontera.</em></h2><p>Encontrá tu zona. Conocé sus monstruos y drops.</p></div>
         <div class="atlas-territories-facts"><span><strong><?php echo count($wiki['maps']); ?></strong> mapas para explorar</span><span><strong><?php echo $territorySpotCount; ?></strong> spots del servidor</span></div>
     </header>
     <div class="atlas-map-toolbar">

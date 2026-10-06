@@ -110,14 +110,14 @@
 .wiki-map[open]>summary b{color:#f1d7b8}
 .wiki-map-body{padding:0 24px 26px}
 /* Map catalogue: cinematic territory art is separate from the client terrain. */
-.atlas-territories-intro{position:relative;display:flex;align-items:end;justify-content:space-between;gap:28px;padding:34px 38px;margin-bottom:26px;border:1px solid var(--atlas-line);border-radius:3px;overflow:hidden;background:linear-gradient(90deg,#111b1fed 15%,#111b1f88 70%),linear-gradient(0deg,#141e22dc,transparent),url('../img/atlas/editorial/atlas-territories.webp') center 48%/cover}
-.panic-wiki .atlas-territories-intro h2{font:500 clamp(40px,4vw,62px)/1.02 var(--display);text-transform:uppercase;margin:16px 0;letter-spacing:.01em;color:#f6ead9}
+.atlas-territories-intro{position:relative;display:flex;align-items:end;justify-content:space-between;gap:28px;padding:24px 30px;margin-bottom:22px;border:1px solid var(--atlas-line);border-radius:3px;overflow:hidden;background:linear-gradient(90deg,#111b1fed 15%,#111b1f88 70%),linear-gradient(0deg,#141e22dc,transparent),url('../img/atlas/editorial/atlas-territories.webp') center 48%/cover}
+.panic-wiki .atlas-territories-intro h2{font:500 clamp(40px,3.5vw,52px)/1.02 var(--display);text-transform:uppercase;margin:12px 0;letter-spacing:.01em;color:#f6ead9}
 .atlas-territories-intro h2 em{color:#e8ba88;font-style:normal}
 .panic-wiki .atlas-territories-intro p{font-size:13px;line-height:1.7;margin:0;color:#cdd3c9}
 .atlas-territories-facts{display:flex;gap:26px;flex-shrink:0;padding:0 0 5px}
 .atlas-territories-facts span{font-size:10px;color:#d8cfbd;white-space:nowrap}
 .atlas-territories-facts strong{display:block;font:500 42px/1.1 var(--display);color:#efd4b1;margin-bottom:7px}
-.atlas-map-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:18px 24px;padding:23px 26px;background:linear-gradient(120deg,#263033,#1b2529);border:1px solid #c7996b42;border-radius:3px}
+.atlas-map-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:14px 24px;padding:18px 24px;background:linear-gradient(120deg,#263033,#1b2529);border:1px solid #c7996b42;border-radius:3px}
 .atlas-map-filters{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
 .atlas-map-filters button,.atlas-map-empty button{min-height:40px;padding:10px 16px;border:1px solid #a4856345;background:#162124;color:#c3cfc6;border-radius:2px;font-size:12px;transition:background .2s,border-color .2s,color .2s}
 .atlas-map-filters button:hover{border-color:#d2a87a80;background:#c7996b12}
@@ -127,7 +127,8 @@
 .atlas-map-results>span{font-size:10px;line-height:1.6;color:#bac7bf;text-align:right}
 .atlas-map-empty{padding:40px 26px;text-align:center;border:1px dashed #c7996b55;margin-top:24px;background:#192528}
 .panic-wiki .atlas-map-empty h3{font-size:34px;margin:14px 0}.panic-wiki .atlas-map-empty p{font-size:13px;max-width:none}.atlas-map-empty button{color:#efc899;border-color:#c7996b80}
-#progresion .wiki-map{background:linear-gradient(145deg,#263338,#19262a);border-color:#b9956755;box-shadow:0 5px 18px #080d101c}
+#progresion{scroll-margin-top:12px}
+#progresion .wiki-map{scroll-margin-top:12px;background:linear-gradient(145deg,#263338,#19262a);border-color:#b9956755;box-shadow:0 5px 18px #080d101c}
 #progresion .wiki-map:hover{border-color:#d4a77999;box-shadow:0 8px 26px #080d1033}
 #progresion .wiki-map>summary{display:block;padding:0;min-height:0}
 .atlas-territory-cover{display:block;position:relative;aspect-ratio:16/9;overflow:hidden;isolation:isolate;background:#182427}

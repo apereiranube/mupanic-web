@@ -43,6 +43,8 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   const catalogue=page.locator('#progresion'),cards=catalogue.locator('.wiki-map');
   assert.equal(new Set(await cards.locator('>summary img').evaluateAll(images=>images.map(img=>img.getAttribute('src')))).size,30,'Each territory has distinct artwork');
   await cards.locator('>summary img').evaluateAll(async images=>{await Promise.all(images.map(async img=>{img.loading='eager';await img.decode();if(img.naturalWidth<1536)throw Error('Low resolution territory '+img.src);}));});
+  if([1920,390].includes(width)){await catalogue.evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-catalogue-'+width);}
+  if([1920,390].includes(width)){await catalogue.locator('>.wiki-map-list').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-cards-'+width);}
   await page.locator('[data-map-scope=spots]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),JSON.parse(await page.locator('#wiki-data').textContent()).maps.filter(m=>m.spots.length).length);
   await page.locator('[data-map-scope=other]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),JSON.parse(await page.locator('#wiki-data').textContent()).maps.filter(m=>!m.spots.length).length);
   await page.locator('[data-map-scope=saved]').click();assert.equal(await catalogue.locator('[data-map-empty]').isVisible(),true);
@@ -52,7 +54,6 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   const levels=await cards.evaluateAll(maps=>maps.map(m=>m.dataset.mapLevel===''?Infinity:Number(m.dataset.mapLevel)));assert.deepEqual(levels,[...levels].sort((a,b)=>a-b));
   await page.locator('[data-map-sort]').selectOption('atlas');assert.equal(await cards.first().getAttribute('id'),'mapa-0');
   await page.locator('[data-map-filter]').fill('not-a-map-1234');assert.equal(await catalogue.locator('[data-map-empty]').isVisible(),true);await page.locator('[data-map-reset]').click();assert.equal(await catalogue.locator('.wiki-map:visible').count(),30);
-  if([1920,390].includes(width)){await catalogue.evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await shot(page,'atlas-map-catalogue-'+width);}
   if(width===1920){
    const territoryData=JSON.parse(await page.locator('#wiki-data').textContent()).maps;
    for(const territory of territoryData){
