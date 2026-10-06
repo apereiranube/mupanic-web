@@ -6,6 +6,7 @@ $serverImage = function($name) {
 };
 $panicSystems = [
     'chronicles' => [
+        'art' => 'chronicles-d6291c69cf6b.webp',
         'category' => 'PROGRESIÓN',
         'title' => 'Crónicas del Conquistador',
         'short' => 'Cada conquista deja su marca.',
@@ -17,6 +18,7 @@ $panicSystems = [
         'facts' => [['Objetivos', 'Metas e hitos'], ['Recorrido', 'Progreso extendido'], ['En paralelo', 'Nuevas conquistas'], ['Acceso', 'Dentro del cliente']],
     ],
     'hero-path' => [
+        'art' => 'hero-path-5331edd1e310.webp',
         'category' => 'RECOMPENSAS',
         'title' => 'Camino del Héroe',
         'short' => 'Una nueva meta en cada etapa.',
@@ -28,6 +30,7 @@ $panicSystems = [
         'facts' => [['Progreso', 'Por etapas'], ['Desafío', 'Completar objetivos'], ['Destino', 'Recompensas'], ['Acceso', 'Dentro del juego']],
     ],
     'daily' => [
+        'art' => 'daily-e36b93392874.webp',
         'category' => 'CONSTANCIA',
         'title' => 'Tributo Diario',
         'short' => 'El regreso también tiene su recompensa.',
@@ -39,6 +42,7 @@ $panicSystems = [
         'facts' => [['Frecuencia', 'Cada día'], ['Tributo', 'Recompensa diaria'], ['Recorrido', 'Continuidad'], ['Acceso', 'Interfaz del cliente']],
     ],
     'fortune' => [
+        'art' => 'fortune-a300dc40b62a.webp',
         'category' => 'FORTUNA',
         'title' => 'Fortuna del Caos',
         'short' => 'El caos decide. Vos girás.',
@@ -50,6 +54,7 @@ $panicSystems = [
         'facts' => [['Por giro', '300 WCoin C'], ['Premios', 'Definidos por el servidor'], ['Retiro', 'Desde la interfaz'], ['Acceso', 'Dentro del juego']],
     ],
     'vault' => [
+        'art' => 'vault-47074095857a.webp',
         'category' => 'RESERVA',
         'title' => 'Bóveda Arcana',
         'short' => 'Más espacio para tu próxima conquista.',
@@ -61,6 +66,7 @@ $panicSystems = [
         'facts' => [['Reserva', 'Depósito de joyas'], ['Alcance', 'Nivel de cuenta'], ['Inventario', 'Libera espacio'], ['Prueba', 'Probado y operativo']],
     ],
     'vip' => [
+        'art' => 'vip-66179e5e17f8.webp',
         'category' => 'MEMBRESÍA',
         'title' => 'Sello Imperial',
         'short' => 'Un sello para acompañar tu recorrido.',
@@ -72,6 +78,7 @@ $panicSystems = [
         'facts' => [['Beneficios', 'Según configuración'], ['Vigencia', 'Temporal'], ['Estado', 'Visible en juego y web'], ['Sistema', 'Membresía VIP']],
     ],
     'nexus' => [
+        'art' => 'nexus-4a6cbef57b72.webp',
         'category' => 'CENTRO DE MANDO',
         'title' => 'Nexo PANIC',
         'short' => 'Tu mundo, reunido en un solo lugar.',
@@ -146,7 +153,7 @@ $systemEscape = function($text) { return htmlspecialchars($text, ENT_QUOTES, 'UT
         <div class="server-features-grid">
         <?php $systemNumber = 0; foreach($panicSystems as $id => $system): $systemNumber++; ?>
             <article class="server-feature-card<?php echo $id === 'nexus' ? ' server-feature-card-nexus' : ''; ?>">
-                <img class="server-feature-art" src="<?php echo $serverImage('systems/'.$id.'.webp'); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
+                <img class="server-feature-art" src="<?php echo $serverImage('systems/'.$system['art']); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
                 <div class="server-feature-copy">
                     <span class="server-feature-category"><?php echo $system['category']; ?></span>
                     <h3><?php echo $system['title']; ?></h3>
@@ -163,7 +170,7 @@ $systemEscape = function($text) { return htmlspecialchars($text, ENT_QUOTES, 'UT
         <?php foreach($panicSystems as $id => $system): ?>
         <article class="server-feature-panel" data-system-panel="<?php echo $id; ?>" hidden>
             <figure class="server-feature-visual">
-                <img src="<?php echo $serverImage('systems/'.$id.'.webp'); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
+                <img src="<?php echo $serverImage('systems/'.$system['art']); ?>" alt="<?php echo $systemEscape($system['alt']); ?>" width="1536" height="1024" loading="lazy">
                 <figcaption>MU PANIC <span>Arte conceptual</span></figcaption>
             </figure>
             <div class="server-feature-content">

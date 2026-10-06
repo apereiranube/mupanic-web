@@ -31,9 +31,18 @@ for module in "${DEPLOY_MODULES[@]}"; do
 done
 
 # System artwork is shipped as real WebP binaries; reject incomplete releases before copying.
-for asset in chronicles hero-path daily fortune vault vip nexus; do
-  if [ ! -s "$TEMPLATE_SOURCE/img/server/systems/$asset.webp" ]; then
-    echo "[MU PANIC] ERROR: Missing system artwork: $asset.webp" >&2
+SYSTEM_ART_FILES=(
+  "chronicles-d6291c69cf6b.webp"
+  "hero-path-5331edd1e310.webp"
+  "daily-e36b93392874.webp"
+  "fortune-a300dc40b62a.webp"
+  "vault-47074095857a.webp"
+  "vip-66179e5e17f8.webp"
+  "nexus-4a6cbef57b72.webp"
+)
+for asset in "${SYSTEM_ART_FILES[@]}"; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/server/systems/$asset" ]; then
+    echo "[MU PANIC] ERROR: Missing system artwork: $asset" >&2
     exit 1
   fi
 done
@@ -75,6 +84,12 @@ fi
 
 for module in "${DEPLOY_MODULES[@]}"; do
   cp -a "$MODULE_SOURCE/$module" "$MODULE_DEST/$module"
+done
+
+# Remove the replaced, unversioned artwork only after the new template/modules are copied.
+# Content-versioned filenames prevent browsers and CDNs from serving the previous low-res art.
+for legacy in chronicles hero-path daily fortune vault vip nexus; do
+  rm -f "$TEMPLATE_DEST/img/server/systems/$legacy.webp"
 done
 
 echo "[MU PANIC] Beta overlay deployed successfully."

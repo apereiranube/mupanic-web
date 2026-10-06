@@ -1,11 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 const assert = require('node:assert/strict');
+const {createHash} = require('node:crypto');
 const {execFileSync} = require('child_process');
 const {chromium} = require('playwright');
 const root = path.resolve(__dirname, '../overlay/templates/mupanic');
 const html = execFileSync(process.env.PHP_BIN || 'php', [path.join(__dirname, 'fixtures/systems.php')], {encoding:'utf8'});
 const ids = ['chronicles','hero-path','daily','fortune','vault','vip','nexus'];
+// Artwork URLs must change with the bytes, including clients with old assets cached.
+for (const id of ids) {
+ const name = fs.readdirSync(path.join(root,'img/server/systems')).find(name=>name.startsWith(id+'-'));
+ assert.ok(name, 'Missing versioned artwork: '+id);
+ const digest = createHash('sha256').update(fs.readFileSync(path.join(root,'img/server/systems',name))).digest('hex').slice(0,12);
+ assert.equal(name,id+'-'+digest+'.webp');
+ assert.ok(html.includes('/systems/'+name));
+ assert.ok(!html.includes('/systems/'+id+'.webp'));
+}
 (async () => {
  const browser = await chromium.launch({headless:true,args:['--no-sandbox']});
  const output = process.env.SYSTEMS_SCREENSHOT_DIR;
@@ -44,6 +54,7 @@ const ids = ['chronicles','hero-path','daily','fortune','vault','vip','nexus'];
    await page.locator('[data-system-close]').press('Tab');
    assert.equal(await page.evaluate(()=>document.activeElement.hasAttribute('data-system-close')),true,'Focus trap');
    assert.equal(await page.locator('[data-system-panel]:visible img').evaluate(im=>im.complete&&im.naturalWidth===1536),true);
+   assert.equal(await page.locator('[data-system-panel]:visible img').getAttribute('src'), await page.locator('[data-system-open="'+id+'"]').locator('xpath=ancestor::article').locator('img').getAttribute('src'));
    if(output && (width===1920||width===390) && ['chronicles','fortune','nexus'].includes(id)) await page.screenshot({path:path.join(output,`${id}-${width}.png`)});
    await page.keyboard.press('Escape');
    assert.equal(await dialog.isVisible(),false);
