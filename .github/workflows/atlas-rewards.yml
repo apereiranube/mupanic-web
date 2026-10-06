@@ -4,6 +4,11 @@ on:
     branches: [main, beta]
     paths:
       - 'tools/atlas_event_bags.py'
+      - 'tools/atlas_events.py'
+      - 'tools/sync_atlas_events.py'
+      - 'tools/update_atlas_events_sync.ps1'
+      - 'overlay/templates/mupanic/inc/public-events.json'
+      - 'overlay/templates/mupanic/api/atlas-events*.php'
       - 'tools/build_public_balance.py'
       - 'tools/sync_atlas.py'
       - 'tools/update_atlas_sync.ps1'
@@ -50,11 +55,16 @@ jobs:
           php -l overlay/templates/mupanic/index.php
           php -l overlay/templates/mupanic/inc/atlas-runtime.php
           php -l overlay/templates/mupanic/api/atlas-sync.php
+          php -l overlay/templates/mupanic/api/atlas-events.php
+          php -l overlay/templates/mupanic/api/atlas-events-sync.php
+          php -l overlay/templates/mupanic/inc/atlas-event-runtime.php
       - name: Check updater syntax
         shell: pwsh
         run: |
           $parseErrors = $null
           [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/update_atlas_sync.ps1'), [ref]$null, [ref]$parseErrors) | Out-Null
+          if ($parseErrors.Count) { $parseErrors | Format-List; exit 1 }
+          [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/update_atlas_events_sync.ps1'), [ref]$null, [ref]$parseErrors) | Out-Null
           if ($parseErrors.Count) { $parseErrors | Format-List; exit 1 }
       - name: Install browser
         run: |

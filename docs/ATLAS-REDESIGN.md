@@ -8,13 +8,17 @@ A small first-paint bootstrap selects the initial chapter before the late snapsh
 
 ## Events and verified scope
 
-Pandora V8 installation was reported successful on 6 October: 19:15/22:15, five minutes, two Bless, two Soul, one Chaos and a 50% possibility of Life. These confirmed values are editorial content, not derived from the older bag 163 snapshot. Blood Castle and Devil Square rewards are read from the current runtime bags (12–19 and 145–151), with direct links to each category. Their schedules and activation flags are deliberately not assumed: the supplied gameplay export did not contain `Data/Event` or `GameServerInfo - Event.dat`.
+Administrator export `MU_PANIC_EVENTOS_20261006_105011.zip` supplied on 6 October contains 198 event/reward files. The allowlisted event parser finds 37 catalogue entries, 32 enabled: classic events, custom contests, conditional boss instances, nine scheduled invasions and six staff events. Disabled entries stay out of the active catalogue. Silver Invasions has a definition but no matching schedule and is not announced as scheduled. CustomArena activation is not present in the supplied files, so its file alone is not treated as an active system.
 
-`tools/collect_atlas_events.ps1` gathers those gameplay files and reward bags read-only. No original configuration is committed, no token/SQL/executable is collected, no game process is touched. The complete active-event catalogue and remaining schedules require that current export. Generic mechanics are editorial explanations; category requirements must be checked in this client's entry interface.
+`public-events.json` contains only public activation, schedule patterns (including wildcard hours and Windows weekdays), configured durations, reward IDs/item summaries/coin values, map and monster IDs. Original ZIP/configuration, addresses, credentials and processes are never published. Caza del Maldito is the administrator-confirmed public alias for Pandora; aliases and explanations are editorial, activation/times/rewards are configuration. These flags indicate enabled configuration, not a live GameServer state or a successfully reloaded configuration.
+
+`sync_atlas_events.py` independently publishes event data using the existing private token and signed HTTPS protocol. The beta receiver validates schema, bounds, IDs, strings and freshness, then replaces only its event snapshot atomically. A failed export/upload retains the last published catalogue. This is deliberately separate from the existing production balance receiver; main is not modified and its drop sync URL/payload stay compatible.
+
+After beta cPanel deploy, run `tools/update_atlas_events_sync.ps1` once on the VPS (prefer the final immutable beta SHA). It validates/downloads two Python files, backs up the existing wrapper, performs a confirmed initial beta upload, then appends event sync to the existing task wrapper. Its schedule stays at 30 minutes, its balance command stays unchanged, and subsequent activation/times/reward changes need no ZIP or website deploy. Browser agenda polls the public beta endpoint every minute, defers replacement while a dossier is open, and preserves the last UI on fetch failure. The polling updates the published catalogue; it does not make the VPS task run faster. VPS installation remains pending until the administrator runs the updater and confirms output.
 
 ## Artwork
 
-Built-in imagegen produced four original images (1536×1024), stored as high-quality WebP at `overlay/templates/mupanic/img/atlas/editorial/`. No text, UI, logos or copied client screens are embedded. Existing genuine terrain and monster resources remain unchanged. Event artwork is identified as conceptual in dossiers.
+Built-in imagegen produced six original images (1536×1024), stored as high-quality WebP at `overlay/templates/mupanic/img/atlas/editorial/`. No text, UI, logos or copied client screens are embedded. Existing genuine terrain and monster resources remain unchanged. Event artwork is identified as conceptual in dossiers.
 
 Prompt set: original cinematic medieval dark fantasy in charcoal, burnished copper, antique gold and restrained crimson; detailed materials, dramatic warm volumetric lighting; landscape 3:2, central/right subject with dark negative space; no text, numbers, brands, interface, watermarks or copied game assets.
 
@@ -24,3 +28,5 @@ Prompt set: original cinematic medieval dark fantasy in charcoal, burnished copp
 - `pandora.webp`: copper/obsidian reliquary chest, ruined courtyard, restrained crimson magical tendrils and jewel glints.
 
 Validation uses the actual guide, header, navigation, portrait assets and current snapshot via PHP fixture. CI checks desktop/tablet/mobile, chapter navigation, filters, map selection, account rates, reward set search, event closing/focus, modal fit, reward links across filters, workshop, no-JS fallback, image paths and page overflow. Shared-style regressions cover Systems, Rankings and Profiles.
+
+Additional original concept art: `pvp-arena.webp` depicts a dark copper dueling arena; `imperial-temple.webp` depicts an obsidian temple with an amber relic. No embedded text or UI.

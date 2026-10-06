@@ -3,6 +3,8 @@ const {execFileSync}=require('child_process'),{chromium}=require('playwright');
 const root=path.resolve(__dirname,'../overlay/templates/mupanic');
 const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/atlas-rewards.php')],{encoding:'utf8',maxBuffer:16e6});
 const output=process.env.ATLAS_SCREENSHOT_DIR;
+const eventSnapshot=JSON.parse(fs.readFileSync(path.join(root,'inc/public-events.json'),'utf8'));
+const enabledEvents=eventSnapshot.events.filter(e=>e.enabled);
 const imagePaths=[...html.matchAll(/<img[^>]+src="([^"]+)"/g)].map(m=>m[1]);
 for(const src of imagePaths){assert.ok(src.startsWith('/templates/mupanic/'));assert.ok(fs.existsSync(path.join(root,src.slice('/templates/mupanic/'.length))),'Missing image '+src);}
 function setup(page,errors,body=html){
@@ -53,8 +55,12 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.locator('.wiki-nav a[href="#buscar"]').click();await page.locator('[data-atlas-query]').fill('Harmony');
   assert.ok(await page.locator('.atlas-find-card').count()>0);await noOverflow(page,'finder');
   await page.locator('.wiki-nav a[href="#eventos"]').click();
-  assert.equal(await page.locator('.atlas-event-card').count(),3);if([1920,390].includes(width)){await page.locator('#eventos').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+width);}
-  for(const id of ['pandora','blood-castle','devil-square']){
+  assert.equal(await page.locator('.atlas-event-card').count(),enabledEvents.length);if([1920,390].includes(width)){await page.locator('#eventos').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+width);}
+  await page.locator('[data-event-group=staff]').click();assert.equal(await page.locator('.atlas-event-card:visible').count(),6);await page.locator('[data-event-group=all]').click();
+  await page.locator('[data-event-search]').fill('Maldito');assert.equal(await page.locator('.atlas-event-card:visible').count(),1);await page.locator('[data-event-search]').fill('');
+  assert.equal(await page.locator('[data-atlas-event-open=auction]').count(),0);
+  const timeResult=await page.evaluate(()=>document.querySelector('[data-wiki]').atlasNextOccurrence([[-1,-1,-1,-1,-1,50,0]],new Date('2026-10-06T13:51:00Z')).toISOString());assert.equal(timeResult,'2026-10-06T14:50:00.000Z');
+  for(const id of (width>=1024?enabledEvents.map(e=>e.id):['pandora','blood-castle','devil-square'])){
    const trigger=page.locator('[data-atlas-event-open="'+id+'"]');await trigger.click();
    const modal=page.locator('[data-atlas-event-dialog]');assert.equal(await modal.evaluate(el=>el.open),true);
    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).overflowY),'hidden');
@@ -69,7 +75,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
    assert.equal(await trigger.evaluate(el=>document.activeElement===el),true,'Return event focus');
   }
   await page.locator('[data-atlas-event-open="blood-castle"]').click();await page.locator('[data-atlas-event-dialog] a[href="#recompensa-12"]').click();
-  assert.equal(await page.locator('#recompensa-12').isVisible(),true,'Reward link clears filters');
+  await page.locator('#recompensa-12').waitFor({state:'visible'});assert.equal(await page.locator('#recompensa-12').isVisible(),true,'Reward link clears filters');
   assert.equal(await page.locator('[data-atlas-event-dialog]').evaluate(el=>el.open),false);
   // Keyboard focus stays inside the dossier.
   await page.locator('.wiki-nav a[href="#eventos"]').click();await page.locator('[data-atlas-event-open="devil-square"]').click();
@@ -93,6 +99,6 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
  assert.deepEqual(bootErrors,[]);await boot.close();
  const fallback=await browser.newPage({viewport:{width:390,height:844},javaScriptEnabled:false}),errors=[];
  await setup(fallback,errors);await fallback.goto('https://atlas.test/info/');
- assert.ok(await fallback.locator('#progresion').isVisible());assert.equal(await fallback.locator('.atlas-event-full:visible').count(),3);await noOverflow(fallback,'no JS');assert.deepEqual(errors,[]);await fallback.close();
+ assert.ok(await fallback.locator('#progresion').isVisible());assert.equal(await fallback.locator('.atlas-event-full:visible').count(),enabledEvents.length);await noOverflow(fallback,'no JS');assert.deepEqual(errors,[]);await fallback.close();
  await browser.close();
 })().catch(error=>{console.error(error);process.exit(1)});

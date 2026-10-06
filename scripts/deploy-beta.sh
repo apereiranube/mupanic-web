@@ -57,7 +57,7 @@ for asset in "${SYSTEM_ART_FILES[@]}"; do
 done
 
 # The Atlas redesign ships real binary artwork with the overlay.
-for atlas_art in atlas-chamber blood-castle devil-square pandora; do
+for atlas_art in atlas-chamber blood-castle devil-square pandora pvp-arena imperial-temple; do
   if [ ! -s "$TEMPLATE_SOURCE/img/atlas/editorial/$atlas_art.webp" ]; then
     echo "[MU PANIC] ERROR: Missing Atlas artwork: $atlas_art" >&2
     exit 1
