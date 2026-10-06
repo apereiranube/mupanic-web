@@ -87,7 +87,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
    await page.locator('#'+chapter).evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));
    await noOverflow(page,chapter);if([1920,390].includes(width))await shot(page,'atlas-'+chapter+'-'+width);
   }
-  await page.goto('https://atlas.test/info/#taller');await page.locator('.recipe-reference summary').click();await page.locator('.recipe-reference').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await noOverflow(page,'recipe reference');if([1920,390].includes(width))await shot(page,'atlas-recipe-rates-'+width);
+  await page.goto('https://atlas.test/info/#taller');await page.locator('#taller .recipe-reference summary').click();await page.locator('#taller .recipe-reference').evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));await noOverflow(page,'recipe reference');if([1920,390].includes(width))await shot(page,'atlas-recipe-rates-'+width);
   assert.deepEqual(errors,[]);await page.close();console.log('PASS redesigned Atlas',width);
  }
  // A new server catalogue removes disabled events without replacing cached chapter nodes.

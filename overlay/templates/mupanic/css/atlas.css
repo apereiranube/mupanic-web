@@ -28,6 +28,7 @@
 .wiki-section{padding:8px 0 40px;scroll-margin-top:108px;min-width:0}
 .panic-wiki .wiki-section>h2,.atlas-section-heading h2{font:500 clamp(36px,3.2vw,49px)/1.1 var(--display);text-transform:uppercase;letter-spacing:.01em;margin:12px 0 18px}
 .panic-wiki .wiki-section h3{font-family:var(--display);font-weight:500;line-height:1.2}
+.panic-wiki .wiki-section>h3{font-size:30px;margin:32px 0 18px}
 .atlas-section-heading{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--atlas-line);gap:16px;margin-bottom:14px}
 .atlas-section-mark{font:500 70px var(--display);color:#c7996b24;line-height:1}
 .wiki-nav{position:sticky;top:104px;max-height:calc(100vh - 120px);overflow:auto;padding:23px 18px;border:1px solid var(--atlas-line);border-top:2px solid #b58a6170;background:linear-gradient(145deg,#1a2424,#101719);border-radius:4px;scrollbar-width:thin;scrollbar-color:#725840 #12191b}
@@ -75,7 +76,6 @@
 .wiki-route li:before{content:counter(atlas-route,decimal-leading-zero);position:absolute;left:22px;top:26px;font:500 36px/1 var(--display);color:#efbd87}
 .wiki-route li p{margin:12px 0 18px}.wiki-route li p:last-child{margin-bottom:0}
 #primeros-pasos .wiki-route{grid-template-columns:repeat(2,minmax(0,1fr))}
-.wiki-route li::marker{color:#d7a57d;font:500 28px var(--display)}
 .wiki-route strong{font:500 29px/1.2 var(--display);color:#f4e5cc}
 .wiki-route a{display:inline-block;font-size:14px;margin:5px 20px 0 0;text-underline-offset:5px}
 /* Editorial destinations. Native maps and client characters remain authentic. */
