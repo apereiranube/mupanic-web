@@ -22,12 +22,12 @@ $chapters = [
 <meta property="og:title" content="MU PANIC · Una nueva era está por empezar">
 <meta property="og:description" content="Season 6. No pay to win. Zen y joyas. Un cliente con identidad propia. Sumate a la apertura en Discord.">
 <meta property="og:image" content="<?= $e($t.$launchConfig['hero']) ?>"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=6"><script defer src="<?= $e($t) ?>js/launch.js?v=6"></script>
+<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=7"><script defer src="<?= $e($t) ?>js/launch.js?v=7"></script>
 <noscript><style>.launch *{animation:none!important}.campaign-event[hidden],.campaign-client-panel[hidden]{display:block!important}.campaign-tabs{display:none}</style></noscript>
 </head><body class="launch">
 <a class="launch-skip" href="#campaign-start">Saltar al contenido</a>
 <header class="campaign-header"><a class="campaign-mark" href="#campaign-start">MU<span>PANIC</span></a><span class="campaign-edition">SEASON 6 / ARGENTINA</span><a class="campaign-discord" href="<?= $e($launchCommunity['invite']) ?>" target="_blank" rel="noopener">DISCORD <span>↗</span></a></header>
-<nav class="campaign-rail" aria-label="Escenas de lanzamiento"><a href="#campaign-start" aria-label="Lanzamiento" class="is-current">01</a><a href="#filosofia" aria-label="No pay to win">02</a><a href="#zen" aria-label="Zen y joyas">03</a><a href="#hub" aria-label="Cliente personalizado y Hub F11">04</a><a href="#eventos" aria-label="Eventos">05</a></nav>
+<nav class="campaign-rail" aria-label="Escenas de lanzamiento"><a href="#campaign-start" aria-label="Lanzamiento" class="is-current">01</a><a href="#filosofia" aria-label="No pay to win">02</a><a href="#zen" aria-label="Zen y joyas">03</a><a href="#hub" aria-label="Cliente personalizado y Hub F11">04</a><a href="#eventos" aria-label="Eventos">05</a><a href="#medusa" aria-label="Boss épico Medusa">06</a></nav>
 <main>
 <section class="campaign-hero campaign-scene" id="campaign-start" aria-labelledby="campaign-title">
 <picture class="campaign-art campaign-hero-art"><source media="(max-width:700px)" srcset="<?= $e($t.$launchConfig['heroSmall']) ?>"><img src="<?= $e($t.$launchConfig['hero']) ?>" width="1672" height="941" alt="" fetchpriority="high"></picture>
@@ -36,7 +36,7 @@ $chapters = [
 <?php if(!empty($launchConfig['launchAt'])): ?>
 <div class="campaign-countdown" data-launch-at="<?= $e($launchConfig['launchAt']) ?>" role="timer" aria-label="Tiempo hasta la apertura"><p>LA BATALLA COMIENZA <span><?= $e($launchConfig['launchDateLabel']) ?></span></p><div class="campaign-clock"><div><strong data-clock="days">--</strong><small>DÍAS</small></div><b>:</b><div><strong data-clock="hours">--</strong><small>HORAS</small></div><b>:</b><div><strong data-clock="minutes">--</strong><small>MINUTOS</small></div><b>:</b><div><strong data-clock="seconds">--</strong><small>SEGUNDOS</small></div></div><noscript><small><?= $e($launchConfig['launchDateLabel']) ?></small></noscript></div>
 <?php else: ?>
-<div class="campaign-opening"><p>APERTURA MU PANIC <span>LA NUEVA ERA</span></p><strong>PRÓXIMAMENTE</strong><small>La fecha se anuncia en Discord.</small><i aria-hidden="true"></i></div>
+<div class="campaign-opening"><p>APERTURA MU PANIC <span>LA NUEVA ERA</span></p><strong data-text="PRÓXIMAMENTE">PRÓXIMAMENTE</strong><small>La fecha se anuncia en Discord.</small><i aria-hidden="true"></i></div>
 <?php endif; ?>
 <a class="campaign-button" href="<?= $e($launchCommunity['invite']) ?>" target="_blank" rel="noopener">ESTOY PARA LA APERTURA <span>↗</span></a><p class="campaign-button-note">Sumate al Discord. Encontrá tu próxima party.</p></div>
 <a class="campaign-scroll" href="#zen"><span>DESCUBRÍ QUÉ NOS HACE PANIC</span><b>↓</b></a><button class="campaign-motion" type="button" aria-pressed="false" hidden>Pausar efectos</button>
@@ -63,6 +63,13 @@ $chapters = [
 <div class="campaign-cut"><i aria-hidden="true"></i><p>YA TENÉS TU PARTY. <strong>AHORA ELEGÍ EL DESAFÍO.</strong></p><i aria-hidden="true"></i></div>
 <section class="campaign-events campaign-scene" id="eventos" aria-labelledby="events-title"><div class="campaign-events-heading"><p class="campaign-kicker">03 / EL CONTINENTE NO DUERME</p><h2 id="events-title">ELEGÍ TU <em>BATALLA.</em></h2><div class="campaign-tabs" role="tablist" aria-label="Tipos de eventos"><?php foreach($chapters as $i=>$c): ?><button type="button" id="tab-<?= $e($c[0]) ?>" role="tab" aria-controls="event-<?= $e($c[0]) ?>" aria-selected="<?= $i===0?'true':'false' ?>" tabindex="<?= $i===0?'0':'-1' ?>" data-event-tab="<?= $e($c[0]) ?>"><?= $e($c[1]) ?><span>↗</span></button><?php endforeach; ?></div></div>
 <?php foreach($chapters as $i=>$c): ?><div class="campaign-event" id="event-<?= $e($c[0]) ?>" role="tabpanel" aria-labelledby="tab-<?= $e($c[0]) ?>" tabindex="0" <?= $i ? 'hidden' : '' ?>><div class="campaign-event-art"><img src="<?= $e($t.$c[5]) ?>" width="1672" height="941" loading="lazy" alt=""></div><div class="campaign-event-copy"><small><?= $e($c[1]) ?></small><h3><?= $c[2] ?></h3><strong><?= $e($c[3]) ?></strong><p><?= $e($c[4]) ?></p><span class="campaign-event-index" aria-hidden="true">0<?= $i+1 ?></span></div></div><?php endforeach; ?></section>
+<div class="campaign-cut campaign-cut-venom"><i aria-hidden="true"></i><p>REUNÍ A TU PARTY. <strong>LA REINA LOS ESPERA.</strong></p><i aria-hidden="true"></i></div>
+<section class="campaign-boss campaign-scene" id="medusa" aria-labelledby="medusa-title">
+<div class="campaign-art campaign-boss-art"><img src="<?= $e($t) ?>img/launch/medusa-party-v7-1672.webp" width="1672" height="941" loading="lazy" alt="Medusa, reina serpiente de escala colosal, ataca con magia verde a una party de guerrero, elfa y mago en una fortaleza en ruinas"></div>
+<div class="campaign-boss-venom" aria-hidden="true"></div><div class="campaign-boss-sparks" aria-hidden="true"></div>
+<div class="campaign-copy"><p class="campaign-kicker">BOSS ÉPICO / MU PANIC</p><h2 id="medusa-title">MEDUSA<span>LA REINA<br> DEL CAOS.</span></h2><p class="campaign-statement">Una amenaza colosal.<br>Una party para enfrentarla.</p><p class="campaign-body">Reuní a tu equipo. Prepará tu personaje.<br>El próximo desafío tiene nombre.</p><div class="campaign-boss-seal"><span>✦</span> ¿TU PARTY ESTÁ LISTA?</div></div>
+<div class="campaign-boss-caption" aria-hidden="true"><span>MU PANIC · SEASON 6</span><strong>ENFRENTÁ LO ÉPICO.</strong></div>
+</section>
 <div class="campaign-cut campaign-cut-violet"><i aria-hidden="true"></i><p>LA PRÓXIMA HISTORIA <strong>LA ESCRIBÍS VOS.</strong></p><i aria-hidden="true"></i></div>
 <section class="campaign-community campaign-scene" aria-labelledby="community-title"><div class="campaign-art"><img src="<?= $e($t.$launchConfig['hero']) ?>" width="1672" height="941" loading="lazy" alt=""></div><p class="campaign-kicker">LA PRIMERA PARTY SE ARMA AHORA</p><h2 id="community-title">NOS VEMOS<br><em>EN PANIC.</em></h2><a class="campaign-button" href="<?= $e($launchCommunity['invite']) ?>" target="_blank" rel="noopener">ENTRÁ AL DISCORD <span>↗</span></a><p>Novedades. Comunidad. Apertura.</p></section>
 </main><footer class="campaign-footer"><span>MU PANIC © <?= date('Y') ?></span><span>SEASON 6 · ARGENTINA</span><a href="#campaign-start">VOLVER AL INICIO ↑</a></footer></body></html>

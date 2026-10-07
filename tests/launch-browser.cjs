@@ -32,7 +32,7 @@ const routePage = (page, content = html) => page.route('**/*', async route => {
   assert.match(await page.locator('#filosofia').innerText(), /PAY TO WIN/);
   assert.match(await page.locator('#zen').innerText(), /JOYAS/);
   assert.match(await page.locator('#hub').innerText(), /CLIENTE PERSONALIZADO POR NOSOTROS/);
-  assert.equal(await page.locator('.campaign-cut').count(), 4);
+  assert.equal(await page.locator('.campaign-cut').count(), 5);
   assert.equal(await page.locator('#hub .campaign-art').count(), 0);
   assert.equal(await page.locator('.campaign-fx').evaluate(el=>el.width>0&&el.height>0),true);
   await page.waitForFunction(()=>getComputedStyle(document.querySelector('h1')).opacity==='1');
@@ -41,7 +41,7 @@ const routePage = (page, content = html) => page.route('**/*', async route => {
   await page.locator('.campaign-motion').press('Enter');assert.equal(await page.locator('.campaign-motion').getAttribute('aria-pressed'),'false');
   await page.evaluate(()=>{document.activeElement?.blur();window.scrollTo({top:0,behavior:'instant'});});
   await page.screenshot({path:path.join(out,`campaign-${width}-hero.png`)});
-  for(const id of ['filosofia','zen','hub','eventos']) {
+  for(const id of ['filosofia','zen','hub','eventos','medusa']) {
    await page.locator(`#${id}`).scrollIntoViewIfNeeded();
    await page.waitForFunction(()=>[...document.images].filter(i=>i.getBoundingClientRect().height>0 && i.getBoundingClientRect().top<innerHeight && i.getBoundingClientRect().bottom>0).every(i=>i.complete&&i.naturalWidth>0));
    await page.waitForFunction(id=>{const copy=document.querySelector(`#${id} .campaign-copy`);return !copy || getComputedStyle(copy).opacity==='1';}, id);

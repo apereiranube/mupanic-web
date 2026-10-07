@@ -29,3 +29,6 @@ El selector de eventos incluye tabs con navegación por flechas, Home y End, foc
 `php tests/launch-gate.php` comprueba el modo y las rutas. `tests/launch-browser.cjs` comprueba 1920, 1366, 1024, 768, 390 y 320 px, assets visibles, tabs, teclado, pausa, movimiento reducido, Próximamente sin fecha, contador opcional, selector Ingreso / Hub F11, mensajes de campaña, proporciones completas del Hub, separadores, botones angulares, ausencia de links internos y funcionamiento sin JavaScript. Admite `CHROMIUM_EXECUTABLE` para un navegador ya instalado y `LAUNCH_SCREENSHOTS` para capturas temporales.
 
 Deploy de beta: Update from Remote → Deploy HEAD Commit → Ctrl+F5. Revisar la vista previa. Main recibe la portada solamente después de la aprobación. El deploy copia el arte nuevo automáticamente.
+
+### Final boss scene (v7)
+Medusa closes the event showcase before the Discord invitation. Original cinematic artwork generated from scratch shows the boss attacking a knight, elf and wizard party. Green/violet overlays and particles echo the campaign palette. Mobile gives the heading its own space above the battle. No boss rewards or schedule are announced. PRÓXIMAMENTE now has animated gold lettering, a traveling highlight, glow and sparks; all new motion respects pause and reduced-motion preferences.
