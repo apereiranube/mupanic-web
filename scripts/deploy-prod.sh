@@ -4,6 +4,17 @@ set -euo pipefail
 SOURCE_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEPLOY_ROOT="/home/mupanic/public_html"
 
+# Once main is isolated, never reinstall the WebEngine overlay/core there.
+if [ -f /home/mupanic/main-landing-state.json ]; then
+  PHP_BIN="$(command -v php || true)"
+  if [ -z "$PHP_BIN" ]; then
+    echo "[MU PANIC] PHP CLI unavailable; landing deployment stopped safely." >&2
+    exit 1
+  fi
+  "$PHP_BIN" "$SOURCE_ROOT/tools/main/separar-main.php" --refresh "$SOURCE_ROOT"
+  exit 0
+fi
+
 TEMPLATE_SOURCE="$SOURCE_ROOT/overlay/templates/mupanic"
 TEMPLATE_DEST="$DEPLOY_ROOT/templates/mupanic"
 
