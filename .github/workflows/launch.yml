@@ -1,0 +1,42 @@
+name: Launch page validation
+on:
+  push:
+    branches: [beta, main]
+    paths:
+      - 'overlay/templates/mupanic/index.php'
+      - 'overlay/templates/mupanic/inc/launch-*.php'
+      - 'overlay/templates/mupanic/css/launch.css'
+      - 'overlay/templates/mupanic/js/launch.js'
+      - 'overlay/templates/mupanic/img/launch/**'
+      - 'tests/launch*'
+      - 'tests/fixtures/launch.php'
+      - '.github/workflows/launch.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  launch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and routing
+        run: |
+          for file in overlay/templates/mupanic/inc/launch-*.php overlay/templates/mupanic/index.php tests/fixtures/launch.php tests/launch-gate.php; do php -l "$file"; done
+          php tests/launch-gate.php
+          node --check overlay/templates/mupanic/js/launch.js
+          node --check tests/launch-browser.cjs
+      - name: Install browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Validate responsive launch page
+        run: node tests/launch-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: launch-screenshots
+          path: launch-screenshots/

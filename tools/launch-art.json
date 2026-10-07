@@ -1,0 +1,18 @@
+{
+  "generator": "image_gen.imagegen",
+  "prompt": "Use case: stylized-concept. Asset type: premium MMORPG launch website hero, original dark fantasy cinematic environment. Create a wide landscape 2048x1152 composition for MU PANIC. A monumental medieval black-stone citadel and colossal engraved copper gateway opening onto warm molten amber light, distant jagged mountains, mist, tiny ember sparks, a lone original armored traveler with a crimson cloak seen from behind approaching the threshold on the RIGHT third. Strong architectural silhouette, mature elegant cinematic realism, richly detailed aged copper and charcoal materials, restrained dark crimson accent. LEFT half deliberately quiet dark charcoal mist with subtle landscape for large HTML typography overlay; hero subject on right, portal light right-center, no busy detail behind left copy. Epic scale and anticipation, polished AAA fantasy campaign key art, powerful contrast without all-black crushed shadows. No lettering, text, runes resembling letters, logo, watermark, UI, border, recognizable copyrighted characters or distinctive franchise assets.",
+  "assets": [
+    {
+      "path": "overlay/templates/mupanic/img/launch/portal-1672.webp",
+      "width": 1672,
+      "height": 941,
+      "quality": 91
+    },
+    {
+      "path": "overlay/templates/mupanic/img/launch/portal-960.webp",
+      "width": 960,
+      "height": 540,
+      "quality": 91
+    }
+  ]
+}

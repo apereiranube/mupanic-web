@@ -1,0 +1,52 @@
+const { chromium } = require('playwright');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const { execFileSync } = require('node:child_process');
+const root = path.resolve(__dirname, '..');
+const html = execFileSync('php', ['tests/fixtures/launch.php'], { cwd: root, encoding: 'utf8' });
+const out = path.join(root, 'launch-screenshots');
+fs.mkdirSync(out, { recursive: true });
+(async () => {
+ const browser = await chromium.launch();
+ for (const width of [1920,1366,1024,768,390,320]) {
+  const page = await browser.newPage({viewport:{width,height:width>600?1080:844}});
+  const errors=[]; const missing=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.route('**/*', async route => {
+   const url=new URL(route.request().url());
+   if(url.pathname==='/') return route.fulfill({contentType:'text/html',body:html});
+   const file=path.join(root,'overlay',url.pathname);
+   if(fs.existsSync(file)&&fs.statSync(file).isFile()) return route.fulfill({path:file});
+   missing.push(url.pathname); return route.fulfill({status:404,body:'missing'});
+  });
+  await page.goto('https://beta.mupanic.com.ar/?preview=launch');
+  await page.evaluate(()=>document.fonts.ready);
+  await page.locator('.launch-community').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`overflow ${width}`);
+  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);
+  assert.match(await page.locator('.launch-rates').innerText(),/15X/);
+  assert.match(await page.locator('.launch-rates').innerText(),/10X/);
+  assert.match(await page.locator('.launch-rates').innerText(),/25%/);
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'),'noindex, nofollow');
+  await page.locator('.launch-motion').click();
+  assert.equal(await page.locator('.launch-motion').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('.launch-scene').evaluate(el=>getComputedStyle(el).animationPlayState),'paused');
+  await page.locator('.launch-motion').press('Enter');
+  assert.equal(await page.locator('.launch-motion').getAttribute('aria-pressed'),'false');
+  await page.screenshot({path:path.join(out,`launch-${width}-full.png`),fullPage:true});
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:path.join(out,`launch-${width}-hero.png`)});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  assert.equal(await page.locator('.launch-scene').evaluate(el=>getComputedStyle(el).animationName),'none');
+  await page.close(); console.log(`Launch ${width}: assets, responsive, pause, keyboard, reduced motion passed`);
+ }
+ const page=await browser.newPage({javaScriptEnabled:false});
+ await page.route('**/*',route=>{const url=new URL(route.request().url());return url.pathname==='/'?route.fulfill({contentType:'text/html',body:html}):route.fulfill({path:path.join(root,'overlay',url.pathname)});});
+ await page.goto('https://beta.mupanic.com.ar/?preview=launch');
+ assert.equal(await page.locator('h1').isVisible(),true);
+ assert.equal(await page.locator('.launch-motion').isVisible(),false);
+ assert.equal(await page.locator('.launch-button').first().getAttribute('href'),'https://discord.gg/fP4Mxcsee');
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});
