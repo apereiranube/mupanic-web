@@ -147,6 +147,31 @@ function auditVerify(string $destination): string {
     return 'OK: conexion desde el hosting comprobada. Base MuOnline43_Auditoria; usuario mupanic_auditoria; acceso a produccion 0; permisos administrativos 0. Consultas de cuentas, saldo y rankings verificadas sin mostrar ni modificar datos. La copia sigue bloqueada.';
 }
 
+function auditModuleReport(string $source): array {
+    $directory = $source . '/includes/config/modules';
+    if (is_link($directory) || !is_dir($directory)) throw new RuntimeException('No se encontro el directorio de configuraciones.');
+    $result = [];
+    $previous = libxml_use_internal_errors(true);
+    try {
+        foreach (glob($directory . '/*.xml') as $path) {
+            if (is_link($path)) throw new RuntimeException('Configuracion con enlace simbolico rechazada.');
+            $content = file_get_contents($path);
+            if (stripos($content, '<!DOCTYPE') !== false) throw new RuntimeException('XML con DTD rechazado.');
+            $xml = simplexml_load_string($content, 'SimpleXMLElement', LIBXML_NONET);
+            if ($xml === false) throw new RuntimeException('Una configuracion XML no es valida.');
+            $row = ['module' => basename($path, '.xml')];
+            foreach (['active', 'verify_email', 'require_verification', 'change_password_email_verification', 'send_welcome_email'] as $key) {
+                if (isset($xml->$key)) $row[$key] = in_array(strtolower(trim((string)$xml->$key)), ['1', 'true'], true);
+            }
+            $result[] = $row;
+        }
+        return ['scope' => 'Module activation and email verification flags only; no credentials or account data.', 'modules' => $result];
+    } finally {
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+    }
+}
+
 function auditGuardCode(): string {
     return <<<'PHP'
 <?php
@@ -282,7 +307,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit('Formulario vencido. Volve a abrir el instalador.');
     }
     try {
-        if (isset($_POST['activate'])) {
+        if (isset($_POST['report'])) {
+            $report = auditModuleReport($source);
+            header('Content-Type: application/json; charset=utf-8');
+            header('Content-Disposition: attachment; filename="MU_PANIC_MODULOS_AUDITORIA.json"');
+            echo json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
+            exit;
+        } elseif (isset($_POST['activate'])) {
             if (!is_file($destination . '/.auditoria-preparada')) throw new RuntimeException('Primero prepara la copia.');
             $message = auditActivate($destination);
         } elseif (isset($_POST['verify'])) {
@@ -327,4 +358,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if (file_exists($destination . '/.auditoria-preparada')): ?><p>Con la contrasena SQL de auditoria guardada, comproba la conexion. Este paso solo realiza consultas de lectura y no activa la web.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="verify" value="1">Comprobar conexion SQL</button></form><?php endif; ?>
 <?php if (file_exists($destination . '/.auditoria-preparada') && !file_exists($destination . '/.auditoria-abierta')): ?><p>Despues de comprobar SQL, podes abrir la copia para probar registro, ingreso y cambios de contrasena o correo. Los pagos y correos quedan desactivados. El registro no exige confirmacion por correo en esta copia.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="activate" value="1">Abrir web de auditoria</button></form><?php endif; ?>
 <?php if (file_exists($destination . '/.auditoria-abierta')): ?><p><a href="/register/" style="color:#bfa0ff">Crear cuenta de prueba</a> · <a href="/login/" style="color:#bfa0ff">Ingresar a la copia</a></p><?php endif; ?>
+<p>Para completar la revision de permisos, descarga el listado de funciones habilitadas en la web actual. Solo incluye nombres de modulos y opciones de activacion o verificacion por correo. No incluye credenciales ni datos de cuentas.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="report" value="1">Descargar listado de funciones</button></form>
 </html>
