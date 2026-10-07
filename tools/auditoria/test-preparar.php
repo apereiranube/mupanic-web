@@ -70,5 +70,11 @@ if (function_exists('simplexml_load_string')) {
     check((string)simplexml_load_file($root . '/destination/config/register.xml')->verify_email === '0', 'Missing module XML not restored');
     check(json_decode(file_get_contents($root . '/destination/config/webengine.json'), true)['SQL_DB_PASS'] === 'saved-test-password', 'Saved password overwritten');
     echo "OK: XML sanitized, missing core files restored, saved password preserved.\n";
+    mkdir($root . '/report-source/includes/config/modules', 0755, true);
+    file_put_contents($root . '/report-source/includes/config/modules/register.xml', '<config><active>1</active><verify_email>1</verify_email><smtp_pass>fake-secret</smtp_pass><register_recaptcha_secret_key>fake-token</register_recaptcha_secret_key></config>');
+    $report = auditModuleReport($root . '/report-source');
+    check($report['modules'][0] === ['module' => 'register', 'active' => true, 'verify_email' => true], 'Unexpected report fields');
+    check(strpos(json_encode($report), 'fake-secret') === false && strpos(json_encode($report), 'fake-token') === false, 'Secret exported');
+    echo "OK: module report exports only allowlisted activation flags.\n";
 }
 file_put_contents($root . '/generated-guard.php', auditGuardCode());
