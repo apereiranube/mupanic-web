@@ -24,7 +24,7 @@ const routePage = (page, content = html) => page.route('**/*', async route => {
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`overflow ${width}`);
   assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'),'noindex, nofollow');
   assert.equal(await page.locator('[data-launch-at]').count(),0);
-  assert.match(await page.locator('.campaign-opening').innerText(), /PRÓXIMAMENTE/);
+  assert.match(await page.locator('.campaign-opening>strong').textContent(), /PRÓXIMAMENTE/);
   assert(!/31 OCTUBRE/.test(await page.locator('body').innerText()));
   if(width<=700) assert.equal(await page.locator('.campaign-discord>span').isVisible(),false);
   const destinations=await page.locator('a[href]').evaluateAll(links=>links.map(a=>a.getAttribute('href')));
@@ -52,6 +52,7 @@ const routePage = (page, content = html) => page.route('**/*', async route => {
     await page.evaluate(()=>document.querySelector('.campaign-motion').click());
     assert.equal(await page.locator('.campaign-boss-fx').evaluate(c=>c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0)),false);
     await page.evaluate(()=>document.querySelector('.campaign-motion').click());
+    await page.waitForFunction(()=>Number(getComputedStyle(document.querySelector('.campaign-boss-spells')).opacity)>.5);
    }
    if (id === 'hub') {
     for (const name of ['entry','hub']) {

@@ -22,7 +22,7 @@ $chapters = [
 <meta property="og:title" content="MU PANIC · Una nueva era está por empezar">
 <meta property="og:description" content="Season 6. No pay to win. Zen y joyas. Un cliente con identidad propia. Sumate a la apertura en Discord.">
 <meta property="og:image" content="<?= $e($t.$launchConfig['hero']) ?>"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=9"><script defer src="<?= $e($t) ?>js/launch.js?v=9"></script>
+<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=10"><script defer src="<?= $e($t) ?>js/launch.js?v=10"></script>
 <noscript><style>.launch *{animation:none!important}.campaign-event[hidden],.campaign-client-panel[hidden]{display:block!important}.campaign-tabs{display:none}</style></noscript>
 </head><body class="launch">
 <a class="launch-skip" href="#campaign-start">Saltar al contenido</a>
@@ -36,7 +36,7 @@ $chapters = [
 <?php if(!empty($launchConfig['launchAt'])): ?>
 <div class="campaign-countdown" data-launch-at="<?= $e($launchConfig['launchAt']) ?>" role="timer" aria-label="Tiempo hasta la apertura"><p>LA BATALLA COMIENZA <span><?= $e($launchConfig['launchDateLabel']) ?></span></p><div class="campaign-clock"><div><strong data-clock="days">--</strong><small>DÍAS</small></div><b>:</b><div><strong data-clock="hours">--</strong><small>HORAS</small></div><b>:</b><div><strong data-clock="minutes">--</strong><small>MINUTOS</small></div><b>:</b><div><strong data-clock="seconds">--</strong><small>SEGUNDOS</small></div></div><noscript><small><?= $e($launchConfig['launchDateLabel']) ?></small></noscript></div>
 <?php else: ?>
-<div class="campaign-opening"><p>APERTURA MU PANIC <span>LA NUEVA ERA</span></p><strong data-text="PRÓXIMAMENTE">PRÓXIMAMENTE</strong><small>La fecha se anuncia en Discord.</small><i aria-hidden="true"></i></div>
+<div class="campaign-opening"><p>APERTURA MU PANIC <span>LA NUEVA ERA</span></p><strong data-text="PRÓXIMAMENTE" aria-label="PRÓXIMAMENTE"><?php foreach(preg_split('//u', 'PRÓXIMAMENTE', -1, PREG_SPLIT_NO_EMPTY) as $index=>$letter): ?><span aria-hidden="true" style="--letter:<?= $index ?>"><?= $e($letter) ?></span><?php endforeach; ?></strong><small>La fecha se anuncia en Discord.</small><i aria-hidden="true"></i></div>
 <?php endif; ?>
 <a class="campaign-button" href="<?= $e($launchCommunity['invite']) ?>" target="_blank" rel="noopener">ESTOY PARA LA APERTURA <span>↗</span></a><p class="campaign-button-note">Sumate al Discord. Encontrá tu próxima party.</p></div>
 <a class="campaign-scroll" href="#zen"><span>DESCUBRÍ QUÉ NOS HACE PANIC</span><b>↓</b></a><button class="campaign-motion" type="button" aria-pressed="false" hidden>Pausar efectos</button>
@@ -65,7 +65,7 @@ $chapters = [
 <?php foreach($chapters as $i=>$c): ?><div class="campaign-event" id="event-<?= $e($c[0]) ?>" role="tabpanel" aria-labelledby="tab-<?= $e($c[0]) ?>" tabindex="0" <?= $i ? 'hidden' : '' ?>><div class="campaign-event-art"><img src="<?= $e($t.$c[5]) ?>" width="1672" height="941" loading="lazy" alt=""></div><div class="campaign-event-copy"><small><?= $e($c[1]) ?></small><h3><?= $c[2] ?></h3><strong><?= $e($c[3]) ?></strong><p><?= $e($c[4]) ?></p><span class="campaign-event-index" aria-hidden="true">0<?= $i+1 ?></span></div></div><?php endforeach; ?></section>
 <div class="campaign-cut campaign-cut-venom"><i aria-hidden="true"></i><p>REUNÍ A TU PARTY. <strong>LA REINA LOS ESPERA.</strong></p><i aria-hidden="true"></i></div>
 <section class="campaign-boss campaign-scene" id="medusa" aria-labelledby="medusa-title">
-<div class="campaign-art campaign-boss-art"><img src="<?= $e($t) ?>img/launch/medusa-party-v7-1672.webp" width="1672" height="941" loading="lazy" alt="Medusa, reina serpiente de escala colosal, ataca con magia verde a una party de guerrero, elfa y mago en una fortaleza en ruinas"><canvas class="campaign-boss-fx" aria-hidden="true"></canvas></div>
+<div class="campaign-art campaign-boss-art"><img src="<?= $e($t) ?>img/launch/medusa-party-v7-1672.webp" width="1672" height="941" loading="lazy" alt="Medusa, reina serpiente de escala colosal, ataca con magia verde a una party de guerrero, elfa y mago en una fortaleza en ruinas"><img class="campaign-boss-spells" src="<?= $e($t) ?>img/launch/medusa-lightning-v10.webp" width="1672" height="941" loading="lazy" alt="" aria-hidden="true"><canvas class="campaign-boss-fx" aria-hidden="true"></canvas></div>
 <div class="campaign-boss-venom" aria-hidden="true"></div><div class="campaign-boss-sparks" aria-hidden="true"></div>
 <div class="campaign-copy"><p class="campaign-kicker">BOSS ÉPICO / MU PANIC</p><h2 id="medusa-title">MEDUSA<span>LA REINA<br> DEL CAOS.</span></h2><p class="campaign-statement">Una amenaza colosal.<br>Una party para enfrentarla.</p><p class="campaign-body">Reuní a tu equipo. Prepará tu personaje.<br>El próximo desafío tiene nombre.</p><div class="campaign-boss-seal"><span>✦</span> ¿TU PARTY ESTÁ LISTA?</div></div>
 <div class="campaign-boss-caption" aria-hidden="true"><span>MU PANIC · SEASON 6</span><strong>ENFRENTÁ LO ÉPICO.</strong></div>

@@ -116,25 +116,7 @@
   const bossCanvas = document.querySelector('.campaign-boss-fx');
   const bossCtx = bossCanvas?.getContext('2d');
   let bossVisible = false, bossFrame = 0, bossLast = 0, bossTime = 0;
-  let bossWidth = 0, bossHeight = 0, bossDust = [], bossGlow = [];
-  // Isolate bright green and violet pixels from the actual artwork.
-  // Re-light those same pixels rather than drawing a new spell over the image.
-  function prepareBossGlow() {
-    const image=bossCanvas.previousElementSibling;
-    if(!image.complete||!image.naturalWidth)return;
-    bossGlow=['green','violet'].map(color=>{
-      const layer=document.createElement('canvas');layer.width=image.naturalWidth;layer.height=image.naturalHeight;
-      const context=layer.getContext('2d',{willReadFrequently:true});context.drawImage(image,0,0);
-      const pixels=context.getImageData(0,0,layer.width,layer.height);
-      for(let i=0;i<pixels.data.length;i+=4){
-        const r=pixels.data[i],g=pixels.data[i+1],b=pixels.data[i+2];
-        const match=color==='green'?g>110&&g>r*1.15&&g>b*1.07:b>130&&r>95&&b>r*1.08&&b>g*1.18;
-        const brightness=Math.max(r,g,b);
-        pixels.data[i+3]=match?Math.round(Math.min(1,(brightness-100)/140)*220):0;
-      }
-      context.putImageData(pixels,0,0);return layer;
-    });
-  }
+  let bossWidth = 0, bossHeight = 0, bossDust = [];
   function bossResize() {
     if(!bossCtx)return;
     bossWidth=bossCanvas.clientWidth;bossHeight=bossCanvas.clientHeight;
@@ -149,17 +131,6 @@
     if(now-bossLast<32){bossFrame=requestAnimationFrame(bossTick);return;}
     const dt=Math.min((now-bossLast)/1000,.05);bossLast=now;bossTime+=dt;
     bossCtx.clearRect(0,0,bossWidth,bossHeight);bossCtx.globalCompositeOperation='lighter';
-    const scale=Math.max(bossWidth/1672,bossHeight/941);
-    const align=bossWidth<=700?.65:.62;
-    const drawWidth=1672*scale,drawHeight=941*scale;
-    for(const [index,layer] of bossGlow.entries()){
-      const intensity=.22+.65*Math.pow((Math.sin(bossTime*(index?2.2:2.8)+index*1.8)+1)/2,2);
-      bossCtx.globalAlpha=intensity;bossCtx.filter='blur(5px)';
-      bossCtx.drawImage(layer,-(drawWidth-bossWidth)*align,-(drawHeight-bossHeight)*.5,drawWidth,drawHeight);
-      bossCtx.filter='none';bossCtx.globalAlpha=intensity*.8;
-      bossCtx.drawImage(layer,-(drawWidth-bossWidth)*align,-(drawHeight-bossHeight)*.5,drawWidth,drawHeight);
-    }
-    bossCtx.globalAlpha=1;
     for(const p of bossDust){
       p.y-=p.speed*dt;p.x+=Math.sin(bossTime+p.phase)*22*dt;
       if(p.y<-10){p.y=bossHeight+10;p.x=Math.random()*bossWidth;}
@@ -174,8 +145,6 @@
     if(!paused&&bossVisible&&!document.hidden&&bossCtx)bossFrame=requestAnimationFrame(bossTick);
   }
   if(bossCtx){
-    const bossImage=bossCanvas.previousElementSibling;
-    bossImage.addEventListener('load',prepareBossGlow);prepareBossGlow();
     bossResize();new ResizeObserver(bossResize).observe(bossCanvas);
     new IntersectionObserver(entries=>{bossVisible=entries[0].isIntersecting;bossSync();}).observe(bossCanvas);
   }

@@ -31,6 +31,14 @@
       "width": 1672,
       "height": 941,
       "quality": 88
+    },
+    {
+      "path": "overlay/templates/mupanic/img/launch/medusa-lightning-v10.webp",
+      "prompt": "Edit this reference into a precise transparent VFX overlay asset for the SAME widescreen website image. Retain ONLY the brilliant emerald green lightning and branching venom energy around Medusa's outstretched hand at x49% y36% and down across the lower central battlefield, and vivid violet branching lightning around the wizard at lower-right x85% y82% connecting up toward center x55% y45%. Remove ALL people, boss, clothing, architecture, ground, background and solid objects completely; all other pixels must be transparent. Keep the energy in the exact original composition and positions in the same full 1672x941 16:9 canvas so this image can be placed directly on top of the reference. Intensify these existing jagged lightning filaments dramatically into dazzling white-hot cores with saturated emerald and violet luminous fringes, long intricate forked arcs and isolated sparks. Crisp premium cinematic electric spell effects, irregular branching organic lightning, no circles, no rings, no portals, no circular outlines. Do not include any text or UI. Transparent background is mandatory. The effect itself should be bold, dazzling and highly visible, yet most of the canvas remains transparent.",
+      "source": "Transparent VFX generated from the original Medusa battle artwork",
+      "width": 1672,
+      "height": 941,
+      "quality": 88
     }
   ]
 }
