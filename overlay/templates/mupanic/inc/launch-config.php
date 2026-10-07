@@ -7,6 +7,6 @@ return [
     'previewHosts' => ['beta.mupanic.com.ar'],
     'launchAt' => '2026-10-31T20:00:00-03:00',
     'launchDateLabel' => '31 OCTUBRE · 20:00 ARG',
-    'hero' => 'img/launch/portal-1672.webp',
-    'heroSmall' => 'img/launch/portal-960.webp',
+    'hero' => 'img/launch/warfront-v4-1672.webp',
+    'heroSmall' => 'img/launch/warfront-mobile-v4-720.webp',
 ];

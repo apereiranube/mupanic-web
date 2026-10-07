@@ -1,18 +1,20 @@
 {
   "generator": "image_gen.imagegen",
-  "prompt": "Use case: stylized-concept. Asset type: premium MMORPG launch website hero, original dark fantasy cinematic environment. Create a wide landscape 2048x1152 composition for MU PANIC. A monumental medieval black-stone citadel and colossal engraved copper gateway opening onto warm molten amber light, distant jagged mountains, mist, tiny ember sparks, a lone original armored traveler with a crimson cloak seen from behind approaching the threshold on the RIGHT third. Strong architectural silhouette, mature elegant cinematic realism, richly detailed aged copper and charcoal materials, restrained dark crimson accent. LEFT half deliberately quiet dark charcoal mist with subtle landscape for large HTML typography overlay; hero subject on right, portal light right-center, no busy detail behind left copy. Epic scale and anticipation, polished AAA fantasy campaign key art, powerful contrast without all-black crushed shadows. No lettering, text, runes resembling letters, logo, watermark, UI, border, recognizable copyrighted characters or distinctive franchise assets.",
+  "concept": "Interactive launch campaign: full-screen battle, Zen, Hub F11 and selectable event scenes",
   "assets": [
     {
-      "path": "overlay/templates/mupanic/img/launch/portal-1672.webp",
+      "path": "overlay/templates/mupanic/img/launch/warfront-v4-1672.webp",
+      "prompt": "Use case: ads-marketing. Asset type: cinematic widescreen background for an explosive fantasy MMORPG launch campaign MU PANIC, landscape 16:9. Primary request: premium AAA dark fantasy launch key art, a ferocious battle erupting on a ruined fortress bridge over a volcanic abyss. Dynamic low camera, sharp original characters: on left a massive ornate black and gold armored blade knight with huge crimson feathered wings slashing a flaming greatsword; on right an elegant silver-armored elven archer with blue luminous wings drawing a radiant bow, and a dark sorcerer behind her casting violet lightning. Warriors framed mainly on left and right thirds, a distant colossal horned armored boss at center upper distance, exploding rock debris, violent magical trails, cinematic smoke, embers and ash, hot orange lava against violet lightning, strong rim lighting, detailed metallic armor, visceral scale, extraordinary motion and depth. Composition: heroes at edges frame a darker open smoky center for website typography overlay, center is dark enough to read large white and gold text. Full bleed horizontal poster, impeccable polished cinematic 3D concept art, recognizable classic Korean fantasy MMORPG visual flavor with original character designs. NO text, NO letters, NO logos, NO watermark, NO UI, NO panels, NO circles or portals, no generic lone castle landscape. This is an action battle scene, not a calm landscape. High resolution.",
       "width": 1672,
       "height": 941,
-      "quality": 91
+      "quality": 88
     },
     {
-      "path": "overlay/templates/mupanic/img/launch/portal-960.webp",
-      "width": 960,
-      "height": 540,
-      "quality": 91
+      "path": "overlay/templates/mupanic/img/launch/warfront-mobile-v4-720.webp",
+      "prompt": "Use case: ads-marketing. Asset type: portrait 9:16 epic fantasy MMORPG launch mobile website background for MU PANIC. Create a vertical full-bleed AAA cinematic battle poster. A menacing original black and gold armored blade knight with crimson wings occupies upper LEFT third, an original silver-armored elven archer with icy luminous blue wings occupies upper RIGHT third, facing diagonally inward in battle. Upper two fifths are dramatic close-up characters with energy swords, bow and violet lightning. A horned demon fortress boss looms in distant upper center. Flaming ruined fortress and falling rock debris behind them. LOWER two thirds must stay dark smoky purple-charcoal and volcanic atmosphere with low-contrast embers, intentionally clean for overlaid giant website title and countdown: do not put main characters or important detail behind center/lower typography. Dramatic fire orange on left versus magic violet-blue on right; gorgeous detailed original metallic armor, spectacular cinematic lighting, high fidelity painterly 3D action concept art. Hero image only. No text, no letters, no logo, no watermark, no UI, no frames or cards. Original fantasy characters, classic Korean dark fantasy MMORPG flavor. Tall portrait composition.",
+      "width": 720,
+      "height": 1279,
+      "quality": 88
     }
   ]
 }
