@@ -1,5 +1,11 @@
 <?php
 if(!defined('access') or !access) die();
+require_once __DIR__.'/inc/launch-runtime.php';
+$launchConfig = require __DIR__.'/inc/launch-config.php';
+if(panicLaunchVisible(__BASE_URL__, $_REQUEST['page'] ?? '', $_GET['preview'] ?? '', $launchConfig)) {
+    require __DIR__.'/inc/launch-page.php';
+    return;
+}
 include('inc/template.functions.php');
 
 $serverInfoCache = LoadCacheData('server_info.cache');
