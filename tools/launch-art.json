@@ -15,6 +15,14 @@
       "width": 720,
       "height": 1279,
       "quality": 88
+    },
+    {
+      "path": "overlay/templates/mupanic/img/launch/client-entry-enhanced-v6.webp",
+      "source": "User-provided client entry screenshot image(20261007-030254).png",
+      "prompt": "Use case: lighting-weather / precise faithful image enhancement. Edit target: attached real MU PANIC client server selection screenshot. Improve the visual quality of THIS exact image for a premium launch website presentation: clearer detailed armor and rocky textures, cleaner edges, reduced compression softness, refined atmospheric lighting and subtle richer red/gold contrast. Preserve the complete screenshot composition, all actual interface components, exact scene and placement, top MU PANIC logo, warrior at left, red crystal at right, center server-selection panel, bottom Menu button. Do not invent, replace or move any UI, do not add game elements, do not redesign the game interface. ALL existing interface text must remain unchanged, including 'MU PANIC', 'SELECCIONA TU SERVIDOR', 'MU PANIC-1(Gold) Conectar', 'BIENVENIDO A MU PANIC', 'MENÚ'. Preserve widescreen 16:9 aspect and entire frame. Keep it recognizable as the same real client screenshot, simply clean and crisp. No new watermark, no new captions, no new logos, no decorative frame. No gratuitous oversharpening or artificial glowing edges. Output the enhanced image at high resolution.",
+      "width": 1672,
+      "height": 941,
+      "quality": 92
     }
   ]
 }

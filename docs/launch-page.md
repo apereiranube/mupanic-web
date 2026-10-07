@@ -2,11 +2,13 @@
 
 Beta conserva el sitio completo. La campaña se revisa en `https://beta.mupanic.com.ar/?preview=launch`.
 
-La portada es una secuencia de escenas completas: batalla de lanzamiento, economía de Zen, Hub F11, selector de eventos y comunidad. Reemplaza la estructura anterior de encabezado lateral y tarjetas. Los únicos enlaces externos son a Discord; no tiene accesos al Atlas ni al registro.
+La portada es una secuencia de escenas completas: batalla de lanzamiento, manifiesto No Pay to Win, economía de Zen y joyas, cliente personalizado y Hub F11, selector de eventos y comunidad. Cuatro separadores con luz conectan los cambios de escena. El Hub usa una vista completa contenida, sin recorte ni ampliación como fondo; sus funciones se explican junto a la imagen. El bloque del cliente incorpora una captura de ingreso mejorada desde una imagen proporcionada por el usuario y una segunda vista independiente del Hub, seleccionables con tabs Ingreso / Hub F11. Los tabs de eventos, del cliente y el acceso superior a Discord comparten el acabado angular del CTA principal. Reemplaza la estructura anterior de encabezado lateral y tarjetas. Los únicos enlaces externos son a Discord; no tiene accesos al Atlas ni al registro.
 
-## Fecha de prueba
+## Apertura sin fecha anunciada
 
-`inc/launch-config.php` contiene `launchAt = 2026-10-31T20:00:00-03:00` y su etiqueta visible. Es la fecha de prueba solicitada por el usuario (31 de octubre de 2026, 20:00 de Argentina), no una fecha de lanzamiento definitiva. Sustituir ambos valores antes de publicar la campaña en producción. El contador se detiene en cero; nunca anuncia automáticamente que el servidor está abierto.
+`inc/launch-config.php` contiene `launchAt = null` y `launchDateLabel = null`, por pedido del usuario. La campaña muestra PRÓXIMAMENTE con iluminación y una línea de energía animada, sin fecha ni cuenta regresiva. La fecha se anunciará en Discord. El día 31 se retiró de la portada; no es una fecha aprobada.
+
+El contador sigue disponible para cuando se confirme la apertura: definir `launchAt` con zona horaria explícita y su etiqueta visible. Se detiene en cero; nunca anuncia automáticamente que el servidor está abierto. La fecha antigua sólo existe en la fixture de pruebas como caso artificial del contador opcional.
 
 ## Datos y rutas
 
@@ -24,6 +26,6 @@ El selector de eventos incluye tabs con navegación por flechas, Home y End, foc
 
 ## Revisión y despliegue
 
-`php tests/launch-gate.php` comprueba el modo y las rutas. `tests/launch-browser.cjs` comprueba 1920, 1366, 1024, 768, 390 y 320 px, assets visibles, tabs, teclado, pausa, movimiento reducido, cuenta regresiva, ausencia de links internos y funcionamiento sin JavaScript. Admite `CHROMIUM_EXECUTABLE` para un navegador ya instalado y `LAUNCH_SCREENSHOTS` para capturas temporales.
+`php tests/launch-gate.php` comprueba el modo y las rutas. `tests/launch-browser.cjs` comprueba 1920, 1366, 1024, 768, 390 y 320 px, assets visibles, tabs, teclado, pausa, movimiento reducido, Próximamente sin fecha, contador opcional, selector Ingreso / Hub F11, mensajes de campaña, proporciones completas del Hub, separadores, botones angulares, ausencia de links internos y funcionamiento sin JavaScript. Admite `CHROMIUM_EXECUTABLE` para un navegador ya instalado y `LAUNCH_SCREENSHOTS` para capturas temporales.
 
 Deploy de beta: Update from Remote → Deploy HEAD Commit → Ctrl+F5. Revisar la vista previa. Main recibe la portada solamente después de la aprobación. El deploy copia el arte nuevo automáticamente.

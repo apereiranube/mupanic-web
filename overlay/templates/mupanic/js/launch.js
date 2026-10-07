@@ -13,7 +13,8 @@
     updateClock(); setInterval(updateClock, 1000);
     document.addEventListener('visibilitychange', updateClock);
   }
-  const tabs = [...document.querySelectorAll('[data-event-tab]')];
+  function initTabs(selector) {
+  const tabs = [...document.querySelectorAll(selector)];
   const selectTab = tab => {
     for (const entry of tabs) {
       const selected = entry === tab;
@@ -34,6 +35,9 @@
       event.preventDefault(); selectTab(tabs[next]); tabs[next].focus();
     });
   }
+  }
+  initTabs('[data-event-tab]');
+  initTabs('[data-client-tab]');
   const button = document.querySelector('.campaign-motion');
   const hero = document.querySelector('.campaign-hero');
   const canvas = document.querySelector('.campaign-fx');
