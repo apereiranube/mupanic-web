@@ -13,6 +13,7 @@ file_put_contents($root . '/source/config/webengine.json', json_encode([
     'SQL_DB_PASS' => 'fake-production-password', 'SQL_USE_2_DB' => true,
     'SQL_DB_2_NAME' => 'OtherLiveDB', 'smtp_password' => 'fake-mail-password',
     'smtp_enabled' => true,
+    'password_min_len' => 4, 'password_max_len' => 10, 'SQL_PASSWORD_ENCRYPTION' => 'phpmd5',
 ]));
 file_put_contents($root . '/source/read.php', '<?php $db="[MuOnline43]"; $path="/home/mupanic/payments-private";');
 file_put_contents($root . '/source/cache/private.json', '{"secret":"not-to-copy"}');
@@ -24,6 +25,7 @@ check($config['SQL_DB_NAME'] === 'MuOnline43_Auditoria', 'Wrong database');
 check($config['SQL_DB_USER'] === 'mupanic_auditoria' && $config['SQL_DB_PASS'] === '', 'Live credentials copied');
 check(!$config['SQL_USE_2_DB'] && $config['SQL_DB_2_NAME'] === null, 'Second database enabled');
 check($config['smtp_password'] === '' && !$config['smtp_enabled'], 'SMTP credentials copied');
+check($config['password_min_len'] === 4 && $config['password_max_len'] === 10 && $config['SQL_PASSWORD_ENCRYPTION'] === 'phpmd5', 'Password policy changed');
 check(!file_exists($root . '/destination/cache') && !file_exists($root . '/destination/database.bak'), 'Private files copied');
 check($before === hash_file('sha256', $root . '/source/config/webengine.json'), 'Source changed');
 $php = file_get_contents($root . '/destination/read.php');
@@ -55,3 +57,18 @@ try { auditVerify($root . '/destination'); } catch (RuntimeException $e) { $reje
 check($rejected, 'Incomplete configuration accepted');
 echo "OK: isolated copying, credential removal, database isolation, source preservation and symlink rejection.\n";
 echo "OK: verification rejects missing results, excessive permissions and incomplete configuration.\n";
+if (function_exists('simplexml_load_string')) {
+    $xml = auditXml('<config><smtp_pass>fake-secret</smtp_pass><verify_email>1</verify_email><register_enable_recaptcha>1</register_enable_recaptcha><experience>100</experience></config>');
+    $data = simplexml_load_string($xml);
+    check((string)$data->smtp_pass === '' && (string)$data->verify_email === '0' && (string)$data->register_enable_recaptcha === '0', 'Unsafe XML copied');
+    check((string)$data->experience === '100', 'Unrelated XML setting changed');
+    file_put_contents($root . '/source/config/register.xml', '<config><verify_email>1</verify_email></config>');
+    file_put_contents($root . '/source/class.cache.php', '<?php // required core class');
+    file_put_contents($root . '/destination/config/webengine.json', '{"SQL_DB_PASS":"saved-test-password"}');
+    auditCopy($root . '/source', $root . '/destination', false);
+    check(is_file($root . '/destination/class.cache.php'), 'Core cache class skipped');
+    check((string)simplexml_load_file($root . '/destination/config/register.xml')->verify_email === '0', 'Missing module XML not restored');
+    check(json_decode(file_get_contents($root . '/destination/config/webengine.json'), true)['SQL_DB_PASS'] === 'saved-test-password', 'Saved password overwritten');
+    echo "OK: XML sanitized, missing core files restored, saved password preserved.\n";
+}
+file_put_contents($root . '/generated-guard.php', auditGuardCode());
