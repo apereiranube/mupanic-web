@@ -1,5 +1,5 @@
 <?php
-// One-time, password-protected staging preparation. Never activates WebEngine.
+// Password-protected staging preparation and access restricted to the audit copy.
 declare(strict_types=1);
 
 function auditScrub(array $data): array {
@@ -189,7 +189,7 @@ $page = (string)($_REQUEST['page'] ?? '');
 $subpage = (string)($_REQUEST['subpage'] ?? '');
 $pages = ['', 'register', 'login', 'logout', 'usercp', 'rankings', 'information', 'tos', 'privacy', 'refunds'];
 if (!in_array($page, $pages, true) || !empty($_GET['request']) || !empty($_POST['request'])
-    || ($page === 'usercp' && !in_array($subpage, ['', 'myaccount', 'mypassword', 'myemail'], true))
+    || ($page === 'usercp' && !in_array($subpage, ['', 'myaccount', 'mypassword', 'myemail', 'addstats', 'reset', 'resetstats', 'clearpk', 'clearskilltree', 'unstick'], true))
     || ($page !== 'usercp' && $page !== 'rankings' && $subpage !== '')
     || ($page === 'rankings' && !in_array($subpage, ['', 'level', 'resets', 'guilds', 'bloodcastle', 'devilsquare', 'duel'], true))) {
     http_response_code(403); exit('Esta funcion esta deshabilitada en la auditoria.');
@@ -207,7 +207,7 @@ try {
 }
 session_set_cookie_params(['secure' => true, 'httponly' => true, 'samesite' => 'Strict', 'path' => '/']);
 ob_start(function ($html) {
-    $banner = '<div style="position:relative;z-index:99999;background:#382163;color:white;padding:14px;text-align:center;font:14px system-ui">AUDITORIA PRIVADA · Copia de prueba · Pagos y correos desactivados · <a style="color:white" href="/register/">Crear cuenta de prueba</a> · <a style="color:white" href="/login/">Ingresar</a> · <a style="color:white" href="/usercp/">Mi cuenta</a></div>';
+    $banner = '<div style="position:relative;z-index:99999;background:#382163;color:white;padding:14px;text-align:center;font:14px system-ui">AUDITORIA PRIVADA · Copia de prueba · Pagos y correos desactivados · <a style="color:white" href="/register/">Crear cuenta de prueba</a> · <a style="color:white" href="/login/">Ingresar</a> · <a style="color:white" href="/usercp/">Mi cuenta</a><br>Personaje de prueba: audchar01 · <a style="color:white" href="/usercp/addstats/">Agregar stats</a> · <a style="color:white" href="/usercp/clearpk/">Limpiar PK</a> · <a style="color:white" href="/usercp/unstick/">Destrabar</a> · <a style="color:white" href="/usercp/clearskilltree/">Limpiar Master</a> · <a style="color:white" href="/usercp/resetstats/">Reset stats</a> · <a style="color:white" href="/usercp/reset/">Reset personaje</a></div>';
     return preg_replace('/(<body\b[^>]*>)/i', '$1' . $banner, $html, 1);
 });
 define('access', 'index');
@@ -218,6 +218,30 @@ try {
     echo '<p>No se pudo abrir la web de auditoria. La copia sigue aislada.</p>';
 }
 PHP;
+}
+
+function auditRefreshCharacterTests(string $destination): string {
+    if (realpath($destination) !== '/home/mupanic/public_html/auditoria-web') throw new RuntimeException('Destino no permitido.');
+    foreach (['.auditoria-abierta', '.auditoria-lock', '.auditoria-index.tmp', 'index.php', '.htaccess', 'includes/classes/class.email.php'] as $name) {
+        if (is_link($destination . '/' . $name)) throw new RuntimeException('Destino con enlace simbolico rechazado.');
+    }
+    if (!is_file($destination . '/.auditoria-abierta')) throw new RuntimeException('Primero abre la copia.');
+    $lock = fopen($destination . '/.auditoria-lock', 'c');
+    if (!$lock || !flock($lock, LOCK_EX | LOCK_NB)) throw new RuntimeException('Hay otra preparacion en curso.');
+    try {
+        auditVerify($destination);
+        $htaccess = (string)file_get_contents($destination . '/.htaccess');
+        if (!preg_match('/^\s*AuthType\s+Basic/im', $htaccess) || !preg_match('/^\s*Require\s+(valid-user|user\s+)/im', $htaccess)
+            || strpos($htaccess, '# MU PANIC AUDITORIA ABIERTA') === false) throw new RuntimeException('Falta la proteccion del directorio.');
+        if (strpos((string)file_get_contents($destination . '/includes/classes/class.email.php'), 'MUPANIC_AUDITORIA') === false) throw new RuntimeException('Correo no aislado.');
+        if (file_put_contents($destination . '/.auditoria-index.tmp', auditGuardCode(), LOCK_EX) === false) throw new RuntimeException('No se pudo preparar el acceso de prueba.');
+        chmod($destination . '/.auditoria-index.tmp', 0600);
+        if (!rename($destination . '/.auditoria-index.tmp', $destination . '/index.php')) throw new RuntimeException('No se pudo actualizar el acceso de prueba.');
+        return 'OK: pruebas de personajes habilitadas exclusivamente en la copia. Se actualizo solo su acceso web; credenciales, proteccion del directorio y produccion conservadas.';
+    } finally {
+        flock($lock, LOCK_UN);
+        fclose($lock);
+    }
 }
 
 function auditActivate(string $destination): string {
@@ -313,6 +337,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Disposition: attachment; filename="MU_PANIC_MODULOS_AUDITORIA.json"');
             echo json_encode($report, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
             exit;
+        } elseif (isset($_POST['characters'])) {
+            $message = auditRefreshCharacterTests($destination);
         } elseif (isset($_POST['activate'])) {
             if (!is_file($destination . '/.auditoria-preparada')) throw new RuntimeException('Primero prepara la copia.');
             $message = auditActivate($destination);
@@ -357,6 +383,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if (!file_exists($destination . '/.auditoria-preparada')): ?><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button>Preparar copia</button></form><?php endif; ?>
 <?php if (file_exists($destination . '/.auditoria-preparada')): ?><p>Con la contrasena SQL de auditoria guardada, comproba la conexion. Este paso solo realiza consultas de lectura y no activa la web.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="verify" value="1">Comprobar conexion SQL</button></form><?php endif; ?>
 <?php if (file_exists($destination . '/.auditoria-preparada') && !file_exists($destination . '/.auditoria-abierta')): ?><p>Despues de comprobar SQL, podes abrir la copia para probar registro, ingreso y cambios de contrasena o correo. Los pagos y correos quedan desactivados. El registro no exige confirmacion por correo en esta copia.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="activate" value="1">Abrir web de auditoria</button></form><?php endif; ?>
-<?php if (file_exists($destination . '/.auditoria-abierta')): ?><p><a href="/register/" style="color:#bfa0ff">Crear cuenta de prueba</a> · <a href="/login/" style="color:#bfa0ff">Ingresar a la copia</a></p><?php endif; ?>
+<?php if (file_exists($destination . '/.auditoria-abierta')): ?><p><a href="/register/" style="color:#bfa0ff">Crear cuenta de prueba</a> · <a href="/login/" style="color:#bfa0ff">Ingresar a la copia</a></p><p>Con los permisos de personajes comprobados y el personaje ficticio audchar01 preparado en SQL, habilita sus pruebas. Este paso actualiza solo el acceso web de esta copia y conserva la contrasena SQL.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="characters" value="1">Habilitar pruebas de personajes</button></form><?php endif; ?>
 <p>Para completar la revision de permisos, descarga el listado de funciones habilitadas en la web actual. Solo incluye nombres de modulos y opciones de activacion o verificacion por correo. No incluye credenciales ni datos de cuentas.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="report" value="1">Descargar listado de funciones</button></form>
 </html>
