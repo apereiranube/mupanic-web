@@ -112,7 +112,68 @@
     for(const s of sparks){s.life-=dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.vy+=80*dt;ctx.fillStyle=`rgba(255,177,83,${Math.min(.9,Math.max(0,s.life))})`;ctx.fillRect(s.x,s.y,2,2);}
     ctx.globalCompositeOperation='source-over';frame=requestAnimationFrame(tick);
   }
-  function sync(){if(frame)cancelAnimationFrame(frame);frame=0;last=performance.now();if(running())frame=requestAnimationFrame(tick);}
+  // The boss has its own render loop: the hero is offscreen at this point.
+  const bossCanvas = document.querySelector('.campaign-boss-fx');
+  const bossCtx = bossCanvas?.getContext('2d');
+  let bossVisible = false, bossFrame = 0, bossLast = 0, bossTime = 0;
+  let bossWidth = 0, bossHeight = 0, bossDust = [], bossBolts = [], bossNext = .5;
+  function bossPoint(x,y) {
+    const scale = Math.max(bossWidth/1672,bossHeight/941);
+    return {x:x*1672*scale-(1672*scale-bossWidth)*(.62),y:y*941*scale-(941*scale-bossHeight)*.5};
+  }
+  function bossResize() {
+    if(!bossCtx)return;
+    bossWidth=bossCanvas.clientWidth;bossHeight=bossCanvas.clientHeight;
+    const dpr=Math.min(devicePixelRatio||1,1.5);
+    bossCanvas.width=Math.round(bossWidth*dpr);bossCanvas.height=Math.round(bossHeight*dpr);
+    bossCtx.setTransform(dpr,0,0,dpr,0,0);
+    bossDust=Array.from({length:bossWidth<700?40:90},()=>({x:Math.random()*bossWidth,y:Math.random()*bossHeight,speed:35+Math.random()*85,phase:Math.random()*6.28,r:1+Math.random()*2}));
+  }
+  function bossTick(now) {
+    bossFrame=0;
+    if(paused||!bossVisible||document.hidden||!bossCtx)return;
+    if(now-bossLast<32){bossFrame=requestAnimationFrame(bossTick);return;}
+    const dt=Math.min((now-bossLast)/1000,.05);bossLast=now;bossTime+=dt;
+    bossCtx.clearRect(0,0,bossWidth,bossHeight);bossCtx.globalCompositeOperation='lighter';
+    const hand=bossPoint(.49,.36), radius=Math.min(bossWidth,bossHeight)*(.045+.012*Math.sin(bossTime*3));
+    const aura=bossCtx.createRadialGradient(hand.x,hand.y,0,hand.x,hand.y,radius*3);
+    aura.addColorStop(0,'rgba(220,255,175,.75)');aura.addColorStop(.18,'rgba(91,255,120,.38)');aura.addColorStop(1,'rgba(47,235,100,0)');
+    bossCtx.fillStyle=aura;bossCtx.fillRect(hand.x-radius*3,hand.y-radius*3,radius*6,radius*6);
+    for(let i=0;i<3;i++){
+      const progress=(bossTime*.45+i/3)%1,r=radius*(.7+progress*3.8);
+      bossCtx.beginPath();bossCtx.ellipse(hand.x,hand.y,r,r*.6,-.4,0,Math.PI*2);
+      bossCtx.strokeStyle=`rgba(120,255,156,${(1-progress)*.65})`;bossCtx.lineWidth=2;bossCtx.stroke();
+    }
+    for(const p of bossDust){
+      p.y-=p.speed*dt;p.x+=Math.sin(bossTime+p.phase)*22*dt;
+      if(p.y<-10){p.y=bossHeight+10;p.x=Math.random()*bossWidth;}
+      bossCtx.fillStyle=`rgba(${p.x<bossWidth*.65?'122,255,157':'203,137,255'},${.45+.25*Math.sin(bossTime*2+p.phase)})`;
+      bossCtx.beginPath();bossCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bossCtx.fill();
+    }
+    if(bossTime>bossNext){
+      const end=bossPoint(Math.random()>.5?.51:.85,.84);
+      bossBolts.push({life:.65,points:Array.from({length:18},(_,i)=>({x:hand.x+(end.x-hand.x)*i/17+(i&&i<17?(Math.random()-.5)*35:0),y:hand.y+(end.y-hand.y)*i/17+(i&&i<17?(Math.random()-.5)*35:0)}))});
+      bossNext=bossTime+1.5+Math.random();
+    }
+    bossBolts=bossBolts.filter(b=>b.life>0);
+    for(const b of bossBolts){
+      b.life-=dt;bossCtx.shadowBlur=18;bossCtx.shadowColor='#ae6aff';
+      bossCtx.strokeStyle=`rgba(194,128,255,${Math.max(0,b.life)})`;bossCtx.lineWidth=7;
+      bossCtx.beginPath();b.points.forEach((p,i)=>i?bossCtx.lineTo(p.x,p.y):bossCtx.moveTo(p.x,p.y));bossCtx.stroke();
+      bossCtx.strokeStyle=`rgba(225,255,217,${Math.max(0,b.life)*1.4})`;bossCtx.lineWidth=1.5;bossCtx.stroke();
+    }
+    bossCtx.shadowBlur=0;bossCtx.globalCompositeOperation='source-over';bossFrame=requestAnimationFrame(bossTick);
+  }
+  function bossSync(){
+    if(bossFrame)cancelAnimationFrame(bossFrame);bossFrame=0;bossLast=performance.now();
+    if(paused&&bossCtx)bossCtx.clearRect(0,0,bossWidth,bossHeight);
+    if(!paused&&bossVisible&&!document.hidden&&bossCtx)bossFrame=requestAnimationFrame(bossTick);
+  }
+  if(bossCtx){
+    bossResize();new ResizeObserver(bossResize).observe(bossCanvas);
+    new IntersectionObserver(entries=>{bossVisible=entries[0].isIntersecting;bossSync();}).observe(bossCanvas);
+  }
+  function sync(){if(frame)cancelAnimationFrame(frame);frame=0;last=performance.now();if(running())frame=requestAnimationFrame(tick);bossSync();}
   function render(){document.body.classList.toggle('launch-paused',paused);button.setAttribute('aria-pressed',String(paused));button.textContent=paused?'Activar efectos':'Pausar efectos';if(paused&&ctx)ctx.clearRect(0,0,width,height);sync();}
   button.hidden=false;resize();render();
   button.addEventListener('click',()=>{paused=!paused;render();});

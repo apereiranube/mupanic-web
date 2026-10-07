@@ -26,6 +26,7 @@ const routePage = (page, content = html) => page.route('**/*', async route => {
   assert.equal(await page.locator('[data-launch-at]').count(),0);
   assert.match(await page.locator('.campaign-opening').innerText(), /PRÓXIMAMENTE/);
   assert(!/31 OCTUBRE/.test(await page.locator('body').innerText()));
+  if(width<=700) assert.equal(await page.locator('.campaign-discord>span').isVisible(),false);
   const destinations=await page.locator('a[href]').evaluateAll(links=>links.map(a=>a.getAttribute('href')));
   assert(destinations.every(h=>h.startsWith('#')||h==='https://discord.gg/fP4Mxcsee'));
   const rates=await page.locator('.campaign-ticker').innerText();assert.match(rates,/15X/);assert.match(rates,/10X/);assert.match(rates,/25%/);
@@ -45,6 +46,13 @@ const routePage = (page, content = html) => page.route('**/*', async route => {
    await page.locator(`#${id}`).scrollIntoViewIfNeeded();
    await page.waitForFunction(()=>[...document.images].filter(i=>i.getBoundingClientRect().height>0 && i.getBoundingClientRect().top<innerHeight && i.getBoundingClientRect().bottom>0).every(i=>i.complete&&i.naturalWidth>0));
    await page.waitForFunction(id=>{const copy=document.querySelector(`#${id} .campaign-copy`);return !copy || getComputedStyle(copy).opacity==='1';}, id);
+   if (id === 'medusa') {
+    await page.waitForFunction(()=>{const c=document.querySelector('.campaign-boss-fx');return c.width>0&&c.height>0&&c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0);});
+    assert(await page.locator('.campaign-hero').evaluate(el=>el.getBoundingClientRect().bottom<0),'Boss FX must run while hero is offscreen');
+    await page.evaluate(()=>document.querySelector('.campaign-motion').click());
+    assert.equal(await page.locator('.campaign-boss-fx').evaluate(c=>c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0)),false);
+    await page.evaluate(()=>document.querySelector('.campaign-motion').click());
+   }
    if (id === 'hub') {
     for (const name of ['entry','hub']) {
      await page.locator(`#client-tab-${name}`).click();

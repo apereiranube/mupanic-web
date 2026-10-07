@@ -22,7 +22,7 @@ $chapters = [
 <meta property="og:title" content="MU PANIC · Una nueva era está por empezar">
 <meta property="og:description" content="Season 6. No pay to win. Zen y joyas. Un cliente con identidad propia. Sumate a la apertura en Discord.">
 <meta property="og:image" content="<?= $e($t.$launchConfig['hero']) ?>"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=7"><script defer src="<?= $e($t) ?>js/launch.js?v=7"></script>
+<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=8"><script defer src="<?= $e($t) ?>js/launch.js?v=8"></script>
 <noscript><style>.launch *{animation:none!important}.campaign-event[hidden],.campaign-client-panel[hidden]{display:block!important}.campaign-tabs{display:none}</style></noscript>
 </head><body class="launch">
 <a class="launch-skip" href="#campaign-start">Saltar al contenido</a>
@@ -65,7 +65,7 @@ $chapters = [
 <?php foreach($chapters as $i=>$c): ?><div class="campaign-event" id="event-<?= $e($c[0]) ?>" role="tabpanel" aria-labelledby="tab-<?= $e($c[0]) ?>" tabindex="0" <?= $i ? 'hidden' : '' ?>><div class="campaign-event-art"><img src="<?= $e($t.$c[5]) ?>" width="1672" height="941" loading="lazy" alt=""></div><div class="campaign-event-copy"><small><?= $e($c[1]) ?></small><h3><?= $c[2] ?></h3><strong><?= $e($c[3]) ?></strong><p><?= $e($c[4]) ?></p><span class="campaign-event-index" aria-hidden="true">0<?= $i+1 ?></span></div></div><?php endforeach; ?></section>
 <div class="campaign-cut campaign-cut-venom"><i aria-hidden="true"></i><p>REUNÍ A TU PARTY. <strong>LA REINA LOS ESPERA.</strong></p><i aria-hidden="true"></i></div>
 <section class="campaign-boss campaign-scene" id="medusa" aria-labelledby="medusa-title">
-<div class="campaign-art campaign-boss-art"><img src="<?= $e($t) ?>img/launch/medusa-party-v7-1672.webp" width="1672" height="941" loading="lazy" alt="Medusa, reina serpiente de escala colosal, ataca con magia verde a una party de guerrero, elfa y mago en una fortaleza en ruinas"></div>
+<div class="campaign-art campaign-boss-art"><img src="<?= $e($t) ?>img/launch/medusa-party-v7-1672.webp" width="1672" height="941" loading="lazy" alt="Medusa, reina serpiente de escala colosal, ataca con magia verde a una party de guerrero, elfa y mago en una fortaleza en ruinas"><canvas class="campaign-boss-fx" aria-hidden="true"></canvas></div>
 <div class="campaign-boss-venom" aria-hidden="true"></div><div class="campaign-boss-sparks" aria-hidden="true"></div>
 <div class="campaign-copy"><p class="campaign-kicker">BOSS ÉPICO / MU PANIC</p><h2 id="medusa-title">MEDUSA<span>LA REINA<br> DEL CAOS.</span></h2><p class="campaign-statement">Una amenaza colosal.<br>Una party para enfrentarla.</p><p class="campaign-body">Reuní a tu equipo. Prepará tu personaje.<br>El próximo desafío tiene nombre.</p><div class="campaign-boss-seal"><span>✦</span> ¿TU PARTY ESTÁ LISTA?</div></div>
 <div class="campaign-boss-caption" aria-hidden="true"><span>MU PANIC · SEASON 6</span><strong>ENFRENTÁ LO ÉPICO.</strong></div>
