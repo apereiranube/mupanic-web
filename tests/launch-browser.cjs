@@ -36,7 +36,7 @@ fs.mkdirSync(out, { recursive: true });
   await page.locator('.launch-motion').press('Enter');
   assert.equal(await page.locator('.launch-motion').getAttribute('aria-pressed'),'false');
   await page.screenshot({path:path.join(out,`launch-${width}-full.png`),fullPage:true});
-  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
   await page.screenshot({path:path.join(out,`launch-${width}-hero.png`)});
   await page.emulateMedia({reducedMotion:'reduce'});
   assert.equal(await page.locator('.launch-scene').evaluate(el=>getComputedStyle(el).animationName),'none');

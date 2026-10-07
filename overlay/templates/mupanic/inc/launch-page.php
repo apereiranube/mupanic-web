@@ -27,6 +27,7 @@ $launchFeatures = [
 <meta property="og:image" content="<?= $launchEscape($launchTemplate.$launchConfig['hero']) ?>">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="<?= $launchEscape($launchTemplate) ?>css/launch.css?v=1">
+<noscript><style>.launch-scene,.launch-glow,.launch-embers i{animation:none!important}</style></noscript>
 <script defer src="<?= $launchEscape($launchTemplate) ?>js/launch.js?v=1"></script>
 </head>
 <body class="launch">
