@@ -1,5 +1,19 @@
 (() => {
   'use strict';
+  const countdown = document.querySelector('[data-launch-at]');
+  if (countdown) {
+    const target = Date.parse(countdown.dataset.launchAt);
+    const updateClock = () => {
+      if (!Number.isFinite(target)) return;
+      const total = Math.max(0, Math.floor((target - Date.now()) / 1000));
+      const values = {days: Math.floor(total / 86400), hours: Math.floor(total / 3600) % 24, minutes: Math.floor(total / 60) % 60, seconds: total % 60};
+      for (const [key, value] of Object.entries(values)) countdown.querySelector(`[data-clock="${key}"]`).textContent = String(value).padStart(2, '0');
+      countdown.classList.toggle('launch-countdown-ended', total === 0);
+    };
+    updateClock();
+    setInterval(updateClock, 1000);
+    document.addEventListener('visibilitychange', updateClock);
+  }
   const button = document.querySelector('.launch-motion');
   const hero = document.querySelector('.launch-hero');
   const canvas = document.querySelector('.launch-particles');
@@ -36,18 +50,15 @@
       ctx.strokeStyle = `rgba(239,152,70,${alpha})`; ctx.lineWidth = p.radius;
       ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x - 1, p.y + p.radius * 5); ctx.stroke();
     }
-    // A slowly moving arc of molten energy around the gateway, never a full-screen flash.
-    const x = width * (width < 600 ? .65 : .78), y = height * .42;
-    const rx = width * (width < 600 ? .24 : .12), ry = height * .36;
-    for (let band = 0; band < 2; band++) {
-      ctx.beginPath();
-      for (let step = 0; step <= 42; step++) {
-        const a = elapsed * .55 + band * Math.PI + step * .028;
-        const ripple = Math.sin(step * 1.9 + elapsed * 2) * 3;
-        const px = x + Math.cos(a) * (rx + ripple), py = y + Math.sin(a) * (ry + ripple);
-        step ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
-      }
-      ctx.strokeStyle = 'rgba(255,180,92,.4)'; ctx.lineWidth = 1.5; ctx.stroke();
+    // Diagonal streams of energy cut across the battlefield.
+    for (let beam = 0; beam < 7; beam++) {
+      const travel = (elapsed * (70 + beam * 9) + beam * width / 7) % (width + height);
+      const x = travel - height * .3, y = height - travel * .55;
+      const gradient = ctx.createLinearGradient(x, y, x + 140, y - 100);
+      gradient.addColorStop(0, 'rgba(69,193,255,0)');
+      gradient.addColorStop(1, 'rgba(129,216,255,.6)');
+      ctx.strokeStyle = gradient; ctx.lineWidth = 1 + beam % 2;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 140, y - 100); ctx.stroke();
     }
     bursts = bursts.filter(b => b.life > 0);
     for (const b of bursts) {
