@@ -44,7 +44,7 @@ $launchFeatures = [
 <p class="launch-eyebrow">MU ONLINE <span>/</span> SEASON 6 <span>/</span> ARGENTINA</p>
 <p class="launch-status"><span></span> PRÓXIMAMENTE</p>
 <h1 id="launch-title">EL CONTINENTE<br>ESTÁ POR<br><em>DESPERTAR.</em></h1>
-<p class="launch-lead">El MU de siempre. Una historia con identidad propia.<br>Prepará tu próxima conquista.</p>
+<p class="launch-lead">El MU de siempre. Una historia con identidad propia.<br> Prepará tu próxima conquista.</p>
 <div class="launch-actions"><a class="launch-button" href="<?= $launchEscape($launchCommunity['invite']) ?>" target="_blank" rel="noopener">SUMATE AL DISCORD <span>↗</span></a><a class="launch-link" href="#servidor">Conocé el servidor <span>↓</span></a></div>
 <p class="launch-opening">Fecha de apertura a anunciar.<br><span>Las novedades empiezan en Discord.</span></p>
 </div>
@@ -65,7 +65,7 @@ $launchFeatures = [
 <?php endforeach; ?></div>
 <div class="launch-notes"><p><strong>Tu cliente. Tu centro de mando.</strong>Nexo PANIC reúne accesos, estadísticas y funciones dentro del juego. Abrilo con F11.</p><p><strong>El continente, a tu alcance.</strong>El Atlas reúne mapas, drops, bosses y eventos para que puedas preparar tu recorrido antes de entrar.</p></div>
 </section>
-<section class="launch-community" aria-labelledby="launch-community-title"><p class="launch-eyebrow">03 / EL PRIMER ENCUENTRO</p><h2 id="launch-community-title">TU PARTY EMPIEZA<br><em>ANTES DE ENTRAR.</em></h2><p>Sumate a la comunidad. Conocé las novedades del servidor<br>y enterate de la apertura desde el primer anuncio.</p><a class="launch-button" href="<?= $launchEscape($launchCommunity['invite']) ?>" target="_blank" rel="noopener">ENTRÁ AL DISCORD <span>↗</span></a><small>Survivor y arenas por clase: fecha a anunciar.</small></section>
+<section class="launch-community" aria-labelledby="launch-community-title"><p class="launch-eyebrow">03 / EL PRIMER ENCUENTRO</p><h2 id="launch-community-title">TU PARTY EMPIEZA<br><em>ANTES DE ENTRAR.</em></h2><p>Sumate a la comunidad. Conocé las novedades del servidor<br> y enterate de la apertura desde el primer anuncio.</p><a class="launch-button" href="<?= $launchEscape($launchCommunity['invite']) ?>" target="_blank" rel="noopener">ENTRÁ AL DISCORD <span>↗</span></a><small>Survivor y arenas por clase: fecha a anunciar.</small></section>
 </main>
 <footer class="launch-footer"><p>© <?= date('Y') ?> MU PANIC <span>SEASON 6 · ARGENTINA</span></p><nav aria-label="Información legal"><a href="<?= $launchEscape($launchBase) ?>tos/">Términos</a><a href="<?= $launchEscape($launchBase) ?>privacy/">Privacidad</a><a href="<?= $launchEscape($launchBase) ?>refunds/">Compras y reembolsos</a></nav></footer>
 </body></html>
