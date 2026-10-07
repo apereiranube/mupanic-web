@@ -61,6 +61,67 @@ function auditCopy(string $source, string $destination): int {
     return $count;
 }
 
+function auditCheckFlags(array $flags): void {
+    $expected = ['Base' => 'MuOnline43_Auditoria', 'Usuario' => 'mupanic_auditoria',
+        'AccesoProduccion' => 0, 'EsSysadmin' => 0, 'EsDbOwner' => 0,
+        'ControlBase' => 0, 'AlterarBase' => 0, 'CrearTablas' => 0,
+        'EjecutarSetCoin' => 0, 'ModificarWCoin' => 0];
+    foreach ($expected as $key => $value) {
+        if (!array_key_exists($key, $flags) || $flags[$key] === null || (string)$flags[$key] !== (string)$value) {
+            throw new RuntimeException('La comprobacion de aislamiento o permisos fallo: ' . $key . '.');
+        }
+    }
+}
+
+function auditVerify(string $destination): string {
+    $path = $destination . '/includes/config/webengine.json';
+    if (is_link($path) || !is_file($path)) throw new RuntimeException('No se encontro una configuracion valida.');
+    try {
+        $config = json_decode(file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+    } catch (Throwable $error) {
+        throw new RuntimeException('El JSON de configuracion no es valido. Revisa las comillas de la contrasena.');
+    }
+    if (!is_array($config) || ($config['SQL_DB_NAME'] ?? '') !== 'MuOnline43_Auditoria'
+        || ($config['SQL_DB_USER'] ?? '') !== 'mupanic_auditoria'
+        || ($config['SQL_USE_2_DB'] ?? null) !== false
+        || ($config['SQL_DB_2_NAME'] ?? null) !== null) {
+        throw new RuntimeException('La configuracion no apunta exclusivamente al usuario y la base de auditoria.');
+    }
+    if (!is_string($config['SQL_DB_PASS'] ?? null) || $config['SQL_DB_PASS'] === '') {
+        throw new RuntimeException('Falta configurar la contrasena SQL de auditoria.');
+    }
+    $host = $config['SQL_DB_HOST'] ?? '';
+    $port = filter_var($config['SQL_DB_PORT'] ?? null, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 65535]]);
+    if (!is_string($host) || !preg_match('/^[a-zA-Z0-9.:-]+$/D', $host) || !$port) throw new RuntimeException('Host o puerto SQL no valido.');
+    $driver = (string)($config['SQL_PDO_DRIVER'] ?? '');
+    if (!in_array($driver, ['1', '2'], true)) throw new RuntimeException('Controlador SQL no reconocido.');
+    $dsn = $driver === '2'
+        ? 'sqlsrv:Server=' . $host . ',' . $port . ';Database=MuOnline43_Auditoria'
+        : 'dblib:host=' . $host . ':' . $port . ';dbname=MuOnline43_Auditoria';
+    try {
+        $db = new PDO($dsn, 'mupanic_auditoria', $config['SQL_DB_PASS'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    } catch (Throwable $error) {
+        throw new RuntimeException('No se pudo conectar a SQL. Revisa la contrasena y que el host, puerto y controlador coincidan con la configuracion original. No se muestra ninguna credencial.');
+    }
+    try {
+        $flags = $db->query("SELECT DB_NAME() AS Base, ORIGINAL_LOGIN() AS Usuario,
+            HAS_DBACCESS(N'MuOnline43') AS AccesoProduccion,
+            IS_SRVROLEMEMBER(N'sysadmin') AS EsSysadmin, IS_MEMBER(N'db_owner') AS EsDbOwner,
+            HAS_PERMS_BY_NAME(DB_NAME(), 'DATABASE', 'CONTROL') AS ControlBase,
+            HAS_PERMS_BY_NAME(DB_NAME(), 'DATABASE', 'ALTER') AS AlterarBase,
+            HAS_PERMS_BY_NAME(DB_NAME(), 'DATABASE', 'CREATE TABLE') AS CrearTablas,
+            HAS_PERMS_BY_NAME('dbo.WZ_SetCoin', 'OBJECT', 'EXECUTE') AS EjecutarSetCoin,
+            HAS_PERMS_BY_NAME('dbo.CashShopData', 'OBJECT', 'UPDATE') AS ModificarWCoin")->fetch(PDO::FETCH_ASSOC);
+        auditCheckFlags(is_array($flags) ? $flags : []);
+        foreach (['MEMB_INFO', 'MEMB_STAT', 'Character', 'CashShopData', 'RankingBloodCastle', 'RankingDevilSquare', 'RankingDuel', 'WEBENGINE_FLA', 'WEBENGINE_PASSCHANGE_REQUEST', 'WEBENGINE_REGISTER_ACCOUNT', 'WEBENGINE_ACCOUNT_COUNTRY'] as $table) {
+            $db->query('SELECT TOP (0) * FROM dbo.[' . $table . ']')->closeCursor();
+        }
+    } catch (PDOException $error) {
+        throw new RuntimeException('Fallo una consulta de comprobacion. No se activo la copia ni se modificaron datos.');
+    }
+    return 'OK: conexion desde el hosting comprobada. Base MuOnline43_Auditoria; usuario mupanic_auditoria; acceso a produccion 0; permisos administrativos 0. Consultas de cuentas, saldo y rankings verificadas sin mostrar ni modificar datos. La copia sigue bloqueada.';
+}
+
 if (defined('AUDITORIA_UNIT_TEST')) return;
 
 ini_set('display_errors', '0');
@@ -89,6 +150,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit('Formulario vencido. Volve a abrir el instalador.');
     }
     try {
+        if (isset($_POST['verify'])) {
+            if (!is_file($destination . '/.auditoria-preparada')) throw new RuntimeException('Primero prepara la copia.');
+            $message = auditVerify($destination);
+        } else {
         if (file_exists($destination . '/.auditoria-preparada')) throw new RuntimeException('La copia ya fue preparada.');
         foreach (['.htaccess', 'index.php', '.auditoria-preparada', '.auditoria-lock'] as $name) {
             if (is_link($destination . '/' . $name)) throw new RuntimeException('Destino no permitido.');
@@ -110,6 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = 'Listo: ' . $count . ' archivos preparados. La copia sigue bloqueada. La base actual y los permisos SQL no se modificaron.';
         flock($lock, LOCK_UN);
         fclose($lock);
+        }
     } catch (Throwable $error) {
         http_response_code(500);
         $message = 'Preparacion detenida: ' . $error->getMessage() . ' La copia no se activo.';
@@ -123,4 +189,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p>La web actual sigue funcionando. Este paso no ejecuta consultas SQL, pagos ni correos.</p>
 <?php if ($message !== ''): ?><p><?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
 <?php if (!file_exists($destination . '/.auditoria-preparada')): ?><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button>Preparar copia</button></form><?php endif; ?>
+<?php if (file_exists($destination . '/.auditoria-preparada')): ?><p>Con la contrasena SQL de auditoria guardada, comproba la conexion. Este paso solo realiza consultas de lectura y no activa la web.</p><form method="post"><input type="hidden" name="csrf" value="<?= htmlspecialchars($_SESSION['csrf'], ENT_QUOTES, 'UTF-8') ?>"><button name="verify" value="1">Comprobar conexion SQL</button></form><?php endif; ?>
 </html>
