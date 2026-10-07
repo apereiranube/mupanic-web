@@ -36,4 +36,22 @@ symlink($root . '/source', $root . '/linked-destination');
 $rejected = false;
 try { auditCopy($root . '/source', $root . '/linked-destination'); } catch (RuntimeException $e) { $rejected = true; }
 check($rejected, 'Destination symlink accepted');
+$flags = ['Base' => 'MuOnline43_Auditoria', 'Usuario' => 'mupanic_auditoria',
+    'AccesoProduccion' => 0, 'EsSysadmin' => 0, 'EsDbOwner' => 0,
+    'ControlBase' => 0, 'AlterarBase' => 0, 'CrearTablas' => 0,
+    'EjecutarSetCoin' => 0, 'ModificarWCoin' => 0];
+auditCheckFlags($flags);
+foreach ($flags as $key => $value) {
+    foreach ([null, 1, 'unexpected'] as $unsafe) {
+        $bad = $flags;
+        $bad[$key] = $unsafe;
+        $rejected = false;
+        try { auditCheckFlags($bad); } catch (RuntimeException $e) { $rejected = true; }
+        check($rejected, 'Unsafe permissions accepted: ' . $key);
+    }
+}
+$rejected = false;
+try { auditVerify($root . '/destination'); } catch (RuntimeException $e) { $rejected = true; }
+check($rejected, 'Incomplete configuration accepted');
 echo "OK: isolated copying, credential removal, database isolation, source preservation and symlink rejection.\n";
+echo "OK: verification rejects missing results, excessive permissions and incomplete configuration.\n";
