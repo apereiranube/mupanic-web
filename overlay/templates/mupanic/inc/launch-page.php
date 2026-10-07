@@ -22,7 +22,7 @@ $chapters = [
 <meta property="og:title" content="MU PANIC · Una nueva era está por empezar">
 <meta property="og:description" content="Season 6. No pay to win. Zen y joyas. Un cliente con identidad propia. Sumate a la apertura en Discord.">
 <meta property="og:image" content="<?= $e($t.$launchConfig['hero']) ?>"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=10"><script defer src="<?= $e($t) ?>js/launch.js?v=10"></script>
+<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=11"><script defer src="<?= $e($t) ?>js/launch.js?v=10"></script>
 <noscript><style>.launch *{animation:none!important}.campaign-event[hidden],.campaign-client-panel[hidden]{display:block!important}.campaign-tabs{display:none}</style></noscript>
 </head><body class="launch">
 <a class="launch-skip" href="#campaign-start">Saltar al contenido</a>
@@ -71,5 +71,5 @@ $chapters = [
 <div class="campaign-boss-caption" aria-hidden="true"><span>MU PANIC · SEASON 6</span><strong>ENFRENTÁ LO ÉPICO.</strong></div>
 </section>
 <div class="campaign-cut campaign-cut-violet"><i aria-hidden="true"></i><p>LA PRÓXIMA HISTORIA <strong>LA ESCRIBÍS VOS.</strong></p><i aria-hidden="true"></i></div>
-<section class="campaign-community campaign-scene" aria-labelledby="community-title"><div class="campaign-art"><img src="<?= $e($t.$launchConfig['hero']) ?>" width="1672" height="941" loading="lazy" alt=""></div><p class="campaign-kicker">LA PRIMERA PARTY SE ARMA AHORA</p><h2 id="community-title">NOS VEMOS<br><em>EN PANIC.</em></h2><a class="campaign-button" href="<?= $e($launchCommunity['invite']) ?>" target="_blank" rel="noopener">ENTRÁ AL DISCORD <span>↗</span></a><p>Novedades. Comunidad. Apertura.</p></section>
+<section class="campaign-community campaign-scene" aria-labelledby="community-title"><div class="campaign-art"><img src="<?= $e($t.$launchConfig['hero']) ?>" width="1672" height="941" loading="lazy" alt=""></div><p class="campaign-kicker">LA PRIMERA PARTY SE ARMA AHORA</p><h2 id="community-title">NOS VEMOS<br><em>EN LORENCIA.</em></h2><a class="campaign-button" href="<?= $e($launchCommunity['invite']) ?>" target="_blank" rel="noopener">ENTRÁ AL DISCORD <span>↗</span></a><p>Novedades. Comunidad. Apertura.</p></section>
 </main><footer class="campaign-footer"><span>MU PANIC © <?= date('Y') ?></span><span>SEASON 6 · ARGENTINA</span><a href="#campaign-start">VOLVER AL INICIO ↑</a></footer></body></html>
