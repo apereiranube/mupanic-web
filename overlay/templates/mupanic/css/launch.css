@@ -28,3 +28,5 @@
 @media(max-width:700px){.campaign-boss-venom{inset:auto 0 0;height:350px}}
 @media(prefers-reduced-motion:reduce){.campaign-boss-fx{display:none}}
 @media(max-width:700px){.campaign-discord>span,.campaign-button>span,.campaign-tabs button>span,.campaign-hub-preview-label>b{display:none}.campaign-discord,.campaign-button,.campaign-tabs button{gap:0}}
+/* Let the artwork's own spells light up; no synthetic aura. */
+.campaign-boss-venom{display:none}.campaign-hero h1>strong{line-height:1;padding-bottom:.04em;margin-bottom:-.18em}

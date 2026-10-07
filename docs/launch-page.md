@@ -34,3 +34,5 @@ Deploy de beta: Update from Remote → Deploy HEAD Commit → Ctrl+F5. Revisar l
 Medusa closes the event showcase before the Discord invitation. Original cinematic artwork generated from scratch shows the boss attacking a knight, elf and wizard party. Green/violet overlays and particles echo the campaign palette. Mobile gives the heading its own space above the battle. No boss rewards or schedule are announced. PRÓXIMAMENTE now has animated gold lettering, a traveling highlight, glow and sparks; all new motion respects pause and reduced-motion preferences.
 
 V8: Medusa has an independent canvas animation, with a hand aura, expanding energy rings, rising green/violet particles and lightning attacks. It renders only while the battle is visible and respects the shared pause control and reduced motion. Mobile buttons hide decorative arrows.
+
+V9: removes the synthetic boss rings and lightning. Animated lighting masks isolate the green/violet energy already painted in the artwork and make those pixels glow in place. PANIC title has a full glyph line box to prevent clipping the C.

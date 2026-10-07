@@ -116,10 +116,24 @@
   const bossCanvas = document.querySelector('.campaign-boss-fx');
   const bossCtx = bossCanvas?.getContext('2d');
   let bossVisible = false, bossFrame = 0, bossLast = 0, bossTime = 0;
-  let bossWidth = 0, bossHeight = 0, bossDust = [], bossBolts = [], bossNext = .5;
-  function bossPoint(x,y) {
-    const scale = Math.max(bossWidth/1672,bossHeight/941);
-    return {x:x*1672*scale-(1672*scale-bossWidth)*(.62),y:y*941*scale-(941*scale-bossHeight)*.5};
+  let bossWidth = 0, bossHeight = 0, bossDust = [], bossGlow = [];
+  // Isolate bright green and violet pixels from the actual artwork.
+  // Re-light those same pixels rather than drawing a new spell over the image.
+  function prepareBossGlow() {
+    const image=bossCanvas.previousElementSibling;
+    if(!image.complete||!image.naturalWidth)return;
+    bossGlow=['green','violet'].map(color=>{
+      const layer=document.createElement('canvas');layer.width=image.naturalWidth;layer.height=image.naturalHeight;
+      const context=layer.getContext('2d',{willReadFrequently:true});context.drawImage(image,0,0);
+      const pixels=context.getImageData(0,0,layer.width,layer.height);
+      for(let i=0;i<pixels.data.length;i+=4){
+        const r=pixels.data[i],g=pixels.data[i+1],b=pixels.data[i+2];
+        const match=color==='green'?g>110&&g>r*1.15&&g>b*1.07:b>130&&r>95&&b>r*1.08&&b>g*1.18;
+        const brightness=Math.max(r,g,b);
+        pixels.data[i+3]=match?Math.round(Math.min(1,(brightness-100)/140)*220):0;
+      }
+      context.putImageData(pixels,0,0);return layer;
+    });
   }
   function bossResize() {
     if(!bossCtx)return;
@@ -135,32 +149,22 @@
     if(now-bossLast<32){bossFrame=requestAnimationFrame(bossTick);return;}
     const dt=Math.min((now-bossLast)/1000,.05);bossLast=now;bossTime+=dt;
     bossCtx.clearRect(0,0,bossWidth,bossHeight);bossCtx.globalCompositeOperation='lighter';
-    const hand=bossPoint(.49,.36), radius=Math.min(bossWidth,bossHeight)*(.045+.012*Math.sin(bossTime*3));
-    const aura=bossCtx.createRadialGradient(hand.x,hand.y,0,hand.x,hand.y,radius*3);
-    aura.addColorStop(0,'rgba(220,255,175,.75)');aura.addColorStop(.18,'rgba(91,255,120,.38)');aura.addColorStop(1,'rgba(47,235,100,0)');
-    bossCtx.fillStyle=aura;bossCtx.fillRect(hand.x-radius*3,hand.y-radius*3,radius*6,radius*6);
-    for(let i=0;i<3;i++){
-      const progress=(bossTime*.45+i/3)%1,r=radius*(.7+progress*3.8);
-      bossCtx.beginPath();bossCtx.ellipse(hand.x,hand.y,r,r*.6,-.4,0,Math.PI*2);
-      bossCtx.strokeStyle=`rgba(120,255,156,${(1-progress)*.65})`;bossCtx.lineWidth=2;bossCtx.stroke();
+    const scale=Math.max(bossWidth/1672,bossHeight/941);
+    const align=bossWidth<=700?.65:.62;
+    const drawWidth=1672*scale,drawHeight=941*scale;
+    for(const [index,layer] of bossGlow.entries()){
+      const intensity=.22+.65*Math.pow((Math.sin(bossTime*(index?2.2:2.8)+index*1.8)+1)/2,2);
+      bossCtx.globalAlpha=intensity;bossCtx.filter='blur(5px)';
+      bossCtx.drawImage(layer,-(drawWidth-bossWidth)*align,-(drawHeight-bossHeight)*.5,drawWidth,drawHeight);
+      bossCtx.filter='none';bossCtx.globalAlpha=intensity*.8;
+      bossCtx.drawImage(layer,-(drawWidth-bossWidth)*align,-(drawHeight-bossHeight)*.5,drawWidth,drawHeight);
     }
+    bossCtx.globalAlpha=1;
     for(const p of bossDust){
       p.y-=p.speed*dt;p.x+=Math.sin(bossTime+p.phase)*22*dt;
       if(p.y<-10){p.y=bossHeight+10;p.x=Math.random()*bossWidth;}
       bossCtx.fillStyle=`rgba(${p.x<bossWidth*.65?'122,255,157':'203,137,255'},${.45+.25*Math.sin(bossTime*2+p.phase)})`;
       bossCtx.beginPath();bossCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bossCtx.fill();
-    }
-    if(bossTime>bossNext){
-      const end=bossPoint(Math.random()>.5?.51:.85,.84);
-      bossBolts.push({life:.65,points:Array.from({length:18},(_,i)=>({x:hand.x+(end.x-hand.x)*i/17+(i&&i<17?(Math.random()-.5)*35:0),y:hand.y+(end.y-hand.y)*i/17+(i&&i<17?(Math.random()-.5)*35:0)}))});
-      bossNext=bossTime+1.5+Math.random();
-    }
-    bossBolts=bossBolts.filter(b=>b.life>0);
-    for(const b of bossBolts){
-      b.life-=dt;bossCtx.shadowBlur=18;bossCtx.shadowColor='#ae6aff';
-      bossCtx.strokeStyle=`rgba(194,128,255,${Math.max(0,b.life)})`;bossCtx.lineWidth=7;
-      bossCtx.beginPath();b.points.forEach((p,i)=>i?bossCtx.lineTo(p.x,p.y):bossCtx.moveTo(p.x,p.y));bossCtx.stroke();
-      bossCtx.strokeStyle=`rgba(225,255,217,${Math.max(0,b.life)*1.4})`;bossCtx.lineWidth=1.5;bossCtx.stroke();
     }
     bossCtx.shadowBlur=0;bossCtx.globalCompositeOperation='source-over';bossFrame=requestAnimationFrame(bossTick);
   }
@@ -170,6 +174,8 @@
     if(!paused&&bossVisible&&!document.hidden&&bossCtx)bossFrame=requestAnimationFrame(bossTick);
   }
   if(bossCtx){
+    const bossImage=bossCanvas.previousElementSibling;
+    bossImage.addEventListener('load',prepareBossGlow);prepareBossGlow();
     bossResize();new ResizeObserver(bossResize).observe(bossCanvas);
     new IntersectionObserver(entries=>{bossVisible=entries[0].isIntersecting;bossSync();}).observe(bossCanvas);
   }

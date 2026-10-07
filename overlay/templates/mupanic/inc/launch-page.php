@@ -22,7 +22,7 @@ $chapters = [
 <meta property="og:title" content="MU PANIC · Una nueva era está por empezar">
 <meta property="og:description" content="Season 6. No pay to win. Zen y joyas. Un cliente con identidad propia. Sumate a la apertura en Discord.">
 <meta property="og:image" content="<?= $e($t.$launchConfig['hero']) ?>"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=8"><script defer src="<?= $e($t) ?>js/launch.js?v=8"></script>
+<link rel="stylesheet" href="<?= $e($t) ?>css/launch.css?v=9"><script defer src="<?= $e($t) ?>js/launch.js?v=9"></script>
 <noscript><style>.launch *{animation:none!important}.campaign-event[hidden],.campaign-client-panel[hidden]{display:block!important}.campaign-tabs{display:none}</style></noscript>
 </head><body class="launch">
 <a class="launch-skip" href="#campaign-start">Saltar al contenido</a>
