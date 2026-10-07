@@ -6,6 +6,14 @@ $consulta = @'
 USE master;
 SET NOCOUNT ON;
 SET XACT_ABORT ON;
+-- Session options required by XML methods and computed/filtered indexes.
+SET QUOTED_IDENTIFIER ON;
+SET ANSI_NULLS ON;
+SET ANSI_PADDING ON;
+SET ANSI_WARNINGS ON;
+SET ARITHABORT ON;
+SET CONCAT_NULL_YIELDS_NULL ON;
+SET NUMERIC_ROUNDABORT OFF;
 IF COALESCE(CONVERT(nvarchar(60), DATABASEPROPERTYEX(N'MuOnline43_Auditoria', 'Status')), '') <> 'ONLINE'
     THROW 50001, 'La copia de auditoria no esta ONLINE.', 1;
 IF SUSER_ID(N'mupanic_auditoria') IS NULL
@@ -107,7 +115,7 @@ BEGIN CATCH
 END CATCH;
 '@
 
-$consulta | sqlcmd -S localhost -E -b -x
+$consulta | sqlcmd -S localhost -E -I -b -x
 if ($LASTEXITCODE -ne 0) {
     throw 'SQL informo un error. La preparacion del personaje no se confirmo.'
 }
