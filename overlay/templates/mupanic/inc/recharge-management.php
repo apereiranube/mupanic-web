@@ -85,6 +85,53 @@ final class PanicRechargeManagement {
         }
         return $rows;
     }
+    public static function storefrontDefaults() {
+        $defaults=json_decode(file_get_contents(__DIR__.'/recharge-storefront.json'),true,16,JSON_THROW_ON_ERROR);
+        foreach($defaults['products'] as &$product) $product['vip_price_coins']=null;
+        unset($product);
+        return ['revision'=>0,'updated_at'=>null,'products'=>$defaults['products'],'vip'=>[
+            'name'=>'VIP PANIC','days'=>null,'price_coins'=>null,
+            'benefits'=>[
+                ['title'=>'10% en X','detail'=>'10% de descuento en los objetos de la tienda X mientras tu VIP esté activo.','enabled'=>true],
+                ['title'=>'Más experiencia','detail'=>'','enabled'=>false],
+                ['title'=>'Más drop','detail'=>'','enabled'=>false],
+                ['title'=>'','detail'=>'','enabled'=>false],
+                ['title'=>'','detail'=>'','enabled'=>false],
+                ['title'=>'','detail'=>'','enabled'=>false]
+            ]]];
+    }
+    private static function validateStorefront(array $data) {
+        if(!is_array($data['products'] ?? null) || array_column($data['products'],'slug')!==['theryon','nerathys','vaeraxes']) throw new InvalidArgumentException('Revisá las tres monturas.');
+        foreach($data['products'] as $product) {
+            if(!is_bool($product['available'] ?? null)) throw new InvalidArgumentException('Disponibilidad inválida.');
+            foreach(['price_coins','vip_price_coins'] as $key) {
+                if(!array_key_exists($key,$product) || ($product[$key]!==null && (!is_int($product[$key]) || $product[$key]<1 || $product[$key]>1000000))) throw new InvalidArgumentException('Usá precios enteros de 1 a 1.000.000 Eryns o dejalos vacíos.');
+            }
+            if($product['available'] && $product['price_coins']===null) throw new InvalidArgumentException('Definí el precio normal antes de habilitar una montura.');
+            if($product['vip_price_coins']!==null && ($product['price_coins']===null || $product['vip_price_coins']>$product['price_coins'])) throw new InvalidArgumentException('El precio VIP no puede superar el normal.');
+        }
+        $vip=$data['vip'] ?? null;
+        if(!is_array($vip) || !is_string($vip['name'] ?? null) || trim($vip['name'])==='' || strlen($vip['name'])>80) throw new InvalidArgumentException('Revisá el nombre del único plan VIP.');
+        foreach(['days'=>3650,'price_coins'=>1000000] as $key=>$max) if(!array_key_exists($key,$vip) || ($vip[$key]!==null && (!is_int($vip[$key]) || $vip[$key]<1 || $vip[$key]>$max))) throw new InvalidArgumentException('Revisá el precio y la duración VIP; pueden quedar pendientes.');
+        if(!is_array($vip['benefits'] ?? null) || count($vip['benefits'])!==6) throw new InvalidArgumentException('Revisá los beneficios VIP.');
+        foreach($vip['benefits'] as $benefit) if(!is_array($benefit) || !is_bool($benefit['enabled'] ?? null) || !is_string($benefit['title'] ?? null) || strlen($benefit['title'])>80 || !is_string($benefit['detail'] ?? null) || strlen($benefit['detail'])>1200 || ($benefit['enabled'] && (trim($benefit['title'])==='' || trim($benefit['detail'])===''))) throw new InvalidArgumentException('Completá título y detalle de cada beneficio publicado.');
+    }
+    public function storefront() {
+        return $this->file('recharge-storefront',function($data) {
+            if($data===null) return self::storefrontDefaults();
+            if(!is_array($data) || !is_int($data['revision'] ?? null)) throw new RuntimeException('Invalid storefront');
+            self::validateStorefront($data); return $data;
+        });
+    }
+    public function saveStorefront(array $data,$revision) {
+        if(!panicRechargeAdminAllowed()) throw new RuntimeException('Forbidden');
+        self::validateStorefront($data);
+        return $this->file('recharge-storefront',function($current,$write) use ($data,$revision) {
+            if(!is_int($revision) || $revision!==($current['revision'] ?? 0)) throw new RuntimeException('La configuración cambió en otra ventana. Recargá antes de guardar.');
+            $next=['revision'=>$revision+1,'updated_at'=>gmdate('c'),'updated_by'=>'panic','products'=>$data['products'],'vip'=>$data['vip']];
+            $write($next);return $next;
+        });
+    }
     public function worker() { return $this->file('recharge-worker-status',function($data) { return is_array($data)?$data:[]; }); }
     // Only the already HMAC-authenticated worker endpoint calls this method.
     public function report(array $request,$phase,array $extra=[]) {

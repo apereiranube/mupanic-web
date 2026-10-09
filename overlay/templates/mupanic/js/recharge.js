@@ -86,8 +86,6 @@
     vipCta.addEventListener('click', () => { vipDetails.open = true; vipDetails.scrollIntoView({behavior:'auto',block:'nearest'}); });
     vipDetails.addEventListener('toggle', () => vipCta.setAttribute('aria-expanded', String(vipDetails.open)));
   }
-  const vipDurations = Array.from(shop.querySelectorAll('[data-vip-duration]'));
-  vipDurations.forEach(button => button.addEventListener('click', () => vipDurations.forEach(card => card.setAttribute('aria-pressed', String(card === button)))));
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const surfaces = Array.from(shop.querySelectorAll('.eryns-motion-surface'));

@@ -43,6 +43,8 @@ done
 test -s "$TEMPLATE_SOURCE/inc/recharge-storefront.json"
 test -s "$TEMPLATE_SOURCE/inc/recharge-vip-status.php"
 test -s "$TEMPLATE_SOURCE/inc/recharge-vip-showcase.php"
+test -s "$TEMPLATE_SOURCE/inc/recharge-admin-storefront.php"
+test -s "$TEMPLATE_SOURCE/js/recharge-admin.js"
 
 for file in atlas-vinculos.php atlas-vinculos.json; do
   test -s "$TEMPLATE_SOURCE/inc/$file"

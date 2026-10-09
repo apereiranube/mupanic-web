@@ -1,9 +1,9 @@
 <?php
-define('access',true);define('__BASE_URL__','https://preview.test/beta/');
+define('access',true);define('__BASE_URL__','https://preview.test/beta/');define('__PATH_TEMPLATE__',__BASE_URL__.'templates/mupanic/');
 $inc=dirname(__DIR__,2).'/overlay/templates/mupanic/inc';require $inc.'/account.php';require $inc.'/recharge-orders.php';
 function isLoggedIn(){return true;}function config($k,$r){return ['panic'=>1];}
 class Connection {static function Database($n){return new self;}function query_fetch($s,$p=[]){return [['AccountLevel'=>1,'AccountExpireDate'=>'2026-11-01 00:00:00']];}}
-$_SESSION=['username'=>'panic'];$_SERVER['REQUEST_METHOD']='GET';
+$_SESSION=['username'=>getenv('RECHARGE_ADMIN_USER')?:'panic','shop_admin_csrf'=>str_repeat('a',64)];$fixturePost=json_decode(getenv('RECHARGE_ADMIN_POST')?:'null',true);$_POST=is_array($fixturePost)?$fixturePost:[];$_SERVER['REQUEST_METHOD']=is_array($fixturePost)?'POST':'GET';
 $root=sys_get_temp_dir().'/panic-admin-preview-'.bin2hex(random_bytes(5));mkdir($root,0700);file_put_contents($root.'/recharge-worker-token',str_repeat('a',64));
 try {
  $manager=new PanicRechargeManagement($root);$manager->report(['environment'=>'test','version'=>2],'ok',['waiting'=>1,'vip_config'=>['GS.CommandBuyVipSwitch'=>'1']]);

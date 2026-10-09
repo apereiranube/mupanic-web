@@ -26,7 +26,8 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   const visualOrder=await page.evaluate(()=>document.querySelector('.eryns-wishlist').compareDocumentPosition(document.querySelector('#eryns-vip')) & Node.DOCUMENT_POSITION_FOLLOWING && document.querySelector('#eryns-vip').compareDocumentPosition(document.querySelector('#recharge-packages')) & Node.DOCUMENT_POSITION_FOLLOWING);
   if(!visualOrder)throw Error('VIP should sit between mounts and packs');
   const beforeVip=await page.locator('[data-total-price]').textContent();
-  await page.locator('[data-vip-duration="0"]').click();await page.locator('[data-vip-cta]').click();
+  if(await page.locator('.eryns-vip-single-plan').count()!==1 || await page.locator('[data-vip-duration]').count())throw Error('VIP must be a single membership');
+  await page.locator('[data-vip-cta]').click();
   if(!await page.locator('#eryns-vip-plan-details').evaluate(e=>e.open)||await page.locator('[data-total-price]').textContent()!==beforeVip)throw Error('Pending VIP interaction modifies recharge');
   const initial=await page.locator('[data-total-price]').textContent();if(initial!=='$ 100.000 ARS')throw Error('Five packages total '+initial);
   if(await page.locator('[data-total-coins]').textContent()!=='100.000 Eryns')throw Error('Coin total');
@@ -58,7 +59,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(await page.locator('[data-order-pay]').isVisible())throw Error('Paid checkout link remains visible');
   console.log('Shop '+width+'px: totals, limits, mobile tap targets and no overflow passed.');await page.close();
  }
- for(const mode of ['closed','ready','empty','zero','bonus','vip','vip-unknown']){
+ for(const mode of ['closed','ready','empty','zero','bonus','vip','vip-unknown','mount-normal','mount-vip']){
   const stateHtml=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/recharge-shop.php')],{encoding:'utf8',env:{...process.env,RECHARGE_FIXTURE:mode}});
   const page=await browser.newPage({viewport:{width:390,height:844}});
   let submitted=null;
@@ -68,6 +69,12 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(mode==='closed'){if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Closed shop can submit');await page.locator('#quantity-wcoin-1000').fill('1');if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Selection bypasses closed shop');}
   if(mode==='ready'){if(!await page.locator('.recharge-ready').isVisible())throw Error('Prepared checkout missing');if(await page.locator('.recharge-ready a').getAttribute('href')!=='https://stage.uala-checkout.com/fixture')throw Error('Checkout URL changed');if(!(await page.locator('.recharge-ready').textContent()).includes('100.000 Eryns'))throw Error('Prepared amount missing');}
   if(mode==='empty'){await page.locator('#recharge-history>summary').click();if(!await page.locator('.recharge-history-empty').isVisible())throw Error('Empty history missing');await page.locator('#quantity-wcoin-5000').fill('0');if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Empty cart can submit');await page.locator('#quantity-wcoin-1000').fill('1');await page.locator('[data-cart-submit]').click();await page.waitForLoadState('networkidle');if(!submitted||submitted.get('quantity[wcoin-1000]')!=='1'||submitted.get('recharge_action')!=='create'||submitted.get('recharge_csrf')!=='a'.repeat(64)||submitted.get('recharge_nonce')!=='b'.repeat(32))throw Error('Checkout form contract changed');}
+  if(mode==='mount-normal'||mode==='mount-vip'){
+    const goal=page.locator('[data-target-name="Theryon"]');const expected=mode==='mount-vip'?'90000':'100000';
+    if(await goal.getAttribute('data-target-price')!==expected||await goal.isDisabled())throw Error('Manual price does not match account state');
+    if((await page.locator('.eryns-mount-product--theryon').getAttribute('class')).includes('is-sealed'))throw Error('Published mount remains sealed');
+    await goal.click();const delivered=Number((await page.locator('[data-total-coins]').textContent()).replace(/[^0-9]/g,''));if(delivered<Number(expected))throw Error('Goal reload does not reach manual product price');
+  }
   if(mode==='vip'){if(await page.locator('[data-vip-state]').getAttribute('data-vip-state')!=='active'||!(await page.locator('[data-vip-state]').textContent()).includes('12 días restantes')||!(await page.locator('[data-vip-cta]').textContent()).includes('Extender VIP'))throw Error('Active VIP status incorrect');}
   if(mode==='vip-unknown'){if(await page.locator('[data-vip-state]').getAttribute('data-vip-state')!=='unknown'||!(await page.locator('[data-vip-cta]').textContent()).includes('Conocé el VIP'))throw Error('Unknown VIP treated as normal');}
   if(mode==='zero'){if(await page.locator('[data-total-coins]').textContent()!=='5.000 Eryns'||await page.locator('[data-cart-submit]').isDisabled())throw Error('All-zero GET did not select recommendation');}
