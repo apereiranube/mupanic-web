@@ -64,7 +64,8 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   const page=await browser.newPage({viewport:{width:390,height:844}});
   let submitted=null;
   await page.route('**/*',route=>{const u=new URL(route.request().url());if(u.pathname==='/beta/usercp/recharge/'){if(route.request().method()==='POST')submitted=new URLSearchParams(route.request().postData());return route.fulfill({contentType:'text/html',body:stateHtml});}const prefix='/beta/templates/mupanic/';if(u.pathname.startsWith(prefix)){const file=path.join(root,u.pathname.slice(prefix.length));if(fs.existsSync(file))return route.fulfill({path:file});}return route.abort();});
-  await page.goto('https://preview.test/beta/usercp/recharge/');
+  await page.goto('https://preview.test/beta/usercp/recharge/'+(mode.startsWith('vip-priced')?'?recharge_goal=vip#recharge-cart':''));
+  if(mode.startsWith('vip-priced') && await page.locator('[data-total-coins]').textContent()!=='25.000 Eryns')throw Error('VIP page link does not prepare recharge');
   await page.locator('.eryns-combine summary').click();
   if(mode==='closed'){if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Closed shop can submit');await page.locator('#quantity-wcoin-1000').fill('1');if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Selection bypasses closed shop');}
   if(mode==='ready'){if(!await page.locator('.recharge-ready').isVisible())throw Error('Prepared checkout missing');if(await page.locator('.recharge-ready a').getAttribute('href')!=='https://stage.uala-checkout.com/fixture')throw Error('Checkout URL changed');if(!(await page.locator('.recharge-ready').textContent()).includes('100.000 Eryns'))throw Error('Prepared amount missing');}

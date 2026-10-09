@@ -136,6 +136,7 @@
       submit.focus({preventScroll:true});
     } else shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'});
   }));
+  if (new URLSearchParams(window.location.search).get('recharge_goal') === 'vip' && vipCta && vipCta.hasAttribute('data-target-price')) vipCta.click();
   function revealUtility() { const panel = document.querySelector(window.location.hash === '#recharge-history' ? '#recharge-history' : window.location.hash === '#recharge-guide' ? '#recharge-guide' : 'body'); if (panel.tagName === 'DETAILS') panel.open = true; }
   shop.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
     const hash = link.getAttribute('href'); const panel = document.getElementById(hash.slice(1));

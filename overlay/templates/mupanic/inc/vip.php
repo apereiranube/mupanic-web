@@ -12,23 +12,31 @@ if(preg_match('/^[A-Za-z0-9_]{1,10}$/D',$vipAccount)) {
         }
     } catch(Throwable $ignored) {}
 }
+require_once __DIR__.'/recharge-management.php';
+$vipOffer=PanicRechargeManagement::storefrontDefaults()['vip'];
+try { $vipOffer=(new PanicRechargeManagement())->storefront()['vip']; } catch(Throwable $ignored) {}
+$vipBenefits=array_values(array_filter($vipOffer['benefits'],function($benefit){return $benefit['enabled'];}));
+$vipHasPrice=is_int($vipOffer['price_coins']) && $vipOffer['price_coins']>0;
+$vipActive=$vipMembership!==null && $vipMembership['active'];
+$vipCta=$vipHasPrice?($vipActive?'Extender VIP':'Activá tu VIP'):'Conseguí tus Eryns';
+$vipRechargeUrl=__BASE_URL__.'usercp/recharge/'.($vipHasPrice?'?recharge_goal=vip#recharge-cart':'#eryns-vip');
 ?>
-<section class="panic-vip" aria-labelledby="vip-title">
-    <header class="vip-heading"><span class="eyebrow">MU PANIC / TU CUENTA</span><h2 id="vip-title">Un solo <em>VIP.</em><br>Un impulso para tu aventura.</h2><p>Más EXP y una mejor tasa de drop. Los beneficios se aplican a todos los personajes de tu cuenta.</p></header>
-    <div class="vip-layout">
-        <article class="vip-offer">
-            <span class="vip-emblem" aria-hidden="true"><?php echo panicAccountIcon('crown'); ?></span>
-            <span class="vip-badge">VIP</span><h3>30 días para seguir creciendo.</h3>
-            <p class="vip-price"><strong>25.000</strong><span>Eryns / 30 días</span></p>
-            <div class="vip-benefits"><div><span>EXP</span><strong>15 <small>→</small> 20</strong><p>5 puntos más de tasa</p></div><div><span>DROP</span><strong>25 <small>→</small> 30</strong><p>5 puntos más de tasa</p></div></div>
-            <details class="vip-buy-guide"><summary>Cómo comprar en el juego <span aria-hidden="true">+</span></summary><ol><li>Ingresá con un personaje de esta cuenta.</li><li>Abrí <b>MENU → corona → Comprar VIP</b>.</li><li>Revisá que la oferta diga <b>VIP · 30 días · 25.000 Eryns</b> y elegí Comprar VIP.</li></ol><p>Necesitás tener las 25.000 Eryns disponibles antes de comprar.</p></details>
-            <a class="recharge-button recharge-button-secondary" href="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">Recargar Eryns →</a>
-        </article>
-        <aside class="vip-account-panel" aria-labelledby="vip-account-title"><span class="eyebrow">ESTADO DE TU CUENTA</span><h3 id="vip-account-title"><?php echo panicAccountEscape($vipAccount); ?></h3>
-            <?php if($vipMembership===null) { ?><p class="vip-state">No pudimos consultar tu VIP</p><p>Volvé a abrir esta página para consultar el estado.</p><?php } elseif($vipMembership['active']) { ?><span class="vip-badge"><?php echo panicAccountIcon('crown'); ?> VIP activo</span><p>Vence el <strong><?php echo panicAccountEscape(substr($vipMembership['expiry'],8,2).'/'.substr($vipMembership['expiry'],5,2).'/'.substr($vipMembership['expiry'],0,4)); ?></strong> a las <?php echo panicAccountEscape(substr($vipMembership['expiry'],11,5)); ?> (hora del servidor).</p><?php } else { ?><p class="vip-state">Cuenta normal</p><p>Tu cuenta usa EXP 15 y drop 25. Al activar VIP, pasa a EXP 20 y drop 30.</p><?php } ?>
-            <table class="vip-comparison"><caption>Normal y VIP, lado a lado</caption><thead><tr><th scope="col">Beneficio</th><th scope="col">Normal</th><th scope="col">VIP</th></tr></thead><tbody><tr><th scope="row">EXP</th><td>15</td><td>20</td></tr><tr><th scope="row">Drop</th><td>25</td><td>30</td></tr><tr><th scope="row">Duración</th><td>Siempre</td><td>30 días</td></tr></tbody></table>
-            <details class="vip-faq"><summary>¿Qué significan estos números?</summary><p>Son tasas configuradas del servidor. VIP suma 5 puntos a cada una; no es un aumento relativo del 5%. La EXP final también depende de las reglas del mapa y del personaje.</p><p>El drop corresponde a la tasa general. Las recompensas de bosses y eventos tienen sus propias tablas. Master EXP conserva su configuración.</p></details>
-            <p class="vip-status-note">Estado consultado al abrir esta página.</p>
-        </aside>
-    </div>
+<section class="panic-vip panic-vip--salon" aria-labelledby="vip-title">
+  <header class="vip-salon-hero">
+    <img class="vip-salon-art" src="<?php echo __PATH_TEMPLATE__; ?>img/recharge/vip-champion-scene-v5.webp" alt="Caballero de MU con armadura negra y aura dorada" width="810" height="1080" fetchpriority="high">
+    <div class="vip-salon-foil" aria-hidden="true"></div>
+    <div class="vip-salon-hero-copy"><span class="vip-salon-overline">MU PANIC / UNA SOLA MEMBRESÍA</span><img class="vip-salon-insignia" src="<?php echo __PATH_TEMPLATE__; ?>img/recharge/vip-insignia-v5.svg" alt="VIP" width="100" height="80"><h2 id="vip-title">Tu cuenta.<br><em>Otro nivel.</em></h2><p>El descuento de X, con vos en cada compra.</p><a class="vip-salon-button" href="<?php echo panicAccountEscape($vipRechargeUrl); ?>"><?php echo $vipCta; ?> <span aria-hidden="true">→</span></a><span class="vip-salon-payment-note">Recargá con Ualá. Activá tu VIP dentro del juego.</span></div>
+    <div class="vip-salon-player"><span>LA CUENTA DE</span><strong><?php echo panicAccountEscape($vipAccount); ?></strong><b><?php echo $vipMembership===null?'Estado no disponible':($vipActive?'✦ VIP activo':'Cuenta normal'); ?></b></div>
+  </header>
+  <div class="vip-salon-body">
+    <div class="vip-salon-overview"><div><span class="vip-salon-overline">TU MEMBRESÍA</span><h3><?php echo panicAccountEscape($vipOffer['name']); ?></h3><p>Un solo VIP. Todos tus beneficios.</p></div><aside class="vip-salon-state" aria-label="Estado de tu cuenta"><?php if($vipMembership===null) { ?><strong>No pudimos consultar tu VIP</strong><p>Volvé a abrir esta página para consultar el estado.</p><?php } elseif($vipActive) { ?><strong>✦ VIP activo</strong><p>Vence el <b><?php echo panicAccountEscape(substr($vipMembership['expiry'],8,2).'/'.substr($vipMembership['expiry'],5,2).'/'.substr($vipMembership['expiry'],0,4)); ?></b> a las <?php echo panicAccountEscape(substr($vipMembership['expiry'],11,5)); ?> (hora del servidor).</p><?php } else { ?><strong>Cuenta normal</strong><p>Activá tu membresía dentro del juego.</p><?php } ?></aside></div>
+    <div class="vip-salon-offer-layout"><div class="vip-salon-benefit-grid">
+      <?php foreach($vipBenefits as $i=>$benefit) { $icon=['crown','shield','star'][$i%3]; ?><article class="vip-salon-benefit"><img src="<?php echo __PATH_TEMPLATE__; ?>img/recharge/vip-benefit-<?php echo $icon; ?>-v5.svg" width="72" height="72" alt=""><h4><?php echo panicAccountEscape($benefit['title']); ?></h4><details><summary>Ver beneficio <span aria-hidden="true">+</span></summary><p><?php echo panicAccountEscape($benefit['detail']); ?></p></details></article><?php } ?>
+      <?php if(count($vipBenefits)<2) { ?><article class="vip-salon-coming"><span aria-hidden="true">✦</span><h4>El próximo capítulo</h4><p>Más beneficios por definir.</p></article><?php } ?>
+    </div><article class="vip-salon-offer"><span class="vip-salon-overline">UNA MEMBRESÍA PARA RENOVAR</span><h4><?php echo panicAccountEscape($vipOffer['name']); ?></h4><p class="vip-salon-price"><strong><?php echo $vipHasPrice?number_format($vipOffer['price_coins'],0,',','.'):'[COMPLETAR]'; ?></strong><span>Eryns / <?php echo $vipOffer['days']===null?'[COMPLETAR]':$vipOffer['days']; ?> días</span></p><a class="vip-salon-button" href="<?php echo panicAccountEscape($vipRechargeUrl); ?>"><?php echo $vipCta; ?> <span aria-hidden="true">→</span></a><p>El pago acredita Eryns en tu cuenta. La membresía se compra dentro del juego.</p><div class="vip-salon-trust"><span>Pago con Ualá</span><span>Sin cobro recurrente automático</span></div></article></div>
+    <section class="vip-salon-steps" aria-labelledby="vip-steps-title"><span class="vip-salon-overline">DE LA WEB AL JUEGO</span><h3 id="vip-steps-title">Tu VIP, en tres pasos.</h3><ol><li><b>01</b><div><strong>Recargá Eryns</strong><p>Elegí tu recarga y pagá con Ualá.</p></div></li><li><b>02</b><div><strong>Esperá la acreditación</strong><p>Seguí el estado en Mis compras.</p></div></li><li><b>03</b><div><strong>Activá tu VIP</strong><p>Abrí Comprar VIP dentro del juego y confirmá la oferta.</p></div></li></ol></section>
+    <div class="vip-salon-faq"><details><summary>¿La recarga activa el VIP?</summary><p>La recarga acredita Eryns. Para activar o renovar la membresía, comprala dentro del juego con el saldo disponible.</p></details><details><summary>¿Cómo funciona el descuento de X?</summary><p>Con VIP activo, tenés un 10% de descuento en los objetos de la tienda X. Revisá el precio mostrado en el juego antes de comprar.</p></details><details><summary>¿Cómo renuevo mi VIP?</summary><p>Recargá los Eryns que necesites y revisá las condiciones de renovación en Comprar VIP dentro del juego. No hay débitos automáticos.</p></details></div>
+    <p class="vip-salon-status-note">Estado consultado al abrir esta página.</p>
+  </div>
+  <div class="vip-salon-mobile"><span><?php echo $vipHasPrice?number_format($vipOffer['price_coins'],0,',','.').' Eryns':panicAccountEscape($vipOffer['name']); ?></span><a class="vip-salon-button" href="<?php echo panicAccountEscape($vipRechargeUrl); ?>"><?php echo $vipCta; ?> →</a></div>
 </section>
