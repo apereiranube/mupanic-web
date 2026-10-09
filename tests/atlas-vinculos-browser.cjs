@@ -35,12 +35,16 @@ for(const entry of catalog.entries.filter(x=>x.stage))assert.ok(entry.story.leng
   await page.locator('#vinculos img').evaluateAll(async images=>{images.forEach(image=>image.loading='eager');await Promise.all(images.map(image=>image.decode()));});
   const clipped=await page.locator('.vinculo-portrait').evaluateAll(portraits=>portraits.filter(portrait=>{const box=portrait.getBoundingClientRect(),image=portrait.querySelector('img').getBoundingClientRect();return image.top<box.top||image.bottom>box.bottom||image.left<box.left||image.right>box.right;}).map(portrait=>portrait.closest('[data-vinculo]').id));
   assert.deepEqual(clipped,[],'Companion images fit fully inside their portrait frames');
+  const heights=await page.locator('[data-vinculo]>summary').evaluateAll(cards=>cards.map(card=>Math.round(card.getBoundingClientRect().height)));
+  assert.ok(Math.max(...heights)-Math.min(...heights)<=1,'All collapsed companion cards use the same height: '+JSON.stringify(heights));
   await page.locator('#vinculo-aelira').scrollIntoViewIfNeeded();
   if(process.env.ATLAS_SCREENSHOT_DIR){fs.mkdirSync(process.env.ATLAS_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`mascotas-${width}.png`)});}
   await page.locator('.vinculos-chapters a[href="#vinculo-materiales"]').click();
   assert.equal(await page.locator('#vinculo-materiales').isVisible(),true);
-  for(const selector of ['#vinculo-fragmentos img','#vinculo-nucleos img'])assert.equal(await page.locator(selector).evaluate(im=>im.complete&&im.naturalWidth>0),true);
+  for(const selector of ['#vinculo-fragmentos img','#vinculo-nucleos img','#vinculo-luck img','#vinculo-assembly img'])assert.equal(await page.locator(selector).evaluate(im=>im.complete&&im.naturalWidth>0),true);
+  if(width>=540){const sizes=await page.locator('.vinculo-material').evaluateAll(cards=>cards.map(card=>Math.round(card.getBoundingClientRect().height)));assert.ok(Math.max(...sizes)-Math.min(...sizes)<=1,'Material cards share one height');}
   if(process.env.ATLAS_SCREENSHOT_DIR){fs.mkdirSync(process.env.ATLAS_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`materiales-${width}.png`)});}
+  if(process.env.ATLAS_SCREENSHOT_DIR){await page.locator('#vinculo-luck').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`talismanes-${width}.png`)});}
   if(data.drops.some(rule=>rule.id===7369)){
    await page.locator('#vinculo-nucleos .vinculo-drop-rules summary').click();
    const link=page.locator('#vinculo-nucleos .vinculo-drop-rules a').first();

@@ -221,5 +221,23 @@
     "width": 384,
     "height": 384,
     "outputHash": "e8882c00bacb86d484804e42bc8536cf3c1dbb7eb506d40570d58cbd987f256b"
+  },
+  "luck": {
+    "source": "https://mu.lv/img/item/lkmrym8.webp",
+    "reference": "https://mu.lv/guides/read/talisman-of-luck/1173/",
+    "file": "img/atlas/vinculos/luck.webp",
+    "width": 150,
+    "height": 156,
+    "outputHash": "d1ef76673e823d0c258b0571213f4664f185cb1880243fcda203f79e2e3cf0e0",
+    "processing": "Classic game item icon, copied unchanged. Not an extracted MU PANIC client model. Rendered at 150px without enlargement."
+  },
+  "assembly": {
+    "source": "https://mu.lv/img/item/1jtl9m1.webp",
+    "reference": "https://mu.lv/guides/item/1jtl9m1",
+    "file": "img/atlas/vinculos/assembly.webp",
+    "width": 150,
+    "height": 139,
+    "outputHash": "710fca4fa7435f5c62791fe4f3c29cac5141298e34b14bbb8feea2d56e1eb04f",
+    "processing": "Classic game item icon, copied unchanged. Not an extracted MU PANIC client model. Rendered at 150px without enlargement."
   }
 }

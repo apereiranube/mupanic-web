@@ -14,7 +14,7 @@ Las fichas tienen bonos, obtención, inventario y enlaces a sus evoluciones.
   Pets 2, Fierce Lion e Ice Dragon: imágenes de los modelos reales. Elyndra
   usa el modelo actualizado `elfqueen.bmd`.
 - El manifiesto `tools/atlas-vinculos-art.json` registra modelos, imágenes del
-  PDF, procesamiento y hashes de las 16 imágenes publicadas.
+  PDF, procesamiento y hashes de las 18 imágenes publicadas.
 
 ## Materiales y obtención
 
@@ -24,8 +24,9 @@ No se modifican tasas ni condiciones del servidor. Las reglas se presentan
 como tasas configuradas, sin prometer una probabilidad final por muerte.
 
 Talisman of Luck y Chaos Assembly tienen fichas sobre su función y límites.
-Por falta de una imagen verificada en las fuentes recuperadas, sus fichas
-usan símbolos, no fotografías de otro ítem.
+Sus fichas usan las imágenes clásicas del juego publicadas por MU.lv,
+conservadas sin cambios y sin ampliarlas. Las fuentes están en el manifiesto;
+son íconos de los ítems, no renders extraídos del cliente MU PANIC.
 
 La invocación cuesta 10 fragmentos y 20 millones de Zen, con 50% de éxito.
 La segunda etapa cuesta 10 núcleos y 50 millones, con 60% de éxito; la final,
@@ -54,7 +55,8 @@ PHP_BIN=php NODE_PATH=/ruta/a/node_modules node tests/atlas-vinculos-browser.cjs
 
 El test de navegador revisa las 18 entradas, imágenes, lore completo,
 exclusión de drops para exclusivos, apertura de fichas, búsqueda, errores JS
-y ausencia de desborde a 1440, 390 y 320 píxeles. `CHROMIUM_PATH` permite usar
+y ausencia de desborde a 1920, 1440, 390 y 320 píxeles. También comprueba
+que los modelos entren completos y las tarjetas cerradas compartan altura. `CHROMIUM_PATH` permite usar
 un ejecutable de Chromium existente. `ATLAS_SCREENSHOT_DIR` guarda capturas.
 Con `PANIC_ATLAS_RUNTIME_DIR` también comprueba los enlaces de las reglas de
 materiales del snapshot publicado, sin conexiones SQL ni cambios de filas.
