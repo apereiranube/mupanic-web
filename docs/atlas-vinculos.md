@@ -18,6 +18,11 @@ El control dibujado muestra un + centrado al cerrar y un − al abrir, sin
 rotación ni dependencia de la alineación de la tipografía. No se muestran
 referencias al tamaño o espacio del inventario.
 El diseño adapta las fichas y el arte a celular y respeta movimiento reducido.
+La portada separa las siluetas de los tres linajes para que Vaerion conserve
+las alas y el cuerpo visibles. Al explorar Vínculos, el fondo exterior usa
+gradientes oscuros sin las líneas de reliquias del resto del Atlas.
+Grum aparece como **El Feo**, con una historia original sobre su apodo en
+Lorencia. Conserva la recolección de Zen, sus probabilidades y su canje.
 
 Las 14 criaturas tienen ilustraciones nuevas hechas con image_gen a partir
 de sus retratos reales. Mantienen los rasgos de cada criatura y se presentan

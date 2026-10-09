@@ -241,13 +241,15 @@
       "slug": "grum",
       "id": 6884,
       "name": "Grum",
-      "title": "El compañero inesperado",
-      "quote": "",
-      "chapter": "",
+      "title": "El Feo",
+      "quote": "Feo, sí. Pero mirá quién te juntó todo el Zen.",
+      "chapter": "EL QUE NADIE ESPERABA",
       "story": [
-        "No todos los vínculos llegan como los imaginabas. Grum acompaña tus pasos y recoge el Zen que dejan tus batallas."
+        "La primera vez que Eryndor lo invocó, el círculo brilló con tanta fuerza que los aventureros retrocedieron. Esperaban una guardiana del bosque o una criatura de las nieves. Del humo salió Grum: pico demasiado grande, antiparras desparejas y dos hélices haciendo un ruido espantoso. Alguien dijo «qué feo». Grum miró alrededor, convencido de que acababan de presentarlo.",
+        "El apodo recorrió Lorencia antes que su nombre. El Feo nunca ganó un concurso de belleza ni hizo temblar a un enemigo con su presencia. Mientras los héroes contaban sus victorias, él recorría el suelo buscando las monedas que habían pasado por alto. Una noche regresó con los bolsillos llenos detrás de una party que ya no tenía Zen para seguir. Por primera vez, nadie se rio cuando lo vieron llegar.",
+        "Desde entonces, Grum lleva el apodo como otros llevan una corona. No promete grandes poderes: aparece, hace su trabajo y vuelve con vos. Hay compañeros que entran en una leyenda por su fuerza. El Feo se ganó la suya porque, cuando todos miraban al horizonte, él se acordó de mirar dónde habías pisado."
       ],
-      "role": "",
+      "role": "El Feo de Lorencia. No suma bonos de combate ni experiencia; recoge el Zen y recuerda que un compañero puede ganarse su lugar sin parecerse a un héroe.",
       "family": "",
       "kind": "pacto",
       "stage": 0,
@@ -260,7 +262,9 @@
       "obtain": "Invocación con Eryndor",
       "aliases": [
         "mascota",
-        "pet"
+        "pet",
+        "feo",
+        "el feo"
       ]
     },
     {
