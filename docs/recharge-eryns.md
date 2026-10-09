@@ -42,3 +42,17 @@ totales mixtos, límites, controles táctiles, estados, recursos y desborde.
 Incluye tienda cerrada, enlace preparado, historial vacío y contrato del POST.
 El navegador de administración verifica edición, VIP y desborde a 1440,
 1024 y 390 píxeles.
+
+## Presentación comercial
+
+La portada conduce a paquetes mediante una llamada visible. Una vitrina de
+vínculos, monturas y exclusivos enlaza sus capítulos del Atlas. Presenta
+objetivos del juego; precios y disponibilidad se consultan en la tienda del
+cliente. No anuncia disponibilidad ni resultados garantizados de mezclas.
+
+Las tarjetas de compra usan fondos claros, cantidades y precios grandes,
+bonos reales cuando están activos y un botón para agregar una unidad. El
+selector de cantidades sigue disponible. El destacado respeta la selección
+administrativa; si no hay ninguno, resalta editorialmente el paquete central
+sin afirmar popularidad ni ahorro. No se crean promociones ni cambian precios.
+Una nota explica que las recargas aportan al mantenimiento del servidor.

@@ -19,6 +19,8 @@
       valid = valid && correct;
       const active = correct && quantity > 0;
       card.classList.toggle('is-selected', active);
+      const select = card.querySelector('[data-select-package]');
+      if (select) select.textContent = active ? 'Agregado · sumar otro +' : 'Agregar este paquete +';
       card.querySelector('[data-line-total]').textContent = active ? coins(Number(card.dataset.coins) * quantity) + ' · ' + pesos(Number(card.dataset.price) * quantity) : 'Elegí cuántos querés';
       if (!active) return;
       total += Number(card.dataset.price) * quantity;
@@ -45,6 +47,11 @@
   packages.forEach(card => {
     const input = card.querySelector('input[type=number]');
     input.addEventListener('input', updateCart);
+    const select = card.querySelector('[data-select-package]');
+    if (select) select.addEventListener('click', () => {
+      input.value = Math.min(99, Math.max(0, Math.floor(Number(input.value) || 0)) + 1);
+      updateCart();
+    });
     card.querySelectorAll('[data-quantity-change]').forEach(button => button.addEventListener('click', () => {
       input.value = Math.min(99, Math.max(0, (Number(input.value) || 0) + Number(button.dataset.quantityChange)));
       updateCart();

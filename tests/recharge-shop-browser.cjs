@@ -21,6 +21,9 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(width<=540){if(!await page.locator('[data-mobile-summary]').isVisible())throw Error('Mobile summary missing');if(await page.locator('[data-mobile-coins]').textContent()!=='100.000 Eryns')throw Error('Mobile summary differs');}
   const initial=await page.locator('[data-total-price]').textContent();if(initial!=='$ 100.000 ARS')throw Error('Five packages total '+initial);
   if(await page.locator('[data-total-coins]').textContent()!=='100.000 Eryns')throw Error('Coin total');
+  await page.locator('[data-package]').filter({has:page.locator('#quantity-wcoin-1000')}).locator('[data-select-package]').click();
+  if(await page.locator('[data-total-price]').textContent()!=='$ 101.000 ARS')throw Error('Package CTA changes wrong amount');
+  await page.locator('#quantity-wcoin-1000').fill('0');
   await page.locator('#quantity-wcoin-20000').fill('2');await page.locator('#quantity-wcoin-5000').fill('3');
   if(await page.locator('[data-total-price]').textContent()!=='$ 55.000 ARS')throw Error('Mixed total');
   await page.locator('#quantity-wcoin-1000').fill('1.5');if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Fractional quantity enabled');

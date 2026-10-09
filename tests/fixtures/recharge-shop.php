@@ -1,5 +1,5 @@
 <?php
-define('access',true);define('__BASE_URL__','https://preview.test/beta/');
+define('access',true);define('__BASE_URL__','https://preview.test/beta/');define('__PATH_TEMPLATE__',__BASE_URL__.'templates/mupanic/');
 $inc=dirname(__DIR__,2).'/overlay/templates/mupanic/inc';
 require $inc.'/account.php';
 function isLoggedIn(){return true;}

@@ -128,3 +128,79 @@
 .is-account .recharge-shop--eryns .recharge-package p.recharge-line-total{color:#a9c5d5;font-size:10px;font-weight:400}
 
 .eryns-checkout-feedback{scroll-margin-top:105px}
+
+/* Eryns storefront: product discovery and bright purchase surfaces. */
+.is-account .module-surface:has(.recharge-shop--eryns){background:#f0e9de}
+.recharge-shop--eryns{background:radial-gradient(ellipse at 90% 0,#fff9ea,transparent 55%),#f0e9de;color:#514332;padding-bottom:36px}
+.recharge-shop--eryns .recharge-hero{min-height:300px;padding:38px;background:linear-gradient(90deg,#241f29f5,#3c293aa8 56%,#37304705),url('../img/recharge/eryns-treasury-v1.webp') right 55%/cover;border-bottom:4px solid #c79159}
+.recharge-shop--eryns .recharge-hero h2{font-size:clamp(40px,4vw,61px);color:#fff4df;max-width:570px}
+.recharge-shop--eryns .recharge-hero h2 em{color:#a9f0fa;text-shadow:0 0 28px #82dfe85c}
+.recharge-shop--eryns .recharge-hero p{color:#f4e3d2;max-width:430px;font-size:14px}
+.is-account .recharge-shop--eryns .eryns-hero-link{display:inline-flex;padding:15px 20px;background:linear-gradient(120deg,#f4c58c,#d9a169);color:#352317!important;border:1px solid #ffe5bc;font-size:13px;font-weight:700;box-shadow:0 8px 28px #dba36745;text-decoration:none}
+.recharge-shop--eryns .eryns-hero-caption{color:#ffeed6}.recharge-shop--eryns .eryns-payment-tag{color:#f2dcc6}
+.recharge-shop--eryns .eyebrow{color:#79513b}
+.recharge-shop--eryns .recharge-hero .eyebrow,.recharge-shop--eryns .recharge-cart .eyebrow{color:#f7d2a7}
+.eryns-wallet{background:#fff9ee;border:1px solid #d1b68b;padding:20px 24px;margin-top:24px;box-shadow:0 6px 18px #6a49200a}
+.eryns-wallet-icon{color:#977044}.eryns-wallet .recharge-account>span{color:#795c43}.eryns-wallet .recharge-account strong{color:#423429}.eryns-wallet .recharge-balance strong{color:#785297}.eryns-wallet p{color:#6e6050}
+.recharge-shop--eryns .recharge-sections{border-color:#c1a68160;margin-bottom:24px}
+.is-account .recharge-shop--eryns .recharge-sections a{background:#fff9ef;color:#644632;border-color:#c5ac8a;font-size:12px;font-weight:600}
+.is-account .recharge-shop--eryns .recharge-sections a:hover{background:#e7d2b2;color:#49311f;border-color:#a77847}
+.eryns-showcase-heading h3{font:500 clamp(27px,3vw,38px)/1.15 var(--display);color:#49362d;margin:9px 0}
+.eryns-showcase-heading>p{color:#77634f;font-size:12px;margin:0 0 18px}
+.eryns-desires{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.is-account .eryns-desire{position:relative;display:block;min-width:0;overflow:hidden;height:315px;border:1px solid #c4a47c;color:#fff5e5!important;background:#29302c;text-decoration:none;box-shadow:0 9px 22px #49332118;transition:transform .2s,box-shadow .2s}
+.is-account .eryns-desire:hover{transform:translateY(-3px);box-shadow:0 12px 28px #49332130}
+.eryns-desire img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;transition:transform .4s}
+.eryns-desire:hover img{transform:scale(1.04)}
+.eryns-desire:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#14231efa,#1a282184 42%,transparent 75%)}
+.eryns-desire--mount:after{background:linear-gradient(0deg,#223547fa,#182d3484 42%,transparent 75%)}
+.eryns-desire--eclipse:after{background:linear-gradient(0deg,#432a48fa,#432a4870 42%,transparent 75%)}
+.eryns-desire>div{position:absolute;inset:auto 19px 18px;z-index:1}
+.eryns-desire div>span{font-size:8px;font-weight:700;letter-spacing:.08em;color:#f3d4ad}
+.recharge-shop--eryns .eryns-desire h4{font:500 29px/1.05 var(--display);color:#fff4df;margin:9px 0}
+.eryns-desire p{font-size:11px;line-height:1.6;color:#efdfce;margin:0 0 11px}
+.eryns-desire b{display:flex;justify-content:space-between;gap:10px;font-size:10px;line-height:1.5;color:#ffe1aa;border-top:1px solid #e6d0ad55;padding-top:11px}.eryns-desire i{font-style:normal}
+.eryns-catalog-note{font-size:10px;line-height:1.7;color:#796a5a;margin:13px 0 0}
+.recharge-shop--eryns .recharge-section-head h3{color:#48352c}.recharge-shop--eryns .recharge-section-head>span{color:#796751;font-size:10px}
+.recharge-shop--eryns .recharge-builder{grid-template-columns:minmax(0,1fr) 270px;gap:20px}
+.recharge-shop--eryns .recharge-packages{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.recharge-shop--eryns .recharge-package{background:linear-gradient(145deg,#fffdf6,#f7eddc);border:1px solid #c9b08b;padding:0 20px 18px;box-shadow:0 8px 20px #6847220d}
+.recharge-shop--eryns .recharge-package:hover{border-color:#9b6d43;box-shadow:0 8px 24px #68472222;transform:translateY(-2px)}
+.recharge-shop--eryns .recharge-package.is-selected{background:linear-gradient(145deg,#fffaf0,#efe1c9);border-color:#9d6330;box-shadow:0 0 0 2px #b9784240,0 8px 24px #68472220}
+.recharge-shop--eryns .recharge-package-featured{grid-column:auto;border:2px solid #966ba7;background:linear-gradient(145deg,#fff8ff,#eee2f2);box-shadow:0 8px 26px #7e519522}
+.recharge-shop--eryns .eryns-package-art{height:85px;margin:0 -20px 15px;background:linear-gradient(0deg,#d8ceb366,transparent),url('../img/recharge/eryns-treasury-v1.webp') 90% 62%/420px auto;border-bottom:1px solid #c9b08b}
+.recharge-shop--eryns .eryns-package-rank{color:#f5d6a6b5;top:16px;font-size:30px}.recharge-shop--eryns .eryns-package-sigil{color:#d4f6ff}
+.recharge-shop--eryns .recharge-package-top{flex-wrap:wrap;min-height:28px;align-items:center}
+.recharge-shop--eryns .recharge-tier{color:#806045;font-size:10px}.recharge-shop--eryns .eryns-featured{background:#7a4e91;border:0;color:#fff2fa;font-size:8px;padding:6px 8px;letter-spacing:.06em}
+.recharge-shop--eryns .recharge-package h4{color:#4b3625;font-size:52px;margin:10px 0 8px}.recharge-shop--eryns .recharge-package h4 small{color:#885d3c;font-size:12px;margin-top:4px}
+.recharge-shop--eryns .eryns-package-promise{color:#776554;font-size:10px;margin:0 0 16px;line-height:1.6}
+.recharge-shop--eryns .recharge-price{color:#48352b;font-size:25px;border-color:#c5ac8655;margin-bottom:14px;padding-top:12px}.recharge-shop--eryns .recharge-price small{color:#7c6854;font-size:10px}
+.recharge-shop--eryns .recharge-bonus{color:#346c43;background:#e5f0d8;border:1px solid #97b58a;padding:9px;font-size:12px;font-weight:600;line-height:1.6}
+.is-account .recharge-shop--eryns .eryns-select-package{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:48px;padding:13px 14px;margin:0 0 14px;background:linear-gradient(120deg,#bc7e43,#99572d);color:#fff9ef;border:1px solid #9a582c;border-radius:2px;font-size:12px;font-weight:600;cursor:pointer;box-shadow:0 5px 12px #9b633220}
+.is-account .recharge-shop--eryns .eryns-select-package:hover{background:#824720}.is-account .recharge-shop--eryns .recharge-package-featured .eryns-select-package{background:linear-gradient(120deg,#9562a3,#704181);border-color:#704181}
+.is-account .recharge-shop--eryns label.recharge-quantity-label{color:#705a43!important;font-size:10px!important}
+.recharge-shop--eryns .recharge-quantity{border-color:#b79c76;background:#fffaf0}
+.is-account .recharge-shop--eryns .recharge-quantity button{background:#e7d8bf;color:#634328}.is-account .recharge-shop--eryns .recharge-quantity button:hover{background:#d7bf9c}
+.is-account .recharge-shop--eryns .recharge-quantity input{background:#fffaf0;color:#4b3524;border-color:#b79c7655}
+.is-account .recharge-shop--eryns .recharge-package p.recharge-line-total{color:#705a43;font-size:10px}
+.recharge-shop--eryns .recharge-cart{background:linear-gradient(145deg,#795374,#493751);border:1px solid #b898ab;border-top:4px solid #eac093;box-shadow:0 12px 30px #50344828;color:#f4e9db}
+.recharge-shop--eryns .recharge-cart h3{color:#fff5e7}.recharge-shop--eryns .recharge-cart h3 em{color:#ffd4a1}
+.recharge-shop--eryns .recharge-cart-lines p,.recharge-shop--eryns .recharge-cart-lines>div{color:#f4e4d8}.recharge-shop--eryns .recharge-cart-lines>div>b{color:#ffe0b1}
+.recharge-shop--eryns .recharge-cart-total>span{color:#e9d5df}.recharge-shop--eryns .recharge-cart-total strong{color:#fff5dc}.recharge-shop--eryns .recharge-cart-total b{color:#ffe0b1}
+.recharge-shop--eryns .recharge-destination,.recharge-shop--eryns .recharge-cart small,.recharge-shop--eryns .recharge-cart-hint,.recharge-shop--eryns .recharge-legal-note{color:#e9d7dd}
+.recharge-shop--eryns .eryns-checkout-provider b{color:#fff5eb}.recharge-shop--eryns .eryns-checkout-provider span{color:#f1e3db}
+.is-account .recharge-shop--eryns .recharge-cart .recharge-button:not(:disabled){background:linear-gradient(110deg,#ffda9f,#edaf71);color:#4c2e24!important;border:1px solid #ffebc9;font-weight:700;box-shadow:0 7px 18px #24132228}
+.is-account .recharge-shop--eryns .recharge-cart a{color:#f5dfbf!important}
+.eryns-support{display:flex;align-items:center;gap:16px;background:#e1ebd5;border:1px solid #a8b894;padding:20px 24px;margin-top:24px;color:#425438}.eryns-support>span{width:34px;flex:none}.eryns-support svg{width:100%;height:40px}.eryns-support strong{font-size:14px}.eryns-support p{font-size:11px;line-height:1.7;margin:6px 0 0;color:#566549}
+.recharge-shop--eryns .eryns-uses{background:linear-gradient(100deg,#f5e3c8,#e9d4b1);border-color:#bd9d73}.recharge-shop--eryns .eryns-uses h4{color:#573d2b}.eryns-uses p{color:#735840}.is-account .eryns-uses a{color:#75498b!important}
+.recharge-shop--eryns .recharge-order,.recharge-shop--eryns .recharge-history-empty,.recharge-shop--eryns .recharge-steps li{background:#fff9ed;border-color:#cfb68e;color:#6d5946}
+.recharge-shop--eryns .recharge-order-value strong,.recharge-shop--eryns .recharge-order-value b,.recharge-shop--eryns .recharge-history-empty strong,.recharge-shop--eryns .recharge-steps strong{color:#5e422e}
+.recharge-shop--eryns .recharge-order p,.recharge-shop--eryns .recharge-order-date,.recharge-shop--eryns .recharge-history-empty p,.recharge-shop--eryns .recharge-steps p,.recharge-shop--eryns .recharge-subtle{color:#78624e}
+.recharge-shop--eryns details,.recharge-shop--eryns .recharge-order details{background:#e9dfce;border-color:#c8b391}.recharge-shop--eryns summary{color:#5f4732}.recharge-shop--eryns details p,.recharge-shop--eryns details li{color:#725d48}
+.is-account .recharge-shop--eryns .recharge-text-button{color:#79508b;border-color:#b094b7}
+@media(min-width:1600px){.recharge-shop--eryns .recharge-packages{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1250px){.recharge-shop--eryns .recharge-builder{grid-template-columns:1fr}.recharge-shop--eryns .recharge-packages{grid-template-columns:repeat(3,minmax(0,1fr))}.recharge-shop--eryns .recharge-cart{position:static}.recharge-shop--eryns .recharge-cart-total{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:8px}.recharge-shop--eryns .recharge-cart-total strong,.recharge-shop--eryns .recharge-cart-total b{text-align:right}.recharge-shop--eryns .recharge-package{padding-inline:16px}.recharge-shop--eryns .eryns-package-art{margin-inline:-16px}.eryns-desire{height:300px}.eryns-desire>div{inset-inline:15px}.recharge-shop--eryns .eryns-desire h4{font-size:26px}}
+@media(max-width:900px){.recharge-shop--eryns .recharge-packages{grid-template-columns:repeat(2,minmax(0,1fr))}.eryns-desires{gap:10px}.is-account .eryns-desire{height:295px}.eryns-desire p{font-size:10px}}
+@media(max-width:620px){.eryns-desires{grid-template-columns:1fr}.is-account .eryns-desire{height:220px}.eryns-desire img{width:53%;inset:0 0 0 auto;object-position:center}.eryns-desire:after{background:linear-gradient(90deg,#243124,#243124ee 38%,#24312422 88%)}.eryns-desire--mount:after{background:linear-gradient(90deg,#273c4b,#273c4bed 38%,#273c4b22 88%)}.eryns-desire--eclipse:after{background:linear-gradient(90deg,#4a2d4e,#4a2d4eed 38%,#4a2d4e22 88%)}.eryns-desire>div{inset:24px auto 20px 20px;width:61%;display:flex;flex-direction:column;justify-content:center}.eryns-desire b{margin-top:auto}.eryns-catalog-note{font-size:10px}.eryns-wallet{padding:17px}.eryns-support{padding:17px;gap:12px}.eryns-support strong{font-size:12px}}
+@media(max-width:540px){.recharge-shop--eryns .recharge-hero{min-height:375px;padding:30px 21px;background:linear-gradient(90deg,#29212cee,#3c293ab8),url('../img/recharge/eryns-treasury-v1.webp') 70% center/cover}.recharge-shop--eryns .recharge-hero h2{font-size:43px}.recharge-shop--eryns .recharge-hero p{font-size:13px}.recharge-shop--eryns .recharge-packages{grid-template-columns:1fr}.recharge-shop--eryns .eryns-package-art{height:100px;background-size:540px auto}.recharge-shop--eryns .recharge-package h4{font-size:55px}.recharge-shop--eryns .recharge-cart-total{display:flex;align-items:flex-start}.recharge-shop--eryns .recharge-cart-total strong,.recharge-shop--eryns .recharge-cart-total b{text-align:left}.eryns-mobile-summary{background:#fff6e9f7;border-color:#c89e6e;box-shadow:0 -7px 22px #5b3a2022}.eryns-mobile-summary strong{color:#744788}.eryns-mobile-summary div>span{color:#674a34}.is-account .eryns-mobile-summary a{background:#a56535;color:#fff6e7!important;border-color:#94592d;font-weight:600}.is-account .recharge-shop--eryns .recharge-sections a{font-size:10px;padding:9px 10px}}
+@media(max-width:350px){.recharge-shop--eryns .recharge-hero h2{font-size:37px}.eryns-desire>div{width:66%;left:16px}.recharge-shop--eryns .eryns-desire h4{font-size:25px}}
