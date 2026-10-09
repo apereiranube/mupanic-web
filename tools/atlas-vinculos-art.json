@@ -82,19 +82,22 @@
   "nerathys": {
     "modelVersion": 12,
     "textures": [
-      "item/muunhydra_r.ozj",
-      "item/muun_hydra_01.ozj"
+      "item/ghidorahdanielamount.ozt"
     ],
     "action": 0,
     "frame": 0,
     "yaw": 30,
     "elevation": 18,
-    "model": "hydra.bmd",
-    "sourceHash": "f98dcfa137975b13466133595efb1cfaca8cec66afc06dc5f3a6cc5f1f79d3d9",
-    "file": "img/atlas/vinculos/nerathys.webp",
-    "width": 384,
-    "height": 384,
-    "outputHash": "135994f2b0e9e66fdeec51d53b253ec094eed376163c399881c93a6045fba0a4"
+    "model": "flymount_pet6.bmd",
+    "clientModel": "pet_mupanic_flymount_pet6.bmd",
+    "source": "pet (4),.rar",
+    "sourceHash": "23304cf30f9832df45f087a32010bc8ce3850606928b522fdf00038873775d96",
+    "sourceBytes": 905095,
+    "file": "img/atlas/vinculos/nerathys-hd.webp",
+    "width": 1024,
+    "height": 1024,
+    "outputHash": "491309fc73ed23785986c90f691bde7ebcd129a89e91a4e3ac49dc317125141f",
+    "processing": "Full three-headed winged mount rendered from original model; source byte size matches client inventory. Supersampled 1536px render exported at 1024px."
   },
   "theryon": {
     "modelVersion": 12,
@@ -225,19 +228,23 @@
   "luck": {
     "source": "https://mu.lv/img/item/lkmrym8.webp",
     "reference": "https://mu.lv/guides/read/talisman-of-luck/1173/",
-    "file": "img/atlas/vinculos/luck.webp",
-    "width": 150,
-    "height": 156,
-    "outputHash": "d1ef76673e823d0c258b0571213f4664f185cb1880243fcda203f79e2e3cf0e0",
-    "processing": "Classic game item icon, copied unchanged. Not an extracted MU PANIC client model. Rendered at 150px without enlargement."
+    "file": "img/atlas/vinculos/luck-hd.webp",
+    "width": 1254,
+    "height": 1254,
+    "processing": "AI high-resolution reconstruction based on the classic inventory icon; transparent editorial illustration, not a client-model render.",
+    "referenceHash": "d1ef76673e823d0c258b0571213f4664f185cb1880243fcda203f79e2e3cf0e0",
+    "outputHash": "3e1c8f68aa81c70ddb7c24144f150c90017081e858a7c48fcaaae1f19ad59e29",
+    "prompt": "Edit this MU Online Talisman of Luck inventory icon into a crisp high-resolution faithful reconstruction for the MU PANIC Atlas. Preserve the EXACT silhouette and component arrangement of the reference: four-lobed dark emerald clover within an antique gold rim, same front-facing orientation, single object centered, generous transparent margin. Remove pixel stair-stepping and compression blur; reconstruct fine metallic bevel detail and crystal edges. It must remain the same recognizable game item. No new silhouette, no extra lobes, no extra jewels, no letters, no text, no border, no background, no shadows outside the object. Square high resolution with genuine transparent alpha. Faithful high resolution editorial illustration of the inventory icon, not a new design."
   },
   "assembly": {
     "source": "https://mu.lv/img/item/1jtl9m1.webp",
     "reference": "https://mu.lv/guides/item/1jtl9m1",
-    "file": "img/atlas/vinculos/assembly.webp",
-    "width": 150,
-    "height": 139,
-    "outputHash": "710fca4fa7435f5c62791fe4f3c29cac5141298e34b14bbb8feea2d56e1eb04f",
-    "processing": "Classic game item icon, copied unchanged. Not an extracted MU PANIC client model. Rendered at 150px without enlargement."
+    "file": "img/atlas/vinculos/assembly-hd.webp",
+    "width": 1254,
+    "height": 1254,
+    "processing": "AI high-resolution reconstruction based on the classic inventory icon; transparent editorial illustration, not a client-model render.",
+    "referenceHash": "710fca4fa7435f5c62791fe4f3c29cac5141298e34b14bbb8feea2d56e1eb04f",
+    "outputHash": "d3277e6d09b8849f9ed9a134d42047d70c0a9739ebadee258f698faab3e1462f",
+    "prompt": "Edit this MU Online Talisman of Chaos Assembly inventory icon into a crisp high-resolution faithful reconstruction for the MU PANIC Atlas. Preserve the EXACT silhouette and component arrangement of the reference: ornate dark forest-green and antique gold metal medallion, sharp gold-edged fins, central vivid pink eight-point star gem, and the same surrounding pink crystal spikes in the same orientation and positions. Same front-facing orientation, single object centered, generous transparent margin. Remove pixel stair-stepping and compression blur; reconstruct fine metallic bevel detail and crystal edges. It must remain the same recognizable game item. No new silhouette, no extra spikes, no extra jewels, no letters, no text, no border, no background, no shadows outside the object. Square high resolution with genuine transparent alpha. Faithful high resolution editorial illustration of the inventory icon, not a new design."
   }
 }

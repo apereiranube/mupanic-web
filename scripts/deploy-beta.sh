@@ -34,7 +34,7 @@ done
 for file in atlas-vinculos.php atlas-vinculos.json; do
   test -s "$TEMPLATE_SOURCE/inc/$file"
 done
-for portrait in aelira sylthara elyndra aurik aurion vaeryn vaerath vaerion grum vaelkar aurethia theryon nerathys vaeraxes fragmentos nucleos luck assembly; do
+for portrait in aelira sylthara elyndra aurik aurion vaeryn vaerath vaerion grum vaelkar aurethia theryon nerathys-hd vaeraxes fragmentos nucleos luck-hd assembly-hd; do
   if [ ! -s "$TEMPLATE_SOURCE/img/atlas/vinculos/$portrait.webp" ]; then
     echo "[MU PANIC] ERROR: Missing Vínculos portrait: $portrait" >&2
     exit 1

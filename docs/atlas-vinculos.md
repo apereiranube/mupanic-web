@@ -12,7 +12,9 @@ Las fichas tienen bonos, obtención, inventario y enlaces a sus evoluciones.
   `Catalogo.lua` versión 15: nombres, bonos y cantidades aprobadas.
 - Parches de mascotas exclusivas, monturas, Grum y materiales; modelos de
   Pets 2, Fierce Lion e Ice Dragon: imágenes de los modelos reales. Elyndra
-  usa el modelo actualizado `elfqueen.bmd`.
+  usa el modelo actualizado `elfqueen.bmd`. Nerathys usa `flymount_pet6.bmd`
+  (905095 bytes), correspondiente a `pet_mupanic_flymount_pet6` en el cliente,
+  con las tres cabezas y alas completas. No usa la mascota Muun `hydra.bmd`.
 - El manifiesto `tools/atlas-vinculos-art.json` registra modelos, imágenes del
   PDF, procesamiento y hashes de las 18 imágenes publicadas.
 
@@ -24,9 +26,11 @@ No se modifican tasas ni condiciones del servidor. Las reglas se presentan
 como tasas configuradas, sin prometer una probabilidad final por muerte.
 
 Talisman of Luck y Chaos Assembly tienen fichas sobre su función y límites.
-Sus fichas usan las imágenes clásicas del juego publicadas por MU.lv,
-conservadas sin cambios y sin ampliarlas. Las fuentes están en el manifiesto;
-son íconos de los ítems, no renders extraídos del cliente MU PANIC.
+Sus fichas usan reconstrucciones ilustradas de alta resolución (1254 px),
+basadas en los íconos clásicos publicados por MU.lv. Conservan su forma y
+colores reconocibles; son ilustraciones, no renders del cliente MU PANIC.
+El manifiesto registra la referencia, el procesamiento y los hashes. Los
+archivos versionados evitan reutilizar los íconos pixelados desde la caché.
 
 La invocación cuesta 10 fragmentos y 20 millones de Zen, con 50% de éxito.
 La segunda etapa cuesta 10 núcleos y 50 millones, con 60% de éxito; la final,

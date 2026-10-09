@@ -450,6 +450,5 @@
 .vinculo-heading{min-height:300px;display:flex;flex-direction:column}.vinculo-open{margin-top:auto}.vinculos-grid--materials{align-items:stretch;grid-auto-rows:1fr}.vinculo-material{display:flex;flex-direction:column}.vinculo-material-art{flex:0 0 190px}.vinculo-material .vinculo-source{margin-top:auto}.vinculo-material h4{min-height:65px}.vinculo-material>p{margin-bottom:18px}
 @media(max-width:540px){.vinculos-grid--materials{grid-auto-rows:auto}.vinculo-heading{min-height:340px}.vinculo-material h4{min-height:0}.vinculo-card--montura .vinculo-portrait{height:290px}}
 
-.vinculo-material-art img[src$="luck.webp"],.vinculo-material-art img[src$="assembly.webp"]{width:150px;height:150px}
 
 @media(max-width:350px){.vinculo-heading{min-height:360px}}

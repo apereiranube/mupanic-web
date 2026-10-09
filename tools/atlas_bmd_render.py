@@ -54,7 +54,7 @@ def posed(model, action=0, frame=0, hidden=()):
         out.append(dict(m, points=np.array(vv), directions=np.array(nn)))
     return out
 
-def render(model, assets, folder, dest, hidden=(), yaw=30, elevation=18, size=512, flip_v=False, frame=0):
+def render(model, assets, folder, dest, hidden=(), yaw=30, elevation=18, size=512, flip_v=False, frame=0, output_size=384):
     meshes = posed(model, frame=frame, hidden=hidden)
     eye = np.array([math.sin(math.radians(yaw)), -math.cos(math.radians(yaw)), math.tan(math.radians(elevation))])
     eye /= np.linalg.norm(eye)
@@ -118,7 +118,7 @@ def render(model, assets, folder, dest, hidden=(), yaw=30, elevation=18, size=51
             pixels[..., :3] = (pixels[..., :3].astype(float) * lighting[..., None]).clip(0, 255).astype(np.uint8)
             rgba[y0:y1 + 1, x0:x1 + 1][inside] = pixels[inside]
             depth[y0:y1 + 1, x0:x1 + 1][inside] = zz[inside]
-    im = Image.fromarray(rgba).resize((384, 384), Image.Resampling.LANCZOS)
+    im = Image.fromarray(rgba).resize((output_size, output_size), Image.Resampling.LANCZOS)
     im.save(dest)
     if np.count_nonzero(rgba[..., 3]) < size * size * 0.015:
         raise ValueError('Empty render')

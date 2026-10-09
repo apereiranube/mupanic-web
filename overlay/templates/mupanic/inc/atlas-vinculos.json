@@ -378,7 +378,7 @@
         "Daño recibido −15%",
         "Reflejo de daño 5%"
       ],
-      "image": "img/atlas/vinculos/nerathys.webp",
+      "image": "img/atlas/vinculos/nerathys-hd.webp",
       "obtain": "Tienda · venta próximamente",
       "inventory": "2 × 2",
       "aliases": [
@@ -450,7 +450,7 @@
       "id": 7221,
       "name": "Talisman of Luck",
       "title": "Una oportunidad más",
-      "image": "img/atlas/vinculos/luck.webp",
+      "image": "img/atlas/vinculos/luck-hd.webp",
       "use": "Con Eryndor, cada talismán agrega 1 punto porcentual al éxito de una evolución. Podés agregar hasta 10.",
       "detail": "Hay variantes +1 y +6. Su nivel y efecto en otras mezclas dependen de la receta; no son exclusivos de las mascotas.",
       "obtain": "Talismanes de la tienda · venta próximamente.",
@@ -467,7 +467,7 @@
       "id": 7264,
       "name": "Chaos Assembly",
       "title": "Protegé tu vínculo",
-      "image": "img/atlas/vinculos/assembly.webp",
+      "image": "img/atlas/vinculos/assembly-hd.webp",
       "use": "Protege la mascota base si falla una evolución final con Eryndor.",
       "detail": "Se consume al realizar el intento y no aumenta la probabilidad de éxito. También tiene usos en otras mezclas compatibles.",
       "obtain": "Protección de la tienda · venta próximamente.",
