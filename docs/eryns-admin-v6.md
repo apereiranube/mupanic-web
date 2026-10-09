@@ -18,7 +18,7 @@ La presentación usa una membresía, un precio y una duración. El salón ya no 
 
 El descuento confirmado se muestra como **10% en X**. EXP y drop son borradores ocultos, sin porcentajes ni tasas inventadas. Hay seis espacios editables de título, detalle y publicación. Precio y duración vacíos se muestran como `[COMPLETAR]`.
 
-Cuenta normal: **Activá tu VIP**. VIP activo: días restantes y **Extender VIP**. Estado no disponible: **Conocé el VIP**. La activación y renovación siguen dentro del juego. No se crean niveles ni suscripciones con cobro automático.
+Con precio configurado, cuenta normal: **Activá tu VIP**; VIP activo: días restantes y **Extender VIP**. Ambos botones preparan una recarga suficiente según los packs y bonus vigentes y llevan al resumen **Pagar con Ualá**. No envían el pago automáticamente. Sin precio configurado: **Conocé el VIP**, con información desplegable. La activación y renovación siguen dentro del juego. No se crean niveles ni suscripciones con cobro automático.
 
 ## Almacenamiento y límites
 

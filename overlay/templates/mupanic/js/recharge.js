@@ -82,7 +82,7 @@
   shop.querySelectorAll('[data-choose-package]').forEach(button => button.addEventListener('animationend', event => { if (event.animationName === 'eryns-selection-flash') button.classList.remove('is-flashing'); }));
   const vipDetails = shop.querySelector('#eryns-vip-plan-details');
   const vipCta = shop.querySelector('[data-vip-cta]');
-  if (vipCta && vipDetails) {
+  if (vipCta && vipDetails && !vipCta.hasAttribute('data-target-price')) {
     vipCta.addEventListener('click', () => { vipDetails.open = true; vipDetails.scrollIntoView({behavior:'auto',block:'nearest'}); });
     vipDetails.addEventListener('toggle', () => vipCta.setAttribute('aria-expanded', String(vipDetails.open)));
   }
@@ -125,12 +125,16 @@
     const price = Number(button.dataset.targetPrice);
     if (!Number.isSafeInteger(price) || price <= 0) return;
     const candidates = packages.map(card => ({card,quantity:1,cost:Number(card.dataset.price),units:Number(card.dataset.coins)})).filter(item => item.units >= price);
-    if (!candidates.length) packages.forEach(card => { const quantity = Math.ceil(price / Number(card.dataset.coins)); if (quantity <= 99 && quantity * Number(card.dataset.coins) <= 1000000 && quantity * Number(card.dataset.price) <= 100000000) candidates.push({card,quantity,cost:quantity*Number(card.dataset.price),units:quantity*Number(card.dataset.coins)}); });
+    packages.forEach(card => { const quantity = Math.ceil(price / Number(card.dataset.coins)); if (quantity <= 99 && quantity * Number(card.dataset.coins) <= 1000000 && quantity * Number(card.dataset.price) <= 100000000) candidates.push({card,quantity,cost:quantity*Number(card.dataset.price),units:quantity*Number(card.dataset.coins)}); });
     candidates.sort((a,b) => a.cost - b.cost || a.units - b.units);
     if (!candidates.length) { mountMessage.textContent = 'Revisá las cantidades permitidas antes de recargar para este objetivo.'; return; }
     const selected = candidates[0]; packages.forEach(card => { card.querySelector('input').value = card === selected.card ? String(selected.quantity) : '0'; });
     updateCart(); mountMessage.textContent = 'Objetivo: ' + button.dataset.targetName + '. Elegimos una recarga que alcanza su precio de ' + coins(price) + '.';
-    shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'});
+    if (button.dataset.targetVip === '1') {
+      mountMessage.textContent += ' Pagá con Ualá y activá o renová el VIP dentro del juego.';
+      shop.querySelector('#recharge-cart').scrollIntoView({behavior:'auto',block:'start'});
+      submit.focus({preventScroll:true});
+    } else shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'});
   }));
   function revealUtility() { const panel = document.querySelector(window.location.hash === '#recharge-history' ? '#recharge-history' : window.location.hash === '#recharge-guide' ? '#recharge-guide' : 'body'); if (panel.tagName === 'DETAILS') panel.open = true; }
   shop.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
@@ -165,7 +169,11 @@
     let originalOverflow;
     button.addEventListener('click', () => { originalOverflow = document.body.style.overflow; dialog.showModal(); document.body.style.overflow = 'hidden'; dialog.querySelector('[data-close-creature]').focus(); });
     dialog.querySelector('[data-close-creature]').addEventListener('click', () => dialog.close());
-    dialog.querySelector('[data-return-to-buy]').addEventListener('click', () => { dialog.close(); shop.querySelector('[data-choose-package]').focus({preventScroll:true}); shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'}); });
+    dialog.querySelector('[data-return-to-buy]').addEventListener('click', () => { dialog.close(); shop.querySelector('[data-choose-package]').focus({preventScroll:true}); if (button.dataset.targetVip === '1') {
+      mountMessage.textContent += ' Pagá con Ualá y activá o renová el VIP dentro del juego.';
+      shop.querySelector('#recharge-cart').scrollIntoView({behavior:'auto',block:'start'});
+      submit.focus({preventScroll:true});
+    } else shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'}); });
     dialog.addEventListener('close', () => { document.body.style.overflow = originalOverflow; button.focus({preventScroll:true}); });
   });
   form.addEventListener('submit', event => {

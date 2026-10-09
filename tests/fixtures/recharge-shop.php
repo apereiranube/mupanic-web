@@ -4,7 +4,7 @@ $inc=dirname(__DIR__,2).'/overlay/templates/mupanic/inc';
 require $inc.'/account.php';
 function isLoggedIn(){return true;}
 function config($k,$r){return false;}
-class Connection {static function Database($n){return new self;} function query_fetch($s,$p=[]){if(strpos($s,'AccountLevel')!==false) return getenv('RECHARGE_FIXTURE')==='vip-unknown'?null:[['active'=>in_array(getenv('RECHARGE_FIXTURE'),['vip','mount-vip'],true)?1:0,'days_remaining'=>in_array(getenv('RECHARGE_FIXTURE'),['vip','mount-vip'],true)?12:0]];return [['balance'=>1011]];}}
+class Connection {static function Database($n){return new self;} function query_fetch($s,$p=[]){if(strpos($s,'AccountLevel')!==false) return getenv('RECHARGE_FIXTURE')==='vip-unknown'?null:[['active'=>in_array(getenv('RECHARGE_FIXTURE'),['vip','mount-vip','vip-priced-active'],true)?1:0,'days_remaining'=>in_array(getenv('RECHARGE_FIXTURE'),['vip','mount-vip','vip-priced-active'],true)?12:0]];return [['balance'=>1011]];}}
 $_SESSION=['username'=>'Agustin','recharge_csrf'=>str_repeat('a',64),'recharge_nonce'=>str_repeat('b',32)];
 require $inc.'/recharge-orders.php';
 $catalogue=(require $inc.'/recharge-config.php')['packages'];
@@ -16,15 +16,17 @@ $three=$one;$three['id']='PANIC-'.str_repeat('d',32);$three['payment_state']='pe
 $shopHistory=['total'=>3,'orders'=>[$one,$two,$three]];$shopCanBuy=true;$shopSettings=['environment'=>'test'];$shopAdmin=false;$shopCreated=null;$shopMessage=null;$shopQuantities=['wcoin-20000'=>'5'];$shopPage=1;
 $fixtureMode=getenv('RECHARGE_FIXTURE');
 if(in_array($fixtureMode,['zero','bonus'],true)) $shopQuantities=array_fill_keys(array_column($catalogue,'id'),'0');
-if($fixtureMode==='closed') $shopCanBuy=false;
+if(in_array($fixtureMode,['closed','vip-priced-closed'],true)) $shopCanBuy=false;
 if($fixtureMode==='ready') $shopCreated=$three;
 if($fixtureMode==='empty') { $shopHistory=['total'=>0,'orders'=>[]];$shopQuantities=[]; }
 $storefrontRoot=null;
-if(in_array($fixtureMode,['mount-normal','mount-vip'],true)) {
+if(in_array($fixtureMode,['mount-normal','mount-vip','vip-priced','vip-priced-active','vip-priced-bonus','vip-priced-closed'],true)) {
     $storefrontRoot=sys_get_temp_dir().'/panic-storefront-preview-'.bin2hex(random_bytes(5));mkdir($storefrontRoot,0700);
     $presentation=PanicRechargeManagement::storefrontDefaults();$presentation['products'][0]['price_coins']=100000;$presentation['products'][0]['vip_price_coins']=90000;$presentation['products'][0]['available']=true;
+    if(strpos($fixtureMode,'vip-priced')===0) { $presentation['vip']['price_coins']=25000;$presentation['vip']['days']=30; }
     file_put_contents($storefrontRoot.'/recharge-storefront.json',json_encode($presentation));
 }
+if($fixtureMode==='vip-priced-bonus') { foreach($catalogue as &$offer) { if($offer['id']==='wcoin-20000') { $offer['bonus']=5000; } } unset($offer); }
 $markup=file_get_contents($inc.'/recharge.php');
 if($storefrontRoot) $markup=str_replace('(new PanicRechargeManagement())->storefront()', '(new PanicRechargeManagement('.var_export($storefrontRoot,true).'))->storefront()', $markup);$markup=str_replace("require __DIR__.'/recharge-shop-controller.php';",'',$markup);$markup=str_replace('$publicOffers=[];', '$publicOffers=$catalogue;',$markup);$markup=str_replace('__DIR__',var_export($inc,true),$markup);
 echo '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="https://preview.test/beta/"><link rel="stylesheet" href="templates/mupanic/css/style.css"><link rel="stylesheet" href="templates/mupanic/css/account.css"><link rel="stylesheet" href="templates/mupanic/css/recharge.css"><style>body{margin:0;background:#f3ece2}.fixture-wrap{max-width:1280px;margin:30px auto;padding:0;display:block}.fixture-nav{display:none;padding:25px;background:#202b28;color:#ead7bd}.fixture-content{background:#142134;padding:0;min-width:0}@media(max-width:800px){.fixture-wrap{display:block;padding:0;margin:0}.fixture-nav{display:none}.fixture-content{padding:0}}</style></head><body class="is-account"><div class="fixture-wrap"><aside class="fixture-nav"><h2>MU PANIC</h2><p>Mi cuenta</p><hr><p>Inicio del panel</p><p>Mis personajes</p><p>Recargar Eryns</p></aside><main class="fixture-content module-surface">';

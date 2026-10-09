@@ -59,7 +59,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(await page.locator('[data-order-pay]').isVisible())throw Error('Paid checkout link remains visible');
   console.log('Shop '+width+'px: totals, limits, mobile tap targets and no overflow passed.');await page.close();
  }
- for(const mode of ['closed','ready','empty','zero','bonus','vip','vip-unknown','mount-normal','mount-vip']){
+ for(const mode of ['closed','ready','empty','zero','bonus','vip','vip-unknown','mount-normal','mount-vip','vip-priced','vip-priced-active','vip-priced-bonus','vip-priced-closed']){
   const stateHtml=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/recharge-shop.php')],{encoding:'utf8',env:{...process.env,RECHARGE_FIXTURE:mode}});
   const page=await browser.newPage({viewport:{width:390,height:844}});
   let submitted=null;
@@ -75,7 +75,17 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
     if((await page.locator('.eryns-mount-product--theryon').getAttribute('class')).includes('is-sealed'))throw Error('Published mount remains sealed');
     await goal.click();const delivered=Number((await page.locator('[data-total-coins]').textContent()).replace(/[^0-9]/g,''));if(delivered<Number(expected))throw Error('Goal reload does not reach manual product price');
   }
-  if(mode==='vip'){if(await page.locator('[data-vip-state]').getAttribute('data-vip-state')!=='active'||!(await page.locator('[data-vip-state]').textContent()).includes('12 días restantes')||!(await page.locator('[data-vip-cta]').textContent()).includes('Extender VIP'))throw Error('Active VIP status incorrect');}
+  if(mode.startsWith('vip-priced')) {
+    const cta=page.locator('[data-vip-cta]');if(await cta.getAttribute('data-target-price')!=='25000')throw Error('VIP price not connected');
+    if(!(await cta.textContent()).includes(mode==='vip-priced-active'?'Extender VIP':'Activá tu VIP'))throw Error('VIP purchase label incorrect');
+    await cta.click();
+    const received=Number((await page.locator('[data-total-coins]').textContent()).replace(/[^0-9]/g,''));if(received!==25000)throw Error('VIP recharge should reach 25k with existing packs');
+    if(mode==='vip-priced-bonus' && (received!==25000 || await page.locator('[data-total-price]').textContent()!=='$ 20.000 ARS'))throw Error('VIP ignores real pack bonus');
+    if((await page.locator('[data-cart-submit]').isDisabled())!==(mode==='vip-priced-closed'))throw Error('VIP bypasses payment availability');
+    if(!(await page.locator('[data-target-message]').textContent()).includes('dentro del juego'))throw Error('VIP recharge implies activation');
+    if(await page.locator('#eryns-vip-plan-details').evaluate(e=>e.open))throw Error('Priced VIP only opens information');
+  }
+  if(mode==='vip'){if(await page.locator('[data-vip-state]').getAttribute('data-vip-state')!=='active'||!(await page.locator('[data-vip-state]').textContent()).includes('12 días restantes')||!(await page.locator('[data-vip-cta]').textContent()).includes('Conocé el VIP'))throw Error('Active VIP status incorrect');}
   if(mode==='vip-unknown'){if(await page.locator('[data-vip-state]').getAttribute('data-vip-state')!=='unknown'||!(await page.locator('[data-vip-cta]').textContent()).includes('Conocé el VIP'))throw Error('Unknown VIP treated as normal');}
   if(mode==='zero'){if(await page.locator('[data-total-coins]').textContent()!=='5.000 Eryns'||await page.locator('[data-cart-submit]').isDisabled())throw Error('All-zero GET did not select recommendation');}
   if(mode==='bonus'){
@@ -86,7 +96,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
     await page.locator('[data-upgrade-package]').click();if(await page.locator('[data-total-coins]').textContent()!=='22.000 Eryns')throw Error('Upgrade changes amount');
     if(process.env.RECHARGE_SCREENSHOT_DIR){await page.locator('.eryns-combine summary').click();await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'bonus-390.png'),fullPage:true});}
     await page.evaluate(()=>{const button=document.querySelector('[data-target-price]');button.disabled=false;button.dataset.targetPrice='12000';button.click();});
-    if(await page.locator('[data-total-coins]').textContent()!=='22.000 Eryns')throw Error('Goal does not choose pack that reaches price');
+    if(await page.locator('[data-total-coins]').textContent()!=='12.000 Eryns'||await page.locator('[data-total-price]').textContent()!=='$ 12.000 ARS')throw Error('Goal should choose cheapest sufficient quantity');
   }
   if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('State overflow '+mode);
   console.log('Shop state '+mode+': passed.');await page.close();
