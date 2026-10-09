@@ -18,7 +18,7 @@ assert.equal(filter(index,{query:'',type:'pet',map:'',level:''}).length,11);
 for(const entry of catalog.entries.filter(x=>x.stage))assert.ok(entry.story.length===2 && entry.story.join(' ').length>500 && entry.role.length>100,'Complete PDF story: '+entry.name);
 (async()=>{
  const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||undefined,args:['--no-sandbox']});
- for(const [width,height] of [[1440,1000],[390,844],[320,700]]){
+ for(const [width,height] of [[1920,1080],[1440,1000],[390,844],[320,700]]){
   const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',route=>{
@@ -32,6 +32,11 @@ for(const entry of catalog.entries.filter(x=>x.stage))assert.ok(entry.story.leng
   assert.equal(await page.locator('#inicio').isVisible(),false);
   assert.equal(await page.locator('[data-vinculo]').count(),14);
   await page.evaluate(async()=>Promise.all(Array.from(document.querySelectorAll('#vinculos img')).map(image=>new Promise((resolve,reject)=>{const probe=new Image();probe.onload=resolve;probe.onerror=()=>reject(new Error('Invalid image: '+image.src));probe.src=image.src;}))));
+  await page.locator('#vinculos img').evaluateAll(async images=>{images.forEach(image=>image.loading='eager');await Promise.all(images.map(image=>image.decode()));});
+  const clipped=await page.locator('.vinculo-portrait').evaluateAll(portraits=>portraits.filter(portrait=>{const box=portrait.getBoundingClientRect(),image=portrait.querySelector('img').getBoundingClientRect();return image.top<box.top||image.bottom>box.bottom||image.left<box.left||image.right>box.right;}).map(portrait=>portrait.closest('[data-vinculo]').id));
+  assert.deepEqual(clipped,[],'Companion images fit fully inside their portrait frames');
+  await page.locator('#vinculo-aelira').scrollIntoViewIfNeeded();
+  if(process.env.ATLAS_SCREENSHOT_DIR){fs.mkdirSync(process.env.ATLAS_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`mascotas-${width}.png`)});}
   await page.locator('.vinculos-chapters a[href="#vinculo-materiales"]').click();
   assert.equal(await page.locator('#vinculo-materiales').isVisible(),true);
   for(const selector of ['#vinculo-fragmentos img','#vinculo-nucleos img'])assert.equal(await page.locator(selector).evaluate(im=>im.complete&&im.naturalWidth>0),true);
