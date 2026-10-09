@@ -1,8 +1,24 @@
 # Vínculos de PANIC
 
-Nueva sección del Atlas en `/info/#vinculos`. Incluye los ocho compañeros de
+Bestiario ilustrado del Atlas en `/info/#vinculos`. Incluye los ocho compañeros de
 **El Pacto de los Ocho**, Grum, Vaelkar, Aurethia y las tres monturas exclusivas.
 Las fichas tienen bonos, obtención, inventario y enlaces a sus evoluciones.
+
+## Presentación
+
+Portada cinematográfica con Nerathys, navegación por tres capítulos visuales,
+exclusivos con fichas horizontales y poderes destacados, monturas con
+identidad cromática propia, linajes con rutas de evolución, ritual y
+materiales. El prólogo completo se despliega desde su encabezado; las
+historias conservan los enlaces directos y los controles nativos de teclado.
+El diseño adapta las fichas y el arte a celular y respeta movimiento reducido.
+
+Las 14 criaturas tienen ilustraciones nuevas hechas con image_gen a partir
+de sus retratos reales. Mantienen los rasgos de cada criatura y se presentan
+como arte del Atlas; no reemplazan archivos del cliente ni modelos del juego.
+Los dos escenarios son ilustraciones originales. El manifiesto
+`tools/atlas-vinculos-cinematic-art.json` registra las referencias, prompts,
+dimensiones, transparencia y hashes de los 16 recursos nuevos.
 
 ## Fuentes
 
@@ -16,7 +32,7 @@ Las fichas tienen bonos, obtención, inventario y enlaces a sus evoluciones.
   (905095 bytes), correspondiente a `pet_mupanic_flymount_pet6` en el cliente,
   con las tres cabezas y alas completas. No usa la mascota Muun `hydra.bmd`.
 - El manifiesto `tools/atlas-vinculos-art.json` registra modelos, imágenes del
-  PDF, procesamiento y hashes de las 18 imágenes publicadas.
+  PDF, procesamiento y hashes de las 18 imágenes de referencia anteriores.
 
 ## Materiales y obtención
 
@@ -59,8 +75,9 @@ PHP_BIN=php NODE_PATH=/ruta/a/node_modules node tests/atlas-vinculos-browser.cjs
 
 El test de navegador revisa las 18 entradas, imágenes, lore completo,
 exclusión de drops para exclusivos, apertura de fichas, búsqueda, errores JS
-y ausencia de desborde a 1920, 1440, 390 y 320 píxeles. También comprueba
-que los modelos entren completos y las tarjetas cerradas compartan altura. `CHROMIUM_PATH` permite usar
+y ausencia de desborde a 1920, 1440, 1024, 768, 390 y 320 píxeles. También comprueba
+que las criaturas entren completas y las tarjetas de cada capítulo
+compartan altura. `CHROMIUM_PATH` permite usar
 un ejecutable de Chromium existente. `ATLAS_SCREENSHOT_DIR` guarda capturas.
 Con `PANIC_ATLAS_RUNTIME_DIR` también comprueba los enlaces de las reglas de
 materiales del snapshot publicado, sin conexiones SQL ni cambios de filas.

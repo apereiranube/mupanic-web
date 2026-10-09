@@ -30,11 +30,11 @@ for module in "${DEPLOY_MODULES[@]}"; do
   fi
 done
 
-# The Vínculos guide and every real portrait must arrive together.
+# The Vínculos guide and its illustrated bestiary must arrive together.
 for file in atlas-vinculos.php atlas-vinculos.json; do
   test -s "$TEMPLATE_SOURCE/inc/$file"
 done
-for portrait in aelira sylthara elyndra aurik aurion vaeryn vaerath vaerion grum vaelkar aurethia theryon nerathys-hd vaeraxes fragmentos nucleos luck-hd assembly-hd; do
+for portrait in aelira-cinematic sylthara-cinematic elyndra-cinematic aurik-cinematic aurion-cinematic vaeryn-cinematic vaerath-cinematic vaerion-cinematic grum-cinematic vaelkar-cinematic aurethia-cinematic theryon-cinematic nerathys-cinematic vaeraxes-cinematic sanctum-cinematic ritual-cinematic fragmentos nucleos luck-hd assembly-hd; do
   if [ ! -s "$TEMPLATE_SOURCE/img/atlas/vinculos/$portrait.webp" ]; then
     echo "[MU PANIC] ERROR: Missing Vínculos portrait: $portrait" >&2
     exit 1

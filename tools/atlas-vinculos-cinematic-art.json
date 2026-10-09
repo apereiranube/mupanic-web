@@ -1,0 +1,178 @@
+{
+  "environments": {
+    "sanctum": {
+      "file": "img/atlas/vinculos/sanctum-cinematic.webp",
+      "width": 1600,
+      "height": 914,
+      "outputHash": "619cb6f61bdd6feb67e8c36e0d0605ad5d8a74d798d2c5f06a6770f81a00b41f",
+      "source": "Built-in image_gen; original environment painting",
+      "prompt": "Use case: stylized-concept. Asset type: wide cinematic background for the Vínculos de PANIC bestiary website. Create a premium dark fantasy environment painting, landscape 1792x1024. A monumental ruined sanctuary in the world of a medieval fantasy MMORPG, weathered black stone arches and a huge broken circular arch framing a cold violet eclipse far in the distance, crystalline blue-violet magical fissures threading through the ground, sparse copper embers in the air, deep smoky shadows and tangible layered depth. The right half contains the dramatic architecture and glowing violet energy; left half remains dark mist and low-detail negative space for white headline. A low dark stone dais occupies bottom-right as staging area for real game character images composited later. Cinematic hand-painted AAA game key art, detailed stone, restrained bronze accents, palette charcoal black, moonlit slate, violet, cool cyan, tiny crimson sparks. Very atmospheric and spectacular, not overloaded with gold. No characters, animals, creatures, silhouettes of people, words, letters, logos, borders, interface elements or watermark."
+    },
+    "ritual": {
+      "file": "img/atlas/vinculos/ritual-cinematic.webp",
+      "width": 1600,
+      "height": 914,
+      "outputHash": "073a3e963866a022448feba53ac40e9db36dabfc3cf4059276ebad6b0ab91e96",
+      "source": "Built-in image_gen; original environment painting",
+      "prompt": "Use case: stylized-concept. Asset type: wide landscape backdrop for a dark fantasy game evolution ritual chapter on the MU PANIC website, 1792x1024. Ancient circular invocation altar in a ruined moonlit forest sanctuary, luminous cyan crystal core levitating above a weathered stone pedestal to the RIGHT side, three fine streams of violet and teal energy converge into the core, engraved runes on the floor are purely abstract geometry, distant tall trees and fractured arches, wisps of fog, a few glowing motes. LEFT HALF darker and uncluttered for HTML text. The atmosphere feels like an exclusive AAA dark fantasy MMO cinematic, polished detailed digital painting, black stone and cold midnight blue with emerald-cyan light and restrained copper sparks, high depth and strong directional magical lighting. No people, no creatures, no animals, no UI, no readable letters, no text, no borders, no logos, no watermark."
+    }
+  },
+  "companions": {
+    "aelira": {
+      "file": "img/atlas/vinculos/aelira-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "2f130a164743502b55a8d84c8eb90177c9d53abd05376528daad66747054e8ee",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/aelira.webp",
+      "referenceHash": "94a410cd815cf0f35f8d6ec187d883672b3d6614ea1aae0c94c312bfc070f219",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for aelira: A small green-haired woodland guardian with short leaf-green bob, brown leaf and leather tunic, green leaf collar, simple wooden branch staff and boots. Preserve small companion proportions and modest covered costume. No crown or gold royal armor."
+    },
+    "sylthara": {
+      "file": "img/atlas/vinculos/sylthara-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "d8adb0d962030f9e1e2e8f37de3fe755b3816f975b52cd2466d2dc748f05b07e",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/sylthara.webp",
+      "referenceHash": "5684ae8e5d1b84c458d279fdfdc6100731eb4bb2b062b13dd30e2579a14e2751",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for sylthara: A small green-haired woodland guardian with longer vivid green hair, branching wooden antler crown, turquoise gems at collar and belt, brown-green druid clothing, short cape, leaf staff. Preserve reference companion proportions."
+    },
+    "elyndra": {
+      "file": "img/atlas/vinculos/elyndra-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "07c6364a02f2dbd22de4f3ffbd184ca59a329363053d6d40698d2ffc8957a80e",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/elyndra.webp",
+      "referenceHash": "69c866aaeb9905b59317fa173e6e49bf7313383bbe641759622f48dc9f175fa2",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for elyndra: The small elven queen with long dark-green hair, pointed ears, elaborate gold leaf crown and green-gold leafy costume, gold boots and bracelets, warm golden eyes. Preserve small companion proportions and reference clothing coverage, never sexualize."
+    },
+    "aurik": {
+      "file": "img/atlas/vinculos/aurik-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "6dff589a2471d9ebf939b41f91df31b5e697acb0be372a10191532fbffaea012",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/aurik.webp",
+      "referenceHash": "3facafcf9544e30d9b3b13d1fbc1382f0096bb8e008fcb594941a160f3abaf60",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for aurik: Small silver-gray wolf companion, yellow eyes, dark back and tail, pale face and paws, restrained brown-gold shoulder fittings and red-gold wrist bands. Preserve wolf species, juvenile compact proportions, four paws, no wings, no helmet."
+    },
+    "aurion": {
+      "file": "img/atlas/vinculos/aurion-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "986a28f1de6ac161a9836dcfcb022f290cf24ee9124055f087308b183958e405",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/aurion.webp",
+      "referenceHash": "68ee78b991e3dec4db5b43d1f2a1900f3dfe0630b58533608320fa9dc21d109e",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for aurion: Silver-gray wolf companion in distinctive red and gold armored helmet with upright ear frames and silver cheek spikes, red-gold shoulder and paw armor. Preserve compact wolf proportions, exactly four paws and one bushy tail, no wings."
+    },
+    "vaeryn": {
+      "file": "img/atlas/vinculos/vaeryn-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "8777e356605b44ab151c3af437584fce86249f23793fb11ccf8f60d7026e56f0",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/vaeryn.webp",
+      "referenceHash": "0cb24458b108d3bbf182349f20113a065092eb021f572d518de25a6a2e604974",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for vaeryn: Copy this exact small icy cyan winged companion from the reference, its recognizable head shape and cyan body, wide outstretched wings, low poised stance. Do not turn it into a different generic dragon or bird. Keep exact appendages and colors."
+    },
+    "vaerath": {
+      "file": "img/atlas/vinculos/vaerath-cinematic.webp",
+      "width": 1024,
+      "height": 576,
+      "hasAlpha": true,
+      "outputHash": "0886763597970640ed02e29b20055e460e62d53fae9eca3165591cbece7c695b",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/vaerath.webp",
+      "referenceHash": "0d76480f508d37a8347d0499d2e1de0f1e806f351625ca20ea1fc3cdb5971848",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for vaerath: Copy this exact small cyan icy winged companion at its second stage, distinctive vertical crest/horn and long narrow outstretched cyan wings with pale tips. Preserve the reference head shape and body plan, do not substitute a generic dragon."
+    },
+    "vaerion": {
+      "file": "img/atlas/vinculos/vaerion-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "a98a92e31ce9c1c028a975f0f6d97428fe1c4bed41eab51c6536b6c5cd59c917",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/vaerion.webp",
+      "referenceHash": "90be7679a01af32e7f6258e1567b7913c326e07d687d86fa6e75ff5cadd5c608",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for vaerion: Copy this exact blue winged winter companion, dark navy expansive raised wings, cyan upper head/crest and chest, pale-gray sharply hooked/beaked face. Preserve its reference avian head and anatomy; do not replace the beak with a reptile mouth or generic dragon."
+    },
+    "grum": {
+      "file": "img/atlas/vinculos/grum-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "63d7f66cc197d737ae85e3edf9eb38a27ee27bc23ae133152f89c5aeb7ec1cfd",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/grum.webp",
+      "referenceHash": "e8882c00bacb86d484804e42bc8536cf3c1dbb7eb506d40570d58cbd987f256b",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for grum: The odd compact birdlike mechanical companion with a long yellow beak, goggle eyes with teal-green lenses, green legs, brown harness and backpack, two huge dark steel multi-blade turbine/rotor structures rising behind its back. Preserve its peculiar exact design, mechanical rotors are not feather wings. No redesign as a conventional cute bird."
+    },
+    "vaelkar": {
+      "file": "img/atlas/vinculos/vaelkar-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "620eb79d7137cf0b5877be329f437e97c4fa99851cbcbb8b44be1f6e4b98f0fe",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/vaelkar.webp",
+      "referenceHash": "cb943b78ee782b45049efadf73ed131062eace2b6dd1859b913228869e78293d",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for vaelkar: The compact armored blue-silver and gold masked knight companion, white swept hair, pointed gold-trimmed blue face helm, big silver-blue shield with purple-blue glowing emblem, dark purple thorn-like weapon in the raised hand, tiny dark bat silhouette accents as present in the reference. Preserve full actual armor, mask, shield and compact heroic proportions. No removal of mask, no replacement by a large human knight."
+    },
+    "aurethia": {
+      "file": "img/atlas/vinculos/aurethia-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "2fb671a19a67fbe481f6c144ae7a884756f82fc23fa22117572cf27db231d1b8",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/aurethia.webp",
+      "referenceHash": "8fee4933830bae8bf2778d946e892026e6cc977fc0b408230cdaf66fc154b87e",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for aurethia: Compact female celestial warrior companion, brown hair, pointed ears, elaborate gold-white-blue armor, gold jeweled headpiece, white and gold feather wings, red orb/jewels, armored boots and weapon. Preserve the reference petite character proportions and costume, no sexualization or added skin."
+    },
+    "theryon": {
+      "file": "img/atlas/vinculos/theryon-cinematic.webp",
+      "width": 1024,
+      "height": 874,
+      "hasAlpha": true,
+      "outputHash": "0563e71f10af4baa4b829bc748d5702a30dd1703c25b1bbc1b25063f61ced185",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/theryon.webp",
+      "referenceHash": "e6635aa3751161854694281731074d5d103639d37b2370cd5a63b9816ad15988",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for theryon: The WHITE lion mount, full white fur and mane, blue and silver armored headpiece with TWO long silver horns, rich royal-blue and silver shoulder, leg and saddle armor with small violet details. Preserve white lion face and lion anatomy, four paws and tail. Never make its fur gold or turn it into a wolf.",
+      "framingPrompt": "Edit this exact illustrated WHITE Theryon lion mount portrait to fix framing ONLY. Keep the same WHITE lion, white mane and tail, royal-blue and silver armor, TWO long silver helmet horns, violet accents, pose, details and lighting. Zoom out and extend the genuinely transparent canvas so BOTH complete horn tips, ALL four paw tips, entire face and entire tail fit completely inside. Add at least 12 percent empty transparent margin on EVERY side; creature occupies no more than 75 percent of width and height. Reconstruct only clipped horn tips and paw tips, exactly matching current design. Full body must be completely visible. No redesign, no additional horns, no extra limbs, no text, no background, no floor, no circular glow. True transparent alpha."
+    },
+    "nerathys": {
+      "file": "img/atlas/vinculos/nerathys-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "5241f7ec93447263ecb107eae97b1f1dbd66ef86cf60afe8af948b6cba0b7d83",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/nerathys-hd.webp",
+      "referenceHash": "491309fc73ed23785986c90f691bde7ebcd129a89e91a4e3ac49dc317125141f",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for nerathys: The exact THREE-HEADED winged hydra mount. THREE purple-black dragon heads on three distinct long necks, large golden bony wing spars with violet-to-cream membranes, golden dark scaled torso and clawed feet, branching long tail. All THREE heads must be visible and separate. Preserve golden/violet design and exact mount anatomy. No rider, no fourth head, no missing head, no extra wings."
+    },
+    "vaeraxes": {
+      "file": "img/atlas/vinculos/vaeraxes-cinematic.webp",
+      "width": 1024,
+      "height": 1024,
+      "hasAlpha": true,
+      "outputHash": "28ffe7b6519c6355081677d8098772366bc1e91f319532a862cbb2cf657d7421",
+      "source": "Built-in image_gen; illustration based on the supplied game portrait",
+      "referenceFile": "img/atlas/vinculos/vaeraxes.webp",
+      "referenceHash": "8389ab73ebbd20d1d3516ca7c961314273113f04849958b88479f50da1074fcc",
+      "prompt": "Use case: style-transfer. Asset type: premium illustrated companion portrait for MU PANIC's cinematic bestiary. The attached image is the exact game creature identity reference, not a design suggestion. Repaint that SAME creature as spectacular high-resolution AAA dark fantasy character key art with exquisite detailed metal, fur, leaves or scales as applicable, cinematic directional rim lighting, restrained magical glow in its own colors, high material detail and depth. Preserve its EXACT species, silhouette, number of heads, limbs and wings, costume colors, armor shapes, accessories and distinctive companion proportions. Improve rendering quality and expression, remove low-poly pixelation; do not redesign the creature. Full body, centered, three-quarter view like reference, entire creature and wing tips and staff fit within the canvas with 8 percent clear margin. Sharp large readable silhouette; a few tiny magical sparks close to the creature only. Consistent illustrated painterly-realistic fantasy rendering, premium game promo art, not an inventory screenshot or toy. Genuinely transparent RGBA background, no floor, no setting, no circular glow plate, no opaque black background, no letters, no text, no logo, no border, no watermark. Identity invariants for vaeraxes: The exact crimson red dragon mount with pale silver-white bony plated armor on the chest, face and legs, red leathery wings, long red tail and narrow horned dragon head. Preserve FOUR legs and two wings, red body with silver-white plates, reference geometry and coloration. Do not make it icy blue despite the source filename.",
+      "framingPrompt": "Edit this exact illustrated crimson Vaeraxes dragon portrait to fix the framing ONLY. Keep the same red dragon, silver-white armor plates, pose, details, style and lighting. Zoom out the whole creature and extend the genuinely transparent canvas so the COMPLETE nose, all wing tips, all feet and the entire tail are visible, with at least 10 percent empty transparent margin on EVERY side. The dragon should occupy at most 78 percent of the canvas width and height. Reconstruct only any tip clipped by the current edge, matching the reference design. No redesign, no extra limbs, no text, no background, no floor, no circular glow. Full-body game mount portrait on true transparent alpha."
+    }
+  }
+}

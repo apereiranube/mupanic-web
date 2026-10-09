@@ -27,7 +27,7 @@
         "Daño recibido −3%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/aelira.webp",
+      "image": "img/atlas/vinculos/aelira-cinematic.webp",
       "obtain": "Invocación con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -57,7 +57,7 @@
         "Reflejo de daño 2%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/sylthara.webp",
+      "image": "img/atlas/vinculos/sylthara-cinematic.webp",
       "obtain": "Evolución con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -87,7 +87,7 @@
         "Reflejo de daño 4%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/elyndra.webp",
+      "image": "img/atlas/vinculos/elyndra-cinematic.webp",
       "obtain": "Evolución con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -117,7 +117,7 @@
         "Zen base obtenido +10%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/aurik.webp",
+      "image": "img/atlas/vinculos/aurik-cinematic.webp",
       "obtain": "Invocación con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -147,7 +147,7 @@
         "Zen base obtenido +20%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/aurion.webp",
+      "image": "img/atlas/vinculos/aurion-cinematic.webp",
       "obtain": "Evolución con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -176,7 +176,7 @@
         "Daño +3%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/vaeryn.webp",
+      "image": "img/atlas/vinculos/vaeryn-cinematic.webp",
       "obtain": "Invocación con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -206,7 +206,7 @@
         "Probabilidad de crítico +5 puntos",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/vaerath.webp",
+      "image": "img/atlas/vinculos/vaerath-cinematic.webp",
       "obtain": "Evolución con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -236,7 +236,7 @@
         "Probabilidad de crítico +10 puntos",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/vaerion.webp",
+      "image": "img/atlas/vinculos/vaerion-cinematic.webp",
       "obtain": "Evolución con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -264,7 +264,7 @@
         "Recoge Zen automáticamente",
         "Sin bonos adicionales"
       ],
-      "image": "img/atlas/vinculos/grum.webp",
+      "image": "img/atlas/vinculos/grum-cinematic.webp",
       "obtain": "Invocación con Eryndor",
       "inventory": "1 × 2",
       "aliases": [
@@ -294,7 +294,7 @@
         "Reflejo de daño 2%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/vaelkar.webp",
+      "image": "img/atlas/vinculos/vaelkar-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
       "inventory": "1 × 2",
       "aliases": [
@@ -324,7 +324,7 @@
         "Reflejo de daño 2%",
         "Recoge Zen automáticamente"
       ],
-      "image": "img/atlas/vinculos/aurethia.webp",
+      "image": "img/atlas/vinculos/aurethia-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
       "inventory": "1 × 2",
       "aliases": [
@@ -351,7 +351,7 @@
         "Experiencia +25%",
         "Zen obtenido +30%"
       ],
-      "image": "img/atlas/vinculos/theryon.webp",
+      "image": "img/atlas/vinculos/theryon-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
       "inventory": "2 × 2",
       "aliases": [
@@ -378,7 +378,7 @@
         "Daño recibido −15%",
         "Reflejo de daño 5%"
       ],
-      "image": "img/atlas/vinculos/nerathys-hd.webp",
+      "image": "img/atlas/vinculos/nerathys-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
       "inventory": "2 × 2",
       "aliases": [
@@ -405,7 +405,7 @@
         "Daño +20%",
         "Probabilidad de crítico +10 puntos"
       ],
-      "image": "img/atlas/vinculos/vaeraxes.webp",
+      "image": "img/atlas/vinculos/vaeraxes-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
       "inventory": "2 × 2",
       "aliases": [
