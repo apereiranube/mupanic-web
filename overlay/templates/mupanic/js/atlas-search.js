@@ -55,6 +55,19 @@
           maps:[], hash:'#recompensa-' + bag.id});
       });
     });
+    if (data.vinculos) {
+      data.vinculos.entries.concat(data.vinculos.materials).forEach(function (item) {
+        var entry = object(item);
+        entry.name = item.name;
+        entry.aliases = (item.aliases || []).concat(item.title || '');
+        entry.category = item.kind === 'montura' ? 'mount' : item.kind ? 'pet' : 'material';
+        entry.image = item.image;
+        // Companions are obtained through their own system, never stale reward lists.
+        if (item.kind) entry.routes = [];
+        entry.routes.push({kind:'guide', label:item.kind ? 'Ficha, poderes e historia' : 'Material: uso y cantidades',
+          detail:item.obtain, maps:[], hash:'#vinculo-' + item.slug});
+      });
+    }
     entries = entries.concat(Array.from(mobs.values()), Array.from(objects.values()));
     entries.forEach(function (entry) { entry.text = normalize(entry.name + ' ' + (entry.aliases || []).join(' ')); });
     return entries;
@@ -62,7 +75,7 @@
   function filter(entries, options) {
     var words = normalize(options.query).split(/\s+/).filter(Boolean);
     return entries.filter(function (entry) {
-      if (options.type && entry.type !== options.type && !(options.type === 'boss' && entry.type === 'mob' && entry.boss)) return false;
+      if (options.type && entry.type !== options.type && entry.category !== options.type && !(options.type === 'boss' && entry.type === 'mob' && entry.boss)) return false;
       if (!words.every(function (word) { return entry.text.includes(word); })) return false;
       if (options.map !== '') {
         var map = Number(options.map);

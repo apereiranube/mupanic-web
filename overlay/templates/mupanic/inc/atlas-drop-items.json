@@ -148,5 +148,15 @@
     "file": "img/atlas/drops/7290-0-af62c96574df.webp",
     "width": 32,
     "height": 28
+  },
+  "7368-0": {
+    "file": "img/atlas/vinculos/fragmentos.webp",
+    "width": 384,
+    "height": 384
+  },
+  "7369-0": {
+    "file": "img/atlas/vinculos/nucleos.webp",
+    "width": 384,
+    "height": 384
   }
 }

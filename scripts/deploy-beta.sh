@@ -30,6 +30,17 @@ for module in "${DEPLOY_MODULES[@]}"; do
   fi
 done
 
+# The Vínculos guide and every real portrait must arrive together.
+for file in atlas-vinculos.php atlas-vinculos.json; do
+  test -s "$TEMPLATE_SOURCE/inc/$file"
+done
+for portrait in aelira sylthara elyndra aurik aurion vaeryn vaerath vaerion grum vaelkar aurethia theryon nerathys vaeraxes fragmentos nucleos; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/atlas/vinculos/$portrait.webp" ]; then
+    echo "[MU PANIC] ERROR: Missing Vínculos portrait: $portrait" >&2
+    exit 1
+  fi
+done
+
 # Page artwork must be present before any deployment copy.
 for asset in server-world server-progression server-atlas server-events server-portals; do
   if [ ! -s "$TEMPLATE_SOURCE/img/server/$asset.webp" ]; then

@@ -1,0 +1,225 @@
+{
+  "aelira": {
+    "source": "MU_PANIC_El_Pacto_de_los_Ocho.pdf",
+    "page": 3,
+    "width": 640,
+    "height": 640,
+    "file": "img/atlas/vinculos/aelira.webp",
+    "outputHash": "94a410cd815cf0f35f8d6ec187d883672b3d6614ea1aae0c94c312bfc070f219",
+    "processing": "Portrait extracted from the supplied PDF; internal caption strip excluded; connected flat border matte removed (RGB 24,26,30, tolerance 5); bounds fitted with padding to a transparent 640px canvas."
+  },
+  "sylthara": {
+    "source": "MU_PANIC_El_Pacto_de_los_Ocho.pdf",
+    "page": 4,
+    "width": 640,
+    "height": 640,
+    "file": "img/atlas/vinculos/sylthara.webp",
+    "outputHash": "5684ae8e5d1b84c458d279fdfdc6100731eb4bb2b062b13dd30e2579a14e2751",
+    "processing": "Portrait extracted from the supplied PDF; internal caption strip excluded; connected flat border matte removed (RGB 24,26,30, tolerance 5); bounds fitted with padding to a transparent 640px canvas."
+  },
+  "elyndra": {
+    "modelVersion": 12,
+    "textures": [
+      "item/elf_queenm.ozj",
+      "item/elf_queenm_render.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 18,
+    "model": "elfqueen.bmd",
+    "sourceHash": "56067949b92ca0f3536b1f4663308e7a096f4f03a6341ddfd4970e33396342f9",
+    "file": "img/atlas/vinculos/elyndra.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "69c866aaeb9905b59317fa173e6e49bf7313383bbe641759622f48dc9f175fa2"
+  },
+  "aurik": {
+    "source": "MU_PANIC_El_Pacto_de_los_Ocho.pdf",
+    "page": 6,
+    "width": 640,
+    "height": 640,
+    "file": "img/atlas/vinculos/aurik.webp",
+    "outputHash": "3facafcf9544e30d9b3b13d1fbc1382f0096bb8e008fcb594941a160f3abaf60",
+    "processing": "Portrait extracted from the supplied PDF; internal caption strip excluded; connected flat border matte removed (RGB 24,26,30, tolerance 5); bounds fitted with padding to a transparent 640px canvas."
+  },
+  "aurion": {
+    "source": "MU_PANIC_El_Pacto_de_los_Ocho.pdf",
+    "page": 7,
+    "width": 640,
+    "height": 640,
+    "file": "img/atlas/vinculos/aurion.webp",
+    "outputHash": "68ee78b991e3dec4db5b43d1f2a1900f3dfe0630b58533608320fa9dc21d109e",
+    "processing": "Portrait extracted from the supplied PDF; internal caption strip excluded; connected flat border matte removed (RGB 24,26,30, tolerance 5); bounds fitted with padding to a transparent 640px canvas."
+  },
+  "vaeryn": {
+    "source": "MU_PANIC_El_Pacto_de_los_Ocho.pdf",
+    "page": 8,
+    "width": 640,
+    "height": 640,
+    "file": "img/atlas/vinculos/vaeryn.webp",
+    "outputHash": "0cb24458b108d3bbf182349f20113a065092eb021f572d518de25a6a2e604974",
+    "processing": "Portrait extracted from the supplied PDF; internal caption strip excluded; connected flat border matte removed (RGB 24,26,30, tolerance 5); bounds fitted with padding to a transparent 640px canvas."
+  },
+  "vaerath": {
+    "source": "MU_PANIC_El_Pacto_de_los_Ocho.pdf",
+    "page": 9,
+    "width": 640,
+    "height": 640,
+    "file": "img/atlas/vinculos/vaerath.webp",
+    "outputHash": "0d76480f508d37a8347d0499d2e1de0f1e806f351625ca20ea1fc3cdb5971848",
+    "processing": "Portrait extracted from the supplied PDF; internal caption strip excluded; connected flat border matte removed (RGB 24,26,30, tolerance 5); bounds fitted with padding to a transparent 640px canvas."
+  },
+  "vaerion": {
+    "source": "MU_PANIC_El_Pacto_de_los_Ocho.pdf",
+    "page": 10,
+    "width": 640,
+    "height": 640,
+    "file": "img/atlas/vinculos/vaerion.webp",
+    "outputHash": "90be7679a01af32e7f6258e1567b7913c326e07d687d86fa6e75ff5cadd5c608",
+    "processing": "Portrait extracted from the supplied PDF; internal caption strip excluded; connected flat border matte removed (RGB 24,26,30, tolerance 5); bounds fitted with padding to a transparent 640px canvas."
+  },
+  "nerathys": {
+    "modelVersion": 12,
+    "textures": [
+      "item/muunhydra_r.ozj",
+      "item/muun_hydra_01.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 18,
+    "model": "hydra.bmd",
+    "sourceHash": "f98dcfa137975b13466133595efb1cfaca8cec66afc06dc5f3a6cc5f1f79d3d9",
+    "file": "img/atlas/vinculos/nerathys.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "135994f2b0e9e66fdeec51d53b253ec094eed376163c399881c93a6045fba0a4"
+  },
+  "theryon": {
+    "modelVersion": 12,
+    "textures": [
+      "item/hs_fiercelion01b.ozj",
+      "item/hs_fiercelion02b.ozt",
+      "item/hs_fiercelion04b.ozj",
+      "item/hs_fiercelion03.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 18,
+    "model": "fiercelion.bmd",
+    "sourceHash": "a722d078befe6d4fde1865440856f9c7d95a8650f00a054a3fb0ed173ed6817d",
+    "file": "img/atlas/vinculos/theryon.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "e6635aa3751161854694281731074d5d103639d37b2370cd5a63b9816ad15988"
+  },
+  "vaeraxes": {
+    "modelVersion": 12,
+    "textures": [
+      "item/hs_2guadianiceb01.ozt",
+      "item/hs_2guadianiceb02.ozt",
+      "item/hs_2guadianiceb01_wing.ozt"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 18,
+    "model": "icedragon_rare.bmd",
+    "sourceHash": "280e6278674ecedadc502c070b22e5cfe7ab9a54e8ffcddf543bbbfdd7385f77",
+    "file": "img/atlas/vinculos/vaeraxes.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "8389ab73ebbd20d1d3516ca7c961314273113f04849958b88479f50da1074fcc"
+  },
+  "vaelkar": {
+    "modelVersion": 12,
+    "textures": [
+      "item/panic_vaelkar_0.ozj",
+      "item/panic_vaelkar_1.ozj",
+      "item/panic_vaelkar_2.ozj",
+      "item/panic_vaelkar_3.ozt",
+      "item/panic_vaelkar_4.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 18,
+    "model": "panic_pet_vaelkar.bmd",
+    "sourceHash": "305f3df3047737e01f1480d8ab521b6fe31eee5168a7409b0a7c32c8520ecb78",
+    "file": "img/atlas/vinculos/vaelkar.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "cb943b78ee782b45049efadf73ed131062eace2b6dd1859b913228869e78293d"
+  },
+  "aurethia": {
+    "modelVersion": 12,
+    "textures": [
+      "item/panic_aurethia_0.ozj",
+      "item/panic_aurethia_1.ozj",
+      "item/panic_aurethia_2.ozj",
+      "item/panic_aurethia_3.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 18,
+    "model": "panic_pet_aurethia.bmd",
+    "sourceHash": "a865a27d07db946c6f79c6ca586573800939adc646861d5c9875b8a55970b438",
+    "file": "img/atlas/vinculos/aurethia.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "8fee4933830bae8bf2778d946e892026e6cc977fc0b408230cdaf66fc154b87e",
+    "processing": "BMD has ten zero padding bytes; only padding normalized for CPU rendering; source model unchanged."
+  },
+  "fragmentos": {
+    "modelVersion": 12,
+    "textures": [
+      "item/panic_pet_frag.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 15,
+    "elevation": 18,
+    "model": "panic_pet_fragmento.bmd",
+    "sourceHash": "48b9832069d54f1b2757ea7fcc97f4dd966c315e059fc06b082f3aa4201ea53b",
+    "file": "img/atlas/vinculos/fragmentos.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "965b00aea011c4a1ccdac386654ea14f78662f59fe5c05dc5533da2fd393ce5f"
+  },
+  "nucleos": {
+    "modelVersion": 12,
+    "textures": [
+      "item/panic_pet_core.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 15,
+    "elevation": 18,
+    "model": "panic_pet_nucleo.bmd",
+    "sourceHash": "3f7692c060ea2f402e4bd28ab190e57a203b7acaebe37485d3ca60cdca3cf533",
+    "file": "img/atlas/vinculos/nucleos.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "bd7628e244e859ea19d578379b6228e35f8e1633474b3c39601ba2f6fc4e433e"
+  },
+  "grum": {
+    "modelVersion": 12,
+    "textures": [
+      "item/panic_grum_0.ozj",
+      "item/panic_grum_1.ozj"
+    ],
+    "action": 0,
+    "frame": 0,
+    "yaw": 30,
+    "elevation": 18,
+    "model": "panic_pet_grum.bmd",
+    "sourceHash": "27a1ce6920531e8e04ad4374b54f30a685160573d3eb15b5bd2f7a62e9a0104e",
+    "file": "img/atlas/vinculos/grum.webp",
+    "width": 384,
+    "height": 384,
+    "outputHash": "e8882c00bacb86d484804e42bc8536cf3c1dbb7eb506d40570d58cbd987f256b"
+  }
+}

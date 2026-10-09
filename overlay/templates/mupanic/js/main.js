@@ -154,6 +154,7 @@
     wiki.querySelectorAll('[data-event-reward-list]').forEach(function(list) { list.hidden = true; });
     if (target) {
       target.hidden = false;
+      if (target.matches('[data-vinculo]')) target.open = true;
       var atlasPanel = target.closest('[data-atlas-panel]');
       if (atlasPanel) { selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel')); if (target.hasAttribute('data-atlas-mob')) selectAtlasMonster(atlasPanel, target.getAttribute('data-atlas-mob')); }
       var details = target.closest('details');
@@ -303,18 +304,19 @@
     matches.slice(0,finderLimit).forEach(function (entry) {
       var card = document.createElement('article'); card.className = 'atlas-find-card';
       var header = document.createElement('header');
-      var portrait = data.portraits && data.portraits[String(entry.id)];
-      if (entry.type === 'mob' && portrait) {
+      var portrait = entry.image ? {file:entry.image} : (data.portraits && data.portraits[String(entry.id)]);
+      if ((entry.image || entry.type === 'mob') && portrait) {
         var image = document.createElement('img'); image.src = sourceBase() + portrait.file; image.alt = entry.name;
         image.width = 72; image.height = 72; image.loading = 'lazy'; header.appendChild(image);
       }
       var names = document.createElement('div'), type = document.createElement('small'), title = document.createElement('h3');
-      type.textContent = {object:'OBJETO', mob:'MONSTRUO', map:'MAPA'}[entry.type]; title.textContent = entry.name;
+      type.textContent = {pet:'MASCOTA', mount:'MONTURA', material:'MATERIAL'}[entry.category] || {object:'OBJETO', mob:'MONSTRUO', map:'MAPA'}[entry.type]; title.textContent = entry.name;
       names.appendChild(type); names.appendChild(title); header.appendChild(names); card.appendChild(header);
       var routes = entry.routes.filter(function (route) { return finderMap.value === '' || entry.type === 'map' || (route.maps || []).includes(Number(finderMap.value)); });
       if (entry.type === 'object') {
         finderRoutes(card,routes.filter(function (route) { return route.kind === 'drop'; }),'Drops de monstruos');
         finderRoutes(card,routes.filter(function (route) { return route.kind === 'reward'; }),'Cajas, bosses y eventos');
+        finderRoutes(card,routes.filter(function (route) { return route.kind === 'guide'; }),'Vínculos de PANIC');
       } else {
         finderRoutes(card,routes,'Dónde encontrarlo');
         if (!entry.maps.length) { var note = document.createElement('p'); note.textContent = 'La ubicación de aparición no está confirmada en la población fija. Consultá las condiciones del evento.'; card.appendChild(note); }

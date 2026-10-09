@@ -1,0 +1,515 @@
+{
+  "schemaVersion": 1,
+  "revision": "2026-10-08",
+  "prologue": [
+    "Hubo una noche en que las raíces de Noria dejaron de escuchar a la montaña y los caminos de Lorencia olvidaron a quienes los habían recorrido. En Devias, el hielo comenzó a guardar una oscuridad que no pertenecía al invierno.",
+    "Los supervivientes llamaron a aquel quiebre la Fractura. No destruyó MU PANIC de una sola vez: separó sus fuerzas. La vida ya no encontraba refugio, el conocimiento se perdía en rutas abandonadas y el poder crecía sin un propósito.",
+    "El Pacto de los Ocho nace cuando esos linajes eligen acompañar a los aventureros. Sus evoluciones cuentan un mismo viaje: descubrir un don, comprender su propósito y hacerse responsable de él."
+  ],
+  "entries": [
+    {
+      "slug": "aelira",
+      "id": 6859,
+      "name": "Aelira",
+      "title": "El Primer Brote",
+      "quote": "Un espíritu del bosque te protege.",
+      "chapter": "LA PRIMERA COMPAÑÍA",
+      "story": [
+        "Cuando la Fractura alcanzó los bosques de Noria, las raíces dejaron de reconocerse entre sí. Un brote sobrevivió bajo una piedra del santuario. De él nació Aelira: pequeña, inquieta y todavía incapaz de comprender el miedo de los hombres.",
+        "Su primer vínculo fue con un viajero herido que eligió proteger aquel brote en lugar de saquear las ruinas. Desde entonces camina junto a quienes dan sus primeros pasos por MU PANIC. Su presencia recuerda al bosque que aún existen personas por las que vale la pena crecer."
+      ],
+      "role": "Custodia los comienzos. Donde otros ven un aventurero débil, Aelira reconoce una historia que todavía puede cambiar el mundo.",
+      "family": "vida",
+      "kind": "pacto",
+      "stage": 1,
+      "stages": 3,
+      "stats": [
+        "Daño recibido −3%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/aelira.webp",
+      "obtain": "Invocación con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "vida"
+      ]
+    },
+    {
+      "slug": "sylthara",
+      "id": 6873,
+      "name": "Sylthara",
+      "title": "La Raíz Eterna",
+      "quote": "Las raíces ancestrales te resguardan.",
+      "chapter": "LA MEMORIA QUE RESISTE",
+      "story": [
+        "Aelira creció escuchando las voces enterradas bajo Noria. Cada batalla le enseñó un nombre; cada regreso, una promesa. Cuando consiguió unir las raíces que la Fractura había separado, despertó como Sylthara.",
+        "Su madera guarda la memoria de generaciones de guardianas. Ya no se limita a cubrir a su portador: devuelve parte de la violencia que intenta quebrar el vínculo. Los caminantes dicen que, cuando el peligro se acerca, sus hojas se quedan inmóviles. No es calma. Es el bosque entero preparándose para resistir."
+      ],
+      "role": "Mantiene unido lo que la oscuridad intenta separar. Su fuerza nace de los caminos recorridos junto a su portador.",
+      "family": "vida",
+      "kind": "pacto",
+      "stage": 2,
+      "stages": 3,
+      "stats": [
+        "Daño recibido −5%",
+        "Reflejo de daño 2%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/sylthara.webp",
+      "obtain": "Evolución con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "vida"
+      ]
+    },
+    {
+      "slug": "elyndra",
+      "id": 6880,
+      "name": "Elyndra",
+      "title": "El Último Santuario",
+      "quote": "Un santuario eterno acompaña tus pasos.",
+      "chapter": "EL REFUGIO QUE CAMINA",
+      "story": [
+        "El último santuario de Noria no cayó bajo un ejército. Cayó cuando sus guardianes dejaron de creer que alguien regresaría. Sylthara permaneció allí, sosteniendo las puertas con raíces, hasta que su portador volvió a buscarla.",
+        "Ese regreso cambió el pacto. El santuario dejó de depender de sus muros y tomó forma en Elyndra. Sus alas llevan fragmentos de los antiguos sellos; su luz conserva el juramento de recibir a quienes vuelven de la oscuridad. Ahora el refugio viaja con ella, incluso hasta las tierras donde ya no queda un solo árbol."
+      ],
+      "role": "Es la respuesta del bosque al fin de sus templos: mientras exista un vínculo, siempre habrá un lugar al que volver.",
+      "family": "vida",
+      "kind": "pacto",
+      "stage": 3,
+      "stages": 3,
+      "stats": [
+        "Daño recibido −7%",
+        "Reflejo de daño 4%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/elyndra.webp",
+      "obtain": "Evolución con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "vida"
+      ]
+    },
+    {
+      "slug": "aurik",
+      "id": 6877,
+      "name": "Aurik",
+      "title": "El Rastreador Áureo",
+      "quote": "Su olfato descubre riquezas olvidadas.",
+      "chapter": "EL GUARDIÁN DE LOS CAMINOS",
+      "story": [
+        "Tras la Fractura, las caravanas desaparecieron de las rutas entre Lorencia y las montañas de Devias. Aurik fue hallado junto a un carro abandonado, cuidando una bolsa de monedas que nadie había vuelto a reclamar.",
+        "Aprendió a distinguir el olor del metal del rastro de una emboscada. No persigue el oro por codicia: para su antigua manada, cada moneda recuperada significaba comida, herramientas y una nueva salida al camino. Quien viaja con Aurik aprende a observar las ruinas y a aprovechar cada combate. Su fortuna comienza donde otros dejan de buscar."
+      ],
+      "role": "Devuelve valor a los caminos olvidados. Representa el progreso que se construye paso a paso, sin abandonar la ruta.",
+      "family": "memoria",
+      "kind": "pacto",
+      "stage": 1,
+      "stages": 2,
+      "stats": [
+        "Experiencia +3%",
+        "Zen base obtenido +10%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/aurik.webp",
+      "obtain": "Invocación con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "memoria"
+      ]
+    },
+    {
+      "slug": "aurion",
+      "id": 6878,
+      "name": "Aurion",
+      "title": "El Colmillo de la Fortuna",
+      "quote": "Cada sendero guarda una fortuna por descubrir.",
+      "chapter": "EL HEREDERO DE LA MANADA",
+      "story": [
+        "Aurik siguió durante años el rastro de su manada hasta encontrar un paso sepultado bajo la nieve de Devias. Allí no había un tesoro intacto, sino los restos de una caravana que había abierto la ruta para salvar a otros viajeros.",
+        "Comprendió entonces que la fortuna no era llegar primero: era lograr que alguien pudiera llegar después. Cuando aceptó ese legado, su armadura tomó el brillo del oro antiguo y recibió el nombre de Aurion. Sus colmillos custodian la riqueza, pero también el conocimiento ganado en cada expedición."
+      ],
+      "role": "Protege las rutas que sostienen a MU PANIC. Donde las guardianas preservan la vida, Aurion ayuda a que esa vida vuelva a prosperar.",
+      "family": "memoria",
+      "kind": "pacto",
+      "stage": 2,
+      "stages": 2,
+      "stats": [
+        "Experiencia +7%",
+        "Zen base obtenido +20%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/aurion.webp",
+      "obtain": "Evolución con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "memoria"
+      ]
+    },
+    {
+      "slug": "vaeryn",
+      "id": 6881,
+      "name": "Vaeryn",
+      "title": "El Hijo de la Nieve",
+      "quote": "Nació donde la nieve nunca deja de caer.",
+      "chapter": "EL PRIMER VUELO DEL INVIERNO",
+      "story": [
+        "En las alturas de Devias existe una cornisa donde la nieve jamás se derrite. Cuando la Fractura abrió una herida bajo el hielo, un ave celeste emergió de aquel lugar. Los vigías la llamaron Vaeryn, el Hijo de la Nieve.",
+        "Su frío no nació para devorar el mundo. Nació para contener lo que había despertado debajo de él. Todavía joven, busca un portador capaz de avanzar hacia el peligro sin confundir la fuerza con la furia. En sus primeros vuelos aprende a concentrar ese poder, como un filo que descubre para qué fue forjado."
+      ],
+      "role": "Anuncia que el invierno ha elegido luchar. Es el inicio del linaje que lleva el combate hasta las fronteras de la Fractura.",
+      "family": "poder",
+      "kind": "pacto",
+      "stage": 1,
+      "stages": 3,
+      "stats": [
+        "Daño +3%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/vaeryn.webp",
+      "obtain": "Invocación con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "poder"
+      ]
+    },
+    {
+      "slug": "vaerath",
+      "id": 6882,
+      "name": "Vaerath",
+      "title": "El Heredero del Invierno",
+      "quote": "En sus alas crece el frío de una era olvidada.",
+      "chapter": "LA PRECISIÓN DEL HIELO",
+      "story": [
+        "Vaeryn conoció la derrota sobre un paso congelado. Sus alas eran rápidas, pero el enemigo siempre encontraba un hueco entre sus ataques. Para sobrevivir tuvo que escuchar el silencio del hielo: esperar, observar y golpear en el instante exacto.",
+        "Al dominar esa paciencia se convirtió en Vaerath. Sus plumas conservan el frío de una edad en la que las montañas aún no tenían nombre. Acompaña a quienes entienden que un combate no se gana solamente con poder. El invierno también sabe elegir el momento en que una defensa se quiebra."
+      ],
+      "role": "Convierte la fuerza en oportunidad. Custodia los pasos helados y prepara el despertar de la última evolución.",
+      "family": "poder",
+      "kind": "pacto",
+      "stage": 2,
+      "stages": 3,
+      "stats": [
+        "Daño +5%",
+        "Probabilidad de crítico +5 puntos",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/vaerath.webp",
+      "obtain": "Evolución con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "poder"
+      ]
+    },
+    {
+      "slug": "vaerion",
+      "id": 6883,
+      "name": "Vaerion",
+      "title": "El Invierno Eterno",
+      "quote": "Cuando despertó, la primavera dejó de regresar.",
+      "chapter": "EL LÍMITE DE LA OSCURIDAD",
+      "story": [
+        "Más allá de los pasos de Devias, una fortaleza quedó atrapada en un invierno sin final. Bajo sus muros avanzaba la Fractura. Vaerath descendió hasta su corazón y extendió las alas sobre la herida, decidido a cerrarla aunque el frío consumiera su propio nombre.",
+        "No murió. Despertó como Vaerion, un fénix azul cuyo vuelo convirtió la fortaleza en un sello de hielo. Desde entonces la primavera no regresó a aquel lugar. Su portador carga una promesa difícil: dirigir ese poder contra la oscuridad y evitar que el invierno termine conquistando todo lo que juró salvar."
+      ],
+      "role": "Es el poder llevado hasta su precio más alto. El Pacto necesita su fuerza y también a alguien capaz de darle un rumbo.",
+      "family": "poder",
+      "kind": "pacto",
+      "stage": 3,
+      "stages": 3,
+      "stats": [
+        "Daño +8%",
+        "Probabilidad de crítico +10 puntos",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/vaerion.webp",
+      "obtain": "Evolución con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet",
+        "poder"
+      ]
+    },
+    {
+      "slug": "grum",
+      "id": 6884,
+      "name": "Grum",
+      "title": "El compañero inesperado",
+      "quote": "",
+      "chapter": "",
+      "story": [
+        "No todos los vínculos llegan como los imaginabas. Grum acompaña tus pasos y recoge el Zen que dejan tus batallas."
+      ],
+      "role": "",
+      "family": "",
+      "kind": "pacto",
+      "stage": 0,
+      "stages": 0,
+      "stats": [
+        "Recoge Zen automáticamente",
+        "Sin bonos adicionales"
+      ],
+      "image": "img/atlas/vinculos/grum.webp",
+      "obtain": "Invocación con Eryndor",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet"
+      ]
+    },
+    {
+      "slug": "vaelkar",
+      "id": 6887,
+      "name": "Vaelkar",
+      "title": "El Pacto del Eclipse",
+      "quote": "",
+      "chapter": "",
+      "story": [
+        "Juró protegerte cuando la luz abandone el mundo."
+      ],
+      "role": "",
+      "family": "",
+      "kind": "exclusiva",
+      "stage": 0,
+      "stages": 0,
+      "stats": [
+        "Daño +6%",
+        "Probabilidad de crítico +7 puntos",
+        "Daño recibido −5%",
+        "Reflejo de daño 2%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/vaelkar.webp",
+      "obtain": "Tienda · venta próximamente",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet"
+      ]
+    },
+    {
+      "slug": "aurethia",
+      "id": 6888,
+      "name": "Aurethia",
+      "title": "El Alma del Equilibrio",
+      "quote": "",
+      "chapter": "",
+      "story": [
+        "Transforma la vida en poder y protección."
+      ],
+      "role": "",
+      "family": "",
+      "kind": "exclusiva",
+      "stage": 0,
+      "stages": 0,
+      "stats": [
+        "Daño +6%",
+        "Probabilidad de crítico +7 puntos",
+        "Daño recibido −5%",
+        "Reflejo de daño 2%",
+        "Recoge Zen automáticamente"
+      ],
+      "image": "img/atlas/vinculos/aurethia.webp",
+      "obtain": "Tienda · venta próximamente",
+      "inventory": "1 × 2",
+      "aliases": [
+        "mascota",
+        "pet"
+      ]
+    },
+    {
+      "slug": "theryon",
+      "id": 6885,
+      "name": "Theryon",
+      "title": "El Heredero de Marfil",
+      "quote": "",
+      "chapter": "",
+      "story": [
+        "Cada batalla alimenta su leyenda. Fortalece a quien cabalga junto a él."
+      ],
+      "role": "",
+      "family": "",
+      "kind": "montura",
+      "stage": 0,
+      "stages": 0,
+      "stats": [
+        "Experiencia +25%",
+        "Zen obtenido +30%"
+      ],
+      "image": "img/atlas/vinculos/theryon.webp",
+      "obtain": "Tienda · venta próximamente",
+      "inventory": "2 × 2",
+      "aliases": [
+        "montura",
+        "mount"
+      ]
+    },
+    {
+      "slug": "nerathys",
+      "id": 6875,
+      "name": "Nerathys",
+      "title": "La Corona Abisal",
+      "quote": "",
+      "chapter": "",
+      "story": [
+        "Desde las profundidades emerge una guardiana. Ningún reino pudo doblegar a la Corona Abisal."
+      ],
+      "role": "",
+      "family": "",
+      "kind": "montura",
+      "stage": 0,
+      "stages": 0,
+      "stats": [
+        "Daño recibido −15%",
+        "Reflejo de daño 5%"
+      ],
+      "image": "img/atlas/vinculos/nerathys.webp",
+      "obtain": "Tienda · venta próximamente",
+      "inventory": "2 × 2",
+      "aliases": [
+        "montura",
+        "mount"
+      ]
+    },
+    {
+      "slug": "vaeraxes",
+      "id": 6886,
+      "name": "Vaeraxes",
+      "title": "El Terror Carmesí",
+      "quote": "",
+      "chapter": "",
+      "story": [
+        "Su rugido quebró reinos. Ahora anuncia tus batallas."
+      ],
+      "role": "",
+      "family": "",
+      "kind": "montura",
+      "stage": 0,
+      "stages": 0,
+      "stats": [
+        "Daño +20%",
+        "Probabilidad de crítico +10 puntos"
+      ],
+      "image": "img/atlas/vinculos/vaeraxes.webp",
+      "obtain": "Tienda · venta próximamente",
+      "inventory": "2 × 2",
+      "aliases": [
+        "montura",
+        "mount"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "slug": "fragmentos",
+      "id": 7368,
+      "name": "Fragmentos de Vínculo",
+      "title": "El inicio de tu pacto",
+      "image": "img/atlas/vinculos/fragmentos.webp",
+      "use": "Reuní 10 fragmentos y 20.000.000 de Zen para intentar una invocación con Eryndor.",
+      "detail": "La invocación tiene un 50% de éxito. Si sale una mascota, el reparto es 30% Aelira, 30% Aurik, 30% Vaeryn y 10% Grum.",
+      "obtain": "Drop de monstruos en los mapas del continente. Packs de 10 en la tienda: venta próximamente.",
+      "aliases": [
+        "fragmento",
+        "invocacion",
+        "material"
+      ]
+    },
+    {
+      "slug": "nucleos",
+      "id": 7369,
+      "name": "Núcleos de Evolución",
+      "title": "El siguiente despertar",
+      "image": "img/atlas/vinculos/nucleos.webp",
+      "use": "Se consumen al evolucionar una mascota con Eryndor: 10 para la segunda etapa y 20 para la evolución final de los linajes de tres etapas.",
+      "detail": "La segunda etapa usa 50.000.000 de Zen y tiene un 60% de éxito. La evolución final usa 100.000.000 de Zen y tiene un 30% de éxito.",
+      "obtain": "Se obtienen en Blood Castle, Devil Square y Chaos Castle. Packs de 10 en la tienda: venta próximamente.",
+      "aliases": [
+        "nucleo",
+        "evolucion",
+        "material"
+      ]
+    },
+    {
+      "slug": "luck",
+      "id": 7221,
+      "name": "Talisman of Luck",
+      "title": "Una oportunidad más",
+      "image": null,
+      "use": "Con Eryndor, cada talismán agrega 1 punto porcentual al éxito de una evolución. Podés agregar hasta 10.",
+      "detail": "Hay variantes +1 y +6. Su nivel y efecto en otras mezclas dependen de la receta; no son exclusivos de las mascotas.",
+      "obtain": "Talismanes de la tienda · venta próximamente.",
+      "aliases": [
+        "talisman",
+        "luck",
+        "+1",
+        "+6",
+        "material"
+      ]
+    },
+    {
+      "slug": "assembly",
+      "id": 7264,
+      "name": "Chaos Assembly",
+      "title": "Protegé tu vínculo",
+      "image": null,
+      "use": "Protege la mascota base si falla una evolución final con Eryndor.",
+      "detail": "Se consume al realizar el intento y no aumenta la probabilidad de éxito. También tiene usos en otras mezclas compatibles.",
+      "obtain": "Protección de la tienda · venta próximamente.",
+      "aliases": [
+        "proteccion",
+        "assembly",
+        "material"
+      ]
+    }
+  ],
+  "families": [
+    {
+      "id": "vida",
+      "name": "Guardianas del Santuario",
+      "theme": "VIDA",
+      "path": [
+        "aelira",
+        "sylthara",
+        "elyndra"
+      ],
+      "intro": "Las guardianas preservan el refugio y devuelven al mundo la voluntad de resistir."
+    },
+    {
+      "id": "memoria",
+      "name": "Lobos de la Fortuna",
+      "theme": "MEMORIA",
+      "path": [
+        "aurik",
+        "aurion"
+      ],
+      "intro": "Los lobos recuperan rutas, experiencia y riquezas para que la vida vuelva a prosperar."
+    },
+    {
+      "id": "poder",
+      "name": "Linaje del Invierno",
+      "theme": "PODER",
+      "path": [
+        "vaeryn",
+        "vaerath",
+        "vaerion"
+      ],
+      "intro": "El linaje del invierno enfrenta la oscuridad y aprende a darle rumbo a su fuerza."
+    }
+  ]
+}

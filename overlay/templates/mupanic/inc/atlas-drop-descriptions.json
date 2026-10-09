@@ -28,5 +28,7 @@
   "7269-0": {"what":"Fragmento de papel de la entrada a Imperial Guardian.","use":"Se reúne para formar Gaion’s Order, la entrada clásica de las jornadas de Imperial Guardian anteriores al domingo."},
   "7278-0": {"what":"Fragmento dimensional de acceso a Doppelganger.","use":"Se reúne para formar Mirror of Dimensions, el objeto utilizado para ingresar al evento mediante su NPC."},
   "7289-0": {"what":"Caja dorada sellada.","use":"Se combina con Gold Key para obtener Golden Box. Su contenido depende de la lista de recompensas configurada para esa caja."},
-  "7290-0": {"what":"Caja plateada sellada.","use":"Se combina con Silver Key para obtener Silver Box. Los objetos posibles dependen de la lista de recompensas de esa caja."}
+  "7290-0": {"what":"Caja plateada sellada.","use":"Se combina con Silver Key para obtener Silver Box. Los objetos posibles dependen de la lista de recompensas de esa caja."},
+  "7368-0": {"what":"Fragmentos de Vínculo. Material del sistema de vínculos de MU PANIC.","use":"Invocá una mascota con Eryndor en Lorencia: 10 fragmentos y 20.000.000 de Zen por intento.","link":"vinculo-fragmentos","cta":"Ver materiales y evoluciones"},
+  "7369-0": {"what":"Núcleos de Evolución. Material del sistema de vínculos de MU PANIC.","use":"Evolucioná una mascota con Eryndor: 10 núcleos para la segunda etapa o 20 para la evolución final.","link":"vinculo-nucleos","cta":"Ver materiales y evoluciones"}
 }
