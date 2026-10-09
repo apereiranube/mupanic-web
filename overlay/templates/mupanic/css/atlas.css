@@ -490,8 +490,10 @@
 .vinculo-heading li{font-size:11px;line-height:1.65;padding:9px 11px;background:rgba(var(--v-glow),.07);border-left:2px solid rgba(var(--v-glow),.5);color:#dbd9e3}
 .vinculo-heading li.vinculo-power{display:block;min-height:82px;padding:10px 12px}.vinculo-power strong{display:block;font:500 30px/1.05 var(--display);color:#f0e1ce;letter-spacing:-.02em}.vinculo-power span{display:block;font-size:10px;line-height:1.5;color:#bfb8d1;margin-top:7px}.vinculos-grid--mounts .vinculo-power strong{color:var(--v-accent)}
 .vinculo-open{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;border-top:1px solid rgba(var(--v-glow),.3);padding-top:16px;color:var(--v-accent);font-size:10px;line-height:1.6}
-.vinculo-open b{display:grid;place-items:center;flex:0 0 25px;height:25px;border:1px solid rgba(var(--v-glow),.4);font-size:22px;font-weight:400;transition:transform .2s}
-.vinculo-card[open] .vinculo-open b{transform:rotate(45deg)}
+.vinculo-open b{position:relative;display:block;flex:0 0 26px;width:26px;height:26px;border:1px solid rgba(var(--v-glow),.4);transform:none}
+.vinculo-toggle:before,.vinculo-toggle:after{content:'';position:absolute;left:50%;top:50%;background:currentColor;transform:translate(-50%,-50%)}
+.vinculo-toggle:before{width:12px;height:2px}.vinculo-toggle:after{width:2px;height:12px}
+.vinculo-card[open] .vinculo-toggle:after{display:none}
 .vinculo-story{border-top:1px solid rgba(var(--v-glow),.35);padding:25px;background:#0e141c}
 .vinculo-story blockquote{margin:0 0 24px;padding-left:16px;border-left:2px solid var(--v-accent);color:#d9c9e2;font:italic 19px/1.7 Georgia,serif}
 .panic-wiki .vinculo-story>p,.panic-wiki .vinculo-role p{font-size:13px;line-height:1.95;color:#bbbccc}
@@ -557,3 +559,31 @@
 
 .vinculos-grid--exclusive .vinculo-heading li.vinculo-power{display:block;min-height:82px;padding:10px 12px}.vinculos-grid--mounts .vinculo-heading li.vinculo-power{font-size:12px}
 @media(min-width:541px) and (max-width:1150px){.vinculos-grid--pact .vinculo-heading{min-height:355px}}
+
+/* The chronicle leads the bestiary; all three chapters share the same world. */
+.vinculos-hero-art--pact .vinculos-hero-member{width:69%;height:73%;top:9%;left:0;object-position:center;filter:drop-shadow(0 12px 24px #000a)}
+.vinculos-hero-art--pact .vinculos-hero-member--aurion{left:-12%;top:22%;height:62%;width:67%;animation-delay:-2s}
+.vinculos-hero-art--pact .vinculos-hero-member--vaerion{left:38%;top:14%;height:64%;width:62%;animation-delay:-4s}
+.vinculos-hero-art--pact .vinculos-hero-member--elyndra{left:17%;top:-2%;height:89%;width:77%;z-index:1}
+.vinculos-hero-art--pact .vinculos-hero-creature{z-index:2;bottom:0}
+.vinculos-chronicle{position:relative;overflow:hidden;border:1px solid #8c789e45;background:#111722;margin:8px 0 30px}
+.vinculos-chronicle--pact>header{padding:42px 32px;min-height:290px;background:linear-gradient(90deg,#0a131cf2,#0a131c9c 60%,#0a131c20),url('../img/atlas/vinculos/ritual-cinematic.webp') right center/cover}
+.panic-wiki .vinculos-chronicle h4{font:500 clamp(33px,3.4vw,49px)/1.12 var(--display);color:#eee6db;margin:20px 0;letter-spacing:-.015em}
+.panic-wiki .vinculos-chronicle-motto{font:italic 17px/1.8 Georgia,serif;color:#bad3cc;margin:18px 0 0}
+.vinculos-prologue-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:0 12px;background:linear-gradient(120deg,#1b2b2b50,#141523)}
+.vinculos-prologue-acts>div{position:relative;padding:28px 20px 25px;border-right:1px solid #9fb8ad25;min-width:0}.vinculos-prologue-acts>div:last-child{border-right:0}
+.vinculos-prologue-acts>div>span{font:500 42px/1 var(--display);color:#91c6b650;display:block;margin-bottom:18px}
+.panic-wiki .vinculos-prologue-acts h5{font:500 24px/1.2 var(--display);color:#e2dacb;margin:0 0 17px}
+.panic-wiki .vinculos-chronicle p{font-size:13px;line-height:1.95;color:#bdc0cb}.panic-wiki .vinculos-prologue-acts p{margin:0}
+.vinculos-pact-seal{display:flex;gap:16px;justify-content:space-around;flex-wrap:wrap;padding:20px 18px;border-top:1px solid #9fb8ad25;color:#c8b894;font-size:9px;letter-spacing:.16em}
+.vinculos-legend-art{display:flex;align-items:center;justify-content:center;gap:0;height:370px;padding:18px 24px 0;background:linear-gradient(0deg,#111722,transparent 60%),url('../img/atlas/vinculos/sanctum-cinematic.webp') center/cover}
+.vinculos-legend-art img{width:50%;height:100%;min-width:0;object-fit:contain;filter:drop-shadow(0 12px 22px #0009)}
+.vinculos-chronicle--mounts .vinculos-legend-art img{width:33.333%}.vinculos-chronicle--mounts .vinculos-legend-art{height:350px;background-position:center 35%}
+.vinculos-legend-copy{position:relative;padding:28px 32px 34px;max-width:940px;margin:auto}
+.vinculos-legend-copy blockquote{margin:20px 0 25px;padding-left:18px;border-left:2px solid #aa8ac7;color:#d4c3e2;font:italic 18px/1.8 Georgia,serif}
+.vinculos-chronicle--mounts .vinculos-legend-copy blockquote{border-color:#c28e73;color:#dec4b5}
+.vinculos-chronicle--mounts{border-color:#a7805c50}.vinculos-showcase--exclusive{border-top:1px solid #8b729e45}
+.vinculo-card>summary:focus-visible .vinculo-toggle,.vinculo-card>summary:hover .vinculo-toggle{background:rgba(var(--v-glow),.13);border-color:var(--v-accent)}
+@media(max-width:1150px){.vinculos-prologue-acts{grid-template-columns:1fr;padding:0 24px}.vinculos-prologue-acts>div{padding:23px 0 25px;border-right:0;border-bottom:1px solid #9fb8ad25}.vinculos-prologue-acts>div:last-child{border-bottom:0}.vinculos-prologue-acts>div>span{float:left;margin:0 18px 10px 0;font-size:34px}.panic-wiki .vinculos-prologue-acts h5{margin:4px 0 16px}.vinculos-prologue-acts p{clear:both}.vinculos-legend-art{height:320px}}
+@media(max-width:750px){.vinculos-hero-art--pact{min-height:370px}.vinculos-hero-art--pact .vinculos-hero-member--aurion{top:16%;left:-7%;width:63%;height:65%}.vinculos-hero-art--pact .vinculos-hero-member--vaerion{top:13%;left:44%;width:62%;height:64%}.vinculos-hero-art--pact .vinculos-hero-member--elyndra{top:-7%;left:19%;width:69%;height:89%}.vinculos-hero-art--pact .vinculos-hero-creature{bottom:3px}.vinculos-chronicle--pact>header{padding:32px 24px;min-height:290px}.vinculos-legend-copy{padding:24px}.vinculos-legend-art{height:300px;padding:16px 4px 0}.vinculos-chronicle--mounts .vinculos-legend-art{height:260px}}
+@media(max-width:540px){.vinculos-hero-art--pact{min-height:310px}.vinculos-hero-art--pact .vinculos-hero-creature strong{font-size:29px}.vinculos-hero-art--pact .vinculos-hero-creature small{font-size:9px}.vinculos-legend-copy{padding:22px 19px}.vinculos-chronicle--pact>header{padding:28px 20px}.vinculos-prologue-acts{padding:0 20px}.vinculos-legend-art{height:260px}.vinculos-chronicle--mounts .vinculos-legend-art{height:200px}.vinculos-pact-seal{font-size:7px;gap:12px}.panic-wiki .vinculos-chronicle h4{font-size:33px}.vinculos-legend-copy blockquote{font-size:16px}.vinculos-hero-art--pact .vinculos-hero-member--aurion{top:16%;height:59%}.vinculos-hero-art--pact .vinculos-hero-member--vaerion{top:15%;height:57%}.vinculos-hero-art--pact .vinculos-hero-member--elyndra{height:83%}}

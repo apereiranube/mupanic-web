@@ -30,7 +30,24 @@ for(const entry of catalog.entries.filter(x=>x.stage))assert.ok(entry.story.leng
   await page.goto('https://atlas.test/info/#vinculos');await page.evaluate(()=>document.fonts.ready);
   assert.equal(await page.locator('#vinculos').isVisible(),true);
   assert.equal(await page.locator('#inicio').isVisible(),false);
-  assert.equal(await page.locator('.vinculos-hero-art img').evaluate(im=>getComputedStyle(im).animationName),'none','Reduced motion disables the hero animation');
+  assert.equal(await page.locator('.vinculos-hero-art img').first().evaluate(im=>getComputedStyle(im).animationName),'none','Reduced motion disables the hero animation');
+  assert.deepEqual(await page.locator('.vinculos-chapters>a').evaluateAll(links=>links.map(link=>link.hash)),['#vinculo-pacto','#vinculo-exclusivas','#vinculo-monturas']);
+  assert.deepEqual(await page.locator('#vinculos>section').evaluateAll(sections=>sections.map(section=>section.id)),['vinculo-pacto','vinculo-exclusivas','vinculo-monturas']);
+  assert.ok(!/inventario|casillas/i.test(await page.locator('#vinculos').textContent()),'No inventory-size references');
+  assert.equal(await page.locator('.vinculos-prologue-acts>div').count(),3);
+  for(const paragraph of catalog.prologue)assert.ok((await page.locator('.vinculos-prologue-acts').textContent()).includes(paragraph),'Original prologue remains visible');
+  for(const slug of ['vaelkar','aurethia','theryon','nerathys','vaeraxes']){
+   const entry=catalog.entries.find(entry=>entry.slug===slug);
+   assert.equal(entry.story.length,3);assert.ok(entry.quote&&entry.chapter&&entry.role);
+   await page.locator(`#vinculo-${slug}>summary`).scrollIntoViewIfNeeded();
+   const toggle=page.locator(`#vinculo-${slug} .vinculo-toggle`);
+   const geometry=await toggle.evaluate(el=>{const b=el.getBoundingClientRect(),h=getComputedStyle(el,'::before'),v=getComputedStyle(el,'::after');return {width:b.width,height:b.height,rotation:getComputedStyle(el).transform,hWidth:h.width,hHeight:h.height,vWidth:v.width,vHeight:v.height};});
+   assert.equal(geometry.width,geometry.height);assert.equal(geometry.rotation,'none');assert.equal(geometry.hWidth,'12px');assert.equal(geometry.hHeight,'2px');assert.equal(geometry.vWidth,'2px');assert.equal(geometry.vHeight,'12px');
+   await page.locator(`#vinculo-${slug}>summary`).click();
+   assert.equal(await toggle.evaluate(el=>getComputedStyle(el,'::after').display),'none','Opened card shows a straight minus');
+   assert.ok((await page.locator(`#vinculo-${slug} .vinculo-story`).textContent()).includes(entry.story[2]));
+   await page.locator(`#vinculo-${slug}>summary`).click();
+  }
   assert.equal(await page.locator('[data-vinculo]').count(),14);
   await page.evaluate(async()=>Promise.all(Array.from(document.querySelectorAll('#vinculos img')).map(image=>new Promise((resolve,reject)=>{const probe=new Image();probe.onload=resolve;probe.onerror=()=>reject(new Error('Invalid image: '+image.src));probe.src=image.src;}))));
   await page.locator('#vinculos img').evaluateAll(async images=>{images.forEach(image=>image.loading='eager');await Promise.all(images.map(image=>image.decode()));});
@@ -41,6 +58,7 @@ for(const entry of catalog.entries.filter(x=>x.stage))assert.ok(entry.story.leng
   const cohorts=await page.locator('.vinculos-grid').evaluateAll(grids=>grids.map(grid=>Array.from(grid.querySelectorAll('[data-vinculo]>summary')).map(card=>Math.round(card.getBoundingClientRect().height))).filter(heights=>heights.length>1));
   for(const heights of cohorts)assert.ok(Math.max(...heights)-Math.min(...heights)<=1,'Cards align within each chapter at '+width+': '+JSON.stringify(heights));
   if(process.env.ATLAS_SCREENSHOT_DIR){fs.mkdirSync(process.env.ATLAS_SCREENSHOT_DIR,{recursive:true});await page.locator('.vinculos-hero').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`hero-${width}.png`)});await page.locator('#vinculo-exclusivas').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`exclusivos-${width}.png`)});}
+  if(process.env.ATLAS_SCREENSHOT_DIR){for(const [selector,name] of [['.vinculos-chronicle--pact','pacto'],['.vinculos-chronicle--exclusive','custodios'],['.vinculos-chronicle--mounts','bestias']]){await page.locator(selector).scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`${name}-${width}.png`)});}}
   await page.locator('#vinculo-aelira').scrollIntoViewIfNeeded();
   if(process.env.ATLAS_SCREENSHOT_DIR){fs.mkdirSync(process.env.ATLAS_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`mascotas-${width}.png`)});}
   if(process.env.ATLAS_SCREENSHOT_DIR){await page.locator('#vinculo-nerathys').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.ATLAS_SCREENSHOT_DIR,`nerathys-${width}.png`)});}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": "2026-10-08",
+  "revision": "2026-10-09",
   "prologue": [
     "Hubo una noche en que las raíces de Noria dejaron de escuchar a la montaña y los caminos de Lorencia olvidaron a quienes los habían recorrido. En Devias, el hielo comenzó a guardar una oscuridad que no pertenecía al invierno.",
     "Los supervivientes llamaron a aquel quiebre la Fractura. No destruyó MU PANIC de una sola vez: separó sus fuerzas. La vida ya no encontraba refugio, el conocimiento se perdía en rutas abandonadas y el poder crecía sin un propósito.",
@@ -29,7 +29,6 @@
       ],
       "image": "img/atlas/vinculos/aelira-cinematic.webp",
       "obtain": "Invocación con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -59,7 +58,6 @@
       ],
       "image": "img/atlas/vinculos/sylthara-cinematic.webp",
       "obtain": "Evolución con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -89,7 +87,6 @@
       ],
       "image": "img/atlas/vinculos/elyndra-cinematic.webp",
       "obtain": "Evolución con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -119,7 +116,6 @@
       ],
       "image": "img/atlas/vinculos/aurik-cinematic.webp",
       "obtain": "Invocación con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -149,7 +145,6 @@
       ],
       "image": "img/atlas/vinculos/aurion-cinematic.webp",
       "obtain": "Evolución con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -178,7 +173,6 @@
       ],
       "image": "img/atlas/vinculos/vaeryn-cinematic.webp",
       "obtain": "Invocación con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -208,7 +202,6 @@
       ],
       "image": "img/atlas/vinculos/vaerath-cinematic.webp",
       "obtain": "Evolución con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -238,7 +231,6 @@
       ],
       "image": "img/atlas/vinculos/vaerion-cinematic.webp",
       "obtain": "Evolución con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet",
@@ -266,7 +258,6 @@
       ],
       "image": "img/atlas/vinculos/grum-cinematic.webp",
       "obtain": "Invocación con Eryndor",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet"
@@ -277,12 +268,14 @@
       "id": 6887,
       "name": "Vaelkar",
       "title": "El Pacto del Eclipse",
-      "quote": "",
-      "chapter": "",
+      "quote": "Mientras quede alguien a quien proteger, la noche no habrá vencido.",
+      "chapter": "EL JURAMENTO BAJO EL SOL NEGRO",
       "story": [
-        "Juró protegerte cuando la luz abandone el mundo."
+        "La noche de la Fractura, el sol desapareció detrás de una corona oscura. En el santuario del eclipse, las campanas sonaron sin que nadie las tocara. Vaelkar permaneció ante sus puertas mientras los demás guardianes se retiraban. Bajo su máscara guardó el último juramento de aquella orden: ninguna sombra cruzaría el umbral mientras su arma siguiera en pie.",
+        "El amanecer no llegó. Durante una noche que pareció durar años, aprendió a sujetar la oscuridad en lugar de huir de ella. Su armadura tomó el brillo del eclipse y su arma conservó el frío de aquel cielo. Cuando Aurethia alcanzó el santuario, encontró un guardián exhausto que todavía sostenía la entrada.",
+        "Desde entonces, Vaelkar acompaña a quienes avanzan cuando todos aconsejan retroceder. Lleva consigo la memoria de esa puerta y la certeza de que un juramento puede sobrevivir incluso a la caída de su reino."
       ],
-      "role": "",
+      "role": "El custodio del umbral. Su leyenda representa la voluntad de proteger y la fuerza de cumplir una promesa cuando ya nadie espera que lo hagas.",
       "family": "",
       "kind": "exclusiva",
       "stage": 0,
@@ -296,7 +289,6 @@
       ],
       "image": "img/atlas/vinculos/vaelkar-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet"
@@ -307,12 +299,14 @@
       "id": 6888,
       "name": "Aurethia",
       "title": "El Alma del Equilibrio",
-      "quote": "",
-      "chapter": "",
+      "quote": "Hasta la luz necesita alguien que le recuerde por qué brillar.",
+      "chapter": "LA LUZ QUE NO ABANDONÓ EL SANTUARIO",
       "story": [
-        "Transforma la vida en poder y protección."
+        "Cuando el eclipse cubrió el continente, Aurethia escuchó el latido de los santuarios apagarse uno tras otro. Sobre sus alas blancas llevó las últimas chispas que había recogido entre las ruinas. Cada una pertenecía a un lugar perdido, y juntas ardían demasiado fuerte para permanecer en un solo cuerpo.",
+        "Llegó hasta Vaelkar cuando su juramento estaba a punto de consumirlo. En lugar de expulsar la sombra de su armadura, puso una chispa de vida en su centro. La oscuridad encontró un límite; la luz, un refugio. Así nacieron los Custodios del Eclipse: dos presencias capaces de sostener el mismo equilibrio desde extremos distintos.",
+        "Aurethia conserva aquellas chispas bajo los rubíes de su armadura. En cada viaje busca un motivo nuevo para mantenerlas encendidas. Su historia continúa junto a quienes todavía eligen levantar a otro del suelo después de una batalla."
       ],
-      "role": "",
+      "role": "La custodia de la llama. Encarna la vida que persiste, el poder que protege y el equilibrio que hizo posible el juramento de los dos guardianes.",
       "family": "",
       "kind": "exclusiva",
       "stage": 0,
@@ -326,7 +320,6 @@
       ],
       "image": "img/atlas/vinculos/aurethia-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
-      "inventory": "1 × 2",
       "aliases": [
         "mascota",
         "pet"
@@ -337,12 +330,14 @@
       "id": 6885,
       "name": "Theryon",
       "title": "El Heredero de Marfil",
-      "quote": "",
-      "chapter": "",
+      "quote": "El camino vuelve a existir cuando alguien se atreve a recorrerlo.",
+      "chapter": "PRIMERA BESTIA / EL JURAMENTO DE MARFIL",
       "story": [
-        "Cada batalla alimenta su leyenda. Fortalece a quien cabalga junto a él."
+        "Antes de que los caminos tuvieran nombre, un león de pelaje blanco vigilaba los pasos entre las montañas. Los viajeros lo llamaron Theryon porque aparecía al borde de la nieve cuando una caravana había perdido el rumbo. Sus huellas eran el único sendero que las tormentas no conseguían borrar.",
+        "La Fractura abrió un barranco frente a las puertas de Lorencia. Theryon regresó a ese paso durante siete noches, guiando a los supervivientes por las cornisas hasta ponerlos a salvo. Los herreros que escaparon forjaron para él una armadura azul y plateada. Sus dos largos cuernos recuerdan las cumbres que atravesó para volver.",
+        "El Heredero de Marfil conserva la paciencia de quien ha visto comenzar mil viajes. Su leyenda crece con cada frontera alcanzada y cada batalla de la que su jinete aprende algo. Donde otros sólo ven distancia, él reconoce un destino que todavía espera."
       ],
-      "role": "",
+      "role": "La bestia del camino. Representa el avance, la experiencia y la prosperidad que se construyen al seguir viajando.",
       "family": "",
       "kind": "montura",
       "stage": 0,
@@ -353,7 +348,6 @@
       ],
       "image": "img/atlas/vinculos/theryon-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
-      "inventory": "2 × 2",
       "aliases": [
         "montura",
         "mount"
@@ -364,12 +358,14 @@
       "id": 6875,
       "name": "Nerathys",
       "title": "La Corona Abisal",
-      "quote": "",
-      "chapter": "",
+      "quote": "Tres voces. Una voluntad. Ningún reino sobre mi corona.",
+      "chapter": "SEGUNDA BESTIA / LA CORONA DEL ABISMO",
       "story": [
-        "Desde las profundidades emerge una guardiana. Ningún reino pudo doblegar a la Corona Abisal."
+        "Bajo las ruinas de un reino sin nombre dormía Nerathys. Sus tres cabezas velaban por un mismo sello: una escuchaba las profundidades, otra vigilaba la superficie y la tercera recordaba lo que los hombres habían decidido olvidar. Sobre sus alas violetas reposaba el polvo de coronas que nunca aceptó llevar.",
+        "Cuando la Fractura quebró aquel sello, los antiguos señores del abismo intentaron someterla. Cada cadena que cerraron sobre su cuerpo volvió contra sus tronos. Nerathys emergió entre columnas derrumbadas, cubierta de oro y de heridas, y extendió sus alas sobre los últimos habitantes del reino.",
+        "La Corona Abisal reconoce a quienes saben resistir sin entregar su voluntad. Sus tres voces pueden discutir el rumbo, pero jamás el vínculo que han elegido. Quien cabalga junto a ella lleva la memoria de un reino que cayó y de una guardiana que permaneció."
       ],
-      "role": "",
+      "role": "La bestia del umbral. Su historia encarna la resistencia y la fuerza que devuelve al enemigo el peso de su propia agresión.",
       "family": "",
       "kind": "montura",
       "stage": 0,
@@ -380,7 +376,6 @@
       ],
       "image": "img/atlas/vinculos/nerathys-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
-      "inventory": "2 × 2",
       "aliases": [
         "montura",
         "mount"
@@ -391,12 +386,14 @@
       "id": 6886,
       "name": "Vaeraxes",
       "title": "El Terror Carmesí",
-      "quote": "",
-      "chapter": "",
+      "quote": "Que el cielo recuerde quién se atrevió a cruzarlo.",
+      "chapter": "TERCERA BESTIA / EL ÚLTIMO CIELO CARMESÍ",
       "story": [
-        "Su rugido quebró reinos. Ahora anuncia tus batallas."
+        "El primer rugido de Vaeraxes fue oído sobre una fortaleza que ya estaba ardiendo. El dragón carmesí descendió entre las torres con placas de plata blanca sobre el lomo. Durante siglos, los reinos que crecieron bajo su vuelo confundieron aquella armadura con un trofeo de conquista. Era el recuerdo de una deuda.",
+        "Mucho antes de la Fractura, una compañía de guerreros había liberado sus alas de las lanzas de un tirano. Ninguno pidió dominarlo. Cuando la oscuridad regresó, Vaeraxes reconoció en las murallas a los descendientes de aquellos hombres y rompió el cerco desde el cielo. Su rugido hizo caer los estandartes antes de que la batalla terminara.",
+        "El Terror Carmesí no olvida a quienes luchan a su lado. Su leyenda pertenece al instante en que el miedo cambia de bando: las alas se abren, el aire se enciende y un jinete decide avanzar antes de que vuelva a cerrarse el cielo."
       ],
-      "role": "",
+      "role": "La bestia de la tormenta. Representa la ofensiva, la decisión y el poder de abrir una brecha cuando la batalla parece detenida.",
       "family": "",
       "kind": "montura",
       "stage": 0,
@@ -407,7 +404,6 @@
       ],
       "image": "img/atlas/vinculos/vaeraxes-cinematic.webp",
       "obtain": "Tienda · venta próximamente",
-      "inventory": "2 × 2",
       "aliases": [
         "montura",
         "mount"
@@ -511,5 +507,25 @@
       ],
       "intro": "El linaje del invierno enfrenta la oscuridad y aprende a darle rumbo a su fuerza."
     }
-  ]
+  ],
+  "chronicles": {
+    "exclusive": {
+      "eyebrow": "CRÓNICA II / LOS CUSTODIOS DEL ECLIPSE",
+      "title": "Un juramento. Dos guardianes.",
+      "quote": "La sombra sostuvo la puerta. La luz mantuvo vivo el juramento.",
+      "paragraphs": [
+        "Mientras los Ocho restauraban los vínculos del continente, otra batalla se libraba ante un santuario que había perdido el amanecer. Allí permaneció Vaelkar, solo frente a la oscuridad. Aurethia llegó con las últimas chispas de los refugios caídos y compartió con él una luz que ninguno podía sostener por separado.",
+        "El eclipse dejó de ser una condena y se convirtió en su emblema. Desde entonces caminan por sendas distintas, unidos por la promesa de aquella noche. Uno guarda el umbral; la otra conserva la llama. Sus historias son dos formas de responder al mismo llamado."
+      ]
+    },
+    "mounts": {
+      "eyebrow": "CRÓNICA III / LAS TRES BESTIAS PRIMORDIALES",
+      "title": "Cuando la tierra, el abismo y el cielo respondieron.",
+      "quote": "Tres bestias acudieron. Ninguna se arrodilló.",
+      "paragraphs": [
+        "La Fractura alcanzó lugares que ningún aventurero había pisado. En las cumbres blancas despertó Theryon. Bajo un reino hundido abrió sus alas Nerathys. Sobre las fortalezas del continente rugió Vaeraxes. Nunca pertenecieron a una misma corona, pero aquella noche protegieron tres fronteras de un mismo mundo.",
+        "Los cronistas las llamaron las Tres Bestias Primordiales: el camino que permite avanzar, el umbral que resiste y el cielo que abre la batalla. Cada una conserva su propia voluntad. Sus leyendas encuentran un nuevo capítulo cuando un aventurero elige cabalgar a su lado."
+      ]
+    }
+  }
 }

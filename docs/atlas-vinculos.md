@@ -2,15 +2,21 @@
 
 Bestiario ilustrado del Atlas en `/info/#vinculos`. Incluye los ocho compañeros de
 **El Pacto de los Ocho**, Grum, Vaelkar, Aurethia y las tres monturas exclusivas.
-Las fichas tienen bonos, obtención, inventario y enlaces a sus evoluciones.
+Las fichas tienen bonos, obtención y enlaces a sus evoluciones.
 
 ## Presentación
 
-Portada cinematográfica con Nerathys, navegación por tres capítulos visuales,
-exclusivos con fichas horizontales y poderes destacados, monturas con
-identidad cromática propia, linajes con rutas de evolución, ritual y
-materiales. El prólogo completo se despliega desde su encabezado; las
-historias conservan los enlaces directos y los controles nativos de teclado.
+Portada cinematográfica con los tres linajes del Pacto, navegación por tres
+capítulos visuales y orden de lectura: El Pacto de los Ocho, Los Custodios
+del Eclipse y Las Tres Bestias Primordiales. El prólogo original se presenta
+visible en tres actos. Los exclusivos y las monturas tienen crónicas
+colectivas ilustradas, citas y tres párrafos de historia individual, escritos
+para el Atlas y conectados con la Fractura. El texto original del Pacto se
+conserva. Las ilustraciones existentes se componen en escenas de capítulo.
+Las fichas conservan los enlaces directos y los controles nativos de teclado.
+El control dibujado muestra un + centrado al cerrar y un − al abrir, sin
+rotación ni dependencia de la alineación de la tipografía. No se muestran
+referencias al tamaño o espacio del inventario.
 El diseño adapta las fichas y el arte a celular y respeta movimiento reducido.
 
 Las 14 criaturas tienen ilustraciones nuevas hechas con image_gen a partir
@@ -33,6 +39,8 @@ dimensiones, transparencia y hashes de los 16 recursos nuevos.
   con las tres cabezas y alas completas. No usa la mascota Muun `hydra.bmd`.
 - El manifiesto `tools/atlas-vinculos-art.json` registra modelos, imágenes del
   PDF, procesamiento y hashes de las 18 imágenes de referencia anteriores.
+- Las crónicas de Vaelkar, Aurethia, Theryon, Nerathys y Vaeraxes son lore
+  original del Atlas. No añaden misiones, requisitos ni mecánicas del servidor.
 
 ## Materiales y obtención
 
