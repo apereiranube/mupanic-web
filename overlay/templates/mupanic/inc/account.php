@@ -4,21 +4,21 @@ if(!defined('access') || !access) die();
 function panicAccountTools() {
     return [
         'shopadmin'=>['title'=>'Administrar tienda','copy'=>'Paquetes, promociones, compras y entrega automática.','group'=>'Administración','icon'=>'crown'],
-        'recharge'=>['title'=>'Recargar Eryns','copy'=>'Elegí tus Eryns, pagá con Ualá y seguí la entrega a tu cuenta.','group'=>'Créditos y Zen','icon'=>'gem'],
-        'myaccount'=>['title'=>'Mi cuenta','copy'=>'Tus datos, personajes y estado de conexión.','group'=>'Cuenta','icon'=>'shield'],
-        'myemail'=>['title'=>'Cambiar correo','copy'=>'Actualizá el correo de tu cuenta.','group'=>'Cuenta','icon'=>'mail'],
-        'mypassword'=>['title'=>'Cambiar contraseña','copy'=>'Administrá la contraseña de acceso.','group'=>'Cuenta','icon'=>'shield'],
+        'recharge'=>['title'=>'Recargar Eryns','copy'=>'Elegí tus Eryns, pagá con Ualá y seguí la entrega a tu cuenta.','group'=>'Eryns y VIP','icon'=>'gem'],
+        'myaccount'=>['title'=>'Datos de mi cuenta','copy'=>'Tus datos, personajes y estado de conexión.','group'=>'Seguridad','icon'=>'shield'],
+        'myemail'=>['title'=>'Cambiar correo','copy'=>'Actualizá el correo de tu cuenta.','group'=>'Seguridad','icon'=>'mail'],
+        'mypassword'=>['title'=>'Cambiar contraseña','copy'=>'Administrá la contraseña de acceso.','group'=>'Seguridad','icon'=>'shield'],
         'reset'=>['title'=>'Reset de personaje','copy'=>'Consultá los requisitos y elegí el personaje.','group'=>'Personajes','icon'=>'cycle'],
         'unstick'=>['title'=>'Destrabar personaje','copy'=>'Recuperá un personaje que quedó atascado.','group'=>'Personajes','icon'=>'compass'],
         'clearpk'=>['title'=>'Limpiar PK','copy'=>'Consultá el costo para limpiar el estado PK.','group'=>'Personajes','icon'=>'sword'],
         'resetstats'=>['title'=>'Reiniciar atributos','copy'=>'Consultá los requisitos para redistribuir los puntos.','group'=>'Personajes','icon'=>'cycle'],
         'addstats'=>['title'=>'Asignar puntos','copy'=>'Distribuí los puntos disponibles de tu personaje.','group'=>'Personajes','icon'=>'gem'],
         'clearskilltree'=>['title'=>'Reiniciar habilidades','copy'=>'Consultá los requisitos para reiniciar el árbol Master.','group'=>'Personajes','icon'=>'magic'],
-        'vote'=>['title'=>'Votar por créditos','copy'=>'Revisá los sitios de votación y sus recompensas.','group'=>'Créditos y Zen','icon'=>'crown'],
-        'donation'=>['title'=>'Comprar créditos','copy'=>'Consultá las opciones disponibles para tu cuenta.','group'=>'Créditos y Zen','icon'=>'gem'],
-        'buycredits'=>['title'=>'Comprar créditos','copy'=>'Consultá las opciones disponibles para tu cuenta.','group'=>'Créditos y Zen','icon'=>'gem'],
-        'buyzen'=>['title'=>'Comprar Zen','copy'=>'Consultá el cambio de créditos por Zen.','group'=>'Créditos y Zen','icon'=>'coin'],
-        'vip'=>['title'=>'Suscripción VIP','copy'=>'Tu VIP, sus beneficios y el estado de tu cuenta.','group'=>'Créditos y Zen','icon'=>'crown'],
+        'vote'=>['title'=>'Votar por créditos','copy'=>'Revisá los sitios de votación y sus recompensas.','group'=>'Eryns y VIP','icon'=>'crown'],
+        'donation'=>['title'=>'Comprar créditos','copy'=>'Consultá las opciones disponibles para tu cuenta.','group'=>'Eryns y VIP','icon'=>'gem'],
+        'buycredits'=>['title'=>'Comprar créditos','copy'=>'Consultá las opciones disponibles para tu cuenta.','group'=>'Eryns y VIP','icon'=>'gem'],
+        'buyzen'=>['title'=>'Comprar Zen','copy'=>'Consultá el cambio de créditos por Zen.','group'=>'Eryns y VIP','icon'=>'coin'],
+        'vip'=>['title'=>'VIP PANIC','copy'=>'Tu VIP, sus beneficios y el estado de tu cuenta.','group'=>'Eryns y VIP','icon'=>'crown'],
     ];
 }
 function panicAccountEscape($value) { return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
@@ -57,7 +57,7 @@ function panicAccountMenuItems() {
     }
     // Storefront checkout availability is controlled by private payment settings.
     if(isLoggedIn() && !in_array('vip',array_column($items,'key'),true)) $items[] = array_merge($tools['vip'], ['key'=>'vip','href'=>__BASE_URL__.'usercp/vip/','newtab'=>false]);
-    if(isLoggedIn()) $items[] = array_merge($tools['recharge'], ['key'=>'recharge','href'=>__BASE_URL__.'usercp/recharge/','newtab'=>false]);
+    if(isLoggedIn() && !in_array('recharge',array_column($items,'key'),true)) $items[] = array_merge($tools['recharge'], ['key'=>'recharge','href'=>__BASE_URL__.'usercp/recharge/','newtab'=>false]);
     require_once __DIR__.'/recharge-management.php';
     if(panicRechargeAdminAllowed()) $items[]=array_merge($tools['shopadmin'],['key'=>'shopadmin','href'=>__BASE_URL__.'usercp/shopadmin/','newtab'=>false]);
     return $items;
@@ -65,7 +65,7 @@ function panicAccountMenuItems() {
 function panicAccountNavigation() {
     $items=panicAccountMenuItems(); $current=(string)($_REQUEST['subpage'] ?? '');
     echo '<a class="account-overview-link" href="'.panicAccountEscape(__BASE_URL__.'usercp/').'"'.($current==='' ? ' aria-current="page"' : '').'>'.panicAccountIcon('compass').'Inicio del panel</a>';
-    foreach(['Cuenta','Personajes','Créditos y Zen','Más opciones','Administración'] as $group) {
+    foreach(['Personajes','Eryns y VIP','Seguridad','Más opciones','Administración'] as $group) {
         $groupItems=array_filter($items,function($item) use ($group) { return $item['group']===$group; });
         if(!$groupItems) continue;
         echo '<div class="account-nav-group"><span class="account-nav-group-title">'.panicAccountEscape($group).'</span><ul class="account-menu">';
@@ -76,19 +76,8 @@ function panicAccountNavigation() {
     }
 }
 function panicAccountHome() {
-    $name=isset($_SESSION['username']) ? (string)$_SESSION['username'] : '';
-    echo '<section class="account-welcome"><span class="eyebrow">TU AVENTURA CONTINÚA</span><h2>'.($name!=='' ? 'Hola, '.panicAccountEscape($name) : 'Bienvenido a MU PANIC').'</h2><p>Administrá tu cuenta y tus personajes.<br>Elegí qué querés hacer.</p></section>';
-    $items=panicAccountMenuItems();
-    if(!$items) { echo '<p class="alert alert-info">No hay opciones disponibles para esta cuenta en este momento.</p>'; return; }
-    foreach(['Cuenta','Personajes','Créditos y Zen','Más opciones','Administración'] as $group) {
-        $groupItems=array_filter($items,function($item) use ($group) { return $item['group']===$group; });
-        if(!$groupItems) continue;
-        echo '<section class="account-tool-section"><h2>'.panicAccountEscape($group).'</h2><div class="account-tools-grid">';
-        foreach($groupItems as $item) {
-            echo '<a class="account-tool" href="'.panicAccountEscape($item['href']).'"'.($item['newtab'] ? ' target="_blank" rel="noopener"' : '').'><span class="account-tool-icon">'.panicAccountIcon($item['icon']).'</span><span><strong>'.panicAccountEscape($item['title']).'</strong><small>'.panicAccountEscape($item['copy']).'</small></span><b aria-hidden="true">↗</b></a>';
-        }
-        echo '</div></section>';
-    }
+    require_once __DIR__.'/account-dashboard.php';
+    panicAccountDashboard();
 }
 function panicAccountFormMarkup($markup, $module) {
     if(!in_array($module, ['reset','resetstats','clearpk','clearskilltree','unstick','vote'], true)) return $markup;

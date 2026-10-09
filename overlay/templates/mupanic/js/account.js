@@ -1,6 +1,14 @@
 (() => {
     'use strict';
     const surface=document.querySelector('.is-account .module-surface');if(!surface)return;
+    const nav=document.querySelector('.account-nav');
+    if(nav) {
+        const menu=nav.querySelector('nav'),head=nav.querySelector('.account-nav-head');
+        if(menu && head) { menu.id='account-navigation';nav.dataset.enhanced='true';
+            const toggle=document.createElement('button');toggle.type='button';toggle.className='account-nav-toggle';toggle.textContent='Opciones de mi cuenta +';toggle.setAttribute('aria-controls',menu.id);toggle.setAttribute('aria-expanded','false');head.append(toggle);
+            toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-menu-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'Cerrar opciones −':'Opciones de mi cuenta +';});
+        }
+    }
     const script=document.currentScript;
     const assets=script ? new URL('../img/character-avatars/',script.src) : null;
     const avatars=new Set(['alc','avatar','cru','dk','dl','dw','elf','gc','gl','ik','lem','liw','mg','rf','rw','sl','sum']);
@@ -27,11 +35,13 @@
         const location=card.querySelector('.myaccount-character-block-location');if(location)location.setAttribute('aria-label','Mapa y coordenadas del personaje');
     });
     surface.querySelectorAll('.general-table-ui').forEach(table=>{
-        const row=table.rows[0];if(row)[...row.cells].forEach((cell,i)=>{
+        const row=table.rows[0];if(row)row.classList.add('account-table-header');if(row)[...row.cells].forEach((cell,i)=>{
             if(cell.tagName==='TH')return;
             const th=make('th','',cell.textContent.trim() || (i===0?'Clase':'Acción'));th.scope='col';cell.replaceWith(th);
         });
-        const wrap=make('div','account-table-scroll');wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Personajes y acciones; desplazá horizontalmente para ver todas las columnas');table.before(wrap);wrap.append(table);
+        const headings=row?[...row.cells].map(cell=>cell.textContent.trim()):[];
+        [...table.rows].slice(1).forEach(bodyRow=>[...bodyRow.cells].forEach((cell,i)=>{cell.dataset.label=headings[i] || 'Acción';}));
+        const wrap=make('div','account-table-scroll');wrap.tabIndex=0;wrap.setAttribute('role','region');wrap.setAttribute('aria-label','Personajes, datos y acciones');table.before(wrap);wrap.append(table);
     });
     surface.querySelectorAll('.module-requirements').forEach(block=>{
         if(block.textContent.trim())block.prepend(make('h3','','Requisitos y condiciones'));

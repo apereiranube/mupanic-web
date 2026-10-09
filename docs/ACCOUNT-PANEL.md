@@ -13,3 +13,13 @@ Legacy character-action and voting modules emitted forms wrapping table rows, in
 Validation: native upstream modules rendered using a stub backend, translated placeholder signature checks, PHP/JS syntax, and DOM/FormData assertions for character action selection, native fields/values, bounds, hidden tokens, email/password forms and disabled navigation. Live account operations have not been executed by the redesign.
 
 The administrator's screenshot shows a web reset maximum of 10 while a character has 20 resets. This is a real CMS/game configuration mismatch needing a separate functional audit. The redesign preserves and displays the current web requirements without claiming they match the game server.
+
+## Renovación del centro de mando (octubre 2026)
+
+Todas las rutas de cuenta comparten una base azul noche, navegación dorada y formularios oscuros. El inicio usa `account-dashboard.php`: saludo, saldo real de Eryns, VIP y días restantes, personajes (nivel base y resets) y banner de membresía. La campaña cambia entre adquisición y renovación; nombre/precio/beneficios siguen en el administrador existente. Las monturas sirven de acceso visual a la tienda. No se inventan niveles, precios ni estados de conexión.
+
+Saldo y VIP reutilizan las lecturas existentes. Los personajes se leen con una consulta parametrizada por la cuenta de sesión, limitada a diez filas y cuatro columnas públicas del personaje. Fallos de consulta se muestran como no disponibles; cero y lista vacía se distinguen de errores. No se guarda información de cuenta en el navegador ni se crean endpoints.
+
+El menú móvil se despliega a demanda; sin JavaScript permanece visible. Las tablas nativas se presentan como tarjetas a 600 px o menos manteniendo su DOM, controles y asociación de formularios. Correo, contraseña, puntos, reset, atributos, PK, Master, destrabar, votos y datos de cuenta conservan el handler original y sus restricciones. La recarga, VIP y administrador mantienen sus pantallas específicas.
+
+`tests/fixtures/native-usercp/` contiene los módulos originales MIT de WebEngine de la revisión indicada arriba, exclusivamente para pruebas sin backend real. `tests/account-browser.cjs` verifica las diez pantallas nativas y el inicio en cinco anchos, comparando FormData, submitters, action/method, límites y valores antes/después de la mejora visual. Nunca envía estos formularios. Las pruebas incluyen los estados de cuenta VIP activo, desconocido y sin personajes.
