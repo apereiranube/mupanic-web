@@ -1,58 +1,42 @@
-# Panel de recarga de Eryns
+# Tienda de Eryns
 
-El nombre público de la moneda es **Eryns** en `/usercp/recharge/`, el menú
-de cuenta, el VIP, la administración, el historial y las nuevas descripciones
-de compra enviadas a Ualá. Los nombres históricos de paquetes se adaptan
-al mostrarlos, sin reescribir compras guardadas.
+La recarga tiene un diseño independiente del panel de cuenta: escena original
+con Theryon, Aurion y Vaerion, selección compacta de importes y un único resumen
+de compra. La navegación lateral y el encabezado genérico del panel se ocultan
+solo mientras se muestra `.eryns-store`; «Mi cuenta» sigue disponible arriba.
 
-El panel usa arte original de una tesorería de Eryns, una portada oscura,
-saldo y cuenta de destino visibles, paquetes ilustrados, cantidades editables,
-resumen de compra, seguimiento de estados y guía de entrega. En celular,
-una barra muestra el total y lleva al resumen; no inicia ni duplica pagos.
-Los estilos están limitados a `.recharge-shop--eryns` y no cambian el editor
-de administración ni otros módulos de cuenta.
+## Compra
 
-## Compatibilidad del cobro
+Los cinco paquetes del catálogo se presentan como un selector de una sola
+recarga. Cada selección sustituye cantidades anteriores. Para combinar o repetir
+paquetes se abre «Combiná paquetes», con los mismos campos `quantity[wcoin-*]`.
+Se conserva una selección enviada; al abrir por primera vez se propone una
+unidad del destacado administrativo, o del paquete central si no hay destacado.
+No se crea una orden hasta que el jugador envía el formulario. Importes y bonos
+siempre proceden del catálogo vigente, y el servidor los vuelve a validar.
 
-- Se mantienen las credenciales privadas, entornos habilitados y condiciones
-  que permiten comprar; el rediseño no abre una tienda cerrada.
-- Se conservan cantidades, límites, precios en centavos, bonos y validaciones.
-- Los identificadores `wcoin-*`, el campo SQL `WCoinC`, la clave interna
-  `wallet: WCoin C`, el ledger y el worker del VPS siguen iguales.
-- Los formularios mantienen CSRF, nonce, acciones y ruta. Ualá sigue generando
-  el enlace y verificando el pago; la entrega se realiza por el worker existente.
-- El estado pendiente de desconexión continúa visible: para recibir la
-  acreditación, la cuenta debe salir del juego.
-- No se modifican el cliente del juego, SQL ni las órdenes históricas.
+La exhibición de criaturas usa pestañas y ventanas nativas dentro de la tienda.
+No tiene enlaces al Atlas ni navegación externa de productos. Las fichas leen
+nombre, efectos y obtención del mismo JSON del Atlas. Se muestran disponibilidad
+y probabilidades sin prometer acceso inmediato a productos aún no habilitados.
+Las pestañas permiten teclado; las ventanas cierran con Escape y devuelven foco.
 
-## Arte y despliegue
+## Compatibilidad
 
-`img/recharge/eryns-treasury-v1.webp` se generó con la herramienta integrada
-image_gen. Es arte conceptual de moneda del juego, sin logotipos de pagos.
-El prompt completo, dimensiones y hash están en
-`tools/recharge-eryns-art.json`. El despliegue de beta verifica el archivo
-antes de copiar el overlay. Main conserva su landing.
+Ualá, credenciales, límites, precios, worker, SQL `WCoinC`, metadata del wallet,
+CSRF, nonce, ledger, propiedad de órdenes, historial y seguimiento siguen iguales.
+El nombre público es Eryns. La selección no crea pagos; el botón prepara el
+checkout existente. Con un pago aprobado hay que desconectarse del juego para
+la entrega. El rediseño no habilita una tienda cerrada ni cambia main.
 
-## Validación
+## Arte y pruebas
 
-Los tests PHP de dominio, Ualá, pedidos, configuración, wallet y piloto usan
-transportes simulados y almacenamiento de prueba. No generan cobros reales.
-El test de navegador revisa el panel a 1440, 1024, 768, 390 y 320 píxeles:
-totales mixtos, límites, controles táctiles, estados, recursos y desborde.
-Incluye tienda cerrada, enlace preparado, historial vacío y contrato del POST.
-El navegador de administración verifica edición, VIP y desborde a 1440,
-1024 y 390 píxeles.
+El arte original integrado está en `img/recharge/eryns-legends-v3.webp`.
+El prompt completo y las referencias de diseño están documentados en
+`tools/recharge-eryns-v3-art.json`. Se creó con image_gen integrado.
+El despliegue verifica su presencia antes de copiar.
 
-## Presentación comercial
-
-La portada conduce a paquetes mediante una llamada visible. Una vitrina de
-vínculos, monturas y exclusivos enlaza sus capítulos del Atlas. Presenta
-objetivos del juego; precios y disponibilidad se consultan en la tienda del
-cliente. No anuncia disponibilidad ni resultados garantizados de mezclas.
-
-Las tarjetas de compra usan fondos claros, cantidades y precios grandes,
-bonos reales cuando están activos y un botón para agregar una unidad. El
-selector de cantidades sigue disponible. El destacado respeta la selección
-administrativa; si no hay ninguno, resalta editorialmente el paquete central
-sin afirmar popularidad ni ahorro. No se crean promociones ni cambian precios.
-Una nota explica que las recargas aportan al mantenimiento del servidor.
+Las pruebas de navegador cubren cinco anchos de 320 a 1440 píxeles, selector,
+combinaciones, límites, importes, ventanas y retorno a la compra sin salir,
+seguimiento de pago, tienda cerrada, checkout preparado y contrato del POST.
+Las pruebas de dominio y órdenes usan pagos simulados: sin cobros reales.

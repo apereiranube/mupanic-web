@@ -19,8 +19,6 @@
       valid = valid && correct;
       const active = correct && quantity > 0;
       card.classList.toggle('is-selected', active);
-      const select = card.querySelector('[data-select-package]');
-      if (select) select.textContent = active ? 'Agregado · sumar otro +' : 'Agregar este paquete +';
       card.querySelector('[data-line-total]').textContent = active ? coins(Number(card.dataset.coins) * quantity) + ' · ' + pesos(Number(card.dataset.price) * quantity) : 'Elegí cuántos querés';
       if (!active) return;
       total += Number(card.dataset.price) * quantity;
@@ -35,6 +33,11 @@
     if (!rows.childNodes.length) {
       const empty = document.createElement('p'); empty.textContent = 'Sumá paquetes con + o escribí una cantidad.'; rows.append(empty);
     }
+    shop.querySelectorAll('[data-choose-package]').forEach(button => {
+      const selected = packages.find(card => card.querySelector('input').id === 'quantity-' + button.dataset.choosePackage);
+      const single = selected && selected.querySelector('input').value === '1' && packages.every(card => card === selected || card.querySelector('input').value === '0');
+      button.setAttribute('aria-pressed', String(Boolean(single)));
+    });
     shop.querySelector('[data-cart-lines]').replaceChildren(rows);
     shop.querySelector('[data-total-coins]').textContent = coins(received);
     shop.querySelector('[data-total-price]').textContent = pesos(total) + ' ARS';
@@ -47,15 +50,40 @@
   packages.forEach(card => {
     const input = card.querySelector('input[type=number]');
     input.addEventListener('input', updateCart);
-    const select = card.querySelector('[data-select-package]');
-    if (select) select.addEventListener('click', () => {
-      input.value = Math.min(99, Math.max(0, Math.floor(Number(input.value) || 0)) + 1);
-      updateCart();
-    });
     card.querySelectorAll('[data-quantity-change]').forEach(button => button.addEventListener('click', () => {
       input.value = Math.min(99, Math.max(0, (Number(input.value) || 0) + Number(button.dataset.quantityChange)));
       updateCart();
     }));
+  });
+  shop.querySelectorAll('[data-choose-package]').forEach(button => button.addEventListener('click', () => {
+    packages.forEach(card => { card.querySelector('input').value = card.querySelector('input').id === 'quantity-' + button.dataset.choosePackage ? '1' : '0'; });
+    updateCart();
+  }));
+  const tabs = Array.from(shop.querySelectorAll('[data-experience-tab]'));
+  function activateTab(tab) {
+    tabs.forEach(button => { const active = button === tab; button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1; });
+    shop.querySelectorAll('[data-experience]').forEach(panel => { panel.hidden = panel.dataset.experience !== tab.dataset.experienceTab; });
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activateTab(tab));
+    tab.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next === undefined) return;
+      event.preventDefault(); activateTab(tabs[next]); tabs[next].focus();
+    });
+  });
+  shop.querySelectorAll('[data-open-creature]').forEach(button => {
+    const dialog = document.getElementById(button.dataset.openCreature);
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    let originalOverflow;
+    button.addEventListener('click', () => { originalOverflow = document.body.style.overflow; dialog.showModal(); document.body.style.overflow = 'hidden'; dialog.querySelector('[data-close-creature]').focus(); });
+    dialog.querySelector('[data-close-creature]').addEventListener('click', () => dialog.close());
+    dialog.querySelector('[data-return-to-buy]').addEventListener('click', () => { dialog.close(); shop.querySelector('[data-choose-package]').focus({preventScroll:true}); shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'}); });
+    dialog.addEventListener('close', () => { document.body.style.overflow = originalOverflow; button.focus({preventScroll:true}); });
   });
   form.addEventListener('submit', event => {
     if (form.dataset.sending === '1' || submit.disabled) { event.preventDefault(); return; }

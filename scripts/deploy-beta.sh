@@ -31,7 +31,7 @@ for module in "${DEPLOY_MODULES[@]}"; do
 done
 
 # The Eryns storefront and its original artwork must arrive together.
-if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-treasury-v1.webp" ]; then
+if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
   echo "[MU PANIC] ERROR: Missing Eryns storefront artwork." >&2
   exit 1
 fi

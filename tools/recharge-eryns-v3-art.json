@@ -1,0 +1,10 @@
+{
+  "generator": "Built-in image_gen",
+  "asset": "overlay/templates/mupanic/img/recharge/eryns-legends-v3.webp",
+  "source": "exec-17e9f31a-c397-42a0-962a-9f1bd7e2382b.png",
+  "purpose": "Immersive Eryns store key art. Reference designs: Theryon, Aurion and Vaerion.",
+  "prompt": "Use case: ads-marketing. Asset type: widescreen immersive MU PANIC fantasy game store hero, not a UI mockup. Create a completely new high-end game launch key visual from the three reference creature designs, preserving their identities: image1 is Theryon a white lion with sapphire blue and silver armored horns; image2 Aurion is a gray wolf with crimson red and gold armor; image3 Vaerion is an ice blue phoenix bird. Make a cinematic aspirational scene, ultra sharp heroic creatures in action, not a collage of square product photos. Theryon dominant in right foreground, fierce proud beautiful white fur and luminous blue armor, Aurion smaller behind to far right, blue phoenix spread wings above center-right. Ancient Lorencia fortress gate, brilliant ivory rays, swirling orange embers and blue magical shards, warm orange backlight against deep navy shadows. Strong commercial contrast and bright subject. Wide landscape approximately 2:1 ratio. Leftmost 40% quiet midnight blue haze for separately coded web headline; all important creature heads within rightmost 55%. Creature silhouettes naturally emerge from a shared scene. Premium AAA fantasy game advertising, intricate lifelike fur and metal, kinetic diagonal composition, visually exciting, evocative but uncluttered. No text, no lettering, no logos, no coins, no gold piles, no frames or borders, no UI, no cards, no invented fourth creature.",
+  "width": 1774,
+  "height": 887,
+  "sha256": "a343e6664be3b1beecbd279e425a1baf37cd8319109f2da6f8f400a7308a64cf"
+}
