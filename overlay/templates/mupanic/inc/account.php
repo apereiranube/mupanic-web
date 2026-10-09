@@ -4,7 +4,7 @@ if(!defined('access') || !access) die();
 function panicAccountTools() {
     return [
         'shopadmin'=>['title'=>'Administrar tienda','copy'=>'Paquetes, promociones, compras y entrega automática.','group'=>'Administración','icon'=>'crown'],
-        'recharge'=>['title'=>'Recargar WCoin C','copy'=>'Paquetes, medios de pago y estado de tus recargas.','group'=>'Créditos y Zen','icon'=>'gem'],
+        'recharge'=>['title'=>'Recargar Eryns','copy'=>'Elegí tus Eryns, pagá con Ualá y seguí la entrega a tu cuenta.','group'=>'Créditos y Zen','icon'=>'gem'],
         'myaccount'=>['title'=>'Mi cuenta','copy'=>'Tus datos, personajes y estado de conexión.','group'=>'Cuenta','icon'=>'shield'],
         'myemail'=>['title'=>'Cambiar correo','copy'=>'Actualizá el correo de tu cuenta.','group'=>'Cuenta','icon'=>'mail'],
         'mypassword'=>['title'=>'Cambiar contraseña','copy'=>'Administrá la contraseña de acceso.','group'=>'Cuenta','icon'=>'shield'],
@@ -22,6 +22,8 @@ function panicAccountTools() {
     ];
 }
 function panicAccountEscape($value) { return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
+// Presentation only: historical package names keep their original stored values.
+function panicAccountCurrencyLabel($value) { return preg_replace('/\bWCoin(?:\s+C)?\b/i', 'Eryns', (string)$value); }
 function panicAccountIcon($type) {
     $paths = [
         'shield'=>'M6 7l14-4 14 4v17L20 37 6 24zM13 19l5 5 10-11',

@@ -19,10 +19,10 @@ if(preg_match('/^[A-Za-z0-9_]{1,10}$/D',$vipAccount)) {
         <article class="vip-offer">
             <span class="vip-emblem" aria-hidden="true"><?php echo panicAccountIcon('crown'); ?></span>
             <span class="vip-badge">VIP</span><h3>30 días para seguir creciendo.</h3>
-            <p class="vip-price"><strong>25.000</strong><span>WCoin C / 30 días</span></p>
+            <p class="vip-price"><strong>25.000</strong><span>Eryns / 30 días</span></p>
             <div class="vip-benefits"><div><span>EXP</span><strong>15 <small>→</small> 20</strong><p>5 puntos más de tasa</p></div><div><span>DROP</span><strong>25 <small>→</small> 30</strong><p>5 puntos más de tasa</p></div></div>
-            <details class="vip-buy-guide"><summary>Cómo comprar en el juego <span aria-hidden="true">+</span></summary><ol><li>Ingresá con un personaje de esta cuenta.</li><li>Abrí <b>MENU → corona → Comprar VIP</b>.</li><li>Revisá que la oferta diga <b>VIP · 30 días · 25.000 WC</b> y elegí Comprar VIP.</li></ol><p>Necesitás tener las 25.000 WCoin C disponibles antes de comprar.</p></details>
-            <a class="recharge-button recharge-button-secondary" href="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">Recargar WCoin C →</a>
+            <details class="vip-buy-guide"><summary>Cómo comprar en el juego <span aria-hidden="true">+</span></summary><ol><li>Ingresá con un personaje de esta cuenta.</li><li>Abrí <b>MENU → corona → Comprar VIP</b>.</li><li>Revisá que la oferta diga <b>VIP · 30 días · 25.000 Eryns</b> y elegí Comprar VIP.</li></ol><p>Necesitás tener las 25.000 Eryns disponibles antes de comprar.</p></details>
+            <a class="recharge-button recharge-button-secondary" href="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'); ?>">Recargar Eryns →</a>
         </article>
         <aside class="vip-account-panel" aria-labelledby="vip-account-title"><span class="eyebrow">ESTADO DE TU CUENTA</span><h3 id="vip-account-title"><?php echo panicAccountEscape($vipAccount); ?></h3>
             <?php if($vipMembership===null) { ?><p class="vip-state">No pudimos consultar tu VIP</p><p>Volvé a abrir esta página para consultar el estado.</p><?php } elseif($vipMembership['active']) { ?><span class="vip-badge"><?php echo panicAccountIcon('crown'); ?> VIP activo</span><p>Vence el <strong><?php echo panicAccountEscape(substr($vipMembership['expiry'],8,2).'/'.substr($vipMembership['expiry'],5,2).'/'.substr($vipMembership['expiry'],0,4)); ?></strong> a las <?php echo panicAccountEscape(substr($vipMembership['expiry'],11,5)); ?> (hora del servidor).</p><?php } else { ?><p class="vip-state">Cuenta normal</p><p>Tu cuenta usa EXP 15 y drop 25. Al activar VIP, pasa a EXP 20 y drop 30.</p><?php } ?>

@@ -5,7 +5,7 @@
   const form = shop.querySelector('[data-cart-form]');
   const packages = Array.from(shop.querySelectorAll('[data-package]'));
   const format = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
-  const coins = value => format.format(value) + ' WCoin C';
+  const coins = value => format.format(value) + ' Eryns';
   const pesos = cents => '$ ' + format.format(cents / 100);
   const submit = form.querySelector('[data-cart-submit]');
   function updateCart() {
@@ -37,8 +37,10 @@
     shop.querySelector('[data-total-coins]').textContent = coins(received);
     shop.querySelector('[data-total-price]').textContent = pesos(total) + ' ARS';
     const allowed = valid && total > 0 && total <= 100000000 && received <= 1000000;
+    const mobile = shop.querySelector('[data-mobile-summary]');
+    if (mobile) { mobile.hidden = !allowed; mobile.querySelector('[data-mobile-coins]').textContent = coins(received); mobile.querySelector('[data-mobile-price]').textContent = pesos(total) + ' ARS'; }
     submit.disabled = !allowed || submit.dataset.enabled !== '1' || form.dataset.sending === '1';
-    shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 || received > 1000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todas tus monedas.';
+    shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 || received > 1000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todos tus Eryns.';
   }
   packages.forEach(card => {
     const input = card.querySelector('input[type=number]');
@@ -53,7 +55,7 @@
     form.dataset.sending = '1'; submit.textContent = 'Preparando tu compra…';
     setTimeout(() => { submit.disabled = true; }, 0);
   });
-  window.addEventListener('pageshow', event => { if (event.persisted) { form.dataset.sending = ''; submit.textContent = submit.dataset.enabled === '1' ? 'Pagar con Ualá' : 'Pagos próximamente'; updateCart(); } });
+  window.addEventListener('pageshow', event => { if (event.persisted) { form.dataset.sending = ''; submit.textContent = submit.dataset.enabled === '1' ? 'Preparar pago con Ualá' : 'Pagos próximamente'; updateCart(); } });
   updateCart();
   const orders = Array.from(shop.querySelectorAll('[data-order-id]'));
   const message = shop.querySelector('[data-history-update]');

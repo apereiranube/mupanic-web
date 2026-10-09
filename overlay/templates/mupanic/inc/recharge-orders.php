@@ -232,10 +232,10 @@ function panicRechargeCanBuy(array $settings,$account,$workerReady) {
 
 function panicRechargeStatus(array $order) {
     if($order['payment_state']==='review') return ['review','En revisión','El equipo necesita revisar esta compra.'];
-    if($order['delivery_state']==='credited') return ['credited','Monedas acreditadas','Ya podés usar tus WCoin C en el juego.'];
-    if($order['payment_state']==='approved') return ['approved','Pago aprobado · entrega pendiente','Desconectate del juego para recibir las monedas. La entrega se reintenta automáticamente.'];
+    if($order['delivery_state']==='credited') return ['credited','Eryns acreditados','Ya podés usar tus Eryns en el juego.'];
+    if($order['payment_state']==='approved') return ['approved','Pago aprobado · entrega pendiente','Desconectate del juego para recibir tus Eryns. La entrega se reintenta automáticamente.'];
     if($order['payment_state']==='creating') return ['creating','Compra pendiente de revisión','Conservá el número de compra y consultá al equipo antes de iniciar otra.'];
-    if(in_array($order['payment_state'],['rejected','cancelled'],true)) return ['rejected','Pago no aprobado','Esta compra no acreditó monedas.'];
+    if(in_array($order['payment_state'],['rejected','cancelled'],true)) return ['rejected','Pago no aprobado','Esta compra no acreditó Eryns.'];
     return ['pending','Esperando el pago','Completá el pago en Ualá.'];
 }
 
