@@ -20,6 +20,14 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(await page.locator('[data-recharge-shop] a[href*="/info/"]').count())throw Error('Store links to Atlas');
   if(/wcoin/i.test(await page.locator('[data-recharge-shop]').textContent()))throw Error('Legacy currency label in storefront');
   if(width<=540){if(!await page.locator('[data-mobile-summary]').isVisible())throw Error('Mobile summary missing');if(await page.locator('[data-mobile-coins]').textContent()!=='100.000 Eryns')throw Error('Mobile summary differs');}
+  if(await page.locator('.eryns-mount-product').count()!==4)throw Error('Fourth mystery card missing');
+  if(await page.locator('.eryns-mount-product.is-sealed').count()!==3)throw Error('Unreleased mounts must remain veiled');
+  if(!(await page.locator('.eryns-vault').textContent()).includes('La bóveda de Agustin'))throw Error('Personal vault missing');
+  const visualOrder=await page.evaluate(()=>document.querySelector('.eryns-wishlist').compareDocumentPosition(document.querySelector('#eryns-vip')) & Node.DOCUMENT_POSITION_FOLLOWING && document.querySelector('#eryns-vip').compareDocumentPosition(document.querySelector('#recharge-packages')) & Node.DOCUMENT_POSITION_FOLLOWING);
+  if(!visualOrder)throw Error('VIP should sit between mounts and packs');
+  const beforeVip=await page.locator('[data-total-price]').textContent();
+  await page.locator('[data-vip-duration="0"]').click();await page.locator('[data-vip-cta]').click();
+  if(!await page.locator('#eryns-vip-plan-details').evaluate(e=>e.open)||await page.locator('[data-total-price]').textContent()!==beforeVip)throw Error('Pending VIP interaction modifies recharge');
   const initial=await page.locator('[data-total-price]').textContent();if(initial!=='$ 100.000 ARS')throw Error('Five packages total '+initial);
   if(await page.locator('[data-total-coins]').textContent()!=='100.000 Eryns')throw Error('Coin total');
   await page.locator('[data-choose-package="wcoin-1000"]').click();
@@ -34,7 +42,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   const measured=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,qty:[...document.querySelectorAll('[data-quantity-change]')].every(b=>b.getBoundingClientRect().height>=44)}));
   if(measured.overflow||!measured.qty||errors.length)throw Error(JSON.stringify({width,...measured,errors}));
   await page.locator('.eryns-combine summary').click();
-  if(process.env.RECHARGE_SCREENSHOT_DIR){fs.mkdirSync(process.env.RECHARGE_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'recharge-shop-'+width+'.png'),fullPage:true});await page.locator('#recharge-packages').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'packages-'+width+'.png')});await page.locator('#recharge-cart').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'cart-'+width+'.png')});}
+  if(process.env.RECHARGE_SCREENSHOT_DIR){fs.mkdirSync(process.env.RECHARGE_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'recharge-shop-'+width+'.png'),fullPage:true});await page.locator('#eryns-vip').scrollIntoViewIfNeeded();await page.locator('.eryns-vip-portrait>img').evaluate(img=>img.decode());await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'vip-'+width+'.png')});await page.locator('#recharge-packages').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'packages-'+width+'.png')});await page.locator('#recharge-cart').scrollIntoViewIfNeeded();await page.screenshot({path:path.join(process.env.RECHARGE_SCREENSHOT_DIR,'cart-'+width+'.png')});}
   if(await page.locator('.eryns-mount-shelf [data-target-price]:not(:disabled)').count())throw Error('Unpriced mount enabled');
   await page.locator('[data-open-creature="eryns-creature-nerathys"]').click();
   if(!await page.locator('#eryns-creature-nerathys').isVisible()||page.url()!=='https://preview.test/beta/usercp/recharge/')throw Error('Creature preview leaves store');
@@ -50,7 +58,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(await page.locator('[data-order-pay]').isVisible())throw Error('Paid checkout link remains visible');
   console.log('Shop '+width+'px: totals, limits, mobile tap targets and no overflow passed.');await page.close();
  }
- for(const mode of ['closed','ready','empty','zero','bonus']){
+ for(const mode of ['closed','ready','empty','zero','bonus','vip','vip-unknown']){
   const stateHtml=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixtures/recharge-shop.php')],{encoding:'utf8',env:{...process.env,RECHARGE_FIXTURE:mode}});
   const page=await browser.newPage({viewport:{width:390,height:844}});
   let submitted=null;
@@ -60,6 +68,8 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(mode==='closed'){if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Closed shop can submit');await page.locator('#quantity-wcoin-1000').fill('1');if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Selection bypasses closed shop');}
   if(mode==='ready'){if(!await page.locator('.recharge-ready').isVisible())throw Error('Prepared checkout missing');if(await page.locator('.recharge-ready a').getAttribute('href')!=='https://stage.uala-checkout.com/fixture')throw Error('Checkout URL changed');if(!(await page.locator('.recharge-ready').textContent()).includes('100.000 Eryns'))throw Error('Prepared amount missing');}
   if(mode==='empty'){await page.locator('#recharge-history>summary').click();if(!await page.locator('.recharge-history-empty').isVisible())throw Error('Empty history missing');await page.locator('#quantity-wcoin-5000').fill('0');if(!await page.locator('[data-cart-submit]').isDisabled())throw Error('Empty cart can submit');await page.locator('#quantity-wcoin-1000').fill('1');await page.locator('[data-cart-submit]').click();await page.waitForLoadState('networkidle');if(!submitted||submitted.get('quantity[wcoin-1000]')!=='1'||submitted.get('recharge_action')!=='create'||submitted.get('recharge_csrf')!=='a'.repeat(64)||submitted.get('recharge_nonce')!=='b'.repeat(32))throw Error('Checkout form contract changed');}
+  if(mode==='vip'){if(await page.locator('[data-vip-state]').getAttribute('data-vip-state')!=='active'||!(await page.locator('[data-vip-state]').textContent()).includes('12 días restantes')||!(await page.locator('[data-vip-cta]').textContent()).includes('Extender VIP'))throw Error('Active VIP status incorrect');}
+  if(mode==='vip-unknown'){if(await page.locator('[data-vip-state]').getAttribute('data-vip-state')!=='unknown'||!(await page.locator('[data-vip-cta]').textContent()).includes('Conocé el VIP'))throw Error('Unknown VIP treated as normal');}
   if(mode==='zero'){if(await page.locator('[data-total-coins]').textContent()!=='5.000 Eryns'||await page.locator('[data-cart-submit]').isDisabled())throw Error('All-zero GET did not select recommendation');}
   if(mode==='bonus'){
     if(await page.locator('[data-total-coins]').textContent()!=='22.000 Eryns'||await page.locator('[data-total-price]').textContent()!=='$ 20.000 ARS')throw Error('Bonus pack amount changed');
@@ -74,5 +84,12 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('State overflow '+mode);
   console.log('Shop state '+mode+': passed.');await page.close();
  }
+ const reduced=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ await reduced.route('**/*',route=>{const u=new URL(route.request().url());if(u.pathname==='/beta/usercp/recharge/')return route.fulfill({contentType:'text/html',body:html});const prefix='/beta/templates/mupanic/';if(u.pathname.startsWith(prefix)){const file=path.join(root,u.pathname.slice(prefix.length));if(fs.existsSync(file))return route.fulfill({path:file});}return route.abort();});
+ await reduced.goto('https://preview.test/beta/usercp/recharge/');await reduced.locator('[data-choose-package="wcoin-1000"]').click();
+ if(await reduced.evaluate(()=>document.querySelector('[data-recharge-shop]').getAnimations({subtree:true}).length))throw Error('Reduced motion still animates');
+ await reduced.locator('.eryns-combine summary').click();await reduced.locator('#quantity-wcoin-1000').fill('2');
+ if(await reduced.locator('[data-total-coins]').textContent()!=='2.000 Eryns')throw Error('Reduced-motion checkout differs');
+ console.log('Reduced motion: animation-free selection and canonical totals passed.');await reduced.close();
  await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});

@@ -37,10 +37,12 @@ if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
 fi
 
 # The Vínculos guide and its illustrated bestiary must arrive together.
-for asset in eryns-pack-pouch.webp eryns-pack-chest.webp eryns-pack-legendary.webp; do
+for asset in eryns-pack-pouch.webp eryns-pack-chest.webp eryns-pack-legendary.webp theryon-scene-v5.webp nerathys-scene-v5.webp vaeraxes-scene-v5.webp vip-champion-scene-v5.webp vip-insignia-v5.svg vip-benefit-crown-v5.svg vip-benefit-shield-v5.svg vip-benefit-star-v5.svg; do
   test -s "$TEMPLATE_SOURCE/img/recharge/$asset"
 done
 test -s "$TEMPLATE_SOURCE/inc/recharge-storefront.json"
+test -s "$TEMPLATE_SOURCE/inc/recharge-vip-status.php"
+test -s "$TEMPLATE_SOURCE/inc/recharge-vip-showcase.php"
 
 for file in atlas-vinculos.php atlas-vinculos.json; do
   test -s "$TEMPLATE_SOURCE/inc/$file"

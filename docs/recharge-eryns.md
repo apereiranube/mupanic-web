@@ -38,3 +38,7 @@ Pruebas con pagos simulados: importes, bonos, combinaciones, formulario, cinco
 anchos de 320 a 1440, preselección con cantidades cero, pack 20.000 + 2.000,
 selección por objetivo, ventanas de criaturas, historial y botón móvil.
 Las pruebas no generan cobros reales ni escrituras en el juego.
+# Actualización visual V5
+
+La especificación actual, el copy, los assets y los prompts del salón VIP y las bestias en escena están en [eryns-store-presence-v5.md](eryns-store-presence-v5.md). Los importes y bonos siguen usando el catálogo existente. VIP se presenta con marcadores hasta definir las ofertas; su estado se consulta de forma independiente y solo mediante lectura.
+

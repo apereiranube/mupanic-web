@@ -4,7 +4,7 @@ $inc=dirname(__DIR__,2).'/overlay/templates/mupanic/inc';
 require $inc.'/account.php';
 function isLoggedIn(){return true;}
 function config($k,$r){return false;}
-class Connection {static function Database($n){return new self;} function query_fetch($s,$p=[]){return [['balance'=>1011]];}}
+class Connection {static function Database($n){return new self;} function query_fetch($s,$p=[]){if(strpos($s,'AccountLevel')!==false) return getenv('RECHARGE_FIXTURE')==='vip-unknown'?null:[['active'=>getenv('RECHARGE_FIXTURE')==='vip'?1:0,'days_remaining'=>getenv('RECHARGE_FIXTURE')==='vip'?12:0]];return [['balance'=>1011]];}}
 $_SESSION=['username'=>'Agustin','recharge_csrf'=>str_repeat('a',64),'recharge_nonce'=>str_repeat('b',32)];
 require $inc.'/recharge-orders.php';
 $catalogue=(require $inc.'/recharge-config.php')['packages'];

@@ -74,7 +74,51 @@
   shop.querySelectorAll('[data-choose-package]').forEach(button => button.addEventListener('click', () => {
     packages.forEach(card => { card.querySelector('input').value = card.querySelector('input').id === 'quantity-' + button.dataset.choosePackage ? '1' : '0'; });
     updateCart();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      button.classList.remove('is-flashing');
+      requestAnimationFrame(() => requestAnimationFrame(() => button.classList.add('is-flashing')));
+    }
   }));
+  shop.querySelectorAll('[data-choose-package]').forEach(button => button.addEventListener('animationend', event => { if (event.animationName === 'eryns-selection-flash') button.classList.remove('is-flashing'); }));
+  const vipDetails = shop.querySelector('#eryns-vip-plan-details');
+  const vipCta = shop.querySelector('[data-vip-cta]');
+  if (vipCta && vipDetails) {
+    vipCta.addEventListener('click', () => { vipDetails.open = true; vipDetails.scrollIntoView({behavior:'auto',block:'nearest'}); });
+    vipDetails.addEventListener('toggle', () => vipCta.setAttribute('aria-expanded', String(vipDetails.open)));
+  }
+  const vipDurations = Array.from(shop.querySelectorAll('[data-vip-duration]'));
+  vipDurations.forEach(button => button.addEventListener('click', () => vipDurations.forEach(card => card.setAttribute('aria-pressed', String(card === button)))));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const surfaces = Array.from(shop.querySelectorAll('.eryns-motion-surface'));
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('is-visible', entry.isIntersecting)), {rootMargin:'60px'});
+    surfaces.forEach(surface => observer.observe(surface));
+  } else surfaces.forEach(surface => surface.classList.add('is-visible'));
+  let pointerFrame = 0;
+  const tilted = Array.from(shop.querySelectorAll('[data-tilt]'));
+  const stage = shop.querySelector('.eryns-stage');
+  function resetMotion() {
+    cancelAnimationFrame(pointerFrame); pointerFrame = 0;
+    tilted.forEach(card => { card.style.removeProperty('--tilt-x'); card.style.removeProperty('--tilt-y'); });
+    if (stage) { stage.style.removeProperty('--hero-x'); stage.style.removeProperty('--hero-y'); }
+  }
+  function moveSurface(surface, event, hero) {
+    if (reducedMotion.matches || !finePointer.matches) return;
+    const x = event.clientX, y = event.clientY;
+    cancelAnimationFrame(pointerFrame);
+    pointerFrame = requestAnimationFrame(() => {
+      const rect = surface.getBoundingClientRect();
+      const dx = Math.max(-.5, Math.min(.5, (x - rect.left) / rect.width - .5));
+      const dy = Math.max(-.5, Math.min(.5, (y - rect.top) / rect.height - .5));
+      surface.style.setProperty(hero ? '--hero-x' : '--tilt-y', (dx * (hero ? 16 : 8)) + (hero ? 'px' : 'deg'));
+      surface.style.setProperty(hero ? '--hero-y' : '--tilt-x', (-dy * (hero ? 12 : 6)) + (hero ? 'px' : 'deg'));
+      pointerFrame = 0;
+    });
+  }
+  tilted.forEach(card => { card.addEventListener('pointermove', event => moveSurface(card, event, false)); card.addEventListener('pointerleave', resetMotion); });
+  if (stage) { stage.addEventListener('pointermove', event => moveSurface(stage, event, true)); stage.addEventListener('pointerleave', resetMotion); }
+  reducedMotion.addEventListener('change', resetMotion); finePointer.addEventListener('change', resetMotion);
   const upgrade = shop.querySelector('[data-upgrade-package]');
   if (upgrade) upgrade.addEventListener('click', () => { const button = shop.querySelector('[data-choose-package="' + upgrade.dataset.upgradePackage + '"]'); if (button) button.click(); });
   const mountMessage = shop.querySelector('[data-target-message]');
