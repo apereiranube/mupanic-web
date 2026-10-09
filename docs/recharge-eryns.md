@@ -1,42 +1,40 @@
 # Tienda de Eryns
 
-La recarga tiene un diseño independiente del panel de cuenta: escena original
-con Theryon, Aurion y Vaerion, selección compacta de importes y un único resumen
-de compra. La navegación lateral y el encabezado genérico del panel se ocultan
-solo mientras se muestra `.eryns-store`; «Mi cuenta» sigue disponible arriba.
+El diseño y el copy completo están en `docs/eryns-store-wireframe.md`.
+El catálogo visual sigue este orden: hero, vitrina de tres monturas, packs
+ilustrados, resumen oscuro, confianza y soporte desplegable.
+Los prompts originales están en `docs/eryns-store-images-prompts.md` y
+`tools/recharge-pack-art.json`.
 
-## Compra
+## Integración
 
-Los cinco paquetes del catálogo se presentan como un selector de una sola
-recarga. Cada selección sustituye cantidades anteriores. Para combinar o repetir
-paquetes se abre «Combiná paquetes», con los mismos campos `quantity[wcoin-*]`.
-Se conserva una selección enviada; al abrir por primera vez se propone una
-unidad del destacado administrativo, o del paquete central si no hay destacado.
-No se crea una orden hasta que el jugador envía el formulario. Importes y bonos
-siempre proceden del catálogo vigente, y el servidor los vuelve a validar.
+El HTML se renderiza en `inc/recharge.php` con la sesión y los formularios
+existentes. CSS y JavaScript permanecen en `css/recharge.css` y
+`js/recharge.js`. No requiere una librería frontend ni un checkout nuevo.
 
-La exhibición de criaturas usa pestañas y ventanas nativas dentro de la tienda.
-No tiene enlaces al Atlas ni navegación externa de productos. Las fichas leen
-nombre, efectos y obtención del mismo JSON del Atlas. Se muestran disponibilidad
-y probabilidades sin prometer acceso inmediato a productos aún no habilitados.
-Las pestañas permiten teclado; las ventanas cierran con Escape y devuelven foco.
+Paquetes, precios y bonos se leen de las ofertas activas de la tienda. La
+etiqueta «Mejor valor» exige una ventaja estricta en Eryns recibidos por peso;
+no se inventan datos de popularidad ni promociones. La selección inicial
+resuelve también el GET donde el controlador entrega todas las cantidades
+como cero. No crea una orden antes del envío del formulario.
 
-## Compatibilidad
+La vitrina usa `inc/recharge-storefront.json` y lee arte e información del JSON
+del Atlas. Se confirmó dejar Theryon, Nerathys y Vaeraxes como próximamente,
+con `price_coins:null` y `available:false`. Si más adelante se publica un precio
+confirmado y se habilita el producto, «Recargar para este» elige un pack que
+alcanza su costo. La vitrina no compra ni entrega el objeto: vende Eryns.
 
-Ualá, credenciales, límites, precios, worker, SQL `WCoinC`, metadata del wallet,
-CSRF, nonce, ledger, propiedad de órdenes, historial y seguimiento siguen iguales.
-El nombre público es Eryns. La selección no crea pagos; el botón prepara el
-checkout existente. Con un pago aprobado hay que desconectarse del juego para
-la entrega. El rediseño no habilita una tienda cerrada ni cambia main.
+El resumen separa base, regalo, total de Eryns y ARS. La barra fija de celular
+envía el mismo formulario con las mismas protecciones. «Mis compras» se abre
+sin salir de la ruta, incluso si el documento tiene un `<base href>`.
 
-## Arte y pruebas
+Se mantienen Ualá, credenciales, límites, CSRF, nonce, pertenencia de órdenes,
+SQL `WCoinC`, metadata del wallet, ledger, worker, historial y acreditación.
+La tienda cerrada sigue cerrada. La landing de main no cambia.
 
-El arte original integrado está en `img/recharge/eryns-legends-v3.webp`.
-El prompt completo y las referencias de diseño están documentados en
-`tools/recharge-eryns-v3-art.json`. Se creó con image_gen integrado.
-El despliegue verifica su presencia antes de copiar.
+## Validación
 
-Las pruebas de navegador cubren cinco anchos de 320 a 1440 píxeles, selector,
-combinaciones, límites, importes, ventanas y retorno a la compra sin salir,
-seguimiento de pago, tienda cerrada, checkout preparado y contrato del POST.
-Las pruebas de dominio y órdenes usan pagos simulados: sin cobros reales.
+Pruebas con pagos simulados: importes, bonos, combinaciones, formulario, cinco
+anchos de 320 a 1440, preselección con cantidades cero, pack 20.000 + 2.000,
+selección por objetivo, ventanas de criaturas, historial y botón móvil.
+Las pruebas no generan cobros reales ni escrituras en el juego.

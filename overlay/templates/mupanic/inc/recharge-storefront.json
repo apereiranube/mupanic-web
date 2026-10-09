@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "products": [
+    {"slug":"theryon","price_coins":null,"available":false},
+    {"slug":"nerathys","price_coins":null,"available":false},
+    {"slug":"vaeraxes","price_coins":null,"available":false}
+  ]
+}

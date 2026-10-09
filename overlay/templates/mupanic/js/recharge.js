@@ -9,7 +9,7 @@
   const pesos = cents => '$ ' + format.format(cents / 100);
   const submit = form.querySelector('[data-cart-submit]');
   function updateCart() {
-    let total = 0, received = 0, valid = true;
+    let total = 0, received = 0, bonus = 0, base = 0, valid = true;
     const rows = document.createDocumentFragment();
     packages.forEach(card => {
       const input = card.querySelector('input[type=number]');
@@ -23,6 +23,8 @@
       if (!active) return;
       total += Number(card.dataset.price) * quantity;
       received += Number(card.dataset.coins) * quantity;
+      bonus += Number(card.dataset.bonus || 0) * quantity;
+      base += Number(card.dataset.baseCoins || card.dataset.coins) * quantity;
       const row = document.createElement('div');
       const label = document.createElement('span');
       const value = document.createElement('b');
@@ -37,14 +39,28 @@
       const selected = packages.find(card => card.querySelector('input').id === 'quantity-' + button.dataset.choosePackage);
       const single = selected && selected.querySelector('input').value === '1' && packages.every(card => card === selected || card.querySelector('input').value === '0');
       button.setAttribute('aria-pressed', String(Boolean(single)));
+      const choice=button.querySelector('.eryns-card-choice'); if(choice) choice.textContent=single?'Elegido ✓':'Elegir pack';
     });
     shop.querySelector('[data-cart-lines]').replaceChildren(rows);
-    shop.querySelector('[data-total-coins]').textContent = coins(received);
+    const counter = shop.querySelector('[data-total-coins]');
+    const unit = document.createElement('small'); unit.textContent = 'Eryns';
+    const changed = counter.textContent !== coins(received);
+    counter.replaceChildren(document.createTextNode(format.format(received) + ' '), unit);
+    if (changed && counter.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) counter.animate([{transform:'translateY(4px)',opacity:.5},{transform:'translateY(0)',opacity:1}],{duration:250});
+    const bonusRow = shop.querySelector('[data-bonus-row]');
+    if (bonusRow) { bonusRow.hidden = bonus === 0; bonusRow.querySelector('[data-bonus-rate]').textContent = '+' + new Intl.NumberFormat('es-AR',{maximumFractionDigits:1}).format(base ? bonus / base * 100 : 0) + '%'; }
+    const breakdown = shop.querySelector('[data-bonus-breakdown]');
+    if (breakdown) { breakdown.hidden = bonus === 0; breakdown.textContent = format.format(base) + ' + ' + format.format(bonus) + ' de regalo'; }
+    const includes = shop.querySelector('[data-price-includes]');
+    if (includes) includes.textContent = bonus ? 'Incluye ' + format.format(bonus) + ' Eryns de regalo.' : 'Pago único. Sin suscripción.';
+    const upgrade = shop.querySelector('[data-upgrade-package]');
+    if (upgrade) upgrade.hidden = !(valid && total > 0 && received < Number(upgrade.dataset.upgradeCoins) && total < Number(upgrade.dataset.upgradePrice));
     shop.querySelector('[data-total-price]').textContent = pesos(total) + ' ARS';
     const allowed = valid && total > 0 && total <= 100000000 && received <= 1000000;
     const mobile = shop.querySelector('[data-mobile-summary]');
     if (mobile) { mobile.hidden = !allowed; mobile.querySelector('[data-mobile-coins]').textContent = coins(received); mobile.querySelector('[data-mobile-price]').textContent = pesos(total) + ' ARS'; }
     submit.disabled = !allowed || submit.dataset.enabled !== '1' || form.dataset.sending === '1';
+    const mobileSubmit = shop.querySelector('[data-mobile-submit]'); if (mobileSubmit) mobileSubmit.disabled = submit.disabled;
     shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 || received > 1000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todos tus Eryns.';
   }
   packages.forEach(card => {
@@ -59,6 +75,31 @@
     packages.forEach(card => { card.querySelector('input').value = card.querySelector('input').id === 'quantity-' + button.dataset.choosePackage ? '1' : '0'; });
     updateCart();
   }));
+  const upgrade = shop.querySelector('[data-upgrade-package]');
+  if (upgrade) upgrade.addEventListener('click', () => { const button = shop.querySelector('[data-choose-package="' + upgrade.dataset.upgradePackage + '"]'); if (button) button.click(); });
+  const mountMessage = shop.querySelector('[data-target-message]');
+  shop.querySelectorAll('[data-target-price]').forEach(button => button.addEventListener('click', () => {
+    if (button.disabled) return;
+    const price = Number(button.dataset.targetPrice);
+    if (!Number.isSafeInteger(price) || price <= 0) return;
+    const candidates = packages.map(card => ({card,quantity:1,cost:Number(card.dataset.price),units:Number(card.dataset.coins)})).filter(item => item.units >= price);
+    if (!candidates.length) packages.forEach(card => { const quantity = Math.ceil(price / Number(card.dataset.coins)); if (quantity <= 99 && quantity * Number(card.dataset.coins) <= 1000000 && quantity * Number(card.dataset.price) <= 100000000) candidates.push({card,quantity,cost:quantity*Number(card.dataset.price),units:quantity*Number(card.dataset.coins)}); });
+    candidates.sort((a,b) => a.cost - b.cost || a.units - b.units);
+    if (!candidates.length) { mountMessage.textContent = 'Revisá las cantidades permitidas antes de recargar para este objetivo.'; return; }
+    const selected = candidates[0]; packages.forEach(card => { card.querySelector('input').value = card === selected.card ? String(selected.quantity) : '0'; });
+    updateCart(); mountMessage.textContent = 'Objetivo: ' + button.dataset.targetName + '. Elegimos una recarga que alcanza su precio de ' + coins(price) + '.';
+    shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'});
+  }));
+  function revealUtility() { const panel = document.querySelector(window.location.hash === '#recharge-history' ? '#recharge-history' : window.location.hash === '#recharge-guide' ? '#recharge-guide' : 'body'); if (panel.tagName === 'DETAILS') panel.open = true; }
+  shop.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
+    const hash = link.getAttribute('href'); const panel = document.getElementById(hash.slice(1));
+    if (!panel || !shop.contains(panel)) return;
+    event.preventDefault(); if (panel.tagName === 'DETAILS') panel.open = true;
+    history.replaceState(null, '', window.location.pathname + window.location.search + hash);
+    panel.scrollIntoView({behavior:'auto',block:'start'});
+  }));
+  window.addEventListener('hashchange', revealUtility); revealUtility();
+  requestAnimationFrame(() => { const cards = shop.querySelector('.eryns-denominations'); const selected = shop.querySelector('[data-choose-package][aria-pressed="true"]'); if (cards && selected && window.matchMedia('(max-width:700px)').matches) cards.scrollLeft = selected.offsetLeft - cards.offsetLeft - (cards.clientWidth - selected.clientWidth) / 2; });
   const tabs = Array.from(shop.querySelectorAll('[data-experience-tab]'));
   function activateTab(tab) {
     tabs.forEach(button => { const active = button === tab; button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1; });
@@ -88,9 +129,9 @@
   form.addEventListener('submit', event => {
     if (form.dataset.sending === '1' || submit.disabled) { event.preventDefault(); return; }
     form.dataset.sending = '1'; submit.textContent = 'Preparando tu compra…';
-    setTimeout(() => { submit.disabled = true; }, 0);
+    setTimeout(() => { submit.disabled = true; const mobileSubmit=shop.querySelector('[data-mobile-submit]'); if(mobileSubmit) mobileSubmit.disabled=true; }, 0);
   });
-  window.addEventListener('pageshow', event => { if (event.persisted) { form.dataset.sending = ''; submit.textContent = submit.dataset.enabled === '1' ? 'Preparar pago con Ualá' : 'Pagos próximamente'; updateCart(); } });
+  window.addEventListener('pageshow', event => { if (event.persisted) { form.dataset.sending = ''; submit.textContent = submit.dataset.enabled === '1' ? 'Pagar con Ualá →' : 'Pagos próximamente'; updateCart(); } });
   updateCart();
   const orders = Array.from(shop.querySelectorAll('[data-order-id]'));
   const message = shop.querySelector('[data-history-update]');
