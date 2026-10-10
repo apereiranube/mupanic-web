@@ -12,13 +12,13 @@ $stage=Join-Path $env:TEMP ('MU_PANIC_AVANCES_AUTO_'+[guid]::NewGuid().ToString(
 New-Item -ItemType Directory -Path $stage | Out-Null
 $hashes=@{
  'novedades.js'='95F3DADA11B6DDBCF4838760134F7E601947299A317B6C6D4C212F88843BA6DC'
- 'avances.js'='819606E30B61FBCBB067364EE9FE3928C7CD0B38872A9D045222A5B4801DEB84'
- 'avances-remote.js'='2A0676A1414F64656E30171E3F6194B0F2F422EDA4300ADFDBE7E384B421748B'
+ 'avances.js'='1F88DBBB7D8655F4B554535AD301F978C7A06BD73836DE81FF52C49DB1739270'
+ 'avances-remote.js'='90D5865B1546D9ED89B8DF57660A81C94AB11D6B046494C3C3934E5043ED7F64'
 }
 try {
  foreach($name in $hashes.Keys){
   $out=Join-Path $stage $name
-  Invoke-WebRequest -UseBasicParsing -Uri ('https://raw.githubusercontent.com/apereiranube/mupanic-web/beta/tools/discord-avances/'+$name) -OutFile $out
+  Invoke-WebRequest -UseBasicParsing -Uri ('https://raw.githubusercontent.com/apereiranube/mupanic-web/beta/tools/discord-avances/'+$name+'?sync='+[guid]::NewGuid().ToString('N')) -OutFile $out
   if((Get-FileHash -LiteralPath $out -Algorithm SHA256).Hash -ne $hashes[$name]){throw "No coincide la validacion de $name. No se modifico nada."}
   & $node --check $out
   if($LASTEXITCODE -ne 0){throw "Error de sintaxis en $name. No se modifico nada."}
