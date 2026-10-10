@@ -17,6 +17,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   });
   await page.clock.install();
   await page.goto('https://preview.test/beta/usercp/recharge/',{waitUntil:'networkidle'});
+  const accountReturn=page.locator('.eryns-store-top [data-account-return]');if(!await accountReturn.isVisible()||await accountReturn.getAttribute('href')!=='https://preview.test/beta/usercp/'||await page.locator('[data-account-return]').count()!==2)throw Error('Account exit missing');
   if(await page.locator('[data-recharge-shop] a[href*="/info/"]').count())throw Error('Store links to Atlas');
   if(/wcoin/i.test(await page.locator('[data-recharge-shop]').textContent()))throw Error('Legacy currency label in storefront');
   if(width<=540){if(!await page.locator('[data-mobile-summary]').isVisible())throw Error('Mobile summary missing');if(await page.locator('[data-mobile-coins]').textContent()!=='100.000 Eryns')throw Error('Mobile summary differs');}
