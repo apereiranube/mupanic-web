@@ -13,12 +13,15 @@ New-Item -ItemType Directory -Path $stage | Out-Null
 $hashes=@{
  'novedades.js'='95F3DADA11B6DDBCF4838760134F7E601947299A317B6C6D4C212F88843BA6DC'
  'avances.js'='1F88DBBB7D8655F4B554535AD301F978C7A06BD73836DE81FF52C49DB1739270'
- 'avances-remote.js'='90D5865B1546D9ED89B8DF57660A81C94AB11D6B046494C3C3934E5043ED7F64'
+ 'avances-remote.js'='3BAD8FA0D117CFDF1E5AC3664AF84BA3CD1092F2334A9EEF9B84DB0E08CA6B48'
 }
 try {
+ $sourceRef=Invoke-RestMethod -Uri ('https://api.github.com/repos/apereiranube/mupanic-web/git/ref/heads/beta?sync='+[guid]::NewGuid().ToString('N')) -Headers @{'User-Agent'='MU-PANIC-Avances-Installer';'Cache-Control'='no-cache'}
+ $sourceSha=[string]$sourceRef.object.sha
+ if($sourceSha -notmatch '^[a-f0-9]{40}$'){throw 'No se pudo comprobar la version del instalador. No se modifico nada.'}
  foreach($name in $hashes.Keys){
   $out=Join-Path $stage $name
-  Invoke-WebRequest -UseBasicParsing -Uri ('https://raw.githubusercontent.com/apereiranube/mupanic-web/beta/tools/discord-avances/'+$name+'?sync='+[guid]::NewGuid().ToString('N')) -OutFile $out
+  Invoke-WebRequest -UseBasicParsing -Uri ('https://raw.githubusercontent.com/apereiranube/mupanic-web/'+$sourceSha+'/tools/discord-avances/'+$name) -OutFile $out
   if((Get-FileHash -LiteralPath $out -Algorithm SHA256).Hash -ne $hashes[$name]){throw "No coincide la validacion de $name. No se modifico nada."}
   & $node --check $out
   if($LASTEXITCODE -ne 0){throw "Error de sintaxis en $name. No se modifico nada."}
