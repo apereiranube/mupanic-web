@@ -107,9 +107,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <header class="site-header">
     <div class="shell nav-shell">
-        <a class="brand" href="<?php echo __BASE_URL__; ?>">
-            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 48"><path d="M3 38V9l17 15L37 9v29L20 47z M3 9V2l17 15L37 2v7 M20 24v23"/></svg></span>
-            <span class="brand-copy"><strong>MU PANIC</strong><small>EL CONTINENTE TE ESPERA</small></span>
+        <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>">
+            <img class="brand-logo" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mu-panic-crystal-bronze-v1.webp" alt="MU PANIC" width="960" height="320" decoding="async">
         </a>
 
         <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
@@ -274,7 +273,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <footer class="footer-modern">
     <div class="shell footer-main">
         <div>
-            <a class="brand" href="<?php echo __BASE_URL__; ?>"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 48"><path d="M3 38V9l17 15L37 9v29L20 47z M3 9V2l17 15L37 2v7 M20 24v23"/></svg></span><span class="brand-copy"><strong>MU PANIC</strong><small>EL CONTINENTE TE ESPERA</small></span></a>
+            <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>"><img class="brand-logo" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mu-panic-crystal-bronze-v1.webp" alt="MU PANIC" width="960" height="320" decoding="async"></a>
             <p>Tu historia en el continente de MU.</p>
         </div>
         <div class="footer-links">
@@ -300,3 +299,4 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-ui.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-ui.js'), 0, 12); ?>"></script><?php } ?>
 </body>
 </html>
+
