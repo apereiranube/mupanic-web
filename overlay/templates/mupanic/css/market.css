@@ -6,3 +6,5 @@ body.is-market{background:#182224;color:#f7f1e6}.is-market .inner-hero{display:n
 @media(prefers-reduced-motion:reduce){.vessara-page *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .vessara-ticker-group{display:flex;align-items:center;flex:none}
+
+.vessara-activity{align-self:start}
