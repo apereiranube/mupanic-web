@@ -17,15 +17,19 @@ function rows(){
  const empty=q('[data-market-empty]');empty.hidden=!!list.length;empty.textContent=!data?'El registro del mercado no está disponible en este momento.':(!data.sales.length?'Todavía no hay tratos sellados.':'No hay coincidencias entre los últimos tratos.');
 }
 const motion=matchMedia('(prefers-reduced-motion: reduce)'),animations=new WeakMap();
+function fitMetric(el){
+ if(el.tagName!=='STRONG')return;el.style.fontSize='';
+ const width=el.clientWidth;if(width&&el.scrollWidth>width)el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*width/el.scrollWidth)+'px';
+}
 function metric(el,value){
  const valid=/^\d+$/.test(String(value)),previous=el.dataset.metricValue;
  if(!valid){cancelAnimationFrame(animations.get(el));delete el.dataset.metricValue;el.textContent='—';return;}
  value=String(value);if(previous===value)return;
  cancelAnimationFrame(animations.get(el));el.dataset.metricValue=value;
- if(previous===undefined||motion.matches){el.textContent=fmt(value);return;}
+ if(previous===undefined||motion.matches){el.textContent=fmt(value);fitMetric(el);return;}
  const from=BigInt(previous),to=BigInt(value),start=performance.now(),card=el.closest('.vessara-stats article');
  card?.classList.add('is-updating');
- function frame(now){const t=Math.min(1,(now-start)/800),e=BigInt(Math.round((1-Math.pow(1-t,3))*1000000));el.textContent=fmt(from+(to-from)*e/1000000n);if(t<1)animations.set(el,requestAnimationFrame(frame));else{el.textContent=fmt(value);card?.classList.remove('is-updating');}}
+ function frame(now){const t=Math.min(1,(now-start)/800),e=BigInt(Math.round((1-Math.pow(1-t,3))*1000000));el.textContent=fmt(from+(to-from)*e/1000000n);fitMetric(el);if(t<1)animations.set(el,requestAnimationFrame(frame));else{el.textContent=fmt(value);card?.classList.remove('is-updating');}}
  animations.set(el,requestAnimationFrame(frame));
 }
 function render(){
@@ -45,5 +49,5 @@ async function refresh(){
  catch{q('[data-market-status]').textContent=data?'Último registro disponible':'Datos no disponibles';q('[data-market-status]').classList.add('is-stale');}
  finally{clearTimeout(timeout);request=null;}
 }
-render();setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+render();if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric)).observe(root);setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();

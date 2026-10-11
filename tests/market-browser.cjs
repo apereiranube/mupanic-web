@@ -21,7 +21,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
   assert.equal(await page.locator('[data-market-rows] tr').count(),2);
   assert.equal(await page.locator('.vessara-day').count(),7);
   const layout=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,title:document.querySelector('h1').getBoundingClientRect().top,header:document.querySelector('.site-header').getBoundingClientRect().bottom,navRight:document.querySelector('.main-nav').getBoundingClientRect().right,accountLeft:document.querySelector('.nav-actions').getBoundingClientRect().left}));
-  assert.equal(layout.overflow,false,'viewport overflow at '+width);assert.ok(layout.title>=layout.header,'heading overlaps header');
+  assert.equal(await page.locator('.vessara-stats strong[data-market-metric]').evaluateAll(els=>els.every(e=>e.scrollWidth<=e.clientWidth)),true,'metric fits its card');assert.equal(layout.overflow,false,'viewport overflow at '+width);assert.ok(layout.title>=layout.header,'heading overlaps header');
   if(width>900)assert.ok(layout.navRight<=layout.accountLeft,'navigation overlaps account actions at '+width);
   await page.locator('[data-market-currency="1"]').click();assert.equal(await page.locator('[data-market-rows] tr').count(),1);
   await page.locator('[data-market-currency="all"]').click();await page.locator('[data-market-search]').fill('hurricane');assert.equal(await page.locator('[data-market-rows] tr').count(),1);
