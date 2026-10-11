@@ -48,3 +48,40 @@ body.is-market{background:#182224;color:#f7f1e6}.is-market .inner-hero{display:n
 .vessara-stat-eryns .vessara-value-aura{opacity:.55}
 @media(max-width:900px){.vessara-eryns-art{width:110px;height:110px;opacity:.55}}
 @media(max-width:600px){.vessara-eryns-art{width:85px;height:85px;right:-5px;top:-5px;opacity:.45}}
+
+/* Vessara art direction v3: charcoal, worn bronze, luminous sapphire. */
+body.is-market{background:#141110}
+.vessara-page{--v-green:#dab07a;--v-purple:#94d9ff;--v-line:#c69b6930;background:radial-gradient(ellipse at 80% 0,#9b552528,transparent 35%),linear-gradient(#181210,#151312 65%,#1b1714)}
+.vessara-aurora i{background:radial-gradient(ellipse,#b5793720,transparent 66%)}.vessara-aurora i:nth-child(2){background:radial-gradient(ellipse,#2d80b918,transparent 66%)}.vessara-aurora i:nth-child(3){background:radial-gradient(ellipse,#9b6b3417,transparent 66%)}
+.vessara-hero{background:#19120f;border-radius:12px 52px 12px 52px;box-shadow:inset 0 0 0 1px #c99e6155,0 20px 65px #0006}
+.vessara-hero-art{width:100%;height:100%;top:0;right:0;object-position:75% 46%;filter:none;transform:translate3d(var(--scene-x,0px),var(--scene-y,0px),0) scale(1.03)}
+.vessara-hero:before{background:linear-gradient(90deg,#15110fed 0%,#15110fd4 30%,#15110f90 49%,#15110f10 72%),linear-gradient(0deg,#15110f99,transparent 44%)}
+.vessara-hero:after{border-top-color:#d7b18055;border-bottom-color:#c99e6135;box-shadow:none}
+.vessara-seal{background:linear-gradient(135deg,#201811ee,#2a211ad9);border-color:#c99e6150;box-shadow:0 12px 25px #0005;backdrop-filter:blur(7px)}
+.vessara-effects-toggle{background:#1b1512c9;border-color:#ae85594d}
+.vessara-stats article:after{display:none}
+.vessara-stats article{background:linear-gradient(130deg,#2b231de8,#1b1917f5);border-color:#a17f514d;box-shadow:0 14px 30px #0005,inset 0 1px #e0b57916}
+.vessara-stats .vessara-stat-trades{background:radial-gradient(ellipse at 100% 0,#bf834222,transparent 70%),linear-gradient(130deg,#30251b,#1c1916);border-color:#c4955a55}
+.vessara-stat-trades strong{color:#f6d09d;text-shadow:0 0 25px #d18b3b26}.vessara-today-footer{color:#d6af7c}.vessara-stats small{color:#beb2a5}.vessara-stats small b{color:#edc58d}
+.vessara-stats .vessara-stat-zen{background:radial-gradient(ellipse at 100% 0,#bf834222,transparent 70%),linear-gradient(130deg,#34271b,#211c17);box-shadow:0 14px 30px #0005;border-color:#c4955a55}
+.vessara-stats .vessara-stat-eryns{background:radial-gradient(ellipse at 100% 0,#267ac72b,transparent 65%),linear-gradient(130deg,#20232a,#171c24);border-color:#a995684d;box-shadow:0 14px 30px #0005}
+.vessara-eryns-art{right:18px;top:16px;width:93px;height:93px;opacity:.85;mask-image:none;filter:drop-shadow(0 0 10px #54bfff25);object-fit:contain}
+.vessara-session{color:#ae9e8b}.vessara-session>span:nth-child(2){color:#c2b5a5}.vessara-session-clock b{color:#9c8b79}
+.vessara-live{color:#d8b787}.vessara-session-state:before,.vessara-live:before{background:#efbb77;box-shadow:0 0 9px #d99a4965}
+.vessara-table-wrap{background:linear-gradient(135deg,#25211e,#1b1917);border-color:#b18b5540;scrollbar-color:#8a6b44 #1b1917}
+.vessara-table th{background:#33291f;color:#e2c29d}.vessara-table td{color:#c0b6aa;border-top-color:#cba46917}.vessara-table tr:nth-child(even){background:#ffffff02}.vessara-table tr:hover td{background:#c99d5310}
+.vessara-table .vessara-price.is-eryns,.vessara-feed-entry.is-eryns b{color:#a1dcff}.vessara-table time{color:#a39584}.vessara-ledger-footer{color:#a79985}.vessara-ledger-footer b{color:#e7c69d}
+.vessara-filters button{border-color:#ad8a5940;color:#c4b7a6}.vessara-filters button[aria-pressed=true]{background:#d4ad72;color:#231910;border-color:#d4ad72}.vessara-search input{background:#211d19;border-color:#ad8a5940;color:#f4e7d6}
+.vessara-tape{background:linear-gradient(145deg,#2b241ddd,#1b1918f2);border-color:#b98d5545;box-shadow:0 15px 45px #0005,inset 0 1px #e9c79612}
+.vessara-tape-head .eyebrow,.vessara-tape h2 i{color:#d6ab70}
+.vessara-last{background:radial-gradient(ellipse at 100% 0,#93643522,transparent 80%),linear-gradient(130deg,#453221,#2b231b);color:#f3dec0;border:1px solid #c99b5c66;border-left:3px solid #dab075;box-shadow:0 10px 25px #0003}
+.vessara-last>span{color:#c9a374}.vessara-last strong{color:#ffdfb4}.vessara-last b{color:#9cd8ff}.vessara-last small{color:#bbac96}
+.vessara-feed-entry{border-color:#b78d5225}.vessara-feed-entry:before{background:#d3a05d}.vessara-feed-entry p{color:#bfb2a3}.vessara-feed-entry small{color:#a08f7b}.vessara-tape-cta{color:#e7c69d!important}
+.vessara-activity{background:linear-gradient(130deg,#29221c,#1b1917);border-color:#b48a5040}.vessara-chart-unit{color:#ad9b84}.vessara-day strong{color:#e5bd88}.vessara-day>div{border-color:#b18b5440;background:repeating-linear-gradient(0deg,transparent,transparent 28px,#b18b5410 28px,#b18b5410 29px)}.vessara-day i{background:linear-gradient(#cda36b,#825c304a);border-color:#e5be8d;box-shadow:0 0 18px #b9803012}.vessara-day span{color:#a6957e}
+.vessara-lore p{color:#b8ab98}.vessara-treasure>span{color:#b1a18c}.vessara-treasure>small{color:#ae9c83}
+.vessara-new-trades{background:linear-gradient(130deg,#352819,#1f1b16);border-color:#d1a464;color:#f4d6aa;box-shadow:0 0 35px #b4823020,0 15px 45px #0006}.vessara-new-trades strong{color:#ffe2b9}.vessara-new-trades small,.vessara-new-trades p{color:#c7ae8d}
+.vessara-ticker-label i{background:#5b3b19}.vessara-ticker-sale b{color:#664115}.vessara-ticker-sale.is-eryns b{color:#1e567e}
+.vessara-page :focus-visible{outline-color:#e2b274}
+@keyframes vessara-pulse{50%{box-shadow:0 0 0 4px #d8a15d12}}@keyframes vessara-figure{25%{box-shadow:0 0 0 2px #ddb67b,0 0 25px #bf894044}}@keyframes vessara-new-row{0%{background:#bb853a30}100%{background:transparent}}
+@media(max-width:900px){.vessara-eryns-art{width:75px;height:75px;right:12px;top:14px}.vessara-hero-art{width:100%;height:100%;object-position:72% 46%}}
+@media(max-width:600px){.vessara-hero-art{width:130%;height:100%;right:-22%;top:0;object-position:77% center;opacity:1}.vessara-hero:before{background:linear-gradient(90deg,#15110ff2,#15110fcb 46%,#15110f38),linear-gradient(0deg,#15110f,transparent 80%)}.vessara-eryns-art{width:55px;height:55px;right:10px;top:10px;opacity:.72}}
