@@ -12,7 +12,7 @@ function panicMarketRead($refresh=false) {
     $cache=defined('__PATH_CACHE__') ? rtrim(__PATH_CACHE__,'/\\').'/mupanic-vessara-v2.json' : null;
     $old=$cache && is_file($cache) && !is_link($cache) ? json_decode((string)@file_get_contents($cache),true) : null;
     $valid=is_array($old) && ($old['schema'] ?? null)===1 && isset($old['updated'],$old['metrics'],$old['sales'],$old['days']);
-    if(!$refresh && $valid && $old['updated']>time()-60) return $old;
+    if(!$refresh && $valid && $old['updated']>time()-15) return $old;
     try {
         $db=Connection::Database('MuOnline');
         if(!$db) throw new RuntimeException('Unavailable');
