@@ -30,3 +30,9 @@ PHP checks cover projection, precision, error/empty states and cache behavior. P
 SELECT Currency,COUNT_BIG(*) AS Tratos,SUM(CONVERT(bigint,Price)) AS Volumen
 FROM dbo.PanicMarketPublicSales GROUP BY Currency;
 ```
+
+## Living exchange scenery
+
+The layered hero, seal rings, orbiting currency emblems, currency-core panels and floating treasure pedestals form the presentation scene. Canvas particles are decorative lights, never players, trades or market metrics. Drawing is capped at roughly 30fps with 52 desktop / 22 mobile particles and DPR 1.5; frames stop in a hidden tab or with effects paused. CSS effects also pause in hidden tabs. Reduced-motion disables all atmosphere and sale-impact effects. The prominent effects button lets visitors pause decorative motion while continuing to receive market data.
+
+Treasure pedestals show the latest sale for up to four distinct itemIndex/level combinations. Category emblems are explicitly symbolic and identified as staff/armor/etc; they do not claim to be exact in-game model photographs. Titles, prices, character names and timestamps are the real public records. A newly confirmed delivery fires one restrained light ripple; initial history, stale/unchanged responses and older imported rows never fire it. Pointer tilt/parallax is decorative and disabled for touch/reduced-motion.
