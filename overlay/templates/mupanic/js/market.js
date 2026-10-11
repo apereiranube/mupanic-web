@@ -19,7 +19,7 @@ function rows(){
 const motion=matchMedia('(prefers-reduced-motion: reduce)'),animations=new WeakMap();
 function fitMetric(el){
  if(el.tagName!=='STRONG')return;el.style.fontSize='';
- const width=el.clientWidth;if(width&&el.scrollWidth>width)el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*width/el.scrollWidth)+'px';
+ const width=el.clientWidth;for(let i=0;width&&el.scrollWidth>width&&i<3;i++)el.style.fontSize=(parseFloat(getComputedStyle(el).fontSize)*width/el.scrollWidth*.98)+'px';
 }
 function metric(el,value){
  const valid=/^\d+$/.test(String(value)),previous=el.dataset.metricValue;
@@ -49,5 +49,5 @@ async function refresh(){
  catch{q('[data-market-status]').textContent=data?'Último registro disponible':'Datos no disponibles';q('[data-market-status]').classList.add('is-stale');}
  finally{clearTimeout(timeout);request=null;}
 }
-render();if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric)).observe(root);setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+render();document.fonts?.ready.then(()=>root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric));if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric)).observe(root);setInterval(refresh,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();

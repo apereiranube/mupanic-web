@@ -15,7 +15,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
    if(url.pathname.startsWith('/templates/mupanic/')){const file=path.join(root,url.pathname.slice('/templates/mupanic/'.length));if(fs.existsSync(file))return route.fulfill({path:file});}
    return route.abort();
   });
-  await page.goto('https://market.test/market/');
+  await page.goto('https://market.test/market/');await page.evaluate(()=>document.fonts.ready);await page.waitForFunction(()=>[...document.querySelectorAll('.vessara-stats strong[data-market-metric]')].every(e=>e.scrollWidth<=e.clientWidth));
   assert.equal(await page.locator('h1').count(),1);
   assert.equal(await page.locator('[data-market-metric=zen]').textContent(),'9.007.199.254.740.993');
   assert.equal(await page.locator('[data-market-rows] tr').count(),2);
