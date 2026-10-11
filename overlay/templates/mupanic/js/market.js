@@ -70,12 +70,13 @@ function itemFamily(index){
 function showcase(){
  const sales=data?.sales||[],key=JSON.stringify(sales);if(showcaseKey===key)return;showcaseKey=key;const stage=q('[data-market-showcase]');stage.replaceChildren();const unique=new Set();
  for(const sale of sales){const code=sale.itemIndex+':'+sale.level;if(unique.has(code))continue;unique.add(code);const [family,label]=itemFamily(sale.itemIndex),card=document.createElement('article');card.className='vessara-treasure'+(sale.currency===1?' is-eryns':'')+(newIds.has(sale.id)?' is-new':'');const art=document.createElement('div');art.className='vessara-treasure-art';const img=document.createElement('img');img.src=root.dataset.marketAssets+'emblems/'+family+'.svg';img.alt='Emblema de '+label.toLowerCase();img.width=120;img.height=128;art.append(img);card.append(art,text('small',label),text('h3',title(sale)),text('b',money(sale)),text('span',sale.buyer+' · '+when(sale)));stage.append(card);if(unique.size===4)break;}
+ stage.style.setProperty('--treasure-count',String(Math.max(1,unique.size)));stage.dataset.count=String(unique.size);
  if(!unique.size)stage.append(text('p',data?'Los próximos tesoros se sellan en el juego.':'Esperando el registro de tesoros.','vessara-showcase-empty'));
 }
 const canvas=q('[data-market-atmosphere]'),ctx=canvas.getContext('2d');let ambienceFrame=0,ambienceLast=0,particles=[],cw=0,ch=0;
 const sprites=['#ffc978','#cca1ff','#d4ed9c'].map(color=>{const c=document.createElement('canvas');c.width=c.height=24;const cx=c.getContext('2d'),g=cx.createRadialGradient(12,12,0,12,12,12);g.addColorStop(0,color);g.addColorStop(.12,color+'dd');g.addColorStop(.45,color+'33');g.addColorStop(1,color+'00');cx.fillStyle=g;cx.fillRect(0,0,24,24);return c;});
 function resizeAtmosphere(){
- cw=innerWidth;ch=innerHeight;const ratio=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(cw*ratio);canvas.height=Math.round(ch*ratio);ctx?.setTransform(ratio,0,0,ratio,0,0);particles=Array.from({length:cw<600?22:52},(_,i)=>({x:Math.random()*cw,y:Math.random()*ch,v:.12+Math.random()*.35,r:3+Math.random()*8,phase:Math.random()*6.28,color:i%3}));
+ cw=innerWidth;ch=innerHeight;const ratio=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(cw*ratio);canvas.height=Math.round(ch*ratio);ctx?.setTransform(ratio,0,0,ratio,0,0);particles=Array.from({length:cw<600?22:52},(_,i)=>({x:Math.random()*cw,y:Math.random()*ch,v:.25+Math.random()*.7,r:3+Math.random()*8,phase:Math.random()*6.28,color:i%3}));
 }
 function atmosphere(now){
  ambienceFrame=0;if(effectsPaused||motion.matches||document.hidden||!ctx){canvas.dataset.running='false';return;}canvas.dataset.running='true';ambienceFrame=requestAnimationFrame(atmosphere);if(now-ambienceLast<33)return;const delta=Math.min(3,(now-ambienceLast)/33);ambienceLast=now;ctx.clearRect(0,0,cw,ch);
