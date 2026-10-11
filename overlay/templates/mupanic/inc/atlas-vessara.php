@@ -1,0 +1,66 @@
+<?php if(!defined('access') || !access) die(); ?>
+<section id="vessara" class="wiki-section atlas-vessara-guide" aria-labelledby="atlas-vessara-title" data-wiki-search>
+    <div class="v-guide-hero">
+        <div class="v-guide-hero-image">
+            <img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-trade-v3.webp" alt="Vessara presenta el sello que protege los intercambios de MU PANIC" width="1280" height="720" loading="lazy">
+            <span class="v-guide-corner">LOREN MARKET · 114,143</span>
+        </div>
+        <div class="v-guide-hero-copy">
+            <span class="eyebrow">ATLAS / SISTEMAS DEL CONTINENTE</span>
+            <h2 id="atlas-vessara-title">Mercado de <em>Vessara.</em></h2>
+            <p>Un mercado entre jugadores donde podés publicar y comprar objetos utilizando <strong>Zen</strong> o <strong>Eryns</strong>, la moneda propia de MU PANIC.</p>
+            <div class="v-guide-keyline"><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-seal-v2.svg" width="40" height="40" alt=""><span>F11 para consultar. Vessara, en Loren Market, para realizar operaciones.</span></div>
+        </div>
+    </div>
+
+    <div class="v-guide-stats" aria-label="Reglas principales del mercado">
+        <div><span>TRIBUTO AL VENDER</span><strong>5%</strong><small>Lo paga el vendedor</small></div>
+        <div><span>PUBLICACIONES FREE</span><strong>3</strong><small>Activas, entre las dos monedas</small></div>
+        <div><span>PUBLICACIONES VIP</span><strong>10</strong><small>Activas, entre las dos monedas</small></div>
+        <div><span>DURACIÓN</span><strong>7 días</strong><small>Por publicación</small></div>
+    </div>
+
+    <div class="v-guide-intro">
+        <div><span class="eyebrow">EL ORIGEN DEL SELLO</span><h3>La palabra de Vessara.</h3></div>
+        <div><p>Después de la Fractura, intercambiar objetos entre desconocidos significaba confiar primero y esperar después. Vessara estableció una forma distinta de comerciar: resguardar los objetos ofrecidos y reconocer los acuerdos bajo su sello.</p><p>Hoy, el <strong>Sello de Vessara</strong> identifica los tratos completados por el sistema. No convierte una publicación en una venta: el trato se considera sellado cuando la compra y su entrega quedan confirmadas.</p><p class="v-guide-quote">«Bajo mi sello, ningún trato se rompe.»</p></div>
+    </div>
+
+    <div class="v-guide-section-heading"><span class="eyebrow">GUÍA DE USO</span><h3>Cómo comerciar.</h3><p>El mercado está disponible para jugadores Free y VIP. No necesitás ser VIP para comprar o vender.</p></div>
+    <ol class="v-guide-steps">
+        <li><span class="v-guide-step">01</span><div><h4>Consultá las ofertas</h4><p>Abrí el <strong>Hub con F11</strong> e ingresá a <strong>Mercado de Vessara</strong> para explorar el catálogo. Utilizá la búsqueda y los filtros para localizar objetos y precios.</p></div></li>
+        <li><span class="v-guide-step">02</span><div><h4>Visitá a Vessara</h4><p>Encontrala en <strong>Loren Market (114,143)</strong>. Publicar, comprar, cancelar publicaciones y cobrar ventas son operaciones que se realizan con ella dentro del juego.</p></div></li>
+        <li><span class="v-guide-step">03</span><div><h4>Publicá un objeto</h4><p>Elegí el objeto que querés vender, definí un precio y seleccioná <strong>Zen</strong> o <strong>Eryns</strong>. Revisá los datos antes de confirmar. El objeto queda bajo custodia del mercado mientras la publicación esté activa. <strong>Publicar es gratis.</strong></p></div></li>
+        <li><span class="v-guide-step">04</span><div><h4>Comprá o cancelá</h4><p>Para comprar, seleccioná la oferta y confirmá el precio indicado. Si una publicación tuya sigue activa, podés cancelarla y retirar el objeto <strong>sin pagar comisión</strong>.</p></div></li>
+        <li><span class="v-guide-step">05</span><div><h4>Cobrá tus ventas</h4><p>Cuando se completa una venta, regresá a Vessara para <strong>cobrar lo obtenido</strong>. El tributo del 5% se descuenta del importe que recibe el vendedor. Podés revisar tus publicaciones y el historial del mercado.</p></div></li>
+    </ol>
+
+    <div class="v-guide-columns">
+        <article class="v-guide-box">
+            <span class="eyebrow">ZEN O ERYNS</span><h3>Una moneda por oferta.</h3>
+            <p>Cada publicación tiene un precio expresado en una sola moneda. <strong>Zen</strong> y <strong>Eryns</strong> son mercados de valor distintos: no se convierten automáticamente uno en otro al comprar.</p>
+            <div class="v-guide-currencies"><span><i aria-hidden="true">●</i> Zen</span><span><i aria-hidden="true">◆</i> Eryns</span></div>
+            <p class="v-guide-small">Los límites de publicaciones se comparten entre ambas monedas. No son 3 o 10 por cada moneda.</p>
+        </article>
+        <article class="v-guide-box v-guide-tribute">
+            <span class="eyebrow">TRIBUTO DE VESSARA</span><h3>El 5% se paga al vender.</h3>
+            <p>El comprador paga el precio publicado. Al concretarse la venta, se deduce un <strong>5% al vendedor</strong>, redondeado hacia abajo.</p>
+            <div class="v-guide-example"><span>Ejemplo de venta</span><strong>1.000 Eryns</strong><dl><div><dt>Tributo (5%)</dt><dd>50 Eryns</dd></div><div><dt>Recibe el vendedor</dt><dd>950 Eryns</dd></div></dl></div>
+            <p class="v-guide-small">No hay tributo por crear o cancelar una publicación que aún no se vendió.</p>
+        </article>
+    </div>
+
+    <div class="v-guide-section-heading"><span class="eyebrow">REGLAS Y CONSULTAS</span><h3>Antes de confirmar un trato.</h3></div>
+    <div class="v-guide-faq">
+        <details><summary>¿Cuántas publicaciones puedo tener al mismo tiempo?</summary><p>Las cuentas Free pueden tener hasta <strong>3 publicaciones activas</strong>. Las cuentas VIP MU PANIC pueden tener hasta <strong>10</strong>. El límite suma las ofertas en Zen y en Eryns.</p></details>
+        <details><summary>¿Cuánto dura una publicación?</summary><p>Cada publicación tiene una vigencia de <strong>7 días</strong>. Para consultar su estado al finalizar ese período, revisá tus publicaciones con Vessara en Loren Market.</p></details>
+        <details><summary>¿El mercado cobra por publicar o retirar un objeto?</summary><p>No. Publicar es gratis y cancelar una oferta todavía activa también. El tributo corresponde únicamente a las ventas completadas.</p></details>
+        <details><summary>¿Puedo comerciar directamente desde la web o desde F11?</summary><p>El <strong>Hub F11</strong> permite consultar el mercado. Para publicar, comprar, cancelar y cobrar tenés que acudir a <strong>Vessara en Loren Market (114,143)</strong>. La página web muestra actividad confirmada; no realiza operaciones de inventario.</p></details>
+        <details><summary>¿Cuándo se considera que una venta fue completada?</summary><p>Cuando el sistema confirma la compra y la entrega del objeto. Una publicación abierta, una cancelación o un cobro pendiente no generan una nueva venta en el registro de tratos sellados.</p></details>
+        <details><summary>¿Qué pasa si se desconecta el juego?</summary><p>Las publicaciones y operaciones confirmadas se conservan en el registro del mercado. Al volver a entrar, consultá tu estado con Vessara antes de repetir cualquier acción.</p></details>
+    </div>
+
+    <div class="v-guide-foot">
+        <img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-guarantee-v1.webp" alt="Vessara custodia un acuerdo bajo su sello" loading="lazy" width="1672" height="941">
+        <div><span class="eyebrow">GUÍA Y MERCADO SON DISTINTOS</span><h3>El Atlas explica las reglas. El mercado muestra los tratos.</h3><p>Esta ficha es una guía de referencia. Si querés ver ofertas de actividad, operaciones selladas y movimientos del día, visitá la sección del mercado en la web.</p><a href="<?php echo __BASE_URL__; ?>market/">Ir al Mercado de Vessara <span aria-hidden="true">→</span></a></div>
+    </div>
+</section>
