@@ -20,7 +20,7 @@ Numeric updates interpolate in BigInt over 800ms, then land on the exact total. 
 
 ## Visual direction
 
-An illustrated Vessara hero opens onto a trading-floor dashboard: amber scrolling transaction tape, ivory/green trade panel, light amber Zen panel and light violet Eryns panel, high-contrast prices, real daily sparklines, chronological purchase feed and a daily activity chart. Creating an account and downloading the client link to existing routes. The NPC illustration and seal follow the established game/world identity.
+An illustrated Vessara hero opens onto a layered fantasy trading floor: spinning seals, gold coin and violet crystal currency cores, sculpted translucent panels, high-contrast luminous prices, floating category emblems on treasure pedestals, an amber scrolling transaction tape, actual daily sparklines, a chronological purchase feed and a daily activity chart. Creating an account and downloading the client link to existing routes. The NPC illustration and seal follow the established game/world identity.
 
 ## Verification
 
@@ -36,3 +36,5 @@ FROM dbo.PanicMarketPublicSales GROUP BY Currency;
 The layered hero, seal rings, orbiting currency emblems, currency-core panels and floating treasure pedestals form the presentation scene. Canvas particles are decorative lights, never players, trades or market metrics. Drawing is capped at roughly 30fps with 52 desktop / 22 mobile particles and DPR 1.5; frames stop in a hidden tab or with effects paused. CSS effects also pause in hidden tabs. Reduced-motion disables all atmosphere and sale-impact effects. The prominent effects button lets visitors pause decorative motion while continuing to receive market data.
 
 Treasure pedestals show the latest sale for up to four distinct itemIndex/level combinations. Category emblems are explicitly symbolic and identified as staff/armor/etc; they do not claim to be exact in-game model photographs. Titles, prices, character names and timestamps are the real public records. A newly confirmed delivery fires one restrained light ripple; initial history, stale/unchanged responses and older imported rows never fire it. Pointer tilt/parallax is decorative and disabled for touch/reduced-motion.
+
+New-sale receipts display the real latest newly delivered item, price, buyer and seller, with a connecting light arrow. If several purchases arrive in a poll, the receipt identifies the count and displays the newest one.
