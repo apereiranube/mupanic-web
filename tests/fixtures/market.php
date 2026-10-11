@@ -9,6 +9,9 @@ class Connection {
    ['id'=>'1','buyer'=>'Juanita','seller'=>'MGTeste','item'=>'Chromatic Staff','itemIndex'=>2593,'level'=>15,'currency'=>1,'price'=>100,'soldAt'=>'2026-10-10T20:02:35'],
    ['id'=>'2','buyer'=>'PANIC','seller'=>'Juanita','item'=>'Hurricane Armor','itemIndex'=>4129,'level'=>13,'currency'=>0,'price'=>1000000,'soldAt'=>'2026-10-10T19:02:35']
   ];
+  if(strpos($q,'SELECT TOP 5')!==false)return [['item'=>'Chromatic Staff','itemIndex'=>2593,'level'=>15,'trades'=>'12'],['item'=>'Hurricane Armor','itemIndex'=>4129,'level'=>13,'trades'=>'4']];
+  if(strpos($q,'priceRank')!==false)return [['id'=>'r1','buyer'=>'BigBuyer','seller'=>'BigSeller','item'=>'Dragon Sword','itemIndex'=>12,'level'=>15,'currency'=>1,'price'=>40000,'soldAt'=>'2026-10-10T10:30:00'],['id'=>'r2','buyer'=>'PANIC','seller'=>'Juanita','item'=>'Hurricane Armor','itemIndex'=>4129,'level'=>13,'currency'=>0,'price'=>1000000,'soldAt'=>'2026-10-10T19:02:35']];
+  if(strpos($q,'sellerRank')!==false)return [['seller'=>'BigSeller','currency'=>1,'volume'=>'60000','trades'=>'6'],['seller'=>'Juanita','currency'=>0,'volume'=>'1000000','trades'=>'1']];
   return [['day'=>'2026-10-10','trades'=>'12','zen'=>'1000000','eryns'=>'100']];
  }
 }

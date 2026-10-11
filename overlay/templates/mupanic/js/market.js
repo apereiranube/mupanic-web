@@ -45,17 +45,19 @@ function tickerSale(s){
 }
 function tradingTape(){
  const sales=data?.sales||[],key=JSON.stringify(sales);if(tapeKey===key)return;tapeKey=key;
- const feed=q('[data-market-feed]');feed.replaceChildren();
- for(const s of sales.slice(0,6)){
-  const entry=document.createElement('article');entry.className='vessara-feed-entry'+(s.currency===1?' is-eryns':'')+(newIds.has(s.id)?' is-new':'');
-  const line=document.createElement('p');line.append(text('strong',s.buyer),document.createTextNode(' compró '+title(s)));entry.append(line,text('b',money(s)),text('small',when(s)+' · Vendedor: '+s.seller));feed.append(entry);
- }
- if(!sales.length)feed.append(text('p',data?'El próximo trato empieza en el juego.':'Esperando conexión con el registro.','vessara-feed-empty'));
  const ticker=q('[data-market-ticker]');ticker.replaceChildren();ticker.classList.toggle('is-static',!sales.length);
  if(!sales.length){ticker.append(text('span',data?'Todavía no hay tratos sellados.':'Esperando el registro del mercado.','vessara-ticker-empty'));return;}
  const group=document.createElement('div');group.className='vessara-ticker-group';const recent=sales.slice(0,8);recent.forEach(s=>group.append(tickerSale(s)));ticker.append(group);
  for(let i=0;group.scrollWidth<q('.vessara-ticker-window').clientWidth+100&&i<8;i++)recent.forEach(s=>{const copy=tickerSale(s);copy.setAttribute('aria-hidden','true');group.append(copy);});
  const duplicate=group.cloneNode(true);duplicate.setAttribute('aria-hidden','true');ticker.append(duplicate);
+}
+function highlights(){
+ const stage=q('[data-market-highlights]');stage.replaceChildren();const stats=data?.highlights;
+ function card(label,eryns){const el=document.createElement('article');el.className='vessara-top-card'+(eryns?' is-eryns':'');el.append(text('span',label,'vessara-top-label'));stage.append(el);return el;}
+ function waiting(el){el.append(text('p',data?'El puesto está libre.':'Esperando datos del mercado.','vessara-top-empty'));}
+ for(const currency of [1,0]){const el=card('TOP VENDEDOR / '+(currency===1?'ERYNS':'ZEN'),currency===1),s=stats?.sellers?.find(s=>s.currency===currency);if(s)el.append(text('strong',s.seller),text('b',fmt(s.volume)+' '+(currency===1?'Eryns':'Zen')),text('small',fmt(s.trades)+' '+(s.trades==='1'?'venta':'ventas')+' · Volumen vendido hoy'));else waiting(el);}
+ const popular=stats?.popular?.[0],el=card('OBJETO MÁS COMERCIADO',false);if(popular)el.append(text('strong',title(popular)),text('b',fmt(popular.trades)+' '+(popular.trades==='1'?'trato':'tratos')),text('small','Ventas confirmadas hoy'));else waiting(el);
+ for(const currency of [1,0]){const el=card('MAYOR TRATO / '+(currency===1?'ERYNS':'ZEN'),currency===1),s=stats?.records?.find(s=>s.currency===currency);if(s)el.append(text('strong',title(s)),text('b',money(s)),text('small',s.buyer+' ← '+s.seller+' · '+when(s)));else waiting(el);}
 }
 function connection(stale){
  const badge=q('[data-market-connection]');badge.classList.toggle('is-stale',stale);badge.textContent=stale?'Registro en espera':'Conectado al mercado';
@@ -74,7 +76,7 @@ function showcase(){
  if(!unique.size)stage.append(text('p',data?'Los próximos tesoros se sellan en el juego.':'Esperando el registro de tesoros.','vessara-showcase-empty'));
 }
 const canvas=q('[data-market-atmosphere]'),ctx=canvas.getContext('2d');let ambienceFrame=0,ambienceLast=0,particles=[],cw=0,ch=0;
-const sprites=['#ffc978','#cca1ff','#d4ed9c'].map(color=>{const c=document.createElement('canvas');c.width=c.height=24;const cx=c.getContext('2d'),g=cx.createRadialGradient(12,12,0,12,12,12);g.addColorStop(0,color);g.addColorStop(.12,color+'dd');g.addColorStop(.45,color+'33');g.addColorStop(1,color+'00');cx.fillStyle=g;cx.fillRect(0,0,24,24);return c;});
+const sprites=['#ffc978','#94cfff','#d5a36b'].map(color=>{const c=document.createElement('canvas');c.width=c.height=24;const cx=c.getContext('2d'),g=cx.createRadialGradient(12,12,0,12,12,12);g.addColorStop(0,color);g.addColorStop(.12,color+'dd');g.addColorStop(.45,color+'33');g.addColorStop(1,color+'00');cx.fillStyle=g;cx.fillRect(0,0,24,24);return c;});
 function resizeAtmosphere(){
  cw=innerWidth;ch=innerHeight;const ratio=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(cw*ratio);canvas.height=Math.round(ch*ratio);ctx?.setTransform(ratio,0,0,ratio,0,0);particles=Array.from({length:cw<600?22:52},(_,i)=>({x:Math.random()*cw,y:Math.random()*ch,v:.25+Math.random()*.7,r:3+Math.random()*8,phase:Math.random()*6.28,color:i%3}));
 }
@@ -93,9 +95,7 @@ q('[data-market-showcase]').addEventListener('pointermove',e=>{if(e.pointerType=
 function tradeImpact(){if(motion.matches||effectsPaused)return;const burst=q('[data-market-burst]');burst.classList.remove('is-firing');void burst.offsetWidth;burst.classList.add('is-firing');setTimeout(()=>burst.classList.remove('is-firing'),1800);}
 function render(){
  root.querySelectorAll('[data-market-metric]').forEach(el=>metric(el,data?.metrics?.[el.dataset.marketMetric]));
- const last=data?.sales?.[0];q('[data-market-last]').textContent=last?title(last):'—';q('[data-market-last-price]').textContent=last?fmt(last.price)+' '+(last.currency===0?'Zen':'Eryns'):'Esperando un nuevo trato';
- q('[data-market-last-actors]').textContent=last?last.buyer+' compró a '+last.seller+' · '+when(last):'';
- spark('zen');spark('eryns');tradingTape();showcase();connection(!data||data.stale);
+ highlights();spark('zen');spark('eryns');tradingTape();showcase();connection(!data||data.stale);
  const daysForComparison=data?.days||[],yesterday=daysForComparison.at(-2);q('[data-market-comparison]').textContent=yesterday?'AYER: '+fmt(yesterday.trades)+' TRATOS':'ACTIVIDAD DEL DÍA';
  const status=q('[data-market-status]');status.classList.toggle('is-stale',!data||data.stale);status.textContent=data?(data.stale?'Último registro disponible':'Actualizado '+new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit'}).format(new Date(data.updated*1000))):'Datos no disponibles';
  const bars=q('[data-market-days]');bars.replaceChildren();const days=data?.days||[],max=Math.max(1,...days.map(d=>Number(d.trades)));
@@ -108,7 +108,7 @@ root.querySelectorAll('[data-market-currency]').forEach(button=>button.addEventL
 q('[data-market-search]').addEventListener('input',rows);
 async function refresh(){
  if(document.hidden||request)return;request=new AbortController();const timeout=setTimeout(()=>request?.abort(),10000);
- try{const res=await fetch(root.dataset.marketUrl,{headers:{Accept:'application/json'},cache:'no-store',signal:request.signal});if(!res.ok)throw Error('Unavailable');const next=await res.json();if(next?.schema!==1||!Array.isArray(next.sales)||!Array.isArray(next.days)||!next.metrics)throw Error('Invalid');const previousIds=new Set((data?.sales||[]).map(s=>s.id));const latest=data?.sales?.[0]?new Date(data.sales[0].soldAt).getTime():0;newIds=new Set(data&&!next.stale?next.sales.filter(s=>!previousIds.has(s.id)&&new Date(s.soldAt).getTime()>=latest).map(s=>s.id):[]);data=next;render();if(newIds.size){tradeImpact();const notice=q('[data-market-notification]');const sealed=data.sales.find(s=>newIds.has(s.id));notice.replaceChildren(text('small',newIds.size===1?'NUEVO TRATO SELLADO':fmt(newIds.size)+' NUEVOS TRATOS SELLADOS'),text('strong',title(sealed)),text('b',money(sealed)));const route=document.createElement('span');route.className='vessara-deal-route';route.append(text('span',sealed.buyer),text('i','→'),text('span',sealed.seller));notice.append(route);notice.classList.toggle('is-eryns',sealed.currency===1);notice.hidden=false;clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>{notice.hidden=true;root.querySelectorAll('.is-new').forEach(el=>el.classList.remove('is-new'));newIds.clear();},6000);}}
+ try{const res=await fetch(root.dataset.marketUrl,{headers:{Accept:'application/json'},cache:'no-store',signal:request.signal});if(!res.ok)throw Error('Unavailable');const next=await res.json();if(next?.schema!==2||!Array.isArray(next.sales)||!Array.isArray(next.days)||!next.metrics||!next.highlights||!Array.isArray(next.highlights.popular)||!Array.isArray(next.highlights.records)||!Array.isArray(next.highlights.sellers))throw Error('Invalid');const previousIds=new Set((data?.sales||[]).map(s=>s.id));const latest=data?.sales?.[0]?new Date(data.sales[0].soldAt).getTime():0;newIds=new Set(data&&!next.stale?next.sales.filter(s=>!previousIds.has(s.id)&&new Date(s.soldAt).getTime()>=latest).map(s=>s.id):[]);data=next;render();if(newIds.size){tradeImpact();const notice=q('[data-market-notification]');const sealed=data.sales.find(s=>newIds.has(s.id));notice.replaceChildren(text('small',newIds.size===1?'NUEVO TRATO SELLADO':fmt(newIds.size)+' NUEVOS TRATOS SELLADOS'),text('strong',title(sealed)),text('b',money(sealed)));const route=document.createElement('span');route.className='vessara-deal-route';route.append(text('span',sealed.buyer),text('i','→'),text('span',sealed.seller));notice.append(route);notice.classList.toggle('is-eryns',sealed.currency===1);notice.hidden=false;clearTimeout(noticeTimer);noticeTimer=setTimeout(()=>{notice.hidden=true;root.querySelectorAll('.is-new').forEach(el=>el.classList.remove('is-new'));newIds.clear();},6000);}}
  catch{q('[data-market-status]').textContent=data?'Último registro disponible':'Datos no disponibles';q('[data-market-status]').classList.add('is-stale');connection(true);}
  finally{clearTimeout(timeout);request=null;nextPoll=Date.now()+15000;clock();}
 }
