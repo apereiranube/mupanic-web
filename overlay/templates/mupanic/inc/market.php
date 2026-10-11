@@ -2,17 +2,18 @@
 if(!defined('access') || !access) die();
 require_once __DIR__.'/market-data.php';
 $market=panicMarketRead();$metrics=$market['metrics']??[];$last=$market['sales'][0]??null;
-$seal='<svg viewBox="0 0 240 240" fill="none" aria-hidden="true"><circle cx="120" cy="120" r="111"/><circle cx="120" cy="120" r="96"/><path d="M120 17l73 30 30 73-30 73-73 30-73-30-30-73 30-73zM120 46l52 22 22 52-22 52-52 22-52-22-22-52 22-52z"/><path d="M82 78l38 90 38-90M89 94h62M99 117h42"/><path d="M120 7v20M120 213v20M7 120h20M213 120h20M40 40l14 14M186 186l14 14M40 200l14-14M186 54l14-14"/></svg>';
+$art=__PATH_TEMPLATE__.'img/market/';
 ?>
 <div class="vessara-page" data-market-url="<?php echo panicMarketEscape(__BASE_URL__.'market/?market_data=1'); ?>">
 <section class="vessara-hero shell" aria-labelledby="vessara-title">
+<img class="vessara-hero-art" src="<?php echo panicMarketEscape($art.'vessara-trade-v2.webp'); ?>" alt="Vessara sella un intercambio entre monedas, Eryns y libros de comercio" fetchpriority="high">
   <div class="vessara-intro"><p class="eyebrow">MERCADO DE VESSARA / LOREN MARKET</p><h1 id="vessara-title">El Sello<br>de <em>Vessara.</em></h1><p class="vessara-lead">Donde el valor volvió al mundo.</p><p class="vessara-copy">Cada objeto cuenta una historia. Cada trato abre la siguiente. Comerciá con jugadores en Zen y Eryns bajo el sello de Vessara.</p><a class="vessara-link" href="#tratos">Explorar los últimos tratos <span aria-hidden="true">↘</span></a></div>
-  <div class="vessara-seal"><?php echo $seal; ?><span>BAJO MI SELLO</span><strong>Ningún trato<br>se rompe.</strong><small>LOREN MARKET · 114 / 143</small></div>
+  <div class="vessara-seal"><img src="<?php echo panicMarketEscape($art.'vessara-seal-v2.svg'); ?>" alt="" width="100" height="100"><span>BAJO MI SELLO</span><strong>Ningún trato<br>se rompe.</strong><small>LOREN MARKET · 114 / 143</small></div>
 </section>
 <section class="shell vessara-stats" aria-label="Actividad del mercado">
-  <article><span>TRATOS SELLADOS HOY</span><strong data-market-metric="today"><?php echo panicMarketNumber($metrics['today']??''); ?></strong><small>Intercambios confirmados</small></article>
-  <article><span>ZEN COMERCIADO</span><strong data-market-metric="zen"><?php echo panicMarketNumber($metrics['zen']??''); ?></strong><small>Volumen total en Zen</small></article>
-  <article><span>ERYNS INTERCAMBIADOS</span><strong data-market-metric="eryns"><?php echo panicMarketNumber($metrics['eryns']??''); ?></strong><small>Volumen total en Eryns</small></article>
+  <article class="vessara-stat-trades"><span>TRATOS SELLADOS HOY</span><strong data-market-metric="today"><?php echo panicMarketNumber($metrics['today']??''); ?></strong><small>Intercambios confirmados</small></article>
+  <article class="vessara-stat-zen"><span>ZEN COMERCIADO</span><strong data-market-metric="zen"><?php echo panicMarketNumber($metrics['zen']??''); ?></strong><small>Hoy <b data-market-metric="zenToday"><?php echo panicMarketNumber($metrics['zenToday']??''); ?></b> Zen</small><i class="vessara-card-caption">EL VALOR QUE MUEVE EL CONTINENTE</i></article>
+  <article class="vessara-stat-eryns"><span>ERYNS INTERCAMBIADOS</span><strong data-market-metric="eryns"><?php echo panicMarketNumber($metrics['eryns']??''); ?></strong><small>Hoy <b data-market-metric="erynsToday"><?php echo panicMarketNumber($metrics['erynsToday']??''); ?></b> Eryns</small><i class="vessara-card-caption">TESOROS QUE CAMBIAN DE MANOS</i></article>
   <article class="vessara-last"><span>ÚLTIMO TESORO VENDIDO</span><strong data-market-last><?php echo $last?panicMarketEscape($last['item'].($last['level']?' +'.$last['level']:'')):'—'; ?></strong><small data-market-last-price><?php echo $last?panicMarketNumber($last['price']).' '.($last['currency']===0?'Zen':'Eryns'):'Esperando un nuevo trato'; ?></small></article>
 </section>
 <section class="shell vessara-ledger" id="tratos" aria-labelledby="vessara-trades-title">

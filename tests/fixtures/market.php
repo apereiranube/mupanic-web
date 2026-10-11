@@ -1,10 +1,10 @@
 <?php
 // Invented fixture only; never deployed or used by production.
-define('access',true);define('__BASE_URL__','/');
+define('access',true);define('__PATH_TEMPLATE__','/templates/mupanic/');define('__BASE_URL__','/');
 class Connection {
  static function Database($name){return new self;}
  function query_fetch($q){
-  if(strpos($q,'AS serverDay')!==false)return [['total'=>'138','today'=>'12','zen'=>'9007199254740993','eryns'=>'25400','serverDay'=>'2026-10-10']];
+  if(strpos($q,'AS serverDay')!==false)return [['total'=>'138','today'=>'12','zen'=>'9007199254740993','eryns'=>'25400','zenToday'=>'1000000','erynsToday'=>'100','serverDay'=>'2026-10-10']];
   if(strpos($q,'SELECT TOP 40')!==false)return [
    ['id'=>'1','buyer'=>'Juanita','seller'=>'MGTeste','item'=>'Chromatic Staff','itemIndex'=>2593,'level'=>15,'currency'=>1,'price'=>100,'soldAt'=>'2026-10-10T20:02:35'],
    ['id'=>'2','buyer'=>'PANIC','seller'=>'Juanita','item'=>'Hurricane Armor','itemIndex'=>4129,'level'=>13,'currency'=>0,'price'=>1000000,'soldAt'=>'2026-10-10T19:02:35']

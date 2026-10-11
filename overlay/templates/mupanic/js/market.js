@@ -16,12 +16,24 @@ function rows(){
  }
  const empty=q('[data-market-empty]');empty.hidden=!!list.length;empty.textContent=!data?'El registro del mercado no está disponible en este momento.':(!data.sales.length?'Todavía no hay tratos sellados.':'No hay coincidencias entre los últimos tratos.');
 }
+const motion=matchMedia('(prefers-reduced-motion: reduce)'),animations=new WeakMap();
+function metric(el,value){
+ const valid=/^\d+$/.test(String(value)),previous=el.dataset.metricValue;
+ if(!valid){cancelAnimationFrame(animations.get(el));delete el.dataset.metricValue;el.textContent='—';return;}
+ value=String(value);if(previous===value)return;
+ cancelAnimationFrame(animations.get(el));el.dataset.metricValue=value;
+ if(previous===undefined||motion.matches){el.textContent=fmt(value);return;}
+ const from=BigInt(previous),to=BigInt(value),start=performance.now(),card=el.closest('.vessara-stats article');
+ card?.classList.add('is-updating');
+ function frame(now){const t=Math.min(1,(now-start)/800),e=BigInt(Math.round((1-Math.pow(1-t,3))*1000000));el.textContent=fmt(from+(to-from)*e/1000000n);if(t<1)animations.set(el,requestAnimationFrame(frame));else{el.textContent=fmt(value);card?.classList.remove('is-updating');}}
+ animations.set(el,requestAnimationFrame(frame));
+}
 function render(){
- root.querySelectorAll('[data-market-metric]').forEach(el=>el.textContent=fmt(data?.metrics?.[el.dataset.marketMetric]));
+ root.querySelectorAll('[data-market-metric]').forEach(el=>metric(el,data?.metrics?.[el.dataset.marketMetric]));
  const last=data?.sales?.[0];q('[data-market-last]').textContent=last?title(last):'—';q('[data-market-last-price]').textContent=last?fmt(last.price)+' '+(last.currency===0?'Zen':'Eryns'):'Esperando un nuevo trato';
  const status=q('[data-market-status]');status.classList.toggle('is-stale',!data||data.stale);status.textContent=data?(data.stale?'Último registro disponible':'Actualizado '+new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit'}).format(new Date(data.updated*1000))):'Datos no disponibles';
  const bars=q('[data-market-days]');bars.replaceChildren();const days=data?.days||[],max=Math.max(1,...days.map(d=>Number(d.trades)));
- for(const d of days){const col=document.createElement('div');col.className='vessara-day';col.setAttribute('aria-label',d.day+': '+fmt(d.trades)+' tratos');col.append(text('strong',fmt(d.trades)));const bar=document.createElement('i');bar.style.height=(Number(d.trades)/max*100)+'%';const track=document.createElement('div');track.append(bar);col.append(track,text('span',d.day.slice(8)+'/'+d.day.slice(5,7)));bars.append(col);}
+ for(const d of days){const col=document.createElement('div');col.className='vessara-day';col.setAttribute('aria-label',d.day+': '+fmt(d.trades)+' tratos');col.title=fmt(d.trades)+' tratos · '+fmt(d.zen)+' Zen · '+fmt(d.eryns)+' Eryns';col.append(text('strong',fmt(d.trades)));const bar=document.createElement('i');bar.style.height=(Number(d.trades)/max*100)+'%';const track=document.createElement('div');track.append(bar);col.append(track,text('span',d.day.slice(8)+'/'+d.day.slice(5,7)));bars.append(col);}
  if(!data)bars.append(text('p','Esperando datos del mercado.'));
  rows();
 }

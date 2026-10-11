@@ -6,10 +6,11 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
  const dir=process.env.MARKET_SCREENSHOT_DIR;if(dir)fs.mkdirSync(dir,{recursive:true});
  try{for(const [width,height] of [[1920,1080],[1366,900],[1024,768],[901,768],[390,844]]){
   const html=execFileSync('php',[path.join(__dirname,'fixtures/market.php')],{encoding:'utf8'});
-  const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'}),errors=[];
+  let apiCalls=0;const snapshot=JSON.parse(html.match(/id="vessara-initial">([\s\S]*?)<\/script>/)[1]);const page=await browser.newPage({viewport:{width,height},reducedMotion:width===1366?'no-preference':'reduce'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',async route=>{
    const url=new URL(route.request().url());
+   if(url.searchParams.has('market_data')){apiCalls++;const next=structuredClone(snapshot);next.metrics.zen=(BigInt(next.metrics.zen)+1n).toString();next.metrics.today='3';return route.fulfill({json:next});}
    if(url.pathname==='/market/')return route.fulfill({contentType:'text/html',body:html});
    if(url.pathname.startsWith('/templates/mupanic/')){const file=path.join(root,url.pathname.slice('/templates/mupanic/'.length));if(fs.existsSync(file))return route.fulfill({path:file});}
    return route.abort();
@@ -26,7 +27,7 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
   await page.locator('[data-market-currency="all"]').click();await page.locator('[data-market-search]').fill('hurricane');assert.equal(await page.locator('[data-market-rows] tr').count(),1);
   await page.locator('[data-market-search]').fill('zzzzz');assert.equal(await page.locator('[data-market-rows] tr').count(),0);assert.equal(await page.locator('[data-market-empty]').isVisible(),true);
   await page.locator('[data-market-search]').fill('');await page.locator('summary').click();assert.equal(await page.locator('details').getAttribute('open'),'');
-  assert.deepEqual(errors,[]);
+  await page.evaluate(()=>document.dispatchEvent(new Event('visibilitychange')));await page.waitForFunction(()=>document.querySelector('[data-market-metric=zen]').dataset.metricValue==='9007199254740994');if(width===1366)assert.equal(await page.locator('.vessara-stat-zen').evaluate(el=>el.classList.contains('is-updating')),true);await page.waitForTimeout(950);assert.equal(await page.locator('[data-market-metric=zen]').textContent(),'9.007.199.254.740.994');await page.evaluate(()=>document.dispatchEvent(new Event('visibilitychange')));await page.waitForTimeout(100);assert.equal(await page.locator('.is-updating').count(),0,'unchanged values do not animate');assert.equal(apiCalls,2);assert.deepEqual(errors,[]);
   if(dir)await page.screenshot({path:path.join(dir,'vessara-'+width+'.png'),fullPage:true});
   await page.close();console.log('PASS market UI '+width);
  }}finally{await browser.close();}

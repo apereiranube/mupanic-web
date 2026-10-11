@@ -6,7 +6,7 @@ class Connection {
     public function query_fetch($sql) {
         self::$queries[]=$sql;
         if(self::$mode==='error')return false;
-        if(strpos($sql,'AS serverDay')!==false)return [['total'=>self::$mode==='empty'?'0':'2','today'=>self::$mode==='empty'?'0':'2','zen'=>'9007199254740993','eryns'=>'100','serverDay'=>'2026-10-10']];
+        if(strpos($sql,'AS serverDay')!==false)return [['total'=>self::$mode==='empty'?'0':'2','today'=>self::$mode==='empty'?'0':'2','zen'=>'9007199254740993','eryns'=>'100','zenToday'=>'1000000','erynsToday'=>'100','serverDay'=>'2026-10-10']];
         if(strpos($sql,'SELECT TOP 40')!==false) return self::$mode==='empty'?null:[['id'=>'00000000-0000-0000-0000-000000000001','buyer'=>'Juanita','seller'=>'MGTeste','item'=>'<script>alert(1)</script>','itemIndex'=>2593,'level'=>15,'currency'=>1,'price'=>100,'soldAt'=>'2026-10-10T20:02:35.000','AccountID'=>'SECRET','InventoryBefore'=>'SECRET']];
         return self::$mode==='empty'?null:[['day'=>'2026-10-10','trades'=>'2','zen'=>'1000000','eryns'=>'100']];
     }
@@ -21,7 +21,7 @@ check($d['days'][0]['trades']==='0' && $d['days'][6]['trades']==='2','days conta
 check(strpos(json_encode($d),'SECRET')===false && !isset($d['sales'][0]['AccountID']),'public projection excludes account and inventory fields');
 check($d['sales'][0]['soldAt']==='2026-10-10T20:02:35.000-03:00','server times display as Argentina');
 check(panicMarketEscape('<script>')==='&lt;script&gt;','item labels cannot inject markup');
-check(strpos(panicMarketSalesSource(),"'CREDIT_ATTEMPTED'")!==false && strpos(panicMarketSalesSource(),"'PAID'")===false,'count delivered sales while payout remains pending');
+check(strpos(panicMarketSalesSource(),'PanicMarketPublicSales')!==false && strpos(panicMarketSalesSource(),'PanicMarketBuyProbe')===false,'read only the dedicated public SQL view');
 foreach(Connection::$queries as $q)check(!preg_match('/\b(UPDATE|INSERT|DELETE|EXEC|DROP|ALTER)\b/i',$q),'query is read only');
 Connection::$mode='empty';$d=panicMarketRead(true);
 check($d['sales']===[] && count($d['days'])===7 && $d['metrics']['total']==='0','successful empty queries return genuine empty state');

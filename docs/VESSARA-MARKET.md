@@ -32,3 +32,8 @@ GROUP BY Currency;
 ```
 
 PHP tests mock only the existing DB adapter and validate projection, empty/error/cache states, precision and rendering. They do not claim live SQL or browser verification. GitHub Actions runs the same tests on pushes. Local browser QA unavailable in this session.
+
+## Public SQL projection and visual update
+Install `MU_PANIC_VESSARA_WEB_DATOS_V1/INSTALAR.ps1` on the VPS before deploying this revision. It creates `dbo.PanicMarketPublicSales` with nine public fields and grants SELECT on this view to existing database users. It does not grant access to underlying tables. Only confirmed delivered purchases are counted. No GameServer restart is required. Website SQL still uses its existing MuOnline connection and MuOnline43 database. Deployment does not by itself prove that the hosting connection can reach SQL; verify `market/?market_data=1` returns HTTP 200 after installation.
+
+The illustrated hero follows the in-game NPC_421 reference (navy dress, black hair, small feathered hat). The treasury artwork is decorative; all displayed economic values and chart bars come from the ledger. Assets are WebP; the embossed seal is native SVG. Numeric updates use BigInt interpolation over 800ms, only when the value changes. Initial values render directly, unknown values remain dashes, and reduced-motion disables counting. Formatting never converts economic totals into floating point.

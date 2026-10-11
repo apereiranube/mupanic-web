@@ -5,10 +5,10 @@ class Connection { public static function Database($name){throw new RuntimeExcep
 function check($v,$m){if(!$v)throw new Exception($m);echo "PASS: $m\n";}
 try {
  $d=['schema'=>1,'updated'=>time(),'metrics'=>['total'=>'2','today'=>'1','zen'=>'100','eryns'=>'50'],'sales'=>[],'days'=>[]];
- file_put_contents($directory.'/mupanic-vessara-v1.json',json_encode($d));
+ file_put_contents($directory.'/mupanic-vessara-v2.json',json_encode($d));
  check(panicMarketRead()['metrics']['total']==='2','fresh cache avoids database');
- $d['updated']=time()-120;file_put_contents($directory.'/mupanic-vessara-v1.json',json_encode($d));
+ $d['updated']=time()-120;file_put_contents($directory.'/mupanic-vessara-v2.json',json_encode($d));
  check(panicMarketRead()['stale']===true,'temporary failure labels previous data stale');
- $d['updated']=time()-86401;file_put_contents($directory.'/mupanic-vessara-v1.json',json_encode($d));
+ $d['updated']=time()-86401;file_put_contents($directory.'/mupanic-vessara-v2.json',json_encode($d));
  check(panicMarketRead()===null,'expired cache does not masquerade as current activity');
-}finally{unlink($directory.'/mupanic-vessara-v1.json');rmdir($directory);}
+}finally{unlink($directory.'/mupanic-vessara-v2.json');rmdir($directory);}
