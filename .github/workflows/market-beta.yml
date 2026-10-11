@@ -1,0 +1,29 @@
+name: Vessara market checks
+on:
+  push:
+    branches: [beta, main]
+    paths:
+      - 'overlay/templates/mupanic/inc/market*.php'
+      - 'overlay/templates/mupanic/js/market.js'
+      - 'overlay/templates/mupanic/css/market.css'
+      - 'overlay/templates/mupanic/index.php'
+      - 'tests/market*.php'
+      - '.github/workflows/market-beta.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP syntax and public data checks
+        run: |
+          php -l overlay/templates/mupanic/index.php
+          php -l overlay/templates/mupanic/inc/template.functions.php
+          php -l overlay/templates/mupanic/inc/market-data.php
+          php -l overlay/templates/mupanic/inc/market.php
+          php tests/market-data.php
+          php tests/market-cache.php
+          php tests/market-render.php
+          node --check overlay/templates/mupanic/js/market.js

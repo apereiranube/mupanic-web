@@ -156,3 +156,8 @@
 @media(max-width:360px){.site-header .brand-crystal .brand-logo{width:150px;height:50px}}
 @media(max-width:600px){.site-header .nav-shell{gap:8px}.site-header .nav-cta{font-size:10px;padding-left:10px;padding-right:10px;letter-spacing:.04em}}
 @media(max-width:340px){.site-header .brand-crystal .brand-logo{width:120px;height:40px}}
+
+
+/* Mercado adds one primary destination; preserve room for account actions. */
+@media(min-width:901px) and (max-width:1320px){.site-header .nav-shell{gap:14px}.site-header .main-nav{gap:0}.site-header .main-nav .nav-main-link,.site-header .main-nav .nav-discord{padding-left:9px;padding-right:9px;font-size:11px}.site-header .nav-actions{gap:10px}.site-header .brand-crystal .brand-logo{width:170px}.site-header .nav-cta{padding-left:12px;padding-right:12px}}
+@media(min-width:901px) and (max-width:1100px){.site-header .brand-crystal .brand-logo{width:140px}.site-header .main-nav .nav-main-link,.site-header .main-nav .nav-discord{font-size:10px;padding-left:6px;padding-right:6px}.site-header .nav-shell{gap:12px}.site-header .nav-cta{font-size:10px;padding-left:10px;padding-right:10px}.site-header .account-link{font-size:11px}}

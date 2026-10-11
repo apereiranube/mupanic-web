@@ -8,6 +8,7 @@ function mupanicPageTitle($page, $subpage = '') {
     }
     $map = array(
         'information' => 'El servidor',
+        'market' => 'El Sello de Vessara',
         'info' => 'Atlas',
         'downloads' => 'Descargas',
         'rankings' => 'Rankings',
@@ -96,3 +97,4 @@ function mupanicGlyph($type) {
     );
     return '<svg viewBox="0 0 40 42" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">'.($paths[$type] ?? $paths['crest']).'</svg>';
 }
+
