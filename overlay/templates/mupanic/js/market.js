@@ -1,7 +1,7 @@
 (() => {
 'use strict';
 const root=document.querySelector('.vessara-page');if(!root)return;
-let data=null,currency='all',request=null,nextPoll=Date.now()+15000,tapeKey='',newIds=new Set(),noticeTimer=null,showcaseKey='',effectsPaused=false;
+let data=null,currency='all',request=null,nextPoll=Date.now()+15000,tapeKey='',newIds=new Set(),noticeTimer=null,effectsPaused=false;
 try{data=JSON.parse(document.getElementById('vessara-initial').textContent);}catch{}
 const q=s=>root.querySelector(s),fmt=v=>{try{return new Intl.NumberFormat('es-AR').format(BigInt(v));}catch{return '—';}};
 const text=(tag,value,cls)=>{const el=document.createElement(tag);el.textContent=value;if(cls)el.className=cls;return el;};
@@ -60,20 +60,11 @@ function highlights(){
  for(const currency of [1,0]){const el=card('MAYOR TRATO / '+(currency===1?'ERYNS':'ZEN'),currency===1),s=stats?.records?.find(s=>s.currency===currency);if(s)el.append(text('strong',title(s)),text('b',money(s)),text('small',s.buyer+' ← '+s.seller+' · '+when(s)));else waiting(el);}
 }
 function connection(stale){
- const badge=q('[data-market-connection]');badge.classList.toggle('is-stale',stale);badge.textContent=stale?'Registro en espera':'Conectado al mercado';
+ const badge=q('[data-market-connection]');badge.classList.toggle('is-stale',stale);badge.textContent=stale?'Conexión en espera':'Conectado al mercado';const label=q('[data-market-live-label]');label.classList.toggle('is-stale',stale);label.querySelector('span').textContent=stale?'MERCADO EN ESPERA':'MERCADO EN VIVO';
 }
 function clock(){
  q('[data-market-clock]').textContent=new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date());
  q('[data-market-countdown]').textContent=String(Math.max(0,Math.ceil((nextPoll-Date.now())/1000)));
-}
-function itemFamily(index){
- const group=Math.floor(Number(index)/512);if(group===5)return ['staff','BASTONES'];if(group>=7&&group<=11)return ['armor','ARMADURAS'];if(group===6)return ['shield','ESCUDOS'];if(group<=4)return ['weapon','ARMAS'];if(group===12)return ['wings','ALAS / ARTEFACTOS'];if(group===14)return ['jewel','JOYAS'];return ['relic','ARTEFACTOS'];
-}
-function showcase(){
- const sales=data?.sales||[],key=JSON.stringify(sales);if(showcaseKey===key)return;showcaseKey=key;const stage=q('[data-market-showcase]');stage.replaceChildren();const unique=new Set();
- for(const sale of sales){const code=sale.itemIndex+':'+sale.level;if(unique.has(code))continue;unique.add(code);const [family,label]=itemFamily(sale.itemIndex),card=document.createElement('article');card.className='vessara-treasure'+(sale.currency===1?' is-eryns':'')+(newIds.has(sale.id)?' is-new':'');const art=document.createElement('div');art.className='vessara-treasure-art';const img=document.createElement('img');img.src=root.dataset.marketAssets+'emblems/'+family+'.svg';img.alt='Emblema de '+label.toLowerCase();img.width=120;img.height=128;art.append(img);card.append(art,text('small',label),text('h3',title(sale)),text('b',money(sale)),text('span',sale.buyer+' · '+when(sale)));stage.append(card);if(unique.size===4)break;}
- stage.style.setProperty('--treasure-count',String(Math.max(1,unique.size)));stage.dataset.count=String(unique.size);
- if(!unique.size)stage.append(text('p',data?'Los próximos tesoros se sellan en el juego.':'Esperando el registro de tesoros.','vessara-showcase-empty'));
 }
 const canvas=q('[data-market-atmosphere]'),ctx=canvas.getContext('2d');let ambienceFrame=0,ambienceLast=0,particles=[],cw=0,ch=0;
 const sprites=['#ffc978','#94cfff','#d5a36b'].map(color=>{const c=document.createElement('canvas');c.width=c.height=24;const cx=c.getContext('2d'),g=cx.createRadialGradient(12,12,0,12,12,12);g.addColorStop(0,color);g.addColorStop(.12,color+'dd');g.addColorStop(.45,color+'33');g.addColorStop(1,color+'00');cx.fillStyle=g;cx.fillRect(0,0,24,24);return c;});
@@ -91,11 +82,10 @@ function ambientState(){
 }
 q('[data-market-effects]').addEventListener('click',()=>{effectsPaused=!effectsPaused;ambientState();});motion.addEventListener('change',ambientState);document.addEventListener('visibilitychange',ambientState);addEventListener('resize',()=>{resizeAtmosphere();ambientState();},{passive:true});resizeAtmosphere();ambientState();
 const hero=q('.vessara-hero');hero.addEventListener('pointermove',e=>{if(e.pointerType==='touch'||motion.matches||effectsPaused)return;const rect=hero.getBoundingClientRect();hero.style.setProperty('--scene-x',((e.clientX-rect.left)/rect.width-.5)*12+'px');hero.style.setProperty('--scene-y',((e.clientY-rect.top)/rect.height-.5)*8+'px');},{passive:true});hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--scene-x','0px');hero.style.setProperty('--scene-y','0px');});
-q('[data-market-showcase]').addEventListener('pointermove',e=>{if(e.pointerType==='touch'||motion.matches||effectsPaused)return;const card=e.target.closest('.vessara-treasure');if(!card)return;const rect=card.getBoundingClientRect();card.style.setProperty('--treasure-y',((e.clientX-rect.left)/rect.width-.5)*12+'deg');card.style.setProperty('--treasure-x',-((e.clientY-rect.top)/rect.height-.5)*8+'deg');},{passive:true});q('[data-market-showcase]').addEventListener('pointerout',e=>{const card=e.target.closest('.vessara-treasure');if(card&&!card.contains(e.relatedTarget)){card.style.setProperty('--treasure-y','0deg');card.style.setProperty('--treasure-x','0deg');}});
 function tradeImpact(){if(motion.matches||effectsPaused)return;const burst=q('[data-market-burst]');burst.classList.remove('is-firing');void burst.offsetWidth;burst.classList.add('is-firing');setTimeout(()=>burst.classList.remove('is-firing'),1800);}
 function render(){
  root.querySelectorAll('[data-market-metric]').forEach(el=>metric(el,data?.metrics?.[el.dataset.marketMetric]));
- highlights();spark('zen');spark('eryns');tradingTape();showcase();connection(!data||data.stale);
+ highlights();spark('zen');spark('eryns');tradingTape();connection(!data||data.stale);
  const daysForComparison=data?.days||[],yesterday=daysForComparison.at(-2);q('[data-market-comparison]').textContent=yesterday?'AYER: '+fmt(yesterday.trades)+' TRATOS':'ACTIVIDAD DEL DÍA';
  const status=q('[data-market-status]');status.classList.toggle('is-stale',!data||data.stale);status.textContent=data?(data.stale?'Último registro disponible':'Actualizado '+new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit'}).format(new Date(data.updated*1000))):'Datos no disponibles';
  const bars=q('[data-market-days]');bars.replaceChildren();const days=data?.days||[],max=Math.max(1,...days.map(d=>Number(d.trades)));
