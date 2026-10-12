@@ -101,6 +101,6 @@
 
     <div class="v-guide-foot">
         <img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-guarantee-v1.webp" alt="Vessara custodia un acuerdo bajo su sello" loading="lazy" width="1672" height="941">
-        <div><span class="eyebrow">LOS TRATOS SELLADOS</span><h3>La historia del mercado sigue viva.</h3><p>Esta ficha es una guía de referencia. Si querés ver operaciones selladas y movimientos del día, visitá la sección del mercado en la web.</p><a href="<?php echo __BASE_URL__; ?>market/">Ir al Mercado de Vessara <span aria-hidden="true">→</span></a></div>
+        <div><span class="eyebrow">EL PULSO DE LOREN MARKET</span><h3>Los tesoros cambian de manos. El mercado no se detiene.</h3><p>Entrá al <strong>Mercado de Vessara en vivo</strong> y seguí los últimos tratos sellados, los objetos que encontraron nuevo dueño y el movimiento de <strong>Zen y Eryns</strong>. Cada venta deja su huella bajo el sello de Vessara.</p><a href="<?php echo __BASE_URL__; ?>market/">Ver el mercado en vivo <span aria-hidden="true">→</span></a></div>
     </div>
 </section>
