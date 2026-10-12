@@ -91,3 +91,12 @@
 .v-guide-lot-note{padding:23px;background:#10191c;border:1px solid #b29ade55;align-self:center}
 .v-guide-lot-note>strong{font:500 34px var(--display);color:#c9b4f1;display:block;margin-bottom:15px}
 @media(max-width:700px){.v-guide-plaza,.v-guide-lot{grid-template-columns:1fr;padding:22px;gap:16px}.v-guide-plaza-number{border-left:0;border-top:1px solid var(--vg-line);flex-direction:row;gap:22px;justify-content:flex-start;padding:15px 0 0}.v-guide-plaza-number strong{font-size:64px}.v-guide-plaza-number span{margin:0;text-align:left}.v-guide-table th,.v-guide-table td{padding:13px 12px;font-size:12px}.v-guide-table tbody th{width:35%;overflow-wrap:anywhere}.v-guide-lot-note{padding:19px}}
+
+.v-guide-crew-art{margin:36px 0 0;border:1px solid var(--vg-line);background:#10191c}
+.v-guide-crew-art img{display:block;width:100%;height:auto}
+.v-guide-crew-art figcaption{padding:12px 18px;color:#c9baa0;font-size:11px;letter-spacing:.04em}
+.v-guide-crew{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px 0 38px}
+.v-guide-crew article{padding:20px 22px;border:1px solid var(--vg-line);background:linear-gradient(135deg,#9d754019,transparent),#172225}
+.v-guide-crew h4{font:500 26px/1.2 var(--display);color:#ebc294;margin:0 0 10px}
+.panic-wiki .v-guide-crew p{font-size:13px;line-height:1.75;margin:0;max-width:none}
+@media(max-width:700px){.v-guide-crew{grid-template-columns:1fr}.v-guide-crew article{padding:18px}.v-guide-crew h4{font-size:24px}}

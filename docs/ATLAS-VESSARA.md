@@ -30,3 +30,7 @@ El commit se envía a la rama beta. Publicación en beta.mupanic.com.ar sólo de
 ## Revisión V14.1 — 12/10/2026
 
 Guía reorganizada con una sección de los diez vendedores móviles y publicaciones destacadas; tabla de condiciones por objeto; explicación de lotes exactos de cinco joyas sueltas compatibles, precio total, un cupo por lote y cinco espacios libres para entrega. Cancelar devuelve el lote completo. Incluye las cinco mascotas custom verificadas, monturas excluidas, equipos Harmony permitidos y sockets/joyas empaquetadas bloqueados. La base V14.1 fue confirmada en juego por el administrador. Se conserva lore, monedas, tributo, vigencia y límites. La guía no consulta actividad en vivo.
+
+## Cuadrilla Rota y destacados
+
+Incorpora el lore original aportado por el administrador: diez cazadores traicionan a Vessara y sirven como mercaderes esqueléticos hasta saldar su deuda. Diez reseñas individuales y una ilustración de lore (no captura de skins), sombreros/dagas y oficios. Comisión: 5% normal, 3% adicional por venta destacada, 8% total, solo al vender; sin adelanto. Destacado hasta 24 horas. Ejemplo: 1000 Eryns, comisión destacada 80, neto 920.
