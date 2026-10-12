@@ -100,3 +100,12 @@
 .v-guide-crew h4{font:500 26px/1.2 var(--display);color:#ebc294;margin:0 0 10px}
 .panic-wiki .v-guide-crew p{font-size:13px;line-height:1.75;margin:0;max-width:none}
 @media(max-width:700px){.v-guide-crew{grid-template-columns:1fr}.v-guide-crew article{padding:18px}.v-guide-crew h4{font-size:24px}}
+
+/* Contraste de encabezados y separación de columnas. */
+.panic-wiki.atlas-vessara-guide .v-guide-table thead th,
+.panic-wiki .atlas-vessara-guide .v-guide-table thead th{background:#b58a59;color:#10191c;font-weight:800;font-size:12px;border-bottom:2px solid #edc994;white-space:normal}
+.panic-wiki.atlas-vessara-guide .v-guide-table tbody th,
+.panic-wiki .atlas-vessara-guide .v-guide-table tbody th{background:#30291f;color:#ffe0ae;border-right:1px solid #c7996b70;white-space:normal;text-transform:none;letter-spacing:0;font-weight:700}
+.panic-wiki.atlas-vessara-guide .v-guide-table tbody td,
+.panic-wiki .atlas-vessara-guide .v-guide-table tbody td{background:#172225;color:#e0e8e2}
+.panic-wiki .atlas-vessara-guide .v-guide-table tbody tr:nth-child(even) td{background:#1d2a2d}
