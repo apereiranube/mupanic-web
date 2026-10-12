@@ -8,7 +8,7 @@
         <div class="v-guide-hero-copy">
             <span class="eyebrow">ATLAS / SISTEMAS DEL CONTINENTE</span>
             <h2 id="atlas-vessara-title">Mercado de <em>Vessara.</em></h2>
-            <p>Un mercado entre jugadores donde podés publicar y comprar objetos utilizando <strong>Zen</strong> o <strong>Eryns</strong>, la moneda propia de MU PANIC.</p>
+            <p>Diez vendedores recorren la plaza de Loren Market con ofertas destacadas. Bajo el sello de Vessara, los jugadores publican y compran equipos, mascotas y lotes de joyas utilizando <strong>Zen</strong> o <strong>Eryns</strong>, la moneda propia de MU PANIC.</p>
             <div class="v-guide-keyline"><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-seal-v2.svg" width="40" height="40" alt=""><span>F11 para consultar. Vessara, en Loren Market, para realizar operaciones.</span></div>
         </div>
     </div>
@@ -25,12 +25,31 @@
         <div><p>Después de la Fractura, intercambiar objetos entre desconocidos significaba confiar primero y esperar después. Vessara estableció una forma distinta de comerciar: resguardar los objetos ofrecidos y reconocer los acuerdos bajo su sello.</p><p>Hoy, el <strong>Sello de Vessara</strong> identifica los tratos completados por el sistema. No convierte una publicación en una venta: el trato se considera sellado cuando la compra y su entrega quedan confirmadas.</p><p class="v-guide-quote">«Bajo mi sello, ningún trato se rompe.»</p></div>
     </div>
 
+    <div class="v-guide-plaza">
+        <div><span class="eyebrow">LOS MERCADERES DE LA PLAZA</span><h3>Diez vendedores. Un mismo mercado.</h3><p>Los <strong>10 NPC vendedores móviles</strong> recorren la plaza de Loren Market y ofrecen publicaciones destacadas. Acercate y abrí una oferta desde el vendedor para revisar el objeto y su precio.</p><p>Los destacados forman parte del Mercado de Vessara. Cuando una oferta se vende, deja de estar disponible y su lugar destacado se libera.</p></div>
+        <div class="v-guide-plaza-number" aria-hidden="true"><strong>10</strong><span>VENDEDORES EN MOVIMIENTO</span></div>
+    </div>
+
+    <div class="v-guide-section-heading"><span class="eyebrow">QUÉ PODÉS COMERCIAR</span><h3>Un lugar para cada tesoro.</h3><p>Las reglas dependen del tipo de objeto. Revisá esta guía antes de preparar una publicación.</p></div>
+    <div class="v-guide-table-wrap"><table class="v-guide-table"><caption>Objetos y condiciones de publicación</caption><thead><tr><th scope="col">Objeto</th><th scope="col">Regla</th></tr></thead><tbody>
+        <tr><th scope="row">Equipos habilitados</th><td>Se publican individualmente. Los equipos con <strong>Harmony</strong> están permitidos y conservan sus opciones.</td></tr>
+        <tr><th scope="row">Mascotas habilitadas</th><td>Se venden individualmente: <strong>Sylthara, Vaelkar, Elyndra, Aurik y Aurethia</strong>.</td></tr>
+        <tr><th scope="row">Joyas sueltas habilitadas</th><td><strong>Exactamente 5 del mismo tipo</strong>, sin opciones. El precio corresponde al lote completo.</td></tr>
+        <tr><th scope="row">Monturas</th><td><span class="v-guide-blocked">No publicables.</span> Incluye Nerathys, Theryon y Vaeraxes.</td></tr>
+        <tr><th scope="row">Equipos con sockets y joyas empaquetadas</th><td><span class="v-guide-blocked">No publicables actualmente.</span></td></tr>
+    </tbody></table></div>
+
+    <article class="v-guide-lot">
+        <div><span class="eyebrow">JOYAS / LOTE COMPLETO</span><h3>Cinco joyas, un solo trato.</h3><p>Reuní <strong>cinco joyas sueltas compatibles del mismo tipo en la primera página del inventario</strong>. En Publicar, seleccioná una: el mercado toma esa y otras cuatro compatibles.</p><p>Ingresá el <strong>precio total de las cinco</strong>. El lote ocupa un solo cupo de publicación; se compra entero y, si lo cancelás, vuelven las cinco joyas.</p></div>
+        <div class="v-guide-lot-note"><strong>5 × Chaos</strong><p>Si publicás el lote a 1.000 Eryns, el comprador paga <strong>1.000 Eryns por los cinco</strong>. Necesita cinco espacios libres para recibirlos.</p><p>Una joya sola, cuatro unidades o una mezcla de distintos tipos no forman un lote válido.</p></div>
+    </article>
+
     <div class="v-guide-section-heading"><span class="eyebrow">GUÍA DE USO</span><h3>Cómo comerciar.</h3><p>El mercado está disponible para jugadores Free y VIP. No necesitás ser VIP para comprar o vender.</p></div>
     <ol class="v-guide-steps">
         <li><span class="v-guide-step">01</span><div><h4>Consultá las ofertas</h4><p>Abrí el <strong>Hub con F11</strong> e ingresá a <strong>Mercado de Vessara</strong> para explorar el catálogo. Utilizá la búsqueda y los filtros para localizar objetos y precios.</p></div></li>
         <li><span class="v-guide-step">02</span><div><h4>Visitá a Vessara</h4><p>Encontrala en <strong>Loren Market (114,143)</strong>. Publicar, comprar, cancelar publicaciones y cobrar ventas son operaciones que se realizan con ella dentro del juego.</p></div></li>
-        <li><span class="v-guide-step">03</span><div><h4>Publicá un objeto</h4><p>Elegí el objeto que querés vender, definí un precio y seleccioná <strong>Zen</strong> o <strong>Eryns</strong>. Revisá los datos antes de confirmar. El objeto queda bajo custodia del mercado mientras la publicación esté activa. <strong>Publicar es gratis.</strong></p></div></li>
-        <li><span class="v-guide-step">04</span><div><h4>Comprá o cancelá</h4><p>Para comprar, seleccioná la oferta y confirmá el precio indicado. Si una publicación tuya sigue activa, podés cancelarla y retirar el objeto <strong>sin pagar comisión</strong>.</p></div></li>
+        <li><span class="v-guide-step">03</span><div><h4>Publicá un objeto</h4><p>Elegí el objeto que querés vender, definí un precio y seleccioná <strong>Zen</strong> o <strong>Eryns</strong>. Revisá los datos antes de confirmar. El objeto —o las cinco joyas del lote— queda bajo custodia del mercado mientras la publicación esté activa, conservando su identidad y opciones. <strong>Publicar es gratis.</strong></p></div></li>
+        <li><span class="v-guide-step">04</span><div><h4>Comprá o cancelá</h4><p>Para comprar, seleccioná la oferta y confirmá el precio indicado. Revisá la moneda y dejá espacio en tu inventario; un lote de joyas requiere cinco espacios libres. Si una publicación tuya sigue activa, podés cancelarla y recuperar el objeto o el lote completo <strong>sin pagar comisión</strong>.</p></div></li>
         <li><span class="v-guide-step">05</span><div><h4>Cobrá tus ventas</h4><p>Cuando se completa una venta, regresá a Vessara para <strong>cobrar lo obtenido</strong>. El tributo del 5% se descuenta del importe que recibe el vendedor. Podés revisar tus publicaciones y el historial del mercado.</p></div></li>
     </ol>
 
@@ -51,6 +70,9 @@
 
     <div class="v-guide-section-heading"><span class="eyebrow">REGLAS Y CONSULTAS</span><h3>Antes de confirmar un trato.</h3></div>
     <div class="v-guide-faq">
+        <details><summary>¿Las joyas se compran de a una?</summary><p>No. Cada publicación de joyas contiene <strong>cinco unidades del mismo tipo</strong>. La compra y la devolución son del lote completo. El precio visible corresponde a las cinco, no a una unidad.</p></details>
+        <details><summary>¿Por qué no puedo seleccionar un objeto?</summary><p>Puede ser una montura, un equipo con sockets, una joya empaquetada o un objeto fuera del catálogo habilitado. Para joyas sueltas, necesitás cinco compatibles del mismo tipo en la primera página del inventario. Los objetos equipados no se seleccionan para publicar.</p></details>
+        <details><summary>¿Qué ofrecen los vendedores que caminan por la plaza?</summary><p>Ofrecen <strong>publicaciones destacadas del mercado</strong>. Podés abrir la oferta desde el NPC y revisar sus datos. Al venderse, la oferta desaparece y se libera el destacado.</p></details>
         <details><summary>¿Cuántas publicaciones puedo tener al mismo tiempo?</summary><p>Las cuentas Free pueden tener hasta <strong>3 publicaciones activas</strong>. Las cuentas VIP MU PANIC pueden tener hasta <strong>10</strong>. El límite suma las ofertas en Zen y en Eryns.</p></details>
         <details><summary>¿Cuánto dura una publicación?</summary><p>Cada publicación tiene una vigencia de <strong>7 días</strong>. Para consultar su estado al finalizar ese período, revisá tus publicaciones con Vessara en Loren Market.</p></details>
         <details><summary>¿El mercado cobra por publicar o retirar un objeto?</summary><p>No. Publicar es gratis y cancelar una oferta todavía activa también. El tributo corresponde únicamente a las ventas completadas.</p></details>
@@ -61,6 +83,6 @@
 
     <div class="v-guide-foot">
         <img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-guarantee-v1.webp" alt="Vessara custodia un acuerdo bajo su sello" loading="lazy" width="1672" height="941">
-        <div><span class="eyebrow">GUÍA Y MERCADO SON DISTINTOS</span><h3>El Atlas explica las reglas. El mercado muestra los tratos.</h3><p>Esta ficha es una guía de referencia. Si querés ver ofertas de actividad, operaciones selladas y movimientos del día, visitá la sección del mercado en la web.</p><a href="<?php echo __BASE_URL__; ?>market/">Ir al Mercado de Vessara <span aria-hidden="true">→</span></a></div>
+        <div><span class="eyebrow">LOS TRATOS SELLADOS</span><h3>La historia del mercado sigue viva.</h3><p>Esta ficha es una guía de referencia. Si querés ver operaciones selladas y movimientos del día, visitá la sección del mercado en la web.</p><a href="<?php echo __BASE_URL__; ?>market/">Ir al Mercado de Vessara <span aria-hidden="true">→</span></a></div>
     </div>
 </section>

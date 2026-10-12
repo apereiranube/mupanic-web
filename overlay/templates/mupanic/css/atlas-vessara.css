@@ -71,3 +71,23 @@
 @media(max-width:700px){.v-guide-hero-image{min-height:195px}.v-guide-hero-image img{min-height:195px}.v-guide-hero-copy{padding:0 20px 24px}.v-guide-corner{left:12px;top:12px;font-size:9px}.v-guide-intro,.v-guide-columns,.v-guide-foot{grid-template-columns:1fr}.v-guide-intro{gap:6px}.v-guide-foot>img{max-height:230px;min-height:180px}.v-guide-steps li{padding:17px;grid-template-columns:46px minmax(0,1fr);gap:12px}.v-guide-step{width:42px;height:42px;font-size:24px}.v-guide-steps h4{font-size:24px}.v-guide-box{padding:21px}.v-guide-foot>div{padding:22px}.v-guide-entry img{width:50px;height:50px;flex-basis:50px}.v-guide-entry strong{margin-left:0}.v-guide-entry h3{font-size:26px}}
 @media(max-width:400px){.v-guide-stats{gap:7px}.v-guide-stats>div{padding:14px 10px}.v-guide-stats strong{font-size:29px}.v-guide-stats span{font-size:9px}.v-guide-entry{padding:16px}.v-guide-hero-copy h2{overflow-wrap:anywhere}}
 @media(prefers-reduced-motion:reduce){.v-guide-entry{transition:none}}
+
+/* Plaza, condiciones y lotes: guía V14.1 */
+.v-guide-plaza,.v-guide-lot{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,.8fr);gap:30px;margin:36px 0;padding:30px;border:1px solid var(--vg-line);background:radial-gradient(ellipse at right top,#a47a4930,transparent 60%),#152023}
+.v-guide-plaza h3,.v-guide-lot h3{font:500 36px/1.1 var(--display);color:#f0d5b1;margin:12px 0 18px}
+.panic-wiki .v-guide-plaza p,.panic-wiki .v-guide-lot p{font-size:14px;line-height:1.8;max-width:none;margin:0 0 14px}
+.v-guide-plaza-number{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border-left:1px solid var(--vg-line);padding:20px}
+.v-guide-plaza-number strong{font:500 110px/1 var(--display);color:#e4b989}
+.v-guide-plaza-number span{font-size:10px;letter-spacing:.15em;line-height:1.7;color:#d7c2a6;margin-top:16px}
+.v-guide-table-wrap{max-width:100%;overflow-x:auto;border:1px solid var(--vg-line)}
+.atlas-vessara-guide .v-guide-table{width:100%;border-collapse:collapse;background:#172225;margin:0}
+.v-guide-table caption{text-align:left;padding:15px 20px;color:#d8bd98;background:#10191c;font-size:12px}
+.v-guide-table th,.v-guide-table td{padding:19px 20px;text-align:left;vertical-align:top;border-bottom:1px solid var(--vg-line);font-size:13px;line-height:1.7;color:#cdd7cd}
+.v-guide-table thead th{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#ebc294}
+.v-guide-table tbody th{width:30%;color:#f0d5b1;font-weight:600}
+.v-guide-table tr:last-child :is(th,td){border-bottom:0}
+.v-guide-blocked{color:#e6ae9b;font-weight:600}
+.v-guide-lot{border-left:3px solid #b29ade;background:radial-gradient(ellipse at right top,#71559426,transparent 65%),#152023}
+.v-guide-lot-note{padding:23px;background:#10191c;border:1px solid #b29ade55;align-self:center}
+.v-guide-lot-note>strong{font:500 34px var(--display);color:#c9b4f1;display:block;margin-bottom:15px}
+@media(max-width:700px){.v-guide-plaza,.v-guide-lot{grid-template-columns:1fr;padding:22px;gap:16px}.v-guide-plaza-number{border-left:0;border-top:1px solid var(--vg-line);flex-direction:row;gap:22px;justify-content:flex-start;padding:15px 0 0}.v-guide-plaza-number strong{font-size:64px}.v-guide-plaza-number span{margin:0;text-align:left}.v-guide-table th,.v-guide-table td{padding:13px 12px;font-size:12px}.v-guide-table tbody th{width:35%;overflow-wrap:anywhere}.v-guide-lot-note{padding:19px}}

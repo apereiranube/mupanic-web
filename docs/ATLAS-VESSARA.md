@@ -26,3 +26,7 @@ La introducción sobre La Fractura y el Sello es la historia breve que ya aparec
 Ruta directa /info/#vessara. Comprobar estado inicial del capítulo (atlas-boot), navegación lateral, buscador global que indexa el título, vista sin JavaScript, FAQ nativo, imagen de Vessara y lectura móvil. La guía no consulta endpoints dinámicos.
 
 El commit se envía a la rama beta. Publicación en beta.mupanic.com.ar sólo después del despliegue existente en cPanel: Update from Remote y Deploy HEAD Commit. No modificar webengine.json ni producción (main).
+
+## Revisión V14.1 — 12/10/2026
+
+Guía reorganizada con una sección de los diez vendedores móviles y publicaciones destacadas; tabla de condiciones por objeto; explicación de lotes exactos de cinco joyas sueltas compatibles, precio total, un cupo por lote y cinco espacios libres para entrega. Cancelar devuelve el lote completo. Incluye las cinco mascotas custom verificadas, monturas excluidas, equipos Harmony permitidos y sockets/joyas empaquetadas bloqueados. La base V14.1 fue confirmada en juego por el administrador. Se conserva lore, monedas, tributo, vigencia y límites. La guía no consulta actividad en vivo.
