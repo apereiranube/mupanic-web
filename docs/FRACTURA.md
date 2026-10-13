@@ -1,29 +1,26 @@
-# Fractura V3 — beta
+# Fractura V4 — beta
 
-A full-width, continuous Vulcanus scenery replaces framed key-art and map UI.
-Varkor / Caos stays on the left (native Family 2), Aldren / Nexo on the right
-(native Family 1). No SQL change, affiliation action or in-game NPC replacement
-is included. Public text uses only the approved lore names and point labels;
-legacy Gens names, brand repetition and healthy-state polling timestamps are
-removed. An actual data outage still has a minimal visible status.
+Restores the original V2 panoramic sorcerer and boss artwork as wide scenes
+with soft edge fades. Keeps the V3 Vulcanus scenery and ornate score altars.
+Reading chapters now have dark local surfaces instead of exposing the world
+behind every paragraph. Faction stories use opaque red/blue shaded panels
+with subtle leader silhouettes. Mission tables have solid alternating rows,
+larger labels, readable goals and point values. Joining links have contrasting
+backgrounds. Decorative horizontal chapter rules are removed.
 
-The unchanged read-only score data source preserves all contribution digits,
-60-second cache, BigInt updates and explicit stale/failure fallback. Point-
-updates can pulse, but never fake extra score. Native missions keep the audited
-50-kill goals, levels and rewards. No daily/weekly promise or boss schedule.
+The panoramic scenes drift gently with live rune rings, fog, light and canvas
+particles. The pause control stops all CSS animation and canvas drawing;
+reduced-motion and hidden tabs remain supported. Portrait parallax is no longer
+used in the opening scene. No map or framed character cards are restored.
 
-All V3 art uses new built-in imagegen layers: two transparent leaders from the
-user's NPC reference, the actual boss model as a transparent character,
-Vulcanus panorama and paired transparent altar backplates. Source prompts and
-alpha verification are in img/fractura/SOURCES.md. No top-down map is displayed.
+Caos / Varkor remains left (Family 2), Nexo / Aldren right (Family 1). The SQL
+reader and counters are unchanged: read-only aggregate, exact contribution
+digits, 60-second cache, explicit stale/failure fallback. Healthy timestamps
+stay hidden. Native mission goals, levels and rewards are preserved; no daily
+reset, boss schedule or in-game NPC replacement is promised.
 
-Visible effects: world drift, separate character floating/parallax, animated
-rune rings, light/fault pulses, moving fog, altar light and canvas particles.
-One pause control stops all CSS animation, canvas drawing and pointer updates.
-Reduced-motion is respected, hidden tabs stop the drawing and polling loops.
-The generated character assets preserve their full silhouette and transparency.
-
-PHP render checks cover absence of legacy terms/map/timestamps and new assets.
-JS tests cover faction mapping, exact counters, hidden healthy status, pause/
-resume, canvas stop/start and reduced-motion. Browser layout QA is unavailable
-in this environment; verify desktop and mobile on the cPanel beta deployment.
+V3 is retained in Git history (4e4c511) for rollback. The deploy guard now checks
+both panoramic V2 images alongside the V3 assets. PHP lint, JS score/effects
+checks, deployment shell syntax and asset references are checked locally.
+Browser layout QA is unavailable here; desktop/mobile framing remains to be
+verified on the cPanel beta deployment.
