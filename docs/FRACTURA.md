@@ -1,30 +1,29 @@
-# Fractura V2 — beta
+# Fractura V3 — beta
 
-Route /fractura/, menu immediately after Mercado. User-approved identities:
-Caos (Vanert / Family 2), led by Varkor, appears left; Nexo (Duprian / Family 1),
-led by Aldren, appears right. Native family IDs and SQL contribution are unchanged.
-These are web identities; no in-game NPC replacement is included in this web change.
+A full-width, continuous Vulcanus scenery replaces framed key-art and map UI.
+Varkor / Caos stays on the left (native Family 2), Aldren / Nexo on the right
+(native Family 1). No SQL change, affiliation action or in-game NPC replacement
+is included. Public text uses only the approved lore names and point labels;
+legacy Gens names, brand repetition and healthy-state polling timestamps are
+removed. An actual data outage still has a minimal visible status.
 
-The score reader remains SELECT-only and aggregates the entire native table,
-with decimal-string totals, 60-second cache and explicit stale/unavailable states.
-The client updates once per minute while visible, using BigInt. Zero requires
-successful empty data. This adds no weekly resets or campaign points.
+The unchanged read-only score data source preserves all contribution digits,
+60-second cache, BigInt updates and explicit stale/failure fallback. Point-
+updates can pulse, but never fake extra score. Native missions keep the audited
+50-kill goals, levels and rewards. No daily/weekly promise or boss schedule.
 
-New artwork was generated with the built-in image tool from the user-selected
-NPC reference. Boss artwork is based on a CPU render of the actual administrator-
-supplied LordOfDarkness.bmd (class 625), not an invented boss. Prompts and asset
-provenance are in img/fractura/SOURCES.md. The map is the actual client OZJ,
-losslessly converted to WebP; no speculative boss/spawn pins or new zones.
+All V3 art uses new built-in imagegen layers: two transparent leaders from the
+user's NPC reference, the actual boss model as a transparent character,
+Vulcanus panorama and paired transparent altar backplates. Source prompts and
+alpha verification are in img/fractura/SOURCES.md. No top-down map is displayed.
 
-Boss combat is in beta testing; spawn schedule and rewards are not confirmed,
-and the page describes them as forthcoming. Native ten 50-kill missions keep
-V3-audited levels and rewards; daily renewal is intentionally not promised.
-Membership is described as in-game interaction from level 50. Web CTAs scroll
-to instructions, never claim to affiliate a character.
+Visible effects: world drift, separate character floating/parallax, animated
+rune rings, light/fault pulses, moving fog, altar light and canvas particles.
+One pause control stops all CSS animation, canvas drawing and pointer updates.
+Reduced-motion is respected, hidden tabs stop the drawing and polling loops.
+The generated character assets preserve their full silhouette and transparency.
 
-Dark page/background and explicit heading colors override the CMS's pale inner-
-page defaults. Map has a native dialog with zoom; without JS it opens the image.
-Effects honor prefers-reduced-motion and the user pause setting.
-
-Deploy using beta cPanel Update from Remote / Deploy HEAD Commit. Verify live
-counter-family mapping and desktop/mobile layout on hosting after deploy.
+PHP render checks cover absence of legacy terms/map/timestamps and new assets.
+JS tests cover faction mapping, exact counters, hidden healthy status, pause/
+resume, canvas stop/start and reduced-motion. Browser layout QA is unavailable
+in this environment; verify desktop and mobile on the cPanel beta deployment.

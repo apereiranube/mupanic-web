@@ -26,3 +26,23 @@ Generated with the built-in imagegen tool, October 13 2026 UTC.
 Crests are new code-native SVG compositions (fractured crystal for Caos;
 linked seal for Nexo). Mission portraits reuse authentic model renders from
 Atlas where available. Generated key art illustrates lore, not a gameplay capture.
+
+## V3 scene layers — October 13 2026 UTC
+
+Generated with built-in imagegen and WebP quality 92, preserving supplied alpha:
+- aldren-layer-v3.webp, 1024×1536 RGBA: isolated full-body white-bearded dark
+  armored guardian, ornate tall arch, ivory panels, ancient tome and cyan runes.
+- varkor-layer-v3.webp, 1024×1536 RGBA: isolated gray-faced sorcerer, black/red
+  robes, angular red/gold shoulder mantle, red/violet magic and floating shards.
+  Both leader prompts preserve user reference image(20261013-024310).png.
+- boss-layer-v3.webp, 1254×1254 RGBA: isolated full wings/body, black/red armor,
+  horns and twin serrated weapons, based on the actual LordOfDarkness.bmd render.
+- vulcanus-world-v3.webp, 1983×793 RGB: new ground-level volcanic fortress
+  panorama, basalt bridges, lava fault, red heat left and cold spectral energy
+  right, empty foregrounds for character layers; no map, characters or UI.
+- faction-altars-v3.webp, 1536×1024 RGBA: equal side-by-side monumental altar
+  faces, obsidian/red fractured Caos left and silver/gold/cyan seal Nexo right;
+  broad empty centers for HTML scores, transparent edges, no baked text/numbers.
+
+The generated files have genuine alpha (minimum 0, nonopaque edge pixels),
+and are composited with CSS rather than drawing figures into rectangular cards.
