@@ -77,3 +77,18 @@ red fill's real endpoint. Red and blue flare lobes approach from opposite sides,
 compress and brighten together, then recoil. The score widths never oscillate;
 zero-total state hides the clash. It uses the existing pause/reduced-motion
 selectors and is aria-hidden.
+
+## V8 native scrolling
+
+The shared template sets `.module-surface { overflow-x:auto }`. Fractura's
+full-bleed art and expanded decorative backdrops inherited that internal scroll
+container (the other overflow axis computes to auto), enabling lateral panning
+and consuming wheel/touch interaction over the score area. The page-specific
+module override now explicitly uses overflow:visible, leaving vertical scrolling
+to the document. The existing body overflow-x:clip prevents decorative side
+bleed from extending the viewport. Page touch-action permits vertical panning
+and pinch zoom; no wheel/touch interceptor, synthetic scroll or preventDefault
+is introduced. Scores, scenery and effects are unchanged.
+
+V7 is preserved at f8c21a4 for rollback. CSS cascade and code checks pass;
+actual wheel/touch behavior on desktop/mobile remains to be verified deployed.
