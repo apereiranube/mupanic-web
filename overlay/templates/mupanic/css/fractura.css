@@ -117,3 +117,29 @@ body.is-fractura .fractura-page .fractura-altar-link{bottom:1%;background:transp
 .fractura-path:before{mask-image:radial-gradient(ellipse closest-side,#000 10%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse closest-side,#000 10%,transparent 100%)}
 @media(max-width:1000px){.fractura-paths{gap:45px}.fractura-path:after{inset:-40px -25px}}
 @media(max-width:700px){.fractura-paths{gap:50px}.fractura-path:after{inset:-35px -20px}}
+
+/* V7: expose both real score fills and let reading clouds cross scene edges. */
+body.is-fractura{overflow-x:clip}
+.fractura-page{overflow:visible}
+.fractura-heading:before{inset:-115px -10% -95px;background:radial-gradient(ellipse closest-side,#10121bea 0%,#10121b99 50%,transparent 100%)}
+.fractura-path:after{inset:-110px -145px;background:radial-gradient(ellipse closest-side,#0b1019fa 0%,#0b1019ee 57%,#21141c90 78%,transparent 100%)}
+.fractura-path.faction-1:after{background:radial-gradient(ellipse closest-side,#0b1019fa 0%,#0b1019ee 57%,#15293690 78%,transparent 100%)}
+.fractura-balance-track{z-index:3;background:linear-gradient(180deg,#bcf0ff 0%,#469abb 40%,#235f80 78%,#142f48 100%)}
+.fractura-balance-track>span{z-index:1;background:linear-gradient(180deg,#ffd1b0 0%,#f36f61 40%,#b6314a 78%,#5c1c37 100%)}
+.fractura-balance-track:after{z-index:0;border-radius:3px;background:repeating-linear-gradient(110deg,transparent 0 22px,#b8f0ff80 25px,transparent 30px 55px);background-size:110px 100%;animation:fractura-nexo-flow 3s linear infinite;opacity:.65}
+.fractura-balance-track>span:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(70deg,transparent 0 22px,#ffd0a780 25px,transparent 30px 55px);background-size:110px 100%;animation:fractura-caos-flow 3s linear infinite;opacity:.65}
+.fractura-balance-track>span:after{z-index:5;right:-3px;top:-5px;bottom:-5px;width:6px;background:#ffe9ce;box-shadow:-8px 0 19px #ff8059,8px 0 19px #91e5ff;animation:fractura-front-pulse 2.6s ease-in-out infinite}
+.fractura-balance-track.is-empty:after,.fractura-balance-track.is-empty>span:before{animation:none;opacity:0}.fractura-balance-track.is-empty>span:after{animation:none}
+@keyframes fractura-caos-flow{from{background-position:0 0}to{background-position:110px 0}}
+@keyframes fractura-nexo-flow{from{background-position:110px 0}to{background-position:0 0}}
+@keyframes fractura-front-pulse{0%,100%{filter:brightness(1);box-shadow:-6px 0 14px #ff8059,6px 0 14px #91e5ff}50%{filter:brightness(1.35);box-shadow:-10px 0 23px #ff8059,10px 0 23px #91e5ff}}
+@media(max-width:1000px){.fractura-path:after{inset:-95px -95px}}
+@media(max-width:700px){.fractura-path:after{inset:-85px -70px}.fractura-heading:before{inset:-105px -15% -85px}}
+.fractura-energy-clash{position:absolute;right:0;top:0;width:0;height:100%;z-index:4;pointer-events:none}
+.fractura-energy-clash:before,.fractura-energy-clash:after{content:"";position:absolute;top:-12px;width:58px;height:50px;filter:blur(2px);pointer-events:none;mix-blend-mode:screen}
+.fractura-energy-clash:before{right:0;background:radial-gradient(ellipse at right,#ffe8bddd 0%,#ff8c66b3 28%,#ff433955 55%,transparent 75%);transform-origin:right center;animation:fractura-red-pressure 2.4s ease-in-out infinite}
+.fractura-energy-clash:after{left:0;background:radial-gradient(ellipse at left,#e5faffdd 0%,#7cdbffb3 28%,#327fdb55 55%,transparent 75%);transform-origin:left center;animation:fractura-blue-pressure 2.4s ease-in-out infinite}
+.fractura-balance-track.is-empty .fractura-energy-clash{display:none}
+@keyframes fractura-red-pressure{0%,100%{transform:translateX(-12px) scaleX(1.1);opacity:.45}35%{transform:translateX(0) scaleX(.75);opacity:1}70%{transform:translateX(-5px) scaleX(.95);opacity:.6}}
+@keyframes fractura-blue-pressure{0%,100%{transform:translateX(12px) scaleX(1.1);opacity:.45}35%{transform:translateX(0) scaleX(.75);opacity:1}70%{transform:translateX(5px) scaleX(.95);opacity:.6}}
+@media(max-width:480px){.fractura-energy-clash:before,.fractura-energy-clash:after{top:-13px;width:40px;height:43px}}

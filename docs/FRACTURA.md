@@ -55,3 +55,25 @@ Faction panels no longer have an opaque background, shadow or clipped polygon;
 each has its own expanded radial reading backdrop and feathered portrait.
 All feathering applies to decoration only, preserving sharp text and controls.
 V5 is retained at f88f5c5 for rollback. Browser visual QA remains pending.
+
+## V7 balance stacking and atmosphere
+
+The vector frame was above the actual ratio fills: its opaque interior hid
+both faction colors while the separate high-z shimmer remained visible.
+The track now establishes a stacking context at z-index 3 above the frame at
+2, making the real red width and blue remainder visible. Directional energy
+textures move inward from both sides; their frontier remains the actual score
+boundary. Empty totals remain neutral. Existing pause/reduced-motion rules
+also freeze these effects.
+
+Reading clouds behind the factions are expanded on desktop and mobile.
+The page wrapper no longer clips vertical decoration at its top boundary;
+horizontal overflow is clipped at the body instead. This lets the title cloud
+fade above its own container. V6 remains in Git at 61614f4 for rollback.
+CSS layer checks and score/motion tests pass; live browser QA remains pending.
+
+The user's pressure effect is a separate decorative element anchored at the
+red fill's real endpoint. Red and blue flare lobes approach from opposite sides,
+compress and brighten together, then recoil. The score widths never oscillate;
+zero-total state hides the clash. It uses the existing pause/reduced-motion
+selectors and is aria-hidden.
