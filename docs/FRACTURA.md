@@ -125,3 +125,27 @@ aria-hidden and pointer-events:none, so the V8 wheel/touch fix stays intact.
 Deploy checks the new font before copying. V10 remains at 6ce556f for rollback.
 PHP lint, score/motion tests, font glyph and render checks pass; live visual
 framing remains to be checked after deployment.
+
+## Official boss reward integration — 2026-10-13
+
+Reader now selects MuOnline43.dbo.MUPanicFracturaFactionTotalsV6. The existing
+SQL view combines positive native Gens contributions with official collective
+V2/V6 victories (IsTest=0). Native individual 500 credits are included once
+in Contribution after their native Gens load; they are not added separately.
+Family 1 remains Nexo; Family 2 Caos. Two distinct view rows are required,
+including legitimate zero totals. Missing view/permissions/rows is unavailable,
+with the existing 24-hour stale fallback. A separate 60-second cache filename
+prevents native-only values from being reused as combined totals. Public schema
+1 and exact decimal strings remain compatible with the existing JS.
+
+Approved artwork/layout are retained. The caption explains combined points;
+boss copy states daily 22:30 Argentina, up to 30 minutes, last-hit faction 1000
+and killer 500 loaded upon reconnection. VPS V7 disables real rewards in future
+manual tests outside the official window; previous test collective points remain
+excluded. User verified V6 last-hit attribution, individual 500 receipt and no
+extra credit on another login. Automatic official appearance and live web view
+permissions still need real verification. Git changes require cPanel beta deploy.
+
+PHP reader fixtures validate exact totals, zero, cache, stale/failure and invalid
+view output. All SQL is mocked there; no SQL Server execution is implied.
+Rollback: restore the two PHP files from 5585023 and deploy beta.

@@ -1,0 +1,23 @@
+name: Fractura totals
+on:
+  push:
+    branches: [beta]
+    paths:
+      - 'overlay/templates/mupanic/inc/fractura-data.php'
+      - 'overlay/templates/mupanic/inc/fractura.php'
+      - 'tests/fractura-totals.php'
+      - '.github/workflows/fractura-totals.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  reader:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lint and read-only fixtures
+        run: |
+          php -l overlay/templates/mupanic/inc/fractura-data.php
+          php -l overlay/templates/mupanic/inc/fractura.php
+          php -l tests/fractura-totals.php
+          php tests/fractura-totals.php
