@@ -8,6 +8,7 @@ function mupanicPageTitle($page, $subpage = '') {
     }
     $map = array(
         'information' => 'El servidor',
+        'fractura' => 'La Fractura',
         'market' => 'El Sello de Vessara',
         'info' => 'Atlas',
         'downloads' => 'Descargas',
