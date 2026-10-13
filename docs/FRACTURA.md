@@ -92,3 +92,13 @@ is introduced. Scores, scenery and effects are unchanged.
 
 V7 is preserved at f8c21a4 for rollback. CSS cascade and code checks pass;
 actual wheel/touch behavior on desktop/mobile remains to be verified deployed.
+
+## V9 altar typography
+
+Public member labels now read combatiente/combatientes, for character counts
+in the same source (not unique accounts or online players). Both PHP first
+render and JS refresh use the same singular/plural wording. Creed, heading,
+points and member count are spaced within the dark central stone. The external
+pill that covered the lower crest is removed. Small text is larger and the
+lower faction link has a contrasting background. V8 is preserved at 1e03e58;
+scroll fixes and art effects remain in place. Browser framing QA is pending.

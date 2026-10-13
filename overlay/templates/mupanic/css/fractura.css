@@ -143,3 +143,17 @@ body.is-fractura{overflow-x:clip}
 @keyframes fractura-red-pressure{0%,100%{transform:translateX(-12px) scaleX(1.1);opacity:.45}35%{transform:translateX(0) scaleX(.75);opacity:1}70%{transform:translateX(-5px) scaleX(.95);opacity:.6}}
 @keyframes fractura-blue-pressure{0%,100%{transform:translateX(12px) scaleX(1.1);opacity:.45}35%{transform:translateX(0) scaleX(.75);opacity:1}70%{transform:translateX(5px) scaleX(.95);opacity:.6}}
 @media(max-width:480px){.fractura-energy-clash:before,.fractura-energy-clash:after{top:-13px;width:40px;height:43px}}
+
+/* V9: all altar copy sits inside the central stone, clear of its crest. */
+.fractura-score header{top:37%;left:14%;right:14%}
+.fractura-score header span{font-size:14px;font-weight:600;line-height:1.4;color:#fff4e3;text-shadow:0 2px 4px #000,0 0 9px #000}
+.fractura-score h2{font-size:42px;margin-top:6px}
+.fractura-total{top:49%;left:14%;right:14%}
+.fractura-total strong{font-size:clamp(66px,6.5vw,88px)}
+.fractura-total>span{font-size:11px;letter-spacing:.16em;color:#f1e4d2;margin-top:8px}
+.fractura-score footer{top:69%;bottom:auto;left:18%;right:18%;background:none;box-shadow:none;border-radius:0;padding:0;font-size:15px;line-height:1.5;color:#f5eadb;text-shadow:0 2px 6px #000}
+.fractura-score footer b{font-size:18px;margin-right:4px;color:var(--faction)}
+body.is-fractura .fractura-page .fractura-altar-link{bottom:0;left:25%;right:25%;padding:10px 8px;font-size:14px;line-height:1.4;background:#0b1118ed;color:#fff0d9;border:1px solid var(--faction-line);text-shadow:none;border-radius:2px}
+body.is-fractura .fractura-page .fractura-altar-link:hover{background:#18212dec;color:#fff}
+@media(max-width:700px){.fractura-score h2{font-size:34px}.fractura-score header span{font-size:12px}.fractura-total strong{font-size:66px}.fractura-total>span{font-size:10px;margin-top:6px}.fractura-score footer{top:72%;font-size:13px}.fractura-score footer b{font-size:16px}body.is-fractura .fractura-page .fractura-altar-link{left:20%;right:20%;font-size:12px;padding:9px 6px}}
+@media(max-width:480px){.fractura-score h2{font-size:40px}.fractura-score header span{font-size:14px}.fractura-total strong{font-size:80px}.fractura-total>span{font-size:11px;margin-top:8px}.fractura-score footer{top:72%;font-size:15px}.fractura-score footer b{font-size:18px}body.is-fractura .fractura-page .fractura-altar-link{left:25%;right:25%;font-size:14px;padding:10px 8px}}

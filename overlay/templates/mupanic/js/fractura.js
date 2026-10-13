@@ -59,7 +59,7 @@
             el.textContent = next; el.classList.toggle('is-long', d.factions[id].points.length > 9);
             if (changed && !paused && !reduced.matches && el.animate) el.animate([{ opacity: .4, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 550, easing: 'ease-out' });
             root.querySelector('[data-fractura-members="' + id + '"]').textContent = number(d.factions[id].members);
-            root.querySelector('[data-fractura-member-label="' + id + '"]').textContent = BigInt(d.factions[id].members) === 1n ? 'personaje afiliado' : 'personajes afiliados';
+            root.querySelector('[data-fractura-member-label="' + id + '"]').textContent = BigInt(d.factions[id].members) === 1n ? 'combatiente' : 'combatientes';
         });
         const caos = BigInt(d.factions[2].points), nexo = BigInt(d.factions[1].points), total = caos + nexo;
         const ratio = total ? Number((caos * 1000n + total / 2n) / total) / 10 : 50;
