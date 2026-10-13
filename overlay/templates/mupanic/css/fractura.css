@@ -144,16 +144,20 @@ body.is-fractura{overflow-x:clip}
 @keyframes fractura-blue-pressure{0%,100%{transform:translateX(12px) scaleX(1.1);opacity:.45}35%{transform:translateX(0) scaleX(.75);opacity:1}70%{transform:translateX(5px) scaleX(.95);opacity:.6}}
 @media(max-width:480px){.fractura-energy-clash:before,.fractura-energy-clash:after{top:-13px;width:40px;height:43px}}
 
-/* V9: all altar copy sits inside the central stone, clear of its crest. */
-.fractura-score header{top:37%;left:14%;right:14%}
-.fractura-score header span{font-size:14px;font-weight:600;line-height:1.4;color:#fff4e3;text-shadow:0 2px 4px #000,0 0 9px #000}
-.fractura-score h2{font-size:42px;margin-top:6px}
-.fractura-total{top:49%;left:14%;right:14%}
-.fractura-total strong{font-size:clamp(66px,6.5vw,88px)}
-.fractura-total>span{font-size:11px;letter-spacing:.16em;color:#f1e4d2;margin-top:8px}
-.fractura-score footer{top:69%;bottom:auto;left:18%;right:18%;background:none;box-shadow:none;border-radius:0;padding:0;font-size:15px;line-height:1.5;color:#f5eadb;text-shadow:0 2px 6px #000}
-.fractura-score footer b{font-size:18px;margin-right:4px;color:var(--faction)}
-body.is-fractura .fractura-page .fractura-altar-link{bottom:0;left:25%;right:25%;padding:10px 8px;font-size:14px;line-height:1.4;background:#0b1118ed;color:#fff0d9;border:1px solid var(--faction-line);text-shadow:none;border-radius:2px}
-body.is-fractura .fractura-page .fractura-altar-link:hover{background:#18212dec;color:#fff}
-@media(max-width:700px){.fractura-score h2{font-size:34px}.fractura-score header span{font-size:12px}.fractura-total strong{font-size:66px}.fractura-total>span{font-size:10px;margin-top:6px}.fractura-score footer{top:72%;font-size:13px}.fractura-score footer b{font-size:16px}body.is-fractura .fractura-page .fractura-altar-link{left:20%;right:20%;font-size:12px;padding:9px 6px}}
-@media(max-width:480px){.fractura-score h2{font-size:40px}.fractura-score header span{font-size:14px}.fractura-total strong{font-size:80px}.fractura-total>span{font-size:11px;margin-top:8px}.fractura-score footer{top:72%;font-size:15px}.fractura-score footer b{font-size:18px}body.is-fractura .fractura-page .fractura-altar-link{left:25%;right:25%;font-size:14px;padding:10px 8px}}
+/* V10: one stacked inscription block inside each altar. */
+.fractura-score{margin-bottom:50px}
+.fractura-altar-content{position:absolute;top:37%;bottom:26%;left:17%;right:17%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;z-index:1}
+.fractura-score .fractura-altar-content header,.fractura-score .fractura-altar-content .fractura-total,.fractura-score .fractura-altar-content footer{position:static;inset:auto;width:100%;margin:0;padding:0}
+.fractura-altar-content header>div{display:flex;flex-direction:column;align-items:center;gap:6px}
+.fractura-score .fractura-altar-content h2{order:-1;font-size:48px;line-height:1;margin:0;color:#fff0db}
+.fractura-score .fractura-altar-content header span{font-size:14px;font-weight:600;line-height:1.4;color:#f4e4cf;text-shadow:0 2px 6px #000;max-width:100%}
+.fractura-score .fractura-altar-content .fractura-total strong{font-size:86px;line-height:1;letter-spacing:-.02em}
+.fractura-score .fractura-altar-content .fractura-total strong.is-long{font-size:clamp(30px,4vw,54px)}
+.fractura-score .fractura-altar-content .fractura-total>span{font-size:11px;line-height:1.4;letter-spacing:.14em;margin-top:4px;color:#e8dcc8}
+.fractura-score .fractura-altar-content footer{background:none;box-shadow:none;border:0;border-radius:0;font-size:14px;line-height:1.5;color:#e6ded2;text-shadow:0 2px 6px #000}
+.fractura-score .fractura-altar-content footer b{font-size:16px;margin-right:3px;color:var(--faction)}
+body.is-fractura .fractura-page .fractura-altar-link{top:calc(100% + 7px);bottom:auto;left:20%;right:20%;padding:6px 0;font-size:14px;line-height:1.5;background:none;border:0;border-radius:0;color:#f3dfc1;text-shadow:0 2px 6px #000;font-weight:600}
+body.is-fractura .fractura-page .fractura-altar-link:hover{background:none;color:#fff}
+.fractura-altar-link b{color:var(--faction)}
+@media(min-width:701px) and (max-width:1000px){.fractura-altar-content{gap:5px;left:14%;right:14%}.fractura-score .fractura-altar-content h2{font-size:36px}.fractura-score .fractura-altar-content header span{font-size:12px}.fractura-score .fractura-altar-content .fractura-total strong{font-size:64px}.fractura-score .fractura-altar-content footer{font-size:13px}}
+@media(max-width:700px){.fractura-scoreboard{grid-template-columns:1fr;max-width:430px;padding:0 20px;gap:15px}.fractura-score{height:520px;margin-bottom:44px}.fractura-altar-content{gap:6px;left:14%;right:14%}.fractura-score .fractura-altar-content h2{font-size:40px}.fractura-score .fractura-altar-content header span{font-size:13px}.fractura-score .fractura-altar-content .fractura-total strong{font-size:76px}.fractura-score .fractura-altar-content footer{font-size:14px}}

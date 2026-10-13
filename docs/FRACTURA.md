@@ -102,3 +102,13 @@ points and member count are spaced within the dark central stone. The external
 pill that covered the lower crest is removed. Small text is larger and the
 lower faction link has a contrasting background. V8 is preserved at 1e03e58;
 scroll fixes and art effects remain in place. Browser framing QA is pending.
+
+## V10 unified altar inscription
+
+Replaces independently positioned text with one centered flex column within
+the stone face: faction name, creed, large score/point label and member count.
+The lower link moves below the altar base without a rectangular button.
+Two altars stack through 700px so the inscription remains readable. Existing
+selectors for exact live counts are preserved, as are pulse and scroll fixes.
+V9 is preserved at 8241852. PHP render, JS score/effects and syntax checks pass;
+browser visual framing remains pending.

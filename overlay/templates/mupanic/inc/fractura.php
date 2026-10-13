@@ -32,9 +32,9 @@ function panicFracturaCrest($id) {
   <section class="fractura-scoreboard" aria-label="Contribución acumulada por bando">
     <?php foreach($orders as $id=>$o) { ?>
     <article class="fractura-score faction-<?php echo $id; ?>"><div class="fractura-altar-art" aria-hidden="true"></div><div class="fractura-altar-glow" aria-hidden="true"></div>
-      <header><div><span><?php echo $o['creed']; ?></span><h2><?php echo strtoupper($o['name']); ?></h2></div></header>
+      <div class="fractura-altar-content"><header><div><span><?php echo $o['creed']; ?></span><h2><?php echo strtoupper($o['name']); ?></h2></div></header>
       <div class="fractura-total"><strong data-fractura-points="<?php echo $id; ?>"><?php echo $fractura?panicFracturaNumber($fractura['factions'][$id]['points']):'—'; ?></strong><span>PUNTOS</span></div>
-      <footer><span><b data-fractura-members="<?php echo $id; ?>"><?php echo $fractura?panicFracturaNumber($fractura['factions'][$id]['members']):'—'; ?></b> <span data-fractura-member-label="<?php echo $id; ?>"><?php echo $fractura && $fractura['factions'][$id]['members']==='1'?'combatiente':'combatientes'; ?></span></span></footer><a class="fractura-altar-link" href="#<?php echo $o['anchor']; ?>">Conocé tu bando <b aria-hidden="true">↗</b></a>
+      <footer><span><b data-fractura-members="<?php echo $id; ?>"><?php echo $fractura?panicFracturaNumber($fractura['factions'][$id]['members']):'—'; ?></b> <span data-fractura-member-label="<?php echo $id; ?>"><?php echo $fractura && $fractura['factions'][$id]['members']==='1'?'combatiente':'combatientes'; ?></span></span></footer></div><a class="fractura-altar-link" href="#<?php echo $o['anchor']; ?>">Conocé tu bando <b aria-hidden="true">↗</b></a>
     </article>
     <?php } ?>
   </section>
