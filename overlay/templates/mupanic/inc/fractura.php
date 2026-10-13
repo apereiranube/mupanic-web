@@ -3,58 +3,56 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/fractura-data.php';
 $fractura=panicFracturaRead();
 $orders=[
-    1=>['name'=>'Custodios del Sello','native'=>'Duprian','word'=>'Preservar','quote'=>'Hay heridas que no deben volver a abrirse.','copy'=>'Contener la energía de la Fractura. Proteger el continente, aun cuando el precio sea renunciar a su poder.','anchor'=>'custodios','targets'=>['Vepar','Death Tree','Splinter Wolf','Blood Assassin','Sapi-Duo']],
-    2=>['name'=>'Herederos de la Fractura','native'=>'Vanert','word'=>'Dominar','quote'=>'El poder no desaparece cuando lo encerrás.','copy'=>'Comprender la energía de la Fractura y hacerla propia. Convertir la herida del continente en la fuerza de una nueva era.','anchor'=>'herederos','targets'=>['Silver Valkyrie','Death Rider','Iron Rider','Burning Lava Giant','Ghost Napin']]
+  2=>['name'=>'Caos','leader'=>'Varkor','title'=>'Heraldo de Caos','native'=>'Vanert','anchor'=>'caos','word'=>'Liberar','quote'=>'Toda ruptura es una puerta al poder.','creed'=>'Romper los límites del poder.','copy'=>'Varkor vio una puerta donde otros vieron una herida. Para él, contener la Fractura es condenar al continente a temer su propia fuerza. Sus seguidores buscan atravesar el límite, dominar lo que despierta y construir una nueva era sobre sus cenizas.','promise'=>'Si creés que el poder debe conquistarse, tu lugar está en Caos.','targets'=>['Silver Valkyrie','Death Rider','Iron Rider','Burning Lava Giant','Ghost Napin'],'monsters'=>[52,306,352,489,448]],
+  1=>['name'=>'Nexo','leader'=>'Aldren','title'=>'Guardián de Nexo','native'=>'Duprian','anchor'=>'nexo','word'=>'Preservar','quote'=>'Mientras permanezcamos unidos, el mundo resistirá.','creed'=>'Mantener unido el mundo.','copy'=>'Aldren conoce el precio de una herida que nunca termina de cerrar. Su juramento es mantener unido el continente. Nexo reúne a quienes están dispuestos a enfrentar la Fractura, resistir su llamado y proteger aquello que todavía puede salvarse.','promise'=>'Si tu fuerza nace de proteger a los tuyos, tu lugar está en Nexo.','targets'=>['Vepar','Death Tree','Splinter Wolf','Blood Assassin','Sapi-Duo'],'monsters'=>[46,308,351,486,442]]
 ];
-$levels=[240,300,341,361,381]; $rewards=[100,200,500,1000,2000];
-$a=$fractura ? (float)$fractura['factions'][1]['points'] : 0;
-$b=$fractura ? (float)$fractura['factions'][2]['points'] : 0;
-$lead=$fractura ? panicFracturaCompare($fractura['factions'][1]['points'],$fractura['factions'][2]['points']) : 0;
-$share=$a+$b>0 ? round(100*$a/($a+$b),1) : 50;
+$levels=[240,300,341,361,381];$rewards=[100,200,500,1000,2000];
+$caos=$fractura?(float)$fractura['factions'][2]['points']:0;
+$nexo=$fractura?(float)$fractura['factions'][1]['points']:0;
+$share=$caos+$nexo>0?round(100*$caos/($caos+$nexo),1):50;
+$lead=$fractura?panicFracturaCompare($fractura['factions'][2]['points'],$fractura['factions'][1]['points']):0;
+$art=__PATH_TEMPLATE__.'img/fractura/';
+function panicFracturaCrest($id) {
+    if($id===2) return '<svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="m40 4 26 14 10 29-24 27L17 61 4 33 23 9Z"/><path d="m42 9-10 20 17 14-22 14 13 17M23 10l9 19M49 43l24-9M27 57l-10 5"/><path d="m42 23-5 12 12 8-14 11"/></svg>';
+    return '<svg viewBox="0 0 80 80" fill="none" aria-hidden="true"><path d="M40 4 70 18v30L40 76 10 48V18Z"/><circle cx="40" cy="38" r="21"/><path d="M40 17v42M19 38h42M25 23l30 30M55 23 25 53"/><path d="m40 28 10 10-10 10-10-10Z"/></svg>';
+}
 ?>
 <div class="fractura-page" data-fractura-url="<?php echo htmlspecialchars(__BASE_URL__.'fractura/?fractura_data=1',ENT_QUOTES,'UTF-8'); ?>">
-    <header class="fractura-heading"><div><span class="eyebrow">VULCANUS / DOS ÓRDENES, UNA HERIDA</span><h1>La Fractura</h1></div><p>El mismo origen.<br>Dos destinos irreconciliables.</p></header>
-    <section class="fractura-arena" aria-label="Las dos órdenes de la Fractura">
-        <div class="fractura-scar" aria-hidden="true"><span></span></div>
-        <?php foreach($orders as $family=>$order) { ?>
-        <article class="fractura-order fractura-order-<?php echo $family; ?>">
-            <div class="fractura-art" aria-hidden="true"></div>
-            <div class="fractura-order-copy">
-                <span class="fractura-native">GENS <?php echo $order['native']; ?></span>
-                <div class="fractura-crest" aria-hidden="true">
-                    <?php if($family===1) { ?><svg viewBox="0 0 80 90" fill="none"><path d="M10 13 40 3 70 13v38L40 84 10 51Z"/><path d="M21 22 40 15 59 22v25L40 68 21 47Z"/><path d="M40 25v30M29 40h22"/><circle cx="40" cy="40" r="17"/></svg><?php } else { ?><svg viewBox="0 0 80 90" fill="none"><path d="m39 3-27 20 7 32 23 29 28-31-5-32Z"/><path d="m41 5-9 25 16 12-18 13 10 27M17 26l14 4M49 43l17-15M29 55l-10 3"/><path d="m43 21-4 11 12 11-12 12 3 12"/></svg><?php } ?>
-                </div>
-                <span class="fractura-motto"><?php echo $order['word']; ?></span>
-                <h2><?php echo $order['name']; ?></h2>
-                <p class="fractura-quote">«<?php echo $order['quote']; ?>»</p>
-                <a class="fractura-order-link" href="#<?php echo $order['anchor']; ?>">Conocé la orden <span aria-hidden="true">↓</span></a>
-            </div>
-            <div class="fractura-counter">
-                <span>CONTRIBUCIÓN DE LA ORDEN</span>
-                <strong data-fractura-points="<?php echo $family; ?>"><?php echo $fractura ? panicFracturaNumber($fractura['factions'][$family]['points']) : '—'; ?></strong>
-                <div><span>PUNTOS GENS</span><small><b data-fractura-members="<?php echo $family; ?>"><?php echo $fractura ? panicFracturaNumber($fractura['factions'][$family]['members']) : '—'; ?></b> personajes afiliados</small></div>
-            </div>
-        </article>
-        <?php } ?>
-        <div class="fractura-center-seal" aria-hidden="true"><span>UNA</span><strong>FRACTURA</strong><span>DOS VOLUNTADES</span></div>
-    </section>
-    <section class="fractura-balance" aria-labelledby="fractura-balance-title">
-        <div class="fractura-balance-head"><h2 id="fractura-balance-title">El pulso de la disputa</h2><p data-fractura-lead><?php echo !$fractura ? 'Esperando la contribución del servidor' : ($a+$b===0.0 ? 'Las órdenes todavía no registran puntos' : ($lead===0 ? 'Las dos órdenes están igualadas' : ($lead>0 ? 'Custodios del Sello al frente' : 'Herederos de la Fractura al frente'))); ?></p></div>
-        <div class="fractura-balance-labels"><span>Custodios <b data-fractura-share="1"><?php echo $fractura && $a+$b>0 ? number_format($share,1,',','.').'%' : '—'; ?></b></span><span><b data-fractura-share="2"><?php echo $fractura && $a+$b>0 ? number_format(100-$share,1,',','.').'%' : '—'; ?></b> Herederos</span></div>
-        <div class="fractura-balance-track<?php echo !$fractura || $a+$b===0.0 ? ' is-empty' : ''; ?>" data-fractura-track><span style="width:<?php echo $share; ?>%" data-fractura-bar></span></div>
-        <div class="fractura-update"><span class="fractura-status-dot<?php echo !$fractura || !empty($fractura['stale']) ? ' is-offline' : ''; ?>" data-fractura-dot aria-hidden="true"></span><p data-fractura-status role="status"><?php if(!$fractura) { echo 'Los puntos no están disponibles en este momento.'; } else { echo !empty($fractura['stale']) ? 'Última lectura disponible · ' : 'Última consulta · '; echo gmdate('d/m/Y H:i:s',$fractura['updated']-3*3600).' (Argentina)'; } ?></p><button type="button" data-fractura-refresh hidden>Actualizar ↻</button></div>
-        <p class="fractura-counter-note">Contribución Gens acumulada de todos los personajes de cada orden, obtenida mediante cacerías y PvP. Los puntos guardados por el servidor se consultan cada minuto.</p>
-    </section>
-    <section class="fractura-origin" aria-labelledby="fractura-origin-title"><span class="eyebrow">LA HERIDA SIGUE ABIERTA</span><h2 id="fractura-origin-title">La Fractura deja<br><em>otra huella.</em></h2><p>Los Ocho respondieron a la Fractura. En Vulcanus, esa misma herida vuelve a manifestarse entre cenizas, ruinas y criaturas alteradas. Frente a ella, dos órdenes comparten una certeza: el continente ya cambió. Lo que no comparten es qué hacer con su poder.</p><div class="fractura-origin-foot"><span>PvP entre facciones en Vulcanus</span><span>Vessara permanece neutral</span></div></section>
-    <section class="fractura-paths" aria-label="Identidad y cacerías de cada orden">
-        <?php foreach($orders as $family=>$order) { ?>
-        <article class="fractura-path fractura-path-<?php echo $family; ?>" id="<?php echo $order['anchor']; ?>">
-            <span class="eyebrow">LA SENDA DE LOS <?php echo $family===1 ? 'CUSTODIOS' : 'HEREDEROS'; ?></span><h2><?php echo $order['name']; ?></h2><p><?php echo $order['copy']; ?></p>
-            <div class="fractura-native-note">Dentro del juego: <strong>Gens <?php echo $order['native']; ?></strong> · Ingreso desde nivel 50.</div>
-            <h3>Cacerías de la orden</h3><p class="fractura-mission-intro">Cada objetivo requiere 50 bajas. Elegí las misiones disponibles según tu nivel: no forman una cadena obligatoria.</p>
-            <table class="fractura-missions"><caption class="sr-only">Cacerías de <?php echo $order['name']; ?></caption><thead><tr><th>Nivel mínimo</th><th>Objetivo</th><th>Puntos</th></tr></thead><tbody><?php foreach($order['targets'] as $i=>$target) { ?><tr><td><?php echo $levels[$i]; ?></td><td><?php echo $target; ?></td><td>+<?php echo panicFracturaNumber($rewards[$i]); ?></td></tr><?php } ?></tbody></table>
-        </article>
-        <?php } ?>
-    </section>
-    <section class="fractura-frontier"><span class="eyebrow">TU HISTORIA EMPIEZA ANTES DE VULCANUS</span><h2>Elegí tu orden.<br>Construí tu fuerza.</h2><p>Afiliate desde nivel 50 hablando con el representante de tu Gens dentro del juego. Las primeras cacerías empiezan en nivel 240, con objetivos como Vepar y Silver Valkyrie en Atlans. Vulcanus te espera más adelante.</p><a href="<?php echo __BASE_URL__; ?>info/" class="btn btn-primary">Explorar el Atlas PANIC <span aria-hidden="true">↗</span></a></section>
+  <div class="fractura-atmosphere" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <header class="fractura-heading"><span class="eyebrow">MU PANIC / EL DESPERTAR DE VULCANUS</span><h1>La <em>Fractura.</em></h1><p>Un continente herido. Dos fuerzas enfrentadas.<br><strong>¿De qué lado vas a escribir tu historia?</strong></p></header>
+  <section class="fractura-battle" aria-label="Varkor de Caos y Aldren de Nexo">
+    <img class="fractura-battle-art" src="<?php echo $art; ?>aldren-varkor-v2.webp" alt="Varkor, hechicero de túnica roja, y Aldren, guardián de barba blanca, enfrentados sobre la Fractura de Vulcanus" width="1536" height="1024" fetchpriority="high">
+    <div class="fractura-battle-shade" aria-hidden="true"></div>
+    <button class="fractura-effects" type="button" data-fractura-effects aria-pressed="false" hidden>Pausar efectos Ⅱ</button>
+    <div class="fractura-leaders"><?php foreach($orders as $id=>$o) { ?><div class="fractura-leader faction-<?php echo $id; ?>"><span><?php echo $o['title']; ?></span><strong><?php echo $o['leader']; ?></strong><p>«<?php echo $o['quote']; ?>»</p></div><?php } ?></div>
+    <div class="fractura-choose-hint"><span>LA FRACTURA NOS DIVIDE</span><strong>Tu decisión nos define.</strong></div>
+  </section>
+  <section class="fractura-scoreboard" aria-label="Contribución acumulada por bando">
+    <?php foreach($orders as $id=>$o) { ?>
+    <article class="fractura-score faction-<?php echo $id; ?>">
+      <header><div class="fractura-emblem"><?php echo panicFracturaCrest($id); ?></div><div><span><?php echo $o['creed']; ?></span><h2><?php echo strtoupper($o['name']); ?></h2></div><a href="#<?php echo $o['anchor']; ?>" aria-label="Conocer <?php echo $o['name']; ?>">Conocé tu bando <b aria-hidden="true">↗</b></a></header>
+      <div class="fractura-total"><strong data-fractura-points="<?php echo $id; ?>"><?php echo $fractura?panicFracturaNumber($fractura['factions'][$id]['points']):'—'; ?></strong><span>PUNTOS DE CONTRIBUCIÓN</span></div>
+      <footer><span><b data-fractura-members="<?php echo $id; ?>"><?php echo $fractura?panicFracturaNumber($fractura['factions'][$id]['members']):'—'; ?></b> <span data-fractura-member-label="<?php echo $id; ?>"><?php echo $fractura && $fractura['factions'][$id]['members']==='1'?'personaje afiliado':'personajes afiliados'; ?></span></span><span class="fractura-native">GENS <?php echo $o['native']; ?></span></footer>
+    </article>
+    <?php } ?>
+  </section>
+  <section class="fractura-balance" aria-labelledby="fractura-balance-title">
+    <div class="fractura-balance-head"><div><span class="eyebrow">EL PULSO DE LA DISPUTA</span><h2 id="fractura-balance-title">Cada punto inclina la balanza.</h2></div><p data-fractura-lead><?php echo !$fractura?'Esperando la contribución del servidor':($caos+$nexo===0.0?'La historia todavía está por escribirse':($lead===0?'Caos y Nexo están igualados':($lead>0?'Caos lleva la delantera':'Nexo lleva la delantera'))); ?></p></div>
+    <div class="fractura-balance-labels"><span>CAOS <b data-fractura-share="2"><?php echo $fractura && $caos+$nexo>0?number_format($share,1,',','.').'%':'—'; ?></b></span><span><b data-fractura-share="1"><?php echo $fractura && $caos+$nexo>0?number_format(100-$share,1,',','.').'%':'—'; ?></b> NEXO</span></div>
+    <div class="fractura-balance-track<?php echo !$fractura || $caos+$nexo===0.0?' is-empty':''; ?>" data-fractura-track><span style="width:<?php echo $share; ?>%" data-fractura-bar></span></div>
+    <div class="fractura-update"><span class="fractura-status-dot<?php echo !$fractura || !empty($fractura['stale'])?' is-offline':''; ?>" data-fractura-dot aria-hidden="true"></span><p data-fractura-status role="status"><?php if(!$fractura) echo 'Los puntos no están disponibles en este momento.';else echo (!empty($fractura['stale'])?'Última lectura disponible · ':'Última consulta · ').gmdate('d/m/Y H:i:s',$fractura['updated']-3*3600).' (Argentina)'; ?></p><button type="button" data-fractura-refresh hidden>Actualizar ↻</button></div>
+    <p class="fractura-counter-note">Cada cacería cumplida y cada aporte Gens suma a tu bando. Este marcador reúne la contribución acumulada guardada por el servidor. Actualización cada minuto.</p>
+  </section>
+  <nav class="fractura-section-nav" aria-label="Explorar Fractura"><a href="#vulcanus">01 <span>El territorio</span></a><a href="#boss-fractura">02 <span>El boss</span></a><a href="#historia-fractura">03 <span>La historia</span></a><a href="#caos">04 <span>Elegí tu bando</span></a></nav>
+  <section class="fractura-territory" id="vulcanus" aria-labelledby="vulcanus-title">
+    <div class="fractura-territory-copy"><span class="eyebrow">01 / EL TERRITORIO EN DISPUTA</span><h2 id="vulcanus-title">Vulcanus.<br><em>La herida está viva.</em></h2><p>Ruinas atravesadas por lava. Senderos que llevan al mismo abismo. En Vulcanus, las dos fuerzas se encuentran y la disputa se vuelve combate.</p><div class="fractura-territory-facts"><span><b>PvP Gens</b>Enfrentamiento entre bandos</span><span><b>Cacerías</b>Blood Assassin y Burning Lava Giant</span><span><b>Boss propio</b>Señor de la Fractura</span></div><a href="<?php echo $art; ?>vulcanus-map.webp" target="_blank" rel="noopener" class="fractura-map-link" data-fractura-map-open>Explorar el mapa de Vulcanus <span aria-hidden="true">↗</span></a><small>Mapa del cliente de MU PANIC. Explorá el terreno antes de entrar.</small></div>
+    <a class="fractura-map" href="<?php echo $art; ?>vulcanus-map.webp" target="_blank" rel="noopener" data-fractura-map-open aria-label="Ampliar el mapa real de Vulcanus"><img src="<?php echo $art; ?>vulcanus-map.webp" alt="Mapa real de Vulcanus: distribución de senderos y terrenos del cliente MU PANIC" width="1024" height="1024" loading="lazy"><span class="fractura-map-corners" aria-hidden="true"></span><span class="fractura-map-caption">VULCANUS <b>AMPLIAR +</b></span></a>
+  </section>
+  <section class="fractura-boss" id="boss-fractura" aria-labelledby="boss-fractura-title"><img src="<?php echo $art; ?>lord-of-fracture-v2.webp" alt="Señor de la Fractura: demonio de armadura negra, enormes alas rojas y armas serradas, basado en su modelo del juego" width="1672" height="941" loading="lazy"><div class="fractura-boss-shade" aria-hidden="true"></div><div class="fractura-boss-copy"><span class="fractura-boss-tag">02 / BOSS DE VULCANUS</span><h2 id="boss-fractura-title">Señor de<br>la Fractura.</h2><p class="fractura-boss-quote">La herida del mundo<br>ya tiene un rostro.</p><p>Una presencia que no responde a ninguno de los dos bandos. Para Aldren, es la amenaza que debe contenerse. Para Varkor, la prueba de que el poder de la Fractura puede tomar forma.</p><span class="fractura-boss-state">EN PRUEBAS DE BETA</span><small>Horarios de aparición y recompensas: próximamente.</small></div></section>
+  <section class="fractura-origin" id="historia-fractura" aria-labelledby="fractura-origin-title"><span class="eyebrow">03 / UNA HERIDA. DOS RESPUESTAS.</span><h2 id="fractura-origin-title">El mundo se quebró.<br><em>Sus voluntades también.</em></h2><p>Los Ocho respondieron a la Fractura. Su huella sigue abierta, y Vulcanus es otra manifestación de esa herida. Cuando el fuego volvió a recorrer las ruinas, Aldren y Varkor reconocieron el mismo poder. Pero cada uno vio un destino distinto.</p><p>Aldren reunió a quienes juraron mantener unido el continente. Varkor llamó a quienes estaban dispuestos a romper sus límites. Así se alzaron <strong>Nexo</strong> y <strong>Caos</strong>.</p><div class="fractura-origin-foot"><span>Vulcanus enfrenta a los bandos</span><span>Vessara permanece neutral</span></div></section>
+  <section class="fractura-paths" aria-label="Historia y cacerías de cada bando">
+  <?php foreach($orders as $id=>$o) { ?><article class="fractura-path faction-<?php echo $id; ?>" id="<?php echo $o['anchor']; ?>"><header><div class="fractura-emblem"><?php echo panicFracturaCrest($id); ?></div><div><span class="eyebrow"><?php echo $o['leader']; ?> / <?php echo $o['title']; ?></span><h2><?php echo $o['name']; ?></h2></div></header><blockquote>«<?php echo $o['quote']; ?>»</blockquote><p><?php echo $o['copy']; ?></p><strong class="fractura-promise"><?php echo $o['promise']; ?></strong><a href="#unirse-fractura" class="fractura-join-link">Quiero pertenecer a <?php echo $o['name']; ?> <span aria-hidden="true">→</span></a><details class="fractura-mission-details"><summary>Tu camino en <?php echo $o['name']; ?><span>5 cacerías · desde nivel 240</span><b aria-hidden="true">+</b></summary><p>Cada misión pide 50 bajas y otorga puntos Gens. Podés elegir las disponibles según tu nivel; son independientes.</p><table class="fractura-missions"><caption class="sr-only">Cacerías de <?php echo $o['name']; ?></caption><thead><tr><th>Nivel</th><th>Objetivo / 50 bajas</th><th>Puntos</th></tr></thead><tbody><?php foreach($o['targets'] as $i=>$target) { $monster=$o['monsters'][$i]; ?><tr><td><?php echo $levels[$i]; ?></td><td><?php if(is_file(__DIR__.'/../img/atlas/monsters/'.$monster.'.webp')) { ?><img src="<?php echo __PATH_TEMPLATE__.'img/atlas/monsters/'.$monster.'.webp'; ?>" alt="" width="36" height="36" loading="lazy"><?php } ?><span><?php echo $target; ?></span></td><td>+<?php echo panicFracturaNumber($rewards[$i]); ?></td></tr><?php } ?></tbody></table></details></article><?php } ?>
+  </section>
+  <section class="fractura-enlist" id="unirse-fractura" aria-labelledby="fractura-enlist-title"><span class="eyebrow">04 / EL JURAMENTO LO HACÉS DENTRO DEL JUEGO</span><h2 id="fractura-enlist-title">Tu fuerza cuenta.<br><em>Tu bando te espera.</em></h2><div class="fractura-enlist-steps"><p><b>01</b><strong>Alcanzá el nivel 50</strong><span>Podés afiliarte a un Gens desde ese nivel.</span></p><p><b>02</b><strong>Elegí a quién seguir</strong><span>Nexo corresponde a Duprian. Caos corresponde a Vanert. Hablá con el representante Gens dentro del juego.</span></p><p><b>03</b><strong>Hacé valer tu nombre</strong><span>Progresá, completá cacerías desde nivel 240 y preparate para la disputa de Vulcanus.</span></p></div><a href="<?php echo __BASE_URL__; ?>downloads/" class="btn btn-primary">Entrar a MU PANIC <span aria-hidden="true">↗</span></a><a href="<?php echo __BASE_URL__; ?>info/" class="fractura-atlas-link">Preparar mi recorrido en el Atlas →</a></section>
+  <dialog class="fractura-map-dialog" data-fractura-map-dialog aria-labelledby="fractura-map-dialog-title"><header><div><span class="eyebrow">EL TERRITORIO EN DISPUTA</span><h2 id="fractura-map-dialog-title">Mapa de Vulcanus</h2></div><button type="button" data-fractura-map-close aria-label="Cerrar mapa">×</button></header><div class="fractura-map-tools"><label for="fractura-map-zoom">Zoom</label><input id="fractura-map-zoom" type="range" min="100" max="250" step="25" value="100" data-fractura-map-zoom><output data-fractura-map-scale for="fractura-map-zoom">100%</output><button type="button" data-fractura-map-reset>Restablecer</button></div><div class="fractura-map-viewport"><img src="<?php echo $art; ?>vulcanus-map.webp" alt="Mapa ampliado de Vulcanus" width="1024" height="1024" data-fractura-map-image></div><p>Al ampliar, desplazate por el mapa para recorrer sus senderos.</p></dialog>
 </div>

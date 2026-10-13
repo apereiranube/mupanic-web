@@ -1,27 +1,30 @@
-# Fractura — beta
+# Fractura V2 — beta
 
-Route /fractura/; header entry immediately after Mercado.
-Custodios del Sello = native Duprian / Family 1; Herederos de la Fractura =
-native Vanert / Family 2. These are web identities, not an in-game rename.
+Route /fractura/, menu immediately after Mercado. User-approved identities:
+Caos (Vanert / Family 2), led by Varkor, appears left; Nexo (Duprian / Family 1),
+led by Aldren, appears right. Native family IDs and SQL contribution are unchanged.
+These are web identities; no in-game NPC replacement is included in this web change.
 
-Totals use the entire MuOnline43.dbo.Gens_Rank Contribution column per family,
-plus affiliated character counts. The reader verifies Name, Family and
-Contribution columns before use. SELECT only. Decimal strings preserve all
-counter digits; the browser uses BigInt. A successful empty query means zero;
-missing data means an unavailable state. Cached fallback is identified.
+The score reader remains SELECT-only and aggregates the entire native table,
+with decimal-string totals, 60-second cache and explicit stale/unavailable states.
+The client updates once per minute while visible, using BigInt. Zero requires
+successful empty data. This adds no weekly resets or campaign points.
 
-Cache TTL 60 seconds; stale fallback at most 24 hours; browser polling once
-per minute while visible. Points reflect persisted server values, not unsaved
-values of connected characters. This introduces no weekly reset, campaign
-score, rewards, contribution writes or territory-control mechanics.
+New artwork was generated with the built-in image tool from the user-selected
+NPC reference. Boss artwork is based on a CPU render of the actual administrator-
+supplied LordOfDarkness.bmd (class 625), not an invented boss. Prompts and asset
+provenance are in img/fractura/SOURCES.md. The map is the actual client OZJ,
+losslessly converted to WebP; no speculative boss/spawn pins or new zones.
 
-The ten independent 50-kill missions reflect the administrator's V3 audit:
-minimum levels 240/300/341/361/381, rewards 100/200/500/1000/2000.
-The page intentionally makes no promise of daily renewal.
+Boss combat is in beta testing; spawn schedule and rewards are not confirmed,
+and the page describes them as forthcoming. Native ten 50-kill missions keep
+V3-audited levels and rewards; daily renewal is intentionally not promised.
+Membership is described as in-game interaction from level 50. Web CTAs scroll
+to instructions, never claim to affiliate a character.
 
-Existing knight-v6.webp, conquest-v61.webp and origin.webp supply artwork;
-provenance is in img/SOURCES.md. Illustrated web crests are not in-game items.
+Dark page/background and explicit heading colors override the CMS's pale inner-
+page defaults. Map has a native dialog with zoom; without JS it opens the image.
+Effects honor prefers-reduced-motion and the user pause setting.
 
-Deploy with the current beta cPanel Update from Remote / Deploy HEAD Commit.
-Verify the live counters and navigation after deploy. No live hosting config
-or credentials enter Git.
+Deploy using beta cPanel Update from Remote / Deploy HEAD Commit. Verify live
+counter-family mapping and desktop/mobile layout on hosting after deploy.

@@ -36,6 +36,14 @@ if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
   exit 1
 fi
 
+# Fractura's exclusive artwork, real map and presentation deploy together.
+for asset in aldren-varkor-v2.webp lord-of-fracture-v2.webp vulcanus-map.webp; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/fractura/$asset" ]; then
+    echo "[MU PANIC] ERROR: Missing Fractura asset: $asset" >&2
+    exit 1
+  fi
+done
+
 # The Vínculos guide and its illustrated bestiary must arrive together.
 for asset in eryns-pack-pouch.webp eryns-pack-chest.webp eryns-pack-legendary.webp theryon-scene-v5.webp nerathys-scene-v5.webp vaeraxes-scene-v5.webp vip-champion-scene-v5.webp vip-insignia-v5.svg vip-benefit-crown-v5.svg vip-benefit-shield-v5.svg vip-benefit-star-v5.svg; do
   test -s "$TEMPLATE_SOURCE/img/recharge/$asset"
