@@ -99,3 +99,21 @@ body.is-fractura .fractura-page .fractura-altar-link{bottom:1%;background:transp
 .fractura-enlist{position:relative;isolation:isolate;background:transparent;box-shadow:none}.fractura-enlist:before{content:"";position:absolute;inset:-30px -10%;z-index:-1;background:radial-gradient(ellipse,#080d15 10%,#080d15ed 52%,transparent 74%);pointer-events:none}
 @media(max-width:700px){.fractura-balance h2{font-size:36px}.fractura-balance-forge{height:115px}.fractura-balance-labels b{font-size:43px}.fractura-balance-caption{font-size:11px}.fractura-score footer{font-size:10px;padding:6px}.fractura-score footer b{font-size:14px}.fractura-balance-head{align-items:center}.fractura-boss-aura{background:linear-gradient(transparent 180px,#070b12cc 410px,#070b12 65%,transparent);mask-image:linear-gradient(transparent,#000 30% 75%,transparent)}}
 @media(max-width:480px){.fractura-score footer{font-size:12px;padding:8px}.fractura-score footer b{font-size:17px}.fractura-balance{padding-left:8px;padding-right:8px;padding-top:45px}.fractura-balance h2{font-size:32px}.fractura-balance-head>p{font-size:14px}.fractura-balance-caption{max-width:250px;margin-left:auto;margin-right:auto;line-height:1.7}.fractura-balance-forge{height:86px;margin-left:-5px;margin-right:-5px}.fractura-balance-track{height:17px;top:calc(50% - 8.5px)}.fractura-balance-labels b{font-size:37px}.fractura-balance-labels small{font-size:20px}.fractura-balance-labels{margin-left:5%;margin-right:5%}.fractura-boss-aura{background:linear-gradient(transparent 160px,#070b12cc 300px,#070b12 65%,transparent)}}
+
+/* V6: decoration fades inside its own bounds; content stays fully opaque. */
+.fractura-heading{background:none;isolation:isolate}
+.fractura-heading:before{content:"";position:absolute;inset:-70px -10%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse closest-side,#10121bea 0%,#10121b99 55%,transparent 100%)}
+.fractura-battle:after,.fractura-lava-light,.fractura-fog{mask-image:linear-gradient(transparent 0%,#000 20%,#000 65%,transparent 100%);-webkit-mask-image:linear-gradient(transparent 0%,#000 20%,#000 65%,transparent 100%)}
+.fractura-balance:before{background:radial-gradient(ellipse closest-side,#080c14f5 0%,#080c14e0 55%,transparent 100%)}
+.fractura-section-nav:before{background:radial-gradient(ellipse closest-side,#080d15e0 0%,#080d15a0 40%,transparent 100%)}
+.fractura-territory:before{background:radial-gradient(ellipse closest-side,#070a10cc 0%,#070a1090 45%,transparent 100%)}
+.fractura-origin:before{background:radial-gradient(ellipse closest-side,#080d16 0%,#080d16ed 55%,transparent 100%)}
+.fractura-enlist:before{background:radial-gradient(ellipse closest-side,#080d15 0%,#080d15ed 55%,transparent 100%)}
+.fractura-boss-aura{mask-image:linear-gradient(transparent 0%,#000 22%,#000 72%,transparent 100%);-webkit-mask-image:linear-gradient(transparent 0%,#000 22%,#000 72%,transparent 100%)}
+.fractura-paths{gap:65px;margin-top:20px;margin-bottom:40px}
+.fractura-path,.fractura-path.faction-1{background:none;box-shadow:none;clip-path:none}
+.fractura-path:after{content:"";position:absolute;inset:-45px -40px;z-index:-2;pointer-events:none;background:radial-gradient(ellipse closest-side,#0b1019 0%,#0b1019fa 65%,#21141c80 82%,transparent 100%)}
+.fractura-path.faction-1:after{background:radial-gradient(ellipse closest-side,#0b1019 0%,#0b1019fa 65%,#15293680 82%,transparent 100%)}
+.fractura-path:before{mask-image:radial-gradient(ellipse closest-side,#000 10%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse closest-side,#000 10%,transparent 100%)}
+@media(max-width:1000px){.fractura-paths{gap:45px}.fractura-path:after{inset:-40px -25px}}
+@media(max-width:700px){.fractura-paths{gap:50px}.fractura-path:after{inset:-35px -20px}}

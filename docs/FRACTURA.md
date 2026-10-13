@@ -43,3 +43,15 @@ unchanged; pause and reduced-motion also cover these new effects.
 Mission details, targets and reward tables are removed from this public page.
 No server mission configuration or contribution data is modified.
 V4 is preserved in Git at 60200b4 for rollback.
+
+## V6 seam correction
+
+Radial chapter shading now uses `ellipse closest-side` and reaches zero alpha
+at 100%, rather than still being partially opaque at a rectangular layer edge.
+The heading receives the same separate feathered backdrop. Battle shading,
+fog and light fade independently at their container boundaries. Both mask
+prefixes are kept aligned on the boss aura, including mobile overrides.
+Faction panels no longer have an opaque background, shadow or clipped polygon;
+each has its own expanded radial reading backdrop and feathered portrait.
+All feathering applies to decoration only, preserving sharp text and controls.
+V5 is retained at f88f5c5 for rollback. Browser visual QA remains pending.
