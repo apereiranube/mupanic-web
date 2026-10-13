@@ -37,7 +37,7 @@ if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
 fi
 
 # Fractura's separate character layers, world, scenic key art and altars deploy together.
-for asset in aldren-varkor-v2.webp lord-of-fracture-v2.webp aldren-layer-v3.webp varkor-layer-v3.webp vulcanus-world-v3.webp boss-layer-v3.webp faction-altars-v3.webp; do
+for asset in balance-forge-v5.svg aldren-varkor-v2.webp lord-of-fracture-v2.webp aldren-layer-v3.webp varkor-layer-v3.webp vulcanus-world-v3.webp boss-layer-v3.webp faction-altars-v3.webp; do
   if [ ! -s "$TEMPLATE_SOURCE/img/fractura/$asset" ]; then
     echo "[MU PANIC] ERROR: Missing Fractura asset: $asset" >&2
     exit 1

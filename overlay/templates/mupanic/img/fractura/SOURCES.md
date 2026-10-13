@@ -46,3 +46,9 @@ Generated with built-in imagegen and WebP quality 92, preserving supplied alpha:
 
 The generated files have genuine alpha (minimum 0, nonopaque edge pixels),
 and are composited with CSS rather than drawing figures into rectangular cards.
+
+## V5 balance ornament
+
+`balance-forge-v5.svg` is original repository-native vector artwork: bronze
+metal rails, red and blue endpoint crystals and carved accents. It frames a
+live HTML ratio bar; the ornament does not encode or invent score data.
