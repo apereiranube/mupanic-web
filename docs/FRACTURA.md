@@ -112,3 +112,16 @@ Two altars stack through 700px so the inscription remains readable. Existing
 selectors for exact live counts are preserved, as are pulse and scroll fixes.
 V9 is preserved at 8241852. PHP render, JS score/effects and syntax checks pass;
 browser visual framing remains pending.
+
+## V11 pixel-energy altar screen
+
+The dark stone interior has its own feathered energy display: faction-colored
+pixel grid, subtle scanlines and a moving light band behind sharp HTML text.
+An original 5x7 numeral font, built by tools/fractura_matrix_font.py, is shipped
+as a small local TTF; no CDN, third-party font or text baked into artwork.
+The label font stays crisp. Real point updates retain their existing pulse.
+All scan effects obey pause and reduced-motion. Decorative layers are
+aria-hidden and pointer-events:none, so the V8 wheel/touch fix stays intact.
+Deploy checks the new font before copying. V10 remains at 6ce556f for rollback.
+PHP lint, score/motion tests, font glyph and render checks pass; live visual
+framing remains to be checked after deployment.

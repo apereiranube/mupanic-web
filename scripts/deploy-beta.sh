@@ -44,6 +44,8 @@ for asset in balance-forge-v5.svg aldren-varkor-v2.webp lord-of-fracture-v2.webp
   fi
 done
 
+test -s "$TEMPLATE_SOURCE/fonts/fractura-matrix-v11.ttf"
+
 # The Vínculos guide and its illustrated bestiary must arrive together.
 for asset in eryns-pack-pouch.webp eryns-pack-chest.webp eryns-pack-legendary.webp theryon-scene-v5.webp nerathys-scene-v5.webp vaeraxes-scene-v5.webp vip-champion-scene-v5.webp vip-insignia-v5.svg vip-benefit-crown-v5.svg vip-benefit-shield-v5.svg vip-benefit-star-v5.svg; do
   test -s "$TEMPLATE_SOURCE/img/recharge/$asset"
