@@ -15,7 +15,7 @@ const money=item=>fmt(item.price)+' '+(item.currency===1?'Eryns':'Zen');
 const active=item=>!item.expiresAt || new Date(item.expiresAt).getTime()>Date.now();
 const promoted=item=>item.featured===true && item.featuredUntil && new Date(item.featuredUntil).getTime()>Date.now() && active(item);
 const photoBase=(root.dataset.marketPhotoBase||'').replace(/\/?$/,'/');
-let current=null,abort=null,requestSeq=0,page=1,currency='all',onlyFeatured=false,search='',sort='recent',nextPoll=0,typing=0,shown=null,pinned=false;
+let current=null,abort=null,requestSeq=0,page=1,currency='all',onlyFeatured=false,search='',sort='recent',nextPoll=0,typing=0,shown=null,pinned=false,openedAt=0;
 const popup=el('div',null,'vessara-tooltip');
 popup.id='vessara-item-tooltip';popup.hidden=true;popup.setAttribute('role','dialog');popup.setAttribute('aria-label','Detalle del objeto publicado');
 document.body.append(popup);
@@ -134,7 +134,7 @@ function position(anchor){
 function show(item,anchor,stick=false){
  if(!active(item))return;
  if(shown && shown.id===item.id && pinned && !stick)return;
- dismiss();shown=item;pinned=stick || innerWidth<=720;buildPopup(item);popup.hidden=false;
+ dismiss();shown=item;pinned=stick || innerWidth<=720;openedAt=Date.now();buildPopup(item);popup.hidden=false;
  document.body.classList.toggle('vessara-tooltip-open',innerWidth<=720);
  anchor.setAttribute('aria-expanded','true');
  position(anchor);
@@ -158,8 +158,19 @@ function offerCard(item,hero=false) {
  } else body.append(el('small','Vigente hasta '+date(item.expiresAt),'vessara-offer-expiry'));
  body.append(el('span','Ver opciones del objeto ↗','vessara-offer-detail-hint'));
  card.append(body);
- card.addEventListener('pointerenter',event=>{if(event.pointerType==='touch'||pinned)return;show(item,card,false);});
- card.addEventListener('pointerleave',()=>{if(!pinned)dismiss();});
+ // Let native scroll-into-view/snap finish before showing the hover panel.
+ let hoverDelay=0;
+ card.addEventListener('pointerenter',event=>{
+   if(event.pointerType==='touch'||pinned)return;
+   clearTimeout(hoverDelay);
+   hoverDelay=setTimeout(()=>{
+     if(!pinned && card.isConnected && card.matches(':hover'))show(item,card,false);
+   },110);
+ });
+ card.addEventListener('pointerleave',()=>{
+   clearTimeout(hoverDelay);
+   if(!pinned && shown?.id===item.id)dismiss();
+ });
  card.addEventListener('focus',()=>{if(innerWidth>720 && !pinned)show(item,card,false);});
  card.addEventListener('blur',()=>{if(!pinned)dismiss();});
  card.addEventListener('click',()=>{if(shown&&shown.id===item.id&&pinned)dismiss();else show(item,card,true);});
@@ -336,7 +347,7 @@ document.addEventListener('keydown',event=>{if(event.key==='Escape')dismiss();})
 document.addEventListener('pointerdown',event=>{
  if(pinned && shown && !popup.contains(event.target) && !event.target.closest('[data-vessara-offer]'))dismiss();
 });
-addEventListener('scroll',()=>{if(shown && !pinned)dismiss();},{passive:true});
+addEventListener('scroll',()=>{if(shown && !pinned && Date.now()-openedAt>300)dismiss();},{passive:true});
 addEventListener('resize',()=>{if(shown && !pinned)dismiss();},{passive:true});
 setInterval(()=>{
  if(!document.hidden && !abort && Date.now()>=nextPoll)load();
