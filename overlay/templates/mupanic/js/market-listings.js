@@ -160,7 +160,7 @@ function offerCard(item,hero=false) {
  card.append(body);
  card.addEventListener('pointerenter',event=>{if(event.pointerType==='touch'||pinned)return;show(item,card,false);});
  card.addEventListener('pointerleave',()=>{if(!pinned)dismiss();});
- card.addEventListener('focus',()=>{if(!pinned)show(item,card,false);});
+ card.addEventListener('focus',()=>{if(innerWidth>720 && !pinned)show(item,card,false);});
  card.addEventListener('blur',()=>{if(!pinned)dismiss();});
  card.addEventListener('click',()=>{if(shown&&shown.id===item.id&&pinned)dismiss();else show(item,card,true);});
  card.addEventListener('keydown',event=>{
