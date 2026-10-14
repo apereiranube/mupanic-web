@@ -8,7 +8,7 @@ class Connection {
   if(self::$mode==='offline')return false;
   if(strpos($q,'AS totalListings')!==false)return [['totalListings'=>self::$mode==='empty'?'0':'2']];
   $row=['id'=>'21','seller'=>'JugadorUno','item'=>'Deadly Staff','itemIndex'=>2593,'level'=>15,'currency'=>1,'price'=>'9007199254740993','expiresAt'=>'2026-10-18T12:30:00.000','featuredUntil'=>'2026-10-15T12:30:00.000','featured'=>1,'AccountID'=>'NEVER_PUBLIC','ItemCode'=>'NEVER_PUBLIC'];
-  if(strpos($q,'TOP 6')!==false || strpos($q,'OFFSET')!==false)return self::$mode==='empty'?null:[$row];
+  if(strpos($q,'TOP 10')!==false || strpos($q,'OFFSET')!==false)return self::$mode==='empty'?null:[$row];
   throw new Exception('Unexpected SQL');
  }
 }
