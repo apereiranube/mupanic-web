@@ -109,3 +109,13 @@ afirmar que todos los tipos personalizados reproducen exactamente el tooltip nat
 - Tests PHP para límite SQL de 8 ítems; test de navegador con diez destacados, avance, pausa, reducción de movimiento, dos páginas y sondeos idénticos.
 - Cambios exclusivamente en rama beta. Desplegar por cPanel Update from Remote y Deploy HEAD Commit.
 - No requiere PowerShell, cambios de SQL, reiniciar GameServer ni modificar cliente.
+
+## V4 — Vidriera simplificada y cinta continua de destacados
+
+- Los destacados ahora se desplazan **continuamente hacia la izquierda**, sin pausas entre ítems ni saltos de página. Dos grupos equivalentes y una sola transformación CSS permiten un bucle uniforme, incluso con 1 o 2 promociones activas; con diez, el bloque conserva una única fila.
+- Se pausa al pasar el mouse sobre el carrusel, enfocar sus elementos, abrir detalles, cambiar de pestaña o quedar fuera de la pantalla. El botón permite pausar/reanudar manualmente. Se respeta `prefers-reduced-motion`: sin movimiento automático y con desplazamiento táctil/manual.
+- Las repeticiones internas de la cinta son solo una técnica de animación. Las copias tienen `aria-hidden` y no entran en el recorrido de teclado. El listado general **excluye** todas las ofertas que todavía tengan una promoción válida; tampoco las cuenta en sus ocho ítems por página, búsquedas ni totales ordinarios.
+- Se eliminan del encabezado de cada tarjeta los textos de expiración, contador de promoción y “Ver opciones del objeto”. El tooltip también omite el ID interno del objeto y su vencimiento; mantiene opciones, vendedor, imagen y precio. El filtrado SQL continúa excluyendo ventas, cancelaciones y fechas vencidas.
+- Colores según atributos públicos reales: Excellent verde, Socket violeta, Ancient azul, Harmony dorado, normal neutro. Nivel +15 rojo luminoso, +13/+14 ámbar dorado, +10–12 cobre, +7–9 sobrio y +1–6 discreto.
+- Sin cambios en `PanicMarketPublicListings`, comisiones, motor de compraventa o scripts del cliente. Se utiliza únicamente la rama beta de GitHub. No se requiere PowerShell ni reiniciar GameServer.
+- Tests de navegador en 1366px y 390px, diez promociones, dos promociones, pausa/reanudación, movimiento reducido, color por opción/nivel, no duplicación en catálogo y ocho objetos por página.
