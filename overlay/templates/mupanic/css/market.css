@@ -487,3 +487,123 @@ body.vessara-tooltip-open:before{display:none}
  .vessara-offer.is-hero-offer .vessara-item-media{width:87px;height:132px}
  .vessara-offer.is-hero-offer .vessara-offer-detail-hint{margin-top:5px}
 }
+
+
+/* Vessara V4: infinite, constant-speed marquee. The motion is one composited
+   transform; no timers or scrollLeft updates are needed for each frame. */
+.vessara-promoted{overflow:hidden}
+.vessara-promoted-grid{
+ display:block!important;
+ overflow-x:hidden;overflow-y:hidden;
+ scroll-snap-type:none;scroll-behavior:auto;
+ padding:5px 0 11px;position:relative;
+ scrollbar-width:none;touch-action:pan-y;
+}
+.vessara-marquee-motion{
+ display:flex;align-items:stretch;gap:0;width:max-content;max-width:none;
+ animation:vessara-marquee-left var(--vessara-duration,32s) linear infinite;
+ animation-play-state:running;will-change:transform;
+}
+.vessara-marquee-group{
+ display:flex;align-items:stretch;gap:14px;flex:none;
+ padding:0 14px 0 0;max-width:none;
+}
+.vessara-marquee-group>.vessara-offer.is-hero-offer{
+ flex:0 0 clamp(276px,27vw,334px);
+ width:clamp(276px,27vw,334px);
+ box-sizing:border-box;
+ grid-template-columns:98px minmax(0,1fr);
+ min-height:177px;max-height:195px;
+ padding:13px 15px;
+}
+.vessara-marquee-group>.vessara-offer .vessara-item-media{
+ width:98px;height:149px;
+}
+.vessara-marquee-group>.vessara-offer h4.vessara-item-title{font-size:clamp(19px,1.75vw,25px);margin:8px 0}
+.vessara-marquee-group>.vessara-offer .vessara-offer-price{font-size:19px;margin:7px 0}
+.vessara-marquee-group>.vessara-offer .vessara-offer-seller{font-size:11px;margin:5px 0}
+.vessara-marquee-group>.vessara-offer.is-hero-offer:after{display:none}
+.vessara-promoted-star{background:radial-gradient(circle,#b73f4b4b,#52202b50);box-shadow:0 0 11px #9e2a3249}
+.vessara-promoted-ui{gap:8px}
+.vessara-promoted-ui [data-featured-pause]{
+ display:inline-flex;align-items:center;justify-content:center;
+ min-height:33px;border:1px solid #9e414c84;border-radius:5px;
+ background:#3f2026;color:#f3c2c3;font-size:11px;
+ padding:7px 12px;cursor:pointer;font-weight:600;
+}
+.vessara-promoted-ui [data-featured-pause]:hover{background:#652831;color:#fff0ed}
+.vessara-promoted-ui [data-featured-pause][aria-pressed=true]{background:#792c37;color:#fff}
+.vessara-promoted-ui [data-featured-pause]:disabled{opacity:.65;cursor:default}
+.vessara-promoted-grid:hover .vessara-marquee-motion,
+.vessara-promoted-grid:focus-within .vessara-marquee-motion,
+.vessara-promoted.is-user-paused .vessara-marquee-motion,
+.vessara-promoted.is-offscreen .vessara-marquee-motion,
+.vessara-promoted.is-page-hidden .vessara-marquee-motion{
+ animation-play-state:paused;
+}
+@keyframes vessara-marquee-left{
+ from{transform:translate3d(0,0,0)}
+ to{transform:translate3d(calc(-1 * var(--vessara-travel,1100px)),0,0)}
+}
+/* Clear ordinary cards: identity, seller and price, no dates or verbose links. */
+.vessara-offer-grid .vessara-offer{min-height:127px}
+.vessara-offer-grid .vessara-offer-price{font-size:15px;font-weight:700}
+.vessara-offer-expiry,.vessara-offer-detail-hint,.vessara-feature-clock{display:none!important}
+.vessara-offer-grid .vessara-offer-price.is-eryns{color:#b1e4ff}
+.vessara-listings-foot{justify-content:flex-start;border-color:#876b492e;color:#ad9d88}
+/* Rarity is derived only from the public real item flags. */
+.vessara-offer h4.vessara-item-title,.vessara-tooltip-name h3.vessara-item-title{color:#f0e1c9}
+.vessara-offer h4.vessara-item-title.is-excellent,
+.vessara-tooltip-name h3.vessara-item-title.is-excellent{
+ color:#8af0a8;text-shadow:0 0 12px #54c87635;
+}
+.vessara-offer h4.vessara-item-title.is-socket,
+.vessara-tooltip-name h3.vessara-item-title.is-socket{
+ color:#c8aeff;text-shadow:0 0 13px #9763e347;
+}
+.vessara-offer h4.vessara-item-title.is-ancient,
+.vessara-tooltip-name h3.vessara-item-title.is-ancient{
+ color:#91caff;text-shadow:0 0 13px #5ba9ee43;
+}
+.vessara-offer h4.vessara-item-title.is-harmony,
+.vessara-tooltip-name h3.vessara-item-title.is-harmony{
+ color:#f2d39b;text-shadow:0 0 10px #ddaf4c32;
+}
+.vessara-item-level{font-family:inherit;font-size:.87em;font-weight:700;white-space:nowrap}
+.vessara-item-title .vessara-item-level.is-max{
+ color:#ff7d81;text-shadow:0 0 14px #e3464f88;
+}
+.vessara-item-title .vessara-item-level.is-high{
+ color:#ffd382;text-shadow:0 0 11px #dc9f4380;
+}
+.vessara-item-title .vessara-item-level.is-strong{
+ color:#ffb78b;text-shadow:0 0 10px #c7854849;
+}
+.vessara-item-title .vessara-item-level.is-medium{color:#dec5a8}
+.vessara-item-title .vessara-item-level.is-low{color:#ada69f;font-weight:500}
+@media(max-width:900px){
+ .vessara-marquee-group>.vessara-offer.is-hero-offer{
+  flex-basis:306px;width:306px;grid-template-columns:88px minmax(0,1fr)
+ }
+ .vessara-marquee-group>.vessara-offer .vessara-item-media{width:88px;height:140px}
+}
+@media(max-width:700px){
+ .vessara-promoted-grid{padding-top:3px;padding-bottom:9px}
+ .vessara-marquee-group{gap:11px;padding-right:11px}
+ .vessara-marquee-group>.vessara-offer.is-hero-offer{
+  flex-basis:min(78vw,310px);width:min(78vw,310px);
+  grid-template-columns:82px minmax(0,1fr);
+  min-height:165px;max-height:178px;
+  gap:10px;padding:12px;
+ }
+ .vessara-marquee-group>.vessara-offer .vessara-item-media{width:82px;height:135px}
+ .vessara-marquee-group>.vessara-offer h4.vessara-item-title{font-size:21px}
+ .vessara-marquee-group>.vessara-offer .vessara-offer-price{font-size:17px}
+ .vessara-promoted-heading h3{font-size:24px}
+ .vessara-promoted-ui [data-featured-pause]{font-size:10px;padding:6px 9px}
+}
+@media(prefers-reduced-motion:reduce){
+ .vessara-marquee-motion{animation:none!important;will-change:auto}
+ .vessara-promoted-grid{overflow-x:auto;touch-action:pan-x pan-y;scroll-snap-type:x mandatory}
+ .vessara-marquee-group>.vessara-offer{scroll-snap-align:start}
+}
