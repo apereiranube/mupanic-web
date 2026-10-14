@@ -82,3 +82,30 @@ la vista original. No reiniciar GameServer. Después desplegar GitHub beta desde
 La vista V1 sigue permitiendo listar objetos sin opciones mientras no se instale V2.
 Confirmar opciones e imágenes contra una publicación real en el cliente antes de
 afirmar que todos los tipos personalizados reproducen exactamente el tooltip nativo.
+
+## V3 — Carrusel de promociones y rendimiento (14/10/2026)
+
+### Catálogo habitual
+- Exactamente 8 publicaciones por página desde SQL; siguen funcionando filtros por moneda, búsqueda, orden y destacados.
+- El cálculo de páginas y el OFFSET/FETCH ocurren en el servidor. El catálogo sigue publicando el total real, no solo la página actual.
+
+### Destacados
+- Los 10 puestos reales de promoción permanecen disponibles, pero se muestran en UNA SOLA franja horizontal compacta.
+- Diseño en rojo oscuro/carmesí, con bordes y placa distintiva que conserva la estética de MU PANIC y el color de moneda.
+- Se ven hasta 3 tarjetas a la vez en escritorio, 2 en tablets y 1 con avance lateral visible en celulares.
+- Autoavance hacia la izquierda cada 6,5 segundos si la sección está en pantalla y hay desbordamiento. En móvil también permite deslizar con el dedo.
+- El carrusel se detiene con hover, foco, tooltip abierto, pestaña oculta y la preferencia de movimiento reducido.
+- Cuenta con flechas, posición y un botón de pausa/reanudación. La navegación manual sigue disponible con movimiento reducido.
+- La comisión del juego (5% base, 8% venta destacada) y la expiración real no cambian.
+
+### Optimización
+- El catálogo NO reconstruye tarjetas ni imágenes cuando los datos de un sondeo son idénticos (excepto updated). Esto evita cerrar tooltips sin necesidad.
+- El tablero histórico de ventas tampoco redibuja métricas, sparklines ni las 40 transacciones si no cambian los datos.
+- El canvas atmosférico pasa aproximadamente de 30 a 15 FPS, de 52 a 22 partículas en escritorio y 22 a 9 en móvil, con DPR máximo 1,1.
+- La carga habitual se reduce de 24 a 8 imágenes por página; las tarjetas del carrusel siguen usando lazy loading.
+- El popup MU existente se conserva: ninguna alteración a las opciones ni a la base de datos ni a los procesos del juego.
+
+### Pruebas y despliegue
+- Tests PHP para límite SQL de 8 ítems; test de navegador con diez destacados, avance, pausa, reducción de movimiento, dos páginas y sondeos idénticos.
+- Cambios exclusivamente en rama beta. Desplegar por cPanel Update from Remote y Deploy HEAD Commit.
+- No requiere PowerShell, cambios de SQL, reiniciar GameServer ni modificar cliente.

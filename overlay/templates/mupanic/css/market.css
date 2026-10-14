@@ -333,3 +333,139 @@ body.vessara-tooltip-open:before{display:none}
  .vessara-offer,.vessara-offer.is-hero-offer{transition:none}
  .vessara-offer:hover,.vessara-offer:focus-visible,.vessara-offer.is-hero-offer:hover{transform:none}
 }
+
+
+/* VESSARA V3 · Crimson compact featured carousel / eight-card browse */
+.vessara-listings{margin-top:42px}
+.vessara-listings-heading{margin-bottom:20px}
+.vessara-listings-heading h2{font-size:clamp(34px,3.6vw,50px)}
+.vessara-promoted{
+ margin-bottom:22px;padding:20px 23px 17px;
+ border-color:#b94752b9;border-radius:8px 29px 8px 29px;
+ background:radial-gradient(ellipse at 3% 0,#ba303f4b,transparent 57%),
+            radial-gradient(ellipse at 100% 100%,#94292d35,transparent 65%),
+            linear-gradient(130deg,#351e22,#24191b 58%,#241a18);
+ box-shadow:0 16px 40px #0007,0 0 29px #ab29321a,inset 0 1px #ffc0b83a;
+}
+.vessara-promoted:before{border-color:#e06c6b24}
+.vessara-promoted-heading{margin-bottom:14px;gap:12px}
+.vessara-promoted-heading h3{font-size:clamp(26px,2.9vw,34px);color:#f8d7ca;text-shadow:0 0 17px #c7484936}
+.vessara-promoted .eyebrow{color:#ee8a8b}
+.vessara-promoted-star{width:48px;height:48px;font-size:21px;background:#a72e3d22;border-color:#e26e71a9;box-shadow:0 0 21px #df424b28;color:#ffbfc1}
+.vessara-promoted-ui{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:12px}
+.vessara-promoted-note{color:#c9a4a4;font-size:10px;letter-spacing:.02em}
+.vessara-featured-controls{display:flex;align-items:center;gap:6px;border:1px solid #ad4a506e;border-radius:6px;background:#170f12b8;padding:5px 6px}
+.vessara-featured-controls[hidden]{display:none!important}
+.vessara-featured-controls button{
+ min-width:30px;height:29px;display:grid;place-items:center;
+ border:1px solid #ac55596b;background:#4c2328;color:#ffdbd4;
+ border-radius:4px;cursor:pointer;font-weight:700;font-size:12px;
+}
+.vessara-featured-controls button:hover,.vessara-featured-controls button:focus-visible{background:#822f38;color:white;border-color:#e27d80}
+.vessara-featured-controls button:disabled{opacity:.45;cursor:default}
+.vessara-featured-controls button[aria-pressed=true]{background:#c64e5c;color:#fff}
+.vessara-featured-controls [data-featured-status]{min-width:62px;text-align:center;font-size:10px;font-variant-numeric:tabular-nums;color:#ffdbd0}
+.vessara-promoted-grid{
+ display:flex;flex-wrap:nowrap;grid-template-columns:none;gap:14px;
+ overflow-x:auto;overflow-y:hidden;
+ scroll-snap-type:x mandatory;scroll-padding-inline:2px;
+ scroll-behavior:smooth;scrollbar-width:none;
+ overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;
+ padding:5px 3px 13px;position:relative;align-items:stretch;
+}
+.vessara-promoted-grid::-webkit-scrollbar{display:none}
+.vessara-promoted-grid>.vessara-offer{
+ box-sizing:border-box;flex:0 0 calc((100% - 28px)/3);
+ scroll-snap-align:start;scroll-snap-stop:always;
+}
+.vessara-promoted.is-duo .vessara-promoted-grid>.vessara-offer{flex-basis:calc((100% - 14px)/2)}
+.vessara-promoted.is-single .vessara-promoted-grid>.vessara-offer{flex-basis:min(100%,420px)}
+.vessara-offer.is-hero-offer{
+ min-height:190px;max-height:208px;grid-template-columns:100px minmax(0,1fr);
+ gap:15px;padding:15px 17px;
+ border-color:#d24e5ec9;border-radius:7px 23px 7px 23px;
+ background:radial-gradient(ellipse at 0 22%,#b73d454d,transparent 70%),
+            linear-gradient(128deg,#3c2228,#271c1d 64%,#2e1c21);
+ box-shadow:0 7px 19px #0008,inset 0 1px #f4a0a037;
+}
+.vessara-offer.is-hero-offer:after{content:'✦';font-size:168px;right:0;bottom:-38px;color:#ef667009}
+.vessara-offer.is-hero-offer:hover,.vessara-offer.is-hero-offer:focus-visible{
+ border-color:#ff8792;box-shadow:0 14px 30px #0009,0 0 16px #d3424b39,inset 0 1px #ffd3d35c;
+ transform:translateY(-2px);
+}
+.vessara-offer.is-hero-offer .vessara-item-media{
+ width:100px;height:150px;border-radius:6px 18px 6px 18px;
+ background:radial-gradient(circle,#d850533d,transparent 68%),linear-gradient(140deg,#45282b,#1f1b1b);
+ border-color:#dd5b6891;box-shadow:inset 0 0 21px #0005,0 0 14px #d7424b22;
+}
+.vessara-offer.is-hero-offer .vessara-item-photo{max-width:88%;max-height:86%}
+.vessara-offer.is-hero-offer h4{font-size:clamp(21px,2.05vw,27px);line-height:1.15;margin:9px 0 8px;color:#ffe0d0}
+.vessara-offer.is-hero-offer .vessara-offer-seller{font-size:10px;margin-bottom:8px}
+.vessara-offer.is-hero-offer .vessara-offer-price{font-size:clamp(17px,1.65vw,20px);margin:8px 0}
+.vessara-offer.is-hero-offer .vessara-offer-detail-hint{font-size:9px;margin-top:7px}
+.vessara-offer.is-hero-offer .vessara-offer-badge{
+ background:linear-gradient(110deg,#e96574,#ba3647);color:#fff3f1;
+ border:1px solid #ff9caa;box-shadow:0 0 12px #e3566454;
+ font-size:8px;padding:5px 8px;
+}
+.vessara-offer.is-hero-offer .vessara-feature-clock{
+ background:#951e2b29;border:1px solid #df5c669c;color:#ffc5c8;
+ margin-top:4px;padding:5px 8px;font-size:9px;
+}
+.vessara-offer-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.vessara-offer-grid>.vessara-offer{
+ grid-template-columns:76px minmax(0,1fr);
+ gap:11px;padding:13px;min-height:130px;
+}
+.vessara-offer-grid .vessara-item-media{width:76px;height:103px}
+.vessara-offer-grid .vessara-offer h4{font-size:20px;margin:8px 0 6px}
+.vessara-offer-grid .vessara-offer-seller{font-size:9px;margin-bottom:9px}
+.vessara-offer-grid .vessara-offer-price{font-size:13px}
+.vessara-offer-grid .vessara-offer-detail-hint{font-size:9px;margin-top:8px}
+.vessara-offer-grid .vessara-feature-clock{font-size:9px;padding:5px 7px;margin-top:5px}
+.vessara-listings-board{padding:22px}
+.vessara-listings-controls{margin-bottom:17px}
+.vessara-listings-pagination{margin:21px 0 0}
+@media(max-width:1160px){
+ .vessara-promoted-grid>.vessara-offer{flex-basis:calc((100% - 14px)/2)}
+ .vessara-offer-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){
+ .vessara-offer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .vessara-promoted-heading{align-items:flex-start}
+}
+@media(max-width:700px){
+ .vessara-promoted{padding:15px 13px 10px}
+ .vessara-promoted-heading{gap:9px}
+ .vessara-promoted-heading h3{font-size:26px}
+ .vessara-promoted-ui{width:100%;justify-content:space-between}
+ .vessara-promoted-note{font-size:9px}
+ .vessara-promoted-grid>.vessara-offer,
+ .vessara-promoted.is-duo .vessara-promoted-grid>.vessara-offer{
+   flex-basis:min(86%,370px);
+ }
+ .vessara-promoted.is-single .vessara-promoted-grid>.vessara-offer{flex-basis:100%}
+ .vessara-offer.is-hero-offer{min-height:179px;max-height:none;grid-template-columns:92px minmax(0,1fr);gap:11px;padding:13px}
+ .vessara-offer.is-hero-offer .vessara-item-media{width:92px;height:145px}
+ .vessara-offer.is-hero-offer h4{font-size:22px}
+ .vessara-offer-grid{grid-template-columns:minmax(0,1fr)}
+ .vessara-offer-grid>.vessara-offer{grid-template-columns:90px minmax(0,1fr);min-height:132px}
+ .vessara-offer-grid .vessara-item-media{width:90px;height:105px}
+ .vessara-listings-board{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){
+ .vessara-promoted-grid{scroll-behavior:auto}
+ .vessara-offer.is-hero-offer:hover,.vessara-offer.is-hero-offer:focus-visible{transform:none}
+}
+
+/* Paid emphasis remains visible in the ordinary eight-item browser. */
+.vessara-offer-grid>.vessara-offer.is-featured{
+ background:radial-gradient(ellipse at 0 0,#9c343747,transparent 78%),linear-gradient(140deg,#322123,#1e1b19);
+ border-color:#be5865a1;
+}
+.vessara-offer-grid>.vessara-offer.is-featured .vessara-offer-badge{
+ background:#b83e50;color:#fff4f2;border:1px solid #e47d86;box-shadow:0 0 11px #ba4b5538;
+}
+.vessara-offer-grid>.vessara-offer.is-featured .vessara-feature-clock{
+ border-color:#aa4c5685;color:#f6b7b8;background:#62252a33;
+}

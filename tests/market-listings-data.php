@@ -17,6 +17,8 @@ class Connection {
 function check($cond,$name){if(!$cond)throw new Exception($name);echo "PASS $name\n";}
 $data=panicMarketListingsRead(1,'1','Deadly Staff',false,'recent');
 check($data['schema']===1 && $data['available'],'correct public API schema');
+check($data['pageSize']===8,'public browse is eight listings per page');
+check(strpos(Connection::$sql[2],'FETCH NEXT 8 ROWS ONLY')!==false,'SQL fetch is limited to eight public items');
 check($data['items'][0]['price']==='9007199254740993','exact BIGINT price');
 check($data['items'][0]['featured']===true,'real featured flag');
 check($data['items'][0]['featuredUntil']==='2026-10-15T12:30:00.000-03:00','featured expiration timezone');

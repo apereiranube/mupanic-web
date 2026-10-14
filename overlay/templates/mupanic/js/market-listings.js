@@ -168,6 +168,96 @@ function offerCard(item,hero=false) {
  });
  return card;
 }
+
+// A capped, native horizontal carousel. No frame-by-frame JS animation.
+// Desktop shows up to three offers; narrow screens allow finger swipes.
+const featuredArea=q('[data-listings-featured-wrap]');
+const featuredTrack=q('[data-listings-featured]');
+const featuredControls=q('[data-featured-controls]');
+const featuredStatus=q('[data-featured-status]');
+const featuredPause=q('[data-featured-pause]');
+const featuredMotion=matchMedia('(prefers-reduced-motion: reduce)');
+let featuredIndex=0,featuredMax=0,featuredVisibleCount=1;
+let featuredHovered=false,featuredInView=false,featuredUserPaused=false;
+let featuredQuietUntil=0,featuredProgrammatic=false,featuredMoveTimer=0;
+let lastDisplayKey='';
+const displayKey=v=>JSON.stringify([v.page,v.pages,v.total,v.pageSize,v.itemOptions,v.items,v.featured]);
+function updateFeaturedStatus(){
+ const count=featuredTrack.children.length;
+ if(!count){featuredStatus.textContent='0 de 0';return;}
+ const first=Math.min(count,featuredIndex+1);
+ const last=Math.min(count,first+featuredVisibleCount-1);
+ featuredStatus.textContent=(first===last?String(first):first+'–'+last)+' de '+count;
+}
+function measureFeatured(){
+ const cards=featuredTrack.children;
+ const count=cards.length;
+ if(!count){featuredMax=0;featuredIndex=0;featuredControls.hidden=true;return;}
+ const computed=getComputedStyle(featuredTrack);
+ const gap=parseFloat(computed.columnGap||computed.gap)||0;
+ const width=cards[0].getBoundingClientRect().width;
+ featuredVisibleCount=width>0?Math.max(1,Math.min(count,Math.floor((featuredTrack.clientWidth+gap)/(width+gap)+0.025))):1;
+ const overflowing=featuredTrack.scrollWidth>featuredTrack.clientWidth+2;
+ featuredMax=overflowing?Math.max(0,count-featuredVisibleCount):0;
+ featuredIndex=Math.min(featuredIndex,featuredMax);
+ featuredControls.hidden=!overflowing || featuredMax===0;
+ featuredPause.disabled=featuredMotion.matches;
+ if(featuredMotion.matches){featuredPause.textContent='Ⅱ';featuredPause.title='Movimiento automático reducido';}
+ const first=cards[0],selected=cards[featuredIndex];
+ featuredTrack.scrollTo({left:(selected.offsetLeft-first.offsetLeft),behavior:'instant'});
+ updateFeaturedStatus();
+}
+function moveFeatured(direction,manual=false){
+ if(featuredArea.hidden || featuredControls.hidden || featuredMax===0)return;
+ if(manual){featuredQuietUntil=Date.now()+9000;if(shown)dismiss();}
+ featuredIndex+=direction;
+ const wrapped=featuredIndex>featuredMax || featuredIndex<0;
+ if(featuredIndex>featuredMax)featuredIndex=0;
+ else if(featuredIndex<0)featuredIndex=featuredMax;
+ const first=featuredTrack.firstElementChild,card=featuredTrack.children[featuredIndex];
+ if(!first||!card)return;
+ featuredProgrammatic=true;clearTimeout(featuredMoveTimer);
+ // At the end, snap to the beginning instead of animating backwards.
+ featuredTrack.scrollTo({left:card.offsetLeft-first.offsetLeft,behavior:wrapped||featuredMotion.matches?'instant':'smooth'});
+ featuredMoveTimer=setTimeout(()=>{featuredProgrammatic=false;},550);
+ updateFeaturedStatus();
+}
+function featuredShouldAdvance(){
+ return !document.hidden && !featuredArea.hidden && featuredInView && !featuredControls.hidden &&
+   !featuredMotion.matches && !featuredUserPaused && !featuredHovered && !shown &&
+   Date.now()>=featuredQuietUntil && !featuredArea.contains(document.activeElement);
+}
+q('[data-featured-prev]').addEventListener('click',()=>moveFeatured(-1,true));
+q('[data-featured-next]').addEventListener('click',()=>moveFeatured(1,true));
+featuredPause.addEventListener('click',()=>{
+ featuredUserPaused=!featuredUserPaused;
+ featuredPause.setAttribute('aria-pressed',String(featuredUserPaused));
+ featuredPause.textContent=featuredUserPaused?'▶':'Ⅱ';
+ featuredPause.setAttribute('aria-label',featuredUserPaused?'Reanudar carrusel de destacados':'Pausar carrusel de destacados');
+ featuredQuietUntil=Date.now()+3000;
+});
+featuredArea.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')featuredHovered=true;});
+featuredArea.addEventListener('pointerleave',()=>{featuredHovered=false;});
+featuredTrack.addEventListener('pointerdown',()=>{featuredQuietUntil=Date.now()+12000;featuredProgrammatic=false;});
+let featuredScrollTimer=0;
+featuredTrack.addEventListener('scroll',()=>{
+ if(featuredProgrammatic)return;
+ clearTimeout(featuredScrollTimer);
+ featuredScrollTimer=setTimeout(()=>{
+   const first=featuredTrack.firstElementChild;
+   const second=featuredTrack.children[1];
+   if(!first||!second)return;
+   const step=second.offsetLeft-first.offsetLeft;
+   if(step>0){featuredIndex=Math.min(featuredMax,Math.max(0,Math.round(featuredTrack.scrollLeft/step)));updateFeaturedStatus();}
+ },100);
+},{passive:true});
+if('IntersectionObserver' in window){
+ new IntersectionObserver(entries=>{featuredInView=entries.some(e=>e.isIntersecting);},{threshold:0.1}).observe(featuredArea);
+}else featuredInView=true;
+addEventListener('resize',()=>{if(!featuredArea.hidden)measureFeatured();},{passive:true});
+featuredMotion.addEventListener('change',()=>{if(!featuredArea.hidden)measureFeatured();});
+setInterval(()=>{if(featuredShouldAdvance())moveFeatured(1);},6500);
+
 function render() {
  dismiss();
  const highlights=q('[data-listings-featured]'),section=q('[data-listings-featured-wrap]'),grid=q('[data-listings-grid]'),notice=q('[data-listings-state]'),pagination=q('[data-listings-pagination]');
@@ -181,8 +271,13 @@ function render() {
  const top=current.featured.filter(x=>active(x)&&promoted(x));
  section.hidden=top.length===0;
  section.classList.toggle('is-duo',top.length===2);
+ section.classList.toggle('is-single',top.length===1);
+ // The ten available promotion booths remain in one horizontal row.
+ featuredIndex=Math.min(featuredIndex,Math.max(0,top.length-1));
  top.forEach(x=>highlights.append(offerCard(x,true)));
  current.items.filter(active).forEach(x=>grid.append(offerCard(x)));
+ if(top.length)requestAnimationFrame(measureFeatured);
+ else {featuredControls.hidden=true;featuredIndex=0;featuredMax=0;}
  q('[data-listings-count]').textContent=fmt(current.total)+' publicaciones';
  notice.hidden=grid.children.length>0;
  notice.textContent=current.total==='0'?'Todavía no hay publicaciones activas.':'No hay coincidencias con estos filtros.';
@@ -207,11 +302,14 @@ async function load() {
    const value=await response.json();
    if(value.schema!==1||value.available!==true||!Array.isArray(value.items)||!Array.isArray(value.featured)||!Number.isInteger(value.page)||!Number.isInteger(value.pages))throw Error('Invalid');
    if(n!==requestSeq)return;
-   current=value;page=value.page;render();
+   current=value;page=value.page;
+   const signature=displayKey(value);
+   if(signature!==lastDisplayKey){lastDisplayKey=signature;render();}
+
    q('[data-listings-connection]').textContent=value.itemOptions?'Opciones reales del juego · Actualización cada 30 segundos':'Actualización cada 30 segundos · Opciones pendientes de sincronizar';
  }catch(error){
    if(n!==requestSeq)return;
-   current=null;render();q('[data-listings-connection]').textContent='Consulta temporalmente no disponible';
+   current=null;lastDisplayKey='';render();q('[data-listings-connection]').textContent='Consulta temporalmente no disponible';
  }finally{
    clearTimeout(timeout);
    if(n===requestSeq){abort=null;nextPoll=Date.now()+30000;}
@@ -242,9 +340,9 @@ addEventListener('scroll',()=>{if(shown && !pinned)dismiss();},{passive:true});
 addEventListener('resize',()=>{if(shown && !pinned)dismiss();},{passive:true});
 setInterval(()=>{
  if(!document.hidden && !abort && Date.now()>=nextPoll)load();
+ // A promotion can expire before the next 30-second poll.
  if(!document.hidden && current && !abort && Date.now()<nextPoll &&
-    (Array.from(q('[data-listings-featured]').children).some(x=>!x.querySelector('.vessara-feature-clock')) ||
-     Array.from(q('[data-listings-featured]').children).some(x=>x.querySelector('.vessara-feature-clock')?.textContent?.includes('Finalizado'))))load();
+    current.featured.some(x=>x.featured && !promoted(x)))load();
 },5000);
 load();
 })();

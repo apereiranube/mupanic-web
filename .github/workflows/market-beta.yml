@@ -13,6 +13,7 @@ on:
       - 'tests/market*.php'
       - 'tests/market-browser.cjs'
       - 'tests/market-listings-browser.cjs'
+      - 'tests/market-carousel-browser.cjs'
       - 'tests/market-listings-data.php'
       - 'tests/market-item-display.php'
       - 'tests/fixtures/market.php'
@@ -53,6 +54,7 @@ jobs:
         run: |
           node tests/market-browser.cjs
           node tests/market-listings-browser.cjs
+          node tests/market-carousel-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

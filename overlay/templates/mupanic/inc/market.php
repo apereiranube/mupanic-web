@@ -29,8 +29,19 @@ $art=__PATH_TEMPLATE__.'img/market/';
   <a class="vessara-listings-entry" href="<?php echo __BASE_URL__; ?>downloads/">Entrar a comerciar ↗</a>
  </div>
  <div class="vessara-promoted" data-listings-featured-wrap hidden>
-  <div class="vessara-promoted-heading"><div><span class="vessara-promoted-star" aria-hidden="true">✦</span><div><p class="eyebrow">BAJO EL SELLO MAYOR DE VESSARA</p><h3>Publicaciones destacadas.</h3></div></div><span>Promoción vigente en el juego · Hasta 24 h</span></div>
-  <div class="vessara-promoted-grid" data-listings-featured></div>
+  <div class="vessara-promoted-heading">
+   <div><span class="vessara-promoted-star" aria-hidden="true">✦</span><div><p class="eyebrow">LOS PUESTOS DE VESSARA</p><h3>Publicaciones destacadas.</h3></div></div>
+   <div class="vessara-promoted-ui">
+    <span class="vessara-promoted-note">Hasta 24 h · Promociones del juego</span>
+    <div class="vessara-featured-controls" data-featured-controls hidden role="group" aria-label="Controles de publicaciones destacadas">
+     <button type="button" data-featured-prev aria-label="Destacado anterior">←</button>
+     <span data-featured-status aria-live="off">1 de 1</span>
+     <button type="button" data-featured-next aria-label="Siguiente destacado">→</button>
+     <button type="button" data-featured-pause aria-label="Pausar carrusel de destacados" aria-pressed="false">Ⅱ</button>
+    </div>
+   </div>
+  </div>
+  <div class="vessara-promoted-grid" data-listings-featured tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Objetos destacados del mercado de Vessara"></div>
  </div>
  <div class="vessara-listings-board">
   <div class="vessara-listings-top"><h3>Explorá las publicaciones</h3><span data-listings-count>—</span></div>
