@@ -88,6 +88,8 @@ const all=Array.from({length:23},(_,i)=>({
     await page.locator('[data-featured-pause]').click();
     assert.equal(await page.locator('[data-featured-pause]').getAttribute('aria-pressed'),'true','user can pause infinite movement');
     assert.equal(await belt.evaluate(node=>getComputedStyle(node).animationPlayState),'paused','manual pause freezes the CSS animation');
+    // Chromium can commit one final compositor frame while changing CSS play-state.
+    await page.waitForTimeout(120);
     const stopped=await belt.evaluate(node=>getComputedStyle(node).transform);
     await page.waitForTimeout(240);
     const held=await belt.evaluate(node=>getComputedStyle(node).transform);
