@@ -5,12 +5,16 @@ on:
     paths:
       - 'overlay/templates/mupanic/inc/market*.php'
       - 'overlay/templates/mupanic/js/market.js'
+      - 'overlay/templates/mupanic/js/market-listings.js'
+      - 'overlay/templates/mupanic/inc/market-item-display.php'
+      - 'overlay/templates/mupanic/inc/market-item-images.json'
       - 'overlay/templates/mupanic/css/market.css'
       - 'overlay/templates/mupanic/index.php'
       - 'tests/market*.php'
       - 'tests/market-browser.cjs'
       - 'tests/market-listings-browser.cjs'
       - 'tests/market-listings-data.php'
+      - 'tests/market-item-display.php'
       - 'tests/fixtures/market.php'
       - '.github/workflows/market-beta.yml'
   workflow_dispatch:
@@ -30,6 +34,8 @@ jobs:
           php tests/market-data.php
           php -l overlay/templates/mupanic/inc/market-listings-data.php
           php tests/market-listings-data.php
+          php -l overlay/templates/mupanic/inc/market-item-display.php
+          php tests/market-item-display.php
           php tests/market-cache.php
           php tests/market-render.php
           node --check overlay/templates/mupanic/js/market.js
