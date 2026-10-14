@@ -64,7 +64,7 @@ if($_REQUEST['page']==='market' && ($_GET['market_listings'] ?? '')==='1') {
     header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store');
     $listings=panicMarketListingsRead(
         $_GET['listing_page']??1, $_GET['currency']??'all', $_GET['search']??'',
-        ($_GET['featured']??'')==='1', $_GET['sort']??'recent'
+        $_GET['sort']??'recent'
     );
     if(!$listings) {http_response_code(503);echo '{"available":false}';}
     else echo json_encode($listings,JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT);
