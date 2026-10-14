@@ -66,7 +66,7 @@ function panicMarketListingsRead($page=1,$currency='all',$search='',$onlyFeature
         $db=Connection::Database('MuOnline');
         if(!$db) throw new RuntimeException('Unavailable');
         // Reads a public view schema property only; no private inventory is queried.
-        $v2=$db->query_fetch("SELECT CASE WHEN COL_LENGTH('dbo.PanicMarketPublicListings','SkillFlag') IS NULL THEN 0 ELSE 1 END AS canDetails");
+        $v2=$db->query_fetch("SELECT CASE WHEN COL_LENGTH('MuOnline43.dbo.PanicMarketPublicListings','SkillFlag') IS NULL THEN 0 ELSE 1 END AS canDetails");
         $canDetails=is_array($v2) && isset($v2[0]['canDetails']) && (int)$v2[0]['canDetails']===1;
         if($canDetails) {
             $columns.=',b.Durability AS durability,b.SkillFlag AS skillFlag,b.LuckFlag AS luckFlag,b.AdditionalOption AS additionalOption,b.ExcellentMask AS excellentMask,b.AncientCode AS ancientCode,b.HarmonyCode AS harmonyCode,b.Option380Flag AS option380Flag,b.Socket1 AS socket1,b.Socket2 AS socket2,b.Socket3 AS socket3,b.Socket4 AS socket4,b.Socket5 AS socket5,b.LotCount AS lotCount';
