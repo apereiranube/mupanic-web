@@ -5,27 +5,32 @@ if(!root || !root.dataset.marketListingsUrl)return;
 const q=s=>root.querySelector(s);
 const el=(tag,value,cls)=>{const node=document.createElement(tag);if(value!==null && value!==undefined)node.textContent=String(value);if(cls)node.className=cls;return node;};
 const fmt=value=>{try{return new Intl.NumberFormat('es-AR').format(BigInt(value));}catch{return '—';}};
-const date=value=>{
- if(!value)return '—';
- const d=new Date(value);
- return Number.isNaN(d.getTime())?'—':new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}).format(d);
-};
 const title=item=>item.item+(item.level?' +'+item.level:'');
 const money=item=>fmt(item.price)+' '+(item.currency===1?'Eryns':'Zen');
+const rarityClass=item=>{
+ const d=item.details;
+ if(d?.ancient)return 'is-ancient';
+ if(Array.isArray(d?.sockets)&&d.sockets.length>0)return 'is-socket';
+ if((d?.excellentCount||0)>0)return 'is-excellent';
+ if(d?.harmony)return 'is-harmony';
+ return 'is-common';
+};
+const levelClass=item=>{
+ const n=Number(item.level)||0;
+ return n>=15?'is-max':n>=13?'is-high':n>=10?'is-strong':n>=7?'is-medium':'is-low';
+};
+function heading(tag,item){
+ const node=el(tag,null,'vessara-item-title '+rarityClass(item));
+ node.append(document.createTextNode(item.item));
+ if(Number(item.level)>0)node.append(el('span',' +'+item.level,'vessara-item-level '+levelClass(item)));
+ return node;
+}
 const active=item=>!item.expiresAt || new Date(item.expiresAt).getTime()>Date.now();
 const promoted=item=>item.featured===true && item.featuredUntil && new Date(item.featuredUntil).getTime()>Date.now() && active(item);
-const photoBase=(root.dataset.marketPhotoBase||'').replace(/\/?$/,'/');
-let current=null,abort=null,requestSeq=0,page=1,currency='all',onlyFeatured=false,search='',sort='recent',nextPoll=0,typing=0,shown=null,pinned=false,openedAt=0;
+let current=null,abort=null,requestSeq=0,page=1,currency='all',search='',sort='recent',nextPoll=0,typing=0,shown=null,pinned=false,openedAt=0;
 const popup=el('div',null,'vessara-tooltip');
 popup.id='vessara-item-tooltip';popup.hidden=true;popup.setAttribute('role','dialog');popup.setAttribute('aria-label','Detalle del objeto publicado');
 document.body.append(popup);
-function countdown(until) {
- const delta=new Date(until).getTime()-Date.now();
- if(!Number.isFinite(delta)||delta<=0)return 'Finalizado';
- const minutes=Math.ceil(delta/60000);
- const d=Math.floor(minutes/1440),h=Math.floor(minutes%1440/60),m=minutes%60;
- return d>0?d+' d '+h+' h':h>0?h+' h '+String(m).padStart(2,'0')+' min':m+' min';
-}
 function sources(item) {
  const index=Number(item.itemIndex);
  if(!Number.isInteger(index)||index<0||index>8191)return item.photo?.url?[item.photo.url]:[];
@@ -68,7 +73,7 @@ function buildPopup(item) {
  const details=el('div',null,'vessara-tooltip-name');
  if(promoted(item))details.append(el('span','✦ PUBLICACIÓN DESTACADA','vessara-tooltip-promoted'));
  const opts=item.details;
- const itemTitle=el('h3',title(item),opts?.ancient?'is-ancient':(opts?.excellentCount>0?'is-excellent':''));
+ const itemTitle=heading('h3',item);
  details.append(itemTitle,el('p','Publicado por '+(item.seller||'—')));
  intro.append(details);popup.append(intro);
  const purchase=el('div',null,'vessara-tooltip-pricebar');
@@ -109,9 +114,9 @@ function buildPopup(item) {
      rare.append(list);popup.append(rare);
    }
  }
+ // No internal item number or expiry text: the server removes expired offers.
  const foot=el('div',null,'vessara-tooltip-footer');
- foot.append(el('span','Ítem #'+item.itemIndex+' · '+(promoted(item)?'Destacado '+countdown(item.featuredUntil):'Vigencia '+date(item.expiresAt))));
- foot.append(el('span','Compra y confirmación únicamente en el juego.'));
+ foot.append(el('span','La compra se realiza dentro del juego.'));
  popup.append(foot);
 }
 function dismiss(){
@@ -141,7 +146,7 @@ function show(item,anchor,stick=false){
 }
 function offerCard(item,hero=false) {
  const isPromoted=promoted(item);
- const card=el('article',null,'vessara-offer'+(isPromoted?' is-featured':'')+(hero?' is-hero-offer':''));
+ const card=el('article',null,'vessara-offer'+(isPromoted?' is-featured':'')+(hero?' is-hero-offer':'')+' '+rarityClass(item)+' '+levelClass(item));
  card.dataset.vessaraOffer=item.id;card.tabIndex=0;card.setAttribute('role','button');
  card.setAttribute('aria-expanded','false');card.setAttribute('aria-controls',popup.id);
  card.setAttribute('aria-label','Ver opciones de '+title(item)+' · '+money(item));
@@ -150,13 +155,10 @@ function offerCard(item,hero=false) {
  const tags=el('div',null,'vessara-offer-tags');
  tags.append(el('span',item.currency===1?'◆ ERYNS':'● ZEN','vessara-offer-currency'+(item.currency===1?' is-eryns':'')));
  if(isPromoted)tags.append(el('span','✦ DESTACADO','vessara-offer-badge'));
- body.append(tags,el('h4',title(item)));
+ body.append(tags,heading('h4',item));
  body.append(el('p','Vendedor: '+(item.seller||'—'),'vessara-offer-seller'));
  body.append(el('strong',money(item),'vessara-offer-price'+(item.currency===1?' is-eryns':'')));
- if(isPromoted){
-   body.append(el('div','TERMINA EN '+countdown(item.featuredUntil),'vessara-feature-clock'));
- } else body.append(el('small','Vigente hasta '+date(item.expiresAt),'vessara-offer-expiry'));
- body.append(el('span','Ver opciones del objeto ↗','vessara-offer-detail-hint'));
+ // Keep the card focused on item identity, seller, currency and price.
  card.append(body);
  // Let native scroll-into-view/snap finish before showing the hover panel.
  let hoverDelay=0;
@@ -180,116 +182,108 @@ function offerCard(item,hero=false) {
  return card;
 }
 
-// A capped, native horizontal carousel. No frame-by-frame JS animation.
-// Desktop shows up to three offers; narrow screens allow finger swipes.
+// Seamless constant-speed featured marquee. Only CSS animates; JS rebuilds on
+// a real promotion change or meaningful viewport-width change, never every frame.
 const featuredArea=q('[data-listings-featured-wrap]');
-const featuredTrack=q('[data-listings-featured]');
-const featuredControls=q('[data-featured-controls]');
-const featuredStatus=q('[data-featured-status]');
+const featuredViewport=q('[data-listings-featured]');
 const featuredPause=q('[data-featured-pause]');
 const featuredMotion=matchMedia('(prefers-reduced-motion: reduce)');
-let featuredIndex=0,featuredMax=0,featuredVisibleCount=1;
-let featuredHovered=false,featuredInView=false,featuredUserPaused=false;
-let featuredQuietUntil=0,featuredProgrammatic=false,featuredMoveTimer=0;
-let lastDisplayKey='';
+let featuredItems=[],featuredKey='',featuredWidth=0,featuredResize=0;
+let featuredManuallyPaused=false,lastDisplayKey='';
 const displayKey=v=>JSON.stringify([v.page,v.pages,v.total,v.pageSize,v.itemOptions,v.items,v.featured]);
-function updateFeaturedStatus(){
- const count=featuredTrack.children.length;
- if(!count){featuredStatus.textContent='0 de 0';return;}
- const first=Math.min(count,featuredIndex+1);
- const last=Math.min(count,first+featuredVisibleCount-1);
- featuredStatus.textContent=(first===last?String(first):first+'–'+last)+' de '+count;
+function marqueeGroup(items,repeatCount,isDuplicate){
+ const group=el('div',null,'vessara-marquee-group');
+ for(let i=0;i<repeatCount;i++){
+   const card=offerCard(items[i%items.length],true);
+   if(isDuplicate || i>=items.length){
+     card.tabIndex=-1;
+     card.setAttribute('aria-hidden','true');
+   }else card.dataset.marqueeOriginal='true';
+   group.append(card);
+ }
+ if(isDuplicate)group.setAttribute('aria-hidden','true');
+ return group;
 }
-function measureFeatured(){
- const cards=featuredTrack.children;
- const count=cards.length;
- if(!count){featuredMax=0;featuredIndex=0;featuredControls.hidden=true;return;}
- const computed=getComputedStyle(featuredTrack);
- const gap=parseFloat(computed.columnGap||computed.gap)||0;
- const width=cards[0].getBoundingClientRect().width;
- featuredVisibleCount=width>0?Math.max(1,Math.min(count,Math.floor((featuredTrack.clientWidth+gap)/(width+gap)+0.025))):1;
- const overflowing=featuredTrack.scrollWidth>featuredTrack.clientWidth+2;
- featuredMax=overflowing?Math.max(0,count-featuredVisibleCount):0;
- featuredIndex=Math.min(featuredIndex,featuredMax);
- featuredControls.hidden=!overflowing || featuredMax===0;
- featuredPause.disabled=featuredMotion.matches;
- if(featuredMotion.matches){featuredPause.textContent='Ⅱ';featuredPause.title='Movimiento automático reducido';}
- const first=cards[0],selected=cards[featuredIndex];
- featuredTrack.scrollTo({left:(selected.offsetLeft-first.offsetLeft),behavior:'instant'});
- updateFeaturedStatus();
+function rebuildFeatured(){
+ if(!featuredItems.length || featuredArea.hidden)return;
+ // Native scrolling is retained when reduced motion is selected.
+ const reduced=featuredMotion.matches;
+ featuredViewport.replaceChildren();
+ const belt=el('div',null,'vessara-marquee-motion');
+ const first=marqueeGroup(featuredItems,featuredItems.length,false);
+ belt.append(first);featuredViewport.append(belt);
+ const card=first.querySelector('.vessara-offer');
+ const width=card?.getBoundingClientRect().width || 315;
+ const viewport=featuredViewport.getBoundingClientRect().width || 920;
+ // Fill the whole visible width so wrapping never creates an empty gap.
+ const repeats=reduced?featuredItems.length:Math.max(featuredItems.length,Math.ceil((viewport+width+15)/(width+14)));
+ if(repeats!==featuredItems.length)first.replaceWith(marqueeGroup(featuredItems,repeats,false));
+ const group=belt.firstElementChild;
+ if(!reduced){
+   const duplicate=marqueeGroup(featuredItems,repeats,true);
+   belt.append(duplicate);
+   const travel=group.getBoundingClientRect().width;
+   belt.style.setProperty('--vessara-travel',travel.toFixed(2)+'px');
+   belt.style.setProperty('--vessara-duration',(travel/43).toFixed(2)+'s');
+ }
+ featuredWidth=viewport;
+ featuredArea.classList.toggle('is-reduced-motion',reduced);
+ featuredPause.disabled=reduced;
+ featuredPause.textContent=reduced?'Movimiento reducido':(featuredManuallyPaused?'▶ Reanudar':'Ⅱ Pausar');
+ featuredPause.setAttribute('aria-pressed',String(featuredManuallyPaused));
+ featuredArea.classList.toggle('is-user-paused',featuredManuallyPaused);
 }
-function moveFeatured(direction,manual=false){
- if(featuredArea.hidden || featuredControls.hidden || featuredMax===0)return;
- if(manual){featuredQuietUntil=Date.now()+9000;if(shown)dismiss();}
- featuredIndex+=direction;
- const wrapped=featuredIndex>featuredMax || featuredIndex<0;
- if(featuredIndex>featuredMax)featuredIndex=0;
- else if(featuredIndex<0)featuredIndex=featuredMax;
- const first=featuredTrack.firstElementChild,card=featuredTrack.children[featuredIndex];
- if(!first||!card)return;
- featuredProgrammatic=true;clearTimeout(featuredMoveTimer);
- // At the end, snap to the beginning instead of animating backwards.
- featuredTrack.scrollTo({left:card.offsetLeft-first.offsetLeft,behavior:wrapped||featuredMotion.matches?'instant':'smooth'});
- featuredMoveTimer=setTimeout(()=>{featuredProgrammatic=false;},550);
- updateFeaturedStatus();
+function renderFeatured(items){
+ featuredItems=items;
+ featuredArea.hidden=items.length===0;
+ if(!items.length){featuredKey='';featuredViewport.replaceChildren();return;}
+ const key=JSON.stringify(items);
+ if(key===featuredKey && featuredViewport.childElementCount>0)return;
+ featuredKey=key;
+ // Use current layout dimensions after the section becomes visible.
+ requestAnimationFrame(()=>{if(featuredKey===key && !featuredArea.hidden)rebuildFeatured();});
 }
-function featuredShouldAdvance(){
- return !document.hidden && !featuredArea.hidden && featuredInView && !featuredControls.hidden &&
-   !featuredMotion.matches && !featuredUserPaused && !featuredHovered && !shown &&
-   Date.now()>=featuredQuietUntil && !featuredArea.contains(document.activeElement);
-}
-q('[data-featured-prev]').addEventListener('click',()=>moveFeatured(-1,true));
-q('[data-featured-next]').addEventListener('click',()=>moveFeatured(1,true));
 featuredPause.addEventListener('click',()=>{
- featuredUserPaused=!featuredUserPaused;
- featuredPause.setAttribute('aria-pressed',String(featuredUserPaused));
- featuredPause.textContent=featuredUserPaused?'▶':'Ⅱ';
- featuredPause.setAttribute('aria-label',featuredUserPaused?'Reanudar carrusel de destacados':'Pausar carrusel de destacados');
- featuredQuietUntil=Date.now()+3000;
+ if(featuredMotion.matches)return;
+ featuredManuallyPaused=!featuredManuallyPaused;
+ featuredArea.classList.toggle('is-user-paused',featuredManuallyPaused);
+ featuredPause.setAttribute('aria-pressed',String(featuredManuallyPaused));
+ featuredPause.setAttribute('aria-label',featuredManuallyPaused?'Reanudar destacados':'Pausar desplazamiento de destacados');
+ featuredPause.textContent=featuredManuallyPaused?'▶ Reanudar':'Ⅱ Pausar';
+ if(!featuredManuallyPaused)featuredPause.blur();
 });
-featuredArea.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')featuredHovered=true;});
-featuredArea.addEventListener('pointerleave',()=>{featuredHovered=false;});
-featuredTrack.addEventListener('pointerdown',()=>{featuredQuietUntil=Date.now()+12000;featuredProgrammatic=false;});
-let featuredScrollTimer=0;
-featuredTrack.addEventListener('scroll',()=>{
- if(featuredProgrammatic)return;
- clearTimeout(featuredScrollTimer);
- featuredScrollTimer=setTimeout(()=>{
-   const first=featuredTrack.firstElementChild;
-   const second=featuredTrack.children[1];
-   if(!first||!second)return;
-   const step=second.offsetLeft-first.offsetLeft;
-   if(step>0){featuredIndex=Math.min(featuredMax,Math.max(0,Math.round(featuredTrack.scrollLeft/step)));updateFeaturedStatus();}
- },100);
+featuredMotion.addEventListener('change',()=>{if(!featuredArea.hidden)rebuildFeatured();});
+addEventListener('resize',()=>{
+ clearTimeout(featuredResize);
+ featuredResize=setTimeout(()=>{
+   if(!featuredArea.hidden && Math.abs(featuredViewport.getBoundingClientRect().width-featuredWidth)>8)rebuildFeatured();
+ },190);
 },{passive:true});
 if('IntersectionObserver' in window){
- new IntersectionObserver(entries=>{featuredInView=entries.some(e=>e.isIntersecting);},{threshold:0.1}).observe(featuredArea);
-}else featuredInView=true;
-addEventListener('resize',()=>{if(!featuredArea.hidden)measureFeatured();},{passive:true});
-featuredMotion.addEventListener('change',()=>{if(!featuredArea.hidden)measureFeatured();});
-setInterval(()=>{if(featuredShouldAdvance())moveFeatured(1);},6500);
+ new IntersectionObserver(entries=>{
+   featuredArea.classList.toggle('is-offscreen',!entries.some(x=>x.isIntersecting));
+ },{threshold:.02}).observe(featuredArea);
+}
+document.addEventListener('visibilitychange',()=>{
+ featuredArea.classList.toggle('is-page-hidden',document.hidden);
+});
 
 function render() {
  dismiss();
- const highlights=q('[data-listings-featured]'),section=q('[data-listings-featured-wrap]'),grid=q('[data-listings-grid]'),notice=q('[data-listings-state]'),pagination=q('[data-listings-pagination]');
- highlights.replaceChildren();grid.replaceChildren();
+ const grid=q('[data-listings-grid]'),notice=q('[data-listings-state]'),pagination=q('[data-listings-pagination]');
+ grid.replaceChildren();
  const okay=current&&current.schema===1&&current.available===true&&Array.isArray(current.items)&&Array.isArray(current.featured);
  if(!okay){
-   section.hidden=true;pagination.hidden=true;q('[data-listings-count]').textContent='—';notice.hidden=false;
+   renderFeatured([]);pagination.hidden=true;q('[data-listings-count]').textContent='—';notice.hidden=false;
    notice.textContent='No se pudieron consultar las publicaciones. El registro de ventas sigue disponible más abajo.';
    return;
  }
  const top=current.featured.filter(x=>active(x)&&promoted(x));
- section.hidden=top.length===0;
- section.classList.toggle('is-duo',top.length===2);
- section.classList.toggle('is-single',top.length===1);
- // The ten available promotion booths remain in one horizontal row.
- featuredIndex=Math.min(featuredIndex,Math.max(0,top.length-1));
- top.forEach(x=>highlights.append(offerCard(x,true)));
- current.items.filter(active).forEach(x=>grid.append(offerCard(x)));
- if(top.length)requestAnimationFrame(measureFeatured);
- else {featuredControls.hidden=true;featuredIndex=0;featuredMax=0;}
- q('[data-listings-count]').textContent=fmt(current.total)+' publicaciones';
+ renderFeatured(top);
+ // Defensive exclusion: a stale or older API response cannot duplicate featured
+ // publications in the ordinary browse results.
+ current.items.filter(x=>active(x)&&!promoted(x)).forEach(x=>grid.append(offerCard(x)));
+ q('[data-listings-count]').textContent=fmt(current.total)+' publicaciones comunes';
  notice.hidden=grid.children.length>0;
  notice.textContent=current.total==='0'?'Todavía no hay publicaciones activas.':'No hay coincidencias con estos filtros.';
  pagination.hidden=current.pages<=1;
@@ -304,7 +298,7 @@ async function load() {
  const url=new URL(root.dataset.marketListingsUrl,location.href);
  url.searchParams.set('listing_page',String(page));
  url.searchParams.set('currency',currency);url.searchParams.set('search',search);
- url.searchParams.set('featured',onlyFeatured?'1':'0');url.searchParams.set('sort',sort);
+ url.searchParams.set('sort',sort);
  q('[data-listings-connection]').textContent='Consultando el mercado…';
  const timeout=setTimeout(()=>ctl.abort(),10000);
  try{
@@ -317,7 +311,7 @@ async function load() {
    const signature=displayKey(value);
    if(signature!==lastDisplayKey){lastDisplayKey=signature;render();}
 
-   q('[data-listings-connection]').textContent=value.itemOptions?'Opciones reales del juego · Actualización cada 30 segundos':'Actualización cada 30 segundos · Opciones pendientes de sincronizar';
+   q('[data-listings-connection]').textContent='Publicaciones actualizadas automáticamente';
  }catch(error){
    if(n!==requestSeq)return;
    current=null;lastDisplayKey='';render();q('[data-listings-connection]').textContent='Consulta temporalmente no disponible';
@@ -332,9 +326,6 @@ root.querySelectorAll('[data-listings-currency]').forEach(button=>button.addEven
  root.querySelectorAll('[data-listings-currency]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
  changed();
 }));
-q('[data-listings-onlyfeatured]').addEventListener('click',()=>{
- onlyFeatured=!onlyFeatured;q('[data-listings-onlyfeatured]').setAttribute('aria-pressed',String(onlyFeatured));changed();
-});
 q('[data-listings-sort]').addEventListener('change',event=>{sort=event.target.value;changed();});
 q('[data-listings-search]').addEventListener('input',event=>{
  clearTimeout(typing);const value=event.target.value.slice(0,60);
@@ -353,7 +344,7 @@ setInterval(()=>{
  if(!document.hidden && !abort && Date.now()>=nextPoll)load();
  // A promotion can expire before the next 30-second poll.
  if(!document.hidden && current && !abort && Date.now()<nextPoll &&
-    current.featured.some(x=>x.featured && !promoted(x)))load();
+    (current.featured.some(x=>x.featured && !promoted(x)) || current.items.some(x=>!active(x))))load();
 },5000);
 load();
 })();
