@@ -36,7 +36,7 @@ function panicMarketListingsProject($rows) {
     }
     return $clean;
 }
-function panicMarketListingsRead($page=1,$currency='all',$search='',$onlyFeatured=false,$sort='recent') {
+function panicMarketListingsRead($page=1,$currency='all',$search='',$sort='recent') {
     $page=max(1,min(1000,(int)$page));
     $currency=in_array((string)$currency,['0','1'],true)?(string)$currency:'all';
     $sort=in_array((string)$sort,['recent','price-asc','price-desc'],true)?$sort:'recent';
@@ -45,7 +45,9 @@ function panicMarketListingsRead($page=1,$currency='all',$search='',$onlyFeature
     if(!preg_match('/^[\pL\pN .+\-]{0,60}$/uD',$search)) $search='';
     $where='b.ExpiresAt>GETDATE() AND b.Currency IN (0,1) AND b.Price>0';
     if($currency!=='all') $where.=' AND b.Currency='.(int)$currency;
-    if($onlyFeatured) $where.=' AND b.FeaturedUntil>GETDATE()';
+    // Featured publications live ONLY in the separate promotional strip.
+    // Keep them out of ordinary counts, search results and all eight-item pages.
+    $where.=' AND (b.FeaturedUntil IS NULL OR b.FeaturedUntil<=GETDATE())';
     if($search!=='') {
         $encoded=function_exists('iconv')?iconv('UTF-8','UTF-16LE',$search):false;
         if($encoded===false) return null;
@@ -61,7 +63,7 @@ function panicMarketListingsRead($page=1,$currency='all',$search='',$onlyFeature
        ."CASE WHEN b.FeaturedUntil>GETDATE() THEN 1 ELSE 0 END AS featured";
     $order=$sort==='price-asc'?'b.Price ASC,b.ListingID DESC':
         ($sort==='price-desc'?'b.Price DESC,b.ListingID DESC':
-         'CASE WHEN b.FeaturedUntil>GETDATE() THEN 0 ELSE 1 END,b.ExpiresAt DESC,b.ListingID DESC');
+         'b.ExpiresAt DESC,b.ListingID DESC');
     try {
         $db=Connection::Database('MuOnline');
         if(!$db) throw new RuntimeException('Unavailable');
