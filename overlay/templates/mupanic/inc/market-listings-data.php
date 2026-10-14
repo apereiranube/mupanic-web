@@ -68,7 +68,7 @@ function panicMarketListingsRead($page=1,$currency='all',$search='',$onlyFeature
         $total=(int)$totals[0]['totalListings'];
         $pages=max(1,(int)ceil($total/24));$page=min($page,$pages);$offset=($page-1)*24;
         $rows=$db->query_fetch("SELECT $columns FROM $src b WHERE $where ORDER BY $order OFFSET $offset ROWS FETCH NEXT 24 ROWS ONLY");
-        $promos=$db->query_fetch("SELECT TOP 6 $columns FROM $src b WHERE b.ExpiresAt>GETDATE() AND b.Currency IN (0,1) AND b.Price>0 AND b.FeaturedUntil>GETDATE() ORDER BY b.FeaturedUntil DESC,b.ListingID DESC");
+        $promos=$db->query_fetch("SELECT TOP 10 $columns FROM $src b WHERE b.ExpiresAt>GETDATE() AND b.Currency IN (0,1) AND b.Price>0 AND b.FeaturedUntil>GETDATE() ORDER BY b.FeaturedUntil DESC,b.ListingID DESC");
         return ['schema'=>1,'available'=>true,'updated'=>time(),
             'page'=>$page,'pages'=>$pages,'pageSize'=>24,'total'=>(string)$total,
             'items'=>panicMarketListingsProject($rows),
