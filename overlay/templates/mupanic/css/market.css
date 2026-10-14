@@ -113,3 +113,58 @@ body.is-market{background:#141110}
 @media(prefers-reduced-motion:reduce){.vessara-live-label i{animation:none}}
 
 .vessara-floor{margin-top:48px}@media(max-width:600px){.vessara-floor{margin-top:32px}}
+
+
+/* Mercado de Vessara: ofertas activas y destaques pagos del juego */
+.vessara-listings{position:relative;z-index:2;margin-top:54px}
+.vessara-listings [hidden]{display:none!important}
+.vessara-listings-heading,.vessara-listings-top,.vessara-promoted-heading,.vessara-listings-foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.vessara-listings-heading{margin-bottom:26px}
+.vessara-listings-heading h2{font:500 clamp(40px,5vw,62px)/1.1 var(--display);color:#f3d2a4;margin:10px 0}
+.vessara-listings-heading .eyebrow,.vessara-promoted .eyebrow{color:#d8a869;letter-spacing:.16em;font-size:9px}
+.vessara-listings-heading p:not(.eyebrow){color:#bdad99;font-size:13px;line-height:1.7;max-width:650px}
+.vessara-listings-entry{color:#f0cc97!important;text-decoration:none;border:1px solid #b88a5166;border-radius:5px 18px 5px 18px;padding:13px 17px;font-size:11px}
+.vessara-promoted{padding:25px;border-radius:7px 28px 7px 28px;border:1px solid #dcac6b7a;background:radial-gradient(ellipse at 0 0,#b37a352d,transparent 65%),#231d17;margin-bottom:23px;box-shadow:0 15px 45px #0005}
+.vessara-promoted-heading{margin-bottom:17px}
+.vessara-promoted-heading>div{display:flex;align-items:center;gap:14px}
+.vessara-promoted-star{font-size:27px;color:#f7cb84;border-radius:50%;border:1px solid #cda15d76;padding:6px 13px}
+.vessara-promoted h3{font:500 31px/1.1 var(--display);color:#f8d8aa;margin:4px 0}
+.vessara-promoted-heading>span{font-size:10px;color:#bca78b}
+.vessara-promoted-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.vessara-listings-board{background:linear-gradient(145deg,#252019,#1b1918);border:1px solid #9e7b4e58;border-radius:6px 24px 6px 24px;padding:25px}
+.vessara-listings-top{margin-bottom:18px}
+.vessara-listings-top h3{font:500 27px var(--display);color:#edcb9f;margin:0}
+.vessara-listings-top span{font-size:11px;color:#bd9f79}
+.vessara-listings-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:24px}
+.vessara-listings-currencies{display:flex;border:1px solid #ab895863;border-radius:5px;overflow:hidden}
+.vessara-listings-currencies button,.vessara-listings-feature-filter{border:0;background:#292118;color:#cbb290;padding:11px 14px;cursor:pointer;font-size:11px}
+.vessara-listings-currencies button:not(:last-child){border-right:1px solid #a47c4952}
+.vessara-listings-currencies button[aria-pressed=true],.vessara-listings-feature-filter[aria-pressed=true]{color:#27190c;background:#d6aa6d;font-weight:800}
+.vessara-listings-feature-filter{border:1px solid #aa844f68;border-radius:5px}
+.vessara-listings-search{min-width:170px;flex:1}
+.vessara-listings-search input,.vessara-listings-sort select{width:100%;background:#191815;color:#f6dfbd;border:1px solid #a7855866;border-radius:5px;min-height:39px;padding:9px 12px;font-size:12px}
+.vessara-listings-sort{min-width:158px}
+.vessara-offer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.vessara-offer{min-width:0;display:grid;grid-template-columns:58px minmax(0,1fr);gap:12px;padding:16px;min-height:148px;background:#1e1b18;border:1px solid #9b7d5255;border-radius:5px 19px 5px 19px}
+.vessara-offer.is-featured{background:radial-gradient(ellipse at 0 0,#d3a0572b,transparent 72%),#241d16;border-color:#e1b26b9a;box-shadow:0 10px 28px #0004,inset 0 1px #f3cd8e22}
+.vessara-offer-crest{width:58px;height:58px;display:grid;place-items:center;border-radius:4px 13px 4px 13px;border:1px solid #99724668;background:radial-gradient(circle,#ae763b35,#1c1915)}
+.vessara-offer-crest img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 0 7px #d7ab5940)}
+.vessara-offer-body{min-width:0}
+.vessara-offer-tags{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.vessara-offer-currency{color:#e3bb79;font-size:8px;letter-spacing:.08em}
+.vessara-offer-currency.is-eryns,.vessara-offer-price.is-eryns{color:#a4ddff}
+.vessara-offer-badge{background:#efbb69;color:#291907;font-size:8px;border-radius:3px;padding:3px 6px;font-weight:800;letter-spacing:.06em}
+.vessara-offer h4{font:500 21px/1.16 var(--display);color:#f2d9b6;overflow-wrap:anywhere;margin:9px 0 6px}
+.vessara-offer-seller{font-size:10px;color:#b6a48e;overflow-wrap:anywhere;margin:0 0 12px}
+.vessara-offer-price{display:block;font-size:14px;font-variant-numeric:tabular-nums;color:#f1c486;overflow-wrap:anywhere}
+.vessara-offer-expiry{display:block;margin-top:8px;font-size:9px;color:#9d8e7c;line-height:1.5}
+.vessara-listings-state{padding:23px;color:#b4a088;text-align:center;font-size:12px}
+.vessara-listings-pagination{display:flex;align-items:center;justify-content:center;gap:15px;margin:18px 0}
+.vessara-listings-pagination button{border:1px solid #b895656d;background:#2a221a;color:#e9c797;border-radius:5px;padding:9px 14px;cursor:pointer}
+.vessara-listings-pagination button:disabled{opacity:.4;cursor:default}
+.vessara-listings-pagination span,.vessara-listings-foot{font-size:10px;color:#ac9a82}
+.vessara-listings-foot{margin-top:20px;padding-top:13px;border-top:1px solid #96795148;line-height:1.8}
+@media(max-width:1200px){.vessara-offer-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.vessara-offer-grid,.vessara-promoted-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.vessara-listings{margin-top:36px}.vessara-listings-heading h2{font-size:42px}.vessara-listings-entry{display:inline-block}.vessara-listings-board,.vessara-promoted{padding:16px}.vessara-promoted-grid,.vessara-offer-grid{grid-template-columns:minmax(0,1fr)}.vessara-promoted h3{font-size:25px}.vessara-listings-currencies,.vessara-listings-search{width:100%;flex:1 0 100%}.vessara-listings-currencies button{flex:1}.vessara-listings-sort{flex:1;min-width:100px}.vessara-offer{grid-template-columns:61px minmax(0,1fr);min-height:120px;padding:14px}.vessara-offer-crest{width:61px;height:61px}.vessara-listings-foot>span{display:block;width:100%}}
+@media(prefers-reduced-motion:reduce){.vessara-offer{transition:none}}

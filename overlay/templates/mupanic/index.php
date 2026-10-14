@@ -58,6 +58,19 @@ if($_REQUEST['page']==='market' && ($_GET['market_data'] ?? '')==='1') {
     exit;
 }
 
+// Public active listings, isolated from confirmed purchase history.
+if($_REQUEST['page']==='market' && ($_GET['market_listings'] ?? '')==='1') {
+    require_once __DIR__.'/inc/market-listings-data.php';
+    header('Content-Type: application/json; charset=utf-8');header('Cache-Control: no-store');
+    $listings=panicMarketListingsRead(
+        $_GET['listing_page']??1, $_GET['currency']??'all', $_GET['search']??'',
+        ($_GET['featured']??'')==='1', $_GET['sort']??'recent'
+    );
+    if(!$listings) {http_response_code(503);echo '{"available":false}';}
+    else echo json_encode($listings,JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT);
+    exit;
+}
+
 // Status route runs before markup and only reads the signed-in account's ledger.
 if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='recharge' && ($_GET['shop_status'] ?? '')==='1') {
     header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store');
@@ -321,6 +334,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <?php if($_REQUEST['page']==='fractura') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>fractura.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/fractura.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market.js'),0,12); ?>" defer></script><?php } ?>
+<?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market-listings.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market-listings.js'),0,12); ?>" defer></script><?php } ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-search.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-search.js'), 0, 12); ?>"></script>
