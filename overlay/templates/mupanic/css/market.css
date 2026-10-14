@@ -469,3 +469,21 @@ body.vessara-tooltip-open:before{display:none}
 .vessara-offer-grid>.vessara-offer.is-featured .vessara-feature-clock{
  border-color:#aa4c5685;color:#f6b7b8;background:#62252a33;
 }
+
+/* Compact mobile featured rail: only one headline and one control row. */
+@media(max-width:700px){
+ .vessara-promoted{padding:12px 12px 8px}
+ .vessara-promoted-heading{gap:6px;margin-bottom:10px}
+ .vessara-promoted-heading>div:first-child{gap:10px}
+ .vessara-promoted-star{width:40px;height:40px;font-size:19px}
+ .vessara-promoted-heading h3{font-size:23px;line-height:1.08;margin:3px 0}
+ .vessara-promoted .eyebrow{font-size:8px}
+ .vessara-promoted-note{display:none}
+ .vessara-promoted-ui{justify-content:flex-end}
+ .vessara-featured-controls{padding:3px 4px}
+ .vessara-featured-controls button{width:29px;height:27px;min-width:29px}
+ .vessara-promoted-grid{padding-top:3px;padding-bottom:8px}
+ .vessara-offer.is-hero-offer{min-height:166px;padding:11px;grid-template-columns:87px minmax(0,1fr)}
+ .vessara-offer.is-hero-offer .vessara-item-media{width:87px;height:132px}
+ .vessara-offer.is-hero-offer .vessara-offer-detail-hint{margin-top:5px}
+}
