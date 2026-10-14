@@ -38,3 +38,47 @@ The layered hero, seal rings, orbiting currency emblems, currency-core panels an
 Treasure pedestals show the latest sale for up to four distinct itemIndex/level combinations. Category emblems are explicitly symbolic and identified as staff/armor/etc; they do not claim to be exact in-game model photographs. Titles, prices, character names and timestamps are the real public records. A newly confirmed delivery fires one restrained light ripple; initial history, stale/unchanged responses and older imported rows never fire it. Pointer tilt/parallax is decorative and disabled for touch/reduced-motion.
 
 New-sale receipts display the real latest newly delivered item, price, buyer and seller, with a connecting light arrow. If several purchases arrive in a poll, the receipt identifies the count and displays the newest one.
+
+## V2 — Imágenes reales, opciones y destacados (14/10/2026)
+
+La sección /market/ conserva el registro de ventas de PanicMarketPublicSales y consulta
+por separado las publicaciones activas desde PanicMarketPublicListings.
+El catálogo mantiene búsqueda, filtros Zen/Eryns, paginación de 24 ítems y actualización cada 30 segundos.
+
+### Imágenes verificadas del Atlas
+
+inc/market-item-images.json reúne 38 referencias locales unívocas de los manifiestos reales
+del Atlas: íconos originales y renders 2D de modelos BMD y texturas del cliente.
+Excluye las ilustraciones generadas con IA y las variantes ambiguas.
+Para índices sin recurso local, JS intenta rutas de imágenes 2D originales documentadas
+en los manifiestos de fuentes (mureforge.com y bless.gs). Si fallan, muestra
+Imagen no disponible: no reemplaza la foto por un símbolo que aparente ser el objeto.
+
+### Opciones del objeto
+
+La ampliación SQL V2 solo devuelve valores públicos normalizados desde ItemCode S6:
+Skill, Luck, nivel, durabilidad, opción adicional, máscara Excellent, Ancient, Harmony,
+indicador 380, sockets y cantidad por lote. El navegador nunca recibe ItemCode crudo,
+seriales, AccountID ni datos de inventario. Las máscaras Excellent de armas y
+defensa usan los nombres de opciones estándar; otras familias se identifican
+sin inventar bonificaciones custom que no consten en la configuración del servidor.
+
+El tooltip aparece con hover de mouse, foco de teclado y clic. Escape lo cierra.
+En móvil funciona como panel inferior con cierre y fondo oscurecido.
+
+### Destacados
+
+El bloque premium da protagonismo a los diez puestos de PanicMarketPromotion con
+imágenes grandes, insignia dorada, temporizador y opciones accesibles.
+No toca asignaciones, precios, comisiones ni transacciones del juego.
+
+### Despliegue
+
+La vista SQL V1 fue confirmada por el VPS el 14/10/2026 a las 19:45:
+13 publicaciones activas y 2 destacadas vigentes en ese momento.
+El paso siguiente requiere instalar el paquete MU_PANIC_VESSARA_VISUAL_V2.zip
+en el VPS, que guarda copias de seguridad y el TXT en Descargas y permite revertir
+la vista original. No reiniciar GameServer. Después desplegar GitHub beta desde cPanel.
+La vista V1 sigue permitiendo listar objetos sin opciones mientras no se instale V2.
+Confirmar opciones e imágenes contra una publicación real en el cliente antes de
+afirmar que todos los tipos personalizados reproducen exactamente el tooltip nativo.
