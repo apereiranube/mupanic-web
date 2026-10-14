@@ -30,18 +30,12 @@ $art=__PATH_TEMPLATE__.'img/market/';
  </div>
  <div class="vessara-promoted" data-listings-featured-wrap hidden>
   <div class="vessara-promoted-heading">
-   <div><span class="vessara-promoted-star" aria-hidden="true">✦</span><div><p class="eyebrow">LOS PUESTOS DE VESSARA</p><h3>Publicaciones destacadas.</h3></div></div>
+   <div><span class="vessara-promoted-star" aria-hidden="true">✦</span><div><p class="eyebrow">EL SELLO DE VESSARA</p><h3>Objetos destacados.</h3></div></div>
    <div class="vessara-promoted-ui">
-    <span class="vessara-promoted-note">Hasta 24 h · Promociones del juego</span>
-    <div class="vessara-featured-controls" data-featured-controls hidden role="group" aria-label="Controles de publicaciones destacadas">
-     <button type="button" data-featured-prev aria-label="Destacado anterior">←</button>
-     <span data-featured-status aria-live="off">1 de 1</span>
-     <button type="button" data-featured-next aria-label="Siguiente destacado">→</button>
-     <button type="button" data-featured-pause aria-label="Pausar carrusel de destacados" aria-pressed="false">Ⅱ</button>
-    </div>
+    <button type="button" data-featured-pause aria-label="Pausar desplazamiento de destacados" aria-pressed="false">Ⅱ Pausar</button>
    </div>
   </div>
-  <div class="vessara-promoted-grid" data-listings-featured tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Objetos destacados del mercado de Vessara"></div>
+  <div class="vessara-promoted-grid" data-listings-featured tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Publicaciones destacadas; desplazamiento continuo hacia la izquierda"></div>
  </div>
  <div class="vessara-listings-board">
   <div class="vessara-listings-top"><h3>Explorá las publicaciones</h3><span data-listings-count>—</span></div>
@@ -52,13 +46,12 @@ $art=__PATH_TEMPLATE__.'img/market/';
     <button type="button" data-listings-currency="1" aria-pressed="false">Eryns</button>
    </div>
    <label class="vessara-listings-search"><span class="sr-only">Buscar objetos o vendedores</span><input type="search" maxlength="60" data-listings-search placeholder="Buscar objeto o vendedor"></label>
-   <button class="vessara-listings-feature-filter" type="button" data-listings-onlyfeatured aria-pressed="false">✦ Solo destacados</button>
-   <label class="vessara-listings-sort"><span class="sr-only">Orden de las publicaciones</span><select data-listings-sort><option value="recent">Destacados primero</option><option value="price-asc">Menor precio</option><option value="price-desc">Mayor precio</option></select></label>
+   <label class="vessara-listings-sort"><span class="sr-only">Orden de las publicaciones</span><select data-listings-sort><option value="recent">Más recientes</option><option value="price-asc">Menor precio</option><option value="price-desc">Mayor precio</option></select></label>
   </div>
   <div class="vessara-offer-grid" data-listings-grid></div>
   <p class="vessara-listings-state" data-listings-state role="status">Consultando las publicaciones del juego…</p>
   <div class="vessara-listings-pagination" data-listings-pagination hidden><button type="button" data-listings-prev>← Anterior</button><span data-listings-page>Página 1</span><button type="button" data-listings-next>Siguiente →</button></div>
-  <div class="vessara-listings-foot"><span data-listings-connection>Conectando con el mercado…</span><span>Las compras, cancelaciones y promociones se realizan únicamente en MU PANIC.</span></div>
+  <div class="vessara-listings-foot"><span data-listings-connection>Conectando al mercado…</span></div>
  </div>
 </section>
 <section class="shell vessara-floor" id="tratos">
