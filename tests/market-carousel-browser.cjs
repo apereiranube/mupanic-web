@@ -87,10 +87,11 @@ const all=Array.from({length:23},(_,i)=>({
     assert.equal(await page.locator('[data-featured-pause]').isDisabled(),false,'motion toggle works');
     await page.locator('[data-featured-pause]').click();
     assert.equal(await page.locator('[data-featured-pause]').getAttribute('aria-pressed'),'true','user can pause infinite movement');
-    const stopped=await belt.evaluate(node=>node.getAnimations()[0]?.currentTime||0);
+    assert.equal(await belt.evaluate(node=>getComputedStyle(node).animationPlayState),'paused','manual pause freezes the CSS animation');
+    const stopped=await belt.evaluate(node=>getComputedStyle(node).transform);
     await page.waitForTimeout(240);
-    const held=await belt.evaluate(node=>node.getAnimations()[0]?.currentTime||0);
-    assert.ok(Math.abs(held-stopped)<25,'paused marquee holds its animation time');
+    const held=await belt.evaluate(node=>getComputedStyle(node).transform);
+    assert.equal(held,stopped,'paused marquee holds its rendered position');
     await page.locator('[data-featured-pause]').click();
     assert.equal(await page.locator('[data-featured-pause]').getAttribute('aria-pressed'),'false','marquee can resume');
    }else{
