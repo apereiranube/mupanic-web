@@ -150,3 +150,14 @@ El servidor continúa resolviendo imagen por `ItemIndex` y sirviendo los mismos 
 - Test PHP: los ocho índices apuntan a los archivos esperados, tamaño declarado HD, archivo físico presente y encabezado WebP válido.
 - Test de navegador en escritorio y móvil: ocho miniaturas cargan desde el Atlas, el Chaos en el tooltip usa la misma versión renovada y la paleta de la vidriera se distingue de la sección de ventas.
 - Solo se despliega `beta` mediante cPanel. No requiere SQL, PowerShell, instaladores ni reiniciar los GameServer.
+
+## V7 — Corrección de navegación táctil y ventana de ítem (15/10/2026)
+
+- La página pública del Mercado de Vessara evita el deslizamiento horizontal accidental del documento en celulares. Se limita el eje X del documento y los contenedores generales, sin borrar el desplazamiento interior de la tabla de ventas ni la accesibilidad del carrusel en movimiento reducido.
+- La ventana de opciones en móvil deja de ser una lámina pegada al borde inferior. Aparece a ~12 px de la parte superior visible, con márgenes laterales, altura limitada a la pantalla real (`dvh`, con alternativa `vh`) y desplazamiento **dentro de la ficha**.
+- La cabecera con la ✕ permanece visible al desplazar una ficha con muchas opciones; se agranda el área táctil del cierre.
+- Un fondo oscuro separado permite cerrar tocando fuera de la ventana. Se bloquea el desplazamiento de la página de fondo y se restaura su posición exacta al cerrar mediante ✕, fuera de la ficha o Escape.
+- El bloqueo se limpia al cambiar de modo de pantalla y abandonar la página, para no dejar el sitio inmóvil. En horizontal también se utiliza el diálogo móvil cuando el puntero es táctil.
+- El carrusel premium se pausa mientras hay una ficha abierta, sin modificar imágenes, precios, atributos, consultas SQL ni transacciones.
+- Nuevo test de navegador con emulación táctil de 390×844, 360×640, 320×568 y 844×390. Verifica ausencia de desplazamiento lateral del documento, ficha contenida en el viewport, desplazamiento interno, cierre fijo visible y restauración del scroll.
+- Implementación únicamente web en la rama `beta`; desplegar desde cPanel. No requiere instalación VPS, cambios SQL, cliente ni reiniciar GameServer.

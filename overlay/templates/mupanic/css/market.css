@@ -807,3 +807,147 @@ body.vessara-tooltip-open:before{display:none}
  .vessara-listings-top{margin-bottom:13px;padding-bottom:11px}
  .vessara-listings-board::before{left:12px;right:12px}
 }
+
+
+/* VESSARA V7 — mobile viewport and item-inspection dialog repair.
+   Clip only the *document* x axis; the deliberate marquee and sales-table
+   internal scrolling remain independent. */
+@media(max-width:900px){
+ html:has(body.is-market){
+  overflow-x:clip;
+  overscroll-behavior-x:none;
+ }
+ body.is-market{
+  max-width:100%;
+  overflow-x:clip;
+  overscroll-behavior-x:none;
+ }
+ body.is-market .inner-content,
+ body.is-market .module-surface{
+  min-width:0;
+  max-width:100%;
+  overflow-x:clip;
+ }
+ body.is-market .vessara-page{
+  min-width:0;
+  max-width:100%;
+  overflow-x:clip;
+ }
+ body.is-market .vessara-page>.shell,
+ body.is-market .vessara-listings,
+ body.is-market .vessara-listings-board,
+ body.is-market .vessara-floor{
+  min-width:0;
+  max-width:100%;
+ }
+ body.is-market .vessara-promoted-grid,
+ body.is-market .vessara-table-wrap{
+  max-width:100%;
+  overscroll-behavior-x:contain;
+ }
+}
+.vessara-tooltip-backdrop[hidden]{display:none!important}
+
+/* On phones and other coarse pointers show item details from the TOP of the
+   visible viewport, never as a bottom sheet that starts off-screen.
+   The page is locked via JS while this modal itself can scroll vertically. */
+@media(max-width:720px),(pointer:coarse){
+ body.vessara-tooltip-open:before{
+  display:none!important;
+  content:none!important;
+ }
+ .vessara-tooltip-backdrop:not([hidden]){
+  display:block;
+  position:fixed;
+  inset:0;
+  z-index:14999;
+  background:#090809de;
+  touch-action:none;
+  overscroll-behavior:contain;
+ }
+ .vessara-tooltip{
+  box-sizing:border-box;
+  left:max(12px,env(safe-area-inset-left,0px))!important;
+  right:max(12px,env(safe-area-inset-right,0px))!important;
+  top:max(12px,calc(env(safe-area-inset-top,0px) + 12px))!important;
+  bottom:auto!important;
+  width:auto!important;
+  min-width:0;
+  max-width:none!important;
+  max-height:calc(100vh - 28px);
+  max-height:calc(100dvh - 28px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  overscroll-behavior:contain;
+  padding:14px 16px 17px;
+  border:1px solid #cda77e;
+  border-radius:15px;
+  background:radial-gradient(ellipse at 85% 0,#48332780,transparent 67%),linear-gradient(155deg,#211b1a,#131417 85%);
+  box-shadow:0 18px 65px #000d,inset 0 1px #f8d9a731;
+  scrollbar-width:thin;
+  scrollbar-color:#98704d #211b1a;
+ }
+ .vessara-tooltip-top{
+  position:sticky;
+  top:-14px;
+  z-index:3;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:-7px -2px 10px;
+  padding:8px 2px 12px;
+  background:linear-gradient(180deg,#211b1a 83%,#211b1af5);
+  border-bottom:1px solid #c4a17566;
+ }
+ .vessara-tooltip-eyebrow{
+  font-size:10px;
+  line-height:1.5;
+  letter-spacing:.09em;
+ }
+ .vessara-tooltip-close{
+  flex:none;
+  display:grid;
+  place-items:center;
+  width:42px;
+  height:42px;
+  min-width:42px;
+  border-radius:9px;
+  padding:0;
+  font-size:18px;
+  font-weight:700;
+ }
+ .vessara-tooltip-close:focus-visible{
+  outline:2px solid #f1c58b;
+  outline-offset:2px;
+ }
+ .vessara-tooltip-intro{gap:12px}
+ .vessara-tooltip-intro .vessara-item-media{
+  width:76px;
+  min-width:76px;
+  height:97px;
+ }
+ .vessara-tooltip-name h3{font-size:clamp(21px,6vw,26px)}
+ .vessara-tooltip-name p{font-size:11px}
+ .vessara-tooltip-pricebar{
+  margin-top:12px;
+  padding:11px;
+ }
+ .vessara-tooltip-pricebar strong{font-size:17px}
+ .vessara-tooltip-section{padding:10px 0}
+ .vessara-tooltip-section li{font-size:12px;line-height:1.55}
+ .vessara-tooltip-footer{padding-top:11px}
+ body.vessara-tooltip-open .vessara-marquee-motion{
+  animation-play-state:paused!important;
+ }
+}
+@media(max-height:610px) and (pointer:coarse){
+ .vessara-tooltip{padding:10px 14px 12px}
+ .vessara-tooltip-top{top:-10px;margin-top:-4px;margin-bottom:7px;padding:5px 2px 8px}
+ .vessara-tooltip-intro .vessara-item-media{width:62px;min-width:62px;height:75px}
+ .vessara-tooltip-name h3{font-size:20px}
+ .vessara-tooltip-pricebar{margin-top:8px;margin-bottom:2px;padding:8px}
+ .vessara-tooltip-section{padding:8px 0}
+}
+/* Earlier mobile bottom-sheet rules are overridden above intentionally. */
