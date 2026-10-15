@@ -38,6 +38,26 @@ const offer=(id,featured)=>({
    await page.waitForFunction(()=>document.querySelectorAll('[data-listings-grid] .vessara-offer').length===8);
    await page.waitForFunction(()=>document.querySelector('.vessara-atmosphere').dataset.running==='true');
    assert.equal(await page.locator('.vessara-page').evaluate(x=>x.classList.contains('is-browsing-market')),false,'hero mode starts with effects active');
+   // The real trade ticker never freezes on hover/focus or when visual
+   // decoration is disabled. Explicit manual pause remains accessible.
+   const ticker=page.locator('[data-market-ticker]');
+   await page.waitForFunction(()=>document.querySelector('[data-market-ticker]').getAnimations().length>0);
+   await page.locator('.vessara-ticker').hover();
+   assert.equal(await ticker.evaluate(x=>getComputedStyle(x).animationPlayState),'running',
+      'hovering over latest trades no longer stops the ticker');
+   await page.locator('[data-market-pause]').focus();
+   assert.equal(await ticker.evaluate(x=>getComputedStyle(x).animationPlayState),'running',
+      'focus within latest trades does not pause it');
+   await page.locator('[data-market-pause]').click();
+   assert.equal(await ticker.evaluate(x=>getComputedStyle(x).animationPlayState),'paused',
+      'an intentional pause button still works');
+   await page.locator('[data-market-pause]').click();
+   assert.equal(await ticker.evaluate(x=>getComputedStyle(x).animationPlayState),'running',
+      'explicit resume immediately runs the tape');
+   await page.locator('[data-market-effects]').click();
+   assert.equal(await ticker.evaluate(x=>getComputedStyle(x).animationPlayState),'running',
+      'pausing expensive decorative effects never pauses actual trades');
+   await page.locator('[data-market-effects]').click();
    // The global theme uses smooth scrolling; move instantly in this test so
    // observed jank or observer changes cannot be caused by the test itself.
    await page.evaluate(()=>{
@@ -58,6 +78,13 @@ const offer=(id,featured)=>({
    assert.equal(reading.atmosphereStopped,true,'atmosphere painting stops when browsing the marketplace');
    assert.equal(reading.auroraPaused,true,'offscreen large aurora effects pause');
    assert.equal(reading.coinSparkPaused,true,'offscreen coin sparklines pause');
+   assert.equal(await ticker.evaluate(x=>getComputedStyle(x).animationPlayState),'running',
+      'latest trades still move when the desktop market optimization is active');
+   const firstTime=await ticker.evaluate(x=>x.getAnimations()[0]?.currentTime??0);
+   await page.waitForTimeout(360);
+   const secondTime=await ticker.evaluate(x=>x.getAnimations()[0]?.currentTime??0);
+   assert.ok(secondTime>firstTime+220,
+      'ticker animation progresses continuously instead of freezing near the market');
    await page.evaluate(()=>document.querySelector('.vessara-listings').scrollIntoView({block:'start',behavior:'instant'}));
    await page.waitForFunction(()=>!document.querySelector('.vessara-promoted').classList.contains('is-offscreen'));
    assert.equal(await page.locator('.vessara-marquee-motion').evaluate(x=>getComputedStyle(x).animationPlayState),'running',
