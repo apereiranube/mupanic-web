@@ -36,10 +36,14 @@ function panicFracturaWeekRead() {
             if(!in_array($flag,['0','1'],true)) throw new RuntimeException('Invalid weekly flag');
             $week[$key]=$flag==='1';
         }
-        $history=$db->query_fetch("SELECT TOP(52) WeekStart AS weekStart,CloseUnix AS closeUnix,NexoPoints AS nexoPoints,CaosPoints AS caosPoints,WinnerFamily AS winnerFamily FROM [MuOnline43].[dbo].[MUPanicFracturaWeekHistoryV34] ORDER BY WeekStart DESC");
-        if(!is_array($history)) throw new RuntimeException('Weekly history unavailable');
+        $history=$db->query_fetch("SELECT TOP(52) hasRow,weekStart,closeUnix,nexoPoints,caosPoints,winnerFamily FROM (SELECT 1 AS hasRow,WeekStart AS weekStart,CloseUnix AS closeUnix,NexoPoints AS nexoPoints,CaosPoints AS caosPoints,WinnerFamily AS winnerFamily FROM [MuOnline43].[dbo].[MUPanicFracturaWeekHistoryV34] UNION ALL SELECT 0,CAST(NULL AS varchar(10)),CAST(NULL AS bigint),CAST(NULL AS bigint),CAST(NULL AS bigint),CAST(NULL AS int) WHERE NOT EXISTS(SELECT 1 FROM [MuOnline43].[dbo].[MUPanicFracturaWeekHistoryV34])) AS historyRows ORDER BY weekStart DESC");
+        if(!is_array($history) || !$history) throw new RuntimeException('Weekly history unavailable');
         $out=[];
         foreach($history as $row) {
+            // A CMS adapter may return false for zero rows; a successful query now always has a row.
+            $hasRow=(string)($row['hasRow']??'');
+            if($hasRow==='0' && count($history)===1) continue;
+            if($hasRow!=='1') throw new RuntimeException('Invalid history result');
             $date=panicFracturaWeekDate($row['weekStart']??'');
             $entry=['weekStart'=>$date];
             foreach(['closeUnix','nexoPoints','caosPoints'] as $key) $entry[$key]=panicFracturaWeekInteger($row[$key]??'');

@@ -11,11 +11,11 @@ class Connection {
   if(strpos($sql,'MUPanicFracturaWeekCurrentV34')!==false)return [[
    'weekStart'=>'2026-10-19','nowUnix'=>'1792530000','startUnix'=>'1792378800','closeUnix'=>'1792980900','minimumQuests'=>'2','bossPoints'=>'1000','enabled'=>true,'isClosed'=>false,'nexoPoints'=>'1000','caosPoints'=>'2000']];
   if(strpos($sql,'MUPanicFracturaWeekHistoryV34')!==false){
-   if($fixtureMode==='empty')return [];$rows=[];
-   for($i=0;$i<($fixtureMode==='history'?9:1);$i++)$rows[]=['weekStart'=>gmdate('Y-m-d',1791774000-$i*604800),'closeUnix'=>(string)(1792376100-$i*604800),'nexoPoints'=>'2000','caosPoints'=>$fixtureMode==='tie'?'2000':'1000','winnerFamily'=>$fixtureMode==='tie'?'0':'1'];
+   if($fixtureMode==='empty')return strpos($sql,'UNION ALL')!==false?[['hasRow'=>'0']]:false;$rows=[];
+   for($i=0;$i<($fixtureMode==='history'?9:1);$i++)$rows[]=['hasRow'=>'1','weekStart'=>gmdate('Y-m-d',1791774000-$i*604800),'closeUnix'=>(string)(1792376100-$i*604800),'nexoPoints'=>'2000','caosPoints'=>$fixtureMode==='tie'?'2000':'1000','winnerFamily'=>$fixtureMode==='tie'?'0':'1'];
    return $rows;
   }
-  if(strpos($sql,'MUPanicFracturaLaureatesV34')!==false)return $fixtureMode==='empty' || $fixtureMode==='tie'?[]:[['name'=>$fixtureMode==='xss'?'A<script>':'LuisADM','family'=>'1','contribution'=>'1520','untilUnix'=>'1792980900'],['name'=>'MGTeste','family'=>'2','contribution'=>'1482','untilUnix'=>'1792980900']];
+  if(strpos($sql,'MUPanicFracturaLaureatesV34')!==false)return $fixtureMode==='empty' || $fixtureMode==='tie'?(strpos($sql,'UNION ALL')!==false?[['hasRow'=>'0']]:false):[['hasRow'=>'1','name'=>$fixtureMode==='xss'?'A<script>':'LuisADM','family'=>'1','contribution'=>'1520','untilUnix'=>'1792980900'],['hasRow'=>'1','name'=>'MGTeste','family'=>'2','contribution'=>'1482','untilUnix'=>'1792980900']];
   if(strpos($sql,'MUPanicFracturaWeekRulesV34')!==false)return [
    ['result'=>'W','contribution'=>'2000','fragments'=>'3','bless'=>'2','soul'=>'2','chaos'=>'1'],
    ['result'=>'L','contribution'=>'500','fragments'=>'1','bless'=>'0','soul'=>'0','chaos'=>'1'],

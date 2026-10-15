@@ -19,10 +19,14 @@ function panicFracturaRankName($family,$points) {
 function panicFracturaDistinctionsRead() {
     try {
         $db=Connection::Database('MuOnline');if(!$db) throw new RuntimeException('Unavailable');
-        $rows=$db->query_fetch("SELECT CharacterName AS name,Family AS family,Contribution AS contribution,DistinctionUntilUnix AS untilUnix FROM [MuOnline43].[dbo].[MUPanicFracturaLaureatesV34] ORDER BY Family,CharacterName");
-        if(!is_array($rows)) throw new RuntimeException('Unavailable');
+        $rows=$db->query_fetch("SELECT 1 AS hasRow,CharacterName AS name,Family AS family,Contribution AS contribution,DistinctionUntilUnix AS untilUnix FROM [MuOnline43].[dbo].[MUPanicFracturaLaureatesV34] UNION ALL SELECT 0,CAST(NULL AS varchar(10)),CAST(NULL AS int),CAST(NULL AS int),CAST(NULL AS bigint) WHERE NOT EXISTS(SELECT 1 FROM [MuOnline43].[dbo].[MUPanicFracturaLaureatesV34]) ORDER BY family,name");
+        if(!is_array($rows) || !$rows) throw new RuntimeException('Unavailable');
         $out=[];
         foreach($rows as $r) {
+            // The SQL sentinel proves a successful empty read. false/null still means failure.
+            $hasRow=(string)($r['hasRow']??'');
+            if($hasRow==='0' && count($rows)===1) return [];
+            if($hasRow!=='1') throw new RuntimeException('Invalid distinction result');
             $name=$r['name']??null;$family=(string)($r['family']??'');
             if(!is_string($name) || strlen($name)<1 || strlen($name)>10 || preg_match('/[\x00-\x1f\x7f]/',$name) || !in_array($family,['1','2'],true)) throw new RuntimeException('Invalid distinction');
             foreach(['contribution','untilUnix'] as $key) if(!preg_match('/^[0-9]{1,18}$/D',(string)($r[$key]??''))) throw new RuntimeException('Invalid distinction value');
