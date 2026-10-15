@@ -1,0 +1,25 @@
+name: Fractura weekly hall
+on:
+  push:
+    branches: [beta]
+    paths:
+      - 'overlay/templates/mupanic/inc/fractura*.php'
+      - 'overlay/templates/mupanic/css/fractura*.css'
+      - 'overlay/templates/mupanic/img/fractura/*-emblema-v32.svg'
+      - 'tests/fractura-week.php'
+      - '.github/workflows/fractura-week.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP syntax and read-only fixtures
+        run: |
+          php -l overlay/templates/mupanic/inc/fractura.php
+          php -l overlay/templates/mupanic/inc/fractura-hall.php
+          php -l overlay/templates/mupanic/inc/fractura-week-data.php
+          php tests/fractura-week.php
+          php tests/fractura-totals.php
