@@ -1,7 +1,13 @@
 {
   "schema": 1,
-  "description": "Imagenes 2D originales o renders del modelo real del cliente, reutilizadas del Atlas. Los indices ambiguos no se asignan.",
+  "description": "Correspondencias verificadas entre ItemIndex y recursos del Atlas MU PANIC: sprites originales, renders del cliente y versiones HD renovadas de las joyas y talismanes. Las variantes ambiguas no se asignan.",
   "items": {
+    "6159": {
+      "src": "img/atlas/drops/jewel-chaos-809384516512.webp",
+      "source": "atlas_renovado",
+      "width": 512,
+      "height": 512
+    },
     "6176": {
       "src": "img/atlas/rewards/reward-35-5cbb8bf0a653.webp",
       "source": "atlas_original",
@@ -134,6 +140,24 @@
       "width": 384,
       "height": 384
     },
+    "7181": {
+      "src": "img/atlas/drops/jewel-bless-2c80b97e4d75.webp",
+      "source": "atlas_renovado",
+      "width": 512,
+      "height": 512
+    },
+    "7182": {
+      "src": "img/atlas/drops/jewel-soul-05f3890104b2.webp",
+      "source": "atlas_renovado",
+      "width": 512,
+      "height": 512
+    },
+    "7184": {
+      "src": "img/atlas/drops/jewel-life-6e1a802e1074.webp",
+      "source": "atlas_renovado",
+      "width": 512,
+      "height": 512
+    },
     "7185": {
       "src": "img/atlas/drops/7185-1cdcd4952cea.webp",
       "source": "atlas_original",
@@ -152,11 +176,23 @@
       "width": 28,
       "height": 26
     },
+    "7190": {
+      "src": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+      "source": "atlas_renovado",
+      "width": 512,
+      "height": 512
+    },
     "7197": {
       "src": "img/atlas/drops/7197-248f3ce4d292.webp",
       "source": "atlas_original",
       "width": 44,
       "height": 39
+    },
+    "7209": {
+      "src": "img/atlas/drops/jewel-gemstone-5edf360037d7.webp",
+      "source": "atlas_renovado",
+      "width": 512,
+      "height": 512
     },
     "7213": {
       "src": "img/atlas/rewards/reward-49-d1267b79d4ed.webp",
@@ -169,6 +205,12 @@
       "source": "atlas_original",
       "width": 44,
       "height": 41
+    },
+    "7221": {
+      "src": "img/atlas/vinculos/luck-hd.webp",
+      "source": "atlas_renovado",
+      "width": 1254,
+      "height": 1254
     },
     "7223": {
       "src": "img/atlas/rewards/reward-52-f9e7f0eaa6cd.webp",
@@ -193,6 +235,12 @@
       "source": "atlas_original",
       "width": 38,
       "height": 25
+    },
+    "7264": {
+      "src": "img/atlas/vinculos/assembly-hd.webp",
+      "source": "atlas_renovado",
+      "width": 1254,
+      "height": 1254
     },
     "7269": {
       "src": "img/atlas/drops/7269-0-15e63143acac.webp",
