@@ -44,7 +44,7 @@ function sources(item) {
  return Array.from(new Set(list));
 }
 function media(item,large) {
- const frame=el('div',null,'vessara-item-media'+(large?' is-large':''));
+ const frame=el('div',null,'vessara-item-media'+(large?' is-large':'')+(item.photo?.type==='atlas_renovado'?' is-renewed-art':''));
  const img=document.createElement('img');img.alt='Imagen 2D de '+item.item;img.loading='lazy';img.decoding='async';img.className='vessara-item-photo';
  let urls=sources(item),i=0;
  const failed=()=>{if(i<urls.length){img.src=urls[i++];return;}
