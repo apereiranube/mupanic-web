@@ -14,6 +14,7 @@ on:
       - 'tests/market-browser.cjs'
       - 'tests/market-listings-browser.cjs'
       - 'tests/market-carousel-browser.cjs'
+      - 'tests/market-jewels-browser.cjs'
       - 'tests/market-listings-data.php'
       - 'tests/market-item-display.php'
       - 'tests/fixtures/market.php'
@@ -55,6 +56,7 @@ jobs:
           node tests/market-browser.cjs
           node tests/market-listings-browser.cjs
           node tests/market-carousel-browser.cjs
+          node tests/market-jewels-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
