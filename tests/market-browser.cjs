@@ -24,6 +24,16 @@ const root=path.resolve(__dirname,'../overlay/templates/mupanic');
   const layout=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,title:document.querySelector('h1').getBoundingClientRect().top,header:document.querySelector('.site-header').getBoundingClientRect().bottom,navRight:document.querySelector('.main-nav').getBoundingClientRect().right,accountLeft:document.querySelector('.nav-actions').getBoundingClientRect().left}));
   assert.equal(await page.locator('.vessara-stats strong[data-market-metric]').evaluateAll(els=>els.every(e=>e.scrollWidth<=e.clientWidth)),true,'metric fits its card');assert.equal(layout.overflow,false,'viewport overflow at '+width);assert.ok(layout.title>=layout.header,'heading overlaps header '+JSON.stringify(layout));
   if(width>900)assert.ok(layout.navRight<=layout.accountLeft,'navigation overlaps account actions at '+width);
+  const marketColumns=await page.evaluate(()=>({
+   tableTop:document.querySelector('.vessara-table-wrap').getBoundingClientRect().top,
+   recordsTop:document.querySelector('.vessara-tape').getBoundingClientRect().top,
+   ledgerBottom:document.querySelector('.vessara-ledger').getBoundingClientRect().bottom
+  }));
+  if(width>900){
+   assert.ok(Math.abs(marketColumns.tableTop-marketColumns.recordsTop)<=2,'records panel aligns with sales table at '+width+': '+JSON.stringify(marketColumns));
+  }else{
+   assert.ok(marketColumns.recordsTop>=marketColumns.ledgerBottom-2,'records panel follows sales ledger on mobile at '+width+': '+JSON.stringify(marketColumns));
+  }
   await page.locator('[data-market-currency="1"]').click();assert.equal(await page.locator('[data-market-rows] tr').count(),1);
   await page.locator('[data-market-currency="all"]').click();await page.locator('[data-market-search]').fill('hurricane');assert.equal(await page.locator('[data-market-rows] tr').count(),1);
   await page.locator('[data-market-search]').fill('zzzzz');assert.equal(await page.locator('[data-market-rows] tr').count(),0);assert.equal(await page.locator('[data-market-empty]').isVisible(),true);
