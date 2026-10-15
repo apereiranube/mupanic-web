@@ -119,3 +119,34 @@ afirmar que todos los tipos personalizados reproducen exactamente el tooltip nat
 - Colores según atributos públicos reales: Excellent verde, Socket violeta, Ancient azul, Harmony dorado, normal neutro. Nivel +15 rojo luminoso, +13/+14 ámbar dorado, +10–12 cobre, +7–9 sobrio y +1–6 discreto.
 - Sin cambios en `PanicMarketPublicListings`, comisiones, motor de compraventa o scripts del cliente. Se utiliza únicamente la rama beta de GitHub. No se requiere PowerShell ni reiniciar GameServer.
 - Tests de navegador en 1366px y 390px, diez promociones, dos promociones, pausa/reanudación, movimiento reducido, color por opción/nivel, no duplicación en catálogo y ocho objetos por página.
+
+## V6 — Vidriera en vino/cobre e imágenes HD renovadas del Atlas (14/10/2026)
+
+La vidriera de **publicaciones activas** tiene ahora una identidad visual más comercial y distinta del **registro de últimas ventas**:
+- El contenedor de búsqueda y sus tarjetas usan tonos vino oscuro, cobre rojizo y bordes más visibles, con contraste y hover discretos.
+- `Últimas ventas` conserva su paleta carbón/bronce original. Estos cambios CSS están restringidos a `.vessara-listings`, sin alterar rankings, récords, HUD ni el historial.
+- La imagen, nombre, vendedor, precio y las opciones reales permanecen como protagonistas de las fichas; no se toca el tooltip ni el motor del mercado.
+
+### Todas las joyas renovadas del Atlas
+
+El manifiesto web `inc/market-item-images.json` reutiliza ahora expresamente **las ilustraciones HD renovadas del Atlas** como fuente prioritaria para los seis índices confirmados:
+- `6159` — Jewel of Chaos: `img/atlas/drops/jewel-chaos-809384516512.webp` (512×512).
+- `7181` — Jewel of Bless: `img/atlas/drops/jewel-bless-2c80b97e4d75.webp` (512×512).
+- `7182` — Jewel of Soul: `img/atlas/drops/jewel-soul-05f3890104b2.webp` (512×512).
+- `7184` — Jewel of Life: `img/atlas/drops/jewel-life-6e1a802e1074.webp` (512×512).
+- `7190` — Jewel of Creation: `img/atlas/drops/jewel-creation-9b7e2a322074.webp` (512×512).
+- `7209` — Gemstone: `img/atlas/drops/jewel-gemstone-5edf360037d7.webp` (512×512).
+
+Los talismanes relacionados también reaprovechan los recursos HD ya existentes en Vínculos:
+- `7221` — Talisman of Luck: `img/atlas/vinculos/luck-hd.webp` (1254×1254).
+- `7264` — Chaos Assembly: `img/atlas/vinculos/assembly-hd.webp` (1254×1254).
+
+Esas imágenes son **ilustraciones/reconstrucciones renovadas del Atlas**, no capturas idénticas del cliente, y la decisión del administrador es reutilizarlas por su mayor calidad. Esta revisión sustituye la exclusión anterior de ilustraciones para esas ocho correspondencias verificadas. La resolución y las rutas proceden de los manifiestos del Atlas, sin crear nuevos recursos ni depender de enlaces externos.
+
+El servidor continúa resolviendo imagen por `ItemIndex` y sirviendo los mismos WebP locales también dentro del tooltip. El resto de las correspondencias originales permanece intacto; los objetos sin imagen verificada conservan su mecanismo de respaldo anterior.
+
+### Verificación
+
+- Test PHP: los ocho índices apuntan a los archivos esperados, tamaño declarado HD, archivo físico presente y encabezado WebP válido.
+- Test de navegador en escritorio y móvil: ocho miniaturas cargan desde el Atlas, el Chaos en el tooltip usa la misma versión renovada y la paleta de la vidriera se distingue de la sección de ventas.
+- Solo se despliega `beta` mediante cPanel. No requiere SQL, PowerShell, instaladores ni reiniciar los GameServer.
