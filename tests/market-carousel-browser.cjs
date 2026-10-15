@@ -78,26 +78,25 @@ const all=Array.from({length:23},(_,i)=>({
    assert.equal(await regular.first().getAttribute('data-stable'),'1','unchanged polling does not rebuild the list');
    await page.locator('[data-listings-featured-wrap]').scrollIntoViewIfNeeded();
    await page.mouse.move(1,1);
+   assert.equal(await page.locator('[data-featured-pause]').count(),0,'manual pause control was removed');
+   assert.equal(await page.locator('.vessara-promoted-star').count(),0,'decorative circle was removed');
+   assert.equal((await page.locator('.vessara-promoted-heading h3').innerText()).trim(),'Destacados','only featured heading remains');
    if(width===1366){
     await page.waitForFunction(()=>!document.querySelector('[data-listings-featured-wrap]').classList.contains('is-offscreen'));
     const before=await belt.evaluate(node=>node.getAnimations()[0]?.currentTime||0);
     await page.waitForTimeout(460);
     const after=await belt.evaluate(node=>node.getAnimations()[0]?.currentTime||0);
-    assert.ok(after>before+150,'featured strip moves continuously, not one step every few seconds');
-    assert.equal(await page.locator('[data-featured-pause]').isDisabled(),false,'motion toggle works');
-    await page.locator('[data-featured-pause]').click();
-    assert.equal(await page.locator('[data-featured-pause]').getAttribute('aria-pressed'),'true','user can pause infinite movement');
-    assert.equal(await belt.evaluate(node=>getComputedStyle(node).animationPlayState),'paused','manual pause freezes the CSS animation');
-    // Chromium can commit one final compositor frame while changing CSS play-state.
+    assert.ok(after>before+150,'featured strip still moves continuously');
+    await marquee.hover({position:{x:5,y:5}});
+    assert.equal(await belt.evaluate(node=>getComputedStyle(node).animationPlayState),'paused','hover pauses the moving items for inspecting tooltips');
     await page.waitForTimeout(120);
     const stopped=await belt.evaluate(node=>getComputedStyle(node).transform);
     await page.waitForTimeout(240);
     const held=await belt.evaluate(node=>getComputedStyle(node).transform);
-    assert.equal(held,stopped,'paused marquee holds its rendered position');
-    await page.locator('[data-featured-pause]').click();
-    assert.equal(await page.locator('[data-featured-pause]').getAttribute('aria-pressed'),'false','marquee can resume');
+    assert.equal(held,stopped,'hover keeps the strip stationary');
+    await page.mouse.move(1,1);
+    assert.equal(await belt.evaluate(node=>getComputedStyle(node).animationPlayState),'running','leaving the strip resumes automatic movement');
    }else{
-    assert.equal(await page.locator('[data-featured-pause]').isDisabled(),true,'reduced motion disables automatic movement');
     assert.equal(await belt.evaluate(node=>getComputedStyle(node).animationName),'none','reduced-motion carousel does not animate');
     assert.equal(await marquee.evaluate(node=>getComputedStyle(node).overflowX),'auto','reduced-motion users can manually scroll');
    }
