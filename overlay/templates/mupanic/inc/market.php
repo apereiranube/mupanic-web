@@ -29,12 +29,7 @@ $art=__PATH_TEMPLATE__.'img/market/';
   <a class="vessara-listings-entry" href="<?php echo __BASE_URL__; ?>downloads/">Entrar a comerciar ↗</a>
  </div>
  <div class="vessara-promoted" data-listings-featured-wrap hidden>
-  <div class="vessara-promoted-heading">
-   <div><span class="vessara-promoted-star" aria-hidden="true">✦</span><div><p class="eyebrow">EL SELLO DE VESSARA</p><h3>Objetos destacados.</h3></div></div>
-   <div class="vessara-promoted-ui">
-    <button type="button" data-featured-pause aria-label="Pausar desplazamiento de destacados" aria-pressed="false">Ⅱ Pausar</button>
-   </div>
-  </div>
+  <div class="vessara-promoted-heading"><h3>Destacados</h3></div>
   <div class="vessara-promoted-grid" data-listings-featured tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Publicaciones destacadas; desplazamiento continuo hacia la izquierda"></div>
  </div>
  <div class="vessara-listings-board">
@@ -55,9 +50,11 @@ $art=__PATH_TEMPLATE__.'img/market/';
  </div>
 </section>
 <section class="shell vessara-floor" id="tratos">
- <div class="vessara-ledger" aria-labelledby="vessara-trades-title">
+ <div class="vessara-ledger-heading">
   <div class="vessara-section-head"><div><p class="eyebrow">EL REGISTRO DEL MERCADO</p><h2 id="vessara-trades-title">Últimas ventas.</h2></div><div class="vessara-update"><p class="vessara-live" data-market-status role="status"><?php echo !$market?'Datos no disponibles':(($market['stale']??false)?'Último registro disponible':'Registro actualizado'); ?></p><span>Próxima lectura <b data-market-countdown>15</b>s</span></div></div>
   <div class="vessara-toolbar"><div class="vessara-filters" role="group" aria-label="Filtrar moneda"><button type="button" data-market-currency="all" aria-pressed="true">Todas</button><button type="button" data-market-currency="0" aria-pressed="false">Zen</button><button type="button" data-market-currency="1" aria-pressed="false">Eryns</button></div><label class="vessara-search"><span class="sr-only">Buscar en los últimos tratos</span><input type="search" data-market-search placeholder="Buscar objeto o personaje" maxlength="96"></label></div>
+ </div>
+ <div class="vessara-ledger" aria-labelledby="vessara-trades-title">
   <div class="vessara-table-wrap"><table class="vessara-table"><caption class="sr-only">Últimos 40 intercambios confirmados en el juego</caption><thead><tr><th>Objeto</th><th>Comprador</th><th>Vendedor</th><th>Valor del trato</th><th>Sellado</th></tr></thead><tbody data-market-rows><?php foreach($market['sales']??[] as $s) { ?><tr><td><span class="vessara-item-mark" aria-hidden="true">◇</span><strong><?php echo panicMarketEscape($s['item'].($s['level']?' +'.$s['level']:'')); ?></strong></td><td><?php echo panicMarketEscape($s['buyer']); ?></td><td><?php echo panicMarketEscape($s['seller']); ?></td><td class="vessara-price <?php echo $s['currency']===1?'is-eryns':''; ?>"><?php echo panicMarketNumber($s['price']).' '.($s['currency']===0?'Zen':'Eryns'); ?></td><td><time datetime="<?php echo panicMarketEscape($s['soldAt']); ?>"><?php echo panicMarketEscape(substr($s['soldAt'],8,2).'/'.substr($s['soldAt'],5,2).' '.substr($s['soldAt'],11,5)); ?></time></td></tr><?php } ?></tbody></table><p class="vessara-empty" data-market-empty<?php echo !empty($market['sales'])?' hidden':''; ?>><?php echo $market?'Todavía no hay tratos sellados.':'El registro del mercado no está disponible en este momento.'; ?></p></div>
   <div class="vessara-ledger-footer"><span><b data-market-metric="total"><?php echo panicMarketNumber($metrics['total']??''); ?></b> tratos sellados en total</span><span>Ventas confirmadas · Lectura cada 15 segundos</span></div>
  </div>
