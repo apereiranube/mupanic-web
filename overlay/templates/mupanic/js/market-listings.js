@@ -186,10 +186,9 @@ function offerCard(item,hero=false) {
 // a real promotion change or meaningful viewport-width change, never every frame.
 const featuredArea=q('[data-listings-featured-wrap]');
 const featuredViewport=q('[data-listings-featured]');
-const featuredPause=q('[data-featured-pause]');
 const featuredMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let featuredItems=[],featuredKey='',featuredWidth=0,featuredResize=0;
-let featuredManuallyPaused=false,lastDisplayKey='';
+let lastDisplayKey='';
 const displayKey=v=>JSON.stringify([v.page,v.pages,v.total,v.pageSize,v.itemOptions,v.items,v.featured]);
 function marqueeGroup(items,repeatCount,isDuplicate){
  const group=el('div',null,'vessara-marquee-group');
@@ -228,10 +227,6 @@ function rebuildFeatured(){
  }
  featuredWidth=viewport;
  featuredArea.classList.toggle('is-reduced-motion',reduced);
- featuredPause.disabled=reduced;
- featuredPause.textContent=reduced?'Movimiento reducido':(featuredManuallyPaused?'▶ Reanudar':'Ⅱ Pausar');
- featuredPause.setAttribute('aria-pressed',String(featuredManuallyPaused));
- featuredArea.classList.toggle('is-user-paused',featuredManuallyPaused);
 }
 function renderFeatured(items){
  featuredItems=items;
@@ -243,15 +238,6 @@ function renderFeatured(items){
  // Use current layout dimensions after the section becomes visible.
  requestAnimationFrame(()=>{if(featuredKey===key && !featuredArea.hidden)rebuildFeatured();});
 }
-featuredPause.addEventListener('click',()=>{
- if(featuredMotion.matches)return;
- featuredManuallyPaused=!featuredManuallyPaused;
- featuredArea.classList.toggle('is-user-paused',featuredManuallyPaused);
- featuredPause.setAttribute('aria-pressed',String(featuredManuallyPaused));
- featuredPause.setAttribute('aria-label',featuredManuallyPaused?'Reanudar destacados':'Pausar desplazamiento de destacados');
- featuredPause.textContent=featuredManuallyPaused?'▶ Reanudar':'Ⅱ Pausar';
- if(!featuredManuallyPaused)featuredPause.blur();
-});
 featuredMotion.addEventListener('change',()=>{if(!featuredArea.hidden)rebuildFeatured();});
 addEventListener('resize',()=>{
  clearTimeout(featuredResize);
