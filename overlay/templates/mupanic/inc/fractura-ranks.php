@@ -19,7 +19,7 @@ function panicFracturaRankName($family,$points) {
 function panicFracturaDistinctionsRead() {
     try {
         $db=Connection::Database('MuOnline');if(!$db) throw new RuntimeException('Unavailable');
-        $rows=$db->query_fetch("DECLARE @Now bigint=DATEDIFF(second,CONVERT(datetime2,'19700101',112),SYSUTCDATETIME()); SELECT r.CharacterName AS name,r.Family AS family,g.Contribution AS contribution,MAX(r.DistinctionUntilUnix) AS untilUnix FROM [MuOnline43].[dbo].[MUPanicWeekClaimsV31] r JOIN [MuOnline43].[dbo].[Character] c ON c.Name=r.CharacterName AND c.AccountID=r.AccountID JOIN [MuOnline43].[dbo].[Gens_Rank] g ON g.Name=c.Name AND g.Family=r.Family WHERE r.Result='W' AND r.State='DELIVERED' AND r.DistinctionUntilUnix>@Now GROUP BY r.CharacterName,r.Family,g.Contribution ORDER BY r.Family,r.CharacterName");
+        $rows=$db->query_fetch("SELECT CharacterName AS name,Family AS family,Contribution AS contribution,DistinctionUntilUnix AS untilUnix FROM [MuOnline43].[dbo].[MUPanicFracturaLaureatesV34] ORDER BY Family,CharacterName");
         if(!is_array($rows)) throw new RuntimeException('Unavailable');
         $out=[];
         foreach($rows as $r) {

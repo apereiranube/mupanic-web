@@ -1,0 +1,40 @@
+name: Fractura ceremonial hall and Atlas guide
+on:
+  push:
+    branches: [beta]
+    paths:
+      - 'overlay/templates/mupanic/inc/fractura*.*'
+      - 'overlay/templates/mupanic/inc/atlas-fractura.php'
+      - 'overlay/templates/mupanic/inc/guide.php'
+      - 'overlay/templates/mupanic/inc/atlas-home.php'
+      - 'overlay/templates/mupanic/css/fractura-hall.css'
+      - 'overlay/templates/mupanic/css/atlas-fractura.css'
+      - 'overlay/templates/mupanic/img/fractura/salon-*.webp'
+      - 'tests/fractura*.php'
+      - 'tests/fixtures/fractura-salon.php'
+      - '.github/workflows/fractura-salon.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  hall:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP syntax, public views and Atlas separation
+        run: |
+          for file in overlay/templates/mupanic/inc/fractura*.php overlay/templates/mupanic/inc/atlas-fractura.php overlay/templates/mupanic/inc/guide.php overlay/templates/mupanic/inc/atlas-home.php tests/fractura-salon.php tests/fixtures/fractura-salon.php; do php -l "$file"; done
+          php tests/fractura-week.php
+          php tests/fractura-ranks.php
+          php tests/fractura-salon.php
+      - name: Render read-only HTML fixtures
+        run: |
+          mkdir -p hall-fixtures
+          php tests/fixtures/fractura-salon.php empty > hall-fixtures/empty.html
+          php tests/fixtures/fractura-salon.php winner > hall-fixtures/winner.html
+          php tests/fixtures/fractura-salon.php offline > hall-fixtures/offline.html
+          php tests/fixtures/fractura-salon.php winner atlas > hall-fixtures/atlas.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fractura-hall-fixtures
+          path: hall-fixtures/

@@ -27,34 +27,21 @@ function panicFracturaWeekRead() {
     try {
         $db=Connection::Database('MuOnline');
         if(!$db) throw new RuntimeException('Weekly connection unavailable');
-        $current=$db->query_fetch("DECLARE @Now datetime2=SYSUTCDATETIME();
-DECLARE @Arg datetime2=DATEADD(hour,-3,@Now);
-DECLARE @Week date=DATEADD(day,-(DATEDIFF(day,CONVERT(date,'19000101',112),@Arg)%7),CONVERT(date,@Arg));
-DECLARE @Start bigint=DATEDIFF(second,CONVERT(datetime2,'19700101',112),DATEADD(hour,3,CONVERT(datetime2,@Week)));
-DECLARE @Close bigint=(SELECT DATEDIFF(second,CONVERT(datetime2,'19700101',112),DATEADD(hour,3,DATEADD(minute,CloseMinute,DATEADD(day,6,CONVERT(datetime2,@Week))))) FROM [MuOnline43].[dbo].[MUPanicWeekSettingsV31] WHERE Id=1);
-SELECT CONVERT(varchar(10),@Week,23) AS weekStart,DATEDIFF(second,CONVERT(datetime2,'19700101',112),@Now) AS nowUnix,
- @Start AS startUnix,@Close AS closeUnix,s.MinimumQuests AS minimumQuests,s.BossPoints AS bossPoints,s.Enabled AS enabled,
- CASE WHEN w.WeekStart IS NULL THEN 0 ELSE 1 END AS isClosed,
- COALESCE(w.NexoPoints,(SELECT COUNT_BIG(*) FROM [MuOnline43].[dbo].[MUPanicFracturaKillVictoriesV6] v WHERE v.IsTest=0 AND v.WinnerFamily=1 AND v.DeathUnix>=@Start AND v.DeathUnix<@Close)*CONVERT(bigint,s.BossPoints)) AS nexoPoints,
- COALESCE(w.CaosPoints,(SELECT COUNT_BIG(*) FROM [MuOnline43].[dbo].[MUPanicFracturaKillVictoriesV6] v WHERE v.IsTest=0 AND v.WinnerFamily=2 AND v.DeathUnix>=@Start AND v.DeathUnix<@Close)*CONVERT(bigint,s.BossPoints)) AS caosPoints
-FROM [MuOnline43].[dbo].[MUPanicWeekSettingsV31] s LEFT JOIN [MuOnline43].[dbo].[MUPanicWeeksV31] w ON w.WeekStart=@Week
-WHERE s.Id=1 AND @Week>=s.EffectiveStart");
+        $current=$db->query_fetch("SELECT WeekStart AS weekStart,NowUnix AS nowUnix,StartUnix AS startUnix,CloseUnix AS closeUnix,MinimumQuests AS minimumQuests,BossPoints AS bossPoints,Enabled AS enabled,IsClosed AS isClosed,NexoPoints AS nexoPoints,CaosPoints AS caosPoints FROM [MuOnline43].[dbo].[MUPanicFracturaWeekCurrentV34]");
         if(!is_array($current) || count($current)!==1) throw new RuntimeException('Weekly settings unavailable');
         $r=$current[0]; $week=['weekStart'=>panicFracturaWeekDate($r['weekStart']??'')];
         foreach(['nowUnix','startUnix','closeUnix','minimumQuests','bossPoints','nexoPoints','caosPoints'] as $key) $week[$key]=panicFracturaWeekInteger($r[$key]??'');
         foreach(['enabled','isClosed'] as $key) {
-            if(!in_array((string)($r[$key]??''),['0','1'],true)) throw new RuntimeException('Invalid weekly flag');
-            $week[$key]=(string)$r[$key]==='1';
+            $flag=$r[$key]??null; $flag=is_bool($flag)?($flag?'1':'0'):(string)$flag;
+            if(!in_array($flag,['0','1'],true)) throw new RuntimeException('Invalid weekly flag');
+            $week[$key]=$flag==='1';
         }
-        $rules=panicFracturaWeekRules($db->query_fetch("SELECT Result AS result,Contribution AS contribution,Fragments AS fragments,Bless AS bless,Soul AS soul,Chaos AS chaos FROM [MuOnline43].[dbo].[MUPanicWeekRulesV31]"));
-        $history=$db->query_fetch("SELECT TOP(52) CONVERT(varchar(10),WeekStart,23) AS weekStart,CloseUnix AS closeUnix,NexoPoints AS nexoPoints,CaosPoints AS caosPoints,WinnerFamily AS winnerFamily FROM [MuOnline43].[dbo].[MUPanicWeeksV31] ORDER BY WeekStart DESC");
-        $frozen=$db->query_fetch("SELECT CONVERT(varchar(10),r.WeekStart,23) AS weekStart,r.Result AS result,r.Contribution AS contribution,r.Fragments AS fragments,r.Bless AS bless,r.Soul AS soul,r.Chaos AS chaos FROM [MuOnline43].[dbo].[MUPanicWeekFrozenRulesV31] r INNER JOIN (SELECT TOP(52) WeekStart FROM [MuOnline43].[dbo].[MUPanicWeeksV31] ORDER BY WeekStart DESC) w ON w.WeekStart=r.WeekStart ORDER BY r.WeekStart DESC,r.Result");
-        if(!is_array($history) || !is_array($frozen)) throw new RuntimeException('Weekly history unavailable');
-        $byWeek=[];foreach($frozen as $row) $byWeek[panicFracturaWeekDate($row['weekStart']??'')][]=$row;
+        $history=$db->query_fetch("SELECT TOP(52) WeekStart AS weekStart,CloseUnix AS closeUnix,NexoPoints AS nexoPoints,CaosPoints AS caosPoints,WinnerFamily AS winnerFamily FROM [MuOnline43].[dbo].[MUPanicFracturaWeekHistoryV34] ORDER BY WeekStart DESC");
+        if(!is_array($history)) throw new RuntimeException('Weekly history unavailable');
         $out=[];
         foreach($history as $row) {
             $date=panicFracturaWeekDate($row['weekStart']??'');
-            $entry=['weekStart'=>$date,'rules'=>panicFracturaWeekRules($byWeek[$date]??null)];
+            $entry=['weekStart'=>$date];
             foreach(['closeUnix','nexoPoints','caosPoints'] as $key) $entry[$key]=panicFracturaWeekInteger($row[$key]??'');
             $winner=(string)($row['winnerFamily']??'');
             if(!in_array($winner,['0','1','2'],true)) throw new RuntimeException('Invalid winner');
@@ -62,6 +49,6 @@ WHERE s.Id=1 AND @Week>=s.EffectiveStart");
             // Trust only finalized SQL records, never predict a champion from live scores.
             $out[]=$entry;
         }
-        return ['schema'=>1,'current'=>$week,'rules'=>$rules,'history'=>$out];
+        return ['schema'=>2,'current'=>$week,'history'=>$out];
     } catch(Throwable $e) { return null; }
 }

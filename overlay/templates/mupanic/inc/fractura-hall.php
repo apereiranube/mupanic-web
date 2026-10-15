@@ -1,52 +1,43 @@
 <?php
 if(!defined('access') || !access) die();
 require_once __DIR__.'/fractura-week-data.php';
-$contest=panicFracturaWeekRead();
+require_once __DIR__.'/fractura-ranks.php';
+$contest=panicFracturaWeekRead();$honors=panicFracturaDistinctionsRead();
+$current=$contest['current']??null;$history=$contest['history']??[];$latest=$history[0]??null;
 function panicFracturaHallEscape($s) { return htmlspecialchars((string)$s,ENT_QUOTES,'UTF-8'); }
 function panicFracturaHallDate($unix,$format='d/m · H:i') { return (new DateTimeImmutable('@'.(int)$unix))->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'))->format($format); }
-function panicFracturaHallRewards($rules) {
-    foreach(['W'=>'Bando ganador','L'=>'Bando perdedor','T'=>'Empate'] as $key=>$name) {
-        $r=$rules[$key]; $parts=[];
-        foreach(['fragments'=>'fragmentos de vínculo','bless'=>'Bless','soul'=>'Soul','chaos'=>'Chaos'] as $field=>$label) {
-            if($field==='fragments' && (int)$r[$field]===1) $label='fragmento de vínculo';
-            if((int)$r[$field]>0) $parts[]=panicFracturaNumber($r[$field]).' '.$label;
-        }
-        echo '<div class="fh-reward"><span>'.panicFracturaHallEscape($name).'</span><strong>'.panicFracturaNumber($r['contribution']).' <small>contribución personal</small></strong><p>'.panicFracturaHallEscape(implode(' · ',$parts)).'</p></div>';
-    }
+function panicFracturaHallCrest($family,$size=80) {
+    $name=(int)$family===1?'nexo':'caos';
+    return '<img src="'.htmlspecialchars(__PATH_TEMPLATE__.'img/fractura/'.$name.'-emblema-v32.svg',ENT_QUOTES,'UTF-8').'" alt="" width="'.$size.'" height="'.$size.'">';
 }
+$latestFamily=$latest?(int)$latest['winnerFamily']:0;
 ?>
 <section class="fractura-hall" id="salon-de-la-fama" aria-labelledby="fh-title">
-  <header class="fh-heading"><div><span class="eyebrow">LAS VICTORIAS DEJAN HUELLA</span><h2 id="fh-title">Salón de<br><em>la Fama.</em></h2></div><p>Una semana para conquistar Vulcanus.<br>Un lugar en la historia para el bando vencedor.</p></header>
-  <nav class="fh-tabs" aria-label="Competencia semanal"><a href="#fh-disputa">Esta semana</a><a href="#fh-historia">Los vencedores</a><a href="#fh-premios">Premios y cobro</a><a href="#rangos-fractura">Rangos y laureados</a></nav>
-  <?php if(!$contest) { ?>
-  <div class="fh-unavailable" role="status"><strong>El registro semanal no está disponible en este momento.</strong><p>Volvé a consultar más tarde. Los puntos acumulados de los bandos se muestran por separado.</p></div>
-  <?php } else { $current=$contest['current'];$finished=$current['isClosed'];$waiting=!$finished && (int)$current['nowUnix']>=(int)$current['closeUnix']; ?>
-  <article class="fh-dispute" id="fh-disputa">
-    <header><span class="eyebrow"><?php echo $finished?'SEMANA CERRADA':($waiting?'CIERRE PENDIENTE':($current['enabled']?'LA DISPUTA ESTÁ ABIERTA':'COMPETENCIA EN PAUSA')); ?></span><span><?php echo panicFracturaHallDate($current['startUnix'],'d/m'); ?> — <?php echo panicFracturaHallDate($current['closeUnix'],'d/m/Y'); ?></span></header>
-    <div class="fh-versus">
-      <?php foreach([1=>'Nexo',2=>'Caos'] as $family=>$name) { $field=$family===1?'nexoPoints':'caosPoints'; ?>
-      <div class="fh-faction fh-faction-<?php echo $family; ?>"><img src="<?php echo $art; ?><?php echo strtolower($name); ?>-emblema-v32.svg" alt="" width="100" height="100"><span><?php echo $name; ?></span><strong><?php echo panicFracturaNumber($current[$field]); ?></strong><small>puntos semanales</small></div>
-      <?php if($family===1) { ?><span class="fh-vs" aria-hidden="true">VS</span><?php } } ?>
+  <div class="fh-sanctum">
+    <picture class="fh-sanctum-art" aria-hidden="true"><source media="(max-width:650px)" srcset="<?php echo $art; ?>salon-vencedores-mobile-v34.webp"><img src="<?php echo $art; ?>salon-vencedores-v34.webp" alt="" width="1536" height="1024" loading="lazy"></picture>
+    <div class="fh-sanctum-veil" aria-hidden="true"></div>
+    <header class="fh-sanctum-heading"><span class="eyebrow">LAS VICTORIAS DEJAN HUELLA</span><h2 id="fh-title">Salón de<br><em>la Fama.</em></h2></header>
+    <?php foreach([1=>'Nexo',2=>'Caos'] as $family=>$name) { ?><div class="fh-standard fh-standard-<?php echo $family; ?>">
+      <div class="fh-standard-sigil"><?php echo panicFracturaHallCrest($family,100); ?></div><strong><?php echo $name; ?></strong>
+      <span class="fh-standard-score"><?php echo $current?panicFracturaNumber($current[$family===1?'nexoPoints':'caosPoints']):'—'; ?></span><small>ESTA SEMANA</small>
+    </div><?php } ?>
+    <div class="fh-inscription fh-inscription-<?php echo $latestFamily; ?>">
+      <?php if($latest) { ?><span class="fh-inscription-kicker">LA ÚLTIMA CONQUISTA</span>
+      <div class="fh-victor-seal"><?php if($latestFamily) echo panicFracturaHallCrest($latestFamily,90);else { echo panicFracturaHallCrest(1,65).panicFracturaHallCrest(2,65); } ?></div>
+      <h3><?php echo $latestFamily===1?'Nexo':($latestFamily===2?'Caos':'Empate'); ?></h3><p><?php echo $latestFamily?'Su nombre queda en la historia.':'Ningún juramento cedió.'; ?></p>
+      <span class="fh-inscription-date"><?php echo panicFracturaHallDate($latest['closeUnix'],'d.m.Y'); ?> <i aria-hidden="true">·</i> Nexo <?php echo panicFracturaNumber($latest['nexoPoints']); ?> / Caos <?php echo panicFracturaNumber($latest['caosPoints']); ?></span>
+      <?php } elseif($contest) { ?><span class="fh-inscription-kicker">EL PRIMER CAPÍTULO</span><div class="fh-unclaimed-seal" aria-hidden="true"><span>Ⅰ</span></div><h3>El honor<br>aún espera.</h3><p>La primera conquista todavía está en juego.</p>
+      <?php } else { ?><span class="fh-inscription-kicker">LAS CRÓNICAS DE VULCANUS</span><div class="fh-unclaimed-seal" aria-hidden="true"><span>◇</span></div><h3>Un lugar<br>en la historia.</h3><p class="fh-record-status" role="status">Las crónicas no están disponibles en este momento.</p><?php } ?>
     </div>
-    <footer><p><strong><?php echo panicFracturaNumber($current['bossPoints']); ?> puntos por victoria oficial del boss.</strong> Decide el último golpe. Las misiones y el PvP no suman a este marcador.</p><span>Cierre: <?php echo panicFracturaHallDate($current['closeUnix'],'d/m · H:i'); ?> ARG</span></footer>
-    <div class="fh-updated">Registro: <?php echo panicFracturaHallDate($current['nowUnix']); ?> ARG · <a href="?actualizar=<?php echo (int)$current['nowUnix']; ?>#salon-de-la-fama">Actualizar</a></div>
-  </article>
-  <div class="fh-history" id="fh-historia"><div class="fh-subheading"><span class="eyebrow">EL HONOR PERMANECE</span><h3>Los vencedores.</h3><p>Resultados oficiales de las últimas 52 semanas cerradas.</p></div>
-  <?php if(!$contest['history']) { ?>
-    <div class="fh-empty"><span aria-hidden="true">I</span><h4>La primera conquista todavía está en juego.</h4><p>El primer bando vencedor quedará registrado después del cierre semanal. Hasta entonces, cada derrota del Señor de la Fractura puede cambiar el destino.</p></div>
-  <?php } else { foreach($contest['history'] as $entry) { $winner=$entry['winnerFamily'];$name=$winner===1?'Nexo':($winner===2?'Caos':'Empate'); ?>
-    <article class="fh-champion fh-champion-<?php echo $winner; ?>">
-      <header><span>SEMANA DEL <?php echo panicFracturaHallEscape(substr($entry['weekStart'],8,2).'/'.substr($entry['weekStart'],5,2).'/'.substr($entry['weekStart'],0,4)); ?></span><time datetime="<?php echo gmdate('c',(int)$entry['closeUnix']); ?>">Cierre <?php echo panicFracturaHallDate($entry['closeUnix']); ?> ARG</time></header>
-      <div class="fh-champion-body"><?php if($winner) { ?><img src="<?php echo $art.strtolower($name); ?>-emblema-v32.svg" alt="" width="86" height="86"><?php } ?><div><span><?php echo $winner?'BANDO VENCEDOR':'FUERZAS IGUALADAS'; ?></span><h4><?php echo $name; ?></h4><p>Nexo <b><?php echo panicFracturaNumber($entry['nexoPoints']); ?></b> <i aria-hidden="true">/</i> Caos <b><?php echo panicFracturaNumber($entry['caosPoints']); ?></b></p></div></div>
-      <details><summary>Ver los premios de esta semana <span aria-hidden="true">+</span></summary><div class="fh-rewards"><?php panicFracturaHallRewards($entry['rules']); ?></div></details>
-    </article>
-  <?php } } ?></div>
-  <div class="fh-prizes" id="fh-premios"><div class="fh-subheading"><span class="eyebrow">TU ESFUERZO TIENE RECOMPENSA</span><h3>Defendé tu bando.<br>Cobrá tu conquista.</h3><p>Completá y cobrá al menos <strong><?php echo panicFracturaNumber($current['minimumQuests']); ?> misiones diarias con el mismo personaje</strong> durante la semana, antes del cierre. La misma misión en dos días distintos también cuenta.</p></div>
-    <div class="fh-rewards"><?php panicFracturaHallRewards($contest['rules']); ?></div>
-    <ol class="fh-steps"><li><b>01</b><div><strong>Elegí quién cobra</strong><p>Después del cierre, hablá con Aldren o Varkor usando un personaje que cumpla las misiones. El primero que reclame fija el premio de la cuenta.</p></div></li><li><b>02</b><div><strong>Dejá descansar tu cuenta</strong><p>Desconectá todos sus personajes durante unos 3 minutos para recibir los puntos y el paquete completo.</p></div></li><li><b>03</b><div><strong>Abrí tu recompensa</strong><p>Volvé a entrar: la contribución estará acreditada. Retirá los objetos con <kbd>F8</kbd>. Tenés 20 días para sacarlos del baúl.</p></div></li></ol>
-    <p class="fh-footnote">Un premio por cuenta y por semana. Sin núcleos semanales fijos. Si falta espacio en el baúl, el paquete completo queda pendiente. Las semanas cerradas conservan sus premios aunque cambien las reglas futuras.</p>
+    <div class="fh-sanctum-foot"><span><?php echo $current?($current['isClosed']?'SEMANA CERRADA':'CIERRE '.panicFracturaHallDate($current['closeUnix'],'d/m · H:i').' ARG'):'NEXO · CAOS'; ?></span><a href="<?php echo __BASE_URL__; ?>info/#fractura">Guía de Fractura <span aria-hidden="true">↗</span></a></div>
   </div>
-  <?php } ?>
-  <?php include __DIR__.'/fractura-honors.php'; ?>
+  <?php if($history) { ?><div class="fh-chronicles" id="fh-historia"><header class="fh-chapter-heading"><span class="eyebrow">LOS JURAMENTOS QUE PREVALECIERON</span><h3>Las crónicas.</h3></header><div class="fh-monuments">
+    <?php foreach($history as $index=>$entry) { $winner=(int)$entry['winnerFamily'];if($index===6) { ?></div><details class="fh-older"><summary>Abrir las crónicas anteriores <span aria-hidden="true">＋</span></summary><div class="fh-monuments"><?php } ?>
+    <article class="fh-monument fh-monument-<?php echo $winner; ?>"><span class="fh-monument-date"><?php echo panicFracturaHallDate($entry['closeUnix'],'d.m.Y'); ?></span><div class="fh-monument-sigil"><?php if($winner)echo panicFracturaHallCrest($winner,72);else echo '<span class="fh-tie-mark" aria-hidden="true">◇</span>'; ?></div><span class="fh-monument-oath"><?php echo $winner?'BANDO VENCEDOR':'FUERZAS IGUALADAS'; ?></span><h4><?php echo $winner===1?'Nexo':($winner===2?'Caos':'Empate'); ?></h4><p><span>NEXO <b><?php echo panicFracturaNumber($entry['nexoPoints']); ?></b></span><i aria-hidden="true">/</i><span>CAOS <b><?php echo panicFracturaNumber($entry['caosPoints']); ?></b></span></p></article>
+    <?php } ?></div><?php if(count($history)>6) { ?></details><?php } ?></div><?php } ?>
+  <div class="fh-laureates-hall" id="distinciones-fractura"><header class="fh-chapter-heading"><span class="eyebrow">EL TRIUNFO LLEVA TU NOMBRE</span><h3>Los laureados.</h3></header>
+    <?php if($honors) { ?><div class="fh-pedestals"><?php foreach($honors as $honor) { $family=$honor['family']; ?><article class="fh-pedestal fh-pedestal-<?php echo $family; ?>"><div class="fh-laurel" aria-hidden="true"><?php echo panicFracturaHallCrest($family,80); ?></div><span><?php echo $family===1?'LAUREADO DEL NEXO':'LAUREADO DE CAOS'; ?></span><h4><?php echo panicFracturaHallEscape($honor['name']); ?></h4><small>Hasta <?php echo panicFracturaHallDate($honor['untilUnix'],'d.m · H:i'); ?> ARG</small><div class="fh-pedestal-base" aria-hidden="true"></div></article><?php } ?></div>
+    <?php } else { ?><div class="fh-silent-names"><span aria-hidden="true">✧</span><p><?php echo $honors===null?'Los nombres laureados no están disponibles en este momento.':'Los pedestales esperan nuevos nombres.'; ?></p></div><?php } ?>
+  </div>
+  <a class="fh-atlas-link" href="<?php echo __BASE_URL__; ?>info/#fractura">Conocé las reglas de la conquista en el Atlas <span aria-hidden="true">↗</span></a>
 </section>
-

@@ -10,5 +10,7 @@
     </div>
     <a class="vinculos-home" href="#vinculos"><img src="<?php echo __PATH_TEMPLATE__; ?>img/atlas/vinculos/vaeraxes-cinematic.webp" alt="" width="384" height="384"><div><span class="eyebrow">EL PACTO DE LOS OCHO Y SUS NUEVAS LEYENDAS</span><h3>Vínculos de PANIC.</h3><p>Historias, evoluciones, mascotas exclusivas y monturas. Descubrí a tu próximo compañero.</p><strong>Explorar los vínculos →</strong></div></a>
     <a class="v-guide-entry" href="#vessara"><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-seal-v2.svg" alt="" width="72" height="72"><div><span class="eyebrow">SISTEMAS DEL CONTINENTE</span><h3>Mercado de Vessara</h3><p>Zen, Eryns, tributo, límites y cómo comerciar desde el juego.</p></div><strong>Leer la guía →</strong></a>
+    <a class="af-home-entry" href="#fractura"><img src="<?php echo __PATH_TEMPLATE__; ?>img/fractura/nexo-emblema-v32.svg" alt="" width="65" height="70"><div><span class="eyebrow">NEXO / CAOS</span><h3>La conquista de Vulcanus.</h3><p>Bandos, contribución, rangos y cómo cobrar tu premio semanal.</p></div><strong>Leer la guía →</strong></a>
     <div class="atlas-home-trail"><span class="atlas-trail-icon" aria-hidden="true"><?php echo mupanicGlyph('wings'); ?></span><div><span class="eyebrow">CADA HÉROE TIENE UN COMIENZO</span><h3>Tu camino empieza acá.</h3><p>Primeros pasos, progresión y recetas para preparar tu personaje.</p></div><a href="#primeros-pasos">Abrir la guía →</a></div>
 </section>
+
