@@ -951,3 +951,35 @@ body.vessara-tooltip-open:before{display:none}
  .vessara-tooltip-section{padding:8px 0}
 }
 /* Earlier mobile bottom-sheet rules are overridden above intentionally. */
+
+
+/* VESSARA V8 / desktop scroll performance.
+   Once the live trading board is approaching, stop the costly full-screen
+   atmosphere and distant decorative animations without interrupting the
+   live featured marquee, tooltips, or the sale-data refresh timers. */
+@media(min-width:901px){
+ .vessara-page.is-browsing-market .vessara-atmosphere{
+  opacity:0;
+  visibility:hidden;
+ }
+ .vessara-page.is-browsing-market .vessara-aurora i,
+ .vessara-page.is-browsing-market .vessara-gate-ring,
+ .vessara-page.is-browsing-market .vessara-gate-ring::before,
+ .vessara-page.is-browsing-market .vessara-gate-ring::after,
+ .vessara-page.is-browsing-market .vessara-scene-seal,
+ .vessara-page.is-browsing-market .vessara-beam,
+ .vessara-page.is-browsing-market .vessara-value-aura i,
+ .vessara-page.is-browsing-market .vessara-stats .vessara-stat-trades>img,
+ .vessara-page.is-browsing-market .vessara-spark polyline,
+ .vessara-page.is-browsing-market .vessara-ticker-track,
+ .vessara-page.is-browsing-market .vessara-cta::after{
+  animation-play-state:paused!important;
+ }
+}
+/* Avoid promoting an offscreen marquee to a large permanent GPU layer.
+   The moving belt resumes composition only as it approaches the viewport. */
+@media(min-width:901px){
+ .vessara-promoted.is-offscreen .vessara-marquee-motion{
+  will-change:auto;
+ }
+}

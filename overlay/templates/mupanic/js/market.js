@@ -66,21 +66,47 @@ function clock(){
  q('[data-market-clock]').textContent=new Intl.DateTimeFormat('es-AR',{timeZone:'America/Argentina/Buenos_Aires',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(new Date());
  q('[data-market-countdown]').textContent=String(Math.max(0,Math.ceil((nextPoll-Date.now())/1000)));
 }
-const canvas=q('[data-market-atmosphere]'),ctx=canvas.getContext('2d');let ambienceFrame=0,ambienceLast=0,particles=[],cw=0,ch=0;
+const canvas=q('[data-market-atmosphere]'),ctx=canvas.getContext('2d');
+let ambienceFrame=0,ambienceLast=0,particles=[],cw=0,ch=0,browsingMarket=false;
+// The enormous atmospheric canvas must not redraw across the full desktop
+// viewport while someone is browsing the much richer Vessara inventory below.
+function setBrowsingMarket(value) {
+ if(browsingMarket===value)return;
+ browsingMarket=value;
+ root.classList.toggle('is-browsing-market',value);
+ ambientState();
+}
 const sprites=['#ffc978','#94cfff','#d5a36b'].map(color=>{const c=document.createElement('canvas');c.width=c.height=24;const cx=c.getContext('2d'),g=cx.createRadialGradient(12,12,0,12,12,12);g.addColorStop(0,color);g.addColorStop(.12,color+'dd');g.addColorStop(.45,color+'33');g.addColorStop(1,color+'00');cx.fillStyle=g;cx.fillRect(0,0,24,24);return c;});
 function resizeAtmosphere(){
  cw=innerWidth;ch=innerHeight;const ratio=Math.min(devicePixelRatio||1,1.1);canvas.width=Math.round(cw*ratio);canvas.height=Math.round(ch*ratio);ctx?.setTransform(ratio,0,0,ratio,0,0);particles=Array.from({length:cw<600?9:22},(_,i)=>({x:Math.random()*cw,y:Math.random()*ch,v:.25+Math.random()*.7,r:3+Math.random()*8,phase:Math.random()*6.28,color:i%3}));
 }
 function atmosphere(now){
- ambienceFrame=0;if(effectsPaused||motion.matches||document.hidden||!ctx){canvas.dataset.running='false';return;}canvas.dataset.running='true';ambienceFrame=requestAnimationFrame(atmosphere);if(now-ambienceLast<66)return;const delta=Math.min(3,(now-ambienceLast)/66);ambienceLast=now;ctx.clearRect(0,0,cw,ch);
+ ambienceFrame=0;if(effectsPaused||motion.matches||document.hidden||browsingMarket||!ctx){canvas.dataset.running='false';return;}canvas.dataset.running='true';ambienceFrame=requestAnimationFrame(atmosphere);if(now-ambienceLast<66)return;const delta=Math.min(3,(now-ambienceLast)/66);ambienceLast=now;ctx.clearRect(0,0,cw,ch);
  for(const p of particles){p.y-=p.v*delta;p.x+=Math.sin(now/4500+p.phase)*.16*delta;if(p.y<-15){p.y=ch+15;p.x=Math.random()*cw;}ctx.globalAlpha=.3+.45*(.5+.5*Math.sin(now/1400+p.phase));ctx.drawImage(sprites[p.color],p.x,p.y,p.r,p.r);}ctx.globalAlpha=1;
 }
 function ambientState(){
  cancelAnimationFrame(ambienceFrame);ambienceFrame=0;root.classList.toggle('effects-paused',effectsPaused||motion.matches);root.classList.toggle('effects-background',document.hidden);const button=q('[data-market-effects]');button.disabled=motion.matches;button.setAttribute('aria-pressed',String(effectsPaused||motion.matches));button.textContent=motion.matches?'Efectos reducidos':effectsPaused?'Activar efectos ▷':'Pausar efectos Ⅱ';
- if(effectsPaused||motion.matches||document.hidden){canvas.dataset.running='false';if(motion.matches)ctx?.clearRect(0,0,cw,ch);}else ambienceFrame=requestAnimationFrame(atmosphere);
+ if(effectsPaused||motion.matches||document.hidden||browsingMarket){canvas.dataset.running='false';if(motion.matches)ctx?.clearRect(0,0,cw,ch);}else ambienceFrame=requestAnimationFrame(atmosphere);
  if(effectsPaused||motion.matches)root.querySelectorAll('[data-market-metric]').forEach(el=>{cancelAnimationFrame(animations.get(el));if(el.dataset.metricValue)el.textContent=fmt(el.dataset.metricValue);fitMetric(el);el.closest('article')?.classList.remove('is-updating');});
 }
 q('[data-market-effects]').addEventListener('click',()=>{effectsPaused=!effectsPaused;ambientState();});motion.addEventListener('change',ambientState);document.addEventListener('visibilitychange',ambientState);addEventListener('resize',()=>{resizeAtmosphere();ambientState();},{passive:true});resizeAtmosphere();ambientState();
+// Pause decorative top-of-page effects BEFORE the listings enter view. A
+// single sentinel is enough and avoids installing a handler on every scroll.
+const listingsBoundary=q('.vessara-listings');
+if(listingsBoundary && typeof IntersectionObserver!=='undefined'){
+ const perfBoundaryObserver=new IntersectionObserver(()=>{
+  // Root margin makes the observer fire while the section is approaching.
+  const next=listingsBoundary.getBoundingClientRect().top<=innerHeight*1.3;
+  setBrowsingMarket(next && matchMedia('(min-width:901px)').matches);
+ },{rootMargin:'0px 0px 30% 0px',threshold:0});
+ perfBoundaryObserver.observe(listingsBoundary);
+ // In case the page opened directly at #publicaciones.
+ setBrowsingMarket(listingsBoundary.getBoundingClientRect().top<=innerHeight*1.3 && innerWidth>=901);
+ addEventListener('resize',()=>{
+  setBrowsingMarket(listingsBoundary.getBoundingClientRect().top<=innerHeight*1.3 && innerWidth>=901);
+ },{passive:true});
+}
+
 const hero=q('.vessara-hero');hero.addEventListener('pointermove',e=>{if(e.pointerType==='touch'||motion.matches||effectsPaused)return;const rect=hero.getBoundingClientRect();hero.style.setProperty('--scene-x',((e.clientX-rect.left)/rect.width-.5)*12+'px');hero.style.setProperty('--scene-y',((e.clientY-rect.top)/rect.height-.5)*8+'px');},{passive:true});hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--scene-x','0px');hero.style.setProperty('--scene-y','0px');});
 function tradeImpact(){if(motion.matches||effectsPaused)return;const burst=q('[data-market-burst]');burst.classList.remove('is-firing');void burst.offsetWidth;burst.classList.add('is-firing');setTimeout(()=>burst.classList.remove('is-firing'),1800);}
 // Skip expensive DOM/canvas reconstruction on polls without real market changes.
@@ -111,5 +137,18 @@ async function refresh(){
  catch{q('[data-market-status]').textContent=data?'Último registro disponible':'Datos no disponibles';q('[data-market-status]').classList.add('is-stale');connection(true);}
  finally{clearTimeout(timeout);request=null;nextPoll=Date.now()+15000;clock();}
 }
-render();document.fonts?.ready.then(()=>root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric));if(typeof ResizeObserver!=='undefined')new ResizeObserver(()=>root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric)).observe(root);clock();setInterval(()=>{if(!document.hidden){clock();if(Date.now()>=nextPoll&&!request)refresh();}},1000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+render();
+document.fonts?.ready.then(()=>root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric));
+// Only responsive WIDTH changes require a metric re-fit. Observing root
+// height caused forced reflows when async market listings/images expanded.
+if(typeof ResizeObserver!=='undefined'){
+ let measuredWidth=0;
+ new ResizeObserver(entries=>{
+  const width=entries[0]?.contentRect.width||root.clientWidth;
+  if(Math.abs(width-measuredWidth)<1)return;
+  measuredWidth=width;
+  root.querySelectorAll('strong[data-market-metric]').forEach(fitMetric);
+ }).observe(root);
+}
+clock();setInterval(()=>{if(!document.hidden){clock();if(Date.now()>=nextPoll&&!request)refresh();}},1000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 })();

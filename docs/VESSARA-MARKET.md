@@ -161,3 +161,16 @@ El servidor continúa resolviendo imagen por `ItemIndex` y sirviendo los mismos 
 - El carrusel premium se pausa mientras hay una ficha abierta, sin modificar imágenes, precios, atributos, consultas SQL ni transacciones.
 - Nuevo test de navegador con emulación táctil de 390×844, 360×640, 320×568 y 844×390. Verifica ausencia de desplazamiento lateral del documento, ficha contenida en el viewport, desplazamiento interno, cierre fijo visible y restauración del scroll.
 - Implementación únicamente web en la rama `beta`; desplegar desde cPanel. No requiere instalación VPS, cambios SQL, cliente ni reiniciar GameServer.
+
+## V8 — Fluidez del desplazamiento en escritorio al entrar a publicaciones (15/10/2026)
+
+Se identificaron y corrigieron dos fuentes de trabajo innecesario al pasar del panel de monedas al mercado:
+
+- El canvas atmosférico cubría la pantalla con repintados periódicos incluso muy lejos de la cabecera. Ahora un IntersectionObserver del comienzo de la vidriera corta los repintados **antes de entrar a las publicaciones** y los reactiva al volver arriba, solamente en escritorio.
+- Las animaciones ornamentales de monedas, aureolas, hero, monedas giratorias, línea de evolución y ticker se suspenden cuando ya no están visibles. El carrusel continuo de **destacados** sigue activo; las consultas, filtros, tooltips y ventas no se interrumpen.
+- El ResizeObserver que observaba toda la página antes recalculaba las tipografías de las métricas si cambiaba la **altura** del catálogo. Ahora solo actúa cuando varía el ancho real, eliminando la remaquetación forzada al llegar objetos o imágenes.
+- Se evita que el carrusel fuera de pantalla mantenga una capa GPU permanente mientras no está a la vista.
+
+El test `market-desktop-scroll-browser.cjs` comprueba las transiciones desde cabecera, monedas y publicaciones, la interrupción del canvas, pausa de ornamentos, continuidad del carrusel, cambios de altura del catálogo y reactivación de efectos al volver arriba en 1366 y 1920 px.
+
+Se ejecuta en rama `beta` únicamente; no requiere cambios SQL, cliente, VPS ni GameServer. La percepción real de fluidez debe validarse en el navegador de escritorio del administrador.
