@@ -20,7 +20,7 @@ const item=(id)=>({
  try{
   for(const [width,height] of [[390,844],[360,640],[320,568],[844,390]]){
    const page=await browser.newPage({
-    viewport:{width,height},isMobile:true,hasTouch:true,deviceScaleFactor:2,reducedMotion:'reduce'
+    viewport:{width,height},isMobile:true,hasTouch:true,deviceScaleFactor:2,reducedMotion:width===390?'no-preference':'reduce'
    });
    const errors=[];
    page.on('pageerror',e=>errors.push(e.message));
@@ -51,6 +51,11 @@ const item=(id)=>({
    assert.ok(initial.bodyWidth<=initial.innerWidth+1,'body is no wider than viewport at '+width);
    assert.equal(initial.x,0,'starts with no sideways displacement');
    assert.equal(initial.bodyOverflow,'clip','mobile market body clips lateral overscroll');
+   if(width===390){
+    assert.ok(initial.y>200,'test starts below the top of the actual marketplace');
+    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).scrollBehavior),'smooth',
+      'regression runs with the site-wide smooth-scroll setting enabled');
+   }
    await page.mouse.wheel(300,0);
    await page.waitForTimeout(120);
    assert.equal(await page.evaluate(()=>scrollX),0,'horizontal wheel does not move the whole page');
@@ -98,6 +103,20 @@ const item=(id)=>({
    assert.equal(afterClose.shade,true,'closing hides backdrop');
    assert.ok(Math.abs(afterClose.y-initial.y)<=2,'closing restores original scroll position');
    assert.equal(afterClose.x,0,'closing never shifts page horizontally');
+   if(width===390){
+    const positions=await page.evaluate(async()=>{
+     const points=[scrollY];
+     for(let i=0;i<24;i++){
+      await new Promise(resolve=>requestAnimationFrame(resolve));
+      points.push(scrollY);
+     }
+     return points;
+    });
+    assert.ok(positions.every(y=>Math.abs(y-initial.y)<=2),
+      'closing returns immediately without a downward smooth-scroll journey: '+JSON.stringify(positions));
+    assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).scrollBehavior),'smooth',
+      'normal site smooth scrolling is restored after closing');
+   }
    // Touching the backdrop closes the dialog instead of triggering the card beneath.
    await page.locator('[data-listings-grid] .vessara-offer').first().tap();
    await page.waitForFunction(()=>!document.querySelector('.vessara-tooltip').hidden);

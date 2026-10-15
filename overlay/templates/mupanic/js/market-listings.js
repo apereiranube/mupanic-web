@@ -54,7 +54,18 @@ function unlockMobilePage() {
  const body=document.body;
  body.style.position=state.position;body.style.top=state.top;
  body.style.left=state.left;body.style.right=state.right;body.style.width=state.width;
- window.scrollTo(0,state.y);
+ // The site's global html scroll-behavior:smooth must NOT animate modal close.
+ // Temporarily disable it for this single restoration; keep normal site scrolling.
+ const html=document.documentElement,previous=html.style.scrollBehavior;
+ html.style.scrollBehavior='auto';
+ try {
+   // Force the override to be computed before restoring the original position.
+   getComputedStyle(html).scrollBehavior;
+   try {window.scrollTo({left:0,top:state.y,behavior:'instant'});}
+   catch {window.scrollTo(0,state.y);}
+ } finally {
+   html.style.scrollBehavior=previous;
+ }
 }
 
 function sources(item) {
