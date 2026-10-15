@@ -17,6 +17,10 @@ class Connection {
 require __DIR__.'/../overlay/templates/mupanic/inc/fractura-week-data.php';
 function check($ok,$message){if(!$ok)throw new RuntimeException($message);}
 $d=panicFracturaWeekRead();check($d!==null && $d['current']['caosPoints']==='2000' && !$d['current']['isClosed'] && !$d['history'],'Open week has no invented champion');
+$live=panicFracturaWeeklyLivePayload($d);check($live['schema']===2 && $live['kind']==='weekly','Distinct weekly payload');
+check($live['factions'][2]['points']==='2000' && !isset($live['factions'][2]['members']),'Screens use only weekly points');
+check(panicFracturaWeeklyLivePayload(null)===null,'Unavailable current is not cumulative fallback');
+check(strpos(panicFracturaWeekCloseLabel('1792376100'),'23:15 ARG')!==false,'Argentina closing time');
 $mode='zero';check(panicFracturaWeekRead()['current']['nexoPoints']==='0','Legitimate zero');
 foreach(['history'=>2,'nexo'=>1,'tie'=>0] as $key=>$winner){$mode=$key;check(panicFracturaWeekRead()['history'][0]['winnerFamily']===$winner,'Finalized SQL winner');}
 $mode='false';check(panicFracturaWeekRead()===null,'Failed history query is not empty history');

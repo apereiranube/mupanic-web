@@ -4,6 +4,9 @@ $hall=file_get_contents(__DIR__.'/../overlay/templates/mupanic/inc/fractura-hall
 checkSalon(strpos($hall,'salon-vencedores-mobile-v34.webp')!==false && strpos($hall,'salon-vencedores-v34.webp')!==false,'Art for desktop and mobile');
 checkSalon(strpos($hall,'<table')===false && strpos($hall,'fractura-honors.php')===false,'No tables or technical rank section in hall');
 checkSalon(strpos($hall,'F8')===false && strpos($hall,'misiones')===false && strpos($hall,'fh-premios')===false,'Claim instructions belong in Atlas');
+checkSalon(strpos($hall,'fh-standard-score')===false && strpos($hall,'ESTA SEMANA')===false,'Hall has no in-progress counters');
+$page=file_get_contents(__DIR__.'/../overlay/templates/mupanic/inc/fractura.php');
+checkSalon(strpos($page,'fractura_week=1')!==false && strpos($page,'PUNTOS ACUMULADOS')===false && strpos($page,'BOSS + PvP VÁLIDO')!==false,'Screens show the weekly contest');
 $guide=file_get_contents(__DIR__.'/../overlay/templates/mupanic/inc/atlas-fractura.php');
 foreach(['fractura-rangos','fractura-premios','fractura-cobro','F8','dos misiones','3 minutos','20 días','último golpe'] as $term)checkSalon(strpos($guide,$term)!==false,'Missing guide reference: '.$term);
 $nav=file_get_contents(__DIR__.'/../overlay/templates/mupanic/inc/guide.php');

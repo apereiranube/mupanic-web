@@ -19,3 +19,5 @@ mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),line
 .fh-sanctum-foot{left:16%;right:16%;text-shadow:0 2px 8px #000}
 .fh-atlas-link{text-shadow:0 2px 9px #000}
 @media(max-width:650px){.fh-sanctum-art{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 17%,#000 68%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 17%,#000 68%,transparent)}.fh-chronicles,.fh-laureates-hall{width:calc(100% - 32px)}.fh-sanctum-foot{left:8%;right:8%}}
+
+.fractura-week-cut{display:block;margin-top:10px;color:#d7b17c;font-size:11px;letter-spacing:.08em}.fractura-scoreboard{scroll-margin-top:120px}.fh-standard{gap:12px}.fh-standard>small{font-size:8px;letter-spacing:.2em}@media(max-width:650px){.fh-standard{gap:8px}.fh-standard>small{font-size:6px;letter-spacing:.12em}}

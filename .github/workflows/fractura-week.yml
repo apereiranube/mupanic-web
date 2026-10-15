@@ -6,6 +6,9 @@ on:
       - 'overlay/templates/mupanic/inc/fractura*.php'
       - 'overlay/templates/mupanic/css/fractura*.css'
       - 'overlay/templates/mupanic/img/fractura/*-emblema-v32.svg'
+      - 'overlay/templates/mupanic/js/fractura.js'
+      - 'overlay/templates/mupanic/index.php'
+      - 'tests/fractura-ui.cjs'
       - 'tests/fractura-week.php'
       - '.github/workflows/fractura-week.yml'
   workflow_dispatch:
@@ -23,3 +26,5 @@ jobs:
           php -l overlay/templates/mupanic/inc/fractura-week-data.php
           php tests/fractura-week.php
           php tests/fractura-totals.php
+          node --check overlay/templates/mupanic/js/fractura.js
+          node tests/fractura-ui.cjs

@@ -27,6 +27,7 @@ define('access',true);define('__BASE_URL__','/');define('__PATH_TEMPLATE__','/ov
 $art=__PATH_TEMPLATE__.'img/fractura/';
 require_once __DIR__.'/../../overlay/templates/mupanic/inc/fractura-data.php';
 echo '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/overlay/templates/mupanic/css/fractura.css"><link rel="stylesheet" href="/overlay/templates/mupanic/css/fractura-hall.css"><style>body{margin:0;background:#070b12;color:#dccab2;font-family:Arial,sans-serif}*{box-sizing:border-box}a{color:inherit;text-decoration:none}.eyebrow{font-size:10px;letter-spacing:.15em;color:#b99b6d}h2,h3,h4{font-family:Georgia,serif}body{--display:Georgia,serif}.wiki-section{max-width:1000px;margin:40px auto;padding:0 20px}.wiki-table-scroll table{width:100%;border-collapse:collapse}.wiki-table-scroll :is(td,th){padding:15px;border-bottom:1px solid #8b6a4138;text-align:left}.wiki-table-scroll th{color:#c6a777}.wiki-section h3{font-size:33px;font-weight:400}.wiki-section h2{font-weight:400}</style></head><body class="is-fractura">';
-if($fixturePart==='atlas') {echo '<div class="panic-wiki">';require __DIR__.'/../../overlay/templates/mupanic/inc/atlas-fractura.php';echo '</div>';}
+if($fixturePart==='page'){require __DIR__.'/../../overlay/templates/mupanic/inc/fractura.php';echo '<script src="/overlay/templates/mupanic/js/fractura.js"></script>';}
+elseif($fixturePart==='atlas') {echo '<div class="panic-wiki">';require __DIR__.'/../../overlay/templates/mupanic/inc/atlas-fractura.php';echo '</div>';}
 else {echo '<main class="fractura-page">';require __DIR__.'/../../overlay/templates/mupanic/inc/fractura-hall.php';echo '</main>';}
 echo '</body></html>';

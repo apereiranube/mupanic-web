@@ -51,15 +51,21 @@
     if (typeof reduced.addEventListener === 'function') reduced.addEventListener('change', motion);
     root.querySelectorAll('[data-fractura-points]').forEach(el => el.classList.toggle('is-long', el.textContent.replace(/[^0-9]/g, '').length > 9));
     const number = v => nf.format(BigInt(v));
-    const valid = d => d && d.schema === 1 && Number.isSafeInteger(d.updated) && d.updated > 0 && d.updated <= Date.now() / 1000 + 60 &&
-        [1, 2].every(id => ['points', 'members'].every(key => typeof d.factions?.[id]?.[key] === 'string' && /^[0-9]{1,38}$/.test(d.factions[id][key])));
+    const valid = d => d && d.schema === 2 && d.kind === 'weekly' && Number.isSafeInteger(d.updated) && d.updated > 0 && d.updated <= Date.now() / 1000 + 60 &&
+        typeof d.weekStart === 'string' && /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(d.weekStart) && typeof d.closeUnix === 'string' && /^[0-9]{1,10}$/.test(d.closeUnix) &&
+        typeof d.enabled === 'boolean' && typeof d.isClosed === 'boolean' &&
+        [1, 2].every(id => typeof d.factions?.[id]?.points === 'string' && /^[0-9]{1,18}$/.test(d.factions[id].points));
+    const closeLabel = unix => {
+        const parts = new Intl.DateTimeFormat('es-AR', {timeZone:'America/Argentina/Buenos_Aires', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit', hourCycle:'h23'}).formatToParts(new Date(Number(unix) * 1000));
+        const v = type => parts.find(p => p.type === type)?.value || '';
+        return 'CIERRE ' + v('day') + '/' + v('month') + ' · ' + v('hour') + ':' + v('minute') + ' ARG';
+    };
     function render(d) {
         [1, 2].forEach(id => {
             const el = root.querySelector('[data-fractura-points="' + id + '"]'), next = number(d.factions[id].points), changed = el.textContent !== next;
             el.textContent = next; el.classList.toggle('is-long', d.factions[id].points.length > 9);
             if (changed && !paused && !reduced.matches && el.animate) el.animate([{ opacity: .4, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 550, easing: 'ease-out' });
-            root.querySelector('[data-fractura-members="' + id + '"]').textContent = number(d.factions[id].members);
-            root.querySelector('[data-fractura-member-label="' + id + '"]').textContent = BigInt(d.factions[id].members) === 1n ? 'combatiente' : 'combatientes';
+
         });
         const caos = BigInt(d.factions[2].points), nexo = BigInt(d.factions[1].points), total = caos + nexo;
         const ratio = total ? Number((caos * 1000n + total / 2n) / total) / 10 : 50;
@@ -67,7 +73,9 @@
         root.querySelector('[data-fractura-track]').classList.toggle('is-empty', total === 0n);
         root.querySelector('[data-fractura-share="2"]').textContent = total ? nf.format(ratio) + '%' : '—';
         root.querySelector('[data-fractura-share="1"]').textContent = total ? nf.format(100 - ratio) + '%' : '—';
-        root.querySelector('[data-fractura-lead]').textContent = total === 0n ? 'La historia todavía está por escribirse' : caos === nexo ? 'Caos y Nexo están igualados' : caos > nexo ? 'Caos lleva la delantera' : 'Nexo lleva la delantera';
+        root.querySelector('[data-fractura-lead]').textContent = !d.enabled ? 'Competencia semanal pausada' : d.isClosed ? (caos === nexo ? 'Semana cerrada en empate' : caos > nexo ? 'Caos ganó la semana' : 'Nexo ganó la semana') : total === 0n ? 'La semana está por disputarse' : caos === nexo ? 'Caos y Nexo están igualados' : caos > nexo ? 'Caos lleva la delantera' : 'Nexo lleva la delantera';
+        root.querySelectorAll('[data-fractura-week-state]').forEach(el => { el.textContent = !d.enabled ? 'COMPETENCIA PAUSADA' : d.isClosed ? 'SEMANA CERRADA' : 'PUNTOS DE ESTA SEMANA'; });
+        const close = root.querySelector('[data-fractura-close]'); if (close) close.textContent = closeLabel(d.closeUnix);
         status.hidden = !d.stale; status.textContent = d.stale ? 'El marcador está temporalmente sin actualizar.' : '';
     }
     async function refresh() {

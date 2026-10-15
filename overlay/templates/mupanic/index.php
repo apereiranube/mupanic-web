@@ -38,6 +38,16 @@ if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='shopadmin') {
     if(!panicRechargeAdminAllowed()) { http_response_code(403); echo 'Acceso no autorizado.'; exit; }
 }
 
+// The scenic live screens expose the current official week through a distinct payload.
+if($_REQUEST['page']==='fractura' && ($_GET['fractura_week'] ?? '')==='1') {
+    require_once __DIR__.'/inc/fractura-week-data.php';
+    header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store');
+    $weekly=panicFracturaWeeklyLivePayload(panicFracturaWeekRead());
+    if(!$weekly) { http_response_code(503); echo '{"available":false}'; }
+    else echo json_encode($weekly,JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT);
+    exit;
+}
+
 // Public faction totals use the existing CMS SQL connection, before markup.
 if($_REQUEST['page']==='fractura' && ($_GET['fractura_data'] ?? '')==='1') {
     require_once __DIR__.'/inc/fractura-data.php';

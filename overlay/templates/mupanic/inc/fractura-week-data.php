@@ -56,3 +56,15 @@ function panicFracturaWeekRead() {
         return ['schema'=>2,'current'=>$week,'history'=>$out];
     } catch(Throwable $e) { return null; }
 }
+
+/** The public live screens use only the official weekly score, never cumulative contribution. */
+function panicFracturaWeeklyLivePayload($contest) {
+    if(!is_array($contest) || !is_array($contest['current']??null)) return null;
+    $c=$contest['current'];
+    return ['schema'=>2,'kind'=>'weekly','updated'=>(int)$c['nowUnix'],'stale'=>false,
+        'weekStart'=>$c['weekStart'],'closeUnix'=>$c['closeUnix'],'enabled'=>$c['enabled'],'isClosed'=>$c['isClosed'],
+        'factions'=>[1=>['points'=>$c['nexoPoints']],2=>['points'=>$c['caosPoints']]]];
+}
+function panicFracturaWeekCloseLabel($unix) {
+    return 'CIERRE '.(new DateTimeImmutable('@'.(int)$unix))->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'))->format('d/m · H:i').' ARG';
+}
