@@ -17,7 +17,7 @@ function panicFracturaHallRewards($rules) {
 ?>
 <section class="fractura-hall" id="salon-de-la-fama" aria-labelledby="fh-title">
   <header class="fh-heading"><div><span class="eyebrow">LAS VICTORIAS DEJAN HUELLA</span><h2 id="fh-title">Salón de<br><em>la Fama.</em></h2></div><p>Una semana para conquistar Vulcanus.<br>Un lugar en la historia para el bando vencedor.</p></header>
-  <nav class="fh-tabs" aria-label="Competencia semanal"><a href="#fh-disputa">Esta semana</a><a href="#fh-historia">Los vencedores</a><a href="#fh-premios">Premios y cobro</a></nav>
+  <nav class="fh-tabs" aria-label="Competencia semanal"><a href="#fh-disputa">Esta semana</a><a href="#fh-historia">Los vencedores</a><a href="#fh-premios">Premios y cobro</a><a href="#rangos-fractura">Rangos y laureados</a></nav>
   <?php if(!$contest) { ?>
   <div class="fh-unavailable" role="status"><strong>El registro semanal no está disponible en este momento.</strong><p>Volvé a consultar más tarde. Los puntos acumulados de los bandos se muestran por separado.</p></div>
   <?php } else { $current=$contest['current'];$finished=$current['isClosed'];$waiting=!$finished && (int)$current['nowUnix']>=(int)$current['closeUnix']; ?>
@@ -47,4 +47,6 @@ function panicFracturaHallRewards($rules) {
     <p class="fh-footnote">Un premio por cuenta y por semana. Sin núcleos semanales fijos. Si falta espacio en el baúl, el paquete completo queda pendiente. Las semanas cerradas conservan sus premios aunque cambien las reglas futuras.</p>
   </div>
   <?php } ?>
+  <?php include __DIR__.'/fractura-honors.php'; ?>
 </section>
+
