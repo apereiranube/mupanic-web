@@ -676,3 +676,134 @@ body.vessara-tooltip-open:before{display:none}
  .vessara-floor{row-gap:16px}
  .vessara-ledger-heading{margin-bottom:-16px}
 }
+
+
+/* VESSARA V6 — The live trading showroom is distinctly oxblood/copper, while
+   the historical ledger beneath it remains sober charcoal/bronze. Scope every
+   selector to .vessara-listings to avoid altering confirmed-sales records. */
+.vessara-listings-heading{
+ padding-left:15px;
+ border-left:3px solid #bd6468;
+}
+.vessara-listings-heading .eyebrow{color:#d99384}
+.vessara-listings-heading h2{
+ color:#f8dfca;
+ text-shadow:0 0 24px #ab4a4830;
+}
+.vessara-listings-board{
+ position:relative;
+ background:
+  radial-gradient(ellipse at 0 0,#a448553d,transparent 56%),
+  radial-gradient(ellipse at 100% 100%,#9b55402a,transparent 60%),
+  linear-gradient(140deg,#352327,#2a1e22 55%,#241b1e);
+ border:1px solid #bd737394;
+ box-shadow:0 15px 48px #0008,0 0 27px #a4474b20,inset 0 1px #f9bba62d;
+ isolation:isolate;
+}
+.vessara-listings-board::before{
+ content:'';
+ position:absolute;left:19px;right:19px;top:0;height:2px;
+ background:linear-gradient(90deg,#f1b18dba 0%,#d46f7c9a 44%,transparent 95%);
+ pointer-events:none;
+}
+.vessara-listings-top{
+ padding-bottom:13px;
+ border-bottom:1px solid #cb83714a;
+ margin-bottom:16px;
+}
+.vessara-listings-top h3{
+ color:#f7d8c8;
+ text-shadow:0 0 15px #b55c5730;
+}
+.vessara-listings-top>span{
+ color:#ebc0ac;
+ font-weight:600;
+ border:1px solid #cc897050;
+ background:#5c343638;
+ padding:6px 10px;border-radius:4px 12px 4px 12px;
+}
+.vessara-listings-currencies{
+ border-color:#b5766a83;
+ background:#291d1f;
+}
+.vessara-listings-currencies button{
+ background:#332326;
+ color:#e5c1b1;
+ border-right-color:#b5766a50;
+}
+.vessara-listings-currencies button[aria-pressed=true]{
+ background:linear-gradient(125deg,#e2ac8e,#c97e78);
+ color:#351b1d;
+ border-color:#d89c83;
+ box-shadow:inset 0 1px #ffe0bf8f;
+}
+.vessara-listings-currencies button:hover:not([aria-pressed=true]){
+ background:#4a2a2f;
+ color:#ffe3d0;
+}
+.vessara-listings-search input,
+.vessara-listings-sort select{
+ background:#201a1c;
+ border-color:#a76b677c;
+ color:#f3dbc9;
+}
+.vessara-listings-search input:focus-visible,
+.vessara-listings-sort select:focus-visible{
+ outline:2px solid #db9b87;
+ border-color:#df9b83;
+}
+.vessara-offer-grid>.vessara-offer{
+ background:
+  radial-gradient(ellipse at 5% 5%,#ae5d582a,transparent 70%),
+  linear-gradient(130deg,#38282b,#261f21);
+ border:1px solid #ab686882;
+ box-shadow:0 7px 18px #08050750,inset 0 1px #f4d0ba12;
+}
+.vessara-offer-grid>.vessara-offer:hover,
+.vessara-offer-grid>.vessara-offer:focus-visible{
+ border-color:#f3a68e;
+ background:
+  radial-gradient(ellipse at 5% 5%,#bc6c6140,transparent 70%),
+  linear-gradient(130deg,#412a2d,#292024);
+ box-shadow:0 13px 24px #0006,0 0 17px #ba6c6240;
+}
+.vessara-offer-grid .vessara-item-media{
+ background:
+  radial-gradient(circle at 50% 45%,#c48b6850,transparent 70%),
+  linear-gradient(155deg,#493234,#21191c);
+ border-color:#c18a737c;
+}
+.vessara-offer-grid .vessara-offer-seller{color:#c6ada6}
+.vessara-offer-grid .vessara-offer-currency{color:#e1af8b}
+.vessara-offer-grid .vessara-offer-price:not(.is-eryns){color:#f3c49a}
+.vessara-listings .vessara-listings-state{
+ background:#381f273e;border:1px solid #b7766840;
+ color:#e0b9a7;
+}
+.vessara-listings-pagination button{
+ background:#4c3031;border-color:#c0827280;color:#f3d0bb;
+}
+.vessara-listings-pagination button:not(:disabled):hover{
+ background:#734044;border-color:#f5b29a;
+}
+.vessara-listings-foot{
+ border-top-color:#c5867250;
+ color:#d6b0a4;
+}
+/* Jewel and talisman illustrations have native high-resolution WebP assets.
+   Let them fill the frame naturally without raster pixel doubling. */
+.vessara-item-media.is-renewed-art{
+ background:radial-gradient(circle,#b28b6f3f,transparent 71%),linear-gradient(150deg,#44322c,#1b1b1d);
+ border-color:#bd967680;
+}
+.vessara-item-media.is-renewed-art .vessara-item-photo{
+ max-width:91%;max-height:89%;
+ object-fit:contain;
+ image-rendering:auto;
+ filter:drop-shadow(0 7px 9px #0008) drop-shadow(0 0 10px #d9a86740);
+}
+@media(max-width:700px){
+ .vessara-listings-heading{padding-left:11px}
+ .vessara-listings-top{margin-bottom:13px;padding-bottom:11px}
+ .vessara-listings-board::before{left:12px;right:12px}
+}
