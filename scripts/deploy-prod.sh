@@ -56,6 +56,14 @@ for asset in "${SYSTEM_ART_FILES[@]}"; do
   fi
 done
 
+# Install only the explicitly approved public launcher route, never the whole API tree.
+if [ -L "$DEPLOY_ROOT/api" ] || [ -L "$DEPLOY_ROOT/api/launcher.php" ]; then
+  echo "[MU PANIC] ERROR: Launcher API destination must not be a symlink." >&2
+  exit 1
+fi
+test -s "$SOURCE_ROOT/overlay/api/launcher.php"
+test -s "$TEMPLATE_SOURCE/inc/launcher-data.php"
+
 # Never read, rewrite or copy live config or credentials.
 if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ] || [ -L "$DEPLOY_ROOT/modules" ]; then
   echo "[MU PANIC] ERROR: Deployment destinations must not be symlinks." >&2
@@ -101,5 +109,9 @@ rm -f "$TEMPLATE_DEST/img/server/systems/nexus-5696e2bab745.webp"
 for legacy in chronicles hero-path daily fortune vault vip nexus; do
   rm -f "$TEMPLATE_DEST/img/server/systems/$legacy.webp"
 done
+
+/bin/bash "$SOURCE_ROOT/scripts/deploy-launcher.sh" "$DEPLOY_ROOT"
+mkdir -p "$DEPLOY_ROOT/api"
+cp -a "$SOURCE_ROOT/overlay/api/launcher.php" "$DEPLOY_ROOT/api/launcher.php"
 
 echo "[MU PANIC] Production overlay deployed successfully."

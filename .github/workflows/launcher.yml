@@ -1,0 +1,27 @@
+name: Launcher API validation
+on:
+  push:
+    branches: [beta, main]
+    paths:
+      - 'overlay/api/launcher.php'
+      - 'overlay/templates/mupanic/inc/launcher-data.php'
+      - 'overlay/templates/mupanic/inc/*events*'
+      - 'scripts/deploy-*.sh'
+      - 'tests/launcher*'
+      - '.github/workflows/launcher.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  launcher:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate endpoint and domain route installation
+        run: |
+          php -l overlay/api/launcher.php
+          php -l overlay/templates/mupanic/inc/launcher-data.php
+          php tests/launcher.php
+          python3 tests/launcher-http.py
+          bash -n scripts/deploy-beta.sh scripts/deploy-prod.sh scripts/deploy-launcher.sh

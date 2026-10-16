@@ -171,6 +171,14 @@ for asset in "${TERRITORY_ART_FILES[@]}"; do
   fi
 done
 
+# Install only the explicitly approved public launcher route, never the whole API tree.
+if [ -L "$DEPLOY_ROOT/api" ] || [ -L "$DEPLOY_ROOT/api/launcher.php" ]; then
+  echo "[MU PANIC] ERROR: Launcher API destination must not be a symlink." >&2
+  exit 1
+fi
+test -s "$SOURCE_ROOT/overlay/api/launcher.php"
+test -s "$TEMPLATE_SOURCE/inc/launcher-data.php"
+
 # Never read, rewrite or copy live config or credentials.
 if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ] || [ -L "$DEPLOY_ROOT/modules" ]; then
   echo "[MU PANIC] ERROR: Deployment destinations must not be symlinks." >&2
@@ -222,5 +230,9 @@ done
 for asset in 6159-0-cd8d6cb459d6.webp 7181-0-29ae502f9fef.webp 7182-0-55910930295d.webp 7184-0-685e3ef7832d.webp 7190-0-1c1bb600aa8c.webp 7209-0-ad95e9dee78b.webp; do
   rm -f "$TEMPLATE_DEST/img/atlas/drops/$asset"
 done
+
+/bin/bash "$SOURCE_ROOT/scripts/deploy-launcher.sh" "$DEPLOY_ROOT"
+mkdir -p "$DEPLOY_ROOT/api"
+cp -a "$SOURCE_ROOT/overlay/api/launcher.php" "$DEPLOY_ROOT/api/launcher.php"
 
 echo "[MU PANIC] Beta overlay deployed successfully."
