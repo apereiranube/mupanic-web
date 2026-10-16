@@ -33,6 +33,7 @@
       });
     });
     data.drops.forEach(function (drop, i) {
+      if (drop.id < 0) return; // selection of a loot pool, not an obtainable box
       var maps = data.maps.filter(function (map) { return map.monsters.some(function (mob) { return compatible(drop,map,mob); }); });
       object(drop).routes.push({kind:'drop', label:'Drop de monstruos · Lv. ' + drop.min + '–' + drop.max,
         detail:maps.length ? maps.map(function (m) { return m.name; }).join(', ') : 'Sin población fija compatible identificada',
@@ -51,7 +52,15 @@
         if (item.setName) { var obj = object(item); obj.aliases = Array.from(new Set((obj.aliases || []).concat(item.setName))); }
         if (seen.has(item.id)) return;
         seen.add(item.id);
-        object(item).routes.push({kind:'reward', label:bag.name, detail:bag.monster >= 0 ? 'Recompensa de ' + (bag.monsterName || bag.name) : 'Caja o evento',
+        if (bag.kind === 'direct') {
+          (bag.dropRoutes || []).forEach(function (index) {
+            var drop = data.drops[index];
+            var maps = data.maps.filter(function (map) { return map.monsters.some(function (mob) { return compatible(drop,map,mob); }); });
+            object(item).routes.push({kind:'drop', label:'Drop directo · ' + bag.name,
+              detail:(maps.length ? maps.map(function (map) { return map.name; }).join(', ') : 'Condición de boss o evento') + ' · selección de un objeto del grupo',
+              maps:maps.map(function (map) { return map.id; }), hash:'#drop-' + index});
+          });
+        } else object(item).routes.push({kind:'reward', label:bag.name, detail:bag.monster >= 0 ? 'Recompensa de ' + (bag.monsterName || bag.name) : 'Caja o evento',
           maps:[], hash:'#recompensa-' + bag.id});
       });
     });

@@ -1459,6 +1459,184 @@
       "source": "external-game-portrait",
       "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ruthless-lava-giant.png",
       "sourceHash": "c657a50407e871344788621f89eebe1d1500552f925fae2ffeb5446b10627e75"
+    },
+    "628": {
+      "file": "img/atlas/monsters/2.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "9758900d276f4db86f237a31c0617fa00ee04469d964865e71bdda01e20ae474",
+      "sharedModelOf": 2
+    },
+    "629": {
+      "file": "img/atlas/monsters/12.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "57fce50e26d9370246d88b6f07eed485c7143b16976e13e51e96b0c75df86f9c",
+      "sharedModelOf": 12
+    },
+    "630": {
+      "file": "img/atlas/monsters/20.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "c3cc2dc581ba0b37c1d8600458c700269d058271c7680ecb41b7e59af946d290",
+      "sharedModelOf": 20
+    },
+    "631": {
+      "file": "img/atlas/monsters/web/22-4faf4e566fc0.webp",
+      "width": 200,
+      "height": 161,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/ice-monster.png",
+      "sourceHash": "4faf4e566fc09f22a3391832c71dce97a25c433103689b57a58b9364cabdde00",
+      "sharedModelOf": 22
+    },
+    "632": {
+      "file": "img/atlas/monsters/30.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "01d335ae732d93c3fcdca4daf38f6d3ba26ba48dc8eb8be9d4dce12f0ba96d7d",
+      "sharedModelOf": 30
+    },
+    "633": {
+      "file": "img/atlas/monsters/web/36-80f0a62b81c9.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/shadow.png",
+      "sourceHash": "80f0a62b81c934d0a90e12eaf12bfc0fd79c4bf9b3aa8886377b6863883eb13f",
+      "sharedModelOf": 36
+    },
+    "634": {
+      "file": "img/atlas/monsters/web/39-4d0080877c99.webp",
+      "width": 200,
+      "height": 175,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/poison-shadow.png",
+      "sourceHash": "4d0080877c99ebc124c6589b5f40d767c4fbf8c076414ec75a2b3785f2c6566c",
+      "sharedModelOf": 39
+    },
+    "627": {
+      "file": "img/atlas/monsters/46.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b74b384d371ac5ab1474881570c4f052959fc74ecfb5e077a741c5e0c4a5dc3e",
+      "sharedModelOf": 46
+    },
+    "635": {
+      "file": "img/atlas/monsters/web/51-764a95ee2a77.webp",
+      "width": 200,
+      "height": 102,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/great-bahamut.png",
+      "sourceHash": "764a95ee2a775330f3652743eac6dd869167bf569a462e91a5fd61def32fce10",
+      "sharedModelOf": 51
+    },
+    "636": {
+      "file": "img/atlas/monsters/web/62-dc7a0ff81c23.webp",
+      "width": 200,
+      "height": 265,
+      "source": "external-game-portrait",
+      "sourceUrl": "https://www.muonline.net/guides/images/monsters/spins/mutant.png",
+      "sourceHash": "dc7a0ff81c23e2053931e843dc521f0a84b1cdd50b1393f537ee7523348e4d3f",
+      "sharedModelOf": 62
+    },
+    "637": {
+      "file": "img/atlas/monsters/75.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "ac9352823ba8fce93bb79ec04a90fffccc8946d1aa6e06d3aa67f76208864729",
+      "sharedModelOf": 75
+    },
+    "638": {
+      "file": "img/atlas/monsters/305.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "7fd46aba5c5552436ee12368fdd0ca4061bc3283642ed6e494dc9222d02fdf36",
+      "sharedModelOf": 305
+    },
+    "639": {
+      "file": "img/atlas/monsters/352.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "b48dae0e5624c9d30dff4cfb981457665a6a0dd75342a7cbf4f46589dc6249db",
+      "sharedModelOf": 352
+    },
+    "640": {
+      "file": "img/atlas/monsters/358.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "5a980e2c4d11cfee643f56c00fbb3fd15e958bbf8be4244958a616b0917691b1",
+      "sharedModelOf": 358
+    },
+    "641": {
+      "file": "img/atlas/monsters/359.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "bc21929732e2505200c48410e7ad30df2af5cb0614728ca99e6c53c50c298244",
+      "sharedModelOf": 359
+    },
+    "642": {
+      "file": "img/atlas/monsters/420.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "ed1bebfd65b7476071f6915ff137c220df7b9ffbd909f1282e13a81d4a34ba09",
+      "sharedModelOf": 420
+    },
+    "643": {
+      "file": "img/atlas/monsters/449.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "5a6fdd07080ffbb19a20afd5534198d4cd31c54b713fdd382511889567286ab8",
+      "sharedModelOf": 449
+    },
+    "644": {
+      "file": "img/atlas/monsters/458.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "188f8d281f96a6dcfbf61d84d0ea45e83ef54e247467a16c0f2cc2c0d6ac751a",
+      "sharedModelOf": 458
+    },
+    "645": {
+      "file": "img/atlas/monsters/552.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "601bc03269d494eab2420a43e3fda9038f3e1b5b1656cd4e3cadad9bf17eb11e",
+      "sharedModelOf": 552
+    },
+    "646": {
+      "file": "img/atlas/monsters/553.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "963ebd6425d65ad3d2d5dc40b810e6e873df09f12a136dbdb09e0fd6d91970c8",
+      "sharedModelOf": 553
+    },
+    "647": {
+      "file": "img/atlas/monsters/558.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "cd7460d3e2f21e12ca30dbbfdb837fcfaff8161ae1d9b35ca75d23312073de67",
+      "sharedModelOf": 558
+    },
+    "648": {
+      "file": "img/atlas/monsters/563.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "425a3a5f2230c772ccc6462d16c654607a139fe3b3e0842b2ee5f6fbc736258a",
+      "sharedModelOf": 563
+    },
+    "649": {
+      "file": "img/atlas/monsters/570.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "0a87a4219b3b40ef892c437272b81921a06403b07ab485d0a05a1439269340dc",
+      "sharedModelOf": 570
+    },
+    "650": {
+      "file": "img/atlas/monsters/575.webp",
+      "width": 384,
+      "height": 384,
+      "sourceHash": "f36b620e1dd83b6f5e044bd665f05d9a517c812da30e329c1acddebda406b103",
+      "sharedModelOf": 575
     }
   },
   "rewards": {

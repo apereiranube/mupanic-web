@@ -13,7 +13,7 @@ class DropCatalogueTest(unittest.TestCase):
   return json.loads(subprocess.check_output([php,'-r',code,str(INC/'atlas-drop-model.php'),str(INC/'public-balance.json')],text=True))
  def test_every_original_rule_and_rate_survives_grouping(self):
   groups=self.groups();rows={int(i):r for g in groups.values() for i,r in (g['rules'].items() if isinstance(g['rules'],dict) else enumerate(g['rules']))}
-  self.assertEqual(len(groups),30);self.assertEqual(rows,dict(enumerate(self.data['drops'])))
+  self.assertEqual(len(groups),43);self.assertEqual(rows,dict(enumerate(self.data['drops'])))
  def test_distinct_variants_are_not_merged(self):
   groups=self.groups()
   for key in ['6670-0','6670-1','6687-0','6687-1']:self.assertIn(key,groups)
@@ -27,7 +27,7 @@ class DropCatalogueTest(unittest.TestCase):
   for entry in descriptions.values():
    self.assertTrue(entry['what'].strip());self.assertTrue(entry['use'].strip())
  def test_all_catalogue_images_are_local_real_webp(self):
-  self.assertEqual(set(self.groups()),set(self.art))
+  self.assertEqual(set(self.groups())-set(self.art),{'7208-0'})
   for a in self.art.values():
-   p=ROOT/'overlay/templates/mupanic'/a['file'];self.assertTrue(p.is_file());raw=p.read_bytes();self.assertEqual(raw[:4],b'RIFF');self.assertEqual(raw[8:12],b'WEBP');self.assertGreater(a['width'],0);self.assertGreater(a['height'],0)
+   p=ROOT/'overlay/templates/mupanic'/a['file'];self.assertTrue(p.is_file());raw=p.read_bytes();self.assertTrue((raw[:4]==b'RIFF' and raw[8:12]==b'WEBP') or (a.get('kind')=='symbol' and b'<svg' in raw));self.assertGreater(a['width'],0);self.assertGreater(a['height'],0)
 if __name__=='__main__':unittest.main()

@@ -22,7 +22,7 @@ class Rewards(unittest.TestCase):
     def test_uploaded_snapshot(self):
         data=json.loads((Path(__file__).resolve().parents[1]/'overlay/templates/mupanic/inc/public-balance.json').read_text())
         bags={b['id']:b for b in data['eventBags']}
-        self.assertEqual(sum(b['format']=='advanced' for b in bags.values()),25)
+        self.assertEqual(sum(b['format']=='advanced' for b in bags.values()),68)
         self.assertEqual(len(bags[106]['items']),157)
         self.assertEqual(bags[106]['items'][0]['min'],0);self.assertEqual(bags[106]['items'][0]['max'],3)
         self.assertTrue(all(i['setOption']>0 for i in bags[106]['items']))

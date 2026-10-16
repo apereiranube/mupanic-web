@@ -353,6 +353,23 @@
     });
   }
   wiki.querySelectorAll('[data-atlas-explorer]').forEach(function(explorer) {
+    // Keep unopened, repeated mob loot lists out of layout and selector scans.
+    // Their original HTML stays available when JavaScript is disabled.
+    function updateAtlasRates(container) {
+      var account = Number(explorer.querySelector('[data-atlas-account]').value);
+      container.querySelectorAll('[data-atlas-rates]').forEach(function(rate) {
+        rate.textContent = JSON.parse(rate.getAttribute('data-atlas-rates'))[account].toLocaleString('es-AR',{maximumFractionDigits:6}) + '%';
+      });
+    }
+    explorer.querySelectorAll('.atlas-loot').forEach(function(loot) {
+      var summary = loot.querySelector('summary'), parked = document.createDocumentFragment();
+      function park() { Array.from(loot.childNodes).forEach(function(node) { if(node !== summary) parked.appendChild(node); }); }
+      if(!loot.open) park();
+      loot.addEventListener('toggle',function() {
+        if(loot.open) { loot.appendChild(parked); updateAtlasRates(loot); }
+        else park();
+      });
+    });
     explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) {
       var first = panel.querySelector('[data-atlas-mob]'); if (first) selectAtlasMonster(panel, first.getAttribute('data-atlas-mob'));
       panel.querySelectorAll('[data-atlas-mob-select]').forEach(function(button) { button.addEventListener('click', function() { selectAtlasMonster(panel, button.getAttribute('data-atlas-mob-select')); }); });
@@ -370,12 +387,7 @@
       event.currentTarget.setAttribute('aria-pressed',String(zoomed));
       event.currentTarget.textContent = zoomed ? 'Alejar −' : 'Acercar +';
     });
-    explorer.querySelector('[data-atlas-account]').addEventListener('change',function(event) {
-      var account = Number(event.target.value);
-      explorer.querySelectorAll('[data-atlas-rates]').forEach(function(rate) {
-        rate.textContent = JSON.parse(rate.getAttribute('data-atlas-rates'))[account].toLocaleString('es-AR',{maximumFractionDigits:6}) + '%';
-      });
-    });
+    explorer.querySelector('[data-atlas-account]').addEventListener('change',function() { updateAtlasRates(explorer); });
   });
   // Keep just one map expanded; deep links still open the requested map.
   wiki.querySelectorAll('#progresion > .wiki-map-list > .wiki-map').forEach(function(map) {

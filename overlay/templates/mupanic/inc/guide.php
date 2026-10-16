@@ -1,6 +1,8 @@
 <?php
 if(!defined('access') or !access) die();
-$wiki = $publicBalance;
+require_once(__DIR__.'/atlas-event-runtime.php');
+require_once(__DIR__.'/atlas-catalogue.php');
+$wiki = panicAtlasCatalogue($publicBalance, panicAtlasEvents());
 // The deployed single VIP plan uses AccountLevel 1. Preserve its rate index.
 $wiki['accounts'] = array_slice($wiki['accounts'], 0, 2);
 $wiki['accounts'][1]['name'] = 'VIP';

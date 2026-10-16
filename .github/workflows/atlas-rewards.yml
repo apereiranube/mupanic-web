@@ -4,6 +4,8 @@ on:
     branches: [main, beta]
     paths:
       - 'tools/atlas_event_bags.py'
+      - 'tools/atlas_hunting.py'
+      - 'tools/atlas-hunting-source-audit.json'
       - 'tools/atlas_events.py'
       - 'tools/sync_atlas_events.py'
       - 'tools/update_atlas_events_sync.ps1'
@@ -50,7 +52,7 @@ permissions:
 jobs:
   atlas:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -64,6 +66,7 @@ jobs:
           node --check overlay/templates/mupanic/js/atlas-ui.js
           node --check overlay/templates/mupanic/js/atlas-search.js
           node --check overlay/templates/mupanic/js/atlas-drops.js
+          php -l overlay/templates/mupanic/inc/atlas-catalogue.php
           php -l overlay/templates/mupanic/inc/atlas-drops.php
           php -l overlay/templates/mupanic/inc/atlas-drop-model.php
           php -l overlay/templates/mupanic/inc/reward-lists.php
@@ -96,6 +99,7 @@ jobs:
         env:
           ATLAS_SCREENSHOT_DIR: atlas-screenshots
         run: |
+          node tests/atlas-hunting-browser.cjs
           node tests/atlas-drops-browser.cjs
           node tests/atlas-rewards-browser.cjs
           node tests/atlas-redesign-browser.cjs

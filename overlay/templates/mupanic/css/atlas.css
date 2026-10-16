@@ -602,3 +602,7 @@
 .atlas-vinculos a.vinculos-chapter{border-color:#aaa2b32e}
 @media(max-width:1150px){.atlas-vinculos .vinculos-hero{grid-template-columns:1fr}.vinculos-hero-art--pact{min-height:390px;width:100%;max-width:610px;margin:auto;padding:0 0 85px}.vinculos-hero-art--pact img.vinculos-hero-member{height:290px}.vinculos-hero-art--pact img.vinculos-hero-member--elyndra{height:350px}.vinculos-hero-art--pact img.vinculos-hero-member--aurion{height:265px}.vinculos-hero-art--pact img.vinculos-hero-member--vaerion{height:290px}.panic-wiki .vinculos-hero h2{margin-right:0}.panic-wiki .vinculos-hero-copy>p{max-width:590px}}
 @media(max-width:540px){.vinculos-hero-art--pact{min-height:300px;padding:0 0 80px}.vinculos-hero-art--pact img.vinculos-hero-member{height:210px}.vinculos-hero-art--pact img.vinculos-hero-member--elyndra{height:240px}.vinculos-hero-art--pact img.vinculos-hero-member--aurion{height:190px}.vinculos-hero-art--pact img.vinculos-hero-member--vaerion{height:210px}.vinculos-hero-art--pact .vinculos-hero-creature strong{font-size:27px}.vinculos-hero-art--pact .vinculos-hero-creature{bottom:5px}}
+
+/* Elite hunting grounds keep the existing territory art and explorer layout. */
+.atlas-pin.atlas-pin--super{background:#a66a22;border-color:#ffe0a0;color:#fff6e5;box-shadow:0 0 0 3px #c3934529,0 0 17px #c3934566}
+.atlas-drop-conditions>a{color:#e1bd83;text-decoration:underline;text-underline-offset:3px}

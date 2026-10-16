@@ -30,7 +30,7 @@
     var text=normalize(drop.name+' '+card.querySelector('h3').textContent),maps=routeMaps(drop);
     row.hidden=!words.every(function(w){return text.includes(w);})||((mapSelect.value||monsterSelect.value)&&!maps.length)||(current===item.getAttribute('data-drop-item')&&variant&&variant.value!==''&&String(drop.variant)!==variant.value);
     row.querySelector('[data-drop-rate]').textContent=Number(drop.rates[Number(account.value)]).toLocaleString('es-AR',{maximumFractionDigits:6})+'%';
-    var specific=row.querySelector('[data-drop-monster-name]');if(specific){var m=data.maps.flatMap(function(m){return m.monsters;}).find(function(m){return m.id===drop.monster;});specific.textContent=m?m.name:'ID '+drop.monster;}
+    var specific=row.querySelector('[data-drop-monster-name]');if(specific){var m=data.maps.flatMap(function(m){return m.monsters;}).find(function(m){return m.id===drop.monster;});var boss=(data.eventBags||[]).find(function(b){return b.monster===drop.monster;});specific.textContent=drop.monsterName||(m?m.name:(boss?boss.monsterName:'ID '+drop.monster));}
     var count=row.querySelector('[data-drop-compatible-count]'),button=row.querySelector('[data-drop-routes]');button.disabled=!maps.length;
     count.textContent=maps.length?(maps.length===1?maps[0].name:maps.length+' mapas')+' con población fija compatible':'Sin población fija compatible identificada';
     if(!row.hidden)visibleRules++;

@@ -3,18 +3,24 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PHP=os.environ.get('PHP_BIN','php')
 class Receiver(unittest.TestCase):
-    def test_runtime_upgrade_requires_matching_source_hash(self):
+    def test_hunting_fallback_preserves_economy_and_never_overwrites_newer_export(self):
         snapshot=json.loads((ROOT/'overlay/templates/mupanic/inc/public-balance.json').read_text())
-        medusa=next(b for b in snapshot['eventBags'] if b['id']==106)
-        medusa['format']='unsupported';medusa['items']=[];medusa.pop('selection')
+        snapshot.pop('hunting')
+        snapshot['generatedAt']='2026-10-06T00:00:00Z'
+        snapshot['maps']=snapshot['maps'][:1];snapshot['drops']=[];snapshot['eventBags']=[]
+        snapshot['accounts'][0]['experience']=321
         with tempfile.TemporaryDirectory() as tmp:
             env={**os.environ,'PANIC_ATLAS_RUNTIME_DIR':tmp}
             path=Path(tmp)/'public-balance.json'
             code='require '+json.dumps(str(ROOT/'overlay/templates/mupanic/inc/atlas-runtime.php'))+'; echo json_encode(panicAtlasBalance());'
             path.write_text(json.dumps(snapshot));read=json.loads(subprocess.check_output([PHP,'-r',code],env=env))
-            self.assertEqual(next(b for b in read['eventBags'] if b['id']==106)['format'],'advanced')
-            snapshot['sourceHash']='f'*64;path.write_text(json.dumps(snapshot));read=json.loads(subprocess.check_output([PHP,'-r',code],env=env))
-            self.assertEqual(next(b for b in read['eventBags'] if b['id']==106)['format'],'unsupported')
+            self.assertEqual(len(read['maps']),30)
+            self.assertEqual(read['accounts'][0]['experience'],321)
+            self.assertEqual(read['hunting']['version'],3)
+            snapshot['generatedAt']='2030-01-01T00:00:00Z'
+            path.write_text(json.dumps(snapshot));read=json.loads(subprocess.check_output([PHP,'-r',code],env=env))
+            self.assertEqual(len(read['maps']),1)
+            self.assertEqual(read['drops'],[])
     def test_receiver_accepts_advanced_and_rejects_malformed_updates(self):
         snapshot=json.loads((ROOT/'overlay/templates/mupanic/inc/public-balance.json').read_text())
         snapshot['generatedAt']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())
