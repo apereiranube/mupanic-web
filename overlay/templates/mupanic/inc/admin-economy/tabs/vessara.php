@@ -1,0 +1,13 @@
+<?php
+if(!defined('PANIC_ECO_ADMIN') || PANIC_ECO_ADMIN!==true) { http_response_code(403); exit; }
+$currency=$_GET['moneda']??'Eryns'; if(!is_string($currency) || !in_array($currency,['Eryns','Zen'],true)) throw new InvalidArgumentException('Moneda inválida.');
+$blocks=[]; foreach(['Eryns','Zen'] as $coin) $blocks[$coin]=[$ecoRepository->marketTotals($coin),$ecoRepository->marketTotals($coin,true),$ecoRepository->marketSeries($coin)];
+$sellers=$ecoRepository->marketRanking($currency); $buyers=$ecoRepository->marketRanking($currency,true); $detail=$ecoRepository->marketDetail($currency);
+echo '<div class="eco-alert"><strong>Intercambio entre jugadores</strong><span>El volumen cambia de manos. Solo la comisión sale de circulación. Zen y Eryns se muestran por separado.</span></div>';
+foreach($blocks as $coin=>$data) { [$c,$p,$chart]=$data; echo '<h3 class="eco-section-title">Vessara · '.panicEcoEscape($coin).'</h3>'; panicEcoCards([['Ventas',$c['Ventas'],$p['Ventas']],['Volumen · '.$coin,$c['Volumen'],$p['Volumen']],['Comisiones · '.$coin,$c['Comisiones'],$p['Comisiones']],['Precio promedio · '.$coin,$c['PrecioPromedio'],$p['PrecioPromedio']],['Ventas destacadas',$c['Destacadas'],$p['Destacadas']],['Comisión destacadas · '.$coin,$c['ComisionesDestacadas'],$p['ComisionesDestacadas']],['Pendientes de liquidar',$c['SinLiquidar'],$p['SinLiquidar']]]); panicEcoChart('Volumen y comisiones · '.$coin,'bar',$chart,['Volumen'=>'Volumen','Comisiones'=>'Comisiones']); }
+?>
+<nav class="eco-subnav" aria-label="Moneda de rankings y ventas"><?php foreach(['Eryns','Zen'] as $coin) { ?><a href="<?php echo panicEcoEscape(panicEcoUrl(['moneda'=>$coin])); ?>" <?php if($currency===$coin) echo 'aria-current="page"'; ?>>Rankings y ventas · <?php echo $coin; ?></a><?php } ?></nav>
+<?php
+panicEcoTable('Top vendedores · '.$currency,['Cuenta'=>'Cuenta','Ventas'=>'Ventas','Volumen'=>'Volumen · '.$currency],$sellers,['numbers'=>['Ventas','Volumen']]);
+panicEcoTable('Top compradores · '.$currency,['Cuenta'=>'Cuenta','Ventas'=>'Compras','Volumen'=>'Volumen · '.$currency],$buyers,['numbers'=>['Ventas','Volumen']]);
+panicEcoTable('Últimas 500 ventas entregadas · '.$currency,['EntregadaAR'=>'Entregada ARG','RequestID'=>'Venta','BuyerAccount'=>'Comprador','SellerAccount'=>'Vendedor','Precio'=>'Precio · '.$currency,'Comision'=>'Comisión · '.$currency,'NetoVendedor'=>'Neto vendedor · '.$currency,'ComisionPct'=>'Comisión %','Destacada'=>'Destacada (1=sí)','Liquidada'=>'Liquidada (1=sí)'],$detail,['numbers'=>['Precio','Comision','NetoVendedor','ComisionPct'],'dates'=>['EntregadaAR'],'note'=>'Buscador sobre las últimas 500 ventas del rango y moneda seleccionados.']);

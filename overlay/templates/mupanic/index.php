@@ -34,6 +34,9 @@ if($_REQUEST['page'] === 'usercp') {
 }
 
 if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='shopadmin') {
+    header('Cache-Control: private, no-store, max-age=0');
+    header('Pragma: no-cache');
+    header('X-Robots-Tag: noindex, nofollow');
     require_once __DIR__.'/inc/recharge-management.php';
     if(!panicRechargeAdminAllowed()) { http_response_code(403); echo 'Acceso no autorizado.'; exit; }
 }

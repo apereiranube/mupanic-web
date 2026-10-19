@@ -1,0 +1,12 @@
+<?php
+if(!defined('PANIC_ECO_ADMIN') || PANIC_ECO_ADMIN!==true) { http_response_code(403); exit; }
+$store=$ecoRepository->purchaseTotals('TIENDA');$storePrev=$ecoRepository->purchaseTotals('TIENDA',true);$buyers=$ecoRepository->storeBuyers();$buyersPrev=$ecoRepository->storeBuyers(true);$vip=$ecoRepository->purchaseTotals('VIP');$vipPrev=$ecoRepository->purchaseTotals('VIP',true);$series=$ecoRepository->purchaseSeries();$products=$ecoRepository->storeProducts();$free=$ecoRepository->freeVip();$active=$ecoRepository->activeVip();
+panicEcoCards([['Compras en tienda',$store['Compras'],$storePrev['Compras']],['Compradores únicos · tienda',$buyers['Compradores'],$buyersPrev['Compradores']],['Gastado en tienda · Eryns',$store['Eryns'],$storePrev['Eryns']],['Compras de VIP',$vip['Compras'],$vipPrev['Compras']],['Gastado en VIP · Eryns',$vip['Eryns'],$vipPrev['Eryns']]]);
+$aligned=[]; foreach($series as $r) { $k=$r['Periodo']; if(!isset($aligned[$k])) $aligned[$k]=['Periodo'=>$k,'TIENDA'=>0,'VIP'=>0]; $aligned[$k][$r['Fuente']]=$r['Eryns']; }
+panicEcoChart('Gasto por período · Eryns','bar',array_values($aligned),['TIENDA'=>'Tienda','VIP'=>'VIP']);
+panicEcoTable('Compras por período',['Periodo'=>'Período','Fuente'=>'Fuente','Compras'=>'Compras','Eryns'=>'Gastado · Eryns'],$series,['numbers'=>['Compras','Eryns']]);
+foreach($products as &$row) { $row['Producto']=$row['Producto']?:($row['Indice']!==null?'Índice '.$row['Indice']:'Artículo sin identificación'); } unset($row);
+panicEcoTable('Artículos más vendidos',['Producto'=>'Producto','Indice'=>'Índice','Compras'=>'Compras registradas','Eryns'=>'Gastado · Eryns'],$products,['numbers'=>['Compras','Eryns'],'note'=>'Producto e índice se extraen de Detalle. Compras cuenta transacciones distintas; no presupone una cantidad de unidades no registrada.']);
+echo '<div class="eco-alert"><strong>VIP sin cobro</strong><span>Asignaciones manuales o de prueba detectadas. Se informan aparte y no se suman a las compras cobradas.</span></div>';
+panicEcoTable('Últimas 500 asignaciones VIP_SIN_COBRO',['FechaAR'=>'Fecha ARG','Cuenta'=>'Cuenta','Personaje'=>'Personaje','Evento'=>'Evento','Detalle'=>'Detalle'],$free,['dates'=>['FechaAR']]);
+panicEcoTable('VIP activos ahora',['Cuenta'=>'Cuenta','NivelVip'=>'Nivel VIP','VipVence'=>'Vence ARG','Eryns'=>'Saldo · Eryns','Prueba'=>'Prueba (1=sí)'],$active,['numbers'=>['NivelVip','Eryns'],'dates'=>['VipVence'],'note'=>'Estado actual; no corresponde al rango histórico. El vencimiento se compara con la hora Argentina actual.']);

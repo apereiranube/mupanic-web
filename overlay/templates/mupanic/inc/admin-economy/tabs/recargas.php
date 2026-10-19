@@ -1,0 +1,11 @@
+<?php
+if(!defined('PANIC_ECO_ADMIN') || PANIC_ECO_ADMIN!==true) { http_response_code(403); exit; }
+$account=$_GET['cuenta']??''; if(!is_string($account) || strlen($account)>50 || preg_match('/[\x00-\x1f]/',$account)) throw new InvalidArgumentException('Cuenta inválida.');
+$c=$ecoRepository->topupTotals(); $p=$ecoRepository->topupTotals(true); $series=$ecoRepository->topupSeries(); $rows=$ecoRepository->topupDetail($account);
+panicEcoCards([['Pesos cobrados · ARS',$c['Pesos'],$p['Pesos'],'$ '],['Eryns emitidos',$c['Eryns'],$p['Eryns']],['Recargas',$c['Recargas'],$p['Recargas']],['Cuentas que recargaron',$c['Cuentas'],$p['Cuentas']],['Ticket promedio · ARS',$c['Ticket'],$p['Ticket'],'$ ',2]]);
+echo '<p class="eco-note">Las recargas son la única fuente de dinero real. Las tarjetas representan el rango completo; la búsqueda por cuenta filtra solo el detalle.</p>';
+$aligned=[]; $providers=[]; foreach($series as $r) { $key='p_'.hash('sha256',(string)$r['Proveedor']); $providers[$key]=(string)$r['Proveedor']; $k=$r['Periodo']; if(!isset($aligned[$k])) $aligned[$k]=['Periodo'=>$k]; $aligned[$k][$key]=$r['Pesos']; } foreach($aligned as &$r) foreach($providers as $k=>$v) if(!isset($r[$k])) $r[$k]=0; unset($r);
+panicEcoChart('Pesos cobrados por proveedor · ARS','bar',array_values($aligned),$providers,['stacked'=>true]);
+?>
+<form class="eco-filters eco-filters--small" method="get" action="<?php echo panicEcoEscape(__BASE_URL__.'usercp/shopadmin/'); ?>#economia"><?php foreach($ecoFilters['query'] as $key=>$value) echo '<input type="hidden" name="'.panicEcoEscape($key).'" value="'.panicEcoEscape($value).'">'; ?><label>Cuenta exacta<input name="cuenta" maxlength="50" value="<?php echo panicEcoEscape($account); ?>" placeholder="Buscar en todo el rango"></label><button type="submit">Buscar cuenta</button></form>
+<?php panicEcoTable('Últimas 1.000 recargas',['OrderID'=>'Orden','Proveedor'=>'Proveedor','Ambiente'=>'Ambiente','Cuenta'=>'Cuenta','Eryns'=>'Eryns','Pesos'=>'Pesos · ARS','FechaAR'=>'Fecha ARG','Prueba'=>'Prueba (1=sí)'],$rows,['numbers'=>['Eryns','Pesos'],'decimals'=>['Pesos'],'dates'=>['FechaAR'],'note'=>'La cuenta exacta se busca en SQL antes del límite. El buscador de la tabla filtra las filas cargadas.']); ?>

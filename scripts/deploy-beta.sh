@@ -207,7 +207,12 @@ if [ -f "$HERO_DEST" ]; then
   HERO_PRESENT=1
 fi
 
+# Snapshot only the Economy release files before the existing overlay copy.
+ECO_BACKUP="$(/bin/bash "$SOURCE_ROOT/scripts/economy-install.sh" Preparar "$DEPLOY_ROOT")"
+echo "[MU PANIC] Economy backup: $ECO_BACKUP"
+
 cp -a "$TEMPLATE_SOURCE/." "$TEMPLATE_DEST/"
+/bin/bash "$SOURCE_ROOT/scripts/economy-install.sh" Finalizar "$DEPLOY_ROOT" "$ECO_BACKUP"
 
 if [ "$HERO_PRESENT" -eq 1 ] && [ -f "$HERO_KEEP" ]; then
   cp -a "$HERO_KEEP" "$HERO_DEST"
