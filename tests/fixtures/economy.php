@@ -30,6 +30,6 @@ class Connection { public static $queries=[]; public static function Database($n
 }
 if(!panicRechargeAdminAllowed()) { require $inc.'/recharge-admin.php'; exit; }
 echo '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="https://preview.test/beta/templates/mupanic/css/style.css"><link rel="stylesheet" href="https://preview.test/beta/templates/mupanic/css/account.css"><link rel="stylesheet" href="https://preview.test/beta/templates/mupanic/css/recharge.css"><style>body{margin:0;background:#eae6df;font-family:Arial}main{max-width:1100px;padding:24px;margin:20px auto;background:#fffaf3;min-width:0}@media(max-width:650px){main{margin:0;padding:12px}}</style></head><body class="is-account"><main class="module-surface"><div class="account-module" data-account-module="shopadmin">';
-require $inc.'/recharge-admin.php';
+(function () use ($inc) { require $inc.'/recharge-admin.php'; })();
 echo '</div></main><script src="https://preview.test/jquery.js"></script></body></html>';
 if(getenv('ECO_QUERIES')) file_put_contents(getenv('ECO_QUERIES'),json_encode(Connection::$queries));
