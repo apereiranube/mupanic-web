@@ -1,13 +1,37 @@
 <?php
 if(!defined('PANIC_ECO_ADMIN') || PANIC_ECO_ADMIN!==true) { http_response_code(403); exit; }
-$current=$ecoRepository->summary(); $previous=$ecoRepository->summary(true); $balance=$ecoRepository->balances(); $opening=$ecoRepository->openingBalance();
-$flows=$ecoRepository->flows(); $balances=$ecoRepository->balanceSeries();
-$circulation=$balance['TotalComercial']??null; $delta=($circulation!==null && $opening && $opening['TotalComercial']!==null)?(float)$circulation-(float)$opening['TotalComercial']:null;
-$cards=[['Pesos cobrados · ARS',$current['Pesos'],$previous['Pesos'],'$ '],['Eryns emitidos por recargas',$current['Eryns'],$previous['Eryns']],['Eryns retirados por juegos',$current['NetoRetirado'],$previous['NetoRetirado']],['Eryns gastados en tienda',$current['Tienda'],$previous['Tienda']],['Eryns gastados en VIP',$current['Vip'],$previous['Vip']],['Comisiones Vessara · Eryns',$current['Comisiones'],$previous['Comisiones']],['Eryns en circulación ahora · reales',$circulation,$delta===null?'— · sin foto previa al rango':($delta>0?'+':'').panicEcoNumber($delta).' Eryns desde el inicio del rango']];
-panicEcoCards($cards);
-?>
-<p class="eco-note">Circulación comercial: cuentas reales, incluso al incluir operaciones de prueba. Foto actual: <?php echo panicEcoEscape(panicEcoDate($balance['MomentoAR']??null)); ?>. <?php if($delta!==null) echo 'Base: foto del '.panicEcoEscape(panicEcoDate($opening['DiaAR'])).'. '; ?>Saldo de prueba actual: <?php echo panicEcoNumber($balance['TotalPrueba']??null); ?> Eryns.</p>
-<?php
-panicEcoChart('Entradas y salidas de Eryns','bar',$flows,['Recargas'=>'Recargas','Juegos'=>'Juegos neto','Tienda'=>'Tienda','Vip'=>'VIP','Vessara'=>'Comisiones Vessara'],['stacked'=>true]);
-echo '<p class="eco-note">Entradas arriba y salidas abajo. Si los juegos pagan más de lo apostado, su neto aparece como entrada. El volumen de Vessara no es ingreso del servidor.</p>';
-panicEcoChart('Eryns en circulación · cuentas reales','line',$balances,['TotalComercial'=>'Saldo comercial']);
+$current=$ecoRepository->summary();$previous=$ecoRepository->summary(true);$balance=$ecoRepository->balances();$opening=$ecoRepository->openingBalance();
+$topups=$ecoRepository->topupTotals();$games=$ecoRepository->games();$check=panicEcoLatestCheck($ecoRepository->reconciliation());$cash=panicEcoCashRows($ecoRepository->topupSeries());
+$circulation=$balance['TotalComercial']??null;$oldBalance=$opening['TotalComercial']??null;
+$sources=['Lo que se quedó la casa'=>(float)$current['NetoRetirado'],'Gastado en la tienda'=>(float)$current['Tienda'],'Gastado en VIP'=>(float)$current['Vip'],'Comisión del mercado'=>(float)$current['Comisiones']];
+$outgoing=array_sum($sources);$previousOutgoing=(float)$previous['NetoRetirado']+(float)$previous['Tienda']+(float)$previous['Vip']+(float)$previous['Comisiones'];
+$period=panicEcoPeriodWords($ecoFilters);
+$lead=(float)$topups['Recargas']>0?panicEcoRangeWords($ecoFilters).' entraron $ '.panicEcoNumber($current['Pesos']).' de '.panicEcoNumber($topups['Recargas']).' recargas.':'No entraron recargas en estas fechas.';
+$lead.=$outgoing>=0?' Los jugadores gastaron '.panicEcoNumber($outgoing).' Eryns entre juegos, tienda, VIP y mercado.':' Los juegos devolvieron más de lo que se gastó: quedaron '.panicEcoNumber(abs($outgoing)).' Eryns extra después de los demás gastos.';
+$lead.=$circulation===null?' Todavía no hay una foto de lo que tienen guardado.':' Hoy los jugadores reales tienen '.panicEcoNumber($circulation).' Eryns guardados.';
+panicEcoSentence($lead,'Los gastos de juegos son lo apostado menos los premios: los Eryns que se quedó la casa desaparecen. La plata de las recargas se muestra en pesos.');
+if((float)$topups['Recargas']==0 && $outgoing==0 && panicEcoSum($games,'Jugadas')==0)panicEcoEmpty($ecoFilters['tests']);
+echo '<div class="eco-metrics eco-metrics--four">';
+panicEcoMetric('Plata que entró',$current['Pesos'],'Pesos reales que pagaron los jugadores por recargas.',['icon'=>'money','prefix'=>'$ ','flow'=>'in','comparison'=>panicEcoComparison($current['Pesos'],$previous['Pesos'],$period)]);
+panicEcoMetric('Eryns creados',$current['Eryns'],'Eryns nuevos que se entregaron por esas recargas.',['icon'=>'coin','flow'=>'in','comparison'=>panicEcoComparison($current['Eryns'],$previous['Eryns'],$period)]);
+panicEcoMetric('Eryns que salieron',abs($outgoing),'Lo que se quedó la casa, más tienda, VIP y comisión del mercado. Esos Eryns desaparecen. Si se devolvió de más, se indica con una entrada.',['icon'=>'coin','flow'=>$outgoing<0?'in':'out','lead'=>$outgoing<0?'Se devolvieron más de los que salieron.':'','comparison'=>panicEcoComparison($outgoing,$previousOutgoing,$period)]);
+panicEcoMetric('Eryns en manos de jugadores',$circulation,'Todo lo que tienen guardado los jugadores reales ahora. No incluye mis pruebas.',['icon'=>'chest','comparison'=>$oldBalance===null?'Falta una foto anterior para comparar.':panicEcoComparison($circulation,$oldBalance,'al inicio de estas fechas')]);
+echo '</div>';
+panicEcoFlow($current['Eryns'],$circulation,$sources);
+$spend=panicEcoRatio($outgoing,$current['Eryns']);$payout=panicEcoRatio(panicEcoSum($games,'Pagado'),panicEcoSum($games,'Apostado'));
+$s=panicEcoVerdict('spending',$spend);$g=panicEcoVerdict('payout',$payout);$q=panicEcoVerdict('check',$check['percent']);
+echo '<section class="eco-thermometer"><div class="eco-section-heading"><span class="eco-section-icon">'.panicEcoIcon('scale').'</span><div><h3>¿Cómo viene la economía?</h3><p>Tres señales para saber si hay algo que mirar.</p></div></div><div class="eco-signals">';
+$spendTexts=['good'=>'Los jugadores están gastando bien sus Eryns.','watch'=>'Se están gastando pocos Eryns. Mirá cómo sigue los próximos días.','bad'=>'Se gasta muy poco frente a lo que se crea. Conviene revisar la tendencia.','quiet'=>'Sin recargas no hay una base para comparar el gasto.'];
+panicEcoSignal('¿Se gastan los Eryns?',$s['tone'],$spend===null?'—':panicEcoNumber($spend,1).'%',$spendTexts[$s['tone']],'Compara los Eryns que salieron con los creados por recargas. Bien: más de 40%; mirar: 15% a 40%; revisar: menos de 15%.');
+$gameText=$payout===null?'Todavía no hubo apuestas para medir los premios.':($g['tone']==='good'?'Los juegos están pagando dentro de lo esperado.':($payout>97?'Los juegos están pagando más de lo esperado: miralo unos días.':'Los juegos están devolviendo poco: conviene mirar la tendencia.'));
+panicEcoSignal('¿Los juegos pagan lo esperado?',$g['tone'],$payout===null?'—':panicEcoNumber($payout,1).'%',$gameText,'De cada 100 Eryns apostados, cuántos volvieron como premio. Lo normal es cerca de 94. Bien: 85 a 97; mirar: 80 a 85 o 97 a 102; revisar: fuera de esos rangos.');
+$checkText=$check['percent']===null?'Faltan fotos de saldos para comparar.':($q['tone']==='good'?'Casi todos los cambios tienen explicación.':($q['tone']==='watch'?'Hay Eryns sin explicar. Mirá el detalle en Revisiones.':'Hay una diferencia importante sin explicar. Revisá los movimientos.'));
+panicEcoSignal('¿Cuadran las cuentas?',$q['tone'],$check['percent']===null?'—':panicEcoNumber($check['percent'],1).'%',$checkText,'Revisa el último día de estas fechas. Incluye todas las cuentas, también mis pruebas. Compara los Eryns sin explicar con el saldo total al cerrar ese día; no se puede separar por tipo de cuenta.');
+echo '</div><p class="eco-note">Las señales orientan: con pocas jugadas los porcentajes pueden cambiar mucho. La revisión de cuentas incluye mis pruebas.</p></section>';
+$unit=['dia'=>'día','semana'=>'semana','mes'=>'mes'][$ecoFilters['group']];
+panicEcoChart('Plata que entró por '.$unit,'bar',$cash,['Pesos'=>'Plata que entró · pesos'],['small'=>true]);
+panicEcoDetailStart('De dónde salen los números y cómo cambió lo que tienen guardado');
+panicEcoTable('Qué pasó con los Eryns',['Concepto'=>'Qué pasó','Eryns'=>'Eryns'],array_map(function($key,$value){return ['Concepto'=>$key,'Eryns'=>$value];},array_keys($sources),array_values($sources)),['numbers'=>['Eryns']]);
+panicEcoChart('Lo que tienen guardado los jugadores reales','line',$ecoRepository->balanceSeries(),['TotalComercial'=>'Eryns en manos de jugadores']);
+echo '<p class="eco-note">Foto actual: '.panicEcoEscape(panicEcoDate($balance['MomentoAR']??null)).'. Mis pruebas tienen '.panicEcoNumber($balance['TotalPrueba']??null).' Eryns, aparte. La comparación del saldo usa la última foto anterior al rango.</p>';
+panicEcoDetailEnd();

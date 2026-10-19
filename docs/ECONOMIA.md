@@ -1,5 +1,7 @@
 # Panel de Economía — MU PANIC
 
+**Versión actual: Economía en claro.** Ver [presentación amigable y archivos modificados](ECONOMIA_AMIGABLE.md). Esta guía conserva las instrucciones de instalación y las reglas de datos.
+
 Panel completo de seis pestañas dentro de la administración existente de tienda:
 
 `/usercp/shopadmin/?eco=1`
@@ -51,7 +53,7 @@ Si se restaura pero se vuelve a desplegar el mismo Git, el panel se instalará o
 - **Mercado Vessara:** tarjetas y gráficos separados de Zen/Eryns; rankings y últimas 500 ventas de la moneda seleccionada. Solo la comisión representa retiro de circulación.
 - **Tienda y VIP:** compras, compradores únicos de tienda, gasto, productos extraídos de Detalle, VIP sin cobro y membresías vigentes.
 - **Recargas:** dinero real en ARS, emisión, cantidad, cuentas únicas y ticket; proveedores y últimas 1.000 recargas. La búsqueda por cuenta exacta se ejecuta en SQL sobre todo el rango antes de limitar filas. Las tarjetas siempre son del rango completo.
-- **Control:** cuadre, alertas, saldos, concentración de cuentas reales, top 20, excluidas y estado de carga. Las diferencias mayores al 1% del saldo final se resaltan; los NULL se conservan como «—».
+- **Revisiones:** cuadre, alertas, saldos, concentración de cuentas reales, top 20, excluidas y estado de carga. Las diferencias mayores al 1% del saldo final se resaltan; los NULL se conservan como «—».
 
 Todas las tablas de detalle tienen búsqueda, orden y paginación local con DataTables. Los límites de filas se indican en pantalla para no confundirlos con el historial completo. Los rangos admiten hasta diez años.
 

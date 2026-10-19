@@ -4,6 +4,7 @@ templates/mupanic/inc/admin-economy/bootstrap.php
 templates/mupanic/inc/admin-economy/entry.php
 templates/mupanic/inc/admin-economy/filters.php
 templates/mupanic/inc/admin-economy/layout.php
+templates/mupanic/inc/admin-economy/presentation.php
 templates/mupanic/inc/admin-economy/repository.php
 templates/mupanic/inc/admin-economy/tabs/control.php
 templates/mupanic/inc/admin-economy/tabs/juegos.php
