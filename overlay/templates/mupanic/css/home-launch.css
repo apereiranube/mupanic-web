@@ -732,7 +732,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 @media(prefers-reduced-motion:reduce){.ph-hub-native-button{transition:none}}
 
 /* Follow the real gold silhouette; exclude the captured ground and chat. */
-.ph-hub-simulator .ph-hub-shell{clip-path:polygon(.6% 4%,5% 6.2%,43% 6.2%,47% 2.8%,49.5% .6%,52% 2.8%,56% 6.2%,95% 6.2%,99% 4%,97.7% 10%,98.8% 14%,98.2% 19%,98.2% 84%,98.8% 89%,97.7% 94%,99% 97.6%,95% 96.2%,55% 96.2%,49.5% 99.2%,44% 96.2%,5% 96.2%,.6% 97.6%,1.8% 94%,1% 89%,1.8% 84%,1.8% 19%,1.5% 14%,1.8% 10%)}
+.ph-hub-simulator .ph-client-window.ph-hub-shell{clip-path:polygon(.6% 4%,5% 6.2%,43% 6.2%,47% 2.8%,49.5% .6%,52% 2.8%,56% 6.2%,95% 6.2%,99% 4%,97.7% 10%,98.8% 14%,98.2% 19%,98.2% 84%,98.8% 89%,97.7% 94%,99% 97.6%,95% 96.2%,55% 96.2%,49.5% 99.2%,44% 96.2%,5% 96.2%,.6% 97.6%,1.8% 94%,1% 89%,1.8% 84%,1.8% 19%,1.5% 14%,1.8% 10%)}
 .ph-hub-content-mercado .ph-client-window{aspect-ratio:1495/1130;clip-path:polygon(1% 1.6%,48% 1.6%,50% .5%,53% 1.6%,98.7% 1.6%,99.5% 4%,99.5% 97.5%,98% 99%,2% 99%,.5% 97.5%,.5% 4%)}
 .ph-hub-content-mercado .ph-hub-capture{left:-15.7191%;top:-2.2124%;width:133.5786%;height:auto}
 .ph-hub-calendar{margin:14px auto 0;max-width:700px;text-align:left}

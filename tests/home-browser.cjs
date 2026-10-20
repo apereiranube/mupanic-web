@@ -99,6 +99,7 @@ async function routes(page,body=html){
   }
   assert.equal(await page.locator('.ph-games-tour [role=tab]').count(),8);
   assert.equal(await page.locator('.ph-client-tour [role=tab]').count(),8);
+  assert.ok(await page.locator('.ph-hub-shell').evaluate(el=>getComputedStyle(el).clipPath.includes('6.2%')),'The native gold contour must override the old screenshot crop');
   const hubHeight=(await page.locator('.ph-client-tour').boundingBox()).height;
   for(const tab of await page.locator('.ph-client-tour [role=tab]').all()){
    await tab.click();
