@@ -138,6 +138,12 @@ async function routes(page,body=html){
   assert.equal(await page.locator('.ph-battle-sky').evaluate(el=>getComputedStyle(el).display),'none');
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
+  assert.equal(await page.locator('.ph-furia-aura-video').evaluate(el=>getComputedStyle(el).mixBlendMode),'screen');
+  if(width===390){
+   await page.locator('.ph-furia-aura-video').evaluate(v=>{v.src=v.dataset.fallback;v.play();});
+   await page.waitForFunction(()=>document.querySelector('.ph-furia-aura-video').readyState>=2);
+   if(output)await page.locator('.ph-furia-demo').screenshot({path:path.join(output,'furia-opaque-fallback-390.png')});
+  }
   await page.locator('.ph-status').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.ph-status').classList.contains('is-stats-live'));
   assert.equal(await page.locator('.ph-online-metric').evaluate(el=>getComputedStyle(el,'::after').animationPlayState),'running');

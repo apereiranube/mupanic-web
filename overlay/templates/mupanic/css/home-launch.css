@@ -671,3 +671,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 @media(max-width:360px){.ph-hub-visual{--hub-shot-height:210px}}
 /* Follow the client's raised crest instead of leaving a square strip of game world. */
 .ph-client-window:not(.ph-client-window-inicio):not(.ph-client-window-mercado){clip-path:polygon(0 2%,6% 4.5%,44% 4.5%,47% 2%,50% 0,53% 2%,56% 4.5%,94% 4.5%,100% 2%,100% 98%,95% 96%,55% 96%,50% 100%,45% 96%,5% 96%,0 98%)}
+
+/* Some mobile decoders discard VP9 alpha. Screen removes opaque black,
+   while the radial mask prevents the video bounds from forming a rectangle. */
+.ph-furia-aura-video{mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 71%);mask-image:radial-gradient(ellipse at center,#000 45%,transparent 71%)}

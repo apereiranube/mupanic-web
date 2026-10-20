@@ -12,3 +12,7 @@
 Se recibieron siete pantallas del usuario para Personaje, Fractura, Eventos, Mercado, Tienda, Juegos y Ayuda. Las imágenes originales se conservan sin redibujar sus botones, ítems o textos. La web recorta la ventana mediante un viewport CSS y reemplaza visualmente LuisADM por Panic en el encabezado y en Personaje, también dentro de la vista ampliada. Los archivos fuente conservan el contenido de la captura original; la sustitución corresponde a la presentación de la web. Las extracciones generativas se descartaron porque alteraban detalles de la interfaz. Inicio conserva su captura anterior. Master se abre con A y no se utiliza como pantalla de Personaje.
 
 Todas las pestañas tienen su imagen correspondiente y permiten abrir la captura ampliada. Se conservan navegación por teclado y altura estable.
+
+## Furia en móvil
+
+El aura de la calavera usa mezcla screen y máscara radial para eliminar el rectángulo negro cuando el decodificador móvil no conserva el canal alfa de VP9. Se verifica también con el MP4 opaco a 390 px.
