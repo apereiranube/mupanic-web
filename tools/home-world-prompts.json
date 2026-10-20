@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "purpose": "Production assets for connected-v4 Inicio only",
+  "references": [
+    "User screenshots image(20261020-153332).png and image(20261020-153340).png",
+    "Existing Vessara identity img/market/vessara-trade-v3.webp",
+    "Approved companion scene as environment/style reference only"
+  ],
+  "briefs": {
+    "market-world-v4": "New wide continuous Loren Market square; preserve Vessara identity, show MU players trading equipment at stalls, character and market at right with dark paved arcade for left copy, muted bronze/charcoal, warm lamps, forest stone transition. No giant jewel lineup, labels, UI, pets, BK/RF or Fractura boss.",
+    "games-hall-v4": "New wide physical MU-style arcade with the actual selector themes: red-dragon-emblem slot reels, burgundy cards and purple gem, roulette table bowl, treasure and tower. Dark vaulted hall, controlled gold and burgundy; empty roulette recess for independent rotating layer. No living dragon, labels or pasted screenshots.",
+    "hub-real-v4": "Preserve and extract the complete current Hub Inicio window from the actual user screenshot, including frame, crest, header and menu; remove gameplay, minimap, chat and HUD outside the window. Transparent background, front view.",
+    "hub-games-real-v4": "Preserve and extract complete current Hub Juegos window with eight game illustrations and navigation from actual screenshot; remove outside gameplay. Transparent background, front view.",
+    "roulette-wheel-v4": "Single complete circular MU-style roulette wheel, exactly top-down, gold/bronze engravings, burgundy/charcoal pockets and green zero, dark wood and gold spindle, transparent margin. No table or scenery. Independent prop to rotate in CSS."
+  }
+}

@@ -92,7 +92,8 @@ async function routes(page,body=html){
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
   await page.emulateMedia({reducedMotion:'reduce'});
-  assert.equal(await page.locator('[data-furia-video]').evaluateAll(videos=>videos.every(v=>v.paused)),true);
+  await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
+  await page.waitForFunction(()=>!document.querySelector('[data-scene-fx].is-in-view'));
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.locator('.ph-hero').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
