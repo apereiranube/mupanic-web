@@ -122,13 +122,13 @@ async function routes(page,body=html){
   assert.equal(await page.locator('[data-combat-video]').evaluate(v=>v.muted&&v.loop&&v.playsInline),true);
   assert.equal(await page.locator('.ph-battle-sky').evaluate(el=>getComputedStyle(el).display),'none');
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
-  await page.waitForFunction(()=>document.querySelector('[data-combat-video]').paused);
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
   await page.locator('.ph-status').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.ph-status').classList.contains('is-stats-live'));
   assert.equal(await page.locator('.ph-online-metric').evaluate(el=>getComputedStyle(el,'::after').animationPlayState),'running');
   await page.locator('.ph-games').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>!document.querySelector('.ph-status').classList.contains('is-stats-live'));
+  await page.waitForFunction(()=>document.querySelector('[data-combat-video]').paused);
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.locator('.ph-hero').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('[data-combat-video]').paused&&!document.querySelector('.ph-combat-art').classList.contains('is-video-ready'));
