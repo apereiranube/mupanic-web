@@ -419,3 +419,51 @@ html:has(body.is-home-launch){scroll-behavior:auto}
  .ph-market-trail{bottom:auto;margin-bottom:20px}
 }
 @media(max-width:360px){.ph-client-tour .ph-hub-panel,.ph-client-tour .ph-hub-panel[hidden]{grid-template-rows:230px auto}.ph-hub-visual{height:230px}.ph-hub-capture,.ph-hub-illustration{max-height:200px}.ph-facts dt{font-size:8px}}
+
+/* Final composition pass: joints overlap the scenery rather than form strips. */
+.ph-flow-join{height:0;margin:0 auto;overflow:visible}
+.ph-flow-join img{position:absolute;left:0;top:0;transform:translateY(-50%);height:auto;max-width:100%;object-fit:contain;opacity:.38;mask-image:linear-gradient(0deg,transparent 20%,#000 45%,#000 55%,transparent 80%);mask-composite:add}
+.ph-flow-join-mist img{opacity:.28}
+.ph-flow-join-forest img{opacity:.32}
+.ph-flow-join-canopy img{opacity:.24}
+.ph-flow-join-market img{opacity:.28}
+.ph-flow-join-arcade img{opacity:.32}
+.ph-flow-join-forest+.ph-companions{margin-top:clamp(-145px,-9vw,-70px)}
+.ph-flow-join-forest{transform:translateY(-35px);z-index:0}
+.ph-companions .ph-scene-content{padding-top:130px;padding-bottom:90px}
+.ph-status:before{opacity:.35;height:150px}
+.ph-furia-scene .ph-scene-content{padding-bottom:180px}
+.ph-furia-bottom{grid-area:scene;align-self:end;margin:0 auto;padding:0 0 28px;z-index:3}
+.ph-furia-steps{padding:12px 0 10px}
+.ph-furia-steps p{font-size:13px;text-shadow:0 2px 8px #000}
+.ph-furia-foot{padding-top:2px}
+.ph-furia-foot p{font-size:11px}
+.ph-flow-join-mist+.ph-fractura{margin-top:-30px}
+.ph-workshop.ph-client{background:none;padding-top:35px}
+.ph-workshop.ph-client:before{content:'';position:absolute;inset:0;z-index:-1;background:url('../img/home/hub-world-v5.webp') center/cover no-repeat;opacity:.32;mask-image:linear-gradient(0deg,transparent,#000 14%,#000 85%,transparent)}
+.ph-client-tour .ph-world-panels{padding-top:20px}
+.ph-hub-visual{height:350px}.ph-hub-capture,.ph-hub-illustration{max-height:320px}
+.ph-hub-description{padding-top:15px}
+.ph-client-improvements{margin-top:0}
+.ph-market-world{margin-top:-10px}
+.ph-market-world .ph-scene-content{padding-top:70px}
+.ph-games-scene{margin-top:-40px}
+.ph-games-scene .ph-scene-content{padding-top:100px}
+@media(max-width:1100px) and (min-width:761px){
+ .ph-furia-scene .ph-scene-content{padding-bottom:170px}.ph-furia-steps{gap:20px}.ph-furia-steps h3{font-size:20px}.ph-furia-steps p{font-size:12px}.ph-furia-bottom{padding-bottom:18px}.ph-hub-visual{height:330px}
+}
+@media(max-width:760px){
+ .ph-flow-join{height:0;margin:0;transform:none}
+ .ph-flow-join img{opacity:.3;mask-image:linear-gradient(0deg,transparent 10%,#000 45%,#000 55%,transparent 90%)}
+ .ph-flow-join-forest+.ph-companions,.ph-flow-join-mist+.ph-fractura{margin-top:0}
+ .ph-companions .ph-scene-content{padding-top:0;padding-bottom:30px}
+ .ph-furia-scene{grid-template-areas:'art' 'copy' 'steps'}
+ .ph-furia-scene .ph-scene-content{padding:0 0 15px}
+ .ph-furia-bottom{grid-area:steps;padding-bottom:28px}
+ .ph-furia-steps{padding-block:8px 12px;gap:18px}.ph-furia-steps h3{font-size:22px}.ph-furia-steps p{font-size:14px}
+ .ph-workshop.ph-client{padding-top:25px}.ph-client-improvements{margin-top:25px}
+ .ph-hub-visual{height:270px}.ph-hub-capture,.ph-hub-illustration{max-height:235px}.ph-hub-description{padding-top:0}
+ .ph-market-world{margin-top:0}.ph-market-world .ph-scene-content,.ph-games-scene .ph-scene-content{padding-top:5px}
+ .ph-games-scene{margin-top:0}
+}
+@media(max-width:360px){.ph-hub-visual{height:230px}.ph-hub-capture,.ph-hub-illustration{max-height:200px}}

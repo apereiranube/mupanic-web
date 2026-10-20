@@ -47,6 +47,13 @@ async function routes(page,body=html){
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   if(output){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});
+   if(width===1440)for(const [name,first,last] of [['battle-stats-furia','hero','furia'],['fractura-companions','fractura','companions'],['market-games','market-world','games-scene']]){
+    const clip=await page.evaluate(([first,last])=>{
+     const a=document.querySelector('.ph-'+first).getBoundingClientRect(),b=document.querySelector('.ph-'+last).getBoundingClientRect();
+     return{x:0,y:Math.max(0,a.y+scrollY),width:innerWidth,height:Math.ceil(b.bottom-a.top)};
+    },[first,last]);
+    await page.screenshot({path:path.join(output,'join-'+name+'.png'),clip,style:'.site-header,.skip-link{visibility:hidden!important}'});
+   }
    if([1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{

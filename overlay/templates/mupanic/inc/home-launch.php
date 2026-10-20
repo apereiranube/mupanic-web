@@ -60,7 +60,6 @@ $homeJoin = function($kind) use ($homeArt) {
                 </div>
                 <div class="ph-furia-combo" aria-hidden="true"><span class="ph-combo-number"><i class="ph-combo-x"></i><i class="ph-combo-two"></i><i class="ph-combo-zero"></i></span><img src="<?php echo $homeArt; ?>furia-ui-masacre-v3.webp" alt="" width="1024" height="256" loading="lazy" decoding="async"></div>
             </div>
-        </div>
         <div class="ph-furia-bottom ph-wrap">
             <ol class="ph-furia-steps">
                 <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 10h26v13H3zM7 13v7m4-7v7m4-7v7m4-7v7m4-7v7M15 3l-3 5h5l-2 5"/></svg><div><h3>Cargala.</h3><p>Contra monstruos y en PvP.<br> La carga no se pierde.</p></div></li>
@@ -68,6 +67,7 @@ $homeJoin = function($kind) use ($homeArt) {
                 <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 14a9 9 0 1 1 18 0c0 4-3 6-4 7v5H11v-5c-1-1-4-3-4-7zM12 26v3m4-3v3m4-3v3M2 5l4 4m20-4-4 4M1 16h4m22 0h4"/><path d="M11 13h3v3h-3zm7 0h3v3h-3zm-3 5h2"/></svg><div><h3>No pares.</h3><p>Cada muerte suma tiempo.<br> Encadená combos hasta la MASACRE.</p></div></li>
             </ol>
             <div class="ph-furia-foot"><p>Cada clase tiene su propia Furia en PvP.</p></div>
+        </div>
         </div>
     </section>
 
