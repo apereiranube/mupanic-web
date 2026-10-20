@@ -324,3 +324,20 @@
   }, {threshold:0.04}).observe(art);
   else { visible = true; sync(); }
 })();
+// Enlarge the same client viewport, including its public display-name layer.
+(function () {
+ 'use strict';
+ var dialog=document.querySelector('[data-hub-lightbox]');
+ if(!dialog||typeof dialog.showModal!=='function')return;
+ var content=dialog.querySelector('[data-hub-lightbox-content]'),previous;
+ document.querySelectorAll('[data-hub-enlarge]').forEach(function(button){
+  button.addEventListener('click',function(){
+   previous=button;
+   content.replaceChildren(button.querySelector('.ph-client-window').cloneNode(true));
+   dialog.showModal();
+  });
+ });
+ dialog.querySelector('button').addEventListener('click',function(){dialog.close();});
+ dialog.addEventListener('click',function(event){if(event.target===dialog){var r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+ dialog.addEventListener('close',function(){content.replaceChildren();if(previous)previous.focus({preventScroll:true});});
+})();

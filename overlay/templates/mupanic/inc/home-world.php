@@ -1,5 +1,5 @@
 <?php
-// A consistent tour using the real Hub, Master and game selector captures.
+// Matching real client windows for every F11 tab; Master is a separate A-key interface.
 $hubTabs = [
  ['inicio','Inicio','Tu centro de control.','El próximo evento, el pulso de la Fractura y los accesos a los sistemas propios. Abrís F11 y encontrás lo que necesitás.', ['Personaje y recompensas','Agenda e invasiones','Mercado, tienda y juegos']],
  ['personaje','Personaje','Todo lo que hacés te hace avanzar.','Tu progreso y tus recompensas tienen su lugar en el Hub.', ['Información de tu personaje','Progreso y recompensas','Panel de tu personaje']],
@@ -11,7 +11,7 @@ $hubTabs = [
  ['ayuda','Ayuda','Encontrá tu próximo paso.','Los sistemas propios también necesitan una guía. Usá Ayuda en el Hub y profundizá en el Atlas de la web.', ['Cómo empezar y usar el servidor','Mapas, eventos y sistemas','Guías para seguir avanzando']],
 ];
 $hubShots = ['inicio'=>'hub-real-v4.webp','juegos'=>'hub-games-real-v4.webp'];
-foreach (['personaje','fractura','eventos','mercado','tienda','ayuda'] as $hubId) {
+foreach (['personaje','fractura','eventos','mercado','tienda','juegos','ayuda'] as $hubId) {
  if(is_file(__DIR__.'/../img/home/hub-'.$hubId.'-real-v10.webp')) $hubShots[$hubId]='hub-'.$hubId.'-real-v10.webp';
 }
 $homeGames = [
@@ -38,7 +38,16 @@ $homeGames = [
    <?php foreach($hubTabs as $tab) { $id=$tab[0]; ?>
    <div id="hub-<?php echo $id; ?>" class="ph-hub-panel<?php echo isset($hubShots[$id])?'':' ph-hub-no-capture'; ?>" data-world-panel>
     <?php if(isset($hubShots[$id])) { $shot=$hubShots[$id]; $shotSize=getimagesize(__DIR__.'/../img/home/'.$shot); ?>
-    <div class="ph-hub-visual"><figure class="ph-hub-real-preview"><img class="ph-hub-capture" src="<?php echo $homeArt.$shot; ?>" alt="<?php echo $homeEscape('Ventana real de '.$tab[1].' en MU PANIC'); ?>" width="<?php echo (int)$shotSize[0]; ?>" height="<?php echo (int)$shotSize[1]; ?>" loading="lazy" decoding="async"><figcaption><?php echo $homeEscape($tab[1]); ?> · INTERFAZ REAL DEL CLIENTE</figcaption></figure></div>
+    <div class="ph-hub-visual"><figure class="ph-hub-real-preview">
+     <button class="ph-hub-enlarge" type="button" data-hub-enlarge aria-label="<?php echo $homeEscape('Ampliar la ventana de '.$tab[1]); ?>">
+      <span class="ph-client-window<?php echo $id==='inicio'?' ph-client-window-inicio':($id==='mercado'?' ph-client-window-mercado':''); ?>">
+       <img class="ph-hub-capture" src="<?php echo $homeArt.$shot; ?>" alt="<?php echo $homeEscape('Ventana de '.$tab[1].' del cliente MU PANIC'); ?>" width="<?php echo (int)$shotSize[0]; ?>" height="<?php echo (int)$shotSize[1]; ?>" loading="lazy" decoding="async">
+       <?php if(!in_array($id,['inicio','mercado'],true)) { ?><span class="ph-client-name" aria-hidden="true">Panic</span><?php } ?>
+       <?php if($id==='personaje') { ?><span class="ph-client-name ph-client-name-large" aria-hidden="true">Panic</span><?php } ?>
+      </span>
+     </button>
+     <figcaption><?php echo $homeEscape($tab[1]); ?> · VER INTERFAZ AMPLIADA ↗</figcaption>
+    </figure></div>
     <?php } ?>
     <div class="ph-hub-description">
      <p class="ph-eyebrow">F11 · <?php echo $tab[1]; ?></p><h3<?php echo $id==='eventos'?' id="home-events-title"':''; ?>><?php echo $tab[2]; ?></h3><p><?php echo $tab[3]; ?></p>
@@ -68,3 +77,5 @@ $homeGames = [
  </div>
  <div class="ph-games-tour ph-wrap" id="elegi-minijuego" data-home-tabs><p class="ph-eyebrow">ELEGÍ CÓMO SEGUIR</p><nav class="ph-world-tabs" aria-label="Los ocho minijuegos"><?php foreach($homeGames as $game) { ?><a href="#juego-<?php echo $game[0]; ?>" data-world-tab="juego-<?php echo $game[0]; ?>"><?php echo $game[1]; ?></a><?php } ?></nav><div class="ph-world-panels"><?php foreach($homeGames as $game) { ?><div id="juego-<?php echo $game[0]; ?>" data-world-panel><h3><?php echo $game[1]; ?></h3><p><?php echo $game[2]; ?></p></div><?php } ?></div><p class="ph-games-access"><kbd>F11</kbd><span>Juegos</span><b aria-hidden="true">↗</b>Abrí el Hub dentro del juego.</p></div>
 </section>
+
+<dialog class="ph-hub-lightbox" data-hub-lightbox aria-label="Vista ampliada de la interfaz del cliente"><button type="button" class="ph-hub-lightbox-close" aria-label="Cerrar vista ampliada">×</button><div data-hub-lightbox-content></div></dialog>

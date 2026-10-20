@@ -642,3 +642,21 @@ html:has(body.is-home-launch){scroll-behavior:auto}
  .ph-flow-join-market img,.ph-flow-join-arcade img{height:150px;opacity:.86}
  .ph-market-world .ph-scene-content,.ph-games-scene .ph-scene-content{padding-top:0;padding-bottom:35px}
 }
+.ph-hub-enlarge{display:block;width:100%;border-radius:0;outline-offset:8px}
+.ph-hub-enlarge:focus-visible{outline:2px solid #d8b77c}
+.ph-hub-enlarge .ph-hub-capture{cursor:zoom-in}
+/* Original client pixels; CSS crops world/HUD and supplies the public display name. */
+.ph-hub-enlarge{appearance:none;border:0;padding:0;background:none;color:inherit;cursor:zoom-in}
+.ph-client-window{display:block;position:relative;overflow:hidden;container-type:inline-size;width:min(100%,580px);aspect-ratio:1460/1065;margin:auto}
+.ph-client-window .ph-hub-capture{position:absolute;left:-17.80822%;top:-4.69484%;width:136.78082%;height:auto;max-width:none;max-height:none;filter:none;object-fit:contain}
+.ph-client-name{position:absolute;left:78.63%;top:8.63%;width:13.15%;height:3.29%;display:flex;align-items:center;box-sizing:border-box;padding-left:.25cqw;background:#0d0e10;color:#eee8db;font:bold 1.65cqw/1 Georgia,'Times New Roman',serif;text-align:left;white-space:nowrap}
+.ph-client-name-large{left:29.45%;top:22.07%;width:23.63%;height:6.1%;padding-left:1.4cqw;background:linear-gradient(90deg,#090b0d 86%,transparent);color:#e4c78c;font-size:3.45cqw}
+.ph-client-window-inicio{aspect-ratio:1440/877}
+.ph-client-window-inicio .ph-hub-capture{position:static;width:100%;height:auto}
+.ph-client-window-mercado{aspect-ratio:1510/1140}
+.ph-client-window-mercado .ph-hub-capture{left:-15.232%;top:-1.316%;width:132.252%;height:auto}
+.ph-hub-lightbox{border:0;padding:30px;background:#080b0ef2;color:#f3e4c8;width:min(1100px,calc(100vw - 40px));max-width:none;max-height:95vh;overflow:auto;box-sizing:border-box}
+.ph-hub-lightbox::backdrop{background:#000c}
+.ph-hub-lightbox .ph-client-window{width:min(100%,1000px)}
+.ph-hub-lightbox-close{display:block;margin:0 0 12px auto;border:1px solid #b49a65;background:#19140f;color:#f5e7c9;font:28px/1 sans-serif;width:42px;height:42px;cursor:pointer}
+@media(max-width:760px){.ph-client-window{width:100%}.ph-hub-lightbox{width:calc(100vw - 12px);padding:10px}}

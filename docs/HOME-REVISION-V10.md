@@ -7,10 +7,8 @@
 - Retirado el bloque de textos sueltos Master / Helper / interfaces y las tres frases no interactivas de Vessara.
 - Uniones ilustradas nuevas Hub → Vessara y Vessara → minijuegos, con arquitectura, vegetación en ambos lados, telas y faroles, sin ocultarlas con la máscara central agresiva anterior.
 
-## Hub: material pendiente
+## Hub: capturas completas
 
-Master se abre con A: no se usa como captura de Personaje. Se retiró la sustitución automática de seis ventanas por la captura de Inicio. Inicio y Juegos conservan sus imágenes reales; las otras seis pestañas conservan sus explicaciones, pero no se presentan como capturas del cliente. Para cerrar el recorrido visual se necesitan capturas reales de Personaje, Fractura, Eventos, Mercado, Tienda y Ayuda.
+Se recibieron siete pantallas del usuario para Personaje, Fractura, Eventos, Mercado, Tienda, Juegos y Ayuda. Las imágenes originales se conservan sin redibujar sus botones, ítems o textos. La web recorta la ventana mediante un viewport CSS y reemplaza visualmente LuisADM por Panic en el encabezado y en Personaje, también dentro de la vista ampliada. Los archivos fuente conservan el contenido de la captura original; la sustitución corresponde a la presentación de la web. Las extracciones generativas se descartaron porque alteraban detalles de la interfaz. Inicio conserva su captura anterior. Master se abre con A y no se utiliza como pantalla de Personaje.
 
-El mapeo en home-world.php acepta automáticamente img/home/hub-{personaje,fractura,eventos,mercado,tienda,ayuda}-real-v10.webp con dimensiones intrínsecas. No generar estas interfaces con IA.
-
-Pendiente material de captura para completar el recorrido visual del Hub.
+Todas las pestañas tienen su imagen correspondiente y permiten abrir la captura ampliada. Se conservan navegación por teclado y altura estable.

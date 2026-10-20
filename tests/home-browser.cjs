@@ -60,7 +60,7 @@ async function routes(page,body=html){
   }
   for(const panel of await page.locator('.ph-client-tour [role=tabpanel]').all()){
    const id=await panel.getAttribute('id');
-   const expected=['hub-inicio','hub-juegos'].includes(id)?1:0;
+   const expected=1;
    assert.equal(await panel.locator('.ph-hub-capture').count(),expected,'Only matching real captures may illustrate a Hub tab');
    assert.equal(await panel.locator('.ph-master-capture').count(),0,'Master is not the Personaje Hub window');
   }
@@ -108,10 +108,19 @@ async function routes(page,body=html){
    assert.ok(Math.abs((await page.locator('.ph-client-tour').boundingBox()).height-hubHeight)<2,'Hub changes page height at '+width);
    assert.equal(await page.locator('#'+id).evaluate(el=>el.inert),false);
   }
-  for(const id of ['hub-tienda','hub-eventos']){
+  for(const id of ['hub-personaje','hub-fractura','hub-tienda','hub-eventos','hub-mercado','hub-ayuda']){
    await page.locator('[data-world-tab="'+id+'"]').click();
    if(output&&[1440,390].includes(width))await page.locator('.ph-client-tour').screenshot({path:path.join(output,id+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
+  await page.locator('[data-world-tab="hub-personaje"]').click();
+  await page.locator('#hub-personaje [data-hub-enlarge]').click();
+  assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),true);
+  assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name').count(),2);
+  assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name-large').textContent(),'Panic');
+  if(output&&[1440,390].includes(width))await page.locator('[data-hub-lightbox]').screenshot({path:path.join(output,'hub-personaje-enlarged-'+width+'.png')});
+  await page.keyboard.press('Escape');
+  assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),false);
+  assert.equal(await page.locator('#hub-personaje [data-hub-enlarge]').evaluate(el=>el===document.activeElement),true);
   await page.locator('[data-world-tab="hub-juegos"]').click();
   await page.waitForFunction(()=>document.querySelector('#hub-juegos .ph-hub-capture').complete&&document.querySelector('#hub-juegos .ph-hub-capture').naturalWidth);
   if(output&&[1440,390].includes(width))await page.locator('.ph-workshop').screenshot({path:path.join(output,'hub-games-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
