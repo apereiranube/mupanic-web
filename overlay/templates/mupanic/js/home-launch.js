@@ -333,7 +333,9 @@
  document.querySelectorAll('[data-hub-enlarge]').forEach(function(button){
   button.addEventListener('click',function(){
    previous=button;
-   content.replaceChildren(button.querySelector('.ph-client-window').cloneNode(true));
+   var windowCopy=button.querySelector('.ph-client-window').cloneNode(true);
+   windowCopy.querySelectorAll('img').forEach(function(image){image.loading='eager';image.decoding='sync';});
+   content.replaceChildren(windowCopy);
    dialog.showModal();
   });
  });

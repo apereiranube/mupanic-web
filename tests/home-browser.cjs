@@ -117,6 +117,7 @@ async function routes(page,body=html){
   await page.locator('[data-world-tab="hub-personaje"]').click();
   await page.locator('#hub-personaje [data-hub-enlarge]').click();
   assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),true);
+  await page.waitForFunction(()=>{const image=document.querySelector('[data-hub-lightbox] img');return image&&image.complete&&image.naturalWidth>0;});
   assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name').count(),2);
   assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name-large').textContent(),'Panic');
   if(output&&[1440,390].includes(width))await page.locator('[data-hub-lightbox]').screenshot({path:path.join(output,'hub-personaje-enlarged-'+width+'.png')});
