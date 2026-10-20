@@ -112,6 +112,14 @@ for asset in server-world server-progression server-atlas server-events server-p
   fi
 done
 
+# El servidor V2: escenas, "Un día en MU PANIC" y comunidad deben llegar completas.
+for asset in server-hero server-furia server-fractura server-vessara server-companeros server-hub server-cliente server-comunidad server-cierre dia-1-tributo dia-2-caza dia-3-mercado dia-4-fractura dia-5-hub; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/server/v2/$asset.webp" ]; then
+    echo "[MU PANIC] ERROR: Missing server page artwork: $asset.webp" >&2
+    exit 1
+  fi
+done
+
 # System artwork is shipped as real WebP binaries; reject incomplete releases before copying.
 SYSTEM_ART_FILES=(
   "chronicles-d6291c69cf6b.webp"
