@@ -67,6 +67,15 @@ for kind in rocks mist forest canopy market arcade; do
   test -s "$TEMPLATE_SOURCE/img/home/join-$kind-v6.webp"
 done
 
+# Inicio must not deploy PHP that silently hides missing screenshots.
+HOME_RELEASE_ASSETS=(hero-rf-mg-v10.mp4 hero-rf-mg-v10.webp hero-world-v10.webp join-market-v10.webp join-arcade-v10.webp)
+for screen in personaje fractura eventos mercado tienda juegos ayuda; do
+  HOME_RELEASE_ASSETS+=("hub-$screen-real-v10.webp")
+done
+for asset in "${HOME_RELEASE_ASSETS[@]}"; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
+done
+
 # The Eryns storefront and its original artwork must arrive together.
 if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
   echo "[MU PANIC] ERROR: Missing Eryns storefront artwork." >&2
@@ -251,6 +260,29 @@ if [ -f "$HERO_DEST" ]; then
   cp -a "$HERO_DEST" "$HERO_KEEP"
   HERO_PRESENT=1
 fi
+
+# Install and verify release media before publishing templates. An exhausted quota
+# stops here rather than leaving a new page with missing client windows or joins.
+mkdir -p "$TEMPLATE_DEST/img/home"
+for asset in "${HOME_RELEASE_ASSETS[@]}"; do
+  source_asset="$TEMPLATE_SOURCE/img/home/$asset"
+  target_asset="$TEMPLATE_DEST/img/home/$asset"
+  source_digest="$(sha256sum "$source_asset" | cut -d ' ' -f 1)"
+  if [ -s "$target_asset" ] && [ "$(sha256sum "$target_asset" | cut -d ' ' -f 1)" = "$source_digest" ]; then
+    continue
+  fi
+  if ! cp "$source_asset" "$target_asset.installing"; then
+    rm -f "$target_asset.installing"
+    echo "[MU PANIC] ERROR: Cannot install Inicio media. Check hosting disk quota: $asset" >&2
+    exit 1
+  fi
+  if [ "$(sha256sum "$target_asset.installing" | cut -d ' ' -f 1)" != "$source_digest" ]; then
+    rm -f "$target_asset.installing"
+    echo "[MU PANIC] ERROR: Incomplete Inicio asset: $asset" >&2
+    exit 1
+  fi
+  mv -f "$target_asset.installing" "$target_asset"
+done
 
 # Snapshot only the Economy release files before the existing overlay copy.
 ECO_BACKUP="$(/bin/bash "$SOURCE_ROOT/scripts/economy-install.sh" Preparar "$DEPLOY_ROOT")"

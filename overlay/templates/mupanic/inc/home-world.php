@@ -10,9 +10,9 @@ $hubTabs = [
  ['juegos','Juegos','Otra partida dentro de tu partida.','Ocho minijuegos dentro del cliente. Cambiá de ritmo, elegí cómo jugar y volvé a la aventura cuando quieras.', ['Ruleta, Tragamonedas y cartas','Vuelo del Dragón y Torre del Caos','Lluvia de Joyas, Kalima y Carrera']],
  ['ayuda','Ayuda','Encontrá tu próximo paso.','Los sistemas propios también necesitan una guía. Usá Ayuda en el Hub y profundizá en el Atlas de la web.', ['Cómo empezar y usar el servidor','Mapas, eventos y sistemas','Guías para seguir avanzando']],
 ];
-$hubShots = ['inicio'=>'hub-real-v4.webp','juegos'=>'hub-games-real-v4.webp'];
+$hubShots = ['inicio'=>'hub-real-v4.webp'];
 foreach (['personaje','fractura','eventos','mercado','tienda','juegos','ayuda'] as $hubId) {
- if(is_file(__DIR__.'/../img/home/hub-'.$hubId.'-real-v10.webp')) $hubShots[$hubId]='hub-'.$hubId.'-real-v10.webp';
+ $hubShots[$hubId]='hub-'.$hubId.'-real-v10.webp';
 }
 $homeGames = [
  ['ruleta','Ruleta','Elegí tu jugada y seguí la rueda. Jugás con Eryns desde el cliente.'],
@@ -30,34 +30,52 @@ $homeGames = [
   <div><p class="ph-eyebrow">UN CLIENTE CON IDENTIDAD PROPIA</p><h2 id="home-client-title">Todo MU PANIC,<br>a una tecla.</h2><p>Un Hub propio para tu personaje, la Fractura, eventos, mercado, tienda y juegos. Abrilo con F11 y tené todo a mano.</p></div>
   <div class="ph-client-key"><?php $homePicture('client-crafted', 'La tecla F11 de acceso al Hub de MU PANIC'); ?></div>
  </div>
- <div class="ph-client-tour ph-wrap" data-home-tabs>
-  <nav class="ph-world-tabs" aria-label="Explorá las funciones del Hub">
-   <?php foreach($hubTabs as $tab) { ?><a href="#hub-<?php echo $tab[0]; ?>" data-world-tab="hub-<?php echo $tab[0]; ?>"><?php echo $tab[1]; ?></a><?php } ?>
-  </nav>
-  <div class="ph-world-panels">
-   <?php foreach($hubTabs as $tab) { $id=$tab[0]; ?>
-   <div id="hub-<?php echo $id; ?>" class="ph-hub-panel<?php echo isset($hubShots[$id])?'':' ph-hub-no-capture'; ?>" data-world-panel>
-    <?php if(isset($hubShots[$id])) { $shot=$hubShots[$id]; $shotSize=getimagesize(__DIR__.'/../img/home/'.$shot); ?>
-    <div class="ph-hub-visual"><figure class="ph-hub-real-preview">
-     <button class="ph-hub-enlarge" type="button" data-hub-enlarge aria-label="<?php echo $homeEscape('Ampliar la ventana de '.$tab[1]); ?>">
-      <span class="ph-client-window<?php echo $id==='inicio'?' ph-client-window-inicio':($id==='mercado'?' ph-client-window-mercado':''); ?>">
-       <img class="ph-hub-capture" src="<?php echo $homeArt.$shot; ?>" alt="<?php echo $homeEscape('Ventana de '.$tab[1].' del cliente MU PANIC'); ?>" width="<?php echo (int)$shotSize[0]; ?>" height="<?php echo (int)$shotSize[1]; ?>" loading="lazy" decoding="async">
-       <?php if(!in_array($id,['inicio','mercado'],true)) { ?><span class="ph-client-name" aria-hidden="true">Panic</span><?php } ?>
-       <?php if($id==='personaje') { ?><span class="ph-client-name ph-client-name-large" aria-hidden="true">Panic</span><?php } ?>
-      </span>
-     </button>
-     <figcaption><?php echo $homeEscape($tab[1]); ?> · VER INTERFAZ AMPLIADA ↗</figcaption>
-    </figure></div>
-    <?php } ?>
-    <div class="ph-hub-description">
-     <p class="ph-eyebrow">F11 · <?php echo $tab[1]; ?></p><h3<?php echo $id==='eventos'?' id="home-events-title"':''; ?>><?php echo $tab[2]; ?></h3><p><?php echo $tab[3]; ?></p>
-     <?php if($tab[4]) { ?><ul><?php foreach($tab[4] as $point) { ?><li><?php echo $point; ?></li><?php } ?></ul><?php } ?>
-     <?php if($id==='eventos') { ?>
-      <ol class="ph-event-list" data-home-events><?php foreach($homeEvents as $event) { ?><li><a href="<?php echo __BASE_URL__; ?>info/#eventos"><span><?php echo $homeEscape($event['nombre']); ?></span><time datetime="<?php echo $homeEscape($event['proximo']); ?>"><?php echo $homeEscape(panicHomeEventLabel($event['proximo'])); ?></time><b aria-hidden="true">↗</b></a></li><?php } ?></ol>
-      <?php if(!$homeEvents) { ?><p data-home-events-empty>Consultá el calendario del servidor.</p><?php } ?>
-     <?php } ?>
-     <?php $targets=['fractura'=>['fractura/','Conocé la Fractura'],'eventos'=>['info/#eventos','Ver calendario'],'mercado'=>['market/','Explorá el mercado'],'tienda'=>['usercp/recharge/','Conocé la tienda'],'juegos'=>['#minijuegos','Descubrí los minijuegos'],'ayuda'=>['info/','Abrí el Atlas']];if(isset($targets[$id])) { $target=$targets[$id]; ?><a class="ph-link" href="<?php echo ($target[0][0]==='#'?'':__BASE_URL__).$target[0]; ?>"><?php echo $target[1]; ?> <span aria-hidden="true">↗</span></a><?php } ?>
+ <div class="ph-client-tour ph-wrap ph-interactive-tour" data-home-tabs data-hub-tour>
+  <div class="ph-hub-toolbar"><p>Tocá los botones del Hub y explorá sus pantallas reales.</p><button type="button" data-hub-enlarge>Ampliar Hub <span aria-hidden="true">↗</span></button></div>
+  <div class="ph-hub-stage" data-hub-stage>
+   <div class="ph-hub-simulator" data-hub-simulator>
+    <div class="ph-client-window ph-hub-shell" aria-hidden="true">
+     <img class="ph-hub-capture" src="<?php echo $homeArt.$hubShots['personaje']; ?>" alt="" width="1997" height="1248" loading="eager">
+     <span class="ph-client-name">Panic</span>
     </div>
+    <nav class="ph-hub-native-menu" aria-label="Botones del Hub de MU PANIC">
+     <?php foreach($hubTabs as $i=>$tab) { $id=$tab[0]; $idle=$id==='ayuda'?'personaje':'ayuda'; $active=$id==='mercado'?$idle:$id;
+      $menuTop=-(286+89*$i)/71*100;
+     ?>
+     <a href="#hub-<?php echo $id; ?>" data-world-tab="hub-<?php echo $id; ?>" class="ph-hub-native-button<?php echo $id==='mercado'?' ph-hub-market-button':''; ?>" style="--menu-y:<?php echo number_format(22.1596+$i*8.3568,4,'.',''); ?>%;--menu-image-y:<?php echo number_format($menuTop,4,'.',''); ?>%">
+      <img class="ph-hub-menu-idle" src="<?php echo $homeArt.$hubShots[$idle]; ?>" alt="" aria-hidden="true" width="1997" height="1248" loading="eager">
+      <img class="ph-hub-menu-active<?php echo $id==='inicio'?' ph-hub-menu-inicio':''; ?>" src="<?php echo $homeArt.$hubShots[$active]; ?>" alt="" aria-hidden="true" width="<?php echo $id==='inicio'?1440:1997; ?>" height="<?php echo $id==='inicio'?877:1248; ?>" loading="eager">
+      <span class="ph-sr-only"><?php echo $tab[1]; ?></span>
+     </a>
+     <?php } ?>
+    </nav>
+    <div class="ph-world-panels ph-hub-screen-stack">
+     <?php foreach($hubTabs as $tab) { $id=$tab[0]; ?>
+     <div id="hub-<?php echo $id; ?>" class="ph-hub-panel" data-world-panel<?php echo $id!=='inicio'?' hidden':''; ?>>
+      <div class="ph-hub-content-viewport ph-hub-content-<?php echo $id; ?>">
+       <?php if($id==='mercado') { ?>
+        <div class="ph-client-window ph-client-window-mercado"><img class="ph-hub-capture" src="<?php echo $homeArt.$hubShots[$id]; ?>" alt="Mercado de Vessara: ventana real del cliente" width="1997" height="1248" loading="eager"></div>
+       <?php } else { ?>
+        <div class="ph-hub-content-crop<?php echo $id==='inicio'?' ph-hub-content-home':''; ?>">
+         <img class="ph-hub-capture" src="<?php echo $homeArt.$hubShots[$id]; ?>" alt="<?php echo $homeEscape('Pantalla real de '.$tab[1].' del cliente MU PANIC'); ?>" width="<?php echo $id==='inicio'?1440:1997; ?>" height="<?php echo $id==='inicio'?877:1248; ?>" loading="eager" decoding="async">
+         <?php if($id==='personaje') { ?><span class="ph-hub-character-name" aria-hidden="true">Panic</span><?php } ?>
+        </div>
+       <?php } ?>
+      </div>
+     </div>
+     <?php } ?>
+    </div>
+   </div>
+  </div>
+  <div class="ph-hub-caption-stack" aria-live="polite">
+   <?php foreach($hubTabs as $tab) { $id=$tab[0]; ?>
+   <div class="ph-hub-description" data-hub-caption="hub-<?php echo $id; ?>"<?php echo $id!=='inicio'?' hidden':''; ?>>
+    <p class="ph-eyebrow">F11 · <?php echo $tab[1]; ?></p><h3<?php echo $id==='eventos'?' id="home-events-title"':''; ?>><?php echo $tab[2]; ?></h3><p><?php echo $tab[3]; ?></p>
+    <?php if($id==='eventos') { ?>
+     <ol class="ph-event-list" data-home-events><?php foreach($homeEvents as $event) { ?><li><a href="<?php echo __BASE_URL__; ?>info/#eventos"><span><?php echo $homeEscape($event['nombre']); ?></span><time datetime="<?php echo $homeEscape($event['proximo']); ?>"><?php echo $homeEscape(panicHomeEventLabel($event['proximo'])); ?></time><b aria-hidden="true">↗</b></a></li><?php } ?></ol>
+     <?php if(!$homeEvents) { ?><p data-home-events-empty>Consultá el calendario del servidor.</p><?php } ?>
+    <?php } ?>
+    <?php $targets=['fractura'=>['fractura/','Conocé la Fractura'],'eventos'=>['info/#eventos','Ver calendario'],'mercado'=>['market/','Explorá el mercado'],'tienda'=>['usercp/recharge/','Conocé la tienda'],'juegos'=>['#minijuegos','Descubrí los minijuegos'],'ayuda'=>['info/','Abrí el Atlas']];if(isset($targets[$id])) { $target=$targets[$id]; ?><a class="ph-link" href="<?php echo ($target[0][0]==='#'?'':__BASE_URL__).$target[0]; ?>"><?php echo $target[1]; ?> <span aria-hidden="true">↗</span></a><?php } ?>
    </div>
    <?php } ?>
   </div>

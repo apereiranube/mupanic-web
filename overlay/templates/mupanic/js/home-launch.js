@@ -112,6 +112,8 @@
         link.tabIndex = i === index ? 0 : -1;
         panels[i].hidden = i !== index;
         panels[i].inert = i !== index;
+        var caption=tour.querySelector('[data-hub-caption="'+panels[i].id+'"]');
+        if(caption){caption.hidden=i!==index;caption.inert=i!==index;}
       });
 
     }
@@ -324,22 +326,21 @@
   }, {threshold:0.04}).observe(art);
   else { visible = true; sync(); }
 })();
-// Enlarge the same client viewport, including its public display-name layer.
+// Move the live simulator into the dialog: the same native buttons keep working.
 (function () {
  'use strict';
  var dialog=document.querySelector('[data-hub-lightbox]');
- if(!dialog||typeof dialog.showModal!=='function')return;
- var content=dialog.querySelector('[data-hub-lightbox-content]'),previous;
- document.querySelectorAll('[data-hub-enlarge]').forEach(function(button){
-  button.addEventListener('click',function(){
-   previous=button;
-   var windowCopy=button.querySelector('.ph-client-window').cloneNode(true);
-   windowCopy.querySelectorAll('img').forEach(function(image){image.loading='eager';image.decoding='sync';});
-   content.replaceChildren(windowCopy);
-   dialog.showModal();
-  });
+ var simulator=document.querySelector('[data-hub-simulator]');
+ var stage=document.querySelector('[data-hub-stage]');
+ var button=document.querySelector('[data-hub-enlarge]');
+ if(!dialog||!simulator||!button||typeof dialog.showModal!=='function')return;
+ var content=dialog.querySelector('[data-hub-lightbox-content]');
+ button.addEventListener('click',function(){
+  stage.style.height=stage.getBoundingClientRect().height+'px';
+  content.appendChild(simulator);
+  dialog.showModal();dialog.scrollTop=0;dialog.scrollLeft=0;
  });
  dialog.querySelector('button').addEventListener('click',function(){dialog.close();});
  dialog.addEventListener('click',function(event){if(event.target===dialog){var r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
- dialog.addEventListener('close',function(){content.replaceChildren();if(previous)previous.focus({preventScroll:true});});
+ dialog.addEventListener('close',function(){stage.appendChild(simulator);stage.style.height='';button.focus({preventScroll:true});});
 })();

@@ -85,7 +85,7 @@ async function routes(page,body=html){
   if(width<=1100){await page.locator('.menu-toggle').click();assert.equal(await page.locator('.main-nav').isVisible(),true);await page.keyboard.press('Escape');assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'false');}
   assert.equal(await page.locator('[data-furia-motion], [data-home-update]').count(),0);
   assert.equal(await page.locator('[data-home-events] [data-event-countdown]').count(),1);
-  // The Hub and all eight games expose keyboard-operable tabs without a faux web client.
+  // Native Hub hotspots and all eight games remain keyboard operable.
   for(const tour of await page.locator('[data-home-tabs]').all()){
    const tabs=tour.locator('[role=tab]');
    assert.equal(await tour.locator('[role=tabpanel]:visible').count(),1);
@@ -107,23 +107,29 @@ async function routes(page,body=html){
    assert.equal(await page.locator('.ph-client-tour [role=tabpanel]:visible').count(),1);
    assert.ok(Math.abs((await page.locator('.ph-client-tour').boundingBox()).height-hubHeight)<2,'Hub changes page height at '+width);
    assert.equal(await page.locator('#'+id).evaluate(el=>el.inert),false);
-   const shot=await page.locator('#'+id+' .ph-client-window').boundingBox(), nav=await page.locator('.ph-client-tour .ph-world-tabs').boundingBox();
-   assert.ok(shot.y>=nav.y+nav.height,'Client capture must not overlap tab navigation at '+width);
+   const shot=await page.locator('#'+id+' .ph-hub-content-viewport').boundingBox(), menu=await tab.boundingBox(), frame=await page.locator('[data-hub-simulator]').boundingBox();
+   assert.ok(menu.x>=frame.x&&menu.x+menu.width<shot.x,'Native menu must stay inside the frame and outside its content at '+width);
+   assert.ok(shot.y>=frame.y&&shot.y+shot.height<=frame.y+frame.height+1,'Screen must stay inside Hub at '+width);
+   assert.equal(await page.locator('[data-hub-caption="'+id+'"]').isVisible(),true);
   }
   for(const id of ['hub-personaje','hub-fractura','hub-tienda','hub-eventos','hub-mercado','hub-ayuda']){
    await page.locator('[data-world-tab="'+id+'"]').click();
    if(output&&[1440,390].includes(width))await page.locator('.ph-client-tour').screenshot({path:path.join(output,id+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
   await page.locator('[data-world-tab="hub-personaje"]').click();
-  await page.locator('#hub-personaje [data-hub-enlarge]').click();
+  await page.locator('[data-hub-enlarge]').click();
   assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),true);
   await page.waitForFunction(()=>{const image=document.querySelector('[data-hub-lightbox] img');return image&&image.complete&&image.naturalWidth>0;});
-  assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name').count(),2);
-  assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name-large').textContent(),'Panic');
+  assert.equal(await page.locator('[data-hub-lightbox] [data-hub-simulator]').count(),1);
+  assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name').textContent(),'Panic');
+  assert.equal(await page.locator('[data-hub-lightbox] .ph-hub-character-name').textContent(),'Panic');
   if(output&&[1440,390].includes(width))await page.locator('[data-hub-lightbox]').screenshot({path:path.join(output,'hub-personaje-enlarged-'+width+'.png')});
+  await page.locator('[data-hub-lightbox] [data-world-tab="hub-fractura"]').click();
+  assert.equal(await page.locator('#hub-fractura').isVisible(),true);
   await page.keyboard.press('Escape');
+  assert.equal(await page.locator('[data-hub-stage] [data-hub-simulator]').count(),1);
   assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),false);
-  assert.equal(await page.locator('#hub-personaje [data-hub-enlarge]').evaluate(el=>el===document.activeElement),true);
+  assert.equal(await page.locator('[data-hub-enlarge]').evaluate(el=>el===document.activeElement),true);
   await page.locator('[data-world-tab="hub-juegos"]').click();
   await page.waitForFunction(()=>document.querySelector('#hub-juegos .ph-hub-capture').complete&&document.querySelector('#hub-juegos .ph-hub-capture').naturalWidth);
   if(output&&[1440,390].includes(width))await page.locator('.ph-workshop').screenshot({path:path.join(output,'hub-games-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});

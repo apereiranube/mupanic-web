@@ -39,6 +39,10 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
     assert html.count('ph-flow-join ph-flow-join-') == 5
     assert 'hub-tienda' in html and 'ph-client-improvements' not in html
     assert 'hub-real-v4.webp' in html and 'master-real-v5.webp' not in html
+    assert 'data-hub-simulator' in html and 'ph-hub-native-menu' in html
+    assert html.count('ph-hub-no-capture') == 0
+    for screen in ['personaje','fractura','eventos','mercado','tienda','juegos','ayuda']:
+        assert f'hub-{screen}-real-v10.webp' in html
     assert 'EL PULSO DEL SERVIDOR' not in html and 'Cada clase tiene su propia Furia' not in html
     assert 'ph-market-trail' not in html
     assert html.count('data-home-tabs') == 2
