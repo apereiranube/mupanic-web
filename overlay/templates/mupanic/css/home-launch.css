@@ -597,3 +597,10 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 .ph-combat-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,5,8,.70),rgba(4,5,8,.36) 29%,transparent 56%);pointer-events:none}
 @media(max-width:760px){.ph-combat-art:after{background:none}}
 @media(prefers-reduced-motion:reduce){.ph-combat-video{display:none;transition:none}}
+/* Reserve the left copy area without cropping either combatant. */
+@media(min-width:761px){
+ .ph-combat-art{background:#06090d}
+ .ph-combat-art img{width:82%;margin-left:18%;mask-image:linear-gradient(90deg,transparent,#000 13%)}
+ .ph-combat-video{left:18%;width:82%;mask-image:linear-gradient(90deg,transparent,#000 13%)}
+ .ph-hero:has(.ph-combat-art) .ph-copy{width:40%;max-width:570px}
+}
