@@ -1,0 +1,50 @@
+name: Inicio - visual and data checks
+on:
+  push:
+    branches: [beta, feature/home-connected-20261020]
+    paths:
+      - 'overlay/templates/mupanic/index.php'
+      - 'overlay/templates/mupanic/css/home-launch.css'
+      - 'overlay/templates/mupanic/inc/home*.php'
+      - 'overlay/templates/mupanic/js/home-launch.js'
+      - 'overlay/templates/mupanic/js/main.js'
+      - 'overlay/templates/mupanic/img/home/**'
+      - 'tests/home-*'
+      - 'tests/fixtures/home-launch.php'
+      - 'tools/home-connected-art.json'
+      - '.github/workflows/home-launch.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  home:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: PHP render, syntax and existing public API
+        run: |
+          php -l overlay/templates/mupanic/index.php
+          php -l overlay/templates/mupanic/inc/home-launch.php
+          php -l overlay/templates/mupanic/inc/home-data.php
+          python3 tests/home-render.py
+          php tests/launcher.php
+          node --check overlay/templates/mupanic/js/home-launch.js
+          node --check overlay/templates/mupanic/js/main.js
+          bash -n scripts/deploy-beta.sh
+      - name: Install browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Check actual homepage at eight widths
+        env:
+          HOME_SCREENSHOT_DIR: home-screenshots
+        run: node tests/home-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inicio-connected-v3
+          path: home-screenshots/

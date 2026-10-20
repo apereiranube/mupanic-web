@@ -1,0 +1,128 @@
+{
+  "version": "connected-v3",
+  "date": "2026-10-20",
+  "scope": "Inicio only",
+  "generation": "imagegen built-in, newly composed from approved MU PANIC character/UI/item references",
+  "assets": [
+    {
+      "file": "img/home/hero-connected-v3.webp",
+      "source": "exec-a2235c29-db91-4dc1-9d1b-f9aa9fd1d2f0.png",
+      "width": 1738,
+      "height": 905,
+      "bytes": 296918,
+      "sha256": "12e444fea82f9a1332ee5ba476eafc651b0bcf6b1b17962a1cc8c6dbda9df654"
+    },
+    {
+      "file": "img/home/hero-connected-v3-960.webp",
+      "source": "exec-a2235c29-db91-4dc1-9d1b-f9aa9fd1d2f0.png",
+      "width": 960,
+      "height": 500,
+      "bytes": 123048,
+      "sha256": "2aba8289b261edda4f9b5487826afbc2417feef2256bd2a3f92626428471d0dd"
+    },
+    {
+      "file": "img/home/fractura-connected-v3.webp",
+      "source": "exec-8b9d1cdc-68bd-4dc8-9797-fcfd0959e2a1.png",
+      "width": 1738,
+      "height": 905,
+      "bytes": 284240,
+      "sha256": "7ff2b84f6b93a469433a4464c3789104cbfc0d4afb6c12d7e41dd6579898caa0"
+    },
+    {
+      "file": "img/home/fractura-connected-v3-960.webp",
+      "source": "exec-8b9d1cdc-68bd-4dc8-9797-fcfd0959e2a1.png",
+      "width": 960,
+      "height": 500,
+      "bytes": 114136,
+      "sha256": "76dc097414b16cc2a258e683c0d73c934a93b1eea57498213ac0436fae314c23"
+    },
+    {
+      "file": "img/home/companions-connected-v3.webp",
+      "source": "exec-f7fc55ef-b90c-40e9-9442-7b339fa8b7a1.png",
+      "width": 1738,
+      "height": 905,
+      "bytes": 280258,
+      "sha256": "d4a05080371abb3485c8bd663ec482f56dee8de1ced09d37957846484a9cfa1e"
+    },
+    {
+      "file": "img/home/companions-connected-v3-960.webp",
+      "source": "exec-f7fc55ef-b90c-40e9-9442-7b339fa8b7a1.png",
+      "width": 960,
+      "height": 500,
+      "bytes": 119088,
+      "sha256": "219e0599222eff654ec2495602a5a66b47690c93f68045144aa7f3f041e6d3ad"
+    },
+    {
+      "file": "img/home/games-connected-v3.webp",
+      "source": "exec-60b50d9b-3a9a-4cc0-8e68-944a222e1014.png",
+      "width": 1737,
+      "height": 906,
+      "bytes": 161332,
+      "sha256": "62ed1750d1a343fa8551470525bce6ac9084c7f0f2f572df88c1e639c98391f3"
+    },
+    {
+      "file": "img/home/games-connected-v3-960.webp",
+      "source": "exec-60b50d9b-3a9a-4cc0-8e68-944a222e1014.png",
+      "width": 960,
+      "height": 501,
+      "bytes": 61500,
+      "sha256": "d254ad48ac144b43bf56ea87f9e83d9267b9af884482d6efe6fe88d896a9adae"
+    },
+    {
+      "file": "img/home/client-crafted-v3.webp",
+      "source": "exec-28ff74e6-f285-40be-9ff3-e1f47620ec4a.png",
+      "width": 1484,
+      "height": 1060,
+      "bytes": 232252,
+      "sha256": "f55e1cd61fbfd08c879f4b9b849a402e107a198410edc5bae545d8b9ca525277"
+    },
+    {
+      "file": "img/home/client-crafted-v3-960.webp",
+      "source": "exec-28ff74e6-f285-40be-9ff3-e1f47620ec4a.png",
+      "width": 960,
+      "height": 686,
+      "bytes": 120768,
+      "sha256": "a65275ccce672dabd5ec08ee341d034336025bf73e964cfbd70f21899edf0eb5"
+    },
+    {
+      "file": "img/home/market-crafted-v3.webp",
+      "source": "exec-1ea1bd0c-87fd-4cca-9324-89b9511cf7c4.png",
+      "width": 1484,
+      "height": 1060,
+      "bytes": 147836,
+      "sha256": "aadf029cbdce589006e2f977f23913550e2640d0f45e180da8ec2d116c80f104"
+    },
+    {
+      "file": "img/home/market-crafted-v3-960.webp",
+      "source": "exec-1ea1bd0c-87fd-4cca-9324-89b9511cf7c4.png",
+      "width": 960,
+      "height": 686,
+      "bytes": 79530,
+      "sha256": "0bd3dafc481ecae6d4c19586c0fe654749709f81410b18e3f1c2abc8706e0cbe"
+    },
+    {
+      "file": "img/home/hero-connected-v3-mobile.webp",
+      "source": "exec-c8fb4a1f-43f8-40d6-9155-b96799864148.png",
+      "width": 960,
+      "height": 1008,
+      "bytes": 252884,
+      "sha256": "3ba5cae03e973a0bde130f8eee8b10c2a4375a7676e69533c54b4871dffffcaf"
+    },
+    {
+      "file": "img/home/fractura-connected-v3-mobile.webp",
+      "source": "exec-70f2496f-ac9d-4db6-a69c-0427d946f8ab.png",
+      "width": 960,
+      "height": 1008,
+      "bytes": 289218,
+      "sha256": "db20aab3fb2eec66a43f92d0f3ff6926535b739a257aad8c6274b23d675ca758"
+    },
+    {
+      "file": "img/home/companions-connected-v3-mobile.webp",
+      "source": "exec-bbc74aae-315d-4b75-99bb-3aa7acaf31e4.png",
+      "width": 960,
+      "height": 1008,
+      "bytes": 268180,
+      "sha256": "ceb679466be144546702e89fd793c4da0e01f1a877c097f3160b3aac5f3b4b40"
+    }
+  ]
+}

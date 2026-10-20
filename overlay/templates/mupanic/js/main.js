@@ -493,6 +493,7 @@
 })();
 
 ;(function () {
+  if (document.body.classList.contains('is-home-launch')) return;
   if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -517,6 +518,7 @@
   if (!document.body.classList.contains('is-home') && !document.body.classList.contains('is-server-info')) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+  if (document.body.classList.contains('is-home-launch')) return;
   var layer = document.createElement('div');
   layer.className = 'ambient-embers';
   layer.setAttribute('aria-hidden', 'true');

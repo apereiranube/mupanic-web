@@ -30,6 +30,19 @@ for module in "${DEPLOY_MODULES[@]}"; do
   fi
 done
 
+# The Inicio release ships as one complete unit. Existing server page is unchanged.
+for file in inc/home-data.php inc/home-launch.php css/home-launch.css js/home-launch.js; do
+  test -s "$TEMPLATE_SOURCE/$file"
+done
+for scene in hero-connected fractura-connected companions-connected games-connected client-crafted market-crafted; do
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v3.webp"
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v3-960.webp"
+done
+
+for scene in hero-connected fractura-connected companions-connected; do
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v3-mobile.webp"
+done
+
 # The Eryns storefront and its original artwork must arrive together.
 if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
   echo "[MU PANIC] ERROR: Missing Eryns storefront artwork." >&2
