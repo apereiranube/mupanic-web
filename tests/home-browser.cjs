@@ -52,7 +52,7 @@ async function routes(page,body=html){
      const a=document.querySelector('.ph-'+first).getBoundingClientRect(),b=document.querySelector('.ph-'+last).getBoundingClientRect();
      return{x:0,y:Math.max(0,a.y+scrollY),width:innerWidth,height:Math.ceil(b.bottom-a.top)};
     },[first,last]);
-    await page.screenshot({path:path.join(output,'join-'+name+'.png'),clip,style:'.site-header,.skip-link{visibility:hidden!important}'});
+    await page.screenshot({path:path.join(output,'join-'+name+'.png'),fullPage:true,clip,style:'.site-header,.skip-link{visibility:hidden!important}'});
    }
    if([1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
