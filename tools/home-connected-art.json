@@ -123,6 +123,123 @@
       "height": 1008,
       "bytes": 268180,
       "sha256": "ceb679466be144546702e89fd793c4da0e01f1a877c097f3160b3aac5f3b4b40"
+    },
+    {
+      "file": "img/home/furia-ui-frame-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_marco.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 160,
+      "bytes": 72902,
+      "sha256": "37a7e11b9b505ac5b9cac1101368522e2bbf7f2d695762ff12723ca4953fc0da"
+    },
+    {
+      "file": "img/home/furia-ui-skull-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_emblema.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 256,
+      "height": 256,
+      "bytes": 103732,
+      "sha256": "1cad7c23f8847918bc4caa51bbf17ffdae34d3a15d3b086251868208dcbee5ae"
+    },
+    {
+      "file": "img/home/furia-ui-eyes-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_emblema_ojos.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 256,
+      "height": 256,
+      "bytes": 10196,
+      "sha256": "ca18fa4b12e6bb9738b6642993e59f25a8ef763f048b5d34f132888ab5558fb4"
+    },
+    {
+      "file": "img/home/furia-ui-energy-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_energia_roja.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 64,
+      "bytes": 94326,
+      "sha256": "3541576969057c208adfbb3f7255b4ff2bd3cb842b050fdb6c3d578ae011b652"
+    },
+    {
+      "file": "img/home/furia-ui-digits-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/numeros.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1200,
+      "height": 200,
+      "bytes": 235806,
+      "sha256": "6774379906d4fe8c0c7b0d977ca53cafd606a27fe9f93dbe46f6183ffc13281a"
+    },
+    {
+      "file": "img/home/furia-ui-masacre-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/cartel_masacre.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 256,
+      "bytes": 376986,
+      "sha256": "8f8f3922bd1a8f8c6e5d0c45e5a6b8688cb6b8949eef88e8ada38a58a1ebc77f"
+    },
+    {
+      "file": "img/home/furia-energy-v3.mp4",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/energia_cargada_doble_latido_2240x160_2s.mp4",
+      "origin": "Actual game effect from prior chat, resized H.264 30fps for web, audio removed, 2s loop preserved",
+      "width": 1120,
+      "height": 80,
+      "bytes": 502866,
+      "sha256": "fc864f990b7ff5542c271fad2a28bd637eaaefc87bf819a99ef896890f67bca3"
+    },
+    {
+      "file": "img/home/furia-aura-v3.mp4",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/pulso_calavera_doble_latido_512x512_2s.mp4",
+      "origin": "Actual game effect from prior chat, resized H.264 30fps for web, audio removed, 2s loop preserved",
+      "width": 256,
+      "height": 256,
+      "bytes": 114103,
+      "sha256": "c823b8f3bfb326e5b7495f663632400937f8f8b66d25cee45178dde267e66e2f"
+    },
+    {
+      "file": "img/home/furia-energy-v3.webm",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/energia_cargada_doble_latido_2240x160_2s.mp4",
+      "origin": "Actual game effect, VP9 30fps web derivative, 2s loop, no audio",
+      "width": 1120,
+      "height": 80,
+      "bytes": 571730,
+      "sha256": "d2858fd3fbedba5bc9ae3bac66109d9a5ad2a76b3e89271fe9c952e79dc26475"
+    },
+    {
+      "file": "img/home/furia-aura-v3.webm",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/pulso_calavera_doble_latido_512x512_2s.mp4",
+      "origin": "Actual game effect, VP9 30fps web derivative, 2s loop, no audio",
+      "width": 256,
+      "height": 256,
+      "bytes": 169335,
+      "sha256": "da4d6541af91bc10c6ee3e01fae048754d1943c875e513e284f56f8831ff8bb7"
+    },
+    {
+      "file": "img/home/furia-world-v3.webp",
+      "source": "exec-3185a8bd-27cd-4e3a-96b3-3d220fe9d996.png",
+      "origin": "New imagegen environment for Furia; no repeated game character, real UI layered separately",
+      "width": 1942,
+      "height": 809,
+      "bytes": 194898,
+      "sha256": "5649dd6a0c42808583acfb47e3e3c9bc016bdf456695c015e43e88074f0f7f15"
+    },
+    {
+      "file": "img/home/furia-world-v3-960.webp",
+      "source": "exec-3185a8bd-27cd-4e3a-96b3-3d220fe9d996.png",
+      "origin": "New imagegen environment for Furia; no repeated game character, real UI layered separately",
+      "width": 960,
+      "height": 400,
+      "bytes": 60984,
+      "sha256": "cece18a58967aec99f6e69512fcd0aee7a011f91b15e342785c62296591c03a0"
+    },
+    {
+      "file": "img/home/furia-world-v3-mobile.webp",
+      "source": "exec-ea8e19ff-a0c9-44c6-a1cb-ea63e05bbd55.png",
+      "origin": "New imagegen environment for Furia; no repeated game character, real UI layered separately",
+      "width": 960,
+      "height": 1008,
+      "bytes": 168488,
+      "sha256": "d75b3c9db0ab686a82f81b5ac8b804f42714607d14e7bf602da67b27ae8c38cc"
     }
   ]
 }

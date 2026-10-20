@@ -34,13 +34,17 @@ done
 for file in inc/home-data.php inc/home-launch.php css/home-launch.css js/home-launch.js; do
   test -s "$TEMPLATE_SOURCE/$file"
 done
-for scene in hero-connected fractura-connected companions-connected games-connected client-crafted market-crafted; do
+for scene in hero-connected fractura-connected companions-connected games-connected client-crafted market-crafted furia-world; do
   test -s "$TEMPLATE_SOURCE/img/home/$scene-v3.webp"
   test -s "$TEMPLATE_SOURCE/img/home/$scene-v3-960.webp"
 done
 
-for scene in hero-connected fractura-connected companions-connected; do
+for scene in hero-connected fractura-connected companions-connected furia-world; do
   test -s "$TEMPLATE_SOURCE/img/home/$scene-v3-mobile.webp"
+done
+
+for asset in furia-ui-frame-v3.webp furia-ui-skull-v3.webp furia-ui-eyes-v3.webp furia-ui-energy-v3.webp furia-ui-digits-v3.webp furia-ui-masacre-v3.webp furia-energy-v3.mp4 furia-aura-v3.mp4 furia-energy-v3.webm furia-aura-v3.webm; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
 done
 
 # The Eryns storefront and its original artwork must arrive together.

@@ -2,7 +2,7 @@
 
 Entrega limitada al inicio del sitio completo de beta. Se parte de `94641c02a344855b528547c56094d9ca21c17d0d`; el módulo `information.php`, su CSS, Fractura, Mercado y el Atlas se conservan. No incluye el rediseño descartado de El servidor de la PR #5.
 
-Recorrido: RF contra BK y accesos de juego → datos reales → Fractura → Elyndra, Aurion, Vaerion y Grum → cliente y Vessara → próximos eventos → minijuegos. Cada sistema tiene una sola presentación. Los ocho juegos se consultan mediante un desplegable nativo que indica el acceso real F11 → Juegos; no simula juegos en la web.
+Recorrido: RF contra BK y accesos de juego → datos reales → Furia → Fractura → Elyndra, Aurion, Vaerion y Grum → cliente y Vessara → próximos eventos → minijuegos. Cada sistema tiene una sola presentación. Los ocho juegos se consultan mediante un desplegable nativo que indica el acceso real F11 → Juegos; no simula juegos en la web.
 
 Seis composiciones nuevas generadas con imagegen integrado, a partir de las identidades aprobadas de los personajes, las tres joyas del Atlas y el Hub real. Tres composiciones verticales adicionales para celular. Los originales generados son PNG; se entregan WebP optimizados. `tools/home-connected-art.json` registra procedencia, dimensiones, tamaño y SHA256 de cada variante. El arte del cliente es una composición promocional de la tecla F11 y sus detalles de interfaz, no una captura funcional del cliente.
 
@@ -13,3 +13,7 @@ Datos: rates del mismo `panicAtlasBalance()` usado por la web; conectados de `se
 Validación reproducible: `python3 tests/home-render.py`, `php tests/launcher.php`, sintaxis PHP/JS/bash y `node tests/home-browser.cjs` con Playwright. La tarea `Inicio - visual and data checks` guarda capturas reales a 1920, 1440, 1100, 1024, 768, 760, 390 y 320 px, comprueba navegación, proporciones, overflow, ocho juegos, estado sin conexión y renderizado seguro de nombres recibidos de la API. Las capturas usan datos de prueba y no prueban una conexión con SQL en vivo.
 
 Despliegue habitual: rama `beta` → cPanel Git Version Control → Update from Remote → Deploy HEAD Commit. El `.cpanel.yml` ya llama al script de beta. `scripts/deploy-beta.sh` comprueba el conjunto nuevo antes de copiar el overlay. Publicar el commit en GitHub no confirma que cPanel haya aplicado el cambio. El dominio principal y su landing no forman parte de esta entrega.
+
+## Furia
+
+Destacado principal incorporado antes de Fractura con la descripción del sistema suministrada por Agustín. La ilustración de esta sección es una onda de energía sobre suelo fracturado, sin repetir al BK del hero ni inventar otra clase. Marco, emblema, ojos, energía, cifras y cartel MASACRE reutilizan los PNG exactos de `MU_PANIC_FURIA_ELECTRICA.zip` y `MU_PANIC_FURIA_COMBO_EFECTOS.zip`, convertidos sin pérdidas. Los videos usan los loops existentes de `MU_PANIC_FURIA_LATIDOS_Y_DESTELLO.zip`, redimensionados a 30fps para web, sin audio; cargan cuando la sección entra en pantalla, se pausan fuera de ella o al ocultar la pestaña, ofrecen control de pausa y respetan movimiento reducido con estado estático. La combinación x20/MASACRE es una demostración de la interfaz, no telemetría del jugador. No se publican porcentajes sujetos al balance.

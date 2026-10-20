@@ -74,3 +74,38 @@
   window.addEventListener('online', refresh);
   refresh();
 })();
+
+// Actual Furia game effects: opt-in under reduced motion, paused offscreen/hidden.
+(function () {
+  'use strict';
+  var section = document.querySelector('[data-furia-showcase]');
+  if (!section) return;
+  var videos = Array.from(section.querySelectorAll('[data-furia-video]'));
+  var control = section.querySelector('[data-furia-motion]');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var paused = reduced.matches;
+  var visible = false;
+  function sync() {
+    var play = visible && !document.hidden && !paused;
+    section.classList.toggle('is-animating', play);
+    videos.forEach(function (video) {
+      if (play) {
+        if (!video.getAttribute('src')) video.src = video.canPlayType('video/webm; codecs="vp9"') ? video.getAttribute('data-src') : video.getAttribute('data-fallback');
+        video.muted = true;
+        video.play().catch(function () {});
+      } else video.pause();
+    });
+    control.setAttribute('aria-pressed', String(paused));
+    control.textContent = paused ? 'Activar efectos ▶' : 'Pausar efectos Ⅱ';
+  }
+  control.hidden = false;
+  control.addEventListener('click', function () { paused = !paused; sync(); });
+  document.addEventListener('visibilitychange', sync);
+  reduced.addEventListener('change', function () { paused = reduced.matches; sync(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting; sync();
+    }, {threshold:0.05}).observe(section.querySelector('.ph-furia-demo'));
+  } else { visible = true; sync(); }
+  sync();
+})();

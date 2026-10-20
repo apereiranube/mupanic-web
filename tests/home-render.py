@@ -27,9 +27,9 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
         if url.startswith('/templates/mupanic/'):
             path=root/'overlay/templates/mupanic'/url.split('/templates/mupanic/')[1].split('?')[0]
             assert path.is_file(), f'Missing resource {path}'
-    for name in ['home-fractura-title','home-companions-title','home-client-title','home-market-title','home-events-title','home-games-title']:
+    for name in ['home-furia-title','home-fractura-title','home-companions-title','home-client-title','home-market-title','home-events-title','home-games-title']:
         assert doc.ids.count(name)==1
-    assert html.index('home-fractura-title') < html.index('home-companions-title') < html.index('home-games-title')
+    assert html.index('home-furia-title') < html.index('home-fractura-title') < html.index('home-companions-title') < html.index('home-games-title')
     assert 'Tu próxima partida' in html and 'no necesita un spot.' in html
     assert 'data-home-version="connected-v3"' in html
     assert 'hub-client-20261020' not in html and 'games-client-20261020' not in html

@@ -36,15 +36,23 @@ async function routes(page,body=html){
   await page.evaluate(()=>document.fonts.ready);
   await page.locator('img').evaluateAll(images=>images.forEach(im=>im.loading='eager'));
   await page.waitForFunction(()=>[...document.images].every(im=>im.complete&&im.naturalWidth));
+  // Decode and visit every scene before a full-page capture (lazy paint/compositor).
+  await page.locator('img').evaluateAll(images=>Promise.all(images.map(im=>im.decode())));
+  for(const scene of await page.locator('.ph-art').all()){
+   await scene.scrollIntoViewIfNeeded();
+   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  }
+  await page.evaluate(()=>scrollTo(0,0));
+  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   if(output){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});
-   if([1440,390].includes(width))for(const scene of ['hero','fractura','companions','workshop','events','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png')});
+   if([1440,390].includes(width))for(const scene of ['hero','furia','fractura','companions','workshop','events','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png')});
   }
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
   }));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow at '+width);
-  assert.equal(metrics.length,6,'Exactly six unique artwork compositions');
+  assert.equal(metrics.length,7,'Exactly seven unique artwork compositions');
   for(const im of metrics){assert.equal(im.fit,'contain');assert.ok(Math.abs(im.height-im.width*im.naturalHeight/im.naturalWidth)<2,'Artwork cropped: '+JSON.stringify(im));}
   if(width<=760){
    for(const scene of ['hero','fractura','companions','games']){
@@ -64,6 +72,17 @@ async function routes(page,body=html){
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Expanded games overflow');
   if(output&&width===390)await page.locator('.ph-games').screenshot({path:path.join(output,'games-open-390.png')});
   await summary.press('Enter');assert.equal(await page.locator('.ph-games-details').getAttribute('open'),null);
+  // Furia uses the game's existing animation, only while visible, with a real pause control.
+  await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
+  await page.locator('[data-furia-motion]').click();
+  assert.equal(await page.locator('[data-furia-motion]').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('[data-furia-video]').evaluateAll(videos=>videos.every(v=>v.paused)),true);
+  await page.emulateMedia({reducedMotion:'reduce'});
+  assert.equal(await page.locator('[data-furia-video]').evaluateAll(videos=>videos.every(v=>v.paused)),true);
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.locator('.ph-hero').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
   assert.deepEqual(errors,[]);
   // Public event names are plain text; failed refresh keeps a clearly marked last count.
   await page.route('**/api/launcher.php',route=>route.fulfill({json:{...fixture,eventos:[{nombre:'<img src=x onerror=alert(1)>',proximo:'2099-10-20T21:00:00-03:00'}]}}));

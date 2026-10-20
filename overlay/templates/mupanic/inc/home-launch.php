@@ -7,7 +7,7 @@ $homeEvents = panicHomeEvents();
 // Keep intrinsic image dimensions in markup; no fixed cover/crop viewport.
 $homePicture = function($name, $alt, $priority = false) use ($homeArt, $homeEscape) {
     $dimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-v3.webp');
-    $mobile = in_array($name, ['hero-connected','fractura-connected','companions-connected'],true);
+    $mobile = in_array($name, ['hero-connected','fractura-connected','companions-connected','furia-world'],true);
     $mobileDimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-v3'.($mobile ? '-mobile' : '-960').'.webp');
     ?><picture class="ph-art"><source media="(max-width:760px)" srcset="<?php echo $homeArt.$name; ?>-v3<?php echo $mobile ? '-mobile' : '-960'; ?>.webp" width="<?php echo (int)$mobileDimensions[0]; ?>" height="<?php echo (int)$mobileDimensions[1]; ?>"><img src="<?php echo $homeArt.$name; ?>-v3.webp" alt="<?php echo $homeEscape($alt); ?>" width="<?php echo (int)$dimensions[0]; ?>" height="<?php echo (int)$dimensions[1]; ?>" <?php echo $priority ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'; ?>></picture><?php
 };
@@ -33,6 +33,37 @@ $homePicture = function($name, $alt, $priority = false) use ($homeArt, $homeEsca
         </dl>
         <div class="ph-status-note"><span data-home-update role="status">Conectados: último registro disponible.</span><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗</span></a></div>
         <noscript><p class="ph-note">El estado en vivo requiere JavaScript.</p></noscript>
+    </section>
+
+    <section class="ph-furia" id="furia" aria-labelledby="home-furia-title" data-furia-showcase>
+        <div class="ph-scene ph-furia-scene">
+            <?php $homePicture('furia-world', 'La energía roja de Furia quiebra el suelo de un escenario de MU PANIC'); ?>
+            <div class="ph-scene-content ph-wrap"><div class="ph-copy">
+                <p class="ph-eyebrow">SISTEMA EXCLUSIVO</p>
+                <h2 id="home-furia-title">Desatá<br>la Furia.</h2>
+                <p>Peleá, cargá tu barra y apretá Shift. Más velocidad, más daño y un poder propio de tu clase. Cada enemigo que cae te da más tiempo.</p>
+            </div></div>
+            <div class="ph-furia-demo" aria-label="La interfaz de Furia del juego: barra lista, combo x20 y Masacre">
+                <p class="ph-furia-ready">FURIA LISTA <span aria-hidden="true">—</span> <kbd>SHIFT</kbd></p>
+                <div class="ph-furia-bar" aria-hidden="true">
+                    <img class="ph-furia-energy-still" src="<?php echo $homeArt; ?>furia-ui-energy-v3.webp" alt="" width="1024" height="64" loading="lazy" decoding="async">
+                    <video class="ph-furia-energy-video" data-furia-video data-src="<?php echo $homeArt; ?>furia-energy-v3.webm" data-fallback="<?php echo $homeArt; ?>furia-energy-v3.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+                    <img class="ph-furia-frame" src="<?php echo $homeArt; ?>furia-ui-frame-v3.webp" alt="" width="1024" height="160" loading="lazy" decoding="async">
+                    <video class="ph-furia-aura-video" data-furia-video data-src="<?php echo $homeArt; ?>furia-aura-v3.webm" data-fallback="<?php echo $homeArt; ?>furia-aura-v3.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1"></video>
+                    <img class="ph-furia-skull" src="<?php echo $homeArt; ?>furia-ui-skull-v3.webp" alt="" width="256" height="256" loading="lazy" decoding="async">
+                    <img class="ph-furia-eyes" src="<?php echo $homeArt; ?>furia-ui-eyes-v3.webp" alt="" width="256" height="256" loading="lazy" decoding="async">
+                </div>
+                <div class="ph-furia-combo" aria-hidden="true"><span class="ph-combo-number"><i class="ph-combo-x"></i><i class="ph-combo-two"></i><i class="ph-combo-zero"></i></span><img src="<?php echo $homeArt; ?>furia-ui-masacre-v3.webp" alt="" width="1024" height="256" loading="lazy" decoding="async"></div>
+            </div>
+        </div>
+        <div class="ph-furia-bottom ph-wrap">
+            <ol class="ph-furia-steps">
+                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 10h26v13H3zM7 13v7m4-7v7m4-7v7m4-7v7m4-7v7M15 3l-3 5h5l-2 5"/></svg><div><h3>Se carga peleando.</h3><p>Contra monstruos y en PvP.<br>La carga no se pierde.</p></div></li>
+                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 5h24v23H4zM11 18l5-6 5 6h-3v6h-4v-6zM8 2l2 3m14-3-2 3"/></svg><div><h3>La desatás vos.</h3><p>Un toque de Shift<br>y tu personaje cambia.</p></div></li>
+                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 14a9 9 0 1 1 18 0c0 4-3 6-4 7v5H11v-5c-1-1-4-3-4-7zM12 26v3m4-3v3m4-3v3M2 5l4 4m20-4-4 4M1 16h4m22 0h4"/><path d="M11 13h3v3h-3zm7 0h3v3h-3zm-3 5h2"/></svg><div><h3>Cada muerte la alarga.</h3><p>Encadená combos<br>hasta la MASACRE.</p></div></li>
+            </ol>
+            <div class="ph-furia-foot"><p>Cada clase tiene su propia Furia en PvP.</p><button type="button" class="ph-motion-control" data-furia-motion aria-pressed="false" hidden>Pausar efectos <span aria-hidden="true">Ⅱ</span></button></div>
+        </div>
     </section>
 
     <section class="ph-scene ph-fractura" aria-labelledby="home-fractura-title">
