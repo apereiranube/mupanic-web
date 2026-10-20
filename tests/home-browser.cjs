@@ -86,11 +86,14 @@ async function routes(page,body=html){
   }
   assert.equal(await page.locator('.ph-games-tour [role=tab]').count(),8);
   assert.equal(await page.locator('.ph-client-tour [role=tab]').count(),8);
+  const hubHeight=(await page.locator('.ph-client-tour').boundingBox()).height;
   for(const tab of await page.locator('.ph-client-tour [role=tab]').all()){
    await tab.click();
    const id=await tab.getAttribute('aria-controls');
    assert.equal(await page.locator('#'+id).isVisible(),true);
    assert.equal(await page.locator('.ph-client-tour [role=tabpanel]:visible').count(),1);
+   assert.ok(Math.abs((await page.locator('.ph-client-tour').boundingBox()).height-hubHeight)<2,'Hub changes page height at '+width);
+   assert.equal(await page.locator('#'+id).evaluate(el=>el.inert),false);
   }
   for(const id of ['hub-tienda','hub-eventos']){
    await page.locator('[data-world-tab="'+id+'"]').click();

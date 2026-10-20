@@ -1,6 +1,6 @@
 {
   "tool": "image_gen built-in",
-  "purpose": "Production assets for connected-v4 Inicio only",
+  "purpose": "Production environmental transitions for connected-v6 Inicio only",
   "references": [
     "User screenshots image(20261020-153332).png and image(20261020-153340).png",
     "Existing Vessara identity img/market/vessara-trade-v3.webp",
@@ -17,6 +17,12 @@
     "battle-clouds-v5": "Wide realistic gray/silver storm cloud animation layer with transparent gaps and feathered alpha. No architecture, people, particles or black smoke. Restricted to hero sky.",
     "hub-world-v5": "Continue approved companion forest stone steps into a gothic vaulted chamber/workshop. Calm detailed architectural backdrop for real Hub overlays, warm lanterns, muted bronze, no UI or characters.",
     "games-hall-v5": "Edit only empty roulette bowl of the approved wide arcade image: add a physically integrated high-detail roulette wheel in exact perspective, preserve everything else. Replaces detached flat web overlay.",
-    "games-hall-v5-mobile": "Same precise bowl replacement for portrait arcade image; preserve complete table and every other object. Integrated painted wheel, no CSS spinning prop."
+    "games-hall-v5-mobile": "Same precise bowl replacement for portrait arcade image; preserve complete table and every other object. Integrated painted wheel, no CSS spinning prop.",
+    "join-rocks-v6": "Irregular low volcanic rubble, subtle embers, transparent above and below; only beneath hero/server statistics.",
+    "join-mist-v6": "Cool slate-blue cloud mist into dim crimson ash, translucent tendrils and tiny distant gothic spires at far edges. Transition to Fractura.",
+    "join-forest-v6": "Ancient ivy, mossy masonry, roots, sparse forest mist and restrained sunlight. Transition into companion forest.",
+    "join-canopy-v6": "Sparse ivy canopy, bare branches, arch remnants, silvery woodland haze and nearly empty middle. Transition from forest to Hub.",
+    "join-market-v6": "Weathered gothic arch fragments, hanging lantern, warm amber dust and ivy, transparent center. Transition to outdoor market.",
+    "join-arcade-v6": "Amber lantern haze, cobblestones and subtle burgundy fabric at right, arch and lantern at left. Transition from market to game hall."
   }
 }

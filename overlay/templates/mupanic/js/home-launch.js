@@ -103,6 +103,7 @@
         link.setAttribute('aria-selected', String(i === index));
         link.tabIndex = i === index ? 0 : -1;
         panels[i].hidden = i !== index;
+        panels[i].inert = i !== index;
       });
 
     }

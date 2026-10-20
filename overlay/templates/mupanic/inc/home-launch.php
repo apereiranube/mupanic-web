@@ -11,11 +11,13 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
     $mobileDimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.($mobile ? '-mobile' : '-960').'.webp');
     ?><picture class="ph-art"><source media="(max-width:760px)" srcset="<?php echo $homeArt.$name; ?>-<?php echo $version; ?><?php echo $mobile ? '-mobile' : '-960'; ?>.webp" width="<?php echo (int)$mobileDimensions[0]; ?>" height="<?php echo (int)$mobileDimensions[1]; ?>"><img src="<?php echo $homeArt.$name; ?>-<?php echo $version; ?>.webp" alt="<?php echo $homeEscape($alt); ?>" width="<?php echo (int)$dimensions[0]; ?>" height="<?php echo (int)$dimensions[1]; ?>" <?php echo $priority ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'; ?>></picture><?php
 };
-$homeDivider = function($label) { ?>
-<div class="ph-world-divider" aria-hidden="true"><svg viewBox="0 0 1440 66" fill="none" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="joinGold<?php echo substr(md5($label),0,6); ?>" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#50351b" stop-opacity="0"/><stop offset=".25" stop-color="#a07940"/><stop offset=".5" stop-color="#efd6a0"/><stop offset=".75" stop-color="#a07940"/><stop offset="1" stop-color="#50351b" stop-opacity="0"/></linearGradient></defs><g stroke="url(#joinGold<?php echo substr(md5($label),0,6); ?>)"><path d="M0 33h565l35-9h64l30-12 26-10 26 10 30 12h64l35 9h565" stroke-width="2"/><path d="M0 37h565l35 9h64l30 12 26 6 26-6 30-12h64l35-9h565"/><path d="m650 33 30-10 40 10 40-10 30 10-30 10-40-10-40 10z"/><path d="m694 33 26-24 26 24-26 24z" fill="#16120e" stroke-width="2"/><path d="m706 33 14-16 14 16-14 16z" fill="#7f1f19" stroke-width="1.5"/></g></svg></div>
+// Each transition has its own environmental artwork; never a repeated frame.
+$homeJoin = function($kind) use ($homeArt) {
+    $joinSize = getimagesize(__DIR__.'/../img/home/join-'.$kind.'-v6.webp'); ?>
+<div class="ph-flow-join ph-flow-join-<?php echo $kind; ?>" aria-hidden="true"><img src="<?php echo $homeArt; ?>join-<?php echo $kind; ?>-v6.webp" alt="" width="<?php echo (int)$joinSize[0]; ?>" height="<?php echo (int)$joinSize[1]; ?>" loading="lazy" decoding="async"></div>
 <?php };
 ?>
-<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v5">
+<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v6">
     <section class="ph-scene ph-hero" aria-labelledby="home-title">
         <?php $homePicture('hero-connected', 'Rage Fighter con Phoenix Soul y Blade Knight de MU PANIC en combate', true); ?>
         <div class="ph-battle-sky" aria-hidden="true"><i></i><i></i></div>
@@ -28,7 +30,6 @@ $homeDivider = function($label) { ?>
     </section>
 
     <section class="ph-status ph-wrap" aria-label="Datos del servidor">
-        <div class="ph-status-heading"><p>MU PANIC · SEASON 6</p><h2>Tu próxima batalla empieza acá.</h2></div>
         <dl class="ph-facts">
             <div class="ph-state"><dt>ESTADO DEL SERVIDOR</dt><dd data-home-state>Sin verificar</dd></div>
             <div><dt>JUGADORES ONLINE</dt><dd data-home-online><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.'); ?></dd></div>
@@ -70,7 +71,7 @@ $homeDivider = function($label) { ?>
         </div>
     </section>
 
-    <?php $homeDivider("El poder divide el mundo"); ?>
+    <?php $homeJoin("mist"); ?>
     <section data-scene-fx="fractura" class="ph-scene ph-fractura" aria-labelledby="home-fractura-title">
         <?php $homePicture('fractura-connected', 'Aldren y Varkor ante el Señor de la Fractura, los protagonistas de Nexo y Caos'); ?>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
@@ -81,7 +82,7 @@ $homeDivider = function($label) { ?>
         </div></div>
     </section>
 
-    <?php $homeDivider("Tus compañeros, al otro lado de la batalla"); ?>
+    <?php $homeJoin("forest"); ?>
     <section class="ph-scene ph-companions" aria-labelledby="home-companions-title">
         <?php $homePicture('companions-connected', 'Elyndra, Aurion, Vaerion y Grum, los cuatro compañeros de MU PANIC'); ?>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
@@ -92,6 +93,6 @@ $homeDivider = function($label) { ?>
         </div></div>
     </section>
 
-    <?php $homeDivider('MU PANIC, también desde adentro'); ?>
+    <?php $homeJoin('canopy'); ?>
     <?php include __DIR__.'/home-world.php'; ?>
 </div>

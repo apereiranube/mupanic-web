@@ -68,13 +68,13 @@ $homeGames = [
   <div><p class="ph-eyebrow">EL REDISEÑO SIGUE DENTRO DEL JUEGO</p><h3>También cambia<br>cómo lo jugás.</h3><dl><div><dt>Árbol Master renovado.</dt><dd>Iconos, conexiones y tooltips rediseñados para recorrer tus habilidades.</dd></div><div><dt>MU Helper con identidad propia.</dt><dd>Una herramienta cotidiana, integrada a la estética de MU PANIC.</dd></div><div><dt>Interfaces propias.</dt><dd>Diálogos de NPC, inventario, baúles e intercambio: el trabajo también está en los detalles.</dd></div></dl></div>
  </div>
 </section>
-<?php $homeDivider('El mundo de los jugadores'); ?>
+<?php $homeJoin('market'); ?>
 <section class="ph-scene ph-market-world" data-scene-fx="market" aria-labelledby="home-market-title">
  <?php $homePicture('market-world', 'Vessara y los jugadores comerciando equipo en el mercado de Loren Market', false, 'v4'); ?>
  <div class="ph-scene-content ph-wrap"><div class="ph-copy"><p class="ph-eyebrow">EL MERCADO DE LOS JUGADORES</p><h2 id="home-market-title">Vessara.<br>Lo que encontrás<br>tiene valor.</h2><p>Buscá el equipo que te falta. Publicá lo que conseguís jugando. Comprá, vendé y cobrá tus ventas en <strong>Zen o Eryns</strong>.</p><p class="ph-market-access">Entrá desde el Hub F11 o visitá el mercado de Loren Market.</p><a class="ph-link" href="<?php echo __BASE_URL__; ?>market/">Explorá las publicaciones <span aria-hidden="true">↗</span></a></div></div>
  <div class="ph-market-trail ph-wrap"><span>BUSCÁ EQUIPO</span><span>PUBLICÁ TUS OBJETOS</span><span>COBRÁ TUS VENTAS</span></div>
 </section>
-<?php $homeDivider('Una nueva partida'); ?>
+<?php $homeJoin('arcade'); ?>
 <section class="ph-games" id="minijuegos" aria-labelledby="home-games-title">
  <div class="ph-scene ph-games-scene" data-scene-fx="casino">
   <?php $homePicture('games-hall', 'La sala de minijuegos de MU PANIC con la ruleta integrada, tragamonedas y cartas', false, 'v5'); ?>
