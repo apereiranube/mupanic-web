@@ -27,7 +27,7 @@ async function routes(page,body=html){
 }
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
- for(const width of [1920,1440,1100,1024,768,760,390,320]){
+ for(const width of [2560,1920,1440,1100,1024,768,760,390,320]){
   const page=await browser.newPage({viewport:{width,height:1000},deviceScaleFactor:1});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   page.on('requestfailed',r=>errors.push('Failed resource: '+r.url()));
@@ -47,13 +47,21 @@ async function routes(page,body=html){
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   if(output){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});
-   if([1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
+   if([2560,1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
   }));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow at '+width);
   assert.equal(metrics.length,7,'Seven complete artwork compositions');
+  for(const selector of ['.ph-workshop.ph-client','.ph-market-world','.ph-games','.ph-games-scene']){
+   const box=await page.locator(selector).boundingBox();
+   assert.ok(Math.abs(box.width-width)<2 && Math.abs(box.x)<2,selector+' must fill the viewport at '+width);
+  }
+  for(const panel of await page.locator('.ph-client-tour [role=tabpanel]').all()){
+   assert.equal(await panel.locator('.ph-hub-capture,.ph-master-capture').count(),1,'Every Hub tab has one real client interface');
+  }
+
   assert.ok(await page.locator('.ph-client-key .ph-art').evaluate(el=>getComputedStyle(el).maskImage.startsWith('radial-gradient(')), 'F11 perimeter mask must parse and apply in the browser');
   for(const im of metrics){assert.equal(im.fit,'contain');assert.ok(Math.abs(im.height-im.width*im.naturalHeight/im.naturalWidth)<2,'Artwork cropped: '+JSON.stringify(im));}
   if(width<=760){

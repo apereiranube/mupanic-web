@@ -1,5 +1,5 @@
 <?php
-// Descriptions are a web presentation. Only Inicio/Juegos and Master use game captures.
+// A consistent tour using the real Hub, Master and game selector captures.
 $hubTabs = [
  ['inicio','Inicio','Tu centro de control.','El próximo evento, el pulso de la Fractura y los accesos a los sistemas propios. Abrís F11 y encontrás lo que necesitás.', ['Personaje y recompensas','Agenda e invasiones','Mercado, tienda y juegos']],
  ['personaje','Personaje','Todo lo que hacés te hace avanzar.','Tu progreso y tus recompensas tienen su lugar en el Hub. Y el árbol Master renovado acompaña lo que sigue después del nivel máximo.', ['Información de tu personaje','Progreso y recompensas','Árbol Master renovado']],
@@ -23,7 +23,7 @@ $homeGames = [
 ?>
 <section class="ph-workshop ph-client" id="hub" aria-labelledby="home-client-title">
  <div class="ph-client-heading ph-wrap">
-  <div><p class="ph-eyebrow">UN CLIENTE CON IDENTIDAD PROPIA</p><h2 id="home-client-title">Todo MU PANIC,<br>a una tecla.</h2><p>Un Hub propio. Ocho accesos. Mucho más para descubrir.</p></div>
+  <div><p class="ph-eyebrow">UN CLIENTE CON IDENTIDAD PROPIA</p><h2 id="home-client-title">Todo MU PANIC,<br>a una tecla.</h2><p>Un Hub propio para tu personaje, la Fractura, eventos, mercado, tienda y juegos. Abrilo con F11 y tené todo a mano.</p></div>
   <div class="ph-client-key"><?php $homePicture('client-crafted', 'La tecla F11 de acceso al Hub de MU PANIC'); ?></div>
  </div>
  <div class="ph-client-tour ph-wrap" data-home-tabs>
@@ -34,20 +34,10 @@ $homeGames = [
    <?php foreach($hubTabs as $tab) { $id=$tab[0]; ?>
    <div id="hub-<?php echo $id; ?>" class="ph-hub-panel" data-world-panel>
     <div class="ph-hub-visual">
-     <?php if($id==='inicio' || $id==='juegos') { ?>
-      <figure><img class="ph-hub-capture" src="<?php echo $homeArt.($id==='juegos'?'hub-games-real-v4.webp':'hub-real-v4.webp'); ?>" alt="Vista de <?php echo $id==='juegos'?'Juegos':'Inicio'; ?> del Hub F11 de MU PANIC" width="1440" height="877" loading="lazy" decoding="async"><figcaption>VISTA DEL CLIENTE · <?php echo $id==='juegos'?'JUEGOS':'INICIO'; ?></figcaption></figure>
-     <?php } elseif($id==='fractura') { ?>
-      <div class="ph-hub-factions"><figure><img src="<?php echo __PATH_TEMPLATE__; ?>img/fractura/nexo-emblema-v32.svg" width="128" height="128" alt="Emblema de Nexo"><figcaption>NEXO</figcaption></figure><b>VS</b><figure><img src="<?php echo __PATH_TEMPLATE__; ?>img/fractura/caos-emblema-v32.svg" width="128" height="128" alt="Emblema de Caos"><figcaption>CAOS</figcaption></figure></div>
-     <?php } elseif($id==='tienda') { ?>
-      <figure><img class="ph-hub-illustration" src="<?php echo __PATH_TEMPLATE__; ?>img/recharge/eryns-treasury-v1.webp" width="1600" height="900" alt="La identidad de Eryns, la moneda propia de MU PANIC" loading="lazy" decoding="async"><figcaption>ERYNS · LA TIENDA DE MU PANIC</figcaption></figure>
-     <?php } elseif($id==='eventos') { ?>
-      <figure><img class="ph-hub-illustration" src="<?php echo __PATH_TEMPLATE__; ?>img/atlas/editorial/blood-castle.webp" width="1536" height="1024" alt="El Castillo Sangriento" loading="lazy" decoding="async"><figcaption>EVENTOS E INVASIONES</figcaption></figure>
-     <?php } elseif($id==='mercado') { ?>
-      <div class="ph-market-emblem"><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-seal-v2.svg" width="320" height="320" alt="Sello del Mercado Vessara"><span>EL MERCADO<br>DE LOS JUGADORES</span></div>
-     <?php } elseif($id==='personaje') { ?>
-      <div class="ph-hub-story"><small>TU PERSONAJE</small><strong>Tu camino.<br>Tus decisiones.</strong><ol><li>Progreso</li><li>Recompensas</li><li>Master</li></ol></div>
+     <?php if($id==='personaje') { ?>
+      <figure class="ph-master-preview"><div class="ph-master-capture"><img src="<?php echo $homeArt; ?>master-real-v5.webp" alt="Árbol Master real de MU PANIC con sus iconos e interfaz renovados" width="2047" height="1279" loading="lazy" decoding="async"></div><figcaption>ÁRBOL MASTER · INTERFAZ REAL DEL JUEGO</figcaption></figure>
      <?php } else { ?>
-      <div class="ph-hub-story"><small>AYUDA Y ATLAS</small><strong>Un mundo propio.<br>Una guía para vos.</strong><ol><li>Mapas</li><li>Sistemas</li><li>Eventos</li></ol></div>
+      <figure class="ph-hub-real-preview"><img class="ph-hub-capture" src="<?php echo $homeArt.($id==='juegos'?'hub-games-real-v4.webp':'hub-real-v4.webp'); ?>" alt="<?php echo $id==='juegos'?'Selector real de los ocho minijuegos de MU PANIC':'El Hub F11 real de MU PANIC, desde donde accedés a '.$tab[1]; ?>" width="1440" height="877" loading="lazy" decoding="async"><figcaption><?php echo $id==='juegos'?'JUEGOS · SELECTOR DEL CLIENTE':'EL HUB REAL · ACCESO A '.$tab[1]; ?></figcaption></figure>
      <?php } ?>
     </div>
     <div class="ph-hub-description">
@@ -64,8 +54,8 @@ $homeGames = [
   </div>
  </div>
  <div class="ph-client-improvements ph-wrap">
-  <figure><div class="ph-master-capture"><img src="<?php echo $homeArt; ?>master-real-v5.webp" alt="Árbol Master real de MU PANIC con su nueva interfaz e iconos" width="2047" height="1279" loading="lazy" decoding="async"></div><figcaption>ÁRBOL MASTER · INTERFAZ DEL JUEGO</figcaption></figure>
-  <div><p class="ph-eyebrow">EL REDISEÑO SIGUE DENTRO DEL JUEGO</p><h3>También cambia<br>cómo lo jugás.</h3><dl><div><dt>Árbol Master renovado.</dt><dd>Iconos, conexiones y tooltips rediseñados para recorrer tus habilidades.</dd></div><div><dt>MU Helper con identidad propia.</dt><dd>Una herramienta cotidiana, integrada a la estética de MU PANIC.</dd></div><div><dt>Interfaces propias.</dt><dd>Diálogos de NPC, inventario, baúles e intercambio: el trabajo también está en los detalles.</dd></div></dl></div>
+  <div class="ph-improvements-heading"><p class="ph-eyebrow">EL TRABAJO TAMBIÉN ESTÁ EN LOS DETALLES</p><h3>Un cliente propio.<br>En cada pantalla.</h3></div>
+  <dl><div><dt>Árbol Master renovado.</dt><dd>Iconos claros, conexiones más limpias y tooltips rediseñados. Miralo en la pestaña Personaje.</dd></div><div><dt>MU Helper rediseñado.</dt><dd>La herramienta que usás todos los días, con la identidad visual de MU PANIC.</dd></div><div><dt>Interfaces que acompañan.</dt><dd>NPC, inventario, baúles e intercambio. Una experiencia coherente dentro del juego.</dd></div></dl>
  </div>
 </section>
 <?php $homeJoin('market'); ?>
