@@ -5,15 +5,15 @@ $homeEscape = function($value) { return htmlspecialchars((string)$value, ENT_QUO
 $homeArt = __PATH_TEMPLATE__.'img/home/';
 $homeEvents = panicHomeEvents();
 // Keep intrinsic image dimensions in markup; no fixed cover/crop viewport.
-$homePicture = function($name, $alt, $priority = false) use ($homeArt, $homeEscape) {
-    $dimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-v3.webp');
+$homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($homeArt, $homeEscape) {
+    $dimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.'.webp');
     $mobile = in_array($name, ['hero-connected','fractura-connected','companions-connected','furia-world'],true);
-    $mobileDimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-v3'.($mobile ? '-mobile' : '-960').'.webp');
-    ?><picture class="ph-art"><source media="(max-width:760px)" srcset="<?php echo $homeArt.$name; ?>-v3<?php echo $mobile ? '-mobile' : '-960'; ?>.webp" width="<?php echo (int)$mobileDimensions[0]; ?>" height="<?php echo (int)$mobileDimensions[1]; ?>"><img src="<?php echo $homeArt.$name; ?>-v3.webp" alt="<?php echo $homeEscape($alt); ?>" width="<?php echo (int)$dimensions[0]; ?>" height="<?php echo (int)$dimensions[1]; ?>" <?php echo $priority ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'; ?>></picture><?php
+    $mobileDimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.($mobile ? '-mobile' : '-960').'.webp');
+    ?><picture class="ph-art"><source media="(max-width:760px)" srcset="<?php echo $homeArt.$name; ?>-<?php echo $version; ?><?php echo $mobile ? '-mobile' : '-960'; ?>.webp" width="<?php echo (int)$mobileDimensions[0]; ?>" height="<?php echo (int)$mobileDimensions[1]; ?>"><img src="<?php echo $homeArt.$name; ?>-<?php echo $version; ?>.webp" alt="<?php echo $homeEscape($alt); ?>" width="<?php echo (int)$dimensions[0]; ?>" height="<?php echo (int)$dimensions[1]; ?>" <?php echo $priority ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'; ?>></picture><?php
 };
 ?>
-<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v3">
-    <section class="ph-scene ph-hero" aria-labelledby="home-title">
+<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v4">
+    <section data-scene-fx="combat" class="ph-scene ph-hero" aria-labelledby="home-title">
         <?php $homePicture('hero-connected', 'Rage Fighter con Phoenix Soul y Blade Knight de MU PANIC en combate', true); ?>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
             <p class="ph-eyebrow">SEASON 6 · DESARROLLO PROPIO</p>
@@ -31,8 +31,7 @@ $homePicture = function($name, $alt, $priority = false) use ($homeArt, $homeEsca
             <div><dt>MASTER EXP</dt><dd><?php echo $homeEscape($serverMasterExp); ?></dd></div>
             <div><dt>DROP GENERAL</dt><dd><?php echo $homeEscape($serverDrop); ?></dd></div>
         </dl>
-        <div class="ph-status-note"><span data-home-update role="status">Conectados: último registro disponible.</span><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗</span></a></div>
-        <noscript><p class="ph-note">El estado en vivo requiere JavaScript.</p></noscript>
+        <div class="ph-status-note"><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗</span></a></div>
     </section>
 
     <section class="ph-furia" id="furia" aria-labelledby="home-furia-title" data-furia-showcase>
@@ -62,11 +61,11 @@ $homePicture = function($name, $alt, $priority = false) use ($homeArt, $homeEsca
                 <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 5h24v23H4zM11 18l5-6 5 6h-3v6h-4v-6zM8 2l2 3m14-3-2 3"/></svg><div><h3>La desatás vos.</h3><p>Un toque de Shift<br> y tu personaje cambia.</p></div></li>
                 <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 14a9 9 0 1 1 18 0c0 4-3 6-4 7v5H11v-5c-1-1-4-3-4-7zM12 26v3m4-3v3m4-3v3M2 5l4 4m20-4-4 4M1 16h4m22 0h4"/><path d="M11 13h3v3h-3zm7 0h3v3h-3zm-3 5h2"/></svg><div><h3>Cada muerte la alarga.</h3><p>Encadená combos<br> hasta la MASACRE.</p></div></li>
             </ol>
-            <div class="ph-furia-foot"><p>Cada clase tiene su propia Furia en PvP.</p><button type="button" class="ph-motion-control" data-furia-motion aria-pressed="false" hidden>Pausar efectos <span aria-hidden="true">Ⅱ</span></button></div>
+            <div class="ph-furia-foot"><p>Cada clase tiene su propia Furia en PvP.</p></div>
         </div>
     </section>
 
-    <section class="ph-scene ph-fractura" aria-labelledby="home-fractura-title">
+    <section data-scene-fx="fractura" class="ph-scene ph-fractura" aria-labelledby="home-fractura-title">
         <?php $homePicture('fractura-connected', 'Aldren y Varkor ante el Señor de la Fractura, los protagonistas de Nexo y Caos'); ?>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
             <p class="ph-eyebrow">LA FRACTURA</p>
@@ -86,35 +85,5 @@ $homePicture = function($name, $alt, $priority = false) use ($homeArt, $homeEsca
         </div></div>
     </section>
 
-    <div class="ph-workshop ph-wrap">
-        <section class="ph-client" aria-labelledby="home-client-title">
-            <div class="ph-workshop-copy"><p class="ph-eyebrow">UN CLIENTE CON IDENTIDAD PROPIA</p><h2 id="home-client-title">Cada detalle,<br>renovado.</h2><p>Rediseñamos las herramientas que usás todos los días.</p></div>
-            <?php $homePicture('client-crafted', 'La tecla F11 y los detalles de la interfaz propia de MU PANIC'); ?>
-            <ul class="ph-client-labels" aria-label="Mejoras del cliente"><li>HUB F11</li><li>ÁRBOL MASTER</li><li>INTERFAZ PROPIA</li></ul>
-        </section>
-        <section class="ph-market" aria-labelledby="home-market-title">
-            <div class="ph-workshop-copy"><p class="ph-eyebrow">ECONOMÍA ENTRE JUGADORES</p><h2 id="home-market-title">Vessara.</h2><p>El mercado de los jugadores.<br>Comprá y vendé lo que conseguís jugando.</p></div>
-            <?php $homePicture('market-crafted', 'Las joyas Bless, Soul y Chaos junto al equipo de un puesto del Mercado Vessara'); ?>
-            <a class="ph-link" href="<?php echo __BASE_URL__; ?>market/">Explorá el mercado <span aria-hidden="true">↗</span></a>
-        </section>
-    </div>
-
-    <section class="ph-events ph-wrap" aria-labelledby="home-events-title">
-        <div class="ph-events-heading"><div><p class="ph-eyebrow">LA PRÓXIMA BATALLA</p><h2 id="home-events-title">Siempre pasa algo.</h2></div><a class="ph-link" href="<?php echo __BASE_URL__; ?>info/#eventos">Ver calendario <span aria-hidden="true">↗</span></a></div>
-        <ol class="ph-event-list" data-home-events>
-            <?php foreach($homeEvents as $event) { ?><li><a href="<?php echo __BASE_URL__; ?>info/#eventos"><span><?php echo $homeEscape($event['nombre']); ?></span><time datetime="<?php echo $homeEscape($event['proximo']); ?>"><?php echo $homeEscape(panicHomeEventLabel($event['proximo'])); ?></time><b aria-hidden="true">↗</b></a></li><?php } ?>
-        </ol>
-        <?php if(!$homeEvents) { ?><p data-home-events-empty>Consultá el calendario de eventos del servidor.</p><?php } ?>
-        <p class="ph-note">Horarios de Argentina · Los eventos manuales se anuncian por separado.</p>
-    </section>
-
-    <section class="ph-scene ph-games" aria-labelledby="home-games-title">
-        <?php $homePicture('games-connected', 'Vuelo del Dragón, Torre del Caos y Tesoro de Kalima, parte de los minijuegos de MU PANIC'); ?>
-        <div class="ph-scene-content ph-wrap"><div class="ph-copy">
-            <p class="ph-eyebrow">OTRA FORMA DE JUGAR · HUB F11</p>
-            <h2 id="home-games-title">Tu próxima partida<br>no necesita un spot.</h2>
-            <p>Hacé una pausa del leveo y descubrí<br>los ocho minijuegos del Hub F11.</p>
-            <details class="ph-games-details"><summary class="ph-link">EXPLORAR MINIJUEGOS <span aria-hidden="true">+</span></summary><div class="ph-games-disclosure"><p>Entrá al juego y abrí F11 → Juegos.</p><ul><li>Ruleta</li><li>Tragamonedas</li><li>Mayor o Menor</li><li>Vuelo del Dragón</li><li>Lluvia de Joyas</li><li>Tesoro de Kalima</li><li>Torre del Caos</li><li>Carrera</li></ul></div></details>
-        </div></div>
-    </section>
+    <?php include __DIR__.'/home-world.php'; ?>
 </div>

@@ -31,7 +31,7 @@ for module in "${DEPLOY_MODULES[@]}"; do
 done
 
 # The Inicio release ships as one complete unit. Existing server page is unchanged.
-for file in inc/home-data.php inc/home-launch.php css/home-launch.css js/home-launch.js; do
+for file in inc/home-data.php inc/home-launch.php inc/home-world.php css/home-launch.css js/home-launch.js; do
   test -s "$TEMPLATE_SOURCE/$file"
 done
 for scene in hero-connected fractura-connected companions-connected games-connected client-crafted market-crafted furia-world; do
@@ -44,6 +44,15 @@ for scene in hero-connected fractura-connected companions-connected furia-world;
 done
 
 for asset in furia-ui-frame-v3.webp furia-ui-skull-v3.webp furia-ui-eyes-v3.webp furia-ui-energy-v3.webp furia-ui-digits-v3.webp furia-ui-masacre-v3.webp furia-energy-v3.mp4 furia-aura-v3.mp4 furia-energy-v3.webm furia-aura-v3.webm; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
+done
+
+# The connected lower homepage ships with its UI cutouts and animation prop.
+for scene in market-world games-hall; do
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v4.webp"
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v4-960.webp"
+done
+for asset in hub-real-v4.webp hub-games-real-v4.webp roulette-wheel-v4.webp; do
   test -s "$TEMPLATE_SOURCE/img/home/$asset"
 done
 

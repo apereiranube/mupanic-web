@@ -1,5 +1,5 @@
 {
-  "version": "connected-v3",
+  "version": "connected-v4",
   "date": "2026-10-20",
   "scope": "Inicio only",
   "generation": "imagegen built-in, newly composed from approved MU PANIC character/UI/item references",
@@ -240,6 +240,69 @@
       "height": 1008,
       "bytes": 168488,
       "sha256": "d75b3c9db0ab686a82f81b5ac8b804f42714607d14e7bf602da67b27ae8c38cc"
+    },
+    {
+      "file": "img/home/market-world-v4.webp",
+      "source": "exec-41ded975-2d48-408e-a9d3-7cef3f75d0ed.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 1838,
+      "height": 856,
+      "bytes": 368322,
+      "sha256": "155a52670b8a21db0b11c854758518036b512b46a142836d495b09ea8f2816d5"
+    },
+    {
+      "file": "img/home/market-world-v4-960.webp",
+      "source": "exec-41ded975-2d48-408e-a9d3-7cef3f75d0ed.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 960,
+      "height": 447,
+      "bytes": 141952,
+      "sha256": "770f8263d89d934d7ea0c17b8189be264faecd62711361c584b23ab4f22c452a"
+    },
+    {
+      "file": "img/home/games-hall-v4.webp",
+      "source": "exec-3459b4d9-2305-4d67-af57-4dbb8e0fd468.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 1836,
+      "height": 856,
+      "bytes": 354024,
+      "sha256": "57798f83fdad0408f196e18e68daf260d08f518c4ec347e3642a44a5a4bcab6c"
+    },
+    {
+      "file": "img/home/games-hall-v4-960.webp",
+      "source": "exec-3459b4d9-2305-4d67-af57-4dbb8e0fd468.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 960,
+      "height": 448,
+      "bytes": 123766,
+      "sha256": "be0d07b92a4e1281bee6065f3f52d8540b3e35137e1270faf9c2bdac4f01851e"
+    },
+    {
+      "file": "img/home/hub-real-v4.webp",
+      "source": "exec-e19e8661-b941-4f6a-b5c3-cf19eff24b97.png",
+      "origin": "Actual Hub reference extraction",
+      "width": 1440,
+      "height": 877,
+      "bytes": 318474,
+      "sha256": "feade5a47ab7181217ceb24b2cf4c6e1ce7d571a40a0e7c557e1107068f99d92"
+    },
+    {
+      "file": "img/home/roulette-wheel-v4.webp",
+      "source": "exec-bd8a19c9-bf55-40a2-be6f-99417e3808cf.png",
+      "origin": "New top-down animation prop",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 384598,
+      "sha256": "2ae4f82845e41a72d2f0389f7b6ba38083e3a9e4f60a55e7ae72cf0b244edce0"
+    },
+    {
+      "file": "img/home/hub-games-real-v4.webp",
+      "source": "exec-9310898d-c7c5-4acb-875d-2e718677f4c8.png",
+      "origin": "Actual minigame selector reference extraction",
+      "width": 1440,
+      "height": 810,
+      "bytes": 295528,
+      "sha256": "b2bc22d6eb549e31e813259f040d8039de273e9004103194918c49cc24b66206"
     }
   ]
 }
