@@ -13,15 +13,16 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
 };
 // Each transition has its own environmental artwork; never a repeated frame.
 $homeJoin = function($kind) use ($homeArt) {
-    $joinSize = getimagesize(__DIR__.'/../img/home/join-'.$kind.'-v6.webp'); ?>
-<div class="ph-flow-join ph-flow-join-<?php echo $kind; ?>" aria-hidden="true"><img src="<?php echo $homeArt; ?>join-<?php echo $kind; ?>-v6.webp" alt="" width="<?php echo (int)$joinSize[0]; ?>" height="<?php echo (int)$joinSize[1]; ?>" loading="lazy" decoding="async"></div>
+    $joinVersion = in_array($kind, ['market','arcade'], true) ? 'v10' : 'v6';
+    $joinSize = getimagesize(__DIR__.'/../img/home/join-'.$kind.'-'.$joinVersion.'.webp'); ?>
+<div class="ph-flow-join ph-flow-join-<?php echo $kind; ?>" aria-hidden="true"><img src="<?php echo $homeArt; ?>join-<?php echo $kind.'-'.$joinVersion; ?>.webp" alt="" width="<?php echo (int)$joinSize[0]; ?>" height="<?php echo (int)$joinSize[1]; ?>" loading="lazy" decoding="async"></div>
 <?php };
 ?>
-<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v9">
+<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v10">
     <section class="ph-scene ph-hero" aria-labelledby="home-title">
         <div class="ph-art ph-combat-art">
-            <img src="<?php echo $homeArt; ?>hero-rf-mg-v9.webp" width="1280" height="720" alt="Rage Fighter con guanteletes y capa frente a Magic Gladiator con Hurricane y alas, ambos en vuelo" fetchpriority="high">
-            <video class="ph-combat-video" data-combat-video data-src="<?php echo $homeArt; ?>hero-rf-mg-v9.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" aria-hidden="true"></video>
+            <img src="<?php echo $homeArt; ?>hero-rf-mg-v10.webp" width="1280" height="720" alt="Rage Fighter con guanteletes y capa frente a Magic Gladiator con Hurricane y alas, ambos en vuelo" fetchpriority="high">
+            <video class="ph-combat-video" data-combat-video data-src="<?php echo $homeArt; ?>hero-rf-mg-v10.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" aria-hidden="true"></video>
         </div>
         <div class="ph-battle-sky" aria-hidden="true"><i></i><i></i></div>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
@@ -33,7 +34,6 @@ $homeJoin = function($kind) use ($homeArt) {
     </section>
 
     <section class="ph-status ph-wrap" aria-label="Datos del servidor" data-server-state="unknown">
-        <p class="ph-status-kicker">EL PULSO DEL SERVIDOR</p>
         <dl class="ph-facts">
             <div class="ph-state"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 33 9v11c0 8-6 13-13 17C13 33 7 28 7 20V9zM20 10v17M13 17h14"/></svg><span>ESTADO DEL SERVIDOR</span></dt><dd data-home-state>Sin verificar</dd></div>
             <div class="ph-online-metric"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m20 3 5 10 10 7-10 7-5 10-5-10-10-7 10-7zM20 11v18M11 20h18"/></svg><span>JUGADORES ONLINE</span></dt><dd data-home-online><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.'); ?></dd></div>
@@ -70,7 +70,6 @@ $homeJoin = function($kind) use ($homeArt) {
                 <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 5h24v23H4zM11 18l5-6 5 6h-3v6h-4v-6zM8 2l2 3m14-3-2 3"/></svg><div><h3>Desatala.</h3><p>Apretá <kbd>SHIFT</kbd>.<br> Más velocidad, más daño, tu poder de clase.</p></div></li>
                 <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 14a9 9 0 1 1 18 0c0 4-3 6-4 7v5H11v-5c-1-1-4-3-4-7zM12 26v3m4-3v3m4-3v3M2 5l4 4m20-4-4 4M1 16h4m22 0h4"/><path d="M11 13h3v3h-3zm7 0h3v3h-3zm-3 5h2"/></svg><div><h3>No pares.</h3><p>Cada muerte suma tiempo.<br> Encadená combos hasta la MASACRE.</p></div></li>
             </ol>
-            <div class="ph-furia-foot"><p>Cada clase tiene su propia Furia en PvP.</p></div>
         </div>
         </div>
     </section>

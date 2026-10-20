@@ -2,7 +2,7 @@
 // A consistent tour using the real Hub, Master and game selector captures.
 $hubTabs = [
  ['inicio','Inicio','Tu centro de control.','El próximo evento, el pulso de la Fractura y los accesos a los sistemas propios. Abrís F11 y encontrás lo que necesitás.', ['Personaje y recompensas','Agenda e invasiones','Mercado, tienda y juegos']],
- ['personaje','Personaje','Todo lo que hacés te hace avanzar.','Tu progreso y tus recompensas tienen su lugar en el Hub. Y el árbol Master renovado acompaña lo que sigue después del nivel máximo.', ['Información de tu personaje','Progreso y recompensas','Árbol Master renovado']],
+ ['personaje','Personaje','Todo lo que hacés te hace avanzar.','Tu progreso y tus recompensas tienen su lugar en el Hub.', ['Información de tu personaje','Progreso y recompensas','Panel de tu personaje']],
  ['fractura','La Fractura','Elegí tu bando. Hacé historia.','Nexo y Caos se disputan el continente. Seguí el estado de la guerra y encontrá el acceso a la Fractura desde el Hub.', ['Nexo contra Caos','Guerra de bandos','Tu lugar en la historia']],
  ['eventos','Eventos','Siempre hay una próxima batalla.','Consultá la agenda y las invasiones desde el cliente. Estos son los próximos eventos del servidor.', []],
  ['mercado','Mercado','Comprá. Publicá. Cobrá.','Vessara conecta a los jugadores. Buscá equipo, publicá lo que conseguís y cobrá tus ventas en Zen o Eryns.', ['Comprar y buscar objetos','Gestionar tus publicaciones','Cobrar las ventas']],
@@ -10,6 +10,10 @@ $hubTabs = [
  ['juegos','Juegos','Otra partida dentro de tu partida.','Ocho minijuegos dentro del cliente. Cambiá de ritmo, elegí cómo jugar y volvé a la aventura cuando quieras.', ['Ruleta, Tragamonedas y cartas','Vuelo del Dragón y Torre del Caos','Lluvia de Joyas, Kalima y Carrera']],
  ['ayuda','Ayuda','Encontrá tu próximo paso.','Los sistemas propios también necesitan una guía. Usá Ayuda en el Hub y profundizá en el Atlas de la web.', ['Cómo empezar y usar el servidor','Mapas, eventos y sistemas','Guías para seguir avanzando']],
 ];
+$hubShots = ['inicio'=>'hub-real-v4.webp','juegos'=>'hub-games-real-v4.webp'];
+foreach (['personaje','fractura','eventos','mercado','tienda','ayuda'] as $hubId) {
+ if(is_file(__DIR__.'/../img/home/hub-'.$hubId.'-real-v10.webp')) $hubShots[$hubId]='hub-'.$hubId.'-real-v10.webp';
+}
 $homeGames = [
  ['ruleta','Ruleta','Elegí tu jugada y seguí la rueda. Jugás con Eryns desde el cliente.'],
  ['tragamonedas','Tragamonedas','Hacé girar los tres rodillos y buscá una nueva combinación.'],
@@ -32,14 +36,10 @@ $homeGames = [
   </nav>
   <div class="ph-world-panels">
    <?php foreach($hubTabs as $tab) { $id=$tab[0]; ?>
-   <div id="hub-<?php echo $id; ?>" class="ph-hub-panel" data-world-panel>
-    <div class="ph-hub-visual">
-     <?php if($id==='personaje') { ?>
-      <figure class="ph-master-preview"><div class="ph-master-capture"><img src="<?php echo $homeArt; ?>master-real-v5.webp" alt="Árbol Master real de MU PANIC con sus iconos e interfaz renovados" width="2047" height="1279" loading="lazy" decoding="async"></div><figcaption>ÁRBOL MASTER · INTERFAZ REAL DEL JUEGO</figcaption></figure>
-     <?php } else { ?>
-      <figure class="ph-hub-real-preview"><img class="ph-hub-capture" src="<?php echo $homeArt.($id==='juegos'?'hub-games-real-v4.webp':'hub-real-v4.webp'); ?>" alt="<?php echo $id==='juegos'?'Selector real de los ocho minijuegos de MU PANIC':'El Hub F11 real de MU PANIC, desde donde accedés a '.$tab[1]; ?>" width="1440" height="877" loading="lazy" decoding="async"><figcaption><?php echo $id==='juegos'?'JUEGOS · SELECTOR DEL CLIENTE':'EL HUB REAL · ACCESO A '.$tab[1]; ?></figcaption></figure>
-     <?php } ?>
-    </div>
+   <div id="hub-<?php echo $id; ?>" class="ph-hub-panel<?php echo isset($hubShots[$id])?'':' ph-hub-no-capture'; ?>" data-world-panel>
+    <?php if(isset($hubShots[$id])) { $shot=$hubShots[$id]; $shotSize=getimagesize(__DIR__.'/../img/home/'.$shot); ?>
+    <div class="ph-hub-visual"><figure class="ph-hub-real-preview"><img class="ph-hub-capture" src="<?php echo $homeArt.$shot; ?>" alt="<?php echo $homeEscape('Ventana real de '.$tab[1].' en MU PANIC'); ?>" width="<?php echo (int)$shotSize[0]; ?>" height="<?php echo (int)$shotSize[1]; ?>" loading="lazy" decoding="async"><figcaption><?php echo $homeEscape($tab[1]); ?> · INTERFAZ REAL DEL CLIENTE</figcaption></figure></div>
+    <?php } ?>
     <div class="ph-hub-description">
      <p class="ph-eyebrow">F11 · <?php echo $tab[1]; ?></p><h3<?php echo $id==='eventos'?' id="home-events-title"':''; ?>><?php echo $tab[2]; ?></h3><p><?php echo $tab[3]; ?></p>
      <?php if($tab[4]) { ?><ul><?php foreach($tab[4] as $point) { ?><li><?php echo $point; ?></li><?php } ?></ul><?php } ?>
@@ -53,16 +53,12 @@ $homeGames = [
    <?php } ?>
   </div>
  </div>
- <div class="ph-client-improvements ph-wrap">
-  <div class="ph-improvements-heading"><p class="ph-eyebrow">EL TRABAJO TAMBIÉN ESTÁ EN LOS DETALLES</p><h3>Un cliente propio.<br>En cada pantalla.</h3></div>
-  <dl><div><dt>Árbol Master renovado.</dt><dd>Iconos claros, conexiones más limpias y tooltips rediseñados. Miralo en la pestaña Personaje.</dd></div><div><dt>MU Helper rediseñado.</dt><dd>La herramienta que usás todos los días, con la identidad visual de MU PANIC.</dd></div><div><dt>Interfaces que acompañan.</dt><dd>NPC, inventario, baúles e intercambio. Una experiencia coherente dentro del juego.</dd></div></dl>
- </div>
+
 </section>
 <?php $homeJoin('market'); ?>
 <section class="ph-scene ph-market-world" data-scene-fx="market" aria-labelledby="home-market-title">
  <?php $homePicture('market-world', 'Vessara y los jugadores comerciando equipo en el mercado de Loren Market', false, 'v4'); ?>
  <div class="ph-scene-content ph-wrap"><div class="ph-copy"><p class="ph-eyebrow">EL MERCADO DE LOS JUGADORES</p><h2 id="home-market-title">Vessara.<br>Lo que encontrás<br>tiene valor.</h2><p>Buscá el equipo que te falta. Publicá lo que conseguís jugando. Comprá, vendé y cobrá tus ventas en <strong>Zen o Eryns</strong>.</p><p class="ph-market-access">Entrá desde el Hub F11 o visitá el mercado de Loren Market.</p><a class="ph-link" href="<?php echo __BASE_URL__; ?>market/">Explorá las publicaciones <span aria-hidden="true">↗</span></a></div></div>
- <div class="ph-market-trail ph-wrap"><span>BUSCÁ EQUIPO</span><span>PUBLICÁ TUS OBJETOS</span><span>COBRÁ TUS VENTAS</span></div>
 </section>
 <?php $homeJoin('arcade'); ?>
 <section class="ph-games" id="minijuegos" aria-labelledby="home-games-title">

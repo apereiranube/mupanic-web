@@ -137,7 +137,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta property="og:description" content="Sistemas propios. Una experiencia distinta. Descubrí MU PANIC."/>
     <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/fractura/aldren-varkor-v2.webp" fetchpriority="high"><?php } ?>
-    <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v9.webp" fetchpriority="high"><?php } ?>
+    <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v10.webp" fetchpriority="high"><?php } ?>
     <?php if(!$isHome) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <?php if(!$isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>

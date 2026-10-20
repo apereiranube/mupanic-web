@@ -31,14 +31,16 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
         assert doc.ids.count(name)==1
     assert html.index('home-furia-title') < html.index('home-fractura-title') < html.index('home-companions-title') < html.index('home-games-title')
     assert 'Tu próxima partida' in html and 'no necesita un spot.' in html
-    assert 'data-home-version="connected-v9"' in html
+    assert 'data-home-version="connected-v10"' in html
     assert 'data-home-update' not in html and 'data-furia-motion' not in html
     assert 'Consultado ' not in html and 'Pausar efectos' not in html
     assert 'ph-roulette-plane' not in html and 'data-scene-fx="combat"' not in html
     assert 'ph-world-divider' not in html and 'ph-status-heading' not in html
     assert html.count('ph-flow-join ph-flow-join-') == 5
-    assert 'hub-tienda' in html and 'ph-client-improvements' in html
-    assert 'hub-real-v4.webp' in html and 'master-real-v5.webp' in html
+    assert 'hub-tienda' in html and 'ph-client-improvements' not in html
+    assert 'hub-real-v4.webp' in html and 'master-real-v5.webp' not in html
+    assert 'EL PULSO DEL SERVIDOR' not in html and 'Cada clase tiene su propia Furia' not in html
+    assert 'ph-market-trail' not in html
     assert html.count('data-home-tabs') == 2
     assert 'hub-client-20261020' not in html and 'games-client-20261020' not in html
     expected='—' if '--missing-cache' in flags else '7'

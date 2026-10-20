@@ -59,7 +59,10 @@ async function routes(page,body=html){
    assert.ok(Math.abs(box.width-width)<2 && Math.abs(box.x)<2,selector+' must fill the viewport at '+width);
   }
   for(const panel of await page.locator('.ph-client-tour [role=tabpanel]').all()){
-   assert.equal(await panel.locator('.ph-hub-capture,.ph-master-capture').count(),1,'Every Hub tab has one real client interface');
+   const id=await panel.getAttribute('id');
+   const expected=['hub-inicio','hub-juegos'].includes(id)?1:0;
+   assert.equal(await panel.locator('.ph-hub-capture').count(),expected,'Only matching real captures may illustrate a Hub tab');
+   assert.equal(await panel.locator('.ph-master-capture').count(),0,'Master is not the Personaje Hub window');
   }
 
   assert.ok(await page.locator('.ph-client-key .ph-art').evaluate(el=>getComputedStyle(el).maskImage.startsWith('radial-gradient(')), 'F11 perimeter mask must parse and apply in the browser');
