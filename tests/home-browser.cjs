@@ -127,6 +127,7 @@ async function routes(page,body=html){
   await page.locator('[data-hub-lightbox] [data-world-tab="hub-fractura"]').click();
   assert.equal(await page.locator('#hub-fractura').isVisible(),true);
   await page.keyboard.press('Escape');
+  await page.locator('[data-hub-stage] [data-hub-simulator]').waitFor({state:'attached'});
   assert.equal(await page.locator('[data-hub-stage] [data-hub-simulator]').count(),1);
   assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),false);
   assert.equal(await page.locator('[data-hub-enlarge]').evaluate(el=>el===document.activeElement),true);
