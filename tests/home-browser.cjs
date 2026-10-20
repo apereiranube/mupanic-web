@@ -93,7 +93,7 @@ async function routes(page,body=html){
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
-  await page.waitForFunction(()=>!document.querySelector('[data-scene-fx].is-in-view'));
+  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-roulette-plane img')).animationName==='none');
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.locator('.ph-hero').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
