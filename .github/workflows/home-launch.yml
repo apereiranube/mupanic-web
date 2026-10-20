@@ -35,6 +35,7 @@ jobs:
           node --check overlay/templates/mupanic/js/home-launch.js
           node --check overlay/templates/mupanic/js/main.js
           bash -n scripts/deploy-beta.sh
+          (cd overlay && sha256sum --status -c ../scripts/economy-sha256.txt)
       - name: Install browser
         run: |
           npm install --no-save --package-lock=false playwright@1.58.2
