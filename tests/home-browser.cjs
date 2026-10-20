@@ -56,6 +56,9 @@ async function routes(page,body=html){
   assert.equal(metrics.length,7,'Seven complete artwork compositions');
   for(const im of metrics){assert.equal(im.fit,'contain');assert.ok(Math.abs(im.height-im.width*im.naturalHeight/im.naturalWidth)<2,'Artwork cropped: '+JSON.stringify(im));}
   if(width<=760){
+   const facts=await page.locator('.ph-facts>div').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {center:r.y+r.height/2};}));
+   assert.ok(Math.abs(facts[0].center-facts[1].center)<2,'State and online belong on the same mobile row');
+   assert.ok(Math.max(...facts.slice(2).map(r=>r.center))-Math.min(...facts.slice(2).map(r=>r.center))<2,'The three rates belong on one mobile row');
    for(const scene of ['hero','fractura','companions','games']){
     const section=page.locator('.ph-'+scene), art=await section.locator('.ph-art').boundingBox(), copy=await section.locator('.ph-copy').boundingBox();
     assert.ok(copy.y>=art.y+art.height-22,'Mobile text overlaps artwork '+scene);
