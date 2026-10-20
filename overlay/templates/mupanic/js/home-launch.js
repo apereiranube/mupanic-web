@@ -104,14 +104,7 @@
         link.tabIndex = i === index ? 0 : -1;
         panels[i].hidden = i !== index;
       });
-      var hub = tour.closest('.ph-client');
-      if (hub) {
-        var preview = hub.querySelector('.ph-hub-preview img');
-        if (!preview.dataset.homeImage) preview.dataset.homeImage = preview.getAttribute('src');
-        var games = links[index].getAttribute('data-world-tab') === 'hub-juegos';
-        preview.src = games ? preview.dataset.homeImage.replace('hub-real-v4', 'hub-games-real-v4') : preview.dataset.homeImage;
-        preview.alt = games ? 'Vista real de los ocho minijuegos del Hub F11 de MU PANIC' : 'Vista Inicio del Hub F11 de MU PANIC';
-      }
+
     }
     links.forEach(function (link, index) {
       link.id = 'world-tab-' + tourIndex + '-' + index;
@@ -158,14 +151,7 @@
       canvas.style.width = r.width + 'px'; canvas.style.height = r.height + 'px';
       canvas.style.left = (r.left - parent.left) + 'px'; canvas.style.top = (r.top - parent.top) + 'px';
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      if (scene.type === 'casino') {
-        var plane = section.querySelector('.ph-roulette-plane');
-        var mobile = r.width <= 760;
-        plane.style.top = (r.top-parent.top+r.height*(mobile ? .72 : .79))+'px';
-        plane.style.left = (r.left-parent.left+r.width*(mobile ? .15 : .68))+'px';
-        plane.style.width = (r.width*(mobile ? .70 : .36))+'px';
-        plane.style.right = 'auto';
-      }
+
     }
     if ('ResizeObserver' in window) new ResizeObserver(resize).observe(art);
     art.querySelector('img').addEventListener('load', resize); resize();
@@ -206,7 +192,7 @@
     } else {
       var points = s.type === 'market' ? (mobile ? [[.79,.25],[.66,.40],[.975,.35]] : [[.87,.14],[.63,.32],[.49,.44]]) :
         s.type === 'events' ? [[.50,.49],[.86,.40],[.28,.51]] :
-        s.type === 'fractura' ? [[.61,.65],[.88,.54]] : mobile ? [[.5,.29],[.5,.72],[.69,.45]] : [[.66,.27],[.87,.77],[.77,.40]];
+        s.type === 'fractura' ? [[.61,.65],[.88,.54]] : mobile ? [[.45,.12],[.93,.20]] : [[.69,.10],[.94,.08]];
       points.forEach(function (point, index) {
         var x = point[0]*w, y = point[1]*h;
         var cool = s.type === 'fractura' && index === 0;
@@ -267,4 +253,16 @@
     }, {threshold:0.05}).observe(section.querySelector('.ph-furia-demo'));
   } else { visible = true; sync(); }
   sync();
+})();
+
+// Sky movement is a separate atmospheric layer; the game characters keep their source art.
+(function () {
+  'use strict';
+  var hero = document.querySelector('.ph-hero');
+  if (!hero) return;
+  var visible = false, reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  function sync() { hero.classList.toggle('is-sky-live', visible && !document.hidden && !reduced.matches); }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }, {threshold:.04}).observe(hero);
+  else { visible = true; sync(); }
+  document.addEventListener('visibilitychange',sync); reduced.addEventListener('change',sync);
 })();

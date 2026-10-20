@@ -47,13 +47,13 @@ async function routes(page,body=html){
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   if(output){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});
-   if([1440,390].includes(width))for(const scene of ['hero','furia','fractura','companions','workshop','market-world','events','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png')});
+   if([1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png')});
   }
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
   }));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow at '+width);
-  assert.equal(metrics.length,8,'Eight complete artwork compositions');
+  assert.equal(metrics.length,7,'Seven complete artwork compositions');
   for(const im of metrics){assert.equal(im.fit,'contain');assert.ok(Math.abs(im.height-im.width*im.naturalHeight/im.naturalWidth)<2,'Artwork cropped: '+JSON.stringify(im));}
   if(width<=760){
    for(const scene of ['hero','fractura','companions','games']){
@@ -82,18 +82,32 @@ async function routes(page,body=html){
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Tab content overflow');
   }
   assert.equal(await page.locator('.ph-games-tour [role=tab]').count(),8);
+  assert.equal(await page.locator('.ph-client-tour [role=tab]').count(),8);
+  for(const tab of await page.locator('.ph-client-tour [role=tab]').all()){
+   await tab.click();
+   const id=await tab.getAttribute('aria-controls');
+   assert.equal(await page.locator('#'+id).isVisible(),true);
+   assert.equal(await page.locator('.ph-client-tour [role=tabpanel]:visible').count(),1);
+  }
+  for(const id of ['hub-tienda','hub-eventos']){
+   await page.locator('[data-world-tab="'+id+'"]').click();
+   if(output&&[1440,390].includes(width))await page.locator('.ph-client-tour').screenshot({path:path.join(output,id+'-'+width+'.png')});
+  }
   await page.locator('[data-world-tab="hub-juegos"]').click();
-  await page.waitForFunction(()=>document.querySelector('.ph-hub-preview img').src.includes('hub-games-real-v4')&&document.querySelector('.ph-hub-preview img').complete);
+  await page.waitForFunction(()=>document.querySelector('#hub-juegos .ph-hub-capture').complete&&document.querySelector('#hub-juegos .ph-hub-capture').naturalWidth);
   if(output&&[1440,390].includes(width))await page.locator('.ph-workshop').screenshot({path:path.join(output,'hub-games-'+width+'.png')});
   // Animation runs only in view. Reduced motion removes every scene effect.
   await page.locator('.ph-games-scene').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.ph-games-scene').classList.contains('is-in-view'));
-  assert.equal(await page.locator('.ph-roulette-plane img').evaluate(im=>getComputedStyle(im).animationPlayState),'running');
+  assert.equal(await page.locator('.ph-roulette-plane, .ph-hero .ph-scene-fx').count(),0);
+  await page.locator('.ph-hero').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>document.querySelector('.ph-hero').classList.contains('is-sky-live'));
+  assert.equal(await page.locator('.ph-battle-sky i').first().evaluate(el=>getComputedStyle(el).animationPlayState),'running');
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
-  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-roulette-plane img')).animationName==='none');
+  await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-battle-sky i')).animationName==='none');
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.locator('.ph-games-scene').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));

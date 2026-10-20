@@ -11,10 +11,14 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
     $mobileDimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.($mobile ? '-mobile' : '-960').'.webp');
     ?><picture class="ph-art"><source media="(max-width:760px)" srcset="<?php echo $homeArt.$name; ?>-<?php echo $version; ?><?php echo $mobile ? '-mobile' : '-960'; ?>.webp" width="<?php echo (int)$mobileDimensions[0]; ?>" height="<?php echo (int)$mobileDimensions[1]; ?>"><img src="<?php echo $homeArt.$name; ?>-<?php echo $version; ?>.webp" alt="<?php echo $homeEscape($alt); ?>" width="<?php echo (int)$dimensions[0]; ?>" height="<?php echo (int)$dimensions[1]; ?>" <?php echo $priority ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'; ?>></picture><?php
 };
+$homeDivider = function($label) { ?>
+<div class="ph-world-divider" aria-hidden="true"><svg viewBox="0 0 1440 66" fill="none" preserveAspectRatio="xMidYMid meet"><defs><linearGradient id="joinGold<?php echo substr(md5($label),0,6); ?>" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#50351b" stop-opacity="0"/><stop offset=".25" stop-color="#a07940"/><stop offset=".5" stop-color="#efd6a0"/><stop offset=".75" stop-color="#a07940"/><stop offset="1" stop-color="#50351b" stop-opacity="0"/></linearGradient></defs><g stroke="url(#joinGold<?php echo substr(md5($label),0,6); ?>)"><path d="M0 33h565l35-9h64l30-12 26-10 26 10 30 12h64l35 9h565" stroke-width="2"/><path d="M0 37h565l35 9h64l30 12 26 6 26-6 30-12h64l35-9h565"/><path d="m650 33 30-10 40 10 40-10 30 10-30 10-40-10-40 10z"/><path d="m694 33 26-24 26 24-26 24z" fill="#16120e" stroke-width="2"/><path d="m706 33 14-16 14 16-14 16z" fill="#7f1f19" stroke-width="1.5"/></g></svg></div>
+<?php };
 ?>
-<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v4">
-    <section data-scene-fx="combat" class="ph-scene ph-hero" aria-labelledby="home-title">
+<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v5">
+    <section class="ph-scene ph-hero" aria-labelledby="home-title">
         <?php $homePicture('hero-connected', 'Rage Fighter con Phoenix Soul y Blade Knight de MU PANIC en combate', true); ?>
+        <div class="ph-battle-sky" aria-hidden="true"><i></i><i></i></div>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
             <p class="ph-eyebrow">SEASON 6 · DESARROLLO PROPIO</p>
             <h1 id="home-title">Esto es<br>MU PANIC.</h1>
@@ -24,6 +28,7 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
     </section>
 
     <section class="ph-status ph-wrap" aria-label="Datos del servidor">
+        <div class="ph-status-heading"><p>MU PANIC · SEASON 6</p><h2>Tu próxima batalla empieza acá.</h2></div>
         <dl class="ph-facts">
             <div class="ph-state"><dt>ESTADO DEL SERVIDOR</dt><dd data-home-state>Sin verificar</dd></div>
             <div><dt>JUGADORES ONLINE</dt><dd data-home-online><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.'); ?></dd></div>
@@ -57,14 +62,15 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
         </div>
         <div class="ph-furia-bottom ph-wrap">
             <ol class="ph-furia-steps">
-                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 10h26v13H3zM7 13v7m4-7v7m4-7v7m4-7v7m4-7v7M15 3l-3 5h5l-2 5"/></svg><div><h3>Se carga peleando.</h3><p>Contra monstruos y en PvP.<br> La carga no se pierde.</p></div></li>
-                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 5h24v23H4zM11 18l5-6 5 6h-3v6h-4v-6zM8 2l2 3m14-3-2 3"/></svg><div><h3>La desatás vos.</h3><p>Un toque de Shift<br> y tu personaje cambia.</p></div></li>
-                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 14a9 9 0 1 1 18 0c0 4-3 6-4 7v5H11v-5c-1-1-4-3-4-7zM12 26v3m4-3v3m4-3v3M2 5l4 4m20-4-4 4M1 16h4m22 0h4"/><path d="M11 13h3v3h-3zm7 0h3v3h-3zm-3 5h2"/></svg><div><h3>Cada muerte la alarga.</h3><p>Encadená combos<br> hasta la MASACRE.</p></div></li>
+                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 10h26v13H3zM7 13v7m4-7v7m4-7v7m4-7v7m4-7v7M15 3l-3 5h5l-2 5"/></svg><div><h3>Cargala.</h3><p>Contra monstruos y en PvP.<br> La carga no se pierde.</p></div></li>
+                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 5h24v23H4zM11 18l5-6 5 6h-3v6h-4v-6zM8 2l2 3m14-3-2 3"/></svg><div><h3>Desatala.</h3><p>Apretá <kbd>SHIFT</kbd>.<br> Más velocidad, más daño, tu poder de clase.</p></div></li>
+                <li><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M7 14a9 9 0 1 1 18 0c0 4-3 6-4 7v5H11v-5c-1-1-4-3-4-7zM12 26v3m4-3v3m4-3v3M2 5l4 4m20-4-4 4M1 16h4m22 0h4"/><path d="M11 13h3v3h-3zm7 0h3v3h-3zm-3 5h2"/></svg><div><h3>No pares.</h3><p>Cada muerte suma tiempo.<br> Encadená combos hasta la MASACRE.</p></div></li>
             </ol>
             <div class="ph-furia-foot"><p>Cada clase tiene su propia Furia en PvP.</p></div>
         </div>
     </section>
 
+    <?php $homeDivider("El poder divide el mundo"); ?>
     <section data-scene-fx="fractura" class="ph-scene ph-fractura" aria-labelledby="home-fractura-title">
         <?php $homePicture('fractura-connected', 'Aldren y Varkor ante el Señor de la Fractura, los protagonistas de Nexo y Caos'); ?>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
@@ -75,6 +81,7 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
         </div></div>
     </section>
 
+    <?php $homeDivider("Tus compañeros, al otro lado de la batalla"); ?>
     <section class="ph-scene ph-companions" aria-labelledby="home-companions-title">
         <?php $homePicture('companions-connected', 'Elyndra, Aurion, Vaerion y Grum, los cuatro compañeros de MU PANIC'); ?>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
@@ -85,5 +92,6 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
         </div></div>
     </section>
 
+    <?php $homeDivider('MU PANIC, también desde adentro'); ?>
     <?php include __DIR__.'/home-world.php'; ?>
 </div>

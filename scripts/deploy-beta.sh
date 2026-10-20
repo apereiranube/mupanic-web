@@ -57,6 +57,11 @@ for asset in hub-real-v4.webp hub-games-real-v4.webp roulette-wheel-v4.webp; do
   test -s "$TEMPLATE_SOURCE/img/home/$asset"
 done
 
+# V5: real Master capture, Hub environment, sky layer and integrated roulette artwork.
+for asset in master-real-v5.webp hub-world-v5.webp battle-clouds-v5.webp games-hall-v5.webp games-hall-v5-960.webp games-hall-v5-mobile.webp; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
+done
+
 # The Eryns storefront and its original artwork must arrive together.
 if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
   echo "[MU PANIC] ERROR: Missing Eryns storefront artwork." >&2

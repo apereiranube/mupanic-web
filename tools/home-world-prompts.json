@@ -13,6 +13,10 @@
     "hub-games-real-v4": "Preserve and extract complete current Hub Juegos window with eight game illustrations and navigation from actual screenshot; remove outside gameplay. Transparent background, front view.",
     "roulette-wheel-v4": "Single complete circular MU-style roulette wheel, exactly top-down, gold/bronze engravings, burgundy/charcoal pockets and green zero, dark wood and gold spindle, transparent margin. No table or scenery. Independent prop to rotate in CSS.",
     "market-world-v4-mobile": "Recompose the approved market scene vertically for mobile: same Vessara identity trading MU helmet with armored player, full heads/hands, counter and overhead lamp, deep market square, no crop of wide art; charcoal fog edges.",
-    "games-hall-v4-mobile": "Recompose the approved arcade vertically: complete red-dragon-emblem slot machine, burgundy cards, fully visible gold roulette tabletop with empty bowl at x50% y77%, width74% height16%, dark vaulted hall, no crop of wide art, no living dragon or text."
+    "games-hall-v4-mobile": "Recompose the approved arcade vertically: complete red-dragon-emblem slot machine, burgundy cards, fully visible gold roulette tabletop with empty bowl at x50% y77%, width74% height16%, dark vaulted hall, no crop of wide art, no living dragon or text.",
+    "battle-clouds-v5": "Wide realistic gray/silver storm cloud animation layer with transparent gaps and feathered alpha. No architecture, people, particles or black smoke. Restricted to hero sky.",
+    "hub-world-v5": "Continue approved companion forest stone steps into a gothic vaulted chamber/workshop. Calm detailed architectural backdrop for real Hub overlays, warm lanterns, muted bronze, no UI or characters.",
+    "games-hall-v5": "Edit only empty roulette bowl of the approved wide arcade image: add a physically integrated high-detail roulette wheel in exact perspective, preserve everything else. Replaces detached flat web overlay.",
+    "games-hall-v5-mobile": "Same precise bowl replacement for portrait arcade image; preserve complete table and every other object. Integrated painted wheel, no CSS spinning prop."
   }
 }
