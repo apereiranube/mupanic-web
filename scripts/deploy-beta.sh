@@ -30,6 +30,14 @@ for module in "${DEPLOY_MODULES[@]}"; do
   fi
 done
 
+# Launch pages and their approved art/captures deploy as one unit.
+for file in inc/home-data.php inc/home-launch.php css/experience.css js/home-launch.js; do
+  test -s "$TEMPLATE_SOURCE/$file"
+done
+for asset in hero-rf-bk-v1 hero-rf-bk-v1-960 fractura-nexo-caos-v1 fractura-nexo-caos-v1-960 companions-four-v1 companions-four-v1-960 hub-client-20261020 games-client-20261020; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset.webp"
+done
+
 # The Eryns storefront and its original artwork must arrive together.
 if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
   echo "[MU PANIC] ERROR: Missing Eryns storefront artwork." >&2

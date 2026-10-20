@@ -1,0 +1,69 @@
+{
+  "revision": "2026-10-20",
+  "assets": [
+    {
+      "file": "img/home/hero-rf-bk-v1.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "f142da8eb77c72514e52d0e73c139ceb1a8c180731523ba362384ce55c14296b",
+      "reference": "RF aprobado y BK; portada PvP. Referencia RF: captura Phoenix Soul +15.",
+      "kind": "imagegen"
+    },
+    {
+      "file": "img/home/hero-rf-bk-v1-960.webp",
+      "width": 960,
+      "height": 540,
+      "sha256": "0c7bbe13fd98370b391c177473491fff275643eab9317a9e6b95a50206e190d2",
+      "reference": "RF aprobado y BK; portada PvP. Referencia RF: captura Phoenix Soul +15.",
+      "kind": "imagegen"
+    },
+    {
+      "file": "img/home/fractura-nexo-caos-v1.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "9a07ec1ffdebbc348ac8735fab3108a1d2f8dba705e24e8dd1bcd587879f674e",
+      "reference": "Aldren, Varkor y Señor de la Fractura; composición aprobada.",
+      "kind": "imagegen"
+    },
+    {
+      "file": "img/home/fractura-nexo-caos-v1-960.webp",
+      "width": 960,
+      "height": 540,
+      "sha256": "c88147d119d72759e62c860f4938a4f1b5a3660326429ca0b9ba0ef5da5a8d55",
+      "reference": "Aldren, Varkor y Señor de la Fractura; composición aprobada.",
+      "kind": "imagegen"
+    },
+    {
+      "file": "img/home/companions-four-v1.webp",
+      "width": 1672,
+      "height": 941,
+      "sha256": "3e5f79124256cad67cacdc49cc6e4950036f1f25a3bf31c47cffa7b2662e36ac",
+      "reference": "Elyndra, Aurion, Vaerion y Grum; cuatro modelos del Atlas como referencia.",
+      "kind": "imagegen"
+    },
+    {
+      "file": "img/home/companions-four-v1-960.webp",
+      "width": 960,
+      "height": 540,
+      "sha256": "45deb1c9923a23df361288b60cfbeea6063694fe55470210238a32675045a573",
+      "reference": "Elyndra, Aurion, Vaerion y Grum; cuatro modelos del Atlas como referencia.",
+      "kind": "imagegen"
+    },
+    {
+      "file": "img/home/hub-client-20261020.webp",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ca7960c9fa2958f09c7678ce0daf2619bc379e8517ff9cf887846ea4710888a2",
+      "reference": "Captura real del Hub enviada por el dueño, 20/10/2026.",
+      "kind": "client_capture"
+    },
+    {
+      "file": "img/home/games-client-20261020.webp",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "7e24cc760c529aeb51eb1dd6521287326d09ca6728ef6bab26687cd61d1d59df",
+      "reference": "Captura real de los ocho juegos enviada por el dueño, 20/10/2026.",
+      "kind": "client_capture"
+    }
+  ]
+}

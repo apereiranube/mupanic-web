@@ -6,6 +6,12 @@ on:
       - 'overlay/templates/mupanic/css/style.css'
       - 'overlay/modules/information.php'
       - 'overlay/templates/mupanic/css/information.css'
+      - 'overlay/templates/mupanic/index.php'
+      - 'overlay/templates/mupanic/css/experience.css'
+      - 'overlay/templates/mupanic/inc/home*.php'
+      - 'overlay/templates/mupanic/js/home-launch.js'
+      - 'overlay/templates/mupanic/img/home/**'
+      - 'tests/fixtures/experience.php'
       - 'overlay/templates/mupanic/js/main.js'
       - 'overlay/templates/mupanic/img/server/**'
       - 'scripts/deploy-beta.sh'
@@ -28,6 +34,12 @@ jobs:
       - name: Syntax checks
         run: |
           php -l overlay/modules/information.php
+          php -l overlay/templates/mupanic/index.php
+          php -l overlay/templates/mupanic/inc/home-data.php
+          php -l overlay/templates/mupanic/inc/home-launch.php
+          php -l tests/fixtures/experience.php
+          php tests/launcher.php
+          node --check overlay/templates/mupanic/js/home-launch.js
           php -l tests/fixtures/systems.php
           node --check overlay/templates/mupanic/js/main.js
           bash -n scripts/deploy-beta.sh

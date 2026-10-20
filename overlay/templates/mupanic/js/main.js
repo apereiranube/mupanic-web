@@ -493,6 +493,7 @@
 })();
 
 ;(function () {
+  if (document.body.classList.contains('is-panic-redesign')) return;
   if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
