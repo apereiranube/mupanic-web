@@ -17,9 +17,12 @@ $homeJoin = function($kind) use ($homeArt) {
 <div class="ph-flow-join ph-flow-join-<?php echo $kind; ?>" aria-hidden="true"><img src="<?php echo $homeArt; ?>join-<?php echo $kind; ?>-v6.webp" alt="" width="<?php echo (int)$joinSize[0]; ?>" height="<?php echo (int)$joinSize[1]; ?>" loading="lazy" decoding="async"></div>
 <?php };
 ?>
-<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v6">
+<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v9">
     <section class="ph-scene ph-hero" aria-labelledby="home-title">
-        <?php $homePicture('hero-connected', 'Rage Fighter con Phoenix Soul y Blade Knight de MU PANIC en combate', true); ?>
+        <div class="ph-art ph-combat-art">
+            <img src="<?php echo $homeArt; ?>hero-rf-mg-v9.webp" width="1280" height="720" alt="Rage Fighter con guanteletes y capa frente a Magic Gladiator con Hurricane y alas, ambos en vuelo" fetchpriority="high">
+            <video class="ph-combat-video" data-combat-video data-src="<?php echo $homeArt; ?>hero-rf-mg-v9.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" aria-hidden="true"></video>
+        </div>
         <div class="ph-battle-sky" aria-hidden="true"><i></i><i></i></div>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
             <p class="ph-eyebrow">SEASON 6 · DESARROLLO PROPIO</p>

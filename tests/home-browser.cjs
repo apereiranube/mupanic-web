@@ -118,8 +118,11 @@ async function routes(page,body=html){
   assert.equal(await page.locator('.ph-roulette-plane, .ph-hero .ph-scene-fx').count(),0);
   await page.locator('.ph-hero').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.ph-hero').classList.contains('is-sky-live'));
-  assert.equal(await page.locator('.ph-battle-sky i').first().evaluate(el=>getComputedStyle(el).animationPlayState),'running');
+  await page.waitForFunction(()=>{const v=document.querySelector('[data-combat-video]');return !v.paused&&v.readyState>=2&&v.parentElement.classList.contains('is-video-ready');});
+  assert.equal(await page.locator('[data-combat-video]').evaluate(v=>v.muted&&v.loop&&v.playsInline),true);
+  assert.equal(await page.locator('.ph-battle-sky').evaluate(el=>getComputedStyle(el).display),'none');
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>document.querySelector('[data-combat-video]').paused);
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
   await page.locator('.ph-status').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.ph-status').classList.contains('is-stats-live'));
@@ -127,6 +130,8 @@ async function routes(page,body=html){
   await page.locator('.ph-games').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>!document.querySelector('.ph-status').classList.contains('is-stats-live'));
   await page.emulateMedia({reducedMotion:'reduce'});
+  await page.locator('.ph-hero').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>document.querySelector('[data-combat-video]').paused&&!document.querySelector('.ph-combat-art').classList.contains('is-video-ready'));
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-battle-sky i')).animationName==='none');
   assert.equal(await page.locator('.ph-online-metric').evaluate(el=>getComputedStyle(el,'::after').animationName),'none');

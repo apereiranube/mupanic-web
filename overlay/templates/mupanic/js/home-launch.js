@@ -292,3 +292,35 @@
   document.addEventListener('visibilitychange', sync);
   reduced.addEventListener('change', sync);
 })();
+
+// Real combat video: static fallback on reduced motion, failure or blocked autoplay.
+(function () {
+  'use strict';
+  var video = document.querySelector('[data-combat-video]');
+  if (!video) return;
+  var art = video.parentElement;
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  var visible = false;
+  function wanted() { return visible && !document.hidden && !reduced.matches; }
+  function sync() {
+    if (!wanted()) {
+      video.pause();
+      if (reduced.matches) art.classList.remove('is-video-ready');
+      return;
+    }
+    if (!video.getAttribute('src')) video.src = video.getAttribute('data-src');
+    video.muted = true;
+    video.play().catch(function () { art.classList.remove('is-video-ready'); });
+  }
+  video.addEventListener('playing', function () {
+    if (wanted()) art.classList.add('is-video-ready');
+    else video.pause();
+  });
+  video.addEventListener('error', function () { art.classList.remove('is-video-ready'); });
+  document.addEventListener('visibilitychange', sync);
+  reduced.addEventListener('change', sync);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (entries) {
+    visible = entries[0].isIntersecting; sync();
+  }, {threshold:0.04}).observe(art);
+  else { visible = true; sync(); }
+})();

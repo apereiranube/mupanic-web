@@ -11,4 +11,6 @@
 
 ## Video
 
-Se instaló/verificó el CLI oficial Kling 0.2.0 y se inició el flujo OAuth documentado. El CLI necesita una sesión propia; agregar el complemento no comparte automáticamente el acceso de la web. No se envió una generación ni se consumieron créditos durante la comprobación de acceso. La autorización de navegador continúa pendiente.
+Se instaló/verificó el CLI oficial Kling 0.2.0 y se inició el flujo OAuth documentado. El CLI necesita una sesión propia; agregar el complemento no comparte automáticamente el acceso de la web. No se envió una generación. Se abrió el acceso oficial de Kling en el navegador y el usuario eligió Google mediante la solicitud segura. La autorización del CLI venció a los 300 segundos sin completarse; el video permanece bloqueado por el inicio de sesión pendiente.
+
+Runway: conexión verificada tras el aviso del usuario. La integración autentica la cuenta, pero no ofrece modelos de video con el plan actual. No se solicitó ninguna generación de video.
