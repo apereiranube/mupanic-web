@@ -303,6 +303,24 @@
       "height": 810,
       "bytes": 295528,
       "sha256": "b2bc22d6eb549e31e813259f040d8039de273e9004103194918c49cc24b66206"
+    },
+    {
+      "file": "img/home/market-world-v4-mobile.webp",
+      "source": "exec-cb717203-afa2-4dfd-a66a-d3e75e7c36ad.png",
+      "origin": "New portrait composition from approved Vessara market scene; complete subjects, no viewport crop",
+      "width": 960,
+      "height": 1018,
+      "bytes": 224622,
+      "sha256": "bc306c0921cd46059576f0fa8e17573b2929e65dc7ecafaed43d0134ad0433d4"
+    },
+    {
+      "file": "img/home/games-hall-v4-mobile.webp",
+      "source": "exec-8d035873-ce3f-4a1a-b930-340465191733.png",
+      "origin": "New portrait arcade composition, complete tabletop for independent animation",
+      "width": 960,
+      "height": 1016,
+      "bytes": 280860,
+      "sha256": "7b316a9af0fd6f8eee736dd09e20527e5a7e8af8f763c7db2d70d4b6a27440cb"
     }
   ]
 }

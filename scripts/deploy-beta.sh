@@ -51,6 +51,7 @@ done
 for scene in market-world games-hall; do
   test -s "$TEMPLATE_SOURCE/img/home/$scene-v4.webp"
   test -s "$TEMPLATE_SOURCE/img/home/$scene-v4-960.webp"
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v4-mobile.webp"
 done
 for asset in hub-real-v4.webp hub-games-real-v4.webp roulette-wheel-v4.webp; do
   test -s "$TEMPLATE_SOURCE/img/home/$asset"

@@ -158,6 +158,14 @@
       canvas.style.width = r.width + 'px'; canvas.style.height = r.height + 'px';
       canvas.style.left = (r.left - parent.left) + 'px'; canvas.style.top = (r.top - parent.top) + 'px';
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      if (scene.type === 'casino') {
+        var plane = section.querySelector('.ph-roulette-plane');
+        var mobile = r.width <= 760;
+        plane.style.top = (r.top-parent.top+r.height*(mobile ? .72 : .79))+'px';
+        plane.style.left = (r.left-parent.left+r.width*(mobile ? .15 : .68))+'px';
+        plane.style.width = (r.width*(mobile ? .70 : .36))+'px';
+        plane.style.right = 'auto';
+      }
     }
     if ('ResizeObserver' in window) new ResizeObserver(resize).observe(art);
     art.querySelector('img').addEventListener('load', resize); resize();
@@ -196,9 +204,9 @@
         c.lineTo(x + Math.cos(angle)*(distance+5), y + Math.sin(angle)*(distance+5)*.7); c.stroke();
       }
     } else {
-      var points = s.type === 'market' ? [[.87,.14],[.63,.32],[.49,.44]] :
+      var points = s.type === 'market' ? (mobile ? [[.79,.25],[.66,.40],[.975,.35]] : [[.87,.14],[.63,.32],[.49,.44]]) :
         s.type === 'events' ? [[.50,.49],[.86,.40],[.28,.51]] :
-        s.type === 'fractura' ? [[.61,.65],[.88,.54]] : [[.66,.27],[.87,.77],[.77,.40]];
+        s.type === 'fractura' ? [[.61,.65],[.88,.54]] : mobile ? [[.5,.29],[.5,.72],[.69,.45]] : [[.66,.27],[.87,.77],[.77,.40]];
       points.forEach(function (point, index) {
         var x = point[0]*w, y = point[1]*h;
         var cool = s.type === 'fractura' && index === 0;

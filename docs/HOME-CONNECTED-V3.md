@@ -10,7 +10,7 @@ La tecla F11 se conserva junto a una presentación amplia del Hub. Sus vistas de
 
 Vessara ocupa una escena nueva de comercio de equipo en Loren Market, siguiendo la identidad de Vessara ya aprobada. Los eventos reúnen el Castillo Sangriento del Atlas y las tres próximas entradas reales, con cuenta regresiva de la primera. La sala de juegos muestra tragamonedas, cartas y ruleta, seguida de ocho pestañas explicativas de los juegos de la captura actual. Los juegos se abren dentro del cliente, F11 → Juegos. No se muestra la anterior ilustración de dragón volando ni la presentación de tres joyas en el mercado.
 
-Las composiciones conservan proporciones completas con `object-fit:contain`. En celular, la copia va debajo del arte. Las máscaras de niebla conectan los ambientes sin encerrar las secciones en tarjetas. El Hub y la tecla comparten un escenario abierto; mercado, eventos y juegos tienen escenas amplias.
+Las composiciones conservan proporciones completas con `object-fit:contain`. En celular, Vessara y la sala de juegos usan nuevas composiciones verticales completas y la copia va debajo del arte. Las máscaras de niebla conectan los ambientes sin encerrar las secciones en tarjetas. El Hub y la tecla comparten un escenario abierto; mercado, eventos y juegos tienen escenas amplias.
 
 ## Movimiento
 

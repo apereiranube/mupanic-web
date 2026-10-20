@@ -7,7 +7,7 @@ $homeEvents = panicHomeEvents();
 // Keep intrinsic image dimensions in markup; no fixed cover/crop viewport.
 $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($homeArt, $homeEscape) {
     $dimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.'.webp');
-    $mobile = in_array($name, ['hero-connected','fractura-connected','companions-connected','furia-world'],true);
+    $mobile = in_array($name, ['hero-connected','fractura-connected','companions-connected','furia-world','market-world','games-hall'],true);
     $mobileDimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.($mobile ? '-mobile' : '-960').'.webp');
     ?><picture class="ph-art"><source media="(max-width:760px)" srcset="<?php echo $homeArt.$name; ?>-<?php echo $version; ?><?php echo $mobile ? '-mobile' : '-960'; ?>.webp" width="<?php echo (int)$mobileDimensions[0]; ?>" height="<?php echo (int)$mobileDimensions[1]; ?>"><img src="<?php echo $homeArt.$name; ?>-<?php echo $version; ?>.webp" alt="<?php echo $homeEscape($alt); ?>" width="<?php echo (int)$dimensions[0]; ?>" height="<?php echo (int)$dimensions[1]; ?>" <?php echo $priority ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'; ?>></picture><?php
 };
