@@ -498,7 +498,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 @keyframes ph-server-heart{50%{box-shadow:0 0 38px #c6943826,inset 0 0 30px #dfb15719;border-color:#d6af6a70}}
 @keyframes ph-server-orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
 /* Feather every edge of F11, preserving the key and the menu artwork. */
-.ph-workshop .ph-client-heading .ph-client-key .ph-art{mask-image:radial-gradient(ellipse 70% 68% at 50% 50%,#000 32%,#000e6 51%,transparent 74%),linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent),linear-gradient(0deg,transparent,#000 14%,#000 86%,transparent);mask-composite:intersect}
+.ph-workshop .ph-client-heading .ph-client-key .ph-art{mask-image:radial-gradient(ellipse 70% 68% at 50% 50%,#000 32%,#000000e6 51%,transparent 74%),linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent),linear-gradient(0deg,transparent,#000 14%,#000 86%,transparent);mask-composite:intersect}
 @media(min-width:761px) and (max-width:1100px){
  .ph-facts{gap:7px;min-height:155px}.ph-facts dt{font-size:8px;letter-spacing:.07em}.ph-facts dd{font-size:32px}.ph-facts [data-home-state]{font-size:21px}.ph-facts>div.ph-online-metric dd{font-size:65px}.ph-online-metric:before{width:145px;height:145px}.ph-online-metric:after{width:158px;height:158px}
 }

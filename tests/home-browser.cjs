@@ -54,6 +54,7 @@ async function routes(page,body=html){
   }));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow at '+width);
   assert.equal(metrics.length,7,'Seven complete artwork compositions');
+  assert.ok(await page.locator('.ph-client-key .ph-art').evaluate(el=>getComputedStyle(el).maskImage.startsWith('radial-gradient(')), 'F11 perimeter mask must parse and apply in the browser');
   for(const im of metrics){assert.equal(im.fit,'contain');assert.ok(Math.abs(im.height-im.width*im.naturalHeight/im.naturalWidth)<2,'Artwork cropped: '+JSON.stringify(im));}
   if(width<=760){
    const facts=await page.locator('.ph-facts>div').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {center:r.y+r.height/2};}));
