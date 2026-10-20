@@ -107,6 +107,8 @@ async function routes(page,body=html){
    assert.equal(await page.locator('.ph-client-tour [role=tabpanel]:visible').count(),1);
    assert.ok(Math.abs((await page.locator('.ph-client-tour').boundingBox()).height-hubHeight)<2,'Hub changes page height at '+width);
    assert.equal(await page.locator('#'+id).evaluate(el=>el.inert),false);
+   const shot=await page.locator('#'+id+' .ph-client-window').boundingBox(), nav=await page.locator('.ph-client-tour .ph-world-tabs').boundingBox();
+   assert.ok(shot.y>=nav.y+nav.height,'Client capture must not overlap tab navigation at '+width);
   }
   for(const id of ['hub-personaje','hub-fractura','hub-tienda','hub-eventos','hub-mercado','hub-ayuda']){
    await page.locator('[data-world-tab="'+id+'"]').click();

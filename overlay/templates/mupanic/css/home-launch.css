@@ -660,3 +660,14 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 .ph-hub-lightbox .ph-client-window{width:min(100%,1000px)}
 .ph-hub-lightbox-close{display:block;margin:0 0 12px auto;border:1px solid #b49a65;background:#19140f;color:#f5e7c9;font:28px/1 sans-serif;width:42px;height:42px;cursor:pointer}
 @media(max-width:760px){.ph-client-window{width:100%}.ph-hub-lightbox{width:calc(100vw - 12px);padding:10px}}
+/* Fit the complete client window inside its stable gallery row at every width. */
+.ph-hub-visual{--hub-shot-height:400px}
+.ph-hub-visual .ph-client-window{width:min(100%,580px,calc(var(--hub-shot-height)*1.37089))}
+.ph-hub-visual .ph-client-window-inicio{width:min(100%,580px,calc(var(--hub-shot-height)*1.642))}
+.ph-hub-visual .ph-client-window-mercado{width:min(100%,580px,calc(var(--hub-shot-height)*1.32456))}
+.ph-client-tour .ph-world-tabs{position:relative;z-index:4}
+@media(max-width:1100px) and (min-width:761px){.ph-hub-visual{--hub-shot-height:315px}}
+@media(max-width:760px){.ph-hub-visual{--hub-shot-height:245px}}
+@media(max-width:360px){.ph-hub-visual{--hub-shot-height:210px}}
+/* Follow the client's raised crest instead of leaving a square strip of game world. */
+.ph-client-window:not(.ph-client-window-inicio):not(.ph-client-window-mercado){clip-path:polygon(0 2%,6% 4.5%,44% 4.5%,47% 2%,50% 0,53% 2%,56% 4.5%,94% 4.5%,100% 2%,100% 98%,95% 96%,55% 96%,50% 100%,45% 96%,5% 96%,0 98%)}
