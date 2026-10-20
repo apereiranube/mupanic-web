@@ -42,7 +42,8 @@ async function routes(page,body=html){
    await scene.scrollIntoViewIfNeeded();
    await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   }
-  await page.evaluate(()=>scrollTo(0,0));
+  await page.evaluate(()=>{document.activeElement.blur();scrollTo({top:0,behavior:'instant'});});
+  await page.waitForFunction(()=>scrollY===0);
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   if(output){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});

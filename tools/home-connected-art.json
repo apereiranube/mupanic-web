@@ -208,11 +208,11 @@
     {
       "file": "img/home/furia-aura-v3.webm",
       "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/pulso_calavera_doble_latido_512x512_2s.mp4",
-      "origin": "Actual game effect, VP9 30fps web derivative, 2s loop, no audio",
+      "origin": "Actual skull pulse video, VP9 with alpha keyed from original pure-black backdrop, 30fps 2s loop, no audio",
       "width": 256,
       "height": 256,
-      "bytes": 169335,
-      "sha256": "da4d6541af91bc10c6ee3e01fae048754d1943c875e513e284f56f8831ff8bb7"
+      "bytes": 471932,
+      "sha256": "4b94a2cf14737dba93f5b7222465e1b4be489cde16e8207f422e465f46624ef9"
     },
     {
       "file": "img/home/furia-world-v3.webp",

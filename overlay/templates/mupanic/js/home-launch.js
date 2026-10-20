@@ -90,7 +90,9 @@
     section.classList.toggle('is-animating', play);
     videos.forEach(function (video) {
       if (play) {
-        if (!video.getAttribute('src')) video.src = video.canPlayType('video/webm; codecs="vp9"') ? video.getAttribute('data-src') : video.getAttribute('data-fallback');
+        var webm = Boolean(video.canPlayType('video/webm; codecs="vp9"'));
+        if (video.hasAttribute('data-furia-alpha') && !webm) return;
+        if (!video.getAttribute('src')) video.src = webm ? video.getAttribute('data-src') : video.getAttribute('data-fallback');
         video.muted = true;
         video.play().catch(function () {});
       } else video.pause();
