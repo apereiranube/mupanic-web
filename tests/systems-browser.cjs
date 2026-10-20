@@ -81,6 +81,9 @@ assert.equal(hubName,'hub-f11-'+createHash('sha256').update(fs.readFileSync(path
   assert.equal(allImages,true,'Broken card image');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow');
   if(output && (width===1920||width===390)) await page.locator('#sistemas').screenshot({path:path.join(output,`systems-${width}.png`)});
+  // Long page with lazy artwork: request every image before checking that none is broken.
+  await page.evaluate(()=>document.querySelectorAll('main img[loading="lazy"]').forEach(im=>{im.loading='eager';}));
+  await page.waitForFunction(()=>[...document.querySelectorAll('main img')].every(im=>im.complete),null,{timeout:15000});
   assert.equal(await page.locator('main img').evaluateAll(ims=>ims.every(im=>im.complete&&im.naturalWidth>0)),true,'Broken image anywhere in the server page');
   if(output && (width===1920||width===390)) await page.screenshot({path:path.join(output,`server-page-${width}.png`),fullPage:true});
   assert.deepEqual(errors,[]);
