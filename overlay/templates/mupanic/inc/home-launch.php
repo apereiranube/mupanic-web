@@ -29,13 +29,14 @@ $homeJoin = function($kind) use ($homeArt) {
         </div></div>
     </section>
 
-    <section class="ph-status ph-wrap" aria-label="Datos del servidor">
+    <section class="ph-status ph-wrap" aria-label="Datos del servidor" data-server-state="unknown">
+        <p class="ph-status-kicker">EL PULSO DEL SERVIDOR</p>
         <dl class="ph-facts">
-            <div class="ph-state"><dt>ESTADO DEL SERVIDOR</dt><dd data-home-state>Sin verificar</dd></div>
-            <div><dt>JUGADORES ONLINE</dt><dd data-home-online><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.'); ?></dd></div>
-            <div><dt>EXPERIENCIA</dt><dd><?php echo $homeEscape($serverExp); ?></dd></div>
-            <div><dt>MASTER EXP</dt><dd><?php echo $homeEscape($serverMasterExp); ?></dd></div>
-            <div><dt>DROP GENERAL</dt><dd><?php echo $homeEscape($serverDrop); ?></dd></div>
+            <div class="ph-state"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 33 9v11c0 8-6 13-13 17C13 33 7 28 7 20V9zM20 10v17M13 17h14"/></svg><span>ESTADO DEL SERVIDOR</span></dt><dd data-home-state>Sin verificar</dd></div>
+            <div class="ph-online-metric"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m20 3 5 10 10 7-10 7-5 10-5-10-10-7 10-7zM20 11v18M11 20h18"/></svg><span>JUGADORES ONLINE</span></dt><dd data-home-online><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.'); ?></dd></div>
+            <div class="ph-rate"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m8 5 21 23m3-23L11 28M5 30l7-7m16 0 7 7M4 35l5-5m22 0 5 5M8 5l1 9 5-5m18-4-1 9-5-5"/></svg><span>EXPERIENCIA</span></dt><dd><?php echo $homeEscape($serverExp); ?></dd></div>
+            <div class="ph-rate"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m20 4 4 10 11 1-8 8 3 12-10-6-10 6 3-12-8-8 11-1zM20 13v11m-5-5h10"/></svg><span>MASTER EXP</span></dt><dd><?php echo $homeEscape($serverMasterExp); ?></dd></div>
+            <div class="ph-rate"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m11 7 18 0 8 12-17 18L3 19zM3 19h34M11 7l9 30L29 7M11 7l9 12 9-12"/></svg><span>DROP GENERAL</span></dt><dd><?php echo $homeEscape($serverDrop); ?></dd></div>
         </dl>
         <div class="ph-status-note"><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗</span></a></div>
     </section>

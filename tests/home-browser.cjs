@@ -47,13 +47,6 @@ async function routes(page,body=html){
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   if(output){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});
-   if(width===1440)for(const [name,first,last] of [['battle-stats-furia','hero','furia'],['fractura-companions','fractura','companions'],['market-games','market-world','games-scene']]){
-    const clip=await page.evaluate(([first,last])=>{
-     const a=document.querySelector('.ph-'+first).getBoundingClientRect(),b=document.querySelector('.ph-'+last).getBoundingClientRect();
-     return{x:0,y:Math.max(0,a.y+scrollY),width:innerWidth,height:Math.ceil(b.bottom-a.top)};
-    },[first,last]);
-    await page.screenshot({path:path.join(output,'join-'+name+'.png'),fullPage:true,clip,style:'.site-header,.skip-link{visibility:hidden!important}'});
-   }
    if([1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
@@ -72,6 +65,7 @@ async function routes(page,body=html){
    }
   }
   assert.equal(await page.locator('[data-home-online]').textContent(),'17');
+  assert.equal(await page.locator('.ph-status').getAttribute('data-server-state'),'online');
   assert.equal(await page.locator('[data-home-state]').textContent(),'Online');
   assert.equal(await page.locator('[data-home-events] li').count(),3);
   assert.equal(await page.locator('.ambient-embers').count(),0);
@@ -118,9 +112,15 @@ async function routes(page,body=html){
   assert.equal(await page.locator('.ph-battle-sky i').first().evaluate(el=>getComputedStyle(el).animationPlayState),'running');
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
+  await page.locator('.ph-status').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>document.querySelector('.ph-status').classList.contains('is-stats-live'));
+  assert.equal(await page.locator('.ph-online-metric').evaluate(el=>getComputedStyle(el,'::after').animationPlayState),'running');
+  await page.locator('.ph-games').scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>!document.querySelector('.ph-status').classList.contains('is-stats-live'));
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-battle-sky i')).animationName==='none');
+  assert.equal(await page.locator('.ph-online-metric').evaluate(el=>getComputedStyle(el,'::after').animationName),'none');
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.locator('.ph-games-scene').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));

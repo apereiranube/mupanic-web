@@ -25,7 +25,14 @@
   function show(data) {
     state.textContent = labels[data.servidor];
     state.setAttribute('data-state', data.servidor);
-    online.textContent = data.online.toLocaleString('es-AR');
+    var value = data.online.toLocaleString('es-AR');
+    if (online.textContent !== value) {
+      online.textContent = value;
+      if (state.closest('.ph-status').classList.contains('is-stats-live') && !matchMedia('(prefers-reduced-motion: reduce)').matches && online.animate) {
+        online.animate([{transform:'translateY(5px)',opacity:.35},{transform:'translateY(0)',opacity:1}],{duration:650,easing:'cubic-bezier(.2,.8,.2,1)'});
+      }
+    }
+    state.closest('.ph-status').dataset.serverState = data.servidor;
     var fragment = document.createDocumentFragment();
     var events = data.eventos.filter(function (event) { return Date.parse(event.proximo) > Date.now(); })
       .sort(function (a, b) { return Date.parse(a.proximo) - Date.parse(b.proximo); }).slice(0, 3);
@@ -81,6 +88,7 @@
       show(data);
     } catch (error) {
       state.textContent = 'Sin verificar'; state.removeAttribute('data-state');
+      state.closest('.ph-status').dataset.serverState = 'unknown';
     } finally {
       clearTimeout(timeout); busy = false; schedule();
     }
@@ -266,4 +274,21 @@
   if ('IntersectionObserver' in window) new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }, {threshold:.04}).observe(hero);
   else { visible = true; sync(); }
   document.addEventListener('visibilitychange',sync); reduced.addEventListener('change',sync);
+})();
+
+// Stats animate only while visible. Numeric content always remains the real API value.
+(function () {
+  'use strict';
+  var section = document.querySelector('.ph-status');
+  if (!section) return;
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)'), visible = false;
+  function sync() {
+    section.classList.toggle('is-stats-live', visible && !document.hidden && !reduced.matches);
+    if (visible) section.classList.add('has-stats-entered');
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }, {threshold:.15}).observe(section);
+  } else { visible = true; sync(); }
+  document.addEventListener('visibilitychange', sync);
+  reduced.addEventListener('change', sync);
 })();
