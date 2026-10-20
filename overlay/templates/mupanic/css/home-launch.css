@@ -339,3 +339,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 @media(prefers-reduced-motion:reduce){.ph-battle-sky i,.ph-facts [data-state=online]:before{animation:none}}
 
 @media(max-width:760px){.ph-facts dt{font-size:10px;letter-spacing:.03em}}
+/* The sky fades softly before the fighters; no polygon edge across the scene. */
+.ph-battle-sky{width:72%;height:32%;clip-path:none;mask-image:linear-gradient(0deg,transparent,#000 70%),linear-gradient(90deg,#000 55%,transparent 100%);mask-composite:intersect}
+.ph-battle-sky i{background-size:cover;opacity:.40}.ph-battle-sky i+i{opacity:.22}
+@media(max-width:760px){.ph-battle-sky{width:86%;height:24%;clip-path:none;mask-image:linear-gradient(0deg,transparent,#000 85%),linear-gradient(90deg,#000 40%,transparent 100%);mask-composite:intersect}}

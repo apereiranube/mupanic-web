@@ -47,7 +47,7 @@ async function routes(page,body=html){
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
   if(output){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});
-   if([1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png')});
+   if([1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
@@ -91,11 +91,11 @@ async function routes(page,body=html){
   }
   for(const id of ['hub-tienda','hub-eventos']){
    await page.locator('[data-world-tab="'+id+'"]').click();
-   if(output&&[1440,390].includes(width))await page.locator('.ph-client-tour').screenshot({path:path.join(output,id+'-'+width+'.png')});
+   if(output&&[1440,390].includes(width))await page.locator('.ph-client-tour').screenshot({path:path.join(output,id+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
   await page.locator('[data-world-tab="hub-juegos"]').click();
   await page.waitForFunction(()=>document.querySelector('#hub-juegos .ph-hub-capture').complete&&document.querySelector('#hub-juegos .ph-hub-capture').naturalWidth);
-  if(output&&[1440,390].includes(width))await page.locator('.ph-workshop').screenshot({path:path.join(output,'hub-games-'+width+'.png')});
+  if(output&&[1440,390].includes(width))await page.locator('.ph-workshop').screenshot({path:path.join(output,'hub-games-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   // Animation runs only in view. Reduced motion removes every scene effect.
   await page.locator('.ph-games-scene').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.ph-games-scene').classList.contains('is-in-view'));
