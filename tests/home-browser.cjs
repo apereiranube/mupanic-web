@@ -95,7 +95,7 @@ async function routes(page,body=html){
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-roulette-plane img')).animationName==='none');
   await page.emulateMedia({reducedMotion:'no-preference'});
-  await page.locator('.ph-hero').scrollIntoViewIfNeeded();
+  await page.locator('.ph-games-scene').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
   assert.deepEqual(errors,[]);
   // Public event names are plain text; failed refresh keeps a clearly marked last count.
