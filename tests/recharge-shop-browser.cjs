@@ -17,6 +17,10 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   });
   await page.clock.install();
   await page.goto('https://preview.test/beta/usercp/recharge/',{waitUntil:'networkidle'});
+  const accountNav=page.locator('.account-nav');
+  if(!await accountNav.isVisible())throw Error('Account navigation missing on recharge '+width);
+  if(width>900){const nav=await accountNav.boundingBox(),store=await page.locator('[data-recharge-shop]').boundingBox();if(nav.x+nav.width>store.x||Math.abs(nav.y-store.y)>2)throw Error('Account navigation must remain beside checkout '+width);}
+  else {const toggle=page.locator('.account-nav-toggle');if(!await toggle.isVisible()||await toggle.getAttribute('aria-expanded')!=='false')throw Error('Mobile account options missing');await toggle.click();if(!await accountNav.locator('nav').isVisible())throw Error('Mobile account options do not open');await toggle.click();}
   const accountReturn=page.locator('.eryns-store-top [data-account-return]');if(!await accountReturn.isVisible()||await accountReturn.getAttribute('href')!=='https://preview.test/beta/usercp/'||await page.locator('[data-account-return]').count()!==2)throw Error('Account exit missing');
   if(await page.locator('[data-recharge-shop] a[href*="/info/"]').count())throw Error('Store links to Atlas');
   if(/wcoin/i.test(await page.locator('[data-recharge-shop]').textContent()))throw Error('Legacy currency label in storefront');
