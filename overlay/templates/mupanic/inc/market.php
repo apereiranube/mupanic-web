@@ -4,7 +4,7 @@ require_once __DIR__.'/market-data.php';
 $market=panicMarketRead();$metrics=$market['metrics']??[];$last=$market['sales'][0]??null;
 $art=__PATH_TEMPLATE__.'img/market/';
 ?>
-<div class="vessara-page" data-market-url="<?php echo panicMarketEscape(__BASE_URL__.'market/?market_data=1'); ?>" data-market-listings-url="<?php echo panicMarketEscape(__BASE_URL__.'market/?market_listings=1'); ?>" data-market-emblems-url="<?php echo panicMarketEscape(__PATH_TEMPLATE__.'img/market/emblems/'); ?>">
+<div class="vessara-page vessara-hall" data-market-url="<?php echo panicMarketEscape(__BASE_URL__.'market/?market_data=1'); ?>" data-market-listings-url="<?php echo panicMarketEscape(__BASE_URL__.'market/?market_listings=1'); ?>" data-market-emblems-url="<?php echo panicMarketEscape(__PATH_TEMPLATE__.'img/market/emblems/'); ?>">
 <canvas class="vessara-atmosphere" data-market-atmosphere aria-hidden="true"></canvas>
 <div class="vessara-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 <section class="vessara-hero shell" aria-labelledby="vessara-title">

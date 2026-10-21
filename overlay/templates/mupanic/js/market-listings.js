@@ -89,7 +89,10 @@ function media(item,large) {
      frame.append(el('span','Imagen no disponible','vessara-photo-missing'));
  };
  img.addEventListener('error',failed);
- img.addEventListener('load',()=>frame.classList.add('has-photo'));
+ img.addEventListener('load',()=>{
+  frame.classList.add('has-photo');
+  if(img.naturalWidth<128 && img.naturalHeight<128){img.classList.add('is-small-sprite');img.style.setProperty('--sprite-width',Math.min(120,img.naturalWidth*2)+'px');}
+ });
  frame.append(img);
  failed();
  return frame;
