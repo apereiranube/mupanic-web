@@ -168,7 +168,7 @@ function panicReferidosCampoRegistro($markup) {
     $code=htmlspecialchars((string)(panicReferidosCodigoPendiente() ?? ''),ENT_QUOTES,'UTF-8');
     $field='<div class="form-group panic-ref-field"><label for="panicRefCode" class="col-sm-4 control-label">Código de invitación</label><div class="col-sm-8">'
         .'<input type="text" class="form-control" id="panicRefCode" name="panic_ref_code" value="'.$code.'" maxlength="8" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:2px">'
-        .'<span class="help-block">Opcional. Si te invitó un amigo, cuando llegues al reset 2 y juegues 3 días, ganás 3 días de VIP.</span></div></div>';
+        .'<span class="help-block">Opcional. Si te invitó un amigo, arrancás con 3 días de VIP.</span></div></div>';
     return substr($markup,0,$end).$field.substr($markup,$end);
 }
 

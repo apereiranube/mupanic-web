@@ -47,7 +47,7 @@ function panicRefBarra($valor,$meta,$label) {
     $v=max(0,min((int)$valor,$meta)); $pct=(int)round($v*100/$meta);
     return '<div class="ref-bar"><span>'.panicAccountEscape($label).' <b>'.$v.'/'.$meta.'</b></span><i style="--p:'.$pct.'%"></i></div>';
 }
-$refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación. Cuando llegues al reset 2 y juegues 3 días, recibís 3 días de VIP.'],
+$refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación y tus 3 días de VIP se cargan en tu cuenta (si estás jugando, al salir).'],
     'CODIGO_INVALIDO'=>['error','Ese código no existe. Pedile a tu amigo que te pase su link de nuevo.'],
     'FUERA_DE_PLAZO'=>['error','La invitación solo se puede confirmar durante los primeros 7 días de tu cuenta.'],
     'YA_VINCULADO'=>['info','Tu cuenta ya tiene una invitación confirmada.'],
@@ -60,7 +60,7 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación. Cuando l
     <div class="ref-hero-copy">
       <span class="ref-overline">MU PANIC / REFERIDOS</span>
       <h2 id="ref-title">Invitá a tus amigos.<br><em>Ganá días de VIP.</em></h2>
-      <p>Por cada amigo que llegue al reset 2 y juegue 3 días, recibís <strong>7 días de VIP</strong>. Tu amigo también recibe <strong>3 días</strong>.</p>
+      <p>Tu amigo arranca con <strong>3 días de VIP</strong> apenas crea su cuenta. Cuando llegue al reset 2 y juegue 3 días, vos recibís <strong>7 días de VIP</strong>.</p>
       <?php if($refLink) { ?>
       <div class="ref-link" data-ref-copy>
         <span class="ref-overline">TU LINK DE INVITACIÓN</span>
@@ -83,9 +83,10 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación. Cuando l
   <?php if($refInvited) { [$tone,$label]=panicRefEstado($refInvited['Estado'],1); ?>
   <section class="ref-panel ref-invited">
     <span class="ref-overline">TE INVITÓ UN AMIGO</span>
-    <h3>Tu camino a los 3 días de VIP</h3>
+    <h3><?php echo !empty($refInvited['PagoInvitadoAR'])?'Ya tenés tus 3 días de VIP de bienvenida':'Tus 3 días de VIP de bienvenida'; ?></h3>
+    <p><?php echo !empty($refInvited['PagoInvitadoAR'])?'Arrancaste con VIP por venir invitado.':'Se cargan en tu cuenta en menos de un minuto. Si estás jugando, se acreditan al salir.'; ?> Cuando llegues al reset 2 y juegues 3 días, tu amigo gana 7 días de VIP. Y vos también podés invitar: tu link está arriba.</p>
     <div class="ref-progress"><?php echo panicRefBarra($refInvited['Resets'],2,'Resets'); echo panicRefBarra($refInvited['Dias'],3,'Días jugados (30 min o más)'); ?></div>
-    <p class="ref-state ref-state--<?php echo $tone; ?>"><?php echo panicAccountEscape(!empty($refInvited['PagoInvitadoAR'])?'¡Listo! Ya recibiste tus 3 días de VIP.':$label); ?></p>
+    <p class="ref-state ref-state--<?php echo $tone; ?>"><?php echo panicAccountEscape(in_array($refInvited['Estado'],['CUMPLIDO','APROBADO','PAGADO'],true)?'¡Meta cumplida! Tu amigo recibe su premio.':$label); ?></p>
   </section>
   <?php } else {
       $show=$refLast && $refLast['state']==='pending'; $done=$refLast && $refLast['state']==='done' && isset($refResultados[$refLast['result']]);
@@ -124,14 +125,14 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación. Cuando l
     <span class="ref-overline">CÓMO FUNCIONA</span>
     <ol>
       <li><b>01</b><div><strong>Compartí tu link</strong><p>Tu amigo crea su cuenta desde tu link: el código ya aparece cargado en el formulario.</p></div></li>
-      <li><b>02</b><div><strong>Tu amigo juega</strong><p>Tiene que llegar al reset 2 y jugar al menos 3 días distintos (30 minutos o más cada día).</p></div></li>
-      <li><b>03</b><div><strong>Ganan los dos</strong><p>Vos recibís 7 días de VIP y tu amigo 3 días. Se suman solos a tu VIP actual.</p></div></li>
+      <li><b>02</b><div><strong>Tu amigo arranca con VIP</strong><p>Recibe 3 días de VIP apenas crea su cuenta, y ya puede invitar a otros con su propio link.</p></div></li>
+      <li><b>03</b><div><strong>Vos ganás 7 días</strong><p>Cuando tu amigo llega al reset 2 y juega 3 días distintos (30 minutos o más cada día). Se suman solos a tu VIP actual.</p></div></li>
     </ol>
     <details><summary>Reglas</summary><ul>
       <li>El VIP se entrega cuando la cuenta está desconectada del juego. Si estás jugando, se acredita al salir.</li>
-      <li>Tu amigo tiene que jugar desde otra PC y otra conexión. Cuentas propias o desde la misma casa no cuentan.</li>
+      <li>Para que vos cobres, tu amigo tiene que jugar desde otra PC y otra conexión. Cuentas propias o desde la misma casa no cuentan.</li>
       <li>Podés ganar VIP por hasta 5 amigos por mes.</li>
-      <li>La invitación se confirma solo durante los primeros 7 días de la cuenta del invitado.</li>
+      <li>La invitación se confirma solo durante los primeros 7 días de la cuenta del invitado. Los 3 días de bienvenida se dan una sola vez por cuenta.</li>
       <li>El equipo puede revisar o anular invitaciones sospechosas.</li>
     </ul></details>
   </section>
