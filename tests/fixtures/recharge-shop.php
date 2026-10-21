@@ -19,6 +19,8 @@ require_once $inc.'/recharge-bank.php';
 $bankConfig=PanicBankTransfers::defaults();$bankCanBuy=false;$bankSelected=false;$bankCuit='';$bankPage=1;$bankHistory=['orders'=>[],'total'=>0];
 if($fixtureMode==='bank') {
     $bankConfig['enabled']=true;$bankCanBuy=true;
+    $shopMessage='Ahora abrí Discord y usá el código de tu compra para adjuntar el comprobante en un ticket privado.';
+    $_POST['recharge_action']='bank_ready';
     $bankOrder=PanicRecharge::order('Agustin',PanicRecharge::cart($catalogue,['wcoin-1000'=>1]),'bank_transfer',false);
     $bankOrder['id']='PANIC-'.str_repeat('e',32);
     $bankOrder+=['bank'=>['holder'=>'Titular de prueba','bank'=>'Banco de prueba','recipient_cuit'=>'20123456786','alias'=>'mu.panic.prueba','cbu'=>''], 'discord'=>['guild_id'=>'1555229554920915057','support_channel_id'=>'1555229554920915058'],'ticket_channel'=>null,'cuit'=>'20123456786','discord_id'=>null];

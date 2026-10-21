@@ -12,7 +12,7 @@
 <?php if($o['payment_state']==='pending') { ?>
 <details class="bank-details" open><summary>Datos para transferir</summary><dl>
 <?php foreach(['holder'=>'Titular','bank'=>'Banco / billetera','recipient_cuit'=>'CUIT del titular','alias'=>'Alias','cbu'=>'CBU / CVU'] as $k=>$title) { if($o['bank'][$k]==='')continue; ?><div><dt><?= $title ?></dt><dd><?= panicAccountEscape($o['bank'][$k]) ?></dd></div><?php } ?>
-</dl><p>Transferí <b>$ <?= number_format($o['price_cents']/100,0,',','.') ?> ARS</b>. Estos datos pertenecen a esta compra. Guardá el comprobante.</p></details>
+</dl><p>Transferí <b>$ <?= number_format($o['price_cents']/100,0,',','.') ?> ARS</b>. Estos datos pertenecen a esta compra. Guardá el comprobante. La acreditación puede demorar hasta 48 horas.</p></details>
 <?php if($o['ticket_channel']) { ?><a class="recharge-button" href="<?= panicAccountEscape('https://discord.com/channels/'.$o['discord']['guild_id'].'/'.$o['ticket_channel']) ?>" target="_blank" rel="noopener noreferrer">Abrir mi ticket de Discord ↗</a>
 <?php } else { ?>
 <form method="post" action="<?= panicAccountEscape(__BASE_URL__.'usercp/recharge/#bank-transfers') ?>"><input type="hidden" name="recharge_csrf" value="<?= $_SESSION['recharge_csrf'] ?>"><input type="hidden" name="order_id" value="<?= panicAccountEscape($o['id']) ?>"><button class="recharge-button" name="recharge_action" value="bank_ready">Ya transferí · Preparar ticket</button></form>
@@ -24,5 +24,5 @@
 <?php } ?>
 </article><?php } ?></div>
 <?php if($bankHistory['total']>10) { ?><nav class="recharge-pagination" aria-label="Páginas de transferencias"><?php if($bankPage>1) { ?><a href="?transferencias=<?= $bankPage-1 ?>#bank-transfers">← Anteriores</a><?php } ?><span>Página <?= $bankPage ?></span><?php if($bankPage*10<$bankHistory['total']) { ?><a href="?transferencias=<?= $bankPage+1 ?>#bank-transfers">Siguientes →</a><?php } ?></nav><?php } ?>
-<p>Un comprobante adjunto no confirma el ingreso. La recarga se acredita después de la revisión del equipo y con la cuenta desconectada del juego.</p>
+<p>Un comprobante adjunto no confirma el ingreso. La acreditación puede demorar hasta 48 horas: requiere la revisión del equipo y la cuenta desconectada del juego. El bot te avisará en tu ticket cuando los Eryns estén acreditados.</p>
 </section><?php } ?>

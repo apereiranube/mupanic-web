@@ -32,13 +32,21 @@ failsBank(function()use($b,$receipt){$receipt['discord_id']='1555229554920915071
 $b->bot($receipt);
 failsBank(function()use($b,$o){$b->approve($o['id'],'BANK1234',false);},'Explicit bank verification required');
 $_SESSION['username']='other';failsBank(function()use($b,$o){$b->approve($o['id'],'BANK1234',true);},'Only authorized administrator can approve');$_SESSION['username']='panic';
+okBank(!$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'],'No notification before credit');
 $approved=$b->approve($o['id'],'BANK1234',true);
+okBank($b->history(null,1,true,true)['total']===0,'Approved orders leave pending review queue');
+okBank(!$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'],'Approval alone does not notify credit');
+failsBank(function()use($b,$t){$b->bot(array_replace($t,['action'=>'notified','message_id'=>'1555229554920915062']));},'Cannot mark an uncredited order notified');
 okBank(count($b->jobs('test'))===1 && !$b->jobs('production'),'Only approved matching environment queued');
 $job=$b->jobs('test')[0];okBank($job['provider']==='bank_transfer' && !isset($job['cuit']),'Delivery contains no CUIT');
 failsBank(function()use($b,$o){$b->reject($o['id']);},'Cannot reject approved delivery');
 failsBank(function()use($b,$job){$b->acknowledge($job+['state'=>'credited','before_coin'=>100,'after_coin'=>1099]);},'Wrong delta refused');
 $ack=$job+['state'=>'credited','before_coin'=>100,'after_coin'=>1100];$b->acknowledge($ack);$b->acknowledge($ack);
 okBank(!$b->jobs('test') && $b->get($o['id'])['delivery_state']==='credited','Idempotent receipt and no redelivery');
+$notices=$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'];okBank(count($notices)===1 && !isset($notices[0]['cuit']),'Credit notification contains no CUIT');
+failsBank(function()use($b,$t){$b->bot(array_replace($t,['action'=>'notified','channel_id'=>'1555229554920915099','message_id'=>'1555229554920915062']));},'Wrong ticket cannot acknowledge notification');
+$notice=array_replace($t,['action'=>'notified','message_id'=>'1555229554920915062']);$b->bot($notice);$b->bot($notice);
+okBank(!$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'],'Acknowledged notification not queued again');
 // Account changes do not rewrite old bank instructions.
 $c['holder']='Nuevo titular';$c=$b->saveConfig($c,$c['revision']);okBank($b->get($o['id'])['bank']['holder']==='Titular de prueba','Immutable bank snapshot');
 $o2=$b->begin('panic',$cart,str_repeat('b',32),'20123456786','test',$worker);$code2=$b->ready($o2['id'],'panic')['code'];$r['code']=$code2;$b->bot($r);$t['id']=$o2['id'];$b->bot($t);$receipt['id']=$o2['id'];$b->bot($receipt);

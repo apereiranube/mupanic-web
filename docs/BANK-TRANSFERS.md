@@ -1,6 +1,6 @@
 # Recargas por transferencia bancaria — beta
 
-La tienda conserva Ualá y agrega transferencia bancaria como método alternativo. Se reutilizan el bot y el servicio de recargas del VPS. La cuenta administradora `panic`, con permiso de administrador en WebEngine, configura y revisa las transferencias desde `/usercp/shopadmin/#shop-bank`.
+La tienda conserva Ualá y agrega transferencia bancaria como método alternativo. Se reutilizan el bot y el servicio de recargas del VPS. La cuenta administradora `panic`, con permiso de administrador en WebEngine, configura la cuenta receptora desde `/usercp/shopadmin/#shop-bank`. La pantalla `/usercp/shopadmin/?transferencias=pendientes` muestra sólo transferencias por aprobar, separadas de las configuraciones.
 
 ## Circuito
 
@@ -9,8 +9,9 @@ La tienda conserva Ualá y agrega transferencia bancaria como método alternativ
 3. Después de pagar, pulsa «Ya transferí · Preparar ticket». Recibe un código privado que vence en 30 minutos y un enlace al canal soporte existente de Discord.
 4. En soporte pulsa «Recarga por transferencia» o usa `/recarga`. El bot solicita el código y abre un ticket privado para ese comprador y los roles de soporte existentes. El código vincula la compra con el usuario real de la interacción de Discord.
 5. El comprador adjunta el comprobante en su ticket. El bot registra el enlace al mensaje; si estuvo desconectado, el comprador puede pulsar «Ya adjunté el comprobante» para reintentar.
-6. `panic` abre el comprobante desde el panel web, verifica el ingreso real en el banco, ingresa la referencia única del movimiento y marca la confirmación. También puede rechazar una orden pendiente.
-7. El servicio existente acredita Eryns con la cuenta desconectada del juego. Un comprobante adjunto nunca aprueba el pago automáticamente.
+6. `panic` abre el comprobante desde el panel web, verifica el ingreso real en el banco, ingresa el número de operación del banco (el que figura en el detalle del movimiento, no el código de Discord) y marca la confirmación. También puede rechazar una orden pendiente.
+7. El servicio existente acredita Eryns con la cuenta desconectada del juego. Un comprobante adjunto nunca aprueba el pago automáticamente. La acreditación puede demorar hasta 48 horas, como se informa antes del pago y en el ticket.
+8. Después del recibo SQL confirmado, el bot menciona al comprador en su ticket privado para avisarle que los Eryns están acreditados. El registro conserva el mensaje enviado; si se pierde la respuesta de la web, el bot recupera el aviso existente antes de reintentar.
 
 ## Instalación en el VPS
 
@@ -45,3 +46,7 @@ El registro privado `/home/mupanic/payments-private/recharge-bank.json` guarda c
 ## Validación del código
 
 `tests/recharge-bank.php`: estados, CUIT, identidad, autorización, comprobante, referencia única, aislamiento de ambiente y recibos idempotentes. `tests/recharge-bank-bot.cjs`: firmas, permisos privados y recuperación del mismo canal. `tests/recharge-bank-browser.cjs`: selector, CUIT, importe y diseño a 1440/390/320 px. Las pruebas usan datos ficticios y no cobran ni conectan al Discord real. La ejecución de SQL y las tareas de Windows requieren la prueba de aceptación en el VPS.
+
+## Actualización de avisos
+
+Con V1 ya instalada, desplegar primero beta desde cPanel. Ejecutar `Actualizar_Avisos.ps1` desde el paquete de avisos como administrador del VPS. Actualiza únicamente `C:\MU_PANIC_BOT\transferencias.js`, comprueba su versión y crea respaldo con restauración en Descargas. Reinicia sólo la tarea del bot si estaba ejecutándose. Conserva SQL, configuración, credenciales y el servicio de recargas. También avisa por compras ya acreditadas que todavía no tengan un aviso registrado. El ticket debe seguir existiendo.

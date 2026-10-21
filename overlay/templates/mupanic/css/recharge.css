@@ -228,3 +228,28 @@
 .bank-cuit small{font-size:12px;line-height:1.5;color:#bfb7aa}.bank-details{margin:16px 0}.bank-details dl{display:grid;gap:9px;margin:12px 0}.bank-details dl>div{display:grid;grid-template-columns:minmax(90px,.7fr) minmax(0,1.3fr);gap:10px}.bank-details dt{color:#c5b18e;font-weight:400}.bank-details dd{margin:0;overflow-wrap:anywhere;color:#f5ecdd}
 .bank-ticket-code{border:1px solid #8c6b3a;border-radius:10px;padding:16px;margin-top:15px}.bank-ticket-code code{display:block;overflow-wrap:anywhere;user-select:all;font-size:18px;letter-spacing:1px;padding:12px 0;color:#f2d599;background:none}.bank-admin form{display:grid;gap:12px;margin:16px 0}.bank-admin label{font-weight:400}.bank-transfer-history{scroll-margin-top:100px}.bank-admin .recharge-order-reference{overflow-wrap:anywhere}
 @media(max-width:480px){.bank-details dl>div{grid-template-columns:1fr;gap:3px}.bank-ticket-code code{font-size:15px;letter-spacing:.4px}}
+
+/* Keep account navigation available after checkout anchors and keep the hero still. */
+.is-account .module-surface:has(.eryns-store){overflow:clip}
+.eryns-store .eryns-store-top{position:sticky;top:var(--eryns-header-offset,86px);z-index:20;background:#0b1420;border-bottom:1px solid #d6ac633d;box-shadow:0 8px 20px #0004}
+.is-account .eryns-store .eryns-store-top a.eryns-account-return{background:#d6ac6324;border-color:#d6ac6380;color:#ffe1a6}
+.eryns-store :is(#recharge-checkout,#bank-transfers,#recharge-history,#recharge-guide,#recharge-packages,#recharge-cart){scroll-margin-top:calc(var(--eryns-header-offset,86px) + var(--eryns-nav-height,80px) + 16px)}
+.eryns-store .eryns-stage-art{inset:0;transform:none}
+.is-account .eryns-store .recharge-notice.recharge-feedback{display:flex;align-items:flex-start;gap:16px;margin:20px 4%;padding:20px 22px;background:linear-gradient(115deg,#182838,#101c29);border:1px solid #d6ac6359;border-left:3px solid #e2b76f;border-radius:5px;color:#e5edf5;box-shadow:0 8px 24px #0003}
+.recharge-feedback-icon{display:flex;flex:0 0 30px;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #e2b76f80;border-radius:50%;color:#f3cc89;font:700 18px/1 Georgia,serif}
+.recharge-feedback-content{min-width:0}
+.is-account .eryns-store .recharge-feedback-title{display:block;font:700 11px/1.5 var(--body);letter-spacing:1px;text-transform:uppercase;color:#f3cc89}
+.is-account .eryns-store .recharge-feedback p{margin:7px 0 10px;font:400 14px/1.7 var(--body);color:#e5edf5;overflow-wrap:anywhere}
+.is-account .eryns-store a.recharge-feedback-link{display:inline-flex;align-items:center;min-height:44px;font-size:13px;font-weight:700;color:#ffe1a6;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:600px){.is-account .eryns-store .recharge-notice.recharge-feedback{padding:16px;gap:12px;margin:16px 12px}.is-account .eryns-store .recharge-feedback p{font-size:13px}.is-account .eryns-store-top a.eryns-account-return{font-size:12px;padding-inline:10px}}
+
+/* Bank review is separate from the storefront configuration. */
+.is-account .bank-admin .recharge-order p,.is-account .bank-admin .recharge-order p b{color:#dce7f0;line-height:1.65}
+.is-account .bank-admin .recharge-order summary{color:#eed2a2}
+.is-account .bank-admin .recharge-order .recharge-subtle{color:#aabfd1;font-size:12px}
+.is-account .bank-admin .recharge-order .bank-enable{display:flex;gap:10px;align-items:flex-start;line-height:1.65;margin:18px 0}
+.is-account .bank-admin .bank-enable input[type=checkbox]{flex:0 0 auto;width:18px;height:18px;margin:2px 0 0}
+.is-account .bank-admin .recharge-order .shop-error,.is-account .bank-admin>.shop-error{padding:14px 16px;color:#ffd3d2;background:#401f28;border:1px solid #b96f7c;border-radius:4px;line-height:1.6}
+.is-account .bank-admin>[role=status]{padding:14px 16px;color:#ccebdc;background:#142b27;border:1px solid #538c77;border-radius:4px;line-height:1.6}
+.bank-review-page .recharge-sections a[aria-current=page]{color:#ffe1a6;border-color:#d6ac6380;background:#d6ac6320}
+.bank-review-page .recharge-order-reference{overflow-wrap:anywhere}

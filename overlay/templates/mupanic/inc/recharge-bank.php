@@ -100,10 +100,10 @@ final class PanicBankTransfers {
     public function get($id,$account=null) {
         return $this->file(function($d)use($id,$account){$o=$d['orders'][$id] ?? null;if(!$o || ($account!==null && !hash_equals($o['account'],$account)))throw new RuntimeException('Compra no disponible.');return $o;});
     }
-    public function history($account,$page=1,$admin=false) {
+    public function history($account,$page=1,$admin=false,$pendingOnly=false) {
         if($admin && !panicRechargeAdminAllowed())throw new RuntimeException('Acceso no autorizado.');
-        return $this->file(function($d)use($account,$page,$admin){
-            $rows=array_values(array_filter($d['orders'],function($o)use($admin,$account){return $admin || $o['account']===$account;}));
+        return $this->file(function($d)use($account,$page,$admin,$pendingOnly){
+            $rows=array_values(array_filter($d['orders'],function($o)use($admin,$account,$pendingOnly){return ($admin || $o['account']===$account) && (!$pendingOnly || $o['payment_state']==='pending');}));
             usort($rows,function($a,$b){return strcmp($b['created_at'],$a['created_at']);});
             return ['total'=>count($rows),'orders'=>array_slice($rows,(max(1,$page)-1)*10,10)];
         });
@@ -126,6 +126,17 @@ final class PanicBankTransfers {
             if(!preg_match('/^[1-9]\d{16,19}$/D',$r['guild_id'] ?? '') || !preg_match('/^[1-9]\d{16,19}$/D',$r['support_channel_id'] ?? ''))throw new RuntimeException('Bot inválido.');
             return $this->file(function($d,$save)use($r){$d['bot']=['last_seen'=>time(),'environment'=>$r['environment'],'guild_id'=>$r['guild_id'],'support_channel_id'=>$r['support_channel_id']];$save($d);return ['state'=>'ok'];});
         }
+        if($action==='notifications') {
+            if(!preg_match('/^[1-9]\d{16,19}$/D',$r['guild_id'] ?? ''))throw new RuntimeException('Bot inválido.');
+            return $this->file(function($d)use($r,$environment){
+                $rows=[];foreach($d['orders'] as $o) {
+                    if($o['delivery_state']!=='credited' || $o['live']!==($environment==='production') || $o['discord']['guild_id']!==$r['guild_id'] || !$o['ticket_channel'] || !$o['discord_id'] || !empty($o['notification_message']))continue;
+                    $rows[]=array_intersect_key($o,array_flip(['id','account','coins','ticket_channel','discord_id','discord']));
+                    if(count($rows)>=5)break;
+                }
+                return ['orders'=>$rows];
+            });
+        }
         if($action==='claim') {
             if(!is_string($r['code'] ?? null) || !preg_match('/^[a-f0-9]{24}$/D',$r['code']) || !preg_match('/^[1-9]\d{16,19}$/D',$r['discord_id'] ?? ''))throw new RuntimeException('Código inválido.');
             return $this->file(function($d,$save)use($r,$environment){
@@ -141,6 +152,11 @@ final class PanicBankTransfers {
         }
         $o=$this->get($r['id'] ?? '');
         if($o['live']!==($environment==='production') || $o['discord']['guild_id']!==($r['guild_id'] ?? '') || $o['discord_id']!==($r['discord_id'] ?? '') || !preg_match('/^[1-9]\d{16,19}$/D',$r['channel_id'] ?? ''))throw new RuntimeException('Ticket inválido.');
+        if($action==='notified')return $this->update($o['id'],function($o)use($r){
+            if($o['delivery_state']!=='credited' || $o['ticket_channel']!==$r['channel_id'] || !preg_match('/^[1-9]\d{16,19}$/D',$r['message_id'] ?? ''))throw new RuntimeException('Aviso inválido.');
+            if(empty($o['notification_message'])){$o['notification_message']=$r['message_id'];$o['notified_at']=gmdate('c');}
+            return $o;
+        });
         if($action==='ticket')return $this->update($o['id'],function($o)use($r){
             if($o['ticket_state']!=='creating' && $o['ticket_state']!=='open')throw new RuntimeException('Ticket inválido.');
             if($o['ticket_channel']!==null && $o['ticket_channel']!==$r['channel_id'])throw new RuntimeException('El ticket ya existe.');
@@ -162,7 +178,8 @@ final class PanicBankTransfers {
     public function approve($id,$reference,$confirmed) {
         if(!panicRechargeAdminAllowed())throw new RuntimeException('Acceso no autorizado.');
         if($confirmed!==true)throw new InvalidArgumentException('Confirmá que verificaste el ingreso bancario y el comprobante.');
-        if(!is_string($reference) || !preg_match('/^[A-Za-z0-9_-]{6,80}$/D',$reference))throw new InvalidArgumentException('Ingresá la referencia bancaria de la operación, sin espacios.');
+        if(is_string($reference))$reference=trim($reference);
+        if(!is_string($reference) || !preg_match('/^[A-Za-z0-9_-]{1,80}$/D',$reference))throw new InvalidArgumentException('Ingresá el número de operación que figura en el movimiento de tu banco. No es el código de Discord.');
         $o=$this->get($id);if($o['payment_state']!=='pending' || !$o['ticket_channel'])throw new InvalidArgumentException('La compra no está pendiente con un ticket abierto.');
         if(($o['live']?'production':'test')!==$this->environment())throw new InvalidArgumentException('La compra pertenece a otro ambiente.');
         if(empty($o['receipt_message']) || empty($o['receipt_url']))throw new InvalidArgumentException('Falta que el bot registre el comprobante adjunto en Discord.');
@@ -201,5 +218,5 @@ function panicBankStatus(array $o) {
     if($o['delivery_state']==='credited')return ['credited','Eryns acreditados','La recarga ya está en tu cuenta.'];
     if($o['payment_state']==='approved')return ['approved','Transferencia confirmada','Desconectate del juego para recibir los Eryns.'];
     if($o['payment_state']==='rejected')return ['rejected','Transferencia no aprobada','Consultá el motivo con el equipo en tu ticket.'];
-    return ['pending',$o['ticket_channel']?'En revisión':'Esperando tu comprobante',$o['ticket_channel']?'Adjuntá el comprobante en tu ticket de Discord. El equipo verificará el ingreso.':'Transferí el importe exacto y abrí el ticket para adjuntar el comprobante.'];
+    return ['pending',$o['ticket_channel']?'En revisión':'Esperando tu comprobante',$o['ticket_channel']?'Adjuntá el comprobante en tu ticket de Discord. El equipo verificará el ingreso. La acreditación puede demorar hasta 48 horas.':'Transferí el importe exacto y abrí el ticket para adjuntar el comprobante.'];
 }

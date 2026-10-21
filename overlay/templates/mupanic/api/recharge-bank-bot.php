@@ -11,7 +11,7 @@ try {
     if($r===null){http_response_code(401);exit;}
     $result=(new PanicBankTransfers())->bot($r);
     // Never expose the private ledger/claim hashes to the bot.
-    if(in_array($r['action'] ?? '',['ticket','receipt'],true))$result=['state'=>'ok'];
+    if(in_array($r['action'] ?? '',['ticket','receipt','notified'],true))$result=['state'=>'ok'];
     $result['nonce']=$r['nonce'];$reply=json_encode($result,JSON_THROW_ON_ERROR);
     header('X-Panic-Signature: '.hash_hmac('sha256',$r['nonce']."\n".$reply,$token));echo $reply;
 } catch(Throwable $e){http_response_code(422);echo '{"error":"Transfer action unavailable"}';}

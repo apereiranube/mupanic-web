@@ -26,7 +26,7 @@ jobs:
       - name: PowerShell syntax
         shell: pwsh
         run: |
-          foreach ($file in @('tools/recharge_worker.ps1','tools/discord-bank/Instalar_Transferencias.ps1')) {
+          foreach ($file in @('tools/recharge_worker.ps1','tools/discord-bank/Instalar_Transferencias.ps1','tools/discord-bank/Actualizar_Avisos.ps1')) {
             $errors=$null; $tokens=$null
             [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $file),[ref]$tokens,[ref]$errors) | Out-Null
             if ($errors.Count) { $errors | Format-List; exit 1 }

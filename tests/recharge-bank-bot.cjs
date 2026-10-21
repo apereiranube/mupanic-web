@@ -1,7 +1,7 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),crypto=require('node:crypto');
 class Collection extends Map {find(f){return [...this.values()].find(f)}filter(f){return new Collection([...this].filter(([,v])=>f(v)))}map(f){return [...this.values()].map(f)}some(f){return [...this.values()].some(f)}}
-class Builder {setColor(){return this}setTitle(){return this}setDescription(){return this}addFields(){return this}addComponents(){return this}setCustomId(){return this}setLabel(){return this}setStyle(){return this}}
+class Builder {setFooter(x){this.footer=x;return this}setColor(){return this}setTitle(){return this}setDescription(){return this}addFields(){return this}addComponents(){return this}setCustomId(){return this}setLabel(){return this}setStyle(){return this}}
 const D={ChannelType:{GuildText:0,GuildCategory:4},PermissionsBitField:{Flags:{ViewChannel:1024n,SendMessages:2048n,ReadMessageHistory:65536n,AttachFiles:32768n}},EmbedBuilder:Builder,ActionRowBuilder:Builder,ButtonBuilder:Builder,ButtonStyle:{Primary:1}};
 const sandbox={module:{exports:{}},require:n=>n==='discord.js'?D:require(n),process:{env:{GUILD_ID:'1555229554920915057'}},Buffer,AbortSignal,fetch,console,setTimeout,setInterval};
 vm.runInNewContext(fs.readFileSync('tools/discord-bank/transferencias.js','utf8'),sandbox);const mod=sandbox.module.exports;
@@ -23,5 +23,13 @@ vm.runInNewContext(fs.readFileSync('tools/discord-bank/transferencias.js','utf8'
  assert.equal(await mod.receipt(message,async r=>{received++;assert.equal(r.discord_id,user);assert.equal(r.has_attachment,true)}),true);
  assert.equal(await mod.receipt({...message,author:{id:'other'}},async()=>{throw Error('Wrong buyer')}),false);assert.equal(received,1);
  assert.equal(mod.orderValid({...o,discord_id:'other'},user,guildId),false);
+ const notificationOrder={...o,ticket_channel:channel.id};const sentMessages=new Collection();let notificationSends=0,noticeAcks=0,noticeDone=false;
+ channel.messages.fetch=async()=>sentMessages;
+ channel.send=async payload=>{notificationSends++;assert.deepEqual([...payload.allowedMentions.users],[user]);assert.match(payload.embeds[0].footer.text,/Eryns acreditados/);const m={id:'1555229554920915065',author:{id:'bot'},embeds:payload.embeds};sentMessages.set(m.id,m);return m};
+ const notices=async r=>{if(r.action==='notifications')return {orders:noticeDone?[]:[notificationOrder]};if(r.action==='notified'){noticeAcks++;if(noticeAcks===1)throw Error('Simulated lost web acknowledgment');noticeDone=true;return {state:'ok'}}throw Error('Unknown notice action')};
+ const notifyClient={user:{id:'bot'},guilds:{fetch:async()=>guild}};
+ await mod.notifyCredits(notifyClient,notices);await mod.notifyCredits(notifyClient,notices);await mod.notifyCredits(notifyClient,notices);
+ assert.equal(notificationSends,1,'Lost acknowledgment must reuse the existing Discord message');assert.equal(noticeAcks,2);
+ const originalTopic=channel.topic;channel.topic='public-channel';await mod.notifyCredits(notifyClient,async()=>({orders:[notificationOrder]}));assert.equal(notificationSends,1,'Never notify in a mismatched ticket');channel.topic=originalTopic;
  console.log('Existing bot: signed bridge, private ACL, channel reuse and buyer-only attachment tests passed.');
 })().catch(e=>{console.error(e);process.exitCode=1});

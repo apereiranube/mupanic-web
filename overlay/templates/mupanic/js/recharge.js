@@ -2,6 +2,18 @@
   'use strict';
   const shop = document.querySelector('[data-recharge-shop]');
   if (!shop) return;
+  const navigation = shop.querySelector('.eryns-store-top');
+  const siteHeader = document.querySelector('.site-header');
+  function navigationOffsets() {
+    shop.style.setProperty('--eryns-header-offset', (siteHeader ? siteHeader.getBoundingClientRect().height : 0) + 'px');
+    shop.style.setProperty('--eryns-nav-height', (navigation ? navigation.getBoundingClientRect().height : 0) + 'px');
+  }
+  navigationOffsets();
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(navigationOffsets);
+    if (navigation) observer.observe(navigation);
+    if (siteHeader) observer.observe(siteHeader);
+  } else window.addEventListener('resize', navigationOffsets);
   const form = shop.querySelector('[data-cart-form]');
   const packages = Array.from(shop.querySelectorAll('[data-package]'));
   const format = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
@@ -19,7 +31,7 @@
     if (form.dataset.sending !== '1') submit.textContent = submit.dataset.enabled === '1' ? label + ' →' : 'Medio de pago no disponible';
     const mobile = shop.querySelector('[data-mobile-submit]'); if (mobile) mobile.textContent = submit.textContent;
     const explanation = shop.querySelector('[data-payment-explanation]');
-    if (explanation) explanation.textContent = bank ? 'Verás la cuenta bancaria. Después adjuntás el comprobante en Discord y el equipo confirma el ingreso.' : 'Continuás en Ualá para completar el pago.';
+    if (explanation) explanation.textContent = bank ? 'Verás la cuenta bancaria. Adjuntá el comprobante en Discord. La acreditación puede demorar hasta 48 horas y requiere la confirmación del ingreso.' : 'Continuás en Ualá para completar el pago.';
   }
   methods.forEach(input => input.addEventListener('change', updateCart));
   function updateCart() {
@@ -110,13 +122,11 @@
   } else surfaces.forEach(surface => surface.classList.add('is-visible'));
   let pointerFrame = 0;
   const tilted = Array.from(shop.querySelectorAll('[data-tilt]'));
-  const stage = shop.querySelector('.eryns-stage');
   function resetMotion() {
     cancelAnimationFrame(pointerFrame); pointerFrame = 0;
     tilted.forEach(card => { card.style.removeProperty('--tilt-x'); card.style.removeProperty('--tilt-y'); });
-    if (stage) { stage.style.removeProperty('--hero-x'); stage.style.removeProperty('--hero-y'); }
   }
-  function moveSurface(surface, event, hero) {
+  function moveSurface(surface, event) {
     if (reducedMotion.matches || !finePointer.matches) return;
     const x = event.clientX, y = event.clientY;
     cancelAnimationFrame(pointerFrame);
@@ -124,13 +134,12 @@
       const rect = surface.getBoundingClientRect();
       const dx = Math.max(-.5, Math.min(.5, (x - rect.left) / rect.width - .5));
       const dy = Math.max(-.5, Math.min(.5, (y - rect.top) / rect.height - .5));
-      surface.style.setProperty(hero ? '--hero-x' : '--tilt-y', (dx * (hero ? 16 : 8)) + (hero ? 'px' : 'deg'));
-      surface.style.setProperty(hero ? '--hero-y' : '--tilt-x', (-dy * (hero ? 12 : 6)) + (hero ? 'px' : 'deg'));
+      surface.style.setProperty('--tilt-y', (dx * 8) + 'deg');
+      surface.style.setProperty('--tilt-x', (-dy * 6) + 'deg');
       pointerFrame = 0;
     });
   }
-  tilted.forEach(card => { card.addEventListener('pointermove', event => moveSurface(card, event, false)); card.addEventListener('pointerleave', resetMotion); });
-  if (stage) { stage.addEventListener('pointermove', event => moveSurface(stage, event, true)); stage.addEventListener('pointerleave', resetMotion); }
+  tilted.forEach(card => { card.addEventListener('pointermove', event => moveSurface(card, event)); card.addEventListener('pointerleave', resetMotion); });
   reducedMotion.addEventListener('change', resetMotion); finePointer.addEventListener('change', resetMotion);
   const upgrade = shop.querySelector('[data-upgrade-package]');
   if (upgrade) upgrade.addEventListener('click', () => { const button = shop.querySelector('[data-choose-package="' + upgrade.dataset.upgradePackage + '"]'); if (button) button.click(); });
