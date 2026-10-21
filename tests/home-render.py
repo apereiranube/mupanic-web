@@ -45,6 +45,8 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
     assert 'join-market-v10.webp' not in html and 'join-arcade-v10.webp' not in html
     assert 'EL PULSO DEL SERVIDOR' not in html and 'Cada clase tiene su propia Furia' not in html
     assert 'ph-market-trail' not in html
+    assert len(re.findall(r'<script[^>]+src="[^"]*/mu-panic-brasas\.js[^"]*"[^>]*\bdefer\b',html))==1
+    assert html.rindex('mu-panic-brasas.js')<html.index('</body>')
     assert html.count('data-home-tabs') == 1
     assert 'ph-games-tour' not in html and 'elegi-minijuego' not in html
     cta=html.split('id="empeza-a-jugar"',1)[1].split('</section>',1)[0]
@@ -59,4 +61,5 @@ manifest=json.loads((root/'tools/home-connected-art.json').read_text())
 for asset in manifest['assets']:
     file=root/'overlay/templates/mupanic'/asset['file']
     assert hashlib.sha256(file.read_bytes()).hexdigest()==asset['sha256']
+assert hashlib.sha256((root/'overlay/templates/mupanic/js/mu-panic-brasas.js').read_bytes()).hexdigest()=='0f3f03ce47f9cbd981e2daa3c2f4b9855dd0789df95fc052b8d59d76ee51dbd6', 'The supplied ember script must remain byte-identical'
 print('PASS homepage: guest/signed-in/missing cache, one scene per system, complete resources, working anchors and art integrity.')

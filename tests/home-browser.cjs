@@ -105,6 +105,9 @@ async function routes(page,body=html){
   }
 
   assert.equal(await page.locator('[data-home-events] li').count(),3);
+  assert.equal(await page.locator('canvas.mp-brasas').count(),1,'Exactly one page-wide layer from the supplied script');
+  assert.equal(await page.locator('.ph-hero canvas').count(),0,'No duplicate ember canvas in the hero');
+  assert.equal(await page.locator('canvas.mp-brasas').evaluate(el=>getComputedStyle(el).position==='fixed' && getComputedStyle(el).pointerEvents==='none' && el.width>0 && el.height>0),true);
   assert.equal(await page.locator('.ambient-embers').count(),0);
   await page.mouse.move(100,100);assert.equal(await page.locator('.cursor-ember').count(),0);
   if(width<=1100){await page.locator('.menu-toggle').click();assert.equal(await page.locator('.main-nav').isVisible(),true);await page.keyboard.press('Escape');assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'false');}
@@ -220,5 +223,9 @@ async function routes(page,body=html){
  assert.equal(await nojs.locator('h1').isVisible(),true);
  assert.ok(await nojs.locator('[data-home-events] li').count()>0);
  assert.equal(await nojs.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
- await nojs.close();await browser.close();
+ await nojs.close();
+ const reducedStart=await browser.newPage({reducedMotion:'reduce',viewport:{width:390,height:844}});
+ await routes(reducedStart);await reducedStart.goto('https://home.test/',{waitUntil:'networkidle'});
+ assert.equal(await reducedStart.locator('canvas.mp-brasas').count(),0,'The unmodified supplied script respects reduced motion at startup');
+ await reducedStart.close();await browser.close();
 })().catch(error=>{console.error(error);process.exit(1)});

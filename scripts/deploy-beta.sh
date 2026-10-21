@@ -31,7 +31,7 @@ for module in "${DEPLOY_MODULES[@]}"; do
 done
 
 # The Inicio release ships as one complete unit. Existing server page is unchanged.
-for file in inc/home-data.php inc/home-launch.php inc/home-world.php css/home-launch.css js/home-launch.js; do
+for file in inc/home-data.php inc/home-launch.php inc/home-world.php css/home-launch.css js/home-launch.js js/mu-panic-brasas.js; do
   test -s "$TEMPLATE_SOURCE/$file"
 done
 for scene in hero-connected fractura-connected companions-connected games-connected client-crafted market-crafted furia-world; do

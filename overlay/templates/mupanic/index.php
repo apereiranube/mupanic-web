@@ -297,6 +297,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>home-launch.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/home-launch.js'),0,12); ?>" defer></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-ui.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-ui.js'), 0, 12); ?>"></script><?php } ?>
+<?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>mu-panic-brasas.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/mu-panic-brasas.js'),0,12); ?>" defer></script><?php } ?>
 </body>
 </html>
 
