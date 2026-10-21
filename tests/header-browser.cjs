@@ -38,7 +38,7 @@ async function metrics(page){return page.locator('.site-header').evaluate(root=>
 async function withBootstrap(page){await page.evaluate(css=>{const style=document.createElement('style');style.dataset.testBootstrap='3.4.1';style.textContent=css;document.head.prepend(style);},bootstrap);}
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
- for(const width of [1920,1366,1024,390])for(const logged of [false,true]){
+ for(const width of [1920,1366,1101,1024,390])for(const logged of [false,true]){
   let baseline,openBaseline,pixelBaseline;
   for(const [name,classes,styles] of themes){
    const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});
@@ -60,6 +60,12 @@ async function withBootstrap(page){await page.evaluate(css=>{const style=documen
    assert.deepEqual(await metrics(page),plain,`${name}/${width}/${logged}: Bootstrap must not change the header`);
    if(baseline)assert.deepEqual(plain,baseline,`${name}/${width}/${logged}: page CSS must not change the header`);
    baseline=plain;
+   const sizes=await page.locator('.main-nav .nav-main-link').first().evaluate(el=>({font:parseFloat(getComputedStyle(el).fontSize),weight:getComputedStyle(el).fontWeight}));
+   assert.equal(sizes.font,width>1100&&width<=1350?14:15,'Menu labels must remain readable instead of dropping to 10 or 11 pixels');
+   assert.equal(sizes.weight,'600');
+   const actionFont=await page.locator('.nav-cta').evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+   assert.ok(actionFont>=(width<=760?11:12),'Account actions must grow with the main navigation');
+
    const pixels=await page.locator('.site-header').screenshot();
    if(pixelBaseline)assert.ok(pixels.equals(pixelBaseline),'The rendered header must match pixel for pixel across page themes');
    pixelBaseline=pixels;

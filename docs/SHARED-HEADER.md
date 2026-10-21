@@ -7,3 +7,7 @@ Se conserva la escala del Inicio: 86 px de altura en escritorio, 76 px hasta 110
 La carga de Bootstrap para el contenido de cada página se conserva. `tests/fixtures/bootstrap-3.4.1.min.css` es una copia de prueba del CSS oficial de Bootstrap 3.4.1 (`twbs/bootstrap`, tag `v3.4.1`, archivo `dist/css/bootstrap.min.css`); conserva su licencia MIT. No se incorpora a los archivos públicos del sitio.
 
 `tests/header-browser.cjs` extrae la cabecera real de `index.php`, aplica los estilos y clases de Inicio, El servidor, Mercado, Fractura, Atlas, Rankings, Perfil y Mi cuenta, y compara estilos computados y geometría con/sin Bootstrap. Verifica 1920, 1366, 1024 y 390 px, visitante y usuario conectado, menú abierto/cerrado, Escape, foco, ausencia de desbordes y fallback sin JavaScript. La tarea `Shared header - page and Bootstrap parity` guarda capturas por página y ancho.
+
+## Ajuste de legibilidad
+
+El menú pasa de 11 a 15 px y peso 600 en escritorio; entre 1101 y 1350 px usa 14 px, y el desplegable usa 15 px. Ingresar / Mi cuenta usan 14 px; Crear cuenta / Salir, 12 px en escritorio y 11 px en celular (10 px por debajo de 370 px). La altura y el logo no cambian. Se agrega el ancho 1101 px a la comparación de páginas y Bootstrap para comprobar el caso más ajustado antes de pasar al menú móvil.

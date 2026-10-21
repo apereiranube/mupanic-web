@@ -134,31 +134,31 @@
 
 
 /* Shared site header. All dimensions are explicit and independent of Bootstrap/body themes. */
-.site-header{--site-header-height:86px;--header-edge:40px;position:fixed;inset:0 0 auto;z-index:60;box-sizing:border-box;height:var(--site-header-height);margin:0;padding:0;border:0;border-bottom:1px solid #c6a57826;background:linear-gradient(180deg,#0d1013,#0b0c0e);box-shadow:0 8px 28px #0003;backdrop-filter:none;color:#eee9df;font-family:Manrope,Arial,sans-serif;font-size:11px;font-weight:500;line-height:1.4;letter-spacing:normal;text-align:left;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.site-header{--site-header-height:86px;--header-edge:40px;position:fixed;inset:0 0 auto;z-index:60;box-sizing:border-box;height:var(--site-header-height);margin:0;padding:0;border:0;border-bottom:1px solid #c6a57826;background:linear-gradient(180deg,#0d1013,#0b0c0e);box-shadow:0 8px 28px #0003;backdrop-filter:none;color:#eee9df;font-family:Manrope,Arial,sans-serif;font-size:14px;font-weight:500;line-height:1.4;letter-spacing:normal;text-align:left;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .site-header *,.site-header *:before,.site-header *:after{box-sizing:border-box}
 .site-header .nav-shell{position:relative;display:flex;align-items:center;justify-content:flex-start;flex-wrap:nowrap;gap:24px;width:min(1600px,calc(100% - var(--header-edge)*2));max-width:none;height:calc(var(--site-header-height) - 1px);min-height:0;margin:0 auto;padding:0;border:0}
-.site-header a,.site-header button{font-family:Manrope,Arial,sans-serif;font-size:11px;font-weight:500;line-height:1.4;letter-spacing:normal;text-decoration:none;text-transform:none;text-shadow:none;color:#d2d1cb;margin:0;outline:none}
+.site-header a,.site-header button{font-family:Manrope,Arial,sans-serif;font-size:14px;font-weight:500;line-height:1.4;letter-spacing:normal;text-decoration:none;text-transform:none;text-shadow:none;color:#d2d1cb;margin:0;outline:none}
 .site-header .nav-shell a:focus-visible,.site-header .nav-shell button:focus-visible{outline:2px solid #d7a57d;outline-offset:5px}
 .site-header .brand{display:flex;align-items:center;flex:0 0 auto;gap:0;padding:0;border:0;background:none}
 .site-header .brand-crystal .brand-logo{display:block;width:165px;height:55px;max-width:none;margin:0;padding:0;border:0;object-fit:contain;vertical-align:top}
 .site-header .main-nav{position:static;display:flex;align-items:center;flex-direction:row;flex:0 0 auto;gap:0;width:auto;max-height:none;margin:0;padding:0;border:0;background:none;box-shadow:none;backdrop-filter:none;overflow:visible}
-.site-header .main-nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:42px;padding:0 10px;border:0;background:none;font-size:11px;font-weight:500;line-height:16px;letter-spacing:.01em;white-space:nowrap;color:#d2d1cb;transition:color .18s,background .18s}
+.site-header .main-nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:42px;padding:0 10px;border:0;background:none;font-size:15px;font-weight:600;line-height:20px;letter-spacing:.01em;white-space:nowrap;color:#d2d1cb;transition:color .18s,background .18s}
 .site-header .main-nav a:hover,.site-header .main-nav a:focus{color:#f0d5b4;text-decoration:none}
 .site-header .main-nav .nav-main-link:after{content:'';position:absolute;left:10px;right:10px;bottom:6px;height:1px;background:#d7a57d;transform:scaleX(0);transform-origin:center;transition:transform .18s}
 .site-header .main-nav .nav-main-link:hover:after{transform:scaleX(.55)}
 .site-header .main-nav .nav-main-link.is-current{color:#f5e7d7;background:none}
 .site-header .main-nav .nav-main-link.is-current:after{transform:scaleX(1)}
 .site-header .main-nav .nav-discord{gap:8px;margin-left:3px;padding-inline:12px;border-left:1px solid #d7a57d2e;color:#e7b58e}
-.site-header .main-nav .nav-discord b{font:500 13px/16px Manrope,Arial,sans-serif;color:#d7a57d}
+.site-header .main-nav .nav-discord b{font:500 15px/20px Manrope,Arial,sans-serif;color:#d7a57d}
 .site-header .main-nav .mobile-account{display:none}
 .site-header .nav-actions{display:flex;align-items:center;flex:0 0 auto;gap:16px;margin:0 0 0 auto;padding:0;border:0}
-.site-header .account-link{display:inline-flex;align-items:center;min-height:42px;padding:0;border:0;background:none;font-size:11px;line-height:16px;white-space:nowrap}
+.site-header .account-link{display:inline-flex;align-items:center;min-height:42px;padding:0;border:0;background:none;font-size:14px;line-height:20px;white-space:nowrap}
 .site-header .account-link:hover{color:#f0d5b4}
-.site-header .nav-cta{display:inline-flex;align-items:center;justify-content:center;min-height:38px;height:38px;padding:8px 14px;border:1px solid #d7a57d75;border-radius:0;background:linear-gradient(120deg,#d7a57d16,transparent);box-shadow:none;color:#d7a57d;font-size:9px;font-weight:500;line-height:14px;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.site-header .nav-cta{display:inline-flex;align-items:center;justify-content:center;min-height:42px;height:42px;padding:10px 14px;border:1px solid #d7a57d75;border-radius:0;background:linear-gradient(120deg,#d7a57d16,transparent);box-shadow:none;color:#d7a57d;font-size:12px;font-weight:600;line-height:16px;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
 .site-header .nav-cta:hover,.site-header .nav-cta:focus{background:#d7a57d;color:#101719}
 .site-header .menu-toggle{display:none;align-items:center;justify-content:center;flex-direction:column;flex:0 0 42px;gap:6px;width:42px;height:42px;min-height:42px;padding:8px;border:0;border-radius:0;background:none;box-shadow:none;color:#eee9df;cursor:pointer;-webkit-appearance:none;appearance:none}
 .site-header .menu-toggle span{display:block;flex:0 0 1px;width:24px;height:1px;margin:0;padding:0;border:0;background:currentColor}
-@media(max-width:1350px){.site-header{--header-edge:24px}.site-header .nav-shell{gap:16px}.site-header .brand-crystal .brand-logo{width:140px;height:46.6667px}.site-header .main-nav a{padding-inline:8px;font-size:10px}}
+@media(max-width:1350px){.site-header{--header-edge:24px}.site-header .nav-shell{gap:16px}.site-header .brand-crystal .brand-logo{width:140px;height:46.6667px}.site-header .main-nav a{padding-inline:8px;font-size:14px}}
 @media(max-width:1100px){
  .site-header{--site-header-height:76px}
  .site-header .nav-shell{gap:14px}
@@ -166,7 +166,7 @@
  .site-header .nav-actions{order:1}
  .site-header .main-nav{display:none;position:absolute;top:calc(var(--site-header-height) - 1px);left:calc(-1 * var(--header-edge));right:calc(-1 * var(--header-edge));flex-direction:column;align-items:stretch;gap:2px;width:auto;max-height:calc(100svh - var(--site-header-height));overflow-y:auto;margin:0;padding:18px 24px;border:0;border-bottom:1px solid #c6a57826;background:#0b0c0e}
  .site-header .main-nav.open{display:flex}
- .site-header .main-nav a,.site-header .main-nav .nav-discord,.site-header .main-nav .mobile-account{display:flex;justify-content:flex-start;min-height:44px;padding:10px 8px;margin:0;border:0;font-size:13px;line-height:20px}
+ .site-header .main-nav a,.site-header .main-nav .nav-discord,.site-header .main-nav .mobile-account{display:flex;justify-content:flex-start;min-height:44px;padding:10px 8px;margin:0;border:0;font-size:15px;line-height:22px}
  .site-header .main-nav .nav-main-link:after{left:8px;right:auto;width:42px;bottom:4px}
  .site-header .main-nav .mobile-account{border-top:1px solid #c6a57826}
 }
@@ -176,8 +176,8 @@
  .site-header .brand-crystal .brand-logo{width:130px;height:43.3333px}
  .site-header .account-link{display:none}
  .site-header .nav-actions{gap:8px}
- .site-header .nav-cta{min-height:36px;height:36px;padding:8px 10px;font-size:9px;line-height:14px;letter-spacing:.04em}
+ .site-header .nav-cta{min-height:38px;height:38px;padding:8px 10px;font-size:11px;line-height:16px;letter-spacing:.04em}
  .site-header .main-nav{padding-inline:16px}
 }
-@media(max-width:370px){.site-header .brand-crystal .brand-logo{width:110px;height:36.6667px}.site-header .nav-shell{gap:6px}.site-header .nav-cta{padding-inline:8px;font-size:8px}}
+@media(max-width:370px){.site-header .brand-crystal .brand-logo{width:110px;height:36.6667px}.site-header .nav-shell{gap:6px}.site-header .nav-cta{padding-inline:8px;font-size:10px}}
 @media(prefers-reduced-motion:reduce){.site-header a,.site-header a:after{transition:none}}
