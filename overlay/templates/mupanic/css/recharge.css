@@ -216,7 +216,7 @@
 .is-account .eryns-store a.eryns-account-return{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #d6ac635c;border-radius:3px;background:#d3a65315;color:#f4d292;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
 .is-account .eryns-store a.eryns-account-return:hover{background:#d3a65328;border-color:#e8c47d}
 .eryns-thanks .eryns-account-return{margin-top:18px}
-@media(max-width:600px){.eryns-store-top>span{display:none}.eryns-store-top{padding:10px 12px;gap:8px}.is-account .eryns-store-top a.eryns-account-return{font-size:12px;padding:10px 12px}.eryns-store-top>a:last-child{font-size:11px}}
+@media(max-width:600px){.eryns-store-top{padding:10px 12px;gap:8px}.is-account .eryns-store-top a.eryns-account-return{font-size:12px;padding:10px 12px}.eryns-store-top>a:last-child{font-size:11px}}
 
 /* Bank transfer checkout and private review. */
 .bank-methods{border:1px solid #8c6b3a;border-radius:10px;padding:12px;display:grid;gap:10px;margin:0 0 18px;min-width:0}
