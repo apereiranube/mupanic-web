@@ -134,7 +134,15 @@ async function routes(page,body=html){
   await page.locator('.ph-play-cta').scrollIntoViewIfNeeded();
   const playButtons=page.locator('.ph-play-cta .ph-button');
   assert.equal(await playButtons.locator('.ph-play-button-art').count(),2,'Both closing actions must use new painted art');
-  for(const button of await playButtons.all()){
+  assert.equal(await page.locator('.ph-hero .ph-button-artwork .ph-play-button-art').count(),2,'The hero must share the same painted action art');
+  assert.equal(await page.locator('.ph-hero a[href$="register/"]').count(),1);
+  assert.equal(await page.locator('.ph-hero a[href$="downloads/"]').count(),1);
+  if(width>1100){
+   const copy=await page.locator('.ph-hero .ph-scene-content').boundingBox();
+   assert.ok(Math.abs(copy.x-(width-Math.min(1420,width-80))/2)<1,'The hero copy moves left through its own wider container');
+   assert.ok(copy.x<(width-Math.min(1320,width-112))/2,'Hero copy must start left of its previous position');
+  }
+  for(const button of await page.locator('.ph-hero .ph-button-artwork,.ph-play-cta .ph-button-artwork').all()){
    await button.locator('img').evaluate(im=>im.decode());
    const design=await button.evaluate(el=>{
     const r=el.getBoundingClientRect(),image=el.querySelector('img'),a=image.getBoundingClientRect(),label=el.querySelector('.ph-play-action-label').getBoundingClientRect(),s=getComputedStyle(el);

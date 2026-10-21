@@ -56,8 +56,8 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
     assert 'hub-client-20261020' not in html and 'games-client-20261020' not in html
     expected='—'
     assert f'data-home-online>{expected}</dd>' in html
-    if '--logged' in flags: assert '>MI CUENTA <' in html
-    else: assert '>CREAR CUENTA <' in html
+    if '--logged' in flags: assert re.search(r'>MI CUENTA(?:\s|<)',html)
+    else: assert re.search(r'>CREAR CUENTA(?:\s|<)',html)
 
 manifest=json.loads((root/'tools/home-connected-art.json').read_text())
 for asset in manifest['assets']:

@@ -31,7 +31,7 @@ $homeJoin = function($kind) use ($homeArt) {
             <p class="ph-eyebrow">SEASON 6 · DESARROLLO PROPIO</p>
             <h1 id="home-title">Esto es<br>MU PANIC.</h1>
             <p class="ph-lead">Sistemas propios.<br>Una experiencia distinta.</p>
-            <div class="ph-actions"><a class="ph-button" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?> <span aria-hidden="true">↗</span></a><a class="ph-button ph-button-outline" href="<?php echo __BASE_URL__; ?>downloads/"><span aria-hidden="true">↓</span> DESCARGAR</a></div>
+            <div class="ph-actions"><a class="ph-button ph-button-artwork ph-play-primary" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-account-v16.webp" alt="" aria-hidden="true" width="2172" height="724" decoding="async"><span class="ph-play-action-label"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?></span><span class="ph-play-action-icon" aria-hidden="true">↗</span></a><a class="ph-button ph-button-outline ph-button-artwork ph-play-download" href="<?php echo __BASE_URL__; ?>downloads/"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-download-v16.webp" alt="" aria-hidden="true" width="2172" height="724" decoding="async"><span class="ph-play-action-icon" aria-hidden="true">↓</span><span class="ph-play-action-label">DESCARGAR</span></a></div>
         </div></div>
     </section>
 
