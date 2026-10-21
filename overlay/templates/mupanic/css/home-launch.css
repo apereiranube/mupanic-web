@@ -741,7 +741,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 
 /* V13: native detail plates over the continuous painting. The original remains
    exposed only at the adjoining edges so the architecture never breaks. */
-.panic-home .ph-lower-journey{margin-top:clamp(-150px,-8vw,-65px)}
+.panic-home .ph-lower-journey{margin-top:clamp(-150px,-8vw,-65px);background:none}
 .panic-home .ph-lower-journey .ph-client-v12>.ph-journey-art{mask-image:linear-gradient(transparent,#000 clamp(75px,8vw,150px))}
 .panic-home .ph-lower-journey .ph-journey-detail{position:absolute;inset:0;pointer-events:none;background-position:center top;background-size:100% auto;background-repeat:no-repeat;mask-image:linear-gradient(transparent,#000 10%,#000 87%,transparent)}
 .ph-journey-part-0 .ph-journey-detail{background-image:url('../img/home/journey-forest-v13.webp')}
