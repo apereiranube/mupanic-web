@@ -2,6 +2,8 @@
 const assert=require('node:assert/strict'),fs=require('node:fs');
 const worker=fs.readFileSync('tools/recharge_worker.ps1','utf8');
 assert.equal(worker.match(/\$installSql = @'\r?\n([\s\S]*?)\r?\n'@/)[1].trim(),fs.readFileSync('tools/sql/recharges.sql','utf8').trim(),'Packaged SQL must match the SQL source');
+assert.match(worker,/EXEC sys\.sp_executesql @DropProviderConstraint;/);
+assert.doesNotMatch(worker,/EXEC\([^\n]*QUOTENAME/,'Build dynamic SQL before executing it');
 const installer=fs.readFileSync('tools/discord-bank/Instalar_Transferencias.ps1','utf8');
 assert.match(installer,/-Install -UpgradeExisting/);assert.match(worker,/if \(\$UpgradeExisting\) .*return/);
 if(process.env.PANIC_BOT_SOURCE){

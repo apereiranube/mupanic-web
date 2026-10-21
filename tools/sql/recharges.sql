@@ -28,7 +28,12 @@ DECLARE @ProviderConstraint sysname;
 SELECT @ProviderConstraint=name FROM sys.check_constraints
 WHERE parent_object_id=OBJECT_ID('dbo.MUPanicRechargeDeliveries')
 AND (parent_column_id=COLUMNPROPERTY(OBJECT_ID('dbo.MUPanicRechargeDeliveries'),'Provider','ColumnId') OR name='CK_MUPanicRechargeProvider');
-IF @ProviderConstraint IS NOT NULL EXEC('ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT '+QUOTENAME(@ProviderConstraint));
+IF @ProviderConstraint IS NOT NULL
+BEGIN
+    DECLARE @DropProviderConstraint nvarchar(512);
+    SET @DropProviderConstraint=N'ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT '+QUOTENAME(@ProviderConstraint);
+    EXEC sys.sp_executesql @DropProviderConstraint;
+END;
 ALTER TABLE dbo.MUPanicRechargeDeliveries WITH CHECK ADD CONSTRAINT CK_MUPanicRechargeProvider CHECK(Provider IN ('uala_bis','bank_transfer'));
 -- Upgrade the price constraint without changing existing receipts.
 ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT CK_MUPanicRechargePrice;
