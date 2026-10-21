@@ -92,7 +92,7 @@ async function routes(page,body=html){
   if(width<=1100){await page.locator('.menu-toggle').click();assert.equal(await page.locator('.main-nav').isVisible(),true);await page.keyboard.press('Escape');assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'false');}
   assert.equal(await page.locator('[data-furia-motion], [data-home-update]').count(),0);
   assert.equal(await page.locator('[data-home-events] [data-event-countdown]').count(),1);
-  // Native Hub hotspots and all eight games remain keyboard operable.
+  // Native Hub tabs remain keyboard operable.
   for(const tour of await page.locator('[data-home-tabs]').all()){
    const tabs=tour.locator('[role=tab]');
    assert.equal(await tour.locator('[role=tabpanel]:visible').count(),1);
@@ -104,7 +104,9 @@ async function routes(page,body=html){
    assert.equal(await tour.locator('[role=tabpanel]:visible').count(),1);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Tab content overflow');
   }
-  assert.equal(await page.locator('.ph-games-tour [role=tab]').count(),8);
+  assert.equal(await page.locator('.ph-games-tour').count(),0);
+  assert.equal(await page.locator('.ph-play-cta a[href$="register/"]').count(),1);
+  assert.equal(await page.locator('.ph-play-cta a[href$="downloads/"]').count(),1);
   assert.equal(await page.locator('.ph-client-tour [role=tab]').count(),8);
   assert.equal(await page.locator('.ph-client-name,.ph-hub-capture,.ph-flow-join-market,.ph-flow-join-arcade').count(),0);
   const hubHeight=(await page.locator('.ph-client-tour').boundingBox()).height;

@@ -45,7 +45,10 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
     assert 'join-market-v10.webp' not in html and 'join-arcade-v10.webp' not in html
     assert 'EL PULSO DEL SERVIDOR' not in html and 'Cada clase tiene su propia Furia' not in html
     assert 'ph-market-trail' not in html
-    assert html.count('data-home-tabs') == 2
+    assert html.count('data-home-tabs') == 1
+    assert 'ph-games-tour' not in html and 'elegi-minijuego' not in html
+    cta=html.split('id="empeza-a-jugar"',1)[1].split('</section>',1)[0]
+    assert ('usercp/' if '--logged' in flags else 'register/') in cta and 'downloads/' in cta
     assert 'hub-client-20261020' not in html and 'games-client-20261020' not in html
     expected='—' if '--missing-cache' in flags else '7'
     assert f'data-home-online>{expected}</dd>' in html

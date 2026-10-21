@@ -75,9 +75,16 @@ $hubFeatures = [
 <section class="ph-games" id="minijuegos" aria-labelledby="home-games-title">
  <div class="ph-scene ph-games-scene ph-journey-games">
   <?php $homeJourney(2,'El mercado da paso al salón de minijuegos, con mesas de ruleta, cartas y tragamonedas'); ?>
-  <div class="ph-scene-content ph-wrap"><div class="ph-copy"><p class="ph-eyebrow">OCHO MINIJUEGOS · DENTRO DE MU PANIC</p><h2 id="home-games-title">Tu próxima partida<br>no necesita un spot.</h2><p>Hacé una pausa del leveo.<br>Hay mucho más para jugar en el Hub F11.</p><a href="#elegi-minijuego" class="ph-link">Encontrá tu próxima partida <span aria-hidden="true">↓</span></a></div></div>
+  <div class="ph-scene-content ph-wrap"><div class="ph-copy"><p class="ph-eyebrow">OCHO MINIJUEGOS · DENTRO DE MU PANIC</p><h2 id="home-games-title">Tu próxima partida<br>no necesita un spot.</h2><p>Hacé una pausa del leveo.<br>Hay mucho más para jugar en el Hub F11.</p><a href="#empeza-a-jugar" class="ph-link">Empezá tu aventura <span aria-hidden="true">↓</span></a></div></div>
  </div>
- <div class="ph-games-tour ph-wrap" id="elegi-minijuego" data-home-tabs><p class="ph-eyebrow">ELEGÍ CÓMO SEGUIR</p><nav class="ph-world-tabs" aria-label="Los ocho minijuegos"><?php foreach($homeGames as $game) { ?><a href="#juego-<?php echo $game[0]; ?>" data-world-tab="juego-<?php echo $game[0]; ?>"><?php echo $game[1]; ?></a><?php } ?></nav><div class="ph-world-panels"><?php foreach($homeGames as $game) { ?><div id="juego-<?php echo $game[0]; ?>" data-world-panel><h3><?php echo $game[1]; ?></h3><p><?php echo $game[2]; ?></p></div><?php } ?></div><p class="ph-games-access"><kbd>F11</kbd><span>Juegos</span><b aria-hidden="true">↗</b>Abrí el Hub dentro del juego.</p></div>
+
+</section>
+
+<section class="ph-play-cta" id="empeza-a-jugar" aria-labelledby="home-play-title">
+ <div class="ph-wrap ph-play-layout">
+  <div><p class="ph-eyebrow">MU PANIC TE ESPERA</p><h2 id="home-play-title">Tu historia empieza acá.</h2><p>Creá tu cuenta, descargá el cliente y entrá a jugar.</p></div>
+  <div class="ph-actions"><a class="ph-button" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?> <span aria-hidden="true">↗</span></a><a class="ph-button ph-button-outline" href="<?php echo __BASE_URL__; ?>downloads/"><span aria-hidden="true">↓</span> DESCARGAR</a></div>
+ </div>
 </section>
 </div>
 <dialog class="ph-hub-lightbox" data-hub-lightbox aria-label="Explorá la vista ilustrada del Hub"><button type="button" class="ph-hub-lightbox-close" aria-label="Cerrar vista ampliada">×</button><div data-hub-lightbox-content></div></dialog>
