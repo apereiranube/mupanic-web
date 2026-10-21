@@ -36,8 +36,10 @@ const offer=(id,featured)=>({
    await page.goto('https://market.test/market/');
    await page.addScriptTag({path:path.join(template,'js/market-listings.js')});
    await page.waitForFunction(()=>document.querySelectorAll('[data-listings-grid] .vessara-offer').length===8);
-   await page.waitForFunction(()=>document.querySelector('.vessara-atmosphere').dataset.running==='true');
-   assert.equal(await page.locator('.vessara-page').evaluate(x=>x.classList.contains('is-browsing-market')),false,'hero mode starts with effects active');
+   // The compact statistics can place the showroom near the initial viewport.
+   const initiallyNear=await page.locator('.vessara-listings').evaluate(x=>x.getBoundingClientRect().top<=innerHeight*1.3);
+   await page.waitForFunction(paused=>document.querySelector('.vessara-atmosphere').dataset.running===(paused?'false':'true'),initiallyNear);
+   assert.equal(await page.locator('.vessara-page').evaluate(x=>x.classList.contains('is-browsing-market')),initiallyNear,'initial ambience follows proximity to the showroom');
    // The real trade ticker never freezes on hover/focus or when visual
    // decoration is disabled. Explicit manual pause remains accessible.
    const ticker=page.locator('[data-market-ticker]');
@@ -107,10 +109,10 @@ const offer=(id,featured)=>({
     document.querySelector('[data-scroll-probe]')?.remove();
     window.scrollTo(0,0);
    });
-   await page.waitForFunction(()=>!document.querySelector('.vessara-page').classList.contains('is-browsing-market'));
-   await page.waitForFunction(()=>document.querySelector('.vessara-atmosphere').dataset.running==='true');
-   assert.equal(await page.locator('.vessara-aurora i').first().evaluate(x=>getComputedStyle(x).animationPlayState),'running',
-    'hero/coin ambience resumes when browsing back to the top');
+   await page.waitForFunction(paused=>document.querySelector('.vessara-page').classList.contains('is-browsing-market')===paused,initiallyNear);
+   await page.waitForFunction(paused=>document.querySelector('.vessara-atmosphere').dataset.running===(paused?'false':'true'),initiallyNear);
+   assert.equal(await page.locator('.vessara-aurora i').first().evaluate(x=>getComputedStyle(x).animationPlayState),initiallyNear?'paused':'running',
+    'returning to the top restores the initial ambience state');
    assert.deepEqual(errors,[],'no JavaScript errors');
    await page.close();
    console.log('PASS Vessara desktop scrolling suspends offscreen effects '+width);

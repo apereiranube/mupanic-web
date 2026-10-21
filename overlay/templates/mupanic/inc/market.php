@@ -24,16 +24,17 @@ $art=__PATH_TEMPLATE__.'img/market/';
  <article class="vessara-stat-eryns"><img class="vessara-eryns-art" src="<?php echo panicMarketEscape($art.'eryns-vessara-v1.webp'); ?>" alt="" aria-hidden="true" width="160" height="160"><div class="vessara-value-aura vessara-value-aura-eryns" aria-hidden="true"><i></i><i></i></div><span><i aria-hidden="true">◆</i> ERYNS / VOLUMEN TOTAL</span><strong data-market-metric="eryns"><?php echo panicMarketNumber($metrics['eryns']??''); ?></strong><small>Hoy <b data-market-metric="erynsToday"><?php echo panicMarketNumber($metrics['erynsToday']??''); ?></b> Eryns</small><svg class="vessara-spark" viewBox="0 0 280 55" preserveAspectRatio="none" aria-hidden="true" data-market-spark="eryns"></svg><i class="vessara-card-caption">VOLUMEN DIARIO / 7 DÍAS</i></article>
 </section>
 <section class="shell vessara-listings" id="publicaciones" aria-labelledby="vessara-listings-title">
+ <div class="vessara-showroom-seal" aria-hidden="true"><img src="<?= panicMarketEscape($art.'vessara-seal-v2.svg') ?>" alt="" width="60" height="60"></div>
  <div class="vessara-listings-heading">
   <div><p class="eyebrow">LA VIDRIERA DE LOREN MARKET</p><h2 id="vessara-listings-title">Objetos en venta.</h2><p>Publicaciones reales de jugadores. Consultá precios en Zen y Eryns antes de entrar al juego.</p></div>
   <a class="vessara-listings-entry" href="<?php echo __BASE_URL__; ?>downloads/">Entrar a comerciar ↗</a>
  </div>
  <div class="vessara-promoted" data-listings-featured-wrap hidden>
-  <div class="vessara-promoted-heading"><h3>Destacados</h3></div>
+  <div class="vessara-promoted-heading"><h3>Destacados de Vessara</h3><p>Una selección de los puestos que eligieron destacar sus objetos.</p></div>
   <div class="vessara-promoted-grid" data-listings-featured tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Publicaciones destacadas; desplazamiento continuo hacia la izquierda"></div>
  </div>
  <div class="vessara-listings-board">
-  <div class="vessara-listings-top"><h3>Explorá las publicaciones</h3><span data-listings-count>—</span></div>
+  <div class="vessara-listings-top"><h3>Publicaciones de jugadores</h3><span data-listings-count>—</span></div>
   <div class="vessara-listings-controls">
    <div class="vessara-listings-currencies" role="group" aria-label="Moneda de publicaciones">
     <button type="button" data-listings-currency="all" aria-pressed="true">Todas</button>

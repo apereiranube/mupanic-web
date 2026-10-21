@@ -323,7 +323,7 @@ function render() {
  current.items.filter(x=>active(x)&&!promoted(x)).forEach(x=>grid.append(offerCard(x)));
  q('[data-listings-count]').textContent=fmt(current.total)+' publicaciones comunes';
  notice.hidden=grid.children.length>0;
- notice.textContent=current.total==='0'?'Todavía no hay publicaciones activas.':'No hay coincidencias con estos filtros.';
+ notice.textContent=current.total==='0'?'Todavía no hay publicaciones comunes. Cuando los jugadores publiquen sus objetos, vas a encontrarlos en estas vitrinas.':'No hay coincidencias con estos filtros.';
  pagination.hidden=current.pages<=1;
  q('[data-listings-page]').textContent='Página '+current.page+' de '+current.pages;
  q('[data-listings-prev]').disabled=current.page<=1;

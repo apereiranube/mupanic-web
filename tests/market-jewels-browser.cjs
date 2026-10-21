@@ -40,6 +40,8 @@ const offers=Object.entries(names).map(([key,name],i)=>{
    await page.goto('https://market.test/market/');
    await page.addScriptTag({path:path.join(template,'js/market-listings.js')});
    await page.waitForFunction(()=>document.querySelectorAll('[data-listings-grid] .vessara-item-photo').length===8);
+   // Tall showroom cards load their images as each stall enters the viewport.
+   for(const card of await page.locator('[data-listings-grid] .vessara-offer').all())await card.scrollIntoViewIfNeeded();
    await page.waitForFunction(()=>Array.from(document.querySelectorAll('[data-listings-grid] .vessara-item-photo'))
       .every(img=>img.complete && img.naturalWidth>=512),null,{timeout:20000});
    assert.equal(await page.locator('[data-listings-grid] .vessara-offer').count(),8,'all eight renewed assets have cards');
