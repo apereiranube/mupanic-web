@@ -9,6 +9,7 @@ on:
       - 'overlay/templates/mupanic/inc/market-item-display.php'
       - 'overlay/templates/mupanic/inc/market-item-images.json'
       - 'overlay/templates/mupanic/css/market.css'
+      - 'overlay/templates/mupanic/img/market/**'
       - 'overlay/templates/mupanic/index.php'
       - 'tests/market*.php'
       - 'tests/market-browser.cjs'

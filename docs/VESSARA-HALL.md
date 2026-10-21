@@ -1,18 +1,25 @@
-# Vessara: salón del mercado
+# Vessara: implementación del render aprobado
 
-El diseño integra el banner existente con un ambiente oscuro de piedra, cobre y velas. Las métricas siguen usando datos reales y se presentan en una franja compacta. La navegación general no cambia.
+El mercado utiliza arte nuevo basado en el render aprobado del 21 de octubre de 2026. La composición conserva el ambiente continuo negro, oro antiguo y telas borgoña, Vessara a la derecha, título a la izquierda, franja de actividad y vitrinas ornamentales. El encabezado global no cambia.
 
-Los destacados permanecen en su carrusel propio. Las publicaciones comunes conservan su consulta, filtros, ocho objetos por página y exclusión de destacados. La grilla utiliza cuatro vitrinas por fila en escritorio, tres en pantalla intermedia y una en celulares angostos. Si no hay publicaciones comunes, aparece una explicación sin mostrar objetos ficticios; los destacados permanecen disponibles.
+Los destacados permanecen en su carrusel independiente. Las publicaciones comunes conservan filtros, ocho objetos por página, opciones y tooltips reales. Una publicación común queda centrada; sin publicaciones se muestra el estado vacío y se conservan los destacados. No se crean publicaciones ficticias ni botones de compra: el intercambio se completa en el juego.
 
-Los tooltips y las opciones reales de los objetos se mantienen. El arte de fondo de cada vitrina no contiene ítems; las imágenes de objetos se superponen usando las fuentes verificadas existentes. No se agregan botones de compra web, ya que el intercambio se completa dentro del juego.
+## Arte nuevo y prompts
 
-## Recursos nuevos
+Generado con la herramienta integrada de imágenes, utilizando el render aprobado como referencia visual para las tres primeras piezas. Los PNG de origen se convirtieron a WebP; el ícono transparente se redujo a 256 px para su uso a 55–74 px. No se usan textos ni objetos falsos pintados sobre las imágenes.
 
-- `overlay/templates/mupanic/img/market/vessara-hall-v1.webp`: fondo del salón; 1086 × 1448, WebP. Generado con la herramienta integrada de imágenes, a partir de una descripción de una sala medieval oscura con pilares y velas a los lados, centro vacío y oscuro, piedra gastada, bronce, paños rojos y desvanecimiento negro en los extremos; sin texto, personas ni objetos en venta.
-- `overlay/templates/mupanic/img/market/vessara-showcase-v1.webp`: fondo vacío de vitrina; WebP de hasta 900 × 600. Generado con la herramienta integrada de imágenes, a partir de una descripción de un pedestal rectangular bajo de piedra negra, luz cenital dorada tenue, puesto medieval desenfocado en los bordes y centro oscuro vacío; sin texto, marcos ni ítems.
+Directorio: `overlay/templates/mupanic/img/market/`.
 
-La composición completa tiene un ancho máximo de 1440 px. El banner conserva la ilustración completa, con texto colocado explícitamente a la izquierda; la imagen no se recorta para llenar otro formato. El fondo del salón no se repite y se desvanece hacia el negro. Las publicaciones no llevan un panel exterior que genere un gran rectángulo vacío. Una única publicación queda centrada. Los sprites pequeños se limitan a una ampliación de hasta dos veces su tamaño original. Los fondos son estáticos, sin `background-attachment: fixed` ni filtros de pantalla completa. El control de efectos y las pausas de animaciones decorativas fuera de pantalla siguen funcionando.
+- `vessara-bazaar-hero-v2.webp` (1942 × 809): escena panorámica nueva. Prompt: mercado medieval íntimo, velas cálidas, telas borgoña, filigrana antigua; Vessara adulta en vestido negro a la derecha sellando un contrato, cabeza completa con margen, centro e izquierda oscuros para HTML legible; sin interfaz, texto, tarjetas ni logos.
+- `vessara-bazaar-world-v2.webp` (1086 × 1448): continuidad del ambiente. Prompt: bazar medieval oscuro con puestos y velas a los extremos, paños borgoña, arquitectura antigua y centro atmosférico; sin pilares monumentales, personajes, objetos de venta ni interfaz.
+- `vessara-bazaar-card-v2.webp` (1070 × 1470): vitrina vacía. Prompt: marco delgado de oro antiguo con esquinas grabadas, puesto oscuro con pedestal circular bajo en el área superior y cuero negro en el tercio inferior reservado para título, vendedor y precio HTML; sin ítems, letras ni botones.
+- `vessara-zen-coins-v2.webp` (256 × 256, alfa): ícono Zen. Prompt: pila de monedas antiguas doradas con sello solar, tres alturas y moneda apoyada en primer plano, iluminación cálida y detalle realista legible a 64 px, aislada con transparencia auténtica; sin letras, números ni fondo.
+- `vessara-bronze-frame.svg`: marco escalable para actividad y estadísticas; conserva esquinas decorativas sin estirar una ilustración completa sobre cada bloque.
+
+La imagen del hero mantiene su proporción completa en escritorio, sin máscara lateral que corte a Vessara ni movimiento del arte. En celular se recorta el ambiente con la cara conservada y se coloca el texto sobre la parte inferior sombreada. El fondo se dibuja una sola vez en una capa fija sin animaciones ni repetición. Los sprites pequeños conservan el límite de ampliación; las joyas utilizan las imágenes existentes del Atlas.
 
 ## Validación
 
-`tests/market-hall-browser.cjs` comprueba las vitrinas con ocho publicaciones y el caso de destacados sin publicaciones comunes, separación de secciones, imágenes locales y ausencia de desbordamiento en 2048, 1440, 390 y 320 px, incluido el caso de una sola publicación. Comprueba también el banner sin recorte, alineación del texto, fondo sin repetición y límite de ancho de la composición. Las pruebas existentes cubren filtros, paginación, tooltips, joyas, carrusel y navegación móvil.
+`tests/market-hall-browser.cjs`: 2560, 1920, 1440, 390 y 320 px; ocho objetos con imágenes locales, destacado separado, una publicación, estado vacío, proporciones del hero, fondo continuo, marcos y ausencia de desbordamiento. Con `MARKET_SCREENSHOT_DIR` guarda capturas reales del navegador; los nombres, precios y métricas son datos de prueba, nunca se despliegan en producción. Incluye vistas completas de escritorio para comparar la composición con el render.
+
+También se verifican interacciones del mercado, filtros y actualizaciones de datos, carrusel, modal móvil y suspensión de efectos fuera de pantalla mediante las pruebas existentes.
