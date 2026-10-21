@@ -5,13 +5,14 @@ ini_set('display_startup_errors','0');
 error_reporting(0);
 $launcherBufferLevel=ob_get_level();
 ob_start();
+$launcherHome=($_GET['home'] ?? '')==='1';
 $launcherPayload=['online'=>0,'servidor'=>'offline','eventos'=>[]];
-register_shutdown_function(function() use (&$launcherPayload,$launcherBufferLevel) {
+register_shutdown_function(function() use (&$launcherPayload,$launcherBufferLevel,$launcherHome) {
     while(ob_get_level()>$launcherBufferLevel) ob_end_clean();
     header_remove('Location');header_remove('Set-Cookie');
     http_response_code(200);
     header('Content-Type: application/json; charset=utf-8');
-    header('Cache-Control: max-age=30');
+    header($launcherHome ? 'Cache-Control: no-store' : 'Cache-Control: max-age=30');
     header('X-Content-Type-Options: nosniff');
     echo json_encode($launcherPayload,JSON_UNESCAPED_UNICODE|JSON_INVALID_UTF8_SUBSTITUTE);
 });
@@ -24,3 +25,18 @@ try {
     $launcherPayload['online']=$state['online'];
     $launcherPayload['servidor']=$state['servidor'];
 } catch(Throwable $error) { /* Shutdown emits only the safe public schema. */ }
+
+// Home-only extension: the launcher keeps its original three-field contract.
+if($launcherHome) {
+    try {
+        require_once dirname(__DIR__).'/templates/mupanic/inc/atlas-runtime.php';
+        $balance=panicAtlasBalance();
+        $free=$balance['accounts'][0];
+        $rates=[];
+        foreach(['experience','master','drop'] as $key) {
+            if(!isset($free[$key]) || !is_numeric($free[$key]) || $free[$key]<0) throw new RuntimeException('Invalid rates');
+            $rates[$key]=(float)$free[$key];
+        }
+        $launcherPayload['rates']=$rates;
+    } catch(Throwable $error) { $launcherPayload['rates']=null; }
+}

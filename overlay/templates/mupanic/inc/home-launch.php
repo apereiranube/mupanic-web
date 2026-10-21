@@ -4,7 +4,8 @@ require_once __DIR__.'/home-data.php';
 $homeEscape = function($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); };
 $homeArt = __PATH_TEMPLATE__.'img/home/';
 $homeEvents = panicHomeEvents();
-$homeOnlineValue = $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.');
+// Never display the old cron count while the current connection count is loading.
+$homeOnlineValue = '—';
 // Keep intrinsic image dimensions in markup; no fixed cover/crop viewport.
 $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($homeArt, $homeEscape) {
     $dimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.'.webp');
@@ -19,7 +20,7 @@ $homeJoin = function($kind) use ($homeArt) {
 <div class="ph-flow-join ph-flow-join-<?php echo $kind; ?>" aria-hidden="true"><img src="<?php echo $homeArt; ?>join-<?php echo $kind.'-'.$joinVersion; ?>.webp" alt="" width="<?php echo (int)$joinSize[0]; ?>" height="<?php echo (int)$joinSize[1]; ?>" loading="lazy" decoding="async"></div>
 <?php };
 ?>
-<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php'); ?>" data-home-version="connected-v10">
+<div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php?home=1'); ?>" data-home-version="connected-v10">
     <section class="ph-scene ph-hero" aria-labelledby="home-title">
         <div class="ph-art ph-combat-art">
             <img src="<?php echo $homeArt; ?>hero-rf-mg-v10.webp" width="1280" height="720" alt="Rage Fighter con guanteletes y capa frente a Magic Gladiator con Hurricane y alas, ambos en vuelo" fetchpriority="high">
@@ -40,9 +41,9 @@ $homeJoin = function($kind) use ($homeArt) {
         <dl class="ph-facts">
             <div class="ph-state"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>ESTADO DEL SERVIDOR</dt><dd data-home-state>Sin verificar</dd></div>
             <div class="ph-online-metric"><img class="ph-stat-illustration ph-core-frame" src="<?php echo $homeArt; ?>stats-core-v15.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"><dt>JUGADORES ONLINE</dt><dd style="--core-count-size:<?php echo number_format(min(23,74/max(1,strlen($homeOnlineValue))),2,'.',''); ?>cqw" data-home-online><?php echo $homeOnlineValue; ?></dd></div>
-            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>EXPERIENCIA</dt><dd><?php echo $homeEscape($serverExp); ?></dd></div>
-            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>MASTER EXP</dt><dd><?php echo $homeEscape($serverMasterExp); ?></dd></div>
-            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>DROP GENERAL</dt><dd><?php echo $homeEscape($serverDrop); ?></dd></div>
+            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>EXPERIENCIA</dt><dd data-home-rate="experience"><?php echo $homeEscape($serverExp); ?></dd></div>
+            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>MASTER EXP</dt><dd data-home-rate="master"><?php echo $homeEscape($serverMasterExp); ?></dd></div>
+            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>DROP GENERAL</dt><dd data-home-rate="drop"><?php echo $homeEscape($serverDrop); ?></dd></div>
         </dl>
         <div class="ph-status-note"><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗</span></a></div>
     </section>

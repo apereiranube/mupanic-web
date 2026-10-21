@@ -12,6 +12,9 @@ on:
       - 'scripts/deploy-beta.sh'
       - 'overlay/templates/mupanic/js/main.js'
       - 'overlay/templates/mupanic/img/home/**'
+      - 'overlay/api/launcher.php'
+      - 'overlay/templates/mupanic/inc/launcher-data.php'
+      - 'tests/launcher*'
       - 'tests/home-*'
       - 'tests/fixtures/home-launch.php'
       - 'tools/home-connected-art.json'
@@ -35,6 +38,7 @@ jobs:
           php -l overlay/templates/mupanic/inc/home-data.php
           python3 tests/home-render.py
           php tests/launcher.php
+          python3 tests/launcher-http.py
           node --check overlay/templates/mupanic/js/home-launch.js
           node --check overlay/templates/mupanic/js/mu-panic-brasas.js
           node --check overlay/templates/mupanic/js/main.js

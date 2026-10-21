@@ -19,7 +19,8 @@ with tempfile.TemporaryDirectory() as temporary:
     shutil.copy(repo / 'overlay/api/launcher.php', root / 'api/launcher.php')
     (root / 'templates/mupanic/inc').symlink_to(repo / 'overlay/templates/mupanic/inc', target_is_directory=True)
     # Cache shape consumed by the existing CMS template (timestamp, then pipe fields).
-    (root / 'includes/cache/server_info.cache').write_text('1700000000\n100|200|3|7\n')
+    (root / 'includes/cache/server_info.cache').write_text('1700000000\n100|200|3|1\n')
+    (root / 'includes/cache/live-online').write_text('0')
     (root / 'includes/functions.php').write_text('''<?php
 function webengineConfigs(){return json_decode(file_get_contents(__PATH_CONFIGS__.'webengine.json'),true);}
 function LoadCacheData($name){$result=[];foreach(explode("\\n",file_get_contents(__PATH_CACHE__.$name)) as $i=>$line){if($line!=='')$result[$i]=explode('¦',$line);}return $result;}
@@ -34,8 +35,8 @@ class Connection {
   return new self;
  }
  function query_fetch_single($query){
-  if($query!=='SELECT 1 AS launcher_available')throw new Exception('Unexpected SQL');
-  return ['launcher_available'=>1];
+  if($query!=='SELECT COUNT(*) AS totalOnline FROM [MEMB_STAT] WHERE [ConnectStat] = 1')throw new Exception('Unexpected SQL');
+  return ['totalOnline'=>trim(file_get_contents(__PATH_CACHE__.'live-online'))];
  }
 }
 ''')
@@ -46,33 +47,54 @@ class Connection {
     sock.bind(('127.0.0.1', 0))
     port = sock.getsockname()[1]
     sock.close()
-    process = subprocess.Popen([php, '-n', '-S', f'127.0.0.1:{port}', '-t', str(root)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    def request():
-        with urllib.request.urlopen(f'http://127.0.0.1:{port}/api/launcher.php', timeout=5) as response:
+    runtime = root / 'runtime'
+    runtime.mkdir()
+    balance = runtime / 'public-balance.json'
+    def write_rates(exp):
+        balance.write_text(json.dumps({'schemaVersion':2,'generatedAt':'2099-01-01T00:00:00Z','accounts':[{'experience':exp,'master':12,'drop':27}],'maps':[],'drops':[],'crafting':{}}))
+    write_rates(31)
+    process = subprocess.Popen([php, '-n', '-S', f'127.0.0.1:{port}', '-t', str(root)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env={**os.environ, 'PANIC_ATLAS_RUNTIME_DIR':str(runtime)})
+    def request(home=False):
+        with urllib.request.urlopen(f'http://127.0.0.1:{port}/api/launcher.php' + ('?home=1' if home else ''), timeout=5) as response:
             assert response.status == 200
             assert response.headers['Content-Type'] == 'application/json; charset=utf-8'
-            assert response.headers['Cache-Control'] == 'max-age=30'
+            assert response.headers['Cache-Control'] == ('no-store' if home else 'max-age=30')
             assert response.headers.get('Set-Cookie') is None
             data = json.load(response)
-            assert list(data) == ['online', 'servidor', 'eventos']
+            assert list(data) == ['online', 'servidor', 'eventos'] + (['rates'] if home else [])
             return data
     def expire():
-        (cache / 'state.json').unlink(missing_ok=True)
+        (cache / 'state-v2.json').unlink(missing_ok=True)
     try:
         for _ in range(50):
             try:
                 with socket.create_connection(('127.0.0.1', port), timeout=.1): break
             except OSError: time.sleep(.05)
         first = request()
-        assert first['online'] == 7 and first['servidor'] == 'online'
+        assert first['online'] == 0 and first['servidor'] == 'online'
         request()
         assert (root / 'includes/cache/queries').read_text() == 'x', 'SQL was not cached'
+        # A stale cron says one; live SQL says zero. After TTL, a new count wins.
+        home = request(True)
+        assert home['online'] == 0 and home['rates'] == {'experience':31,'master':12,'drop':27}
+        write_rates(32)
+        assert request(True)['rates']['experience'] == 32, 'Rates must refresh from the shared runtime export'
+        (root / 'includes/cache/live-online').write_text('100')
+        expire()
+        assert request()['online'] == 100
+        (root / 'includes/cache/live-online').write_text('0')
+        expire()
+        assert request()['online'] == 0
+        # Missing cron cache must not stop a healthy live count.
+        (root / 'includes/cache/server_info.cache').unlink()
+        expire()
+        assert request()['online'] == 0
         (root / 'includes/cache/fail').touch()
         expire()
         failed = request()
         assert failed['online'] == 0 and failed['servidor'] == 'offline'
         request()
-        assert (root / 'includes/cache/queries').read_text() == 'xx', 'failure was not cached'
+        assert (root / 'includes/cache/queries').read_text() == 'xxxxx', 'failure was not cached'
         config.write_text('{"system_active":false}')
         expire()
         assert request()['servidor'] == 'mantenimiento'
