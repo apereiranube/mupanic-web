@@ -64,10 +64,10 @@ try {
     checkShop($saved['payment_state']==='creating' && $posts===$before,'Timeout replay never creates second checkout');
     $changedMerchant=new PanicUalaBisApi(['username'=>'fixture','client_id'=>'merchant-b','client_secret_id'=>'fixture'],'test',function() { throw new LogicException('Do not call changed merchant'); });
     rejectShop(function() use ($store,$first,$changedMerchant) { $store->refresh($first['id'],$changedMerchant,'merchant-b'); },'Merchant snapshot preserved');
-    checkShop(panicRechargeCanBuy(['environment'=>'test'],'anyaccount',true),'All accounts can simulate');
+    checkShop(!panicRechargeCanBuy(['environment'=>'test'],'anyaccount',true),'Disabled Uala cannot create new test payments');
     checkShop(!panicRechargeCanBuy(['environment'=>'production','sales_enabled'=>false],'anyaccount',true),'Production closed by default');
     checkShop(!panicRechargeCanBuy(['environment'=>'production','sales_enabled'=>true],'anyaccount',true),'Production verification required');
-    checkShop(panicRechargeCanBuy(['environment'=>'production','sales_enabled'=>true,'recharges'=>['production_verified'=>true,'amount_unit'=>'ARS']],'anyaccount',true),'Explicit verified production gate');
+    checkShop(!panicRechargeCanBuy(['environment'=>'production','sales_enabled'=>true,'recharges'=>['production_verified'=>true,'amount_unit'=>'ARS']],'anyaccount',true),'Disabled Uala remains closed with verified production settings');
     checkShop(!panicRechargeCanBuy(['environment'=>'test'],'anyaccount',false),'Worker token required before checkout');
     checkShop((new PanicRechargeOrders($root))->history('',1,true)['total']===4,'Durable admin history');
     $wire=json_encode(['action'=>'poll','environment'=>'test','nonce'=>str_repeat('a',32)]);$stamp=(string)time();$token=str_repeat('a',64);

@@ -7,7 +7,7 @@ return [
     'currency' => 'WCoin C',
     // Confirmed base rate: ARS 1.00 (100 centavos) delivers one WCoin C.
     'exchange_rate' => ['price_cents'=>100, 'coins'=>1],
-    'primary_provider' => 'uala_bis',
+    'primary_provider' => 'bank_transfer',
     'packages' => [
         ['id'=>'wcoin-1000', 'title'=>'1.000 WCoin C', 'price_cents'=>100000, 'coins'=>1000, 'bonus'=>0],
         ['id'=>'wcoin-3000', 'title'=>'3.000 WCoin C', 'price_cents'=>300000, 'coins'=>3000, 'bonus'=>0],
@@ -16,7 +16,8 @@ return [
         ['id'=>'wcoin-20000', 'title'=>'20.000 WCoin C', 'price_cents'=>2000000, 'coins'=>20000, 'bonus'=>0],
     ],
     'providers' => [
-        'uala_bis' => ['label'=>'Ualá Bis', 'state'=>'pending', 'copy'=>'Estamos preparando este medio de pago.'],
+        'bank_transfer' => ['label'=>'Transferencia bancaria', 'state'=>'pending', 'copy'=>'Acreditación sujeta a revisión, hasta 48 horas.'],
+        'uala_bis' => ['label'=>'Ualá Bis', 'checkout_enabled'=>false, 'state'=>'disabled', 'copy'=>'No disponible por el momento.'],
         'mobbex' => ['label'=>'Mobbex', 'state'=>'pending', 'copy'=>'Estamos preparando este medio de pago.'],
         'mercadopago' => ['label'=>'MercadoPago', 'state'=>'disabled', 'copy'=>'No disponible por el momento.'],
     ],

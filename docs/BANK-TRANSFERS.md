@@ -1,6 +1,6 @@
 # Recargas por transferencia bancaria — beta
 
-La tienda conserva Ualá y agrega transferencia bancaria como método alternativo. Se reutilizan el bot y el servicio de recargas del VPS. La cuenta administradora `panic`, con permiso de administrador en WebEngine, configura la cuenta receptora desde `/usercp/shopadmin/?vista=configuracion#shop-bank`. La pantalla `/usercp/shopadmin/?vista=transferencias` muestra sólo transferencias por aprobar, separadas de las configuraciones.
+Por el momento la tienda ofrece únicamente transferencia bancaria para nuevas recargas. Ualá está deshabilitado en la configuración pública y en la validación del servidor; se conservan su historial y la conciliación de pagos anteriores. Se reutilizan el bot y el servicio de recargas del VPS. La cuenta administradora `panic`, con permiso de administrador en WebEngine, configura la cuenta receptora desde `/usercp/shopadmin/?vista=configuracion#shop-bank`. La pantalla `/usercp/shopadmin/?vista=transferencias` muestra sólo transferencias por aprobar, separadas de las configuraciones.
 
 ## Circuito
 

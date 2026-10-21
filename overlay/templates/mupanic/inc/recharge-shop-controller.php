@@ -40,6 +40,7 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && isset($_POST['recharge_action'
     } catch(InvalidArgumentException $exception) { $shopMessage=$bankSelected?$exception->getMessage():'Revisá las cantidades: de 0 a 99 por paquete y hasta $1.000.000 por compra.'; }
     catch(Throwable $exception) {
         $messages=['Session expired'=>'Tu sesión venció. Recargá la página y volvé a intentar.',
+            'Shop closed'=>'Ualá está deshabilitado. Prepará tu recarga por transferencia bancaria.',
             'Check too soon'=>'Esperá 15 segundos antes de volver a consultar.',
             'Too many open orders'=>'Tenés 5 compras pendientes. Completá o revisá las anteriores antes de preparar otra.',
             'Checkout unconfirmed; existing order retained'=>'Guardamos tu compra, pero falta confirmar el enlace de Ualá. Conservá su número y consultá al equipo; no vuelvas a pagar.'];

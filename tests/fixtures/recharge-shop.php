@@ -16,7 +16,7 @@ $three=$one;$three['id']='PANIC-'.str_repeat('d',32);$three['payment_state']='pe
 $shopHistory=['total'=>3,'orders'=>[$one,$two,$three]];$shopCanBuy=true;$shopSettings=['environment'=>'test'];$shopAdmin=false;$shopCreated=null;$shopMessage=null;$shopQuantities=['wcoin-20000'=>'5'];$shopPage=1;
 $fixtureMode=getenv('RECHARGE_FIXTURE');
 require_once $inc.'/recharge-bank.php';
-$bankConfig=PanicBankTransfers::defaults();$bankCanBuy=false;$bankSelected=false;$bankCuit='';$bankPage=1;$bankHistory=['orders'=>[],'total'=>0];
+$bankConfig=PanicBankTransfers::defaults();$bankConfig['enabled']=true;$bankCanBuy=true;$bankSelected=false;$bankCuit='';$bankPage=1;$bankHistory=['orders'=>[],'total'=>0];
 if($fixtureMode==='bank') {
     $bankConfig['enabled']=true;$bankCanBuy=true;
     $shopMessage='Ahora abrí Discord y usá el código de tu compra para adjuntar el comprobante en un ticket privado.';
@@ -29,7 +29,7 @@ if($fixtureMode==='bank') {
 }
 
 if(in_array($fixtureMode,['zero','bonus'],true)) $shopQuantities=array_fill_keys(array_column($catalogue,'id'),'0');
-if(in_array($fixtureMode,['closed','vip-priced-closed'],true)) $shopCanBuy=false;
+if(in_array($fixtureMode,['closed','vip-priced-closed'],true)) { $shopCanBuy=false; $bankCanBuy=false; }
 if($fixtureMode==='ready') $shopCreated=$three;
 if($fixtureMode==='empty') { $shopHistory=['total'=>0,'orders'=>[]];$shopQuantities=[]; }
 $storefrontRoot=null;

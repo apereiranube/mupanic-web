@@ -19,8 +19,8 @@ const html=execFileSync(process.env.PHP_BIN||'php',['tests/fixtures/recharge-sho
   await page.locator('[name=payment_method][value=bank_transfer]').check();
   assert.equal(await page.locator('[name=buyer_cuit]').isVisible(),true);assert.equal(await page.locator('[name=buyer_cuit]').getAttribute('required'),'');
   assert.equal(await page.locator('[data-total-price]').textContent(),before);assert.match(await page.locator('[data-cart-submit]').textContent(),/Ver datos de transferencia/);
-  await page.locator('[name=payment_method][value=uala_bis]').check();assert.equal(await page.locator('[name=buyer_cuit]').isDisabled(),true);assert.match(await page.locator('[data-cart-submit]').textContent(),/Ualá/);
-  await page.locator('[name=payment_method][value=bank_transfer]').check();
+  assert.equal(await page.locator('[name=payment_method][value=uala_bis]').count(),0);
+  assert.match(await page.locator('[data-payment-explanation]').textContent(),/48 horas/);
   assert.equal(await page.locator('[name=buyer_cuit]').evaluate(e=>e.checkValidity()),false);
   await page.locator('[name=buyer_cuit]').fill('20123456786');
   assert.equal(await page.locator('[name=buyer_cuit]').evaluate(e=>e.checkValidity()),true);
