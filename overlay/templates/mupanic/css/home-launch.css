@@ -888,5 +888,5 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 .ph-hero .ph-actions{gap:12px}
 .panic-home .ph-hero .ph-button-artwork{width:clamp(180px,16vw,240px);font-size:11px;padding-inline:32px;gap:10px}
 @media(min-width:1101px){.ph-hero .ph-scene-content{width:min(1420px,calc(100% - 80px))}}
-@media(min-width:761px) and (max-width:1100px){.panic-home .ph-hero .ph-button-artwork{width:clamp(160px,18vw,190px);font-size:10px;padding-inline:25px;gap:8px}}
+@media(min-width:761px) and (max-width:1100px){.ph-hero .ph-actions{width:max-content;max-width:calc(100vw - 64px);flex-wrap:nowrap;gap:10px}.panic-home .ph-hero .ph-button-artwork{width:clamp(160px,18vw,190px);font-size:10px;padding-inline:25px;gap:8px}}
 @media(max-width:760px){.ph-hero .ph-actions{flex-direction:column;align-items:flex-start;width:100%;max-width:320px;gap:4px;margin-top:20px}.panic-home .ph-hero .ph-button-artwork{width:min(100%,300px);font-size:12px;padding-inline:42px;gap:12px}}

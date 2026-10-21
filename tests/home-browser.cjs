@@ -137,6 +137,7 @@ async function routes(page,body=html){
   assert.equal(await page.locator('.ph-hero .ph-button-artwork .ph-play-button-art').count(),2,'The hero must share the same painted action art');
   assert.equal(await page.locator('.ph-hero a[href$="register/"]').count(),1);
   assert.equal(await page.locator('.ph-hero a[href$="downloads/"]').count(),1);
+  if(width>760){const openingButtons=await page.locator('.ph-hero .ph-button-artwork').all();const a=await openingButtons[0].boundingBox(),b=await openingButtons[1].boundingBox();assert.ok(Math.abs(a.y-b.y)<1,'Hero actions must stay in one row on tablets and desktops');}
   if(width>1100){
    const copy=await page.locator('.ph-hero .ph-scene-content').boundingBox();
    assert.ok(Math.abs(copy.x-(width-Math.min(1420,width-80))/2)<1,'The hero copy moves left through its own wider container');
