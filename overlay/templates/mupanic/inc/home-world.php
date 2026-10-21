@@ -81,10 +81,13 @@ $hubFeatures = [
 </section>
 
 <section class="ph-play-cta" id="empeza-a-jugar" aria-labelledby="home-play-title">
- <div class="ph-wrap ph-play-layout">
-  <div><p class="ph-eyebrow">MU PANIC TE ESPERA</p><h2 id="home-play-title">Tu historia empieza acá.</h2><p>Creá tu cuenta, descargá el cliente y entrá a jugar.</p></div>
-  <div class="ph-actions"><a class="ph-button" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?> <span aria-hidden="true">↗</span></a><a class="ph-button ph-button-outline" href="<?php echo __BASE_URL__; ?>downloads/"><span aria-hidden="true">↓</span> DESCARGAR</a></div>
- </div>
+ <div class="ph-play-art" aria-hidden="true"><img src="<?php echo $homeArt; ?>play-threshold-v14.webp" alt="" width="2172" height="724" loading="lazy" decoding="async"></div>
+ <div class="ph-wrap ph-play-layout"><div class="ph-play-copy">
+  <div class="ph-play-sigil" aria-hidden="true"><span></span></div>
+  <p class="ph-eyebrow">MU PANIC TE ESPERA</p><h2 id="home-play-title">Tu historia<br><em>empieza acá.</em></h2><p>Elegí tu clase. Encontrá tu bando.<br>El primer paso lo das vos.</p>
+  <div class="ph-actions"><a class="ph-button ph-play-primary" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><span class="ph-play-action-label"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?></span><span aria-hidden="true">↗</span></a><a class="ph-button ph-button-outline ph-play-download" href="<?php echo __BASE_URL__; ?>downloads/"><span aria-hidden="true">↓</span><span class="ph-play-action-label">DESCARGAR</span></a></div>
+  <p class="ph-play-caption">Creá tu cuenta · Descargá el cliente · Entrá a jugar</p>
+ </div></div>
 </section>
 </div>
 <dialog class="ph-hub-lightbox" data-hub-lightbox aria-label="Explorá la vista ilustrada del Hub"><button type="button" class="ph-hub-lightbox-close" aria-label="Cerrar vista ampliada">×</button><div data-hub-lightbox-content></div></dialog>
