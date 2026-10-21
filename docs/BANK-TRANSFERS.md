@@ -61,7 +61,7 @@ Los enlaces anteriores de Economía, Referidos y Transferencias siguen funcionan
 
 ## Condiciones y aceptación
 
-Las páginas `/tos/`, `/refunds/` y `/privacy/` usan la versión `2026-10-21.1`. Describen Eryns, soporte privado de Discord, datos de la transferencia y el proceso de hasta 48 horas. La casilla del formulario comienza desmarcada. El servidor rechaza la creación sin aceptación o con una versión anterior y no escribe una orden en esos casos.
+Las páginas `/tos/`, `/refunds/` y `/privacy/` usan la versión `2026-10-21.2`. Describen Eryns, soporte privado de Discord, datos de la transferencia y el proceso de hasta 48 horas. La casilla del formulario comienza desmarcada. El servidor rechaza la creación sin aceptación o con una versión anterior y no escribe una orden en esos casos.
 
 Cada nueva transferencia conserva `terms_acceptance` con versión, cuenta y fecha UTC generada por el servidor. Los reintentos conservan la aceptación original; las operaciones anteriores siguen funcionando sin atribuirles una aceptación retroactiva. El panel de revisión muestra estos datos dentro de «Datos de esta transferencia». No se envían al bot ni al servicio de acreditación.
 

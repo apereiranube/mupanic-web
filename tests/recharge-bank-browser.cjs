@@ -33,7 +33,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',['tests/fixtures/recharge-sho
   await page.locator('[data-cart-submit]').click();assert.equal(posted,null,'No checkout without acceptance');
   await consent.check();
   await page.locator('[data-cart-submit]').click();await page.waitForTimeout(200);
-  assert.equal(posted.get('accept_terms'),'1');assert.equal(posted.get('terms_version'),'2026-10-21.1');
+  assert.equal(posted.get('accept_terms'),'1');assert.equal(posted.get('terms_version'),'2026-10-21.2');
   assert.equal(posted.get('payment_method'),'bank_transfer');assert.equal(posted.get('buyer_cuit'),'20123456786');assert.equal(posted.get('recharge_action'),'create');
   assert.deepEqual(errors,[]);await page.close();
  }

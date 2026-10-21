@@ -10,7 +10,7 @@
 </div>
 
 <div class="mupanic-legal">
-	<p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.1.</p>
+	<p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.2.</p>
 
 	<p>Estos Términos y Condiciones regulan el acceso y uso de <strong>MU PANIC</strong>, incluyendo el sitio web, las cuentas de juego, el servidor, los sistemas asociados, el contenido digital, las recargas de Eryns y las suscripciones VIP. Al registrarte, acceder al juego o utilizar cualquiera de estos servicios, aceptás estas condiciones.</p>
 
@@ -41,7 +41,7 @@
 	<p>Actualmente el medio habilitado es la transferencia bancaria a la cuenta indicada en el sitio. Antes de transferir, verificá el titular, los datos bancarios, el importe, la cantidad de Eryns y tu cuenta de juego. Los datos mostrados en cada operación son los que debés utilizar para esa recarga.</p>
 	<p>Solicitamos el CUIT de quien realiza el aporte para identificar la transferencia. Después de pagar, seguí las instrucciones de la web para abrir tu ticket privado en el Discord oficial y adjuntar el comprobante. No publiques comprobantes, códigos ni datos personales en canales públicos. El comprobante por sí solo no confirma la recepción del dinero: el equipo verifica el ingreso en la cuenta receptora.</p>
 	<p>El proceso de acreditación puede demorar hasta 48 horas desde que realizás la transferencia y presentás el comprobante con los datos necesarios para identificarla. Si falta información o no podemos identificar el ingreso, te lo comunicaremos por soporte. Una vez aprobado el pago, la entrega automática requiere que tu cuenta esté desconectada del juego; si estás jugando, queda pendiente hasta que cierres sesión. Podés consultar el estado en la web y el bot avisa en tu ticket cuando se completa la acreditación.</p>
-	<p>Antes de generar una nueva transferencia debés aceptar expresamente estos términos, la política de recargas y reembolsos y la política de privacidad. Guardamos la versión aceptada y la fecha junto con la operación. Si detectás un pago duplicado o una acreditación incorrecta, contactá al soporte antes de utilizar los Eryns o beneficios involucrados. No se ofrecen reintegros voluntarios por Eryns gastados, transferidos o consumidos ni por beneficios utilizados, salvo cuando corresponda por obligación legal. Las solicitudes de cancelación o reintegro se tratan conforme a la política de reembolsos y a la legislación aplicable.</p>
+	<p>Antes de generar una nueva transferencia debés aceptar expresamente estos términos, la política de recargas y reembolsos y la política de privacidad. Guardamos la versión aceptada y la fecha junto con la operación. Si detectás un pago duplicado o una acreditación incorrecta, contactá al soporte antes de utilizar los Eryns o beneficios involucrados. No se ofrecen reintegros voluntarios por Eryns gastados, transferidos o consumidos ni por beneficios utilizados. Las solicitudes de cancelación o reintegro se tratan conforme a la política de reembolsos y a la legislación aplicable.</p>
 
 	<h3>6. Suscripción VIP</h3>
 	<p>Los beneficios VIP son temporales y corresponden al nivel y período informado al momento de la activación. Salvo que se indique expresamente lo contrario, una suscripción VIP no implica renovación automática. MU PANIC puede ajustar beneficios futuros por razones de balance; los cambios no otorgan derechos sobre ventajas ya vencidas.</p>

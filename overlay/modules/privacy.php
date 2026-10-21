@@ -10,7 +10,7 @@
 </div>
 
 <div class="mupanic-legal">
-    <p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.1.</p>
+    <p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.2.</p>
 
     <p>Esta Política de Privacidad explica qué información puede tratar <strong>MU PANIC</strong> al utilizar el sitio web, crear una cuenta, jugar en el servidor, realizar recargas, utilizar beneficios VIP o contactar al soporte.</p>
 

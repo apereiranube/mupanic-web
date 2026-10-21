@@ -10,12 +10,12 @@
 </div>
 
 <div class="mupanic-legal">
-    <p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.1.</p>
+    <p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.2.</p>
 
     <p>Esta política regula las recargas de <strong>Eryns</strong>, suscripciones VIP y otros beneficios digitales adquiridos mediante los medios oficiales de MU PANIC.</p>
 
     <h3>1. Política general</h3>
-    <p>Las recargas ayudan a sostener MU PANIC y acreditan los Eryns o beneficios informados. El estado de una operación permite verificar si el pago fue confirmado y si se completó la entrega. No se ofrecen reintegros voluntarios por Eryns ya gastados, transferidos o consumidos, ni por beneficios ya utilizados, salvo cuando corresponda por obligación legal.</p>
+    <p>Las recargas ayudan a sostener MU PANIC y acreditan los Eryns o beneficios informados. El estado de una operación permite verificar si el pago fue confirmado y si se completó la entrega. No se ofrecen reintegros voluntarios por Eryns ya gastados, transferidos o consumidos, ni por beneficios ya utilizados.</p>
     <p>Las solicitudes de cancelación, arrepentimiento y devolución se revisan según las circunstancias y la normativa aplicable. Cuando corresponda un derecho legal de devolución, estas condiciones no lo excluyen ni lo restringen.</p>
 
     <h3>2. Excepciones</h3>
@@ -24,11 +24,11 @@
         <li>cobro duplicado;</li>
         <li>pago aprobado sin acreditación del beneficio correspondiente;</li>
         <li>acreditación manifiestamente incorrecta causada por un error técnico de MU PANIC;</li>
-        <li>operación que deba ser revertida por obligación legal o por resolución del proveedor de pagos.</li>
+        <li>operación que deba ser revertida por resolución del proveedor de pagos.</li>
     </ul>
 
     <h3>3. Eryns o beneficios ya utilizados</h3>
-    <p><strong>No se realizan devoluciones ni reintegros voluntarios por Eryns ya gastados, transferidos o consumidos, ni por ítems, días VIP u otros beneficios ya utilizados.</strong> Esto incluye el cambio de opinión, la pérdida de interés en el servidor o el desacuerdo posterior con el uso elegido por el usuario. Si una recarga fue utilizada parcialmente, esta restricción alcanza a la porción utilizada. Se exceptúan los reintegros que correspondan por obligación legal; esta política no limita derechos inderogables.</p>
+    <p><strong>No se realizan devoluciones ni reintegros voluntarios por Eryns ya gastados, transferidos o consumidos, ni por ítems, días VIP u otros beneficios ya utilizados.</strong> Esto incluye el cambio de opinión, la pérdida de interés en el servidor o el desacuerdo posterior con el uso elegido por el usuario. Si una recarga fue utilizada parcialmente, esta restricción alcanza a la porción utilizada. Esta política no limita derechos inderogables.</p>
 
     <h3>4. Contracargos y desconocimientos</h3>
     <p>Antes de iniciar un contracargo o desconocimiento, contactá al soporte para revisar el caso. Ante indicios de fraude o acceso no autorizado, pueden aplicarse medidas preventivas proporcionadas mientras se investiga la operación. Presentar un reclamo legítimo no constituye por sí mismo una infracción ni motivo de sanción.</p>

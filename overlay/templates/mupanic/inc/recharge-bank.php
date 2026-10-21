@@ -4,7 +4,7 @@ require_once __DIR__.'/recharge-management.php';
 
 /** Separate private transfer ledger; Uala orders and credentials remain untouched. */
 final class PanicBankTransfers {
-    public const TERMS_VERSION = '2026-10-21.1';
+    public const TERMS_VERSION = '2026-10-21.2';
     private $directory;
     public function __construct($directory='/home/mupanic/payments-private') {
         $real=realpath($directory); $public=realpath('/home/mupanic/public_html');
