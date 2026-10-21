@@ -25,6 +25,7 @@ catch(Throwable $e) { $refError=true; }
 try { $refLast=(new PanicReferidosCola())->lastLink($refAccount); } catch(Throwable $e) {}
 $refPendingCode=panicReferidosCodigoPendiente();
 $refLink=$refCode?__BASE_URL__.'register/?ref='.$refCode:null;
+$refShareText=$refLink?'¡Vení a jugar MU PANIC conmigo! Es un MU Online Season 6 argentino. Si creás tu cuenta con mi link, arrancás con 3 días de VIP: '.$refLink:'';
 
 $refOnWay=0; $refDone=0; $refDays=0;
 foreach($refList as $r) {
@@ -65,7 +66,12 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación y tus 3 d
       <div class="ref-link" data-ref-copy>
         <span class="ref-overline">TU LINK DE INVITACIÓN</span>
         <div class="ref-link-row"><input type="text" readonly value="<?php echo panicAccountEscape($refLink); ?>" aria-label="Tu link de invitación"><button type="button" data-ref-copy-button>Copiar link</button></div>
-        <small>Tu código: <b><?php echo panicAccountEscape($refCode); ?></b> · También se puede cargar a mano.</small>
+        <div class="ref-share">
+          <a class="ref-share-btn ref-share-wa" href="<?php echo panicAccountEscape('https://wa.me/?text='.rawurlencode($refShareText)); ?>" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.7 14.9L2 22l5.3-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3Z"/></svg>Enviar por WhatsApp</a>
+          <button type="button" class="ref-share-btn" data-ref-copy-text="<?php echo panicAccountEscape($refShareText); ?>"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V4h12v12h-3M4 8h12v12H4z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span>Copiar mensaje para Discord</span></button>
+          <button type="button" class="ref-share-btn" data-ref-native-share hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5M5 14v6h14v-6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Compartir</button>
+        </div>
+        <small>Tu código: <b><?php echo panicAccountEscape($refCode); ?></b> · También se puede cargar a mano. Al pegar el link en WhatsApp o Discord aparece una tarjeta con la invitación.</small>
       </div>
       <?php } elseif($refError) { ?><p class="ref-note">No pudimos consultar tu link en este momento. Volvé a abrir la página en un rato.</p>
       <?php } else { ?><p class="ref-note">Tu link se está generando. Volvé a abrir esta página en un minuto.</p><?php } ?>
@@ -139,5 +145,10 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación y tus 3 d
   <p class="ref-data-note">Datos actualizados cada minuto.</p>
 </section>
 <script>
+(function(){
+function copiar(txt,ok,fallback){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(ok,fallback);}else{fallback();}}
+var m=document.querySelector('[data-ref-copy-text]');if(m){var ms=m.querySelector('span');m.addEventListener('click',function(){var t=m.getAttribute('data-ref-copy-text');var done=function(){ms.textContent='¡Mensaje copiado!';setTimeout(function(){ms.textContent='Copiar mensaje para Discord';},1800);};copiar(t,done,function(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();done();});});}
+var n=document.querySelector('[data-ref-native-share]');if(n&&navigator.share&&m){n.hidden=false;n.addEventListener('click',function(){var link=document.querySelector('[data-ref-copy] input').value;navigator.share({title:'MU PANIC',text:'¡Vení a jugar MU PANIC conmigo! Si creás tu cuenta con mi link, arrancás con 3 días de VIP.',url:link}).catch(function(){});});}
+})();
 (function(){var b=document.querySelector('[data-ref-copy-button]');if(!b)return;b.addEventListener('click',function(){var i=document.querySelector('[data-ref-copy] input');var done=function(){b.textContent='¡Copiado!';setTimeout(function(){b.textContent='Copiar link';},1800);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(i.value).then(done,function(){i.select();document.execCommand('copy');done();});}else{i.select();document.execCommand('copy');done();}});})();
 </script>

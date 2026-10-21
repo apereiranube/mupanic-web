@@ -15,6 +15,12 @@
 .ref-link-row input{flex:1;min-width:0;padding:11px 12px;background:#060a13;border:1px solid #55627560;color:#f3eee4;font-size:14px;border-radius:2px}
 .ref-link-row button,.ref-form button{padding:11px 18px;border:0;border-radius:2px;background:linear-gradient(180deg,#f7d58c,#c99643);color:#271b0d;font-weight:800;cursor:pointer;white-space:nowrap}
 .ref-link-row button:hover,.ref-form button:hover{filter:brightness(1.08)}
+.ref-share{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 10px}
+.ref-share-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:1px solid #e6b65c80;border-radius:2px;background:#0b101c;color:#f2d9a6;font-size:13px;font-weight:700;cursor:pointer;text-decoration:none;font-family:inherit;line-height:1.2}
+.ref-share-btn:hover,.ref-share-btn:focus{border-color:#f7d58c;color:#fff3d6;text-decoration:none;background:#151b2a}
+.ref-share-btn svg{width:16px;height:16px;flex:none;fill:currentColor}
+.ref-share-wa svg{fill:#5fd07a}
+.ref-share-btn[hidden]{display:none}
 .ref-link small{color:#9aa3b5;font-size:12px}.ref-link small b{color:#f8d78d;letter-spacing:1px}
 .ref-note{font-size:13px}
 .ref-alert{margin:22px 42px 0;padding:13px 16px;border:1px solid #55627560;background:#111827;font-size:14px}
@@ -50,7 +56,7 @@
 .ref-how details ul{margin:10px 0 0;padding-left:18px}.ref-how details li{display:list-item;padding:3px 0;background:none;border:0}
 .ref-data-note{margin:18px 42px 30px;font-size:11px;color:#6f7a8e!important}
 @media(max-width:900px){.ref-hero{padding:32px 26px}.ref-cards,.ref-panel,.ref-alert{margin-left:26px;margin-right:26px}.ref-cards{padding-left:26px;padding-right:26px;margin:0}.ref-list,.ref-how ol{grid-template-columns:1fr}.ref-data-note{margin-left:26px}}
-@media(max-width:600px){.ref-hero{padding:26px 18px;background:linear-gradient(180deg,#050812f0 0%,#050812d0 60%,#050812f5 100%),url('../img/referidos/referidos-hero-v2-1200.webp') 78% center/cover #050812}.ref-link-row{flex-direction:column}.ref-cards{grid-template-columns:1fr;padding:18px 18px 0}.ref-panel,.ref-alert{margin:18px 18px 0;padding:18px}.ref-progress{grid-template-columns:1fr}.ref-form input{width:100%}.ref-form label{width:100%}.ref-data-note{margin:16px 18px 24px}}
+@media(max-width:600px){.ref-share-btn{flex:1 1 100%;justify-content:center}.ref-hero{padding:26px 18px;background:linear-gradient(180deg,#050812f0 0%,#050812d0 60%,#050812f5 100%),url('../img/referidos/referidos-hero-v2-1200.webp') 78% center/cover #050812}.ref-link-row{flex-direction:column}.ref-cards{grid-template-columns:1fr;padding:18px 18px 0}.ref-panel,.ref-alert{margin:18px 18px 0;padding:18px}.ref-progress{grid-template-columns:1fr}.ref-form input{width:100%}.ref-form label{width:100%}.ref-data-note{margin:16px 18px 24px}}
 /* Admin */
 .ref-admin .ref-flag{display:inline-block;padding:2px 7px;margin:2px 2px 0 0;font-size:11px;border:1px solid #d5ad6280;color:#f2d9a6;background:#1a1408}
 .ref-admin .ref-flag--no{border-color:#d0645c80;color:#f2c2bd;background:#1d0d0c}

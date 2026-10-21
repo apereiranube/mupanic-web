@@ -149,9 +149,25 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta name="description" content="MU PANIC: guerra Nexo contra Caos, mascotas evolutivas, Mercado Vessara, ocho minijuegos y un cliente renovado. Esto es MU PANIC."/>
     <meta name="keywords" content="MU PANIC, MU Online, Season 6, Argentina, Louis UP43"/>
     <meta property="og:type" content="website"/>
+    <?php $refPreviewCode=($_REQUEST['page']==='register' && is_string($_GET['ref'] ?? null) && preg_match('/^[A-Za-z0-9]{8}$/D',$_GET['ref'])) ? strtoupper($_GET['ref']) : null; ?>
+    <?php if($refPreviewCode) { $refPreviewImg=__PATH_TEMPLATE__.'img/referidos/referidos-preview-v1.jpg'; ?>
+    <meta property="og:site_name" content="MU PANIC"/>
+    <meta property="og:title" content="Te invitaron a MU PANIC"/>
+    <meta property="og:description" content="Creá tu cuenta con este link y arrancá con 3 días de VIP. MU Online Season 6 · Argentina."/>
+    <meta property="og:url" content="<?php echo htmlspecialchars(__BASE_URL__.'register/?ref='.$refPreviewCode); ?>"/>
+    <meta property="og:image" content="<?php echo htmlspecialchars($refPreviewImg); ?>"/>
+    <meta property="og:image:secure_url" content="<?php echo htmlspecialchars($refPreviewImg); ?>"/>
+    <meta property="og:image:type" content="image/jpeg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:alt" content="MU PANIC: te invitaron a jugar y arrancás con 3 días de VIP"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="<?php echo htmlspecialchars($refPreviewImg); ?>"/>
+    <?php } else { ?>
     <meta property="og:title" content="MU PANIC · Season 6"/>
     <meta property="og:description" content="Sistemas propios. Una experiencia distinta. Descubrí MU PANIC."/>
     <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
+    <?php } ?>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/fractura/aldren-varkor-v2.webp" fetchpriority="high"><?php } ?>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v10.webp" fetchpriority="high"><?php } ?>
     <?php if(!$isHome && $_REQUEST['page'] !== 'information') { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
