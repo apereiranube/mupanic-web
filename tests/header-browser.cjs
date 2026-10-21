@@ -39,7 +39,7 @@ async function withBootstrap(page){await page.evaluate(css=>{const style=documen
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
  for(const width of [1920,1366,1024,390])for(const logged of [false,true]){
-  let baseline,openBaseline;
+  let baseline,openBaseline,pixelBaseline;
   for(const [name,classes,styles] of themes){
    const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -60,6 +60,9 @@ async function withBootstrap(page){await page.evaluate(css=>{const style=documen
    assert.deepEqual(await metrics(page),plain,`${name}/${width}/${logged}: Bootstrap must not change the header`);
    if(baseline)assert.deepEqual(plain,baseline,`${name}/${width}/${logged}: page CSS must not change the header`);
    baseline=plain;
+   const pixels=await page.locator('.site-header').screenshot();
+   if(pixelBaseline)assert.ok(pixels.equals(pixelBaseline),'The rendered header must match pixel for pixel across page themes');
+   pixelBaseline=pixels;
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
    const header=await page.locator('.site-header').boundingBox();
    assert.equal(header.height,width<=760?70:width<=1100?76:86);
@@ -82,7 +85,7 @@ async function withBootstrap(page){await page.evaluate(css=>{const style=documen
     await page.locator('[data-test-bootstrap]').evaluate(el=>el.remove());
     assert.deepEqual(await metrics(page),opened,'Open dropdown must be independent of Bootstrap');
     await withBootstrap(page);
-    if(output && !logged)await page.locator('.site-header').screenshot({path:path.join(output,name+'-'+width+'-menu.png')});
+    if(output && !logged){const menu=await page.locator('.main-nav').boundingBox();await page.screenshot({path:path.join(output,name+'-'+width+'-menu.png'),clip:{x:0,y:0,width,height:Math.ceil(menu.y+menu.height)}});}
     await page.keyboard.press('Escape');
     assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'false');
     assert.equal(await page.locator('.main-nav').isVisible(),false);
