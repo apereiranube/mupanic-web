@@ -1,4 +1,4 @@
-721aaa2b3ca309982917b817202d831711e802270fcb90d48713f926d075507e  templates/mupanic/index.php
+2540b9ba21e814b7394328d32aa2ac0ced738da46cd2f3775305dc7b23a21a93  templates/mupanic/index.php
 3f80ce31e018f791afb82378136b17f971a90eebf859b136e57f69e34b222c9f  templates/mupanic/inc/recharge-admin.php
 ce63d51ef1302df80808901fdfdd6691331ac27fefd70799ac3c986c1492d8db  templates/mupanic/inc/admin-economy/bootstrap.php
 e587f00316dc97c669d950e1bc996f3dca450248c8625d7a06b61d70a2069bcf  templates/mupanic/inc/admin-economy/entry.php

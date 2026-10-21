@@ -126,6 +126,21 @@ for asset in server-hero server-furia server-fractura server-vessara server-comp
   fi
 done
 
+# El servidor V3: cada imagen que nombran la página, su CSS y su JS debe viajar completa.
+SERVER_V3_REFS=$(grep -ohE '(server/v3/|\$srvV3; \?>)[a-z0-9-]+-[0-9a-f]{12}\.webp' \
+  "$MODULE_SOURCE/information.php" "$TEMPLATE_SOURCE/css/information.css" "$TEMPLATE_SOURCE/js/information.js" \
+  | grep -oE '[a-z0-9-]+-[0-9a-f]{12}\.webp' | sort -u)
+if [ -z "$SERVER_V3_REFS" ]; then
+  echo "[MU PANIC] ERROR: El servidor V3 no referencia imágenes" >&2
+  exit 1
+fi
+for asset in $SERVER_V3_REFS; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/server/v3/$asset" ]; then
+    echo "[MU PANIC] ERROR: Missing server page artwork: v3/$asset" >&2
+    exit 1
+  fi
+done
+
 # System artwork is shipped as real WebP binaries; reject incomplete releases before copying.
 SYSTEM_ART_FILES=(
   "chronicles-d6291c69cf6b.webp"
