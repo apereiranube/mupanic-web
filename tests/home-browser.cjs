@@ -87,6 +87,14 @@ async function routes(page,body=html){
   assert.equal(await page.locator('[data-home-online]').textContent(),'17');
   const coreBox=await page.locator('.ph-online-metric').boundingBox();
   assert.ok(coreBox.width <= (width<=760?220:245), 'The core must stay compact beside the combat scene');
+  const coreLabel=await page.locator('.ph-online-metric').evaluate(el=>{
+   const title=el.querySelector('dt'),count=el.querySelector('dd'),box=title.getBoundingClientRect(),number=count.getBoundingClientRect();
+   return {lines:[...title.querySelectorAll('span')].map(span=>{const range=document.createRange();range.selectNodeContents(span);const ink=range.getBoundingClientRect();return{text:span.textContent.trim(),left:ink.left,right:ink.right,top:ink.top};}),left:box.left,right:box.right,bottom:box.bottom,numberTop:number.top,font:parseFloat(getComputedStyle(title).fontSize)};
+  });
+  assert.deepEqual(coreLabel.lines.map(line=>line.text),['JUGADORES','ONLINE']);
+  assert.ok(coreLabel.font>=9 && coreLabel.lines[1].top>coreLabel.lines[0].top,'The core title must have two legible lines');
+  assert.ok(coreLabel.lines.every(line=>line.left>=coreLabel.left && line.right<=coreLabel.right) && coreLabel.bottom+2<=coreLabel.numberTop,'The title must fit the inner aperture and stay separate from the count');
+
   assert.equal(await page.locator('[data-home-rate=experience]').textContent(),'15x');
   assert.equal(await page.locator('.ph-status').getAttribute('data-server-state'),'online');
   assert.equal(await page.locator('[data-home-state]').textContent(),'Online');
@@ -100,7 +108,7 @@ async function routes(page,body=html){
     const fit=await page.locator('[data-home-online]').evaluate(el=>{const range=document.createRange();range.selectNodeContents(el);const ink=range.getBoundingClientRect(),slot=el.getBoundingClientRect();return{inkWidth:ink.width,slotWidth:slot.width,inkLeft:ink.left,inkRight:ink.right,left:slot.left,right:slot.right,fontSize:parseFloat(getComputedStyle(el).fontSize)};});
     assert.ok(fit.inkWidth<=fit.slotWidth+1 && fit.inkLeft>=fit.left-1 && fit.inkRight<=fit.right+1,'The formatted live count must fit inside the core aperture: '+JSON.stringify({width,count,...fit}));
     if(count===100)assert.ok(fit.fontSize>=40,'100 players must remain prominent, including on small phones');
-    if(output && [100,1000].includes(count))await page.locator('.ph-status').screenshot({path:path.join(output,'stats-'+count+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
+    if(output && [0,100,1000].includes(count))await page.locator('.ph-status').screenshot({path:path.join(output,'stats-'+count+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
    }
    await page.route('**/api/launcher.php*',route=>route.fulfill({json:fixture}));
    await page.evaluate(()=>dispatchEvent(new Event('online')));
