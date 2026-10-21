@@ -15,3 +15,7 @@
 .is-account .inner-head>a{flex-shrink:0;padding:10px 16px;border:1px solid #cba46545;background:#d4ac5810;border-radius:3px;font-size:12px;text-decoration:none}
 @media(max-width:900px){.is-account .inner-hero{padding:104px 0 20px}.is-account .inner-head{gap:18px}}
 @media(max-width:520px){.is-account .inner-head{align-items:flex-start;flex-direction:column;gap:14px}.is-account .inner-head h1{font-size:27px;line-height:1.2}.is-account .inner-head>a{min-height:40px;padding:8px 14px}.is-account .inner-content{padding-top:18px}}
+/* Referidos: aviso en el inicio para el invitado que llego con un link */
+.account-ref-callout{display:flex;align-items:center;gap:16px;margin:18px 0 0;padding:16px 20px;border:1px solid #e6b65c;background:radial-gradient(ellipse at 10% 0,#ad78282e,transparent 70%),#0b101c;color:#f3eee4;text-decoration:none}
+.account-ref-callout svg{width:38px;height:40px;flex:0 0 38px;color:#e5bb6e}.account-ref-callout span{flex:1;display:flex;flex-direction:column}.account-ref-callout strong{font-size:18px;color:#f8d78d}.account-ref-callout small{color:#b8becb;font-size:13px}.account-ref-callout b{color:#f8d78d;white-space:nowrap}
+.is-account .module-surface a.account-ref-callout{color:#f3eee4}

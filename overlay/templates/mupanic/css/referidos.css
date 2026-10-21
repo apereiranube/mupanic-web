@@ -1,0 +1,61 @@
+/* MU PANIC - Mi cuenta / Referidos (misma paleta que VIP y el panel) */
+.is-account:has(.panic-ref) .module-surface{padding:0!important;background:#080d17!important;border-color:#ae874536}
+.panic-ref{--ref-gold:#f4cd7b;--ref-text:#f3eee4;color:var(--ref-text);background:#080d17;font-size:15px;line-height:1.55;overflow:hidden}
+.panic-ref *{box-sizing:border-box}
+.panic-ref h2,.panic-ref h3{color:var(--ref-text);margin:0;line-height:1.1;font-family:inherit}
+.panic-ref p{color:#b8becb;margin:10px 0}
+.ref-overline{display:block;color:#dfb967;font-size:11px;font-weight:800;letter-spacing:2.2px}
+.ref-hero{position:relative;padding:44px 42px 38px;border-bottom:1px solid #e8b95d50;background:linear-gradient(90deg,#050812 0%,#050812ee 45%,#05081270 75%,#05081230),url('../img/recharge/eryns-legends-v3.webp') center 30%/cover;isolation:isolate}
+.ref-hero-copy{max-width:640px}
+.ref-hero h2{font-size:clamp(34px,4.4vw,52px);font-weight:800;margin-top:14px}
+.ref-hero h2 em{font-style:normal;color:var(--ref-gold)}
+.ref-hero p strong{color:#f8d78d}
+.ref-link{margin-top:22px;padding:18px 18px 14px;background:#0b101cdd;border:1px solid #e6b65c;box-shadow:0 0 35px #d59a2518}
+.ref-link-row{display:flex;gap:10px;margin:10px 0 8px}
+.ref-link-row input{flex:1;min-width:0;padding:11px 12px;background:#060a13;border:1px solid #55627560;color:#f3eee4;font-size:14px;border-radius:2px}
+.ref-link-row button,.ref-form button{padding:11px 18px;border:0;border-radius:2px;background:linear-gradient(180deg,#f7d58c,#c99643);color:#271b0d;font-weight:800;cursor:pointer;white-space:nowrap}
+.ref-link-row button:hover,.ref-form button:hover{filter:brightness(1.08)}
+.ref-link small{color:#9aa3b5;font-size:12px}.ref-link small b{color:#f8d78d;letter-spacing:1px}
+.ref-note{font-size:13px}
+.ref-alert{margin:22px 42px 0;padding:13px 16px;border:1px solid #55627560;background:#111827;font-size:14px}
+.ref-alert--ok{border-color:#5fb37a80;color:#bfe8cb}.ref-alert--error{border-color:#d0645c80;color:#f2c2bd}
+.ref-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:26px 42px 0}
+.ref-cards article{padding:18px 20px;background:#101927;border:1px solid #d5ad6230}
+.ref-cards strong{display:block;font-size:34px;font-weight:900;color:#f3eee4;line-height:1}
+.ref-cards span{display:block;margin-top:8px;font-size:12px;color:#9aa3b5;letter-spacing:.4px}
+.ref-cards .ref-card-gold{border-color:#e6b65c;background:radial-gradient(ellipse at 50% 0,#ad78282e,transparent 70%),#0b101c}
+.ref-cards .ref-card-gold strong{color:#f8d78d}
+.ref-panel{margin:26px 42px 0;padding:24px;background:#0d1422;border:1px solid #55627540}
+.ref-panel h3{font-size:26px;margin-top:10px}
+.ref-confirm,.ref-invited{border-color:#e6b65c80}
+.ref-form{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:14px}
+.ref-form label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:#9aa3b5}
+.ref-form input{width:220px;padding:11px 12px;background:#060a13;border:1px solid #55627560;color:#f3eee4;font-size:16px;letter-spacing:2px;text-transform:uppercase;border-radius:2px}
+.ref-progress{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0 10px}
+.ref-bar span{display:flex;justify-content:space-between;font-size:12px;color:#9aa3b5;margin-bottom:6px}.ref-bar b{color:#f3eee4}
+.ref-bar i{display:block;height:8px;background:#1b2536;border-radius:4px;overflow:hidden;position:relative}
+.ref-bar i:after{content:"";position:absolute;inset:0 auto 0 0;width:var(--p);background:linear-gradient(90deg,#c99643,#f7d58c);border-radius:4px}
+.ref-state{display:inline-block;padding:5px 10px;font-size:12px;font-weight:700;border:1px solid #55627560;background:#111827;color:#cfd6e2}
+.ref-state--camino{border-color:#6f86b380;color:#c4d3f2}.ref-state--revision{border-color:#d5ad6280;color:#f2d9a6}
+.ref-state--cumplido{border-color:#e6b65c;color:#f8d78d}.ref-state--pagado{border-color:#5fb37a80;color:#bfe8cb}.ref-state--no{border-color:#d0645c80;color:#f2c2bd}
+.ref-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.ref-friend{padding:16px 18px;background:#101927;border:1px solid #55627540}
+.ref-friend-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ref-friend-head strong{font-size:18px;color:#f3eee4;overflow-wrap:anywhere}.ref-friend-head small{font-size:11px;color:#8792a6;white-space:nowrap}
+.ref-empty{font-size:14px}
+.ref-how ol{list-style:none;padding:0;margin:16px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ref-how li{display:flex;gap:12px;padding:16px;background:#101927;border:1px solid #55627540}
+.ref-how li b{color:#dfb967;font-size:20px;font-weight:900}.ref-how li strong{color:#f3eee4}.ref-how li p{font-size:13px;margin:6px 0 0}
+.ref-how details{margin-top:16px;font-size:13px;color:#b8becb}.ref-how summary{cursor:pointer;color:#dfb967;font-weight:700}
+.ref-how details ul{margin:10px 0 0;padding-left:18px}.ref-how details li{display:list-item;padding:3px 0;background:none;border:0}
+.ref-data-note{margin:18px 42px 30px;font-size:11px;color:#6f7a8e!important}
+@media(max-width:900px){.ref-hero{padding:32px 26px}.ref-cards,.ref-panel,.ref-alert{margin-left:26px;margin-right:26px}.ref-cards{padding-left:26px;padding-right:26px;margin:0}.ref-list,.ref-how ol{grid-template-columns:1fr}.ref-data-note{margin-left:26px}}
+@media(max-width:600px){.ref-hero{padding:26px 18px;background-position:70% 30%}.ref-link-row{flex-direction:column}.ref-cards{grid-template-columns:1fr;padding:18px 18px 0}.ref-panel,.ref-alert{margin:18px 18px 0;padding:18px}.ref-progress{grid-template-columns:1fr}.ref-form input{width:100%}.ref-form label{width:100%}.ref-data-note{margin:16px 18px 24px}}
+/* Admin */
+.ref-admin .ref-flag{display:inline-block;padding:2px 7px;margin:2px 2px 0 0;font-size:11px;border:1px solid #d5ad6280;color:#f2d9a6;background:#1a1408}
+.ref-admin .ref-flag--no{border-color:#d0645c80;color:#f2c2bd;background:#1d0d0c}
+.ref-admin .ref-admin-form{display:inline-block;margin:2px}
+.ref-admin .ref-admin-form button{padding:6px 12px;border:1px solid #e6b65c;background:#2a1f0d;color:#f8d78d;font-weight:700;cursor:pointer;border-radius:2px}
+.ref-admin .ref-admin-form button.ref-admin-danger{border-color:#d0645c;background:#2a0f0d;color:#f2c2bd}
+.ref-admin-table td{vertical-align:top}.ref-admin-table small{color:#8792a6}
+.ref-admin-table td:nth-child(2),.ref-admin-table td:nth-child(3){white-space:nowrap}

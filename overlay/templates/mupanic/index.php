@@ -28,6 +28,11 @@ if($legacyPurchaseRoute) {
     header('Location: '.$target, true, 302);
     exit;
 }
+// Referidos: el link de invitacion (?ref=CODIGO) se recuerda hasta que el invitado lo confirma en Mi cuenta.
+if(in_array($_REQUEST['page'],['register','usercp'],true) && is_string($_GET['ref'] ?? null) && preg_match('/^[A-Za-z0-9]{8}$/D',$_GET['ref'])) {
+    require_once __DIR__.'/inc/referidos-cola.php';
+    panicReferidosGuardarCodigo($_GET['ref']);
+}
 if($_REQUEST['page'] === 'usercp') {
     require_once(__DIR__.'/inc/account.php');
     $GLOBALS['lang'] = array_replace(is_array($GLOBALS['lang'] ?? null) ? $GLOBALS['lang'] : [], require(__DIR__.'/inc/account-locale.php'));
@@ -217,10 +222,11 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                     if($_REQUEST['subpage'] === '') { panicAccountHome(); }
                     else {
                         $accountTool=panicAccountTools()[$_REQUEST['subpage']] ?? null;
-                        if($accountTool && !in_array($_REQUEST['subpage'],['recharge','shopadmin','vip'],true)) echo '<header class="account-module-head"><span class="account-module-icon">'.panicAccountIcon($accountTool['icon']).'</span><div><h2>'.panicAccountEscape($accountTool['title']).'</h2><p>'.panicAccountEscape($accountTool['copy']).'</p></div></header>';
+                        if($accountTool && !in_array($_REQUEST['subpage'],['recharge','shopadmin','vip','referidos'],true)) echo '<header class="account-module-head"><span class="account-module-icon">'.panicAccountIcon($accountTool['icon']).'</span><div><h2>'.panicAccountEscape($accountTool['title']).'</h2><p>'.panicAccountEscape($accountTool['copy']).'</p></div></header>';
                         echo '<div class="account-module" data-account-module="'.panicAccountEscape($_REQUEST['subpage']).'">';
                         if($_REQUEST['subpage'] === 'recharge') { include __DIR__.'/inc/recharge.php'; }
                         elseif($_REQUEST['subpage'] === 'vip') { include __DIR__.'/inc/vip.php'; }
+                        elseif($_REQUEST['subpage'] === 'referidos') { include __DIR__.'/inc/referidos.php'; }
                         elseif($_REQUEST['subpage'] === 'shopadmin') { include __DIR__.'/inc/recharge-admin.php'; }
                         else {
                             ob_start(); $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);

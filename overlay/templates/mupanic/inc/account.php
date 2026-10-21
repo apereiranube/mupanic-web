@@ -5,6 +5,7 @@ function panicAccountTools() {
     return [
         'shopadmin'=>['title'=>'Administrar tienda','copy'=>'Paquetes, promociones, compras y entrega automática.','group'=>'Administración','icon'=>'crown'],
         'recharge'=>['title'=>'Recargar Eryns','copy'=>'Elegí tus Eryns, pagá con Ualá y seguí la entrega a tu cuenta.','group'=>'Eryns y VIP','icon'=>'gem'],
+        'referidos'=>['title'=>'Referidos','copy'=>'Invitá amigos y ganá días de VIP.','group'=>'Eryns y VIP','icon'=>'friends'],
         'myaccount'=>['title'=>'Datos de mi cuenta','copy'=>'Tus datos, personajes y estado de conexión.','group'=>'Seguridad','icon'=>'shield'],
         'myemail'=>['title'=>'Cambiar correo','copy'=>'Actualizá el correo de tu cuenta.','group'=>'Seguridad','icon'=>'mail'],
         'mypassword'=>['title'=>'Cambiar contraseña','copy'=>'Administrá la contraseña de acceso.','group'=>'Seguridad','icon'=>'shield'],
@@ -35,6 +36,7 @@ function panicAccountIcon($type) {
         'magic'=>'M20 3l5 12 12 5-12 5-5 12-5-12-12-5 12-5z',
         'crown'=>'M6 11l7 8 7-14 7 14 7-8-3 20H9zM9 36h22',
         'coin'=>'M20 4a16 16 0 1 0 0 32 16 16 0 0 0 0-32zM25 13H15v7h10v7H15M20 9v22',
+        'friends'=>'M14 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM3 35c0-7 5-12 11-12s11 5 11 12M27 18a5 5 0 1 0 0-10M29 23c5 1 8 6 8 12',
     ];
     return '<svg viewBox="0 0 40 42" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="'.($paths[$type] ?? $paths['shield']).'"/></svg>';
 }
@@ -58,6 +60,7 @@ function panicAccountMenuItems() {
     // Storefront checkout availability is controlled by private payment settings.
     if(isLoggedIn() && !in_array('vip',array_column($items,'key'),true)) $items[] = array_merge($tools['vip'], ['key'=>'vip','href'=>__BASE_URL__.'usercp/vip/','newtab'=>false]);
     if(isLoggedIn() && !in_array('recharge',array_column($items,'key'),true)) $items[] = array_merge($tools['recharge'], ['key'=>'recharge','href'=>__BASE_URL__.'usercp/recharge/','newtab'=>false]);
+    if(isLoggedIn() && !in_array('referidos',array_column($items,'key'),true)) $items[] = array_merge($tools['referidos'], ['key'=>'referidos','href'=>__BASE_URL__.'usercp/referidos/','newtab'=>false]);
     require_once __DIR__.'/recharge-management.php';
     if(panicRechargeAdminAllowed()) $items[]=array_merge($tools['shopadmin'],['key'=>'shopadmin','href'=>__BASE_URL__.'usercp/shopadmin/','newtab'=>false]);
     return $items;
