@@ -21,7 +21,7 @@ $homeGames = [
  ['carrera','Carrera','Elegí tu monstruo y seguí la carrera hasta la llegada.'],
 ];
 $homeJourney = function($part,$alt) use ($homeArt,$homeEscape) { ?>
- <div class="ph-art ph-journey-art ph-journey-part-<?php echo $part; ?>"><img src="<?php echo $homeArt; ?>journey-world-v12.webp" alt="<?php echo $homeEscape($alt); ?>" width="1024" height="1536" loading="lazy" decoding="async"></div>
+ <div class="ph-art ph-journey-art ph-journey-part-<?php echo $part; ?>"><img src="<?php echo $homeArt; ?>journey-world-v12.webp" alt="<?php echo $homeEscape($alt); ?>" width="1024" height="1536" loading="lazy" decoding="async"><div class="ph-journey-detail" aria-hidden="true"></div></div>
 <?php };
 $hubFeatures = [
  'personaje'=>['Pase de batalla','Logros','Ranking','Recompensa diaria','Cuenta VIP','Buscar party','Banco de joyas','Recompensas F8'],

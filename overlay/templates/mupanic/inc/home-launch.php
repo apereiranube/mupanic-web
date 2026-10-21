@@ -13,7 +13,7 @@ $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($h
 };
 // Each transition has its own environmental artwork; never a repeated frame.
 $homeJoin = function($kind) use ($homeArt) {
-    $joinVersion = in_array($kind, ['market','arcade'], true) ? 'v10' : 'v6';
+    $joinVersion = $kind === 'canopy' ? 'v13' : (in_array($kind, ['market','arcade'], true) ? 'v10' : 'v6');
     $joinSize = getimagesize(__DIR__.'/../img/home/join-'.$kind.'-'.$joinVersion.'.webp'); ?>
 <div class="ph-flow-join ph-flow-join-<?php echo $kind; ?>" aria-hidden="true"><img src="<?php echo $homeArt; ?>join-<?php echo $kind.'-'.$joinVersion; ?>.webp" alt="" width="<?php echo (int)$joinSize[0]; ?>" height="<?php echo (int)$joinSize[1]; ?>" loading="lazy" decoding="async"></div>
 <?php };

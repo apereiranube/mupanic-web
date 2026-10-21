@@ -738,3 +738,22 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 #hub-juegos:before{background-position:100% 100%}
 .ph-hub-ui .ph-hub-page h3,.ph-hub-ui .ph-hub-page p,.ph-hub-actions button{text-shadow:0 1px 5px #000}
 .ph-hub-actions button{background:linear-gradient(90deg,#0d0f12b3,#0d0f1233)}
+
+/* V13: native detail plates over the continuous painting. The original remains
+   exposed only at the adjoining edges so the architecture never breaks. */
+.panic-home .ph-lower-journey{margin-top:clamp(-150px,-8vw,-65px)}
+.panic-home .ph-lower-journey .ph-client-v12>.ph-journey-art{mask-image:linear-gradient(transparent,#000 clamp(75px,8vw,150px))}
+.panic-home .ph-lower-journey .ph-journey-detail{position:absolute;inset:0;pointer-events:none;background-position:center top;background-size:100% auto;background-repeat:no-repeat;mask-image:linear-gradient(transparent,#000 10%,#000 87%,transparent)}
+.ph-journey-part-0 .ph-journey-detail{background-image:url('../img/home/journey-forest-v13.webp')}
+.ph-journey-part-1 .ph-journey-detail{background-image:url('../img/home/journey-market-v13.webp')}
+.ph-journey-part-2 .ph-journey-detail{background-image:url('../img/home/journey-games-v13.webp');mask-image:linear-gradient(transparent,#000 10%)!important}
+.panic-home .ph-flow-join-canopy{z-index:2}
+.panic-home .ph-flow-join-canopy img{opacity:1;transform:translateY(-40%);mask-image:linear-gradient(transparent,#000 22%,#000 72%,transparent);height:clamp(120px,18vw,300px);object-fit:fill}
+.panic-home .ph-client-v12 .ph-world-layout{padding-top:clamp(80px,8vw,150px)}
+@media(max-width:760px){
+ .panic-home .ph-lower-journey{margin-top:-50px}
+ .panic-home .ph-lower-journey .ph-client-v12>.ph-journey-art{mask-image:linear-gradient(transparent,#000 65px,#000 85%,transparent)}
+ .panic-home .ph-client-v12 .ph-world-layout{padding-top:65px}
+ .panic-home .ph-lower-journey .ph-client-v12 .ph-journey-detail{background-size:auto 100%;background-position:center;mask-image:none}
+ .panic-home .ph-flow-join-canopy img{height:160px;object-fit:cover;transform:translateY(-35%)}
+}

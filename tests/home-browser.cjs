@@ -50,6 +50,12 @@ async function routes(page,body=html){
    if([2560,1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
   for(const painting of await page.locator('.ph-journey-art').all()){const bounds=await painting.boundingBox();assert.ok(Math.abs(bounds.width-width)<2,'The connected painting must fill the viewport');}
+  for(const plate of await page.locator('.ph-journey-detail').all()){
+   const detail=await plate.evaluate(async el=>{const style=getComputedStyle(el);const url=style.backgroundImage.slice(5,-2);const image=new Image();image.src=url;await image.decode();return {width:image.naturalWidth,height:image.naturalHeight,mask:style.maskImage};});
+   assert.ok(detail.width>=1700 && detail.width/detail.height===2,'Native detail plate must have enough actual pixels for desktop');
+  }
+  const hubEdge=await page.locator('.ph-client-v12>.ph-journey-art').evaluate(el=>getComputedStyle(el).maskImage);
+  assert.ok(hubEdge.includes('transparent'),'Pets to Hub must blend instead of displaying a rectangular image edge');
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
   }));
