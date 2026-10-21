@@ -76,8 +76,9 @@ async function routes(page,body=html){
   for(const im of metrics){assert.equal(im.fit,'contain');assert.ok(Math.abs(im.height-im.width*im.naturalHeight/im.naturalWidth)<2,'Artwork cropped: '+JSON.stringify(im));}
   if(width<=760){
    const facts=await page.locator('.ph-facts>div').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {center:r.y+r.height/2};}));
-   assert.ok(Math.abs(facts[0].center-facts[1].center)<2,'State and online belong on the same mobile row');
-   assert.ok(Math.max(...facts.slice(2).map(r=>r.center))-Math.min(...facts.slice(2).map(r=>r.center))<2,'The three rates belong on one mobile row');
+   assert.ok(facts[1].center<facts[0].center,'The live core leads the mobile composition');
+   assert.ok(Math.abs(facts[0].center-facts[2].center)<2,'State and experience share the second mobile row');
+   assert.ok(Math.abs(facts[3].center-facts[4].center)<2,'Master and drop share the third mobile row');
    for(const scene of ['hero','fractura','companions','games']){
     const section=page.locator('.ph-'+scene), art=await section.locator('.ph-art').boundingBox(), copy=await section.locator('.ph-copy').boundingBox();
     assert.ok(copy.y>=art.y+art.height-22,'Mobile text overlaps artwork '+scene);
@@ -86,6 +87,23 @@ async function routes(page,body=html){
   assert.equal(await page.locator('[data-home-online]').textContent(),'17');
   assert.equal(await page.locator('.ph-status').getAttribute('data-server-state'),'online');
   assert.equal(await page.locator('[data-home-state]').textContent(),'Online');
+  if([1440,390,320].includes(width)){
+   for(const count of [1,100,999,1000,100000]){
+    await page.route('**/api/launcher.php',route=>route.fulfill({json:{...fixture,online:count}}));
+    await page.evaluate(()=>dispatchEvent(new Event('online')));
+    await page.waitForFunction(expected=>document.querySelector('[data-home-online]').textContent===expected,count.toLocaleString('es-AR'));
+    await page.locator('.ph-status').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(700);
+    const fit=await page.locator('[data-home-online]').evaluate(el=>{const range=document.createRange();range.selectNodeContents(el);const ink=range.getBoundingClientRect(),slot=el.getBoundingClientRect();return{inkWidth:ink.width,slotWidth:slot.width,inkLeft:ink.left,inkRight:ink.right,left:slot.left,right:slot.right,fontSize:parseFloat(getComputedStyle(el).fontSize)};});
+    assert.ok(fit.inkWidth<=fit.slotWidth+1 && fit.inkLeft>=fit.left-1 && fit.inkRight<=fit.right+1,'The formatted live count must fit inside the core aperture: '+JSON.stringify({width,count,...fit}));
+    if(count===100)assert.ok(fit.fontSize>=40,'100 players must remain prominent, including on small phones');
+    if(output && [100,1000].includes(count))await page.locator('.ph-status').screenshot({path:path.join(output,'stats-'+count+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
+   }
+   await page.route('**/api/launcher.php',route=>route.fulfill({json:fixture}));
+   await page.evaluate(()=>dispatchEvent(new Event('online')));
+   await page.waitForFunction(()=>document.querySelector('[data-home-online]').textContent==='17');
+  }
+
   assert.equal(await page.locator('[data-home-events] li').count(),3);
   assert.equal(await page.locator('.ambient-embers').count(),0);
   await page.mouse.move(100,100);assert.equal(await page.locator('.cursor-ember').count(),0);

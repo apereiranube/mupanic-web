@@ -22,10 +22,16 @@
           typeof event.proximo === 'string' && /(?:Z|[+-]\d{2}:\d{2})$/.test(event.proximo) && Number.isFinite(Date.parse(event.proximo));
       });
   }
+  function fitOnline(value) {
+    // Fit the formatted count (including thousands separators) inside the real aperture.
+    online.style.setProperty('--core-count-size', Math.min(23, 74 / Math.max(1, value.length)) + 'cqw');
+  }
+  fitOnline(online.textContent.trim());
   function show(data) {
     state.textContent = labels[data.servidor];
     state.setAttribute('data-state', data.servidor);
     var value = data.online.toLocaleString('es-AR');
+    fitOnline(value);
     if (online.textContent !== value) {
       online.textContent = value;
       if (state.closest('.ph-status').classList.contains('is-stats-live') && !matchMedia('(prefers-reduced-motion: reduce)').matches && online.animate) {

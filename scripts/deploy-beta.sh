@@ -68,7 +68,7 @@ for kind in rocks mist forest canopy market arcade; do
 done
 
 # Inicio must not deploy PHP that silently hides missing screenshots.
-HOME_RELEASE_ASSETS=(hero-rf-mg-v10.mp4 hero-rf-mg-v10.webp hero-world-v10.webp journey-world-v12.webp hub-desk-v12.webp hub-plates-v12.webp journey-forest-v13.webp journey-market-v13.webp journey-games-v13.webp join-canopy-v13.webp play-threshold-v14.webp)
+HOME_RELEASE_ASSETS=(hero-rf-mg-v10.mp4 hero-rf-mg-v10.webp hero-world-v10.webp journey-world-v12.webp hub-desk-v12.webp hub-plates-v12.webp journey-forest-v13.webp journey-market-v13.webp journey-games-v13.webp join-canopy-v13.webp play-threshold-v14.webp stats-core-v15.webp stats-emblems-v15.webp stats-world-v15.webp)
 for asset in "${HOME_RELEASE_ASSETS[@]}"; do
   test -s "$TEMPLATE_SOURCE/img/home/$asset"
 done

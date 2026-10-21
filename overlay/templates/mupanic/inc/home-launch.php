@@ -4,6 +4,7 @@ require_once __DIR__.'/home-data.php';
 $homeEscape = function($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); };
 $homeArt = __PATH_TEMPLATE__.'img/home/';
 $homeEvents = panicHomeEvents();
+$homeOnlineValue = $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.');
 // Keep intrinsic image dimensions in markup; no fixed cover/crop viewport.
 $homePicture = function($name, $alt, $priority = false, $version = 'v3') use ($homeArt, $homeEscape) {
     $dimensions = getimagesize(__DIR__.'/../img/home/'.$name.'-'.$version.'.webp');
@@ -33,13 +34,15 @@ $homeJoin = function($kind) use ($homeArt) {
         </div></div>
     </section>
 
-    <section class="ph-status ph-wrap" aria-label="Datos del servidor" data-server-state="unknown">
+    <section class="ph-status ph-status-core" aria-label="Datos del servidor" data-server-state="unknown">
+        <div class="ph-core-world" aria-hidden="true"><img src="<?php echo $homeArt; ?>stats-world-v15.webp" alt="" width="2172" height="724" loading="lazy" decoding="async"></div>
+        <div class="ph-core-atmosphere" aria-hidden="true"><span class="ph-core-mist"></span><?php for($mote=0;$mote<12;$mote++) { ?><i style="--mote-x:<?php echo ($mote*37+11)%100; ?>%;--mote-delay:-<?php echo $mote*.71; ?>s;--mote-time:<?php echo 4+($mote%5)*.8; ?>s"></i><?php } ?></div>
         <dl class="ph-facts">
-            <div class="ph-state"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 33 9v11c0 8-6 13-13 17C13 33 7 28 7 20V9zM20 10v17M13 17h14"/></svg><span>ESTADO DEL SERVIDOR</span></dt><dd data-home-state>Sin verificar</dd></div>
-            <div class="ph-online-metric"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m20 3 5 10 10 7-10 7-5 10-5-10-10-7 10-7zM20 11v18M11 20h18"/></svg><span>JUGADORES ONLINE</span></dt><dd data-home-online><?php echo $onlinePlayers === null ? '—' : number_format($onlinePlayers, 0, ',', '.'); ?></dd></div>
-            <div class="ph-rate"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m8 5 21 23m3-23L11 28M5 30l7-7m16 0 7 7M4 35l5-5m22 0 5 5M8 5l1 9 5-5m18-4-1 9-5-5"/></svg><span>EXPERIENCIA</span></dt><dd><?php echo $homeEscape($serverExp); ?></dd></div>
-            <div class="ph-rate"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m20 4 4 10 11 1-8 8 3 12-10-6-10 6 3-12-8-8 11-1zM20 13v11m-5-5h10"/></svg><span>MASTER EXP</span></dt><dd><?php echo $homeEscape($serverMasterExp); ?></dd></div>
-            <div class="ph-rate"><dt><svg viewBox="0 0 40 40" aria-hidden="true"><path d="m11 7 18 0 8 12-17 18L3 19zM3 19h34M11 7l9 30L29 7M11 7l9 12 9-12"/></svg><span>DROP GENERAL</span></dt><dd><?php echo $homeEscape($serverDrop); ?></dd></div>
+            <div class="ph-state"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>ESTADO DEL SERVIDOR</dt><dd data-home-state>Sin verificar</dd></div>
+            <div class="ph-online-metric"><img class="ph-stat-illustration ph-core-frame" src="<?php echo $homeArt; ?>stats-core-v15.webp" alt="" width="1254" height="1254" loading="lazy" decoding="async"><dt>JUGADORES ONLINE</dt><dd style="--core-count-size:<?php echo number_format(min(23,74/max(1,strlen($homeOnlineValue))),2,'.',''); ?>cqw" data-home-online><?php echo $homeOnlineValue; ?></dd></div>
+            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>EXPERIENCIA</dt><dd><?php echo $homeEscape($serverExp); ?></dd></div>
+            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>MASTER EXP</dt><dd><?php echo $homeEscape($serverMasterExp); ?></dd></div>
+            <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>DROP GENERAL</dt><dd><?php echo $homeEscape($serverDrop); ?></dd></div>
         </dl>
         <div class="ph-status-note"><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗</span></a></div>
     </section>
