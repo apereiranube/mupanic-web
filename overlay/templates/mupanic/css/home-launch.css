@@ -725,3 +725,8 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 }
 @media(prefers-reduced-motion:reduce){.ph-hub-menu-v12 a{transition:none}}
 .ph-client-intro .ph-client-key .ph-art{mask-image:radial-gradient(ellipse 70% 68% at 50% 50%,#000 32%,#000000e6 51%,transparent 74%),linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent),linear-gradient(0deg,transparent,#000 14%,#000 86%,transparent);mask-composite:intersect}
+/* Constrain the UI track itself, including when the preview is small. */
+.ph-hub-ui{grid-template-rows:minmax(0,1fr);overflow:hidden;box-sizing:border-box}
+.ph-hub-menu-v12{min-height:0;overflow:hidden}
+.ph-hub-menu-v12 a{min-height:0}
+.ph-hub-toolbar{position:relative;z-index:2;margin:8px 0 0}
