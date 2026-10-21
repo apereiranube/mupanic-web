@@ -131,6 +131,24 @@ async function routes(page,body=html){
   assert.equal(await page.locator('.ph-games-tour').count(),0);
   assert.equal(await page.locator('.ph-play-cta a[href$="register/"]').count(),1);
   assert.equal(await page.locator('.ph-play-cta a[href$="downloads/"]').count(),1);
+  await page.locator('.ph-play-cta').scrollIntoViewIfNeeded();
+  const playButtons=page.locator('.ph-play-cta .ph-button');
+  assert.equal(await playButtons.locator('.ph-play-button-art').count(),2,'Both closing actions must use new painted art');
+  for(const button of await playButtons.all()){
+   await button.locator('img').evaluate(im=>im.decode());
+   const design=await button.evaluate(el=>{
+    const r=el.getBoundingClientRect(),image=el.querySelector('img'),a=image.getBoundingClientRect(),label=el.querySelector('.ph-play-action-label').getBoundingClientRect(),s=getComputedStyle(el);
+    return{ratio:r.width/r.height,width:r.width,height:r.height,artWidth:a.width,artHeight:a.height,naturalWidth:image.naturalWidth,fit:getComputedStyle(image).objectFit,background:s.backgroundImage,border:s.borderTopWidth,clip:s.clipPath,labelLeft:(label.left-r.left)/r.width,labelRight:(label.right-r.left)/r.width};
+   });
+   assert.ok(Math.abs(design.ratio-3)<.02 && Math.abs(design.artWidth-design.width)<1 && Math.abs(design.artHeight-design.height)<1,'The full ornamental silhouette must keep its native ratio');
+   assert.equal(design.fit,'contain');assert.equal(design.background,'none');assert.equal(design.border,'0px');assert.equal(design.clip,'none');
+   assert.ok(design.naturalWidth>=2000 && design.labelLeft>.15 && design.labelRight<.85,'Native labels must stay on the blank central face');
+  }
+  if(output && [1920,1440,390,320].includes(width)){
+   await page.locator('.ph-play-cta').screenshot({path:path.join(output,'closing-buttons-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
+   if(width===1440){await playButtons.first().hover();await page.waitForTimeout(250);await page.locator('.ph-play-cta').screenshot({path:path.join(output,'closing-buttons-hover-1440.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});await page.mouse.move(0,0);}
+  }
+
   assert.equal(await page.locator('.ph-client-tour [role=tab]').count(),8);
   assert.equal(await page.locator('.ph-client-name,.ph-hub-capture,.ph-flow-join-market,.ph-flow-join-arcade').count(),0);
   const hubHeight=(await page.locator('.ph-client-tour').boundingBox()).height;

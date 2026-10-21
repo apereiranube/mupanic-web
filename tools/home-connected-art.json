@@ -447,6 +447,24 @@
       "height": 256,
       "bytes": 363316,
       "sha256": "aa1effbc1487b0427b7cb108b6f42f539304b1e4a2e4a4939431a3d9f9b0ab59"
+    },
+    {
+      "file": "img/home/play-button-account-v16.webp",
+      "source": "exec-b85a1f88-1651-4580-8fcd-c4bdc7955334.png",
+      "origin": "New built-in imagegen UI artwork, transparent alpha, WebP quality 94",
+      "width": 2172,
+      "height": 724,
+      "bytes": 431436,
+      "sha256": "dec4ee4d357489f0107b0c995832ee7dba838de44283b763c011054abf49ca44"
+    },
+    {
+      "file": "img/home/play-button-download-v16.webp",
+      "source": "exec-9354a9eb-160a-4c5c-bf9f-5827d1a22289.png",
+      "origin": "New built-in imagegen UI artwork, transparent alpha, WebP quality 94",
+      "width": 2172,
+      "height": 724,
+      "bytes": 344200,
+      "sha256": "d059877c7d8d270c7e87096bb24859b53cacf70bf5a639bca804b4f611c0bbff"
     }
   ]
 }

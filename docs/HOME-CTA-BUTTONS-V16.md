@@ -1,0 +1,19 @@
+# Botones ilustrados del cierre · V16
+
+Se reemplazan únicamente los dos botones de la invitación final. Las artes nuevas tienen transparencia real y conservan texto HTML, enlaces y foco de teclado. Crear cuenta se transforma en Mi cuenta cuando hay sesión. El reflejo al hover se limita a la silueta mediante máscara alfa; movimiento reducido usa una respuesta estática.
+
+Herramienta: imagegen integrada (sin CLI). Fuentes: salón aprobado `play-threshold-v14.webp`, usado como referencia de estilo, y el primer botón como referencia de forma para el segundo.
+
+Archivos finales:
+- `overlay/templates/mupanic/img/home/play-button-account-v16.webp`
+- `overlay/templates/mupanic/img/home/play-button-download-v16.webp`
+
+Ambos: 2172 × 724, RGBA, WebP calidad 94. Los PNG originales se conservan en `generated_images/exec-b85a1f88-1651-4580-8fcd-c4bdc7955334.png` y `generated_images/exec-9354a9eb-160a-4c5c-bf9f-5827d1a22289.png` del workspace de trabajo.
+
+## Prompt · Crear cuenta
+
+Use case: ui-mockup. Asset type: production transparent ornamental button background for the MU PANIC dark medieval MMORPG website. Reference image is ONLY the surrounding gothic candlelit hall and its antique gold craftsmanship, not an image to edit. Generate ONE exceptionally polished game UI button plate, front orthographic view, horizontal 3:1 transparent canvas. A substantial antique GOLD primary action button, warm burnished gold dark bronze metal face, carefully crafted dimensional gilded rim, fine engraved gothic filigree, layered bevels, subtle pointed ornamental ends and a small restrained crown-like flourish at the top center. Inspired by premium MU Online interface craftsmanship and the reference architecture, elegant and impressive rather than cartoon. Button silhouette fills 96 percent of canvas width and 80 percent of height with ornaments safely inside image. Full true alpha outside the ornament. Broad central 65 percent of the face is completely blank, smooth dark amber-bronze, low contrast and uncluttered, ready to receive readable cream HTML text. Bilaterally symmetrical, crisp carved metal details at the edges, warm candle highlights. No large center emblem, no embedded icon, no letters, no text, no numbers, no logo, no skull, no dragon, no surrounding scene, no fake checkerboard. Do not make a plain rectangular gold slab. Do not crop the frame.
+
+## Prompt · Descargar
+
+Use case: ui-mockup. Asset type: second matching production game UI button background with true transparent alpha. Reference image 1 is the exact matching GOLD button frame. Reference 2 is the gothic MU PANIC hall for style. Make ONE DOWNLOAD secondary button in the exact same front-facing orthographic composition, 3:1 canvas, matching overall width, thickness, silhouette, edge ornaments and margins as reference 1, so both buttons can sit side by side. Maintain the beautifully engraved antique metal rim, pointed ornamental end caps, restrained centered top crest and bottom flourish. Change the face to very dark wine-red enamel / oxblood leather with subtle real material grain, shaded nearly black at its perimeter. Change the edge metal to restrained antique bronze with warm gold highlights, darker and less luminous than the gold primary button. Broad central 65 percent is completely empty, calm, dark, and low contrast, ready for separate cream HTML text. Razor crisp premium MU Online game-interface craftsmanship, elegant dimensional beveled metal. True transparency around the whole silhouette, no canvas background. No words, letters, numbers, symbols in the middle, no built-in download arrow, no logos, no skulls, no characters, no surrounding scene, no fake checkerboard. Keep all ornaments inside the canvas; never clip the side tips. Do not introduce new frame shapes. This is an unlettered standalone UI asset, not a rendered webpage.

@@ -866,3 +866,20 @@ html:has(body.is-home-launch){scroll-behavior:auto}
  .ph-status-core .ph-status-note{margin-top:8px}
 }
 @media(prefers-reduced-motion:reduce){.panic-home .ph-status-core .ph-facts>div:before,.panic-home .ph-status-core .ph-facts>div:after,.ph-status-core .ph-core-atmosphere *{animation:none!important}}
+
+/* V16: painted, transparent game-interface plates for the final play invitation. */
+.ph-play-cta .ph-actions{gap:18px;flex-wrap:nowrap}
+.ph-play-cta .ph-button{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:clamp(220px,18vw,280px);height:auto;aspect-ratio:3/1;min-width:0;min-height:0;gap:12px;padding:0 42px;overflow:visible;clip-path:none;border:0;border-radius:0;background:none;box-shadow:none;filter:drop-shadow(0 5px 9px #0009);font-family:Manrope,Arial,sans-serif;font-size:12px;font-weight:700;line-height:1.2;letter-spacing:.065em;color:#fff0cf;text-shadow:0 2px 3px #160a00,0 0 10px #0009;transition:transform .2s,filter .2s}
+.ph-play-cta .ph-play-primary{--play-button-art:url('../img/home/play-button-account-v16.webp')}
+.ph-play-cta .ph-play-download{--play-button-art:url('../img/home/play-button-download-v16.webp')}
+.ph-play-cta .ph-play-button-art{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;max-width:none;object-fit:contain;pointer-events:none}
+.ph-play-cta .ph-button:before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(105deg,transparent 43%,#fff3cf66 50%,transparent 57%) 130% 0/250% 100%;mask-image:var(--play-button-art);mask-size:100% 100%;mask-repeat:no-repeat;transform:none;opacity:0;pointer-events:none;transition:background-position .7s,opacity .2s}
+.ph-play-cta .ph-play-action-label,.ph-play-cta .ph-play-action-icon{position:relative;z-index:2;top:-4px;flex:0 0 auto;white-space:nowrap;pointer-events:none}
+.ph-play-cta .ph-play-action-label{font:inherit;line-height:1.2}
+.ph-play-cta .ph-play-action-icon{font-size:17px;line-height:1}
+.ph-play-cta .ph-button:hover,.ph-play-cta .ph-button:focus-visible{transform:translateY(-3px);background:none;color:#fff8e7;box-shadow:none;filter:brightness(1.14) drop-shadow(0 0 13px #e9ab4c66)}
+.ph-play-cta .ph-button:hover:before,.ph-play-cta .ph-button:focus-visible:before{transform:none;background-position:-30% 0;opacity:1}
+.ph-play-cta .ph-button:active{transform:translateY(0);filter:brightness(1.06) drop-shadow(0 2px 5px #0008)}
+@media(max-width:1100px) and (min-width:761px){.ph-play-cta .ph-actions{gap:12px}.ph-play-cta .ph-button{width:220px;font-size:11px;padding-inline:36px;gap:10px}}
+@media(max-width:760px){.ph-play-cta .ph-actions{gap:5px;width:min(100%,330px);margin-block:20px 14px}.ph-play-cta .ph-button{width:100%;height:auto;min-height:0;font-size:13px;padding-inline:48px;gap:14px}}
+@media(prefers-reduced-motion:reduce){.ph-play-cta .ph-button,.ph-play-cta .ph-button:before{transition:none}.ph-play-cta .ph-button:hover,.ph-play-cta .ph-button:focus-visible{transform:none}.ph-play-cta .ph-button:before{display:none}}
