@@ -3,7 +3,7 @@ if(!defined('access') || !access) die();
 
 /** Payment core. Delivery uses the private signed worker and SQL ledger. */
 final class PanicRecharge {
-    const PROVIDERS = ['uala_bis', 'mobbex', 'mercadopago'];
+    const PROVIDERS = ['uala_bis', 'mobbex', 'mercadopago', 'bank_transfer'];
 
     public static function cents($value) {
         // Amounts are stored as integer centavos; API decimals are converted once.

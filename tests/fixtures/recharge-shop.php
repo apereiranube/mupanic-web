@@ -15,6 +15,17 @@ $two=$one;$two['id']='PANIC-'.str_repeat('c',32);$two['coins']=55000;$two['price
 $three=$one;$three['id']='PANIC-'.str_repeat('d',32);$three['payment_state']='pending';$three['checkout_url']='https://stage.uala-checkout.com/fixture';
 $shopHistory=['total'=>3,'orders'=>[$one,$two,$three]];$shopCanBuy=true;$shopSettings=['environment'=>'test'];$shopAdmin=false;$shopCreated=null;$shopMessage=null;$shopQuantities=['wcoin-20000'=>'5'];$shopPage=1;
 $fixtureMode=getenv('RECHARGE_FIXTURE');
+require_once $inc.'/recharge-bank.php';
+$bankConfig=PanicBankTransfers::defaults();$bankCanBuy=false;$bankSelected=false;$bankCuit='';$bankPage=1;$bankHistory=['orders'=>[],'total'=>0];
+if($fixtureMode==='bank') {
+    $bankConfig['enabled']=true;$bankCanBuy=true;
+    $bankOrder=PanicRecharge::order('Agustin',PanicRecharge::cart($catalogue,['wcoin-1000'=>1]),'bank_transfer',false);
+    $bankOrder['id']='PANIC-'.str_repeat('e',32);
+    $bankOrder+=['bank'=>['holder'=>'Titular de prueba','bank'=>'Banco de prueba','recipient_cuit'=>'20123456786','alias'=>'mu.panic.prueba','cbu'=>''], 'discord'=>['guild_id'=>'1555229554920915057','support_channel_id'=>'1555229554920915058'],'ticket_channel'=>null,'cuit'=>'20123456786','discord_id'=>null];
+    $bankHistory=['orders'=>[$bankOrder],'total'=>1];
+    $_SESSION['bank_claim_code']=['id'=>$bankOrder['id'],'code'=>str_repeat('a',24),'expires'=>time()+1800];
+}
+
 if(in_array($fixtureMode,['zero','bonus'],true)) $shopQuantities=array_fill_keys(array_column($catalogue,'id'),'0');
 if(in_array($fixtureMode,['closed','vip-priced-closed'],true)) $shopCanBuy=false;
 if($fixtureMode==='ready') $shopCreated=$three;

@@ -136,7 +136,7 @@ final class PanicRechargeManagement {
     // Only the already HMAC-authenticated worker endpoint calls this method.
     public function report(array $request,$phase,array $extra=[]) {
         if(!in_array($phase,['polling','ok','error'],true) || !in_array($request['environment'] ?? '',['test','production'],true)) throw new InvalidArgumentException('Invalid worker status');
-        $version=$request['version'] ?? 1; if(!is_int($version) || $version<1 || $version>2) throw new InvalidArgumentException('Invalid worker version');
+        $version=$request['version'] ?? 1; if(!is_int($version) || $version<1 || $version>3) throw new InvalidArgumentException('Invalid worker version');
         return $this->file('recharge-worker-status',function($data,$write) use ($request,$phase,$extra,$version) {
             $state=is_array($data)?$data:[];
             $state['last_seen']=time(); $state['environment']=$request['environment']; $state['version']=$version; $state['phase']=$phase;

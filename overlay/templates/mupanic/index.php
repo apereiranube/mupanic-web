@@ -109,6 +109,9 @@ if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='recharge' && ($_GET['
         $store=new PanicRechargeOrders();
         $history=$store->history((string)($_SESSION['username'] ?? ''),max(1,min(500,(int)($_GET['compras'] ?? 1))));
         $status=[]; foreach($history['orders'] as $order) $status[$order['id']]=panicRechargeStatus($order);
+        require_once __DIR__.'/inc/recharge-bank.php';
+        $bankHistory=(new PanicBankTransfers())->history((string)$_SESSION['username'],max(1,min(500,(int)($_GET['transferencias'] ?? 1))));
+        foreach($bankHistory['orders'] as $o) $status[$o['id']]=panicBankStatus($o);
         echo json_encode(['orders'=>$status],JSON_THROW_ON_ERROR);
     } catch(Throwable $exception) { http_response_code(503); echo '{"orders":{}}'; }
     exit;

@@ -8,7 +8,22 @@
   const coins = value => format.format(value) + ' Eryns';
   const pesos = cents => '$ ' + format.format(cents / 100);
   const submit = form.querySelector('[data-cart-submit]');
+  const methods = Array.from(form.querySelectorAll('[name="payment_method"]'));
+  function paymentMethod() {
+    const chosen = methods.find(input => input.checked);
+    const bank = chosen && chosen.value === 'bank_transfer';
+    if (chosen) submit.dataset.enabled = chosen.dataset.methodEnabled;
+    const cuit = form.querySelector('[name="buyer_cuit"]');
+    if (cuit) { cuit.required = Boolean(bank); cuit.disabled = !bank; form.querySelector('[data-bank-cuit]').hidden = !bank; }
+    const label = bank ? 'Ver datos de transferencia' : 'Pagar con Ualá';
+    if (form.dataset.sending !== '1') submit.textContent = submit.dataset.enabled === '1' ? label + ' →' : 'Medio de pago no disponible';
+    const mobile = shop.querySelector('[data-mobile-submit]'); if (mobile) mobile.textContent = submit.textContent;
+    const explanation = shop.querySelector('[data-payment-explanation]');
+    if (explanation) explanation.textContent = bank ? 'Verás la cuenta bancaria. Después adjuntás el comprobante en Discord y el equipo confirma el ingreso.' : 'Continuás en Ualá para completar el pago.';
+  }
+  methods.forEach(input => input.addEventListener('change', updateCart));
   function updateCart() {
+    paymentMethod();
     let total = 0, received = 0, bonus = 0, base = 0, valid = true;
     const rows = document.createDocumentFragment();
     packages.forEach(card => {
@@ -131,7 +146,7 @@
     const selected = candidates[0]; packages.forEach(card => { card.querySelector('input').value = card === selected.card ? String(selected.quantity) : '0'; });
     updateCart(); mountMessage.textContent = 'Objetivo: ' + button.dataset.targetName + '. Elegimos una recarga que alcanza su precio de ' + coins(price) + '.';
     if (button.dataset.targetVip === '1') {
-      mountMessage.textContent += ' Pagá con Ualá y activá o renová el VIP dentro del juego.';
+      mountMessage.textContent += ' Elegí el medio de pago y activá o renová el VIP dentro del juego.';
       shop.querySelector('#recharge-cart').scrollIntoView({behavior:'auto',block:'start'});
       submit.focus({preventScroll:true});
     } else shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'});
@@ -171,7 +186,7 @@
     button.addEventListener('click', () => { originalOverflow = document.body.style.overflow; dialog.showModal(); document.body.style.overflow = 'hidden'; dialog.querySelector('[data-close-creature]').focus(); });
     dialog.querySelector('[data-close-creature]').addEventListener('click', () => dialog.close());
     dialog.querySelector('[data-return-to-buy]').addEventListener('click', () => { dialog.close(); shop.querySelector('[data-choose-package]').focus({preventScroll:true}); if (button.dataset.targetVip === '1') {
-      mountMessage.textContent += ' Pagá con Ualá y activá o renová el VIP dentro del juego.';
+      mountMessage.textContent += ' Elegí el medio de pago y activá o renová el VIP dentro del juego.';
       shop.querySelector('#recharge-cart').scrollIntoView({behavior:'auto',block:'start'});
       submit.focus({preventScroll:true});
     } else shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'}); });
