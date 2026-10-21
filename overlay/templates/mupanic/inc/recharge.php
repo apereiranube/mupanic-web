@@ -45,7 +45,7 @@ $shopPackOrder=array_values(array_filter(array_keys($rechargePackages),function(
 if(isset($rechargePackages[$shopFeaturedIndex])) array_splice($shopPackOrder,(int)floor(count($rechargePackages)/2),0,[$shopFeaturedIndex]);
 $shopPackColumns=implode(' ',array_map(function($i) use ($shopFeaturedIndex) { return $i===$shopFeaturedIndex?'minmax(0,1.2fr)':'minmax(0,1fr)'; },$shopPackOrder));
 ?>
-<section class="recharge-shop eryns-store" aria-labelledby="recharge-title" data-recharge-shop>
+<section class="recharge-shop eryns-store" aria-labelledby="recharge-title" data-recharge-shop<?php if($shopMessage) { $continuationTarget=!empty($bankContinueOrder)?((($_POST['recharge_action'] ?? '')==='bank_ready'?'bank-ticket-':'bank-order-').$bankContinueOrder['id']):'recharge-checkout'; ?> data-checkout-target="<?= panicAccountEscape($continuationTarget) ?>"<?php } ?>>
     <nav class="eryns-store-top" aria-label="Navegación de recargas"><a class="eryns-account-return" data-account-return href="<?php echo panicAccountEscape(__BASE_URL__.'usercp/'); ?>">← Volver a Mi cuenta</a><span>MU PANIC <b>/</b> ERYNS</span><a href="#recharge-history">Mis compras</a></nav>
     <?php if(!$shopAnyCanBuy) { ?><div class="recharge-notice"><strong>Armá tu próxima recarga</strong><p>Podés probar el selector y comparar cantidades. El pago se habilitará cuando esté listo el servicio de recargas.</p></div><?php } ?>
     <?php if($shopMessage || $shopCreated) { ?><div id="recharge-checkout" class="eryns-checkout-feedback">
@@ -70,7 +70,7 @@ $shopPackColumns=implode(' ',array_map(function($i) use ($shopFeaturedIndex) { r
     </div><p class="eryns-target-message" data-target-message role="status"></p></section>
     <?php require __DIR__.'/recharge-vip-showcase.php'; ?>
     <section id="recharge-packages" class="eryns-buy eryns-buy--market" aria-labelledby="eryns-buy-title">
-      <form id="eryns-purchase-form" method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/#recharge-checkout'); ?>" data-cart-form>
+      <form id="eryns-purchase-form" method="post" action="<?php echo panicAccountEscape(__BASE_URL__.'usercp/recharge/'.($bankSelected?'#bank-transfers':'#recharge-checkout')); ?>" data-cart-form>
         <div class="eryns-buy-heading"><div><span class="eryns-overline">TIENDA DE ERYNS</span><h3 id="eryns-buy-title">Elegí tu pack de Eryns.</h3></div><aside class="eryns-vault"><img src="<?php echo __PATH_TEMPLATE__; ?>img/recharge/eryns-pack-chest.webp" alt="" width="88" height="88"><div><span>La bóveda de <?php echo panicAccountEscape($rechargeAccount); ?></span><strong><?php echo $rechargeBalance===null?'Saldo no disponible':number_format($rechargeBalance,0,',','.').' Eryns'; ?></strong></div></aside></div>
         <input type="hidden" name="recharge_csrf" value="<?php echo panicAccountEscape($_SESSION['recharge_csrf']); ?>">
         <input type="hidden" name="recharge_nonce" value="<?php echo panicAccountEscape($_SESSION['recharge_nonce']); ?>">

@@ -24,6 +24,7 @@
   function paymentMethod() {
     const chosen = methods.find(input => input.checked);
     const bank = chosen && chosen.value === 'bank_transfer';
+    const destination = new URL(form.action); destination.hash = bank ? 'bank-transfers' : 'recharge-checkout'; form.action = destination.href;
     if (chosen) submit.dataset.enabled = chosen.dataset.methodEnabled;
     const cuit = form.querySelector('[name="buyer_cuit"]');
     if (cuit) { cuit.required = Boolean(bank); cuit.disabled = !bank; form.querySelector('[data-bank-cuit]').hidden = !bank; }
@@ -85,7 +86,7 @@
     shop.querySelector('[data-total-price]').textContent = pesos(total) + ' ARS';
     const allowed = valid && total > 0 && total <= 100000000 && received <= 1000000;
     const mobile = shop.querySelector('[data-mobile-summary]');
-    if (mobile) { mobile.hidden = !allowed; mobile.querySelector('[data-mobile-coins]').textContent = coins(received); mobile.querySelector('[data-mobile-price]').textContent = pesos(total) + ' ARS'; }
+    if (mobile) { mobile.hidden = !allowed || Boolean(shop.dataset.checkoutTarget && shop.dataset.checkoutTarget.startsWith('bank-')); mobile.querySelector('[data-mobile-coins]').textContent = coins(received); mobile.querySelector('[data-mobile-price]').textContent = pesos(total) + ' ARS'; }
     submit.disabled = !allowed || submit.dataset.enabled !== '1' || form.dataset.sending === '1';
     const mobileSubmit = shop.querySelector('[data-mobile-submit]'); if (mobileSubmit) mobileSubmit.disabled = submit.disabled;
     shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 || received > 1000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todos tus Eryns.';
@@ -208,6 +209,34 @@
   });
   window.addEventListener('pageshow', event => { if (event.persisted) { form.dataset.sending = ''; submit.textContent = submit.dataset.enabled === '1' ? 'Pagar con Ualá →' : 'Pagos próximamente'; updateCart(); } });
   updateCart();
+  if (shop.dataset.checkoutTarget) {
+    const continuePayment = () => {
+      const target = document.getElementById(shop.dataset.checkoutTarget) || document.getElementById('bank-transfers') || document.getElementById('recharge-checkout');
+      if (!target) return;
+      navigationOffsets();
+      const destination = new URL(window.location.href); destination.hash = target.id;
+      window.history.replaceState(window.history.state, '', destination.href);
+      target.focus({preventScroll:true});
+      const offset = (siteHeader ? siteHeader.getBoundingClientRect().height : 0) + (navigation ? navigation.getBoundingClientRect().height : 0) + 16;
+      window.scrollTo({top:Math.max(0,window.scrollY + target.getBoundingClientRect().top - offset),behavior:'instant'});
+    };
+    const scheduleContinuation = () => requestAnimationFrame(() => requestAnimationFrame(continuePayment));
+    if (document.readyState === 'complete') scheduleContinuation();
+    else window.addEventListener('pageshow', scheduleContinuation, {once:true});
+  }
+  shop.querySelectorAll('[data-bank-copy]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const feedback = button.closest('.bank-payment').querySelector('[data-bank-copy-feedback]');
+      try {
+        await navigator.clipboard.writeText(button.dataset.bankCopy);
+        feedback.textContent = 'Copiaste el ' + button.dataset.copyLabel + '.';
+        const original = button.textContent; button.textContent = 'Copiado ✓';
+        setTimeout(() => { button.textContent = original; }, 2000);
+      } catch (_) {
+        feedback.textContent = 'No se pudo copiar. Seleccioná el ' + button.dataset.copyLabel + ' y copialo manualmente.';
+      }
+    });
+  });
   const orders = Array.from(shop.querySelectorAll('[data-order-id]'));
   const message = shop.querySelector('[data-history-update]');
   let checks = 0;

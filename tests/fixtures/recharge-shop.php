@@ -17,15 +17,18 @@ $shopHistory=['total'=>3,'orders'=>[$one,$two,$three]];$shopCanBuy=true;$shopSet
 $fixtureMode=getenv('RECHARGE_FIXTURE');
 require_once $inc.'/recharge-bank.php';
 $bankConfig=PanicBankTransfers::defaults();$bankConfig['enabled']=true;$bankCanBuy=true;$bankSelected=false;$bankCuit='';$bankPage=1;$bankHistory=['orders'=>[],'total'=>0];
-if($fixtureMode==='bank') {
+if(in_array($fixtureMode,['bank','bank-created','bank-error'],true)) {
     $bankConfig['enabled']=true;$bankCanBuy=true;
     $shopMessage='Ahora abrí Discord y usá el código de tu compra para adjuntar el comprobante en un ticket privado.';
     $_POST['recharge_action']='bank_ready';
     $bankOrder=PanicRecharge::order('Agustin',PanicRecharge::cart($catalogue,['wcoin-1000'=>1]),'bank_transfer',false);
     $bankOrder['id']='PANIC-'.str_repeat('e',32);
-    $bankOrder+=['bank'=>['holder'=>'Titular de prueba','bank'=>'Banco de prueba','recipient_cuit'=>'20123456786','alias'=>'mu.panic.prueba','cbu'=>''], 'discord'=>['guild_id'=>'1555229554920915057','support_channel_id'=>'1555229554920915058'],'ticket_channel'=>null,'cuit'=>'20123456786','discord_id'=>null];
+    $bankOrder+=['bank'=>['holder'=>'Titular de prueba','bank'=>'Banco de prueba','recipient_cuit'=>'20123456786','alias'=>'mu.panic.prueba','cbu'=>'0140000701100008921240'], 'discord'=>['guild_id'=>'1555229554920915057','support_channel_id'=>'1555229554920915058'],'ticket_channel'=>null,'cuit'=>'20123456786','discord_id'=>null];
     $bankHistory=['orders'=>[$bankOrder],'total'=>1];
     $_SESSION['bank_claim_code']=['id'=>$bankOrder['id'],'code'=>str_repeat('a',24),'expires'=>time()+1800];
+    $bankContinueOrder=$bankOrder;
+    if($fixtureMode==='bank-created') { $_POST['recharge_action']='create'; $shopMessage='Transferencia preparada.'; unset($_SESSION['bank_claim_code']); }
+    if($fixtureMode==='bank-error') { $_POST['recharge_action']='create'; $bankContinueOrder=null; $shopMessage='Revisá el CUIT.'; }
 }
 
 if(in_array($fixtureMode,['zero','bonus'],true)) $shopQuantities=array_fill_keys(array_column($catalogue,'id'),'0');

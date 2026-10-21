@@ -233,7 +233,7 @@
 .is-account .module-surface:has(.eryns-store){overflow:clip}
 .eryns-store .eryns-store-top{position:sticky;top:var(--eryns-header-offset,86px);z-index:20;background:#0b1420;border-bottom:1px solid #d6ac633d;box-shadow:0 8px 20px #0004}
 .is-account .eryns-store .eryns-store-top a.eryns-account-return{background:#d6ac6324;border-color:#d6ac6380;color:#ffe1a6}
-.eryns-store :is(#recharge-checkout,#bank-transfers,#recharge-history,#recharge-guide,#recharge-packages,#recharge-cart){scroll-margin-top:calc(var(--eryns-header-offset,86px) + var(--eryns-nav-height,80px) + 16px)}
+.eryns-store :is(#recharge-checkout,#bank-transfers,#recharge-history,#recharge-guide,#recharge-packages,#recharge-cart,[id^="bank-order-"],[id^="bank-ticket-"]){scroll-margin-top:calc(var(--eryns-header-offset,86px) + var(--eryns-nav-height,80px) + 16px)}
 .eryns-store .eryns-stage-art{inset:0;transform:none}
 .is-account .eryns-store .recharge-notice.recharge-feedback{display:flex;align-items:flex-start;gap:16px;margin:20px 4%;padding:20px 22px;background:linear-gradient(115deg,#182838,#101c29);border:1px solid #d6ac6359;border-left:3px solid #e2b76f;border-radius:5px;color:#e5edf5;box-shadow:0 8px 24px #0003}
 .recharge-feedback-icon{display:flex;flex:0 0 30px;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid #e2b76f80;border-radius:50%;color:#f3cc89;font:700 18px/1 Georgia,serif}
@@ -255,3 +255,25 @@
 .bank-review-page .recharge-order-reference{overflow-wrap:anywhere}
 
 .eryns-consent{display:flex!important;align-items:flex-start;gap:10px;margin:0 0 20px;font-size:12px;line-height:1.6;color:#d6cbbc;text-align:left;max-width:100%}.eryns-consent input[type=checkbox]{flex:0 0 auto;width:18px!important;height:18px;margin:3px 0 0;accent-color:#b88a42}.eryns-consent span{min-width:0}.is-account .eryns-consent a{color:#f0cf91;text-decoration:underline}
+
+/* A clear next action for each stage of a bank recharge. */
+.eryns-store .bank-payment{padding:24px;border:1px solid #bda16f45;border-radius:10px;background:#0c1520;margin-bottom:24px}
+.bank-payment-steps{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:22px}
+.eryns-store .bank-payment-step{padding:22px;border:1px solid #a58a554d;border-radius:8px;background:#201e1866;min-width:0}
+.eryns-store .bank-payment-step--receipt{border-color:#6eae9666;background:#122b2666}
+.eryns-store .bank-payment-step--wait{grid-column:1/-1;background:#142332;border-color:#6b96b847}
+.eryns-store .bank-payment-step h4{display:flex;align-items:center;gap:10px;margin:0 0 15px;font:600 20px/1.3 var(--body);color:#f2d49c}
+.bank-payment-step h4>span{display:grid;place-items:center;flex:0 0 30px;height:30px;border:1px solid #ba965b;border-radius:50%;font-size:15px}
+.eryns-store .bank-payment-step--receipt h4{color:#b5e5d1}.bank-payment-step--receipt h4>span{border-color:#80b9a2}
+.eryns-store .bank-payment-step p,.eryns-store .bank-payment-step li{font:400 14px/1.7 var(--body);color:#d6ddd9;margin:0 0 14px}
+.eryns-store .bank-payment-step .bank-step-note,.eryns-store .bank-step-note{font-size:12px;color:#aeb9bf;line-height:1.7}
+.bank-amount{display:flex;flex-wrap:wrap;align-items:center;gap:9px 14px;padding:16px 0;border-top:1px solid #b08e4d40;border-bottom:1px solid #b08e4d40}
+.bank-amount>span{flex-basis:100%;color:#c6b18a;font-size:12px}.bank-amount strong{font:600 26px/1.3 var(--body);color:#ffe1a4}.bank-amount small{font-size:12px}
+.eryns-store .bank-copy{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border:1px solid #c6aa6c80;border-radius:5px;background:#c6aa6c18;color:#f5dba8;font:500 12px/1.3 var(--body);cursor:pointer;white-space:normal}
+.eryns-store .bank-copy:hover{background:#c6aa6c30}.bank-details dd{display:flex;flex-wrap:wrap;align-items:center;gap:7px}.bank-details dd>span{overflow-wrap:anywhere;min-width:0;user-select:all}
+.bank-payment-step .bank-details dl>div{grid-template-columns:110px minmax(0,1fr)}
+.eryns-store .bank-payment-step--receipt .recharge-button{white-space:normal;line-height:1.5;min-height:46px;background:#a9d3bd;color:#10241d!important;border-color:#8fc2a8}
+.bank-ticket-code ol{padding-left:22px}.bank-ticket-code li{padding-left:3px;margin-bottom:16px!important}.bank-ticket-code code{font-size:16px;letter-spacing:.3px}
+.bank-operation-details{border-top:1px solid #75858c33;padding-top:14px;margin-top:14px;color:#9cb0bb;font-size:12px}.bank-operation-details summary{cursor:pointer}.bank-operation-details p{overflow-wrap:anywhere}
+.eryns-store .bank-copy-feedback{color:#b9dfc9;font-size:12px;min-height:18px;margin:12px 0}.bank-destination{font-size:14px;color:#c2ccd2}
+@media(max-width:700px){.bank-payment-steps{grid-template-columns:1fr}.eryns-store .bank-payment{padding:16px}.eryns-store .bank-payment-step{padding:17px}.bank-payment-step .bank-details dl>div{grid-template-columns:1fr}.eryns-store .bank-payment-step h4{font-size:18px}.bank-ticket-code{padding:12px}.bank-ticket-code code{font-size:14px;overflow-wrap:anywhere}.bank-payment-step .recharge-button{width:100%}}

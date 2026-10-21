@@ -5,8 +5,8 @@ Por el momento la tienda ofrece únicamente transferencia bancaria para nuevas r
 ## Circuito
 
 1. El usuario elige paquetes, selecciona transferencia, ingresa su CUIT y acepta expresamente las condiciones vigentes. El servidor valida el dígito verificador y guarda importe, Eryns y datos bancarios de esa compra.
-2. En «Mis transferencias» ve titular, banco, alias o CBU/CVU e importe exacto. Cambiar la cuenta receptora no cambia las instrucciones de compras anteriores.
-3. Después de pagar, pulsa «Ya transferí · Preparar ticket». Recibe un código privado que vence en 30 minutos y un enlace al canal soporte existente de Discord.
+2. Después de generar la recarga, la web lleva directamente a esa operación en «Mis transferencias». Allí aparecen tres pasos: hacer la transferencia, enviar el comprobante y recibir los Eryns. Puede copiar importe, alias y CBU/CVU con un botón. Cambiar la cuenta receptora no cambia las instrucciones de compras anteriores.
+3. Después de pagar, pulsa «Ya transferí · Enviar comprobante». Recibe un código privado que vence en 30 minutos y un enlace al canal soporte existente de Discord.
 4. En soporte pulsa «Recarga por transferencia» o usa `/recarga`. El bot solicita el código y abre un ticket privado para ese comprador y los roles de soporte existentes. El código vincula la compra con el usuario real de la interacción de Discord.
 5. El comprador adjunta el comprobante en su ticket. El bot registra el enlace al mensaje; si estuvo desconectado, el comprador puede pulsar «Ya adjunté el comprobante» para reintentar.
 6. `panic` abre el comprobante desde el panel web, verifica el ingreso real en el banco, ingresa el número de operación del banco (el que figura en el detalle del movimiento, no el código de Discord) y marca la confirmación. También puede rechazar una orden pendiente.

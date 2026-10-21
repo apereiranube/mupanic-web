@@ -1,7 +1,7 @@
 <?php
 if(!defined('access') || !access) die();
 require_once __DIR__.'/recharge-orders.php';
-$shopStore=null; $shopSettings=null; $shopCanBuy=false; $shopMessage=null; $shopCreated=null;
+$shopStore=null; $shopSettings=null; $shopCanBuy=false; $shopMessage=null; $shopCreated=null; $bankContinueOrder=null;
 $shopHistory=['total'=>0,'orders'=>[]]; $shopPage=max(1,min(500,(int)($_GET['compras'] ?? 1)));
 $shopAdmin=panicRechargeAdminAllowed();
 require __DIR__.'/recharge-bank-shop.php';
@@ -18,7 +18,7 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && isset($_POST['recharge_action'
         if(!is_string($_POST['recharge_csrf'] ?? null) || !hash_equals($_SESSION['recharge_csrf'],$_POST['recharge_csrf'])) throw new RuntimeException('Session expired');
         $action=$_POST['recharge_action'];
         if($action==='bank_ready' || ($action==='create' && ($_POST['payment_method'] ?? '')==='bank_transfer')) {
-            panicBankShopAction($action,$bankStore,$bankCanBuy,$bankEnvironment,$bankWorker ?? [],$rechargeAccount,$rechargePackages,$shopQuantities,$shopMessage);
+            $bankContinueOrder=panicBankShopAction($action,$bankStore,$bankCanBuy,$bankEnvironment,$bankWorker ?? [],$rechargeAccount,$rechargePackages,$shopQuantities,$shopMessage);
         } elseif($action==='create') {
             if(!$shopStore || !$shopSettings) throw new RuntimeException('Shop unavailable');
             if(!$shopCanBuy) throw new RuntimeException('Shop closed');

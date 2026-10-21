@@ -19,12 +19,12 @@ function panicBankShopAction($action,$bankStore,$bankCanBuy,$bankEnvironment,arr
         $cart=PanicRecharge::cart($rechargePackages,$_POST['quantity']);$shopQuantities=array_replace($shopQuantities,$_POST['quantity']);
         $o=$bankStore->begin($rechargeAccount,$cart,$_POST['recharge_nonce'] ?? null,$_POST['buyer_cuit'] ?? '',$bankEnvironment,$bankWorker,($_POST['accept_terms'] ?? null)==='1'?($_POST['terms_version'] ?? null):null);
         $_SESSION['recharge_nonce']=bin2hex(random_bytes(16));$shopMessage='Transferencia preparada. Los datos y el importe están en Mis transferencias. Adjuntá el comprobante en Discord después de pagar.';
-        return;
+        return $o;
     }
     if($action==='bank_ready') {
         $r=$bankStore->ready(is_string($_POST['order_id'] ?? null)?$_POST['order_id']:'',$rechargeAccount);
         $_SESSION['bank_claim_code']=['id'=>$r['order']['id'],'code'=>$r['code'],'expires'=>time()+1800];
-        $shopMessage='Ahora abrí Discord y usá el código de tu compra para adjuntar el comprobante en un ticket privado.';return;
+        $shopMessage='Ahora abrí Discord y usá el código de tu compra para adjuntar el comprobante en un ticket privado.';return $r['order'];
     }
     throw new RuntimeException('Acción inválida.');
 }
