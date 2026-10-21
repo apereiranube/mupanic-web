@@ -9,6 +9,7 @@ $mode=getenv('REF_MODE')?:'invita';
 class Connection{static function Database($n){return new self;}function query_fetch($sql,$p=[]){
   global $mode;
   if(strpos($sql,'vMUPanicRefCodigo')!==false) return [['Codigo'=>'K7MPQ2XA']];
+  if(strpos($sql,'GROUP BY Estado')!==false) return [['Estado'=>'REVISAR','N'=>1],['Estado'=>'EN_CAMINO','N'=>1],['Estado'=>'PAGADO','N'=>1],['Estado'=>'ANULADO','N'=>2]];
   if(strpos($sql,'vMUPanicRefAdmin')!==false) return [
     ['Id'=>3,'Invitado'=>'nuevo3','Invita'=>'Agustin','Estado'=>'REVISAR','Motivo'=>'PC_PARECIDA (primer bloque del HardID igual)','Resets'=>2,'Dias'=>3,'Creado'=>'2026-10-21 10:50','PagaInvita'=>1,'PagoInvitadoAR'=>null,'PagoInvitaAR'=>null,'InvitadoIP'=>'181.46.10.20','InvitadoPC'=>'12BA1074-AAAA1111-BBBB2222-CCCC3333','InvitaIP'=>'190.2.3.4','InvitaPC'=>'12BA1074-DDDD4444-EEEE5555-FFFF6666','IPCompartida'=>0,'PCIgual'=>0,'PCParecida'=>1],
     ['Id'=>2,'Invitado'=>'amigo2','Invita'=>'Agustin','Estado'=>'EN_CAMINO','Motivo'=>null,'Resets'=>1,'Dias'=>2,'Creado'=>'2026-10-20 18:00','PagaInvita'=>1,'PagoInvitadoAR'=>null,'PagoInvitaAR'=>null,'InvitadoIP'=>'200.1.1.1','InvitadoPC'=>'7781AA00-1234ABCD-5678EF00-11223344','InvitaIP'=>'190.2.3.4','InvitaPC'=>'12BA1074-DDDD4444-EEEE5555-FFFF6666','IPCompartida'=>0,'PCIgual'=>0,'PCParecida'=>0],

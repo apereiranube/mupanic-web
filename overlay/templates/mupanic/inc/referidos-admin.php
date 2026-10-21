@@ -23,7 +23,11 @@ try {
     if(!is_array($raRows)) $raRows=[];
 } catch(Throwable $e) { $raRows=null; }
 try { foreach((new PanicReferidosCola())->pendingAdmin() as $p) $raPend[(int)$p['vinculo']]=$p['action']; } catch(Throwable $e) {}
-$raCount=[]; foreach(($raRows ?? []) as $r) $raCount[$r['Estado']]=($raCount[$r['Estado']] ?? 0)+1;
+$raCount=[];
+if($raRows!==null) {
+    try { foreach((Connection::Database('MuOnline')->query_fetch('SELECT Estado, COUNT(*) AS N FROM [MuOnline43].[dbo].[vMUPanicRefAdmin] GROUP BY Estado') ?: []) as $c) $raCount[$c['Estado']]=(int)$c['N']; }
+    catch(Throwable $e) { foreach($raRows as $r) $raCount[$r['Estado']]=($raCount[$r['Estado']] ?? 0)+1; }
+}
 $raEsc=function($v){ return htmlspecialchars((string)$v,ENT_QUOTES|ENT_SUBSTITUTE,'UTF-8'); };
 $raUrl=__BASE_URL__.'usercp/shopadmin/?ref=1';
 ?>
