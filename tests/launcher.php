@@ -15,18 +15,18 @@ $dir=sys_get_temp_dir().'/launcher-test-'.bin2hex(random_bytes(8));
 $calls=0;$reader=function($root)use(&$calls){$calls++;return ['online'=>7,'servidor'=>'online'];};
 try {
  $a=panicLauncherCachedState('/test',$dir,$reader,100);
- $b=panicLauncherCachedState('/test',$dir,$reader,144);
+ $b=panicLauncherCachedState('/test',$dir,$reader,114);
  check($a===$b && $calls===1,'cache hit prevents SQL');
- panicLauncherCachedState('/test',$dir,$reader,145);
- check($calls===2,'45 second TTL');
+ panicLauncherCachedState('/test',$dir,$reader,115);
+ check($calls===2,'15 second TTL');
  $failure=function($root)use(&$calls){$calls++;return ['online'=>0,'servidor'=>'offline'];};
- $a=panicLauncherCachedState('/test',$dir,$failure,190);
- $b=panicLauncherCachedState('/test',$dir,$reader,200);
+ $a=panicLauncherCachedState('/test',$dir,$failure,130);
+ $b=panicLauncherCachedState('/test',$dir,$reader,140);
  check($a===$b && $a['online']===0 && $calls===3,'failure cached, no stale online');
- file_put_contents($dir.'/state.json','broken');
- panicLauncherCachedState('/test',$dir,$reader,201);
+ file_put_contents($dir.'/state-v2.json','broken');
+ panicLauncherCachedState('/test',$dir,$reader,141);
  check($calls===4,'corrupt cache refresh');
-} finally { @unlink($dir.'/state.json');@rmdir($dir); }
+} finally { @unlink($dir.'/state-v2.json');@rmdir($dir); }
 $events=panicLauncherEvents($now);
 check(count($events)<=10 && count($events)>0,'limited agenda');
 $last='';foreach($events as $e) {

@@ -13,7 +13,7 @@
   var busy = false;
   var timer;
   var format = new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit', hourCycle:'h23'});
-  function schedule() { clearTimeout(timer); timer = setTimeout(refresh, 60000); }
+  function schedule() { clearTimeout(timer); timer = setTimeout(refresh, 30000); }
   function valid(data) {
     return data && Object.prototype.hasOwnProperty.call(labels, data.servidor) &&
       Number.isSafeInteger(data.online) && data.online >= 0 && Array.isArray(data.eventos) && data.eventos.length <= 10 &&
@@ -39,13 +39,18 @@
       }
     }
     state.closest('.ph-status').dataset.serverState = data.servidor;
+    if (data.rates && ['experience','master','drop'].every(function (key) { return typeof data.rates[key] === 'number' && Number.isFinite(data.rates[key]) && data.rates[key] >= 0; })) {
+      ['experience','master','drop'].forEach(function (key) {
+        home.querySelector('[data-home-rate="'+key+'"]').textContent = data.rates[key].toLocaleString('es-AR') + (key === 'drop' ? '%' : 'x');
+      });
+    }
     var fragment = document.createDocumentFragment();
     var events = data.eventos.filter(function (event) { return Date.parse(event.proximo) > Date.now(); })
       .sort(function (a, b) { return Date.parse(a.proximo) - Date.parse(b.proximo); }).slice(0, 3);
     events.forEach(function (event) {
       var row = document.createElement('li');
       var link = document.createElement('a');
-      link.href = new URL('info/#eventos', endpoint.href.replace(/api\/launcher\.php$/, '')).href;
+      link.href = new URL('../info/#eventos', endpoint).href;
       var name = document.createElement('span'); name.textContent = event.nombre;
       var time = document.createElement('time'); time.dateTime = event.proximo; time.textContent = format.format(new Date(event.proximo)) + ' hs';
       var arrow = document.createElement('b'); arrow.setAttribute('aria-hidden', 'true'); arrow.textContent = '↗';
@@ -94,6 +99,7 @@
       show(data);
     } catch (error) {
       state.textContent = 'Sin verificar'; state.removeAttribute('data-state');
+      online.textContent = '—'; fitOnline('—');
       state.closest('.ph-status').dataset.serverState = 'unknown';
     } finally {
       clearTimeout(timeout); busy = false; schedule();

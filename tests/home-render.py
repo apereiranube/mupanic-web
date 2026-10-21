@@ -52,7 +52,7 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
     cta=html.split('id="empeza-a-jugar"',1)[1].split('</section>',1)[0]
     assert ('usercp/' if '--logged' in flags else 'register/') in cta and 'downloads/' in cta
     assert 'hub-client-20261020' not in html and 'games-client-20261020' not in html
-    expected='—' if '--missing-cache' in flags else '7'
+    expected='—'
     assert f'data-home-online>{expected}</dd>' in html
     if '--logged' in flags: assert '>MI CUENTA <' in html
     else: assert '>CREAR CUENTA <' in html

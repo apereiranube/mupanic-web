@@ -8,7 +8,7 @@ const render=(flags=[])=>execFileSync(process.env.PHP_BIN||'php',['-n',path.join
 const html=render(['--missing-cache']);
 const output=process.env.HOME_SCREENSHOT_DIR;
 if(output)fs.mkdirSync(output,{recursive:true});
-const fixture={online:17,servidor:'online',eventos:[
+const fixture={online:17,servidor:'online',rates:{experience:15,master:10,drop:25},eventos:[
  {nombre:'Castillo Sangriento',proximo:'2099-10-20T18:00:00-03:00'},
  {nombre:'Plaza del Diablo',proximo:'2099-10-20T19:00:00-03:00'},
  {nombre:'Dragón Rojo',proximo:'2099-10-20T20:00:00-03:00'}
@@ -85,11 +85,14 @@ async function routes(page,body=html){
    }
   }
   assert.equal(await page.locator('[data-home-online]').textContent(),'17');
+  const coreBox=await page.locator('.ph-online-metric').boundingBox();
+  assert.ok(coreBox.width <= (width<=760?220:245), 'The core must stay compact beside the combat scene');
+  assert.equal(await page.locator('[data-home-rate=experience]').textContent(),'15x');
   assert.equal(await page.locator('.ph-status').getAttribute('data-server-state'),'online');
   assert.equal(await page.locator('[data-home-state]').textContent(),'Online');
   if([1440,390,320].includes(width)){
-   for(const count of [1,100,999,1000,100000]){
-    await page.route('**/api/launcher.php',route=>route.fulfill({json:{...fixture,online:count}}));
+   for(const count of [0,1,100,999,1000,100000]){
+    await page.route('**/api/launcher.php*',route=>route.fulfill({json:{...fixture,online:count}}));
     await page.evaluate(()=>dispatchEvent(new Event('online')));
     await page.waitForFunction(expected=>document.querySelector('[data-home-online]').textContent===expected,count.toLocaleString('es-AR'));
     await page.locator('.ph-status').scrollIntoViewIfNeeded();
@@ -99,7 +102,7 @@ async function routes(page,body=html){
     if(count===100)assert.ok(fit.fontSize>=40,'100 players must remain prominent, including on small phones');
     if(output && [100,1000].includes(count))await page.locator('.ph-status').screenshot({path:path.join(output,'stats-'+count+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
    }
-   await page.route('**/api/launcher.php',route=>route.fulfill({json:fixture}));
+   await page.route('**/api/launcher.php*',route=>route.fulfill({json:fixture}));
    await page.evaluate(()=>dispatchEvent(new Event('online')));
    await page.waitForFunction(()=>document.querySelector('[data-home-online]').textContent==='17');
   }
@@ -205,15 +208,21 @@ async function routes(page,body=html){
   await page.locator('.ph-games-scene').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
   assert.deepEqual(errors,[]);
-  // Public event names are plain text; failed refresh keeps a clearly marked last count.
-  await page.route('**/api/launcher.php',route=>route.fulfill({json:{...fixture,eventos:[{nombre:'<img src=x onerror=alert(1)>',proximo:'2099-10-20T21:00:00-03:00'}]}}));
+  // Public event names are plain text; failed refresh never presents a stale count.
+  await page.route('**/api/launcher.php*',route=>route.fulfill({json:{...fixture,eventos:[{nombre:'<img src=x onerror=alert(1)>',proximo:'2099-10-20T21:00:00-03:00'}]}}));
   await page.evaluate(()=>window.dispatchEvent(new Event('online')));
   await page.waitForFunction(()=>document.querySelector('[data-home-events]').textContent.includes('<img'));
   assert.equal(await page.locator('[data-home-events] img').count(),0);
-  await page.route('**/api/launcher.php',route=>route.fulfill({status:503,body:'unavailable'}));
+  await page.route('**/api/launcher.php*',route=>route.fulfill({json:{...fixture,online:0,rates:{experience:22,master:13,drop:28}}}));
+  await page.evaluate(()=>window.dispatchEvent(new Event('online')));
+  await page.waitForFunction(()=>document.querySelector('[data-home-online]').textContent==='0');
+  assert.equal(await page.locator('[data-home-rate=experience]').textContent(),'22x');
+  assert.equal(await page.locator('[data-home-rate=master]').textContent(),'13x');
+  assert.equal(await page.locator('[data-home-rate=drop]').textContent(),'28%');
+  await page.route('**/api/launcher.php*',route=>route.fulfill({status:503,body:'unavailable'}));
   await page.evaluate(()=>window.dispatchEvent(new Event('online')));
   await page.waitForFunction(()=>document.querySelector('[data-home-state]').textContent==='Sin verificar');
-  assert.equal(await page.locator('[data-home-online]').textContent(),'17');
+  assert.equal(await page.locator('[data-home-online]').textContent(),'—');
   console.log('PASS '+width+'px: artwork ratios, complete resources, no overflow, menu, keyboard tours, eight games, local effects and live data states.');
   await page.close();
  }

@@ -64,16 +64,15 @@ function panicLauncherReadState($root) {
         $config=webengineConfigs();
         if(!is_array($config) || !array_key_exists('system_active',$config)) return $offline;
         if(!$config['system_active']) return ['online'=>0,'servidor'=>'mantenimiento'];
-        $cache=LoadCacheData('server_info.cache');
-        $fields=explode('|',$cache[1][0] ?? '');
-        if(!isset($fields[3]) || !preg_match('/^[0-9]{1,9}$/D',trim($fields[3]))) return $offline;
         require_once $root.'/includes/classes/class.database.php';
         require_once $root.'/includes/classes/class.connection.php';
-        // Verify SQL availability even when the CMS has an older player snapshot.
+        // Same connection and count as WebEngine includes/cron/server_info.php,
+        // read now instead of depending on that cron having run.
         $db=Connection::Database('Me_MuOnline');
-        $health=$db->query_fetch_single('SELECT 1 AS launcher_available');
-        if(!is_array($health) || (int)($health['launcher_available'] ?? 0)!==1) return $offline;
-        return ['online'=>(int)$fields[3],'servidor'=>'online'];
+        $row=$db->query_fetch_single('SELECT COUNT(*) AS totalOnline FROM [MEMB_STAT] WHERE [ConnectStat] = 1');
+        $count=$row['totalOnline'] ?? null;
+        if(!is_scalar($count) || !preg_match('/^[0-9]{1,9}$/D',(string)$count)) return $offline;
+        return ['online'=>(int)$count,'servidor'=>'online'];
     } catch(Throwable $error) { return $offline; }
 }
 
@@ -82,7 +81,7 @@ function panicLauncherCachedState($root, $directory=null, $reader=null, $now=nul
     $now=$now ?? time();
     $directory=$directory ?? sys_get_temp_dir().'/mupanic-launcher-'.hash('sha256',$root);
     if(is_link($directory) || (!is_dir($directory) && !@mkdir($directory,0700,true))) return $offline;
-    $path=$directory.'/state.json';
+    $path=$directory.'/state-v2.json';
     if(is_link($path)) return $offline;
     $handle=@fopen($path,'c+');
     if(!$handle) return $offline; // Never fall back to an uncached SQL request.
@@ -91,7 +90,7 @@ function panicLauncherCachedState($root, $directory=null, $reader=null, $now=nul
         @chmod($path,0600);
         $old=json_decode(stream_get_contents($handle),true);
         if(is_array($old) && isset($old['at'],$old['state']['online'],$old['state']['servidor']) &&
-            is_int($old['at']) && $old['at']<=$now && $now-$old['at']<45 &&
+            is_int($old['at']) && $old['at']<=$now && $now-$old['at']<15 &&
             is_int($old['state']['online']) && $old['state']['online']>=0 &&
             in_array($old['state']['servidor'],['online','offline','mantenimiento'],true)) {
             return ['online'=>$old['state']['online'],'servidor'=>$old['state']['servidor']];
