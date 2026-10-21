@@ -1,7 +1,6 @@
 /* MU PANIC · El servidor (página de venta animada). Todo queda bajo #srv-page
    para no tocar la cabecera, el pie ni el resto del sitio. */
 body.is-server-info{background:#0b0c0e}
-.is-server-info .site-header{background:linear-gradient(#0b0c0ef0,#0b0c0ec0);backdrop-filter:blur(14px);border-bottom-color:#c6a57826}
 .is-server-info .inner-content{padding:0;background:#0b0c0e}
 .is-server-info .inner-content>.shell{width:100%;max-width:none;padding:0}
 /* Sin overflow en los contenedores: los fondos por escena usan position:sticky. */
