@@ -130,6 +130,48 @@ function panicReferidosGuardarCodigo($code) {
     if(!headers_sent()) setcookie('mupanic_ref',$code,['expires'=>time()+7*86400,'path'=>'/','secure'=>true,'httponly'=>true,'samesite'=>'Lax']);
 }
 
+function panicReferidosOlvidarCodigo() {
+    unset($_SESSION['mupanic_ref']);
+    if(!headers_sent()) setcookie('mupanic_ref','',['expires'=>time()-3600,'path'=>'/','secure'=>true,'httponly'=>true,'samesite'=>'Lax']);
+}
+
+/**
+ * Registro: el formulario de "Crear cuenta" trae el campo opcional panic_ref_code.
+ * Se recuerda quien se registro con que codigo; al entrar a Mi cuenta con ESA cuenta se confirma solo.
+ * (Si el registro fallo, nadie puede entrar a esa cuenta sin su clave, asi que no se puede vincular una cuenta ajena.)
+ */
+function panicReferidosRegistroPost() {
+    if(($_SERVER['REQUEST_METHOD'] ?? '')!=='POST' || !isset($_POST['webengineRegister_submit']) || !array_key_exists('panic_ref_code',$_POST)) return;
+    unset($_SESSION['ref_reg']);
+    $code=strtoupper(trim((string)$_POST['panic_ref_code']));
+    $user=(string)($_POST['webengineRegister_user'] ?? '');
+    if($code==='') { panicReferidosOlvidarCodigo(); return; }
+    if(!preg_match('/^[A-Z0-9]{8}$/D',$code) || !preg_match('/^[A-Za-z0-9_]{1,10}$/D',$user)) return;
+    panicReferidosGuardarCodigo($code);
+    $_SESSION['ref_reg']=['user'=>$user,'code'=>$code,'at'=>time()];
+}
+function panicReferidosAutoVincular($account) {
+    $r=$_SESSION['ref_reg'] ?? null;
+    if(!is_array($r)) return;
+    unset($_SESSION['ref_reg']);
+    if(!is_string($r['user'] ?? null) || strcasecmp($r['user'],(string)$account)!==0 || time()-(int)($r['at'] ?? 0)>3600) return;
+    if(!preg_match('/^[A-Za-z0-9_]{1,10}$/D',(string)$account) || !preg_match('/^[A-Z0-9]{8}$/D',(string)($r['code'] ?? ''))) return;
+    try { (new PanicReferidosCola())->requestLink((string)$account,$r['code']); } catch(Throwable $e) {}
+}
+/** Agrega el campo "Codigo de invitacion" al formulario de registro de WebEngine (despues del email). */
+function panicReferidosCampoRegistro($markup) {
+    $pos=strpos($markup,'name="webengineRegister_email"');
+    if($pos===false) return $markup;
+    $end=strpos($markup,'</div></div>',$pos);
+    if($end===false) return $markup;
+    $end+=strlen('</div></div>');
+    $code=htmlspecialchars((string)(panicReferidosCodigoPendiente() ?? ''),ENT_QUOTES,'UTF-8');
+    $field='<div class="form-group panic-ref-field"><label for="panicRefCode" class="col-sm-4 control-label">Código de invitación</label><div class="col-sm-8">'
+        .'<input type="text" class="form-control" id="panicRefCode" name="panic_ref_code" value="'.$code.'" maxlength="8" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:2px">'
+        .'<span class="help-block">Opcional. Si te invitó un amigo, cuando llegues al reset 2 y juegues 3 días, ganás 3 días de VIP.</span></div></div>';
+    return substr($markup,0,$end).$field.substr($markup,$end);
+}
+
 /** Lecturas de las vistas (solo SELECT). */
 function panicReferidosDb() { return Connection::Database('MuOnline'); }
 function panicReferidosMiCodigo($account) {
@@ -148,5 +190,6 @@ function panicReferidosMisInvitados($account) {
 /** Para el inicio de Mi cuenta: hay un codigo por confirmar y la cuenta todavia no esta vinculada. */
 function panicReferidosHayPorConfirmar($account) {
     if(!panicReferidosCodigoPendiente() || !preg_match('/^[A-Za-z0-9_]{1,10}$/D',(string)$account)) return false;
+    try { $l=(new PanicReferidosCola())->lastLink($account); if($l && (($l['state'] ?? '')==='pending' || ($l['result'] ?? '')==='OK')) return false; } catch(Throwable $e) {}
     try { return panicReferidosComoInvitado($account)===null; } catch(Throwable $e) { return false; }
 }

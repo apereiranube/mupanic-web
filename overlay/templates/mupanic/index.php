@@ -33,6 +33,14 @@ if(in_array($_REQUEST['page'],['register','usercp'],true) && is_string($_GET['re
     require_once __DIR__.'/inc/referidos-cola.php';
     panicReferidosGuardarCodigo($_GET['ref']);
 }
+if($_REQUEST['page'] === 'register') {
+    require_once __DIR__.'/inc/referidos-cola.php';
+    panicReferidosRegistroPost();
+}
+if($_REQUEST['page'] === 'usercp' && isLoggedIn() && isset($_SESSION['ref_reg'])) {
+    require_once __DIR__.'/inc/referidos-cola.php';
+    panicReferidosAutoVincular((string)($_SESSION['username'] ?? ''));
+}
 if($_REQUEST['page'] === 'usercp') {
     require_once(__DIR__.'/inc/account.php');
     $GLOBALS['lang'] = array_replace(is_array($GLOBALS['lang'] ?? null) ? $GLOBALS['lang'] : [], require(__DIR__.'/inc/account-locale.php'));
@@ -257,6 +265,10 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                     } else {
                         echo $downloadsMarkup;
                     }
+                } elseif($_REQUEST['page'] === 'register') {
+                    ob_start();
+                    $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
+                    echo panicReferidosCampoRegistro(ob_get_clean());
                 } else {
                     $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
                 }

@@ -123,7 +123,7 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación. Cuando l
   <section class="ref-panel ref-how">
     <span class="ref-overline">CÓMO FUNCIONA</span>
     <ol>
-      <li><b>01</b><div><strong>Compartí tu link</strong><p>Tu amigo crea su cuenta desde tu link y confirma la invitación en Mi cuenta → Referidos.</p></div></li>
+      <li><b>01</b><div><strong>Compartí tu link</strong><p>Tu amigo crea su cuenta desde tu link: el código ya aparece cargado en el formulario.</p></div></li>
       <li><b>02</b><div><strong>Tu amigo juega</strong><p>Tiene que llegar al reset 2 y jugar al menos 3 días distintos (30 minutos o más cada día).</p></div></li>
       <li><b>03</b><div><strong>Ganan los dos</strong><p>Vos recibís 7 días de VIP y tu amigo 3 días. Se suman solos a tu VIP actual.</p></div></li>
     </ol>
