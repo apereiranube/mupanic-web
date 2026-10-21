@@ -103,6 +103,8 @@ async function routes(page,body=html){
   const hubHeight=(await page.locator('.ph-client-tour').boundingBox()).height;
   const desktopDesk=await page.locator('[data-hub-simulator]').boundingBox();
   assert.ok(desktopDesk.width<=780.5,'Hub must remain a modest artifact in the landscape');
+  const room=await page.locator('.ph-client-v12>.ph-journey-art').boundingBox();
+  assert.ok(desktopDesk.y<room.y+room.height&&desktopDesk.y+desktopDesk.height>room.y,'Hub must sit within its painted setting, not below it');
   for(const tab of await page.locator('.ph-client-tour [role=tab]').all()){
    await tab.click();
    const id=await tab.getAttribute('aria-controls');
