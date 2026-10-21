@@ -55,7 +55,7 @@ async function routes(page,body=html){
    assert.ok(detail.width>=1700 && detail.width/detail.height===2,'Native detail plate must have enough actual pixels for desktop');
   }
   const hubEdge=await page.locator('.ph-client-v12>.ph-journey-art').evaluate(el=>getComputedStyle(el).maskImage);
-  assert.ok(hubEdge.includes('transparent'),'Pets to Hub must blend instead of displaying a rectangular image edge');
+  assert.ok(hubEdge.startsWith('linear-gradient('),'Pets to Hub must blend instead of displaying a rectangular image edge');
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
   }));
