@@ -33,6 +33,9 @@ if(in_array($_REQUEST['page'],['register','usercp'],true) && is_string($_GET['re
     require_once __DIR__.'/inc/referidos-cola.php';
     panicReferidosGuardarCodigo($_GET['ref']);
 }
+if(in_array($_REQUEST['page'],['register','login','forgotpassword','verifyemail'],true)) {
+    $GLOBALS['lang'] = array_replace(is_array($GLOBALS['lang'] ?? null) ? $GLOBALS['lang'] : [], require(__DIR__.'/inc/account-locale.php'), require(__DIR__.'/inc/public-locale.php'));
+}
 if($_REQUEST['page'] === 'register') {
     require_once __DIR__.'/inc/referidos-cola.php';
     panicReferidosRegistroPost();
@@ -215,7 +218,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!in_array($_REQUEST['page'],['information','market','fractura'],true)) { ?>
 <section class="inner-hero">
     <div class="shell inner-head">
-        <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : ($_REQUEST['page'] === 'usercp' ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
+        <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : (in_array($_REQUEST['page'],['usercp','register','login','forgotpassword','verifyemail'],true) ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
         <?php if($_REQUEST['page'] === 'profile') { ?><a class="profile-back" href="<?php echo __BASE_URL__; ?>rankings/">← Volver al ranking</a><?php } elseif($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] !== '') { ?><a href="<?php echo __BASE_URL__; ?>usercp/">← Mi cuenta</a><?php } else { ?><a href="<?php echo __BASE_URL__; ?>">← Inicio</a><?php } ?>
     </div>
 </section>
