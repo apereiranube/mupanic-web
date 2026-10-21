@@ -51,7 +51,7 @@ try {
 <div class="recharge-history-list"><?php foreach($bankRows['orders']as $o){[$tone,$label,$copy]=panicBankStatus($o); ?>
 <article class="recharge-order"><div class="recharge-order-top"><span><?= panicAccountEscape(panicRechargeArgDate($o['created_at'])) ?> · <?= $o['live']?'Producción':'Prueba' ?></span><span class="recharge-status"><?= panicAccountEscape($label) ?></span></div>
 <div class="recharge-order-value"><strong><?= panicAccountEscape($o['account']) ?><small> <?= number_format($o['coins'],0,',','.') ?> Eryns</small></strong><b>$ <?= number_format($o['price_cents']/100,0,',','.') ?> ARS</b></div>
-<p>CUIT del comprador: <b><?= panicAccountEscape($o['cuit']) ?></b><br>Orden: <?= panicAccountEscape($o['id']) ?></p>
+<p>CUIT de quien realiza el aporte: <b><?= panicAccountEscape($o['cuit']) ?></b><br>Orden: <?= panicAccountEscape($o['id']) ?></p>
 <?php if($o['ticket_channel']) { ?><a class="recharge-text-button" href="<?= panicAccountEscape('https://discord.com/channels/'.$o['discord']['guild_id'].'/'.$o['ticket_channel']) ?>" target="_blank" rel="noopener noreferrer">Abrir ticket ↗</a><?php } ?>
 <?php if(!empty($o['receipt_url'])) { ?><a class="recharge-text-button" href="<?= panicAccountEscape($o['receipt_url']) ?>" target="_blank" rel="noopener noreferrer">Ver comprobante en Discord ↗</a><?php } else { ?><p>El bot todavía no registró un comprobante del comprador.</p><?php } ?>
 <details><summary>Datos de esta transferencia</summary><p>Titular receptor: <?= panicAccountEscape($o['bank']['holder']) ?><br>Banco: <?= panicAccountEscape($o['bank']['bank']) ?><br>Alias / CBU: <?= panicAccountEscape($o['bank']['alias'].' / '.$o['bank']['cbu']) ?><br>Usuario Discord: <?= panicAccountEscape($o['discord_id'] ?? 'Sin vincular') ?></p>
