@@ -707,7 +707,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 @media(max-width:760px){
  .panic-home .ph-lower-journey .ph-world-layout{grid-area:scene;grid-template-columns:1fr;width:calc(100% - 24px);padding:18px 0 0;gap:0;margin:0 auto;align-self:start}
  .panic-home .ph-lower-journey .ph-client-v12>.ph-journey-art{aspect-ratio:auto;min-height:100%;height:100%;mask-image:linear-gradient(#000 85%,transparent)}
- .panic-home .ph-lower-journey .ph-client-v12>.ph-journey-art>img{width:auto;height:300%;min-width:100%;max-width:none;object-fit:cover;left:50%;transform:translateX(-50%)}
+ .panic-home .ph-lower-journey .ph-client-v12>.ph-journey-art>img{width:auto;height:300%;min-width:100%;max-width:none;object-fit:contain;left:50%;transform:translateX(-50%)}
  .ph-client-intro{padding:0 12px;display:grid;grid-template-columns:1fr 40%;align-items:center;column-gap:12px}
  .ph-workshop .ph-client-intro h2{font-size:clamp(30px,8vw,48px);grid-column:1/2;margin-bottom:12px}
  .ph-client-intro>.ph-eyebrow{grid-column:1/-1;font-size:8px;margin:0 0 12px}
