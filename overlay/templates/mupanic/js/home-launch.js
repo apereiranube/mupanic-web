@@ -344,3 +344,9 @@
  dialog.addEventListener('click',function(event){if(event.target===dialog){var r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
  dialog.addEventListener('close',function(){stage.appendChild(simulator);stage.style.height='';button.focus({preventScroll:true});});
 })();
+// The illustrated preview exposes the client's functions without test-account data.
+(function(){
+ 'use strict';
+ document.querySelectorAll('[data-hub-go]').forEach(function(button){button.addEventListener('click',function(){var tab=document.querySelector('[data-world-tab="'+button.dataset.hubGo+'"]');if(tab)tab.click();});});
+ document.querySelectorAll('[data-hub-detail]').forEach(function(button){button.addEventListener('click',function(){var output=button.closest('[data-world-panel]').querySelector('[data-hub-detail-output]');if(output)output.textContent=button.dataset.hubDetail;});});
+})();

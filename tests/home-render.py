@@ -36,13 +36,13 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
     assert 'Consultado ' not in html and 'Pausar efectos' not in html
     assert 'ph-roulette-plane' not in html and 'data-scene-fx="combat"' not in html
     assert 'ph-world-divider' not in html and 'ph-status-heading' not in html
-    assert html.count('ph-flow-join ph-flow-join-') == 5
+    assert html.count('ph-flow-join ph-flow-join-') == 3
     assert 'hub-tienda' in html and 'ph-client-improvements' not in html
-    assert 'hub-real-v4.webp' in html and 'master-real-v5.webp' not in html
-    assert 'data-hub-simulator' in html and 'ph-hub-native-menu' in html
-    assert html.count('ph-hub-no-capture') == 0
-    for screen in ['personaje','fractura','eventos','mercado','tienda','juegos','ayuda']:
-        assert f'hub-{screen}-real-v10.webp' in html
+    assert 'data-hub-simulator' in html and 'ph-hub-menu-v12' in html
+    assert 'hub-desk-v12.webp' in html and html.count('journey-world-v12.webp') == 3
+    assert 'hub-real-v4.webp' not in html and 'real-v10.webp' not in html
+    assert 'ph-client-name' not in html and 'ph-hub-no-capture' not in html
+    assert 'join-market-v10.webp' not in html and 'join-arcade-v10.webp' not in html
     assert 'EL PULSO DEL SERVIDOR' not in html and 'Cada clase tiene su propia Furia' not in html
     assert 'ph-market-trail' not in html
     assert html.count('data-home-tabs') == 2

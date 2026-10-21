@@ -53,15 +53,15 @@ async function routes(page,body=html){
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
   }));
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow at '+width);
-  assert.equal(metrics.length,7,'Seven complete artwork compositions');
+  assert.equal(metrics.length,8,'Four upper scenes, the F11 key and three parts of the connected painting');
   for(const selector of ['.ph-workshop.ph-client','.ph-market-world','.ph-games','.ph-games-scene']){
    const box=await page.locator(selector).boundingBox();
    assert.ok(Math.abs(box.width-width)<2 && Math.abs(box.x)<2,selector+' must fill the viewport at '+width);
   }
   for(const panel of await page.locator('.ph-client-tour [role=tabpanel]').all()){
    const id=await panel.getAttribute('id');
-   const expected=1;
-   assert.equal(await panel.locator('.ph-hub-capture').count(),expected,'Only matching real captures may illustrate a Hub tab');
+   const expected=0;
+   assert.equal(await panel.locator('.ph-hub-capture').count(),expected,'Hub screens must be rebuilt from the client guide, without screenshot crops');
    assert.equal(await panel.locator('.ph-master-capture').count(),0,'Master is not the Personaje Hub window');
   }
 
@@ -99,8 +99,10 @@ async function routes(page,body=html){
   }
   assert.equal(await page.locator('.ph-games-tour [role=tab]').count(),8);
   assert.equal(await page.locator('.ph-client-tour [role=tab]').count(),8);
-  assert.ok(await page.locator('.ph-hub-shell').evaluate(el=>getComputedStyle(el).clipPath.includes('6.2%')),'The native gold contour must override the old screenshot crop');
+  assert.equal(await page.locator('.ph-client-name,.ph-hub-capture,.ph-flow-join-market,.ph-flow-join-arcade').count(),0);
   const hubHeight=(await page.locator('.ph-client-tour').boundingBox()).height;
+  const desktopDesk=await page.locator('[data-hub-simulator]').boundingBox();
+  assert.ok(desktopDesk.width<=780.5,'Hub must remain a modest artifact in the landscape');
   for(const tab of await page.locator('.ph-client-tour [role=tab]').all()){
    await tab.click();
    const id=await tab.getAttribute('aria-controls');
@@ -108,11 +110,12 @@ async function routes(page,body=html){
    assert.equal(await page.locator('.ph-client-tour [role=tabpanel]:visible').count(),1);
    assert.ok(Math.abs((await page.locator('.ph-client-tour').boundingBox()).height-hubHeight)<2,'Hub changes page height at '+width);
    assert.equal(await page.locator('#'+id).evaluate(el=>el.inert),false);
-   const shot=await page.locator('#'+id+' .ph-hub-content-viewport').boundingBox(), menu=await tab.boundingBox(), frame=await page.locator('[data-hub-simulator]').boundingBox();
-   assert.ok(menu.x>=frame.x&&menu.x+menu.width<shot.x,'Native menu must stay inside the frame and outside its content at '+width);
-   assert.ok(shot.y>=frame.y&&shot.y+shot.height<=frame.y+frame.height+1,'Screen must stay inside Hub at '+width);
-   assert.equal(await page.locator('[data-hub-caption="'+id+'"]').isVisible(),true);
   }
+  await page.locator('[data-world-tab="hub-inicio"]').click();
+  await page.locator('[data-hub-go="hub-mercado"]').click();
+  assert.equal(await page.locator('#hub-mercado').isVisible(),true);
+  await page.locator('#hub-mercado [data-hub-detail]').first().click();
+  assert.ok((await page.locator('#hub-mercado [data-hub-detail-output]').textContent()).includes('Comprar'));
   for(const id of ['hub-personaje','hub-fractura','hub-tienda','hub-eventos','hub-mercado','hub-ayuda']){
    await page.locator('[data-world-tab="'+id+'"]').click();
    if(output&&[1440,390].includes(width))await page.locator('.ph-client-tour').screenshot({path:path.join(output,id+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
@@ -122,8 +125,8 @@ async function routes(page,body=html){
   assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),true);
   await page.waitForFunction(()=>{const image=document.querySelector('[data-hub-lightbox] img');return image&&image.complete&&image.naturalWidth>0;});
   assert.equal(await page.locator('[data-hub-lightbox] [data-hub-simulator]').count(),1);
-  assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name').textContent(),'Panic');
-  assert.equal(await page.locator('[data-hub-lightbox] .ph-hub-character-name').textContent(),'Panic');
+  assert.equal(await page.locator('[data-hub-lightbox] .ph-client-name').count(),0);
+  assert.equal(await page.locator('[data-hub-lightbox] [role=tab]').count(),8);
   if(output&&[1440,390].includes(width))await page.locator('[data-hub-lightbox]').screenshot({path:path.join(output,'hub-personaje-enlarged-'+width+'.png')});
   await page.locator('[data-hub-lightbox] [data-world-tab="hub-fractura"]').click();
   assert.equal(await page.locator('#hub-fractura').isVisible(),true);
@@ -133,16 +136,17 @@ async function routes(page,body=html){
   assert.equal(await page.locator('[data-hub-lightbox]').evaluate(el=>el.open),false);
   assert.equal(await page.locator('[data-hub-enlarge]').evaluate(el=>el===document.activeElement),true);
   await page.locator('[data-world-tab="hub-juegos"]').click();
-  await page.waitForFunction(()=>document.querySelector('#hub-juegos .ph-hub-capture').complete&&document.querySelector('#hub-juegos .ph-hub-capture').naturalWidth);
+  assert.equal(await page.locator('#hub-juegos [data-hub-detail]').count(),8);
   if(output&&[1440,390].includes(width))await page.locator('.ph-workshop').screenshot({path:path.join(output,'hub-games-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   // Animation runs only in view. Reduced motion removes every scene effect.
   await page.locator('.ph-games-scene').scrollIntoViewIfNeeded();
-  await page.waitForFunction(()=>document.querySelector('.ph-games-scene').classList.contains('is-in-view'));
+
   assert.equal(await page.locator('.ph-roulette-plane, .ph-hero .ph-scene-fx').count(),0);
   await page.locator('.ph-hero').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.ph-hero').classList.contains('is-sky-live'));
   await page.waitForFunction(()=>{const v=document.querySelector('[data-combat-video]');return !v.paused&&v.readyState>=2&&v.parentElement.classList.contains('is-video-ready');});
   assert.equal(await page.locator('[data-combat-video]').evaluate(v=>v.muted&&v.loop&&v.playsInline),true);
+  assert.equal(await page.locator('.ph-combat-art>img').evaluate(el=>getComputedStyle(el).opacity),'0','Static cape must not remain beneath the video mask');
   assert.equal(await page.locator('.ph-battle-sky').evaluate(el=>getComputedStyle(el).display),'none');
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
@@ -161,6 +165,7 @@ async function routes(page,body=html){
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.locator('.ph-hero').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('[data-combat-video]').paused&&!document.querySelector('.ph-combat-art').classList.contains('is-video-ready'));
+  assert.equal(await page.locator('.ph-combat-art>img').evaluate(el=>getComputedStyle(el).opacity),'1','Static fallback must return for reduced motion');
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-battle-sky i')).animationName==='none');
   assert.equal(await page.locator('.ph-online-metric').evaluate(el=>getComputedStyle(el,'::after').animationName),'none');
