@@ -4,8 +4,8 @@ require_once __DIR__.'/recharge-bank.php';
 $bankAdmin=null;$bankAdminError=null;$bankAdminOk=null;$bankRows=['orders'=>[],'total'=>0];$bankAdminConfig=PanicBankTransfers::defaults();
 $bankReviewOnly=$bankReviewOnly ?? false;
 $bankAdminPage=max(1,min(500,(int)($_GET['bancos'] ?? 1)));
-$bankReviewUrl=$adminUrl.'?transferencias=pendientes';
-$bankPostUrl=$bankReviewOnly?$bankReviewUrl.'#shop-bank':$adminUrl.'#shop-bank';
+$bankReviewUrl=$adminUrl.'?vista=transferencias';
+$bankPostUrl=$bankReviewOnly?$bankReviewUrl.'#shop-bank':$adminUrl.'?vista=configuracion#shop-bank';
 $bankBotInfo=[];
 try {
     $bankAdmin=new PanicBankTransfers();

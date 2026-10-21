@@ -37,4 +37,5 @@ jobs:
           npx playwright install --with-deps chromium
           node tests/recharge-shop-browser.cjs
           node tests/recharge-admin-browser.cjs
+          node tests/recharge-admin-navigation.cjs
           node tests/recharge-bank-browser.cjs

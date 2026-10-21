@@ -1,6 +1,6 @@
 # Recargas por transferencia bancaria — beta
 
-La tienda conserva Ualá y agrega transferencia bancaria como método alternativo. Se reutilizan el bot y el servicio de recargas del VPS. La cuenta administradora `panic`, con permiso de administrador en WebEngine, configura la cuenta receptora desde `/usercp/shopadmin/#shop-bank`. La pantalla `/usercp/shopadmin/?transferencias=pendientes` muestra sólo transferencias por aprobar, separadas de las configuraciones.
+La tienda conserva Ualá y agrega transferencia bancaria como método alternativo. Se reutilizan el bot y el servicio de recargas del VPS. La cuenta administradora `panic`, con permiso de administrador en WebEngine, configura la cuenta receptora desde `/usercp/shopadmin/?vista=configuracion#shop-bank`. La pantalla `/usercp/shopadmin/?vista=transferencias` muestra sólo transferencias por aprobar, separadas de las configuraciones.
 
 ## Circuito
 
@@ -50,3 +50,11 @@ El registro privado `/home/mupanic/payments-private/recharge-bank.json` guarda c
 ## Actualización de avisos
 
 Con V1 ya instalada, desplegar primero beta desde cPanel. Ejecutar `Actualizar_Avisos.ps1` desde el paquete de avisos como administrador del VPS. Actualiza únicamente `C:\MU_PANIC_BOT\transferencias.js`, comprueba su versión y crea respaldo con restauración en Descargas. Reinicia sólo la tarea del bot si estaba ejecutándose. Conserva SQL, configuración, credenciales y el servicio de recargas. También avisa por compras ya acreditadas que todavía no tengan un aviso registrado. El ticket debe seguir existiendo.
+
+## Panel administrador
+
+`/usercp/shopadmin/` abre Inicio con estadísticas de los registros privados de ambos medios de pago. El menú tiene seis destinos: Inicio, Transferencias por aprobar, Compras, Economía, Referidos y Configuración. Sólo Configuración contiene los formularios de cuenta receptora, paquetes, monturas, VIP y datos de entrega.
+
+`?vista=compras` es el historial unificado de Ualá y transferencias: conserva órdenes pendientes, aprobadas, acreditadas y rechazadas. Incluye operación bancaria, estado de entrega, saldo antes/después y enlaces al comprobante y ticket cuando corresponda. Los filtros por cuenta, operación, medio, estado y ambiente se aplican antes de paginar y calcular totales. Por defecto incluye pruebas y producción, claramente identificadas. Inicio permite separar esos ambientes y muestra pagos aprobados, Eryns entregados, transferencias pendientes y entregas pendientes. Una lectura incompleta se informa como error; no representa ausencia de pagos.
+
+Los enlaces anteriores de Economía, Referidos y Transferencias siguen funcionando. Los anclajes antiguos de configuración redirigen a la pantalla de Configuración.

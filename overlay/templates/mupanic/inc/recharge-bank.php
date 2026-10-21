@@ -100,6 +100,10 @@ final class PanicBankTransfers {
     public function get($id,$account=null) {
         return $this->file(function($d)use($id,$account){$o=$d['orders'][$id] ?? null;if(!$o || ($account!==null && !hash_equals($o['account'],$account)))throw new RuntimeException('Compra no disponible.');return $o;});
     }
+    public function administrationRows() {
+        if(!panicRechargeAdminAllowed())throw new RuntimeException('Acceso no autorizado.');
+        return $this->file(function($d){return array_values($d['orders']);});
+    }
     public function history($account,$page=1,$admin=false,$pendingOnly=false) {
         if($admin && !panicRechargeAdminAllowed())throw new RuntimeException('Acceso no autorizado.');
         return $this->file(function($d)use($account,$page,$admin,$pendingOnly){

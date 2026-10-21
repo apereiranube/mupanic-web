@@ -3,7 +3,7 @@ if(!defined('access') || !access) die();
 
 function panicAccountTools() {
     return [
-        'shopadmin'=>['title'=>'Administrar tienda','copy'=>'Paquetes, promociones, compras y entrega automática.','group'=>'Administración','icon'=>'crown'],
+        'shopadmin'=>['title'=>'Panel administrador','copy'=>'Transferencias, compras, economía, referidos y configuración.','group'=>'Administración','icon'=>'crown'],
         'recharge'=>['title'=>'Recargar Eryns','copy'=>'Elegí tus Eryns, pagá con Ualá y seguí la entrega a tu cuenta.','group'=>'Eryns y VIP','icon'=>'gem'],
         'referidos'=>['title'=>'Referidos','copy'=>'Invitá amigos y ganá días de VIP.','group'=>'Eryns y VIP','icon'=>'friends'],
         'myaccount'=>['title'=>'Datos de mi cuenta','copy'=>'Tus datos, personajes y estado de conexión.','group'=>'Seguridad','icon'=>'shield'],

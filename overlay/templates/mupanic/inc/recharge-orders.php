@@ -80,6 +80,10 @@ final class PanicRechargeOrders {
             return ['total'=>count($rows),'orders'=>array_map([self::class,'publicOrder'],array_slice($rows,(max(1,$page)-1)*10,10))];
         });
     }
+    public function administrationRows() {
+        if(!panicRechargeAdminAllowed())throw new RuntimeException('Forbidden');
+        return $this->locked(function($orders){return array_values($orders);});
+    }
     public function administration(array $filter,$page=1) {
         if(!panicRechargeAdminAllowed()) throw new RuntimeException('Forbidden');
         return $this->locked(function($orders) use ($filter,$page) {

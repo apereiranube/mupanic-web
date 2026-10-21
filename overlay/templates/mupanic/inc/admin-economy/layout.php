@@ -3,7 +3,7 @@ if (!defined('PANIC_ECO_ADMIN') || PANIC_ECO_ADMIN !== true) { http_response_cod
 $ecoTabs=['resumen'=>'Resumen','juegos'=>'Juegos','vessara'=>'Mercado Vessara','tienda-vip'=>'Tienda y VIP','recargas'=>'Recargas','control'=>'Revisiones'];
 ?>
 <section class="eco" id="economia" aria-labelledby="eco-title">
-<header class="eco-hero"><div><span class="eco-eyebrow">MU PANIC / ADMINISTRACIÓN</span><h2 id="eco-title">Tu economía, en claro.</h2><p>Qué entró, qué se gastó y qué conviene revisar.</p></div><a class="eco-back" href="<?php echo panicEcoEscape(__BASE_URL__.'usercp/shopadmin/'); ?>">← Administrar tienda</a><div class="eco-hero-meta"><span>Solo lectura</span><span>Hora Argentina</span><span>Acceso exclusivo: panic</span></div></header>
+<header class="eco-hero"><div><span class="eco-eyebrow">MU PANIC / ADMINISTRACIÓN</span><h2 id="eco-title">Tu economía, en claro.</h2><p>Qué entró, qué se gastó y qué conviene revisar.</p></div><a class="eco-back" href="<?php echo panicEcoEscape(__BASE_URL__.'usercp/shopadmin/'); ?>">← Inicio del panel</a><div class="eco-hero-meta"><span>Solo lectura</span><span>Hora Argentina</span><span>Acceso exclusivo: panic</span></div></header>
 <nav class="eco-tabs" aria-label="Panel de Economía"><?php foreach($ecoTabs as $key=>$label) { ?><a href="<?php echo panicEcoEscape(panicEcoUrl($ecoFilters['query'], ['eco_tab'=>$key])); ?>" <?php if($ecoFilters['tab']===$key) echo 'aria-current="page"'; ?>><?php echo $label; ?></a><?php } ?></nav>
 <form class="eco-filters" method="get" action="<?php echo panicEcoEscape(__BASE_URL__.'usercp/shopadmin/'); ?>#economia">
 <input type="hidden" name="eco" value="1"><input type="hidden" name="eco_tab" value="<?php echo panicEcoEscape($ecoFilters['tab']); ?>">
