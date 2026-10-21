@@ -2,14 +2,15 @@
 // Uso: node render.cjs <fondo.png|webp> <salida.jpg>
 const fs=require('fs'),path=require('path');const {chromium}=require('playwright');
 const T=path.resolve(__dirname,'../../overlay/templates/mupanic');
-const [bg,out]=process.argv.slice(2);
+const [bg,out,modo]=process.argv.slice(2);const chico=modo==='gpt';
 const u=p=>'file://'+path.resolve(p);
 const html=`<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{font-family:M;font-weight:800;src:url('${u(T+'/fonts/manrope-800.woff2')}')}
 @font-face{font-family:M;font-weight:600;src:url('${u(T+'/fonts/manrope-600.woff2')}')}
 *{margin:0;box-sizing:border-box}
 body{width:1200px;height:630px;overflow:hidden;font-family:M;color:#f3eee4;
-background:linear-gradient(90deg,#050812 0%,#050812f0 26%,#050812a0 42%,#05081200 58%),url('${u(bg)}') right center/cover #050812}
+background:${chico?"linear-gradient(90deg,#050812e0 0%,#050812b0 22%,#05081240 34%,#05081200 42%)":"linear-gradient(90deg,#050812 0%,#050812f0 26%,#050812a0 42%,#05081200 58%)"},url('${u(bg)}') right center/cover #050812}
+${chico?'.c{left:44px!important;width:360px!important}.logo{width:180px!important;margin-bottom:20px!important}.o{font-size:16px!important;letter-spacing:3px!important}h1{font-size:50px!important}p{font-size:21px!important}':''}
 .c{position:absolute;left:64px;top:0;bottom:0;width:560px;display:flex;flex-direction:column;justify-content:center}
 .logo{width:230px;margin-bottom:26px;filter:drop-shadow(0 4px 18px #000)}
 .o{color:#dfb967;font-size:20px;font-weight:800;letter-spacing:4px}

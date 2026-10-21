@@ -153,7 +153,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta name="keywords" content="MU PANIC, MU Online, Season 6, Argentina, Louis UP43"/>
     <meta property="og:type" content="website"/>
     <?php $refPreviewCode=($_REQUEST['page']==='register' && is_string($_GET['ref'] ?? null) && preg_match('/^[A-Za-z0-9]{8}$/D',$_GET['ref'])) ? strtoupper($_GET['ref']) : null; ?>
-    <?php if($refPreviewCode) { $refPreviewImg=__PATH_TEMPLATE__.'img/referidos/referidos-preview-v1.jpg'; ?>
+    <?php if($refPreviewCode) { $refPreviewImg=__PATH_TEMPLATE__.'img/referidos/referidos-preview-v2.jpg'; ?>
     <meta property="og:site_name" content="MU PANIC"/>
     <meta property="og:title" content="Te invitaron a MU PANIC"/>
     <meta property="og:description" content="Creá tu cuenta con este link y arrancá con 3 días de VIP. MU Online Season 6 · Argentina."/>
