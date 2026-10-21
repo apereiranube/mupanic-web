@@ -10,9 +10,9 @@
 </div>
 
 <div class="mupanic-legal">
-	<p><strong>Última actualización:</strong> 5 de octubre de 2026.</p>
+	<p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.1.</p>
 
-	<p>Estos Términos y Condiciones regulan el acceso y uso de <strong>MU PANIC</strong>, incluyendo el sitio web, las cuentas de juego, el servidor, los sistemas asociados, el contenido digital, las recargas de WCoin C y las suscripciones VIP. Al registrarte, acceder al juego o utilizar cualquiera de estos servicios, aceptás estas condiciones.</p>
+	<p>Estos Términos y Condiciones regulan el acceso y uso de <strong>MU PANIC</strong>, incluyendo el sitio web, las cuentas de juego, el servidor, los sistemas asociados, el contenido digital, las recargas de Eryns y las suscripciones VIP. Al registrarte, acceder al juego o utilizar cualquiera de estos servicios, aceptás estas condiciones.</p>
 
 	<h3>1. Naturaleza del servicio</h3>
 	<p>MU PANIC es un servidor privado de MU Online administrado de forma independiente. No está afiliado, patrocinado ni respaldado por los titulares originales de MU Online. Las marcas, nombres, gráficos y demás elementos de terceros pertenecen a sus respectivos titulares.</p>
@@ -29,17 +29,19 @@
 		<li>suplantar a administradores, miembros del staff u otros jugadores;</li>
 		<li>realizar fraude, estafas, amenazas, acoso grave o conductas que afecten de forma deliberada a la comunidad;</li>
 		<li>intentar acceder sin autorización a cuentas, servidores, bases de datos, APIs o infraestructura;</li>
-		<li>comercializar cuentas, WCoin C, ítems o beneficios por dinero real fuera de los medios expresamente autorizados por MU PANIC.</li>
+		<li>comercializar cuentas, Eryns, ítems o beneficios por dinero real fuera de los medios expresamente autorizados por MU PANIC.</li>
 	</ul>
 
-	<h3>4. WCoin C, ítems y contenido virtual</h3>
-	<p>WCoin C, Zen, ítems, personajes, niveles, resets, beneficios VIP y demás elementos virtuales existen únicamente dentro de MU PANIC. No constituyen dinero, depósitos, inversiones ni activos financieros y no tienen valor de rescate en efectivo.</p>
+	<h3>4. Eryns, ítems y contenido virtual</h3>
+	<p>Eryns, Zen, ítems, personajes, niveles, resets, beneficios VIP y demás elementos virtuales existen únicamente dentro de MU PANIC. No constituyen dinero, depósitos, inversiones ni activos financieros y no tienen valor de rescate en efectivo.</p>
 	<p>El servidor puede modificar balance, estadísticas, requisitos, recompensas, precios internos, drops, rates, eventos, mapas o funcionamiento de contenido virtual cuando sea necesario para mantener el equilibrio, corregir errores o mejorar el juego.</p>
 
-	<h3>5. Recargas y pagos</h3>
-	<p>Las recargas se acreditan mediante los medios habilitados oficialmente en el sitio. Los pagos pueden ser procesados por proveedores externos y quedan sujetos también a sus propias condiciones.</p>
-	<p>Antes de confirmar una compra, verificá la cuenta, el paquete y el importe. Ante una acreditación incorrecta o duplicada, contactá al soporte oficial antes de utilizar los WCoin C o beneficios involucrados.</p>
-	<p>Las solicitudes de cancelación o reintegro se evaluarán conforme a la legislación aplicable y a las reglas del medio de pago utilizado. Los bienes o beneficios digitales ya consumidos, transferidos o utilizados podrán no ser reembolsables en la medida permitida por la normativa vigente.</p>
+	<h3>5. Aportes, recargas y transferencias</h3>
+	<p>Los aportes mediante recargas ayudan a sostener la infraestructura y el mantenimiento de MU PANIC. A cambio del importe informado se acredita la cantidad de Eryns indicada en la operación. El uso de la palabra aporte no implica una renuncia a derechos ni modifica las obligaciones que correspondan según la legislación aplicable.</p>
+	<p>Actualmente el medio habilitado es la transferencia bancaria a la cuenta indicada en el sitio. Antes de transferir, verificá el titular, los datos bancarios, el importe, la cantidad de Eryns y tu cuenta de juego. Los datos mostrados en cada operación son los que debés utilizar para esa recarga.</p>
+	<p>Solicitamos el CUIT de quien realiza el aporte para identificar la transferencia. Después de pagar, seguí las instrucciones de la web para abrir tu ticket privado en el Discord oficial y adjuntar el comprobante. No publiques comprobantes, códigos ni datos personales en canales públicos. El comprobante por sí solo no confirma la recepción del dinero: el equipo verifica el ingreso en la cuenta receptora.</p>
+	<p>El proceso de acreditación puede demorar hasta 48 horas desde que realizás la transferencia y presentás el comprobante con los datos necesarios para identificarla. Si falta información o no podemos identificar el ingreso, te lo comunicaremos por soporte. Una vez aprobado el pago, la entrega automática requiere que tu cuenta esté desconectada del juego; si estás jugando, queda pendiente hasta que cierres sesión. Podés consultar el estado en la web y el bot avisa en tu ticket cuando se completa la acreditación.</p>
+	<p>Antes de generar una nueva transferencia debés aceptar expresamente estos términos, la política de recargas y reembolsos y la política de privacidad. Guardamos la versión aceptada y la fecha junto con la operación. Si detectás un pago duplicado o una acreditación incorrecta, contactá al soporte antes de utilizar los Eryns o beneficios involucrados. No se ofrecen reintegros voluntarios por Eryns gastados, transferidos o consumidos ni por beneficios utilizados, salvo cuando corresponda por obligación legal. Las solicitudes de cancelación o reintegro se tratan conforme a la política de reembolsos y a la legislación aplicable.</p>
 
 	<h3>6. Suscripción VIP</h3>
 	<p>Los beneficios VIP son temporales y corresponden al nivel y período informado al momento de la activación. Salvo que se indique expresamente lo contrario, una suscripción VIP no implica renovación automática. MU PANIC puede ajustar beneficios futuros por razones de balance; los cambios no otorgan derechos sobre ventajas ya vencidas.</p>

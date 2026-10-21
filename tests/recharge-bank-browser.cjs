@@ -29,7 +29,11 @@ const html=execFileSync(process.env.PHP_BIN||'php',['tests/fixtures/recharge-sho
   assert.equal(await page.locator('#bank-transfers [name=recharge_action]').getAttribute('value'),'bank_ready');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,'No horizontal overflow at '+width);
   fs.mkdirSync('/tmp/bank-qa',{recursive:true});await page.locator('#recharge-cart').screenshot({path:'/tmp/bank-qa/cart-'+width+'.png'});
+  const consent=page.locator('[name=accept_terms]');assert.equal(await consent.isChecked(),false);
+  await page.locator('[data-cart-submit]').click();assert.equal(posted,null,'No checkout without acceptance');
+  await consent.check();
   await page.locator('[data-cart-submit]').click();await page.waitForTimeout(200);
+  assert.equal(posted.get('accept_terms'),'1');assert.equal(posted.get('terms_version'),'2026-10-21.1');
   assert.equal(posted.get('payment_method'),'bank_transfer');assert.equal(posted.get('buyer_cuit'),'20123456786');assert.equal(posted.get('recharge_action'),'create');
   assert.deepEqual(errors,[]);await page.close();
  }

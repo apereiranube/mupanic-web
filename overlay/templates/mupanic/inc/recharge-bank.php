@@ -4,6 +4,7 @@ require_once __DIR__.'/recharge-management.php';
 
 /** Separate private transfer ledger; Uala orders and credentials remain untouched. */
 final class PanicBankTransfers {
+    public const TERMS_VERSION = '2026-10-21.1';
     private $directory;
     public function __construct($directory='/home/mupanic/payments-private') {
         $real=realpath($directory); $public=realpath('/home/mupanic/public_html');
@@ -76,7 +77,8 @@ final class PanicBankTransfers {
     public static function workerReady(array $w,$environment,$now=null) {
         $now=$now ?? time();return ($w['version'] ?? 0)>=3 && ($w['environment'] ?? '')===$environment && ($w['last_success'] ?? 0)>=$now-180 && ($w['last_success'] ?? 0)<=$now+30;
     }
-    public function begin($account,array $cart,$nonce,$cuit,$environment,array $worker) {
+    public function begin($account,array $cart,$nonce,$cuit,$environment,array $worker,$termsVersion=null) {
+        if($termsVersion!==self::TERMS_VERSION)throw new InvalidArgumentException('Aceptá las condiciones vigentes antes de generar la transferencia.');
         if(!self::workerReady($worker,$environment) || !$this->botReady($environment))throw new RuntimeException('La entrega de transferencias todavía no está disponible.');
         if(!in_array($environment,['test','production'],true) || $environment!==$this->environment())throw new RuntimeException('Ambiente inválido.');
         $cuit=self::cuit($cuit);
@@ -92,6 +94,7 @@ final class PanicBankTransfers {
             if($open>=5)throw new RuntimeException('Tenés 5 transferencias pendientes. Revisá las anteriores.');
             $o=PanicRecharge::order($account,$cart,'bank_transfer',$environment==='production');
             $o+=['lines'=>$cart['lines'],'cuit'=>$cuit,'request_key'=>$key,'fingerprint'=>$fingerprint,'ticket_state'=>'none','ticket_channel'=>null,'discord_id'=>null];
+            $o['terms_acceptance']=['version'=>self::TERMS_VERSION,'accepted_at'=>gmdate('c'),'account'=>$account];
             $o['bank']=array_intersect_key($c,array_flip(['holder','bank','recipient_cuit','alias','cbu']));
             $o['discord']=array_intersect_key($c,array_flip(['guild_id','support_channel_id']));
             $d['orders'][$o['id']]=$o;$save($d);return $o;

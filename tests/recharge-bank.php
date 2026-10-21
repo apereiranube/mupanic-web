@@ -12,11 +12,16 @@ $guild='1555229554920915057';$support='1555229554920915058';$user='1555229554920
 $c=$b->saveConfig(['enabled'=>true,'holder'=>'Titular de prueba','bank'=>'Banco de prueba','alias'=>'mu.panic.prueba','guild_id'=>$guild,'support_channel_id'=>$support],0);
 failsBank(function()use($b){$b->saveConfig([],0);},'Configuration revision collision');
 $worker=['version'=>3,'environment'=>'test','last_success'=>time()];$cat=(require __DIR__.'/../overlay/templates/mupanic/inc/recharge-config.php')['packages'];$cart=PanicRecharge::cart($cat,['wcoin-1000'=>1]);
-failsBank(function()use($b,$cart,$worker){$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker);},'No bot heartbeat');
+failsBank(function()use($b,$cart,$worker){$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);},'No bot heartbeat');
 $b->bot(['action'=>'heartbeat','environment'=>'test','guild_id'=>$guild,'support_channel_id'=>$support]);
-failsBank(function()use($b,$cart,$worker){$worker['version']=2;$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker);},'Old worker cannot offer bank transfers');
-$o=$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker);
-okBank($b->begin('panic',$cart,str_repeat('a',32),'20-12345678-6','test',$worker)['id']===$o['id'],'Duplicate checkout reuses order');
+failsBank(function()use($b,$cart,$worker){$worker['version']=2;$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);},'Old worker cannot offer bank transfers');
+failsBank(function()use($b,$cart,$worker){$b->begin('panic',$cart,str_repeat('e',32),'20123456786','test',$worker);},'Missing consent rejected');
+failsBank(function()use($b,$cart,$worker){$b->begin('panic',$cart,str_repeat('e',32),'20123456786','test',$worker,'old-version');},'Outdated terms rejected');
+okBank($b->history('panic')['total']===0,'Rejected consent creates no order');
+$o=$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);
+okBank($o['terms_acceptance']['version']===PanicBankTransfers::TERMS_VERSION && $o['terms_acceptance']['account']==='panic' && strtotime($o['terms_acceptance']['accepted_at'])!==false,'Acceptance stored with account and server timestamp');
+okBank($b->get($o['id'])['terms_acceptance']===$o['terms_acceptance'],'Acceptance persists');
+okBank($b->begin('panic',$cart,str_repeat('a',32),'20-12345678-6','test',$worker,PanicBankTransfers::TERMS_VERSION)['id']===$o['id'],'Duplicate checkout reuses order');
 failsBank(function()use($b,$o){$b->get($o['id'],'other');},'Order ownership');
 failsBank(function()use($b,$o){$b->ready($o['id'],'other');},'Other account cannot issue code');
 $claim=$b->ready($o['id'],'panic');okBank(strlen($claim['code'])===24,'Private claim code');
@@ -49,7 +54,7 @@ $notice=array_replace($t,['action'=>'notified','message_id'=>'155522955492091506
 okBank(!$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'],'Acknowledged notification not queued again');
 // Account changes do not rewrite old bank instructions.
 $c['holder']='Nuevo titular';$c=$b->saveConfig($c,$c['revision']);okBank($b->get($o['id'])['bank']['holder']==='Titular de prueba','Immutable bank snapshot');
-$o2=$b->begin('panic',$cart,str_repeat('b',32),'20123456786','test',$worker);$code2=$b->ready($o2['id'],'panic')['code'];$r['code']=$code2;$b->bot($r);$t['id']=$o2['id'];$b->bot($t);$receipt['id']=$o2['id'];$b->bot($receipt);
+$o2=$b->begin('panic',$cart,str_repeat('b',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);$code2=$b->ready($o2['id'],'panic')['code'];$r['code']=$code2;$b->bot($r);$t['id']=$o2['id'];$b->bot($t);$receipt['id']=$o2['id'];$b->bot($receipt);
 failsBank(function()use($b,$o2){$b->approve($o2['id'],'bank1234',true);},'Same bank operation cannot be reused after bank settings change');
 $b->reject($o2['id']);okBank(!$b->jobs('test'),'Rejected transfer does not deliver');
 $data=json_decode(file_get_contents($root.'/recharge-bank.json'),true);okBank(!str_contains(json_encode($data),$code2),'Claim code stored only as hash');

@@ -4,7 +4,7 @@ Por el momento la tienda ofrece únicamente transferencia bancaria para nuevas r
 
 ## Circuito
 
-1. El comprador elige paquetes, selecciona transferencia e ingresa su CUIT. El servidor valida el dígito verificador y guarda importe, Eryns y datos bancarios de esa compra.
+1. El usuario elige paquetes, selecciona transferencia, ingresa su CUIT y acepta expresamente las condiciones vigentes. El servidor valida el dígito verificador y guarda importe, Eryns y datos bancarios de esa compra.
 2. En «Mis transferencias» ve titular, banco, alias o CBU/CVU e importe exacto. Cambiar la cuenta receptora no cambia las instrucciones de compras anteriores.
 3. Después de pagar, pulsa «Ya transferí · Preparar ticket». Recibe un código privado que vence en 30 minutos y un enlace al canal soporte existente de Discord.
 4. En soporte pulsa «Recarga por transferencia» o usa `/recarga`. El bot solicita el código y abre un ticket privado para ese comprador y los roles de soporte existentes. El código vincula la compra con el usuario real de la interacción de Discord.
@@ -58,3 +58,11 @@ Con V1 ya instalada, desplegar primero beta desde cPanel. Ejecutar `Actualizar_A
 `?vista=compras` es el historial unificado de Ualá y transferencias: conserva órdenes pendientes, aprobadas, acreditadas y rechazadas. Incluye operación bancaria, estado de entrega, saldo antes/después y enlaces al comprobante y ticket cuando corresponda. Los filtros por cuenta, operación, medio, estado y ambiente se aplican antes de paginar y calcular totales. Por defecto incluye pruebas y producción, claramente identificadas. Inicio permite separar esos ambientes y muestra pagos aprobados, Eryns entregados, transferencias pendientes y entregas pendientes. Una lectura incompleta se informa como error; no representa ausencia de pagos.
 
 Los enlaces anteriores de Economía, Referidos y Transferencias siguen funcionando. Los anclajes antiguos de configuración redirigen a la pantalla de Configuración.
+
+## Condiciones y aceptación
+
+Las páginas `/tos/`, `/refunds/` y `/privacy/` usan la versión `2026-10-21.1`. Describen Eryns, soporte privado de Discord, datos de la transferencia y el proceso de hasta 48 horas. La casilla del formulario comienza desmarcada. El servidor rechaza la creación sin aceptación o con una versión anterior y no escribe una orden en esos casos.
+
+Cada nueva transferencia conserva `terms_acceptance` con versión, cuenta y fecha UTC generada por el servidor. Los reintentos conservan la aceptación original; las operaciones anteriores siguen funcionando sin atribuirles una aceptación retroactiva. El panel de revisión muestra estos datos dentro de «Datos de esta transferencia». No se envían al bot ni al servicio de acreditación.
+
+Al modificar las condiciones, actualizar su fecha y versión en las tres páginas y `PanicBankTransfers::TERMS_VERSION`, conservando el texto anterior en el historial de Git. Este registro documenta una aceptación; no implica renuncia a derechos ni garantiza la validez jurídica de todas las cláusulas.

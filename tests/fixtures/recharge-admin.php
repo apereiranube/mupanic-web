@@ -19,7 +19,7 @@ try {
   $bank->bot(['action'=>'heartbeat','environment'=>'test','guild_id'=>$guild,'support_channel_id'=>'1555229554920915058']);
   $catalogue=(require $inc.'/recharge-config.php')['packages'];$cart=PanicRecharge::cart($catalogue,['wcoin-1000'=>1]);
   for($i=0;$i<3;$i++) {
-   $o=$bank->begin('panic',$cart,str_repeat(['b','c','d'][$i],32),'20123456786','test',$manager->worker());
+   $o=$bank->begin('panic',$cart,str_repeat(['b','c','d'][$i],32),'20123456786','test',$manager->worker(),PanicBankTransfers::TERMS_VERSION);
    $claim=$bank->ready($o['id'],'panic');
    $bank->bot(['action'=>'claim','environment'=>'test','guild_id'=>$guild,'discord_id'=>$user,'code'=>$claim['code']]);
    $ticket=['action'=>'ticket','environment'=>'test','guild_id'=>$guild,'discord_id'=>$user,'id'=>$o['id'],'channel_id'=>$channel];$bank->bot($ticket);

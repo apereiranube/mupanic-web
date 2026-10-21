@@ -253,3 +253,5 @@
 .is-account .bank-admin>[role=status]{padding:14px 16px;color:#ccebdc;background:#142b27;border:1px solid #538c77;border-radius:4px;line-height:1.6}
 .bank-review-page .recharge-sections a[aria-current=page]{color:#ffe1a6;border-color:#d6ac6380;background:#d6ac6320}
 .bank-review-page .recharge-order-reference{overflow-wrap:anywhere}
+
+.eryns-consent{display:flex!important;align-items:flex-start;gap:10px;margin:0 0 20px;font-size:12px;line-height:1.6;color:#d6cbbc;text-align:left;max-width:100%}.eryns-consent input[type=checkbox]{flex:0 0 auto;width:18px!important;height:18px;margin:3px 0 0;accent-color:#b88a42}.eryns-consent span{min-width:0}.is-account .eryns-consent a{color:#f0cf91;text-decoration:underline}

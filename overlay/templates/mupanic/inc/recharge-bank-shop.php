@@ -17,7 +17,7 @@ function panicBankShopAction($action,$bankStore,$bankCanBuy,$bankEnvironment,arr
         if(!$bankCanBuy)throw new RuntimeException('Las transferencias todavía no están habilitadas.');
         if(!is_array($_POST['quantity'] ?? null))throw new InvalidArgumentException('Carrito inválido.');
         $cart=PanicRecharge::cart($rechargePackages,$_POST['quantity']);$shopQuantities=array_replace($shopQuantities,$_POST['quantity']);
-        $o=$bankStore->begin($rechargeAccount,$cart,$_POST['recharge_nonce'] ?? null,$_POST['buyer_cuit'] ?? '',$bankEnvironment,$bankWorker);
+        $o=$bankStore->begin($rechargeAccount,$cart,$_POST['recharge_nonce'] ?? null,$_POST['buyer_cuit'] ?? '',$bankEnvironment,$bankWorker,($_POST['accept_terms'] ?? null)==='1'?($_POST['terms_version'] ?? null):null);
         $_SESSION['recharge_nonce']=bin2hex(random_bytes(16));$shopMessage='Transferencia preparada. Los datos y el importe están en Mis transferencias. Adjuntá el comprobante en Discord después de pagar.';
         return;
     }

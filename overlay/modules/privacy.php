@@ -10,7 +10,7 @@
 </div>
 
 <div class="mupanic-legal">
-    <p><strong>Última actualización:</strong> 5 de octubre de 2026.</p>
+    <p><strong>Última actualización:</strong> 21 de octubre de 2026. <strong>Versión:</strong> 2026-10-21.1.</p>
 
     <p>Esta Política de Privacidad explica qué información puede tratar <strong>MU PANIC</strong> al utilizar el sitio web, crear una cuenta, jugar en el servidor, realizar recargas, utilizar beneficios VIP o contactar al soporte.</p>
 
@@ -19,8 +19,9 @@
         <li>datos de cuenta, como nombre de usuario y correo electrónico;</li>
         <li>datos de personajes y actividad dentro del servidor;</li>
         <li>dirección IP, fecha y hora de acceso, registros técnicos, errores y medidas antifraude;</li>
-        <li>información necesaria para procesar recargas, verificar acreditaciones y resolver reclamos;</li>
-        <li>mensajes enviados a soporte y comunicaciones realizadas por canales oficiales.</li>
+        <li>CUIT de quien realiza el aporte, importe, referencia bancaria, cuenta de juego, estado de entrega y demás información necesaria para identificar recargas y resolver reclamos;</li>
+        <li>fecha y versión de las condiciones aceptadas al generar una transferencia;</li>
+        <li>identificador de usuario y ticket de Discord, mensajes y comprobantes adjuntos en el soporte privado.</li>
     </ul>
 
     <h3>2. Finalidades</h3>
@@ -28,6 +29,8 @@
 
     <h3>3. Pagos</h3>
     <p>Los pagos pueden ser procesados por proveedores externos. MU PANIC puede recibir datos de la operación necesarios para identificar, conciliar y acreditar una compra, pero no necesita almacenar los datos completos de tarjetas u otros medios de pago cuando estos son gestionados por el proveedor correspondiente.</p>
+
+    <p>Para las transferencias bancarias usamos el CUIT y los datos de la operación para identificar el ingreso, prevenir duplicaciones y acreditar los Eryns. Los comprobantes se adjuntan en tickets privados de Discord, accesibles al usuario, al equipo autorizado y al bot según los permisos del canal. Discord es un proveedor externo y el uso de su plataforma está sujeto también a sus condiciones y política de privacidad. Compartí únicamente los datos necesarios para verificar el pago y evitá incluir saldos u otros movimientos ajenos a la operación.</p>
 
     <h3>4. Cookies y sesión</h3>
     <p>El sitio puede utilizar cookies o mecanismos equivalentes necesarios para iniciar sesión, mantener la sesión activa, recordar preferencias y proteger formularios. Si desactivás estos mecanismos, algunas funciones pueden dejar de operar correctamente.</p>
