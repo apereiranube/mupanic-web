@@ -49,6 +49,7 @@ async function routes(page,body=html){
    await page.screenshot({path:path.join(output,'home-'+width+'.png'),fullPage:true});
    if([2560,1440,390].includes(width))for(const scene of ['hero','status','furia','fractura','companions','workshop','market-world','games'])await page.locator('.ph-'+scene).screenshot({path:path.join(output,scene+'-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
   }
+  for(const painting of await page.locator('.ph-journey-art').all()){const bounds=await painting.boundingBox();assert.ok(Math.abs(bounds.width-width)<2,'The connected painting must fill the viewport');}
   const metrics=await page.locator('.panic-home .ph-art img').evaluateAll(images=>images.map(im=>{
    const rect=im.getBoundingClientRect();return{src:im.currentSrc,width:rect.width,height:rect.height,naturalWidth:im.naturalWidth,naturalHeight:im.naturalHeight,fit:getComputedStyle(im).objectFit};
   }));

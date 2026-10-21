@@ -646,7 +646,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 .ph-furia-aura-video{mix-blend-mode:screen;-webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 71%);mask-image:radial-gradient(ellipse at center,#000 45%,transparent 71%)}
 .ph-combat-art.is-video-ready>img{opacity:0}
 .panic-home .ph-lower-journey{position:relative;background:#0b0c0e}
-.panic-home .ph-lower-journey .ph-scene{display:grid;grid-template-areas:"scene";margin:0;padding:0;background:none;isolation:isolate}
+.panic-home .ph-lower-journey .ph-scene{display:grid;grid-template-areas:"scene";grid-template-columns:minmax(0,1fr);grid-template-rows:auto;gap:0;margin:0;padding:0;background:none;isolation:isolate}
 .panic-home .ph-lower-journey .ph-scene:before,.panic-home .ph-lower-journey .ph-scene:after{content:none;display:none}
 .panic-home .ph-lower-journey .ph-journey-art{position:relative;grid-area:scene;align-self:stretch;aspect-ratio:2/1;overflow:hidden;mask-image:none;width:100%;margin:0;padding:0;min-width:0}
 .panic-home .ph-lower-journey .ph-journey-art>img{position:absolute;left:0;top:0;width:100%;height:auto;max-width:none;filter:none;object-fit:contain;pointer-events:none}
