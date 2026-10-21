@@ -68,6 +68,7 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 .ph-combo-number{display:flex;flex:0 0 auto;align-items:center;height:100px}
 .ph-combo-number i{display:block;width:50px;height:100px;background-image:url('../img/home/furia-ui-digits-v3.webp');background-size:1200% 100%;background-repeat:no-repeat}
 .ph-combo-x{background-position:90.909091% 0}.ph-combo-two{background-position:18.181818% 0}.ph-combo-zero{background-position:0 0}
+.ph-furia-combo>img[hidden]{display:none}
 .ph-furia-combo>img{display:block;width:46%;max-width:300px;height:auto;filter:drop-shadow(0 0 12px #9a240936)}
 .ph-furia-bottom{padding-bottom:50px;margin-top:-15px;z-index:3}
 .ph-furia-steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;padding:22px 0;margin:0;border-block:1px solid var(--ph-line)}

@@ -429,6 +429,24 @@
       "bytes": 149604,
       "sha256": "5fa68926e5915737584f936327aec6e644e915569de58473a3eb69e1d17b4e67",
       "role": "Unique environmental transition, alpha preserved"
+    },
+    {
+      "file": "img/home/furia-ui-combo-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/cartel_combo.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 256,
+      "bytes": 397702,
+      "sha256": "4238301a6b87bd366ff10af02a532c54ea11808ea5b13d46fba1c04342267716"
+    },
+    {
+      "file": "img/home/furia-ui-imparable-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/cartel_imparable.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 256,
+      "bytes": 363316,
+      "sha256": "aa1effbc1487b0427b7cb108b6f42f539304b1e4a2e4a4939431a3d9f9b0ab59"
     }
   ]
 }

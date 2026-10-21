@@ -255,9 +255,49 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   var paused = reduced.matches;
   var visible = false;
+  var combo = section.querySelector('[data-furia-combo]');
+  // Presentation sequence, not a statement of gameplay thresholds.
+  var stages = [
+    {name:'combo', count:5, duration:2300},
+    {name:'imparable', count:12, duration:2500},
+    {name:'masacre', count:20, duration:3000}
+  ];
+  var stageIndex = 0, comboTimer = null, impacts = [];
+  function showCombo(index, animate) {
+    if (!combo) return;
+    var stage = stages[index], tens = combo.querySelector('[data-combo-tens]');
+    combo.dataset.comboState = stage.name;
+    combo.dataset.comboValue = String(stage.count);
+    tens.style.backgroundPosition = (Math.floor(stage.count / 10) * 100 / 11) + '% 0';
+    tens.style.visibility = stage.count < 10 ? 'hidden' : 'visible';
+    combo.querySelector('[data-combo-units]').style.backgroundPosition = (stage.count % 10 * 100 / 11) + '% 0';
+    combo.querySelectorAll('[data-combo-stage]').forEach(function (image) { image.hidden = image.dataset.comboStage !== stage.name; });
+    impacts.forEach(function (effect) { effect.cancel(); }); impacts = [];
+    if (animate && combo.animate) {
+      [combo.querySelector('.ph-combo-number'), combo.querySelector('[data-combo-stage="'+stage.name+'"]')].forEach(function (element) {
+        impacts.push(element.animate([{transform:'scale(1.12)',filter:'brightness(1.65)'},{transform:'scale(1)',filter:'brightness(1)'}], {duration:420,easing:'cubic-bezier(.16,1,.3,1)'}));
+      });
+    }
+  }
+  function nextCombo() {
+    comboTimer = null;
+    stageIndex = (stageIndex + 1) % stages.length;
+    showCombo(stageIndex, true);
+    comboTimer = setTimeout(nextCombo, stages[stageIndex].duration);
+  }
   function sync() {
     var play = visible && !document.hidden && !paused;
     section.classList.toggle('is-animating', play);
+    if (combo) {
+      if (play && comboTimer === null) {
+        showCombo(stageIndex, true);
+        comboTimer = setTimeout(nextCombo, stages[stageIndex].duration);
+      } else if (!play) {
+        clearTimeout(comboTimer); comboTimer = null;
+        impacts.forEach(function (effect) { effect.cancel(); }); impacts = [];
+        if (paused) { showCombo(2, false); stageIndex = 0; }
+      }
+    }
     videos.forEach(function (video) {
       if (play) {
         var webm = Boolean(video.canPlayType('video/webm; codecs="vp9"'));

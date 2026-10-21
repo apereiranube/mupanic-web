@@ -48,6 +48,8 @@ for flags in [[], ['--missing-cache'], ['--logged']]:
     assert len(re.findall(r'<script[^>]+src="[^"]*/mu-panic-brasas\.js[^"]*"[^>]*\bdefer\b',html))==1
     assert html.rindex('mu-panic-brasas.js')<html.index('</body>')
     assert html.count('data-home-tabs') == 1
+    assert html.count('data-combo-stage=') == 3
+    assert 'data-combo-state="masacre"' in html
     assert 'ph-games-tour' not in html and 'elegi-minijuego' not in html
     cta=html.split('id="empeza-a-jugar"',1)[1].split('</section>',1)[0]
     assert ('usercp/' if '--logged' in flags else 'register/') in cta and 'downloads/' in cta

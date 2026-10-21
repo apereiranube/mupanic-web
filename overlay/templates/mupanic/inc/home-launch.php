@@ -56,7 +56,7 @@ $homeJoin = function($kind) use ($homeArt) {
                 <h2 id="home-furia-title">Desatá<br> la Furia.</h2>
                 <p>Peleá, cargá tu barra y apretá Shift. Más velocidad, más daño y un poder propio de tu clase. Cada enemigo que cae te da más tiempo.</p>
             </div></div>
-            <div class="ph-furia-demo" aria-label="La interfaz de Furia del juego: barra lista, combo x20 y Masacre">
+            <div class="ph-furia-demo" aria-label="Demostración de la interfaz de Furia: COMBO, IMPARABLE y MASACRE">
                 <p class="ph-furia-ready">FURIA LISTA <span aria-hidden="true">—</span> <kbd>SHIFT</kbd></p>
                 <div class="ph-furia-bar" aria-hidden="true">
                     <img class="ph-furia-energy-still" src="<?php echo $homeArt; ?>furia-ui-energy-v3.webp" alt="" width="1024" height="64" loading="lazy" decoding="async">
@@ -66,7 +66,7 @@ $homeJoin = function($kind) use ($homeArt) {
                     <img class="ph-furia-skull" src="<?php echo $homeArt; ?>furia-ui-skull-v3.webp" alt="" width="256" height="256" loading="lazy" decoding="async">
                     <img class="ph-furia-eyes" src="<?php echo $homeArt; ?>furia-ui-eyes-v3.webp" alt="" width="256" height="256" loading="lazy" decoding="async">
                 </div>
-                <div class="ph-furia-combo" aria-hidden="true"><span class="ph-combo-number"><i class="ph-combo-x"></i><i class="ph-combo-two"></i><i class="ph-combo-zero"></i></span><img src="<?php echo $homeArt; ?>furia-ui-masacre-v3.webp" alt="" width="1024" height="256" loading="lazy" decoding="async"></div>
+                <div class="ph-furia-combo" data-furia-combo data-combo-state="masacre" data-combo-value="20" aria-hidden="true"><span class="ph-combo-number"><i class="ph-combo-x"></i><i class="ph-combo-two" data-combo-tens></i><i class="ph-combo-zero" data-combo-units></i></span><?php foreach(['combo','imparable','masacre'] as $comboStage) { ?><img data-combo-stage="<?php echo $comboStage; ?>" src="<?php echo $homeArt.'furia-ui-'.$comboStage; ?>-v3.webp" alt="" width="1024" height="256" loading="eager" decoding="async"<?php echo $comboStage==='masacre' ? '' : ' hidden'; ?>><?php } ?></div>
             </div>
         <div class="ph-furia-bottom ph-wrap">
             <ol class="ph-furia-steps">

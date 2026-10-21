@@ -186,6 +186,22 @@ async function routes(page,body=html){
   await page.locator('.ph-furia-demo').scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>!v.paused&&v.readyState>=2));
   assert.equal(await page.locator('.ph-furia-aura-video').evaluate(el=>getComputedStyle(el).mixBlendMode),'screen');
+  if([1440,390].includes(width)) {
+   let baseline;
+   for(const [name,value] of [['combo','5'],['imparable','12'],['masacre','20'],['combo','5']]) {
+    await page.waitForFunction(expected=>document.querySelector('[data-furia-combo]').dataset.comboState===expected,name,{timeout:12000});
+    await page.waitForTimeout(450);
+    assert.equal(await page.locator('[data-furia-combo]').getAttribute('data-combo-value'),value);
+    assert.equal(await page.locator('[data-combo-stage]:visible').count(),1);
+    assert.equal(await page.locator('[data-combo-stage="'+name+'"]').isVisible(),true);
+    const box=await page.locator('[data-furia-combo]').boundingBox();
+    if(baseline)assert.ok(Math.abs(box.width-baseline.width)<1 && Math.abs(box.height-baseline.height)<1 && Math.abs(box.y-baseline.y)<1,'Combo changes must not shift the section');
+    baseline=box;
+    assert.equal(await page.locator('[data-combo-tens]').evaluate(el=>getComputedStyle(el).visibility),value==='5'?'hidden':'visible');
+    if(output)await page.locator('.ph-furia-demo').screenshot({path:path.join(output,'furia-'+name+'-'+width+'.png')});
+   }
+  }
+
   if(width===390){
    await page.locator('.ph-furia-aura-video').evaluate(v=>{v.src=v.dataset.fallback;v.play();});
    await page.waitForFunction(()=>document.querySelector('.ph-furia-aura-video').readyState>=2);
@@ -202,6 +218,7 @@ async function routes(page,body=html){
   await page.waitForFunction(()=>document.querySelector('[data-combat-video]').paused&&!document.querySelector('.ph-combat-art').classList.contains('is-video-ready'));
   assert.equal(await page.locator('.ph-combat-art>img').evaluate(el=>getComputedStyle(el).opacity),'1','Static fallback must return for reduced motion');
   await page.waitForFunction(()=>[...document.querySelectorAll('[data-furia-video]')].every(v=>v.paused));
+  assert.equal(await page.locator('[data-furia-combo]').getAttribute('data-combo-state'),'masacre');
   await page.waitForFunction(()=>getComputedStyle(document.querySelector('.ph-scene-fx')).display==='none' && getComputedStyle(document.querySelector('.ph-battle-sky i')).animationName==='none');
   assert.equal(await page.locator('.ph-online-metric').evaluate(el=>getComputedStyle(el,'::after').animationName),'none');
   await page.emulateMedia({reducedMotion:'no-preference'});
