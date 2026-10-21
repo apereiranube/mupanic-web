@@ -948,7 +948,7 @@ html:has(body.is-server-info){scroll-behavior:smooth}
    muestra su borde inferior y la de abajo su borde superior, tocándose. La unión va centrada
    exactamente sobre ese borde, encima de las dos imágenes y debajo del contenido. */
 html:has(body.is-server-info),body.is-server-info{overflow-x:clip}
-#srv-page section.sc{position:relative!important;isolation:isolate!important;margin:0!important;z-index:auto!important;border:0!important;background:none!important;display:block!important;padding-top:200px!important;padding-bottom:240px!important}
+#srv-page section.sc{max-width:none!important;position:relative!important;isolation:isolate!important;margin:0!important;z-index:auto!important;border:0!important;background:none!important;display:block!important;padding-top:200px!important;padding-bottom:240px!important}
 #srv-page section.sc>.sbg{position:absolute;inset:0;z-index:0;clip-path:inset(0);pointer-events:none}
 #srv-page section.sc>.sbg>.stick{position:sticky;top:0;height:100vh;height:100lvh;overflow:hidden}
 #srv-page section.sc>.sbg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.16);filter:saturate(.9)}

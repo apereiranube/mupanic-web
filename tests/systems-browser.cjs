@@ -38,7 +38,7 @@ try { three = fs.readFileSync(require.resolve('three/build/three.min.js'),'utf8'
  const browser = await chromium.launch({headless:true,args:['--no-sandbox','--use-gl=swiftshader','--enable-unsafe-swiftshader']});
  const output = process.env.SYSTEMS_SCREENSHOT_DIR;
  if (output) fs.mkdirSync(output,{recursive:true});
- for (const [width,height] of [[1920,1080],[1366,768],[1024,768],[390,844],[360,640]]) {
+ for (const [width,height] of [[2560,1440],[1920,1080],[1366,768],[1024,768],[390,844],[360,640]]) {
   const page = await browser.newPage({viewport:{width,height}});
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   await page.route('**/*', async route => {
@@ -59,6 +59,8 @@ try { three = fs.readFileSync(require.resolve('three/build/three.min.js'),'utf8'
   assert.equal(await page.locator('#srv-page.js').count(),1,'Page script started');
   // Sticky scene backgrounds need every ancestor without overflow clipping.
   assert.equal(await page.locator('.module-surface').evaluate(el=>getComputedStyle(el).overflowX),'visible');
+  // Scenes span the whole screen, also above 1920 px.
+  assert.equal(await page.locator('#srv-page section.sc').evaluateAll(els=>els.every(el=>Math.abs(el.getBoundingClientRect().width-document.documentElement.clientWidth)<2)),true,'Full-width scenes');
   assert.equal(await page.locator('#srv-page .sbg .stick').first().evaluate(el=>getComputedStyle(el).position),'sticky');
   // Live events clock reads the real schedule.
   assert.notEqual((await page.locator('#nx-name').textContent()).trim(),'—','Next event');
