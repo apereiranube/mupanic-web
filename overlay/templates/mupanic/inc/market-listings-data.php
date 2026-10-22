@@ -46,7 +46,7 @@ function panicMarketListingsRead($page=1,$currency='all',$search='',$sort='recen
     $where='b.ExpiresAt>GETDATE() AND b.Currency IN (0,1) AND b.Price>0';
     if($currency!=='all') $where.=' AND b.Currency='.(int)$currency;
     // Featured publications live ONLY in the separate promotional strip.
-    // Keep them out of ordinary counts, search results and all eight-item pages.
+    // Keep them out of ordinary counts, search results and every ten-item page.
     $where.=' AND (b.FeaturedUntil IS NULL OR b.FeaturedUntil<=GETDATE())';
     if($search!=='') {
         $encoded=function_exists('iconv')?iconv('UTF-8','UTF-16LE',$search):false;
@@ -77,7 +77,7 @@ function panicMarketListingsRead($page=1,$currency='all',$search='',$sort='recen
         if(!is_array($totals) || count($totals)!==1 ||
             !preg_match('/^[0-9]{1,16}$/D',(string)($totals[0]['totalListings']??''))) throw new RuntimeException('Bad total');
         $total=(int)$totals[0]['totalListings'];
-        $pageSize=8;
+        $pageSize=10;
         $pages=max(1,(int)ceil($total/$pageSize));$page=min($page,$pages);$offset=($page-1)*$pageSize;
         $rows=$db->query_fetch("SELECT $columns FROM $src b WHERE $where ORDER BY $order OFFSET $offset ROWS FETCH NEXT $pageSize ROWS ONLY");
         $promos=$db->query_fetch("SELECT TOP 10 $columns FROM $src b WHERE b.ExpiresAt>GETDATE() AND b.Currency IN (0,1) AND b.Price>0 AND b.FeaturedUntil>GETDATE() ORDER BY b.FeaturedUntil DESC,b.ListingID DESC");

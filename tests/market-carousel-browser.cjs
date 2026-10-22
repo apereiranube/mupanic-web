@@ -80,7 +80,7 @@ const all=Array.from({length:23},(_,i)=>({
    await page.mouse.move(1,1);
    assert.equal(await page.locator('[data-featured-pause]').count(),0,'manual pause control was removed');
    assert.equal(await page.locator('.vessara-promoted-star').count(),0,'decorative circle was removed');
-   assert.equal((await page.locator('.vessara-promoted-heading h3').innerText()).trim(),'Destacados de Vessara','featured heading identifies the separate showroom');
+   assert.equal((await page.locator('.vessara-promoted-heading h3').innerText()).trim(),'Destacados','featured heading identifies the separate showroom');
    if(width===1366){
     await page.waitForFunction(()=>!document.querySelector('[data-listings-featured-wrap]').classList.contains('is-offscreen'));
     const before=await belt.evaluate(node=>node.getAnimations()[0]?.currentTime||0);

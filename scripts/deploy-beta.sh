@@ -141,6 +141,20 @@ for asset in $SERVER_V3_REFS; do
   fi
 done
 
+# Mercado de Vessara (la Bolsa): cada imagen que nombran la página y su CSS debe viajar completa.
+MARKET_BOLSA_REFS=$(grep -ohE 'bolsa/[a-z0-9-]+-[0-9a-f]{12}\.webp' \
+  "$TEMPLATE_SOURCE/inc/market.php" "$TEMPLATE_SOURCE/css/market.css" | sort -u)
+if [ -z "$MARKET_BOLSA_REFS" ]; then
+  echo "[MU PANIC] ERROR: El Mercado no referencia su arte" >&2
+  exit 1
+fi
+for asset in $MARKET_BOLSA_REFS; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/market/$asset" ]; then
+    echo "[MU PANIC] ERROR: Missing market artwork: $asset" >&2
+    exit 1
+  fi
+done
+
 # System artwork is shipped as real WebP binaries; reject incomplete releases before copying.
 SYSTEM_ART_FILES=(
   "chronicles-d6291c69cf6b.webp"

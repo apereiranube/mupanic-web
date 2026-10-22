@@ -22,7 +22,7 @@ class Connection {
 function check($value,$label){if(!$value)throw new Exception($label);echo "PASS: $label\n";}
 $data=panicMarketListingsRead(1,'1','Deadly Staff','recent');
 check($data['schema']===1 && $data['available'],'public listings schema');
-check($data['pageSize']===8 && $data['pages']===2 && $data['total']==='11','eleven ordinary offers span pages of eight');
+check($data['pageSize']===10 && $data['pages']===2 && $data['total']==='11','eleven ordinary offers span pages of ten');
 check($data['items'][0]['price']==='9007199254740993','exact BIGINT price');
 check($data['items'][0]['featured']===false && $data['items'][0]['featuredUntil']===null,'ordinary card is never featured');
 check($data['featured'][0]['featured']===true,'promoted item remains in the dedicated section');
@@ -36,13 +36,13 @@ foreach(Connection::$sql as $sql){
 }
 check(strpos(Connection::$sql[1],'b.FeaturedUntil IS NULL OR b.FeaturedUntil<=GETDATE()')!==false,'the count excludes promoted offers');
 check(strpos(Connection::$sql[2],'b.FeaturedUntil IS NULL OR b.FeaturedUntil<=GETDATE()')!==false,'the regular listing excludes promoted offers');
-check(strpos(Connection::$sql[2],'FETCH NEXT 8 ROWS ONLY')!==false,'only eight offers are fetched');
+check(strpos(Connection::$sql[2],'FETCH NEXT 10 ROWS ONLY')!==false,'only ten offers are fetched');
 check(strpos(Connection::$sql[2],'Deadly Staff')===false,'user search cannot interpolate executable SQL');
 check(strpos(Connection::$sql[3],'b.FeaturedUntil>GETDATE()')!==false,'featured query uses only currently promoted offers');
 Connection::$sql=[];
 $data=panicMarketListingsRead(2,'0',"';DROP VIEW dbo.X--",'price-asc');
 check($data['page']===2,'page two is accepted when eleven offers exist');
-check(strpos(Connection::$sql[2],'OFFSET 8 ROWS FETCH NEXT 8 ROWS ONLY')!==false,'page two skips the first eight');
+check(strpos(Connection::$sql[2],'OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY')!==false,'page two skips the first ten');
 check(strpos(Connection::$sql[2],'DROP VIEW')===false,'invalid search is never embedded');
 Connection::$mode='v2';
 $data=panicMarketListingsRead();

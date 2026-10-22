@@ -30,6 +30,8 @@ const template=path.resolve(__dirname,'../overlay/templates/mupanic');
   await page.goto('https://market.test/market/');
   await page.addScriptTag({path:path.join(template,'js/market-listings.js')});
   await page.waitForFunction(()=>document.querySelectorAll('[data-listings-grid] .vessara-offer').length===1);
+  // The featured strip is built on the next animation frame, once its width is known.
+  await page.waitForFunction(()=>document.querySelectorAll('[data-listings-featured] .vessara-offer').length>0);
   assert.equal(await page.locator('[data-listings-featured] .is-featured').count(),1,'promoted area contains only promoted item');
   assert.equal(await page.locator('[data-listings-grid] .vessara-offer.is-featured').count(),0,'paid featured offers never duplicate in normal listing');
   assert.equal(await page.locator('[data-listings-grid] .vessara-item-title.is-ancient').count(),1,'ancient item has a distinct title color');

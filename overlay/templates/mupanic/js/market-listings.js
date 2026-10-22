@@ -91,6 +91,8 @@ function media(item,large) {
  img.addEventListener('error',failed);
  img.addEventListener('load',()=>{
   frame.classList.add('has-photo');
+  // Never enlarge an image past what its pixels allow: it would look blurry.
+  img.style.setProperty('--nat-w',img.naturalWidth+'px');img.style.setProperty('--nat-h',img.naturalHeight+'px');
   if(img.naturalWidth<128 && img.naturalHeight<128){img.classList.add('is-small-sprite');img.style.setProperty('--sprite-width',Math.min(120,img.naturalWidth*2)+'px');}
  });
  frame.append(img);

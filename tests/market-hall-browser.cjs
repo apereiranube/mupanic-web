@@ -27,7 +27,7 @@ const offer=(id,index,name,featured)=>({id:String(id),seller:'Jugador'+id,item:n
   assert.equal(await page.locator('[data-listings-grid] .vessara-offer').count(),8);
   assert.equal(await page.locator('[data-listings-grid] .is-featured').count(),0,'Featured never enter the ordinary display');
   assert.equal(await page.locator('[data-listings-featured-wrap]').isVisible(),true);
-  assert.equal(await page.locator('[data-listings-grid]').evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length),width>1000?4:1);
+  assert.equal(await page.locator('[data-listings-grid]').evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length),width>1280?5:width>1000?4:1);
   await page.locator('[data-listings-grid]').scrollIntoViewIfNeeded();
   for(const card of await page.locator('[data-listings-grid] .vessara-offer').all())await card.scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>{const images=[...document.querySelectorAll('[data-listings-grid] img')];return images.length===8&&images.every(e=>e.complete&&e.naturalWidth>0)});
@@ -35,17 +35,16 @@ const offer=(id,index,name,featured)=>({id:String(id),seller:'Jugador'+id,item:n
   const cards=await page.locator('[data-listings-grid] .vessara-offer').evaluateAll(es=>es.map(e=>({width:e.clientWidth,content:e.scrollWidth})));
   assert.ok(cards.every(e=>e.content<=e.width+1),'Card content fits '+width);
   if(dir){if(width===1440){await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));const previewHeight=await page.locator('.vessara-listings').evaluate(e=>Math.ceil(e.getBoundingClientRect().bottom+24));await page.setViewportSize({width,height:previewHeight});await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await page.screenshot({path:path.join(dir,'bazaar-desktop.png')});await page.locator('.vessara-listings').evaluate(e=>scrollTo({top:scrollY+e.getBoundingClientRect().top-90,behavior:'instant'}));await page.screenshot({path:path.join(dir,'bazaar-listings.png')});await page.setViewportSize({width,height:950});}await page.locator('.vessara-listings').screenshot({path:path.join(dir,'hall-listings-'+width+'.png')});await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await page.screenshot({path:path.join(dir,'hall-page-'+width+'.png'),fullPage:true});}
-  const geometry=await page.locator('.vessara-hero').evaluate(e=>{const r=e.getBoundingClientRect(),t=e.querySelector('.vessara-intro').getBoundingClientRect(),img=e.querySelector('.vessara-hero-art'),ir=img.getBoundingClientRect();return {hero:r.width,copyOffset:t.left-r.left,imageRatio:ir.width/ir.height,natural:img.naturalWidth/img.naturalHeight,repeat:getComputedStyle(e.closest('.vessara-page'),'::before').backgroundRepeat}});
-  assert.ok(Math.abs(geometry.hero-width)<2,'Hero artwork spans the full desktop composition');
-  assert.ok(await page.locator('.vessara-page').evaluate(e=>Math.abs(e.getBoundingClientRect().width-innerWidth)<2),'Scenery spans the full window');
-  assert.equal(await page.locator('.vessara-page').evaluate(e=>getComputedStyle(e,'::before').position),'fixed','One static scenery layer fills the window');
-  assert.match(await page.locator('.vessara-stats').evaluate(e=>getComputedStyle(e).borderImageSource),/vessara-bronze-frame/,'Statistics use the cut bronze frame');
-  assert.match(geometry.repeat,/^no-repeat/,'Hall artwork never repeats');
-  if(width>900){assert.ok(Math.abs(geometry.copyOffset-geometry.hero*.105)<2,'Copy stays at left edge');assert.ok(Math.abs(geometry.imageRatio-geometry.natural)<.01,'Complete illustration keeps its proportions');}
+  // Bolsa de Vessara: every scene spans the window, its art stays fixed behind the section and the panels use the Bolsa frames.
+  assert.ok(await page.locator('.vs-sc').evaluateAll(es=>es.length===5&&es.every(e=>Math.abs(e.getBoundingClientRect().width-document.documentElement.clientWidth)<2)),'Five full-width scenes');
+  assert.equal(await page.locator('.vs-sc-1 .vs-stick').evaluate(e=>getComputedStyle(e).position),'sticky','Scene art stays fixed while reading');
+  assert.ok(await page.locator('.vs-sc img.vs-join').evaluateAll(es=>es.length===4&&es.every(i=>i.getAttribute('src').includes('/img/market/bolsa/'))),'Four Bolsa joins connect the scenes');
+  assert.match(await page.locator('.vessara-listings-board').evaluate(e=>getComputedStyle(e,'::before').borderImageSource),/mkt-marco-grande/,'Showcase uses the Bolsa main frame');
+  assert.match(await page.locator('.vessara-stats>article').first().evaluate(e=>getComputedStyle(e,'::before').borderImageSource),/mkt-marco-chico/,'Counters use the Bolsa small frame');
+  assert.match(await page.locator('.vs-board>.vs-bulbs').first().evaluate(e=>getComputedStyle(e).borderImageSource),/mkt-marco-tablero/,'Quotes board uses the marquee frame');
   mode='single';await open();
   assert.equal(await page.locator('[data-listings-grid] .vessara-offer').count(),1);
   assert.equal(await page.locator('[data-listings-featured-wrap]').isVisible(),false);
-  assert.equal(await page.locator('.vessara-listings-board').evaluate(e=>getComputedStyle(e).backgroundImage),'none','A single item has no empty giant backdrop');
   assert.ok(await page.locator('[data-listings-grid]').evaluate(e=>{const a=e.getBoundingClientRect(),b=e.firstElementChild.getBoundingClientRect();return Math.abs((a.left+a.width/2)-(b.left+b.width/2))<2 && b.width<=a.width}),'One publication is centered within the showcase');
   if(dir){await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await page.screenshot({path:path.join(dir,'hall-top-'+width+'.png')});await page.locator('.vessara-listings').evaluate(e=>scrollTo({top:scrollY+e.getBoundingClientRect().top-90,behavior:'instant'}));await page.waitForFunction(()=>{const img=document.querySelector('[data-listings-grid] img');return img?.complete&&img.naturalWidth>0});await page.locator('[data-listings-grid] img').evaluate(img=>img.decode());await page.locator('[data-listings-grid] img').screenshot({path:path.join(dir,'single-icon-'+width+'.png')});await page.screenshot({path:path.join(dir,'hall-middle-'+width+'.png')});await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));await page.screenshot({path:path.join(dir,'hall-single-'+width+'.png'),fullPage:true});await page.locator('.vessara-hero').screenshot({path:path.join(dir,'hero-'+width+'.png')});}
   mode='empty';await open();
