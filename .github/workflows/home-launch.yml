@@ -53,6 +53,8 @@ jobs:
         env:
           HOME_SCREENSHOT_DIR: home-screenshots
         run: node tests/home-browser.cjs
+      - name: Paused while the window has no focus
+        run: node tests/home-idle-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

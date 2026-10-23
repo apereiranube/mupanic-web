@@ -1,3 +1,27 @@
+// Ventana sin foco (por ejemplo, jugando al MU en modo ventana con la web a la vista):
+// la pagina deja de pedir cuadros, pausa videos y animaciones, y sigue igual al volver.
+(function () {
+  'use strict';
+  var focused = document.hasFocus(), raf = window.requestAnimationFrame.bind(window), cancel = window.cancelAnimationFrame.bind(window);
+  var waiting = new Map(), next = -1;
+  window.phIdle = function () { return document.hidden || !focused; };
+  window.requestAnimationFrame = function (callback) {
+    if (!window.phIdle()) return raf(callback);
+    var id = next--; waiting.set(id, callback); return id;
+  };
+  window.cancelAnimationFrame = function (id) { if (id < 0) waiting.delete(id); else cancel(id); };
+  function update() {
+    var idle = window.phIdle();
+    document.documentElement.classList.toggle('ph-idle', idle);
+    if (!idle && waiting.size) { var list = Array.from(waiting.values()); waiting.clear(); list.forEach(function (callback) { raf(callback); }); }
+    document.dispatchEvent(new Event('ph-activity'));
+  }
+  window.addEventListener('blur', function () { focused = false; update(); });
+  window.addEventListener('focus', function () { focused = true; update(); });
+  document.addEventListener('visibilitychange', update);
+  update();
+})();
+
 (function () {
   'use strict';
   var home = document.querySelector('[data-panic-home]');
@@ -181,7 +205,7 @@
     scenes.push(scene);
   });
   function sync() {
-    var enabled = !reduced.matches && !document.hidden;
+    var enabled = !reduced.matches && !window.phIdle();
     scenes.forEach(function (s) { s.section.classList.toggle('is-in-view', enabled && s.visible); });
     if (enabled && scenes.some(function (s) { return s.visible; })) {
       if (!frame) frame = requestAnimationFrame(draw);
@@ -235,7 +259,7 @@
     if (now-last > 40) {
       scenes.forEach(function (s) { if(s.visible) render(s, now/1000); }); last = now;
     }
-    if (!reduced.matches && !document.hidden && scenes.some(function (s) {return s.visible;})) frame = requestAnimationFrame(draw);
+    if (!reduced.matches && !window.phIdle() && scenes.some(function (s) {return s.visible;})) frame = requestAnimationFrame(draw);
   }
   if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function (entries) {
@@ -243,7 +267,7 @@
     }, {threshold:.04});
     scenes.forEach(function (s) { observer.observe(s.section); });
   } else { scenes.forEach(function (s) {s.visible = true;}); }
-  reduced.addEventListener('change', sync); document.addEventListener('visibilitychange', sync); sync();
+  reduced.addEventListener('change', sync); document.addEventListener('visibilitychange', sync); document.addEventListener('ph-activity', sync); sync();
 })();
 
 // Actual Furia game effects, automatically static with reduced motion and offscreen.
@@ -286,7 +310,7 @@
     comboTimer = setTimeout(nextCombo, stages[stageIndex].duration);
   }
   function sync() {
-    var play = visible && !document.hidden && !paused;
+    var play = visible && !window.phIdle() && !paused;
     section.classList.toggle('is-animating', play);
     if (combo) {
       if (play && comboTimer === null) {
@@ -308,7 +332,7 @@
       } else video.pause();
     });
   }
-  document.addEventListener('visibilitychange', sync);
+  document.addEventListener('visibilitychange', sync); document.addEventListener('ph-activity', sync);
   reduced.addEventListener('change', function () { paused = reduced.matches; sync(); });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) {
@@ -324,10 +348,10 @@
   var hero = document.querySelector('.ph-hero');
   if (!hero) return;
   var visible = false, reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  function sync() { hero.classList.toggle('is-sky-live', visible && !document.hidden && !reduced.matches); }
+  function sync() { hero.classList.toggle('is-sky-live', visible && !window.phIdle() && !reduced.matches); }
   if ('IntersectionObserver' in window) new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }, {threshold:.04}).observe(hero);
   else { visible = true; sync(); }
-  document.addEventListener('visibilitychange',sync); reduced.addEventListener('change',sync);
+  document.addEventListener('visibilitychange',sync); document.addEventListener('ph-activity',sync); reduced.addEventListener('change',sync);
 })();
 
 // Stats animate only while visible. Numeric content always remains the real API value.
@@ -337,13 +361,13 @@
   if (!section) return;
   var reduced = matchMedia('(prefers-reduced-motion: reduce)'), visible = false;
   function sync() {
-    section.classList.toggle('is-stats-live', visible && !document.hidden && !reduced.matches);
+    section.classList.toggle('is-stats-live', visible && !window.phIdle() && !reduced.matches);
     if (visible) section.classList.add('has-stats-entered');
   }
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; sync(); }, {threshold:.15}).observe(section);
   } else { visible = true; sync(); }
-  document.addEventListener('visibilitychange', sync);
+  document.addEventListener('visibilitychange', sync); document.addEventListener('ph-activity', sync);
   reduced.addEventListener('change', sync);
 })();
 
@@ -355,7 +379,7 @@
   var art = video.parentElement;
   var reduced = matchMedia('(prefers-reduced-motion: reduce)');
   var visible = false;
-  function wanted() { return visible && !document.hidden && !reduced.matches; }
+  function wanted() { return visible && !window.phIdle() && !reduced.matches; }
   function sync() {
     if (!wanted()) {
       video.pause();
@@ -371,7 +395,7 @@
     else video.pause();
   });
   video.addEventListener('error', function () { art.classList.remove('is-video-ready'); });
-  document.addEventListener('visibilitychange', sync);
+  document.addEventListener('visibilitychange', sync); document.addEventListener('ph-activity', sync);
   reduced.addEventListener('change', sync);
   if ('IntersectionObserver' in window) new IntersectionObserver(function (entries) {
     visible = entries[0].isIntersecting; sync();
