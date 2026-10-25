@@ -1,0 +1,470 @@
+{
+  "version": "connected-v6",
+  "date": "2026-10-20",
+  "scope": "Inicio only",
+  "generation": "imagegen built-in, newly composed from approved MU PANIC character/UI/item references",
+  "assets": [
+    {
+      "file": "img/home/hero-connected-v3.webp",
+      "source": "exec-a2235c29-db91-4dc1-9d1b-f9aa9fd1d2f0.png",
+      "width": 1738,
+      "height": 905,
+      "bytes": 296918,
+      "sha256": "12e444fea82f9a1332ee5ba476eafc651b0bcf6b1b17962a1cc8c6dbda9df654"
+    },
+    {
+      "file": "img/home/hero-connected-v3-960.webp",
+      "source": "exec-a2235c29-db91-4dc1-9d1b-f9aa9fd1d2f0.png",
+      "width": 960,
+      "height": 500,
+      "bytes": 123048,
+      "sha256": "2aba8289b261edda4f9b5487826afbc2417feef2256bd2a3f92626428471d0dd"
+    },
+    {
+      "file": "img/home/fractura-connected-v3.webp",
+      "source": "exec-8b9d1cdc-68bd-4dc8-9797-fcfd0959e2a1.png",
+      "width": 1738,
+      "height": 905,
+      "bytes": 284240,
+      "sha256": "7ff2b84f6b93a469433a4464c3789104cbfc0d4afb6c12d7e41dd6579898caa0"
+    },
+    {
+      "file": "img/home/fractura-connected-v3-960.webp",
+      "source": "exec-8b9d1cdc-68bd-4dc8-9797-fcfd0959e2a1.png",
+      "width": 960,
+      "height": 500,
+      "bytes": 114136,
+      "sha256": "76dc097414b16cc2a258e683c0d73c934a93b1eea57498213ac0436fae314c23"
+    },
+    {
+      "file": "img/home/companions-connected-v3.webp",
+      "source": "exec-f7fc55ef-b90c-40e9-9442-7b339fa8b7a1.png",
+      "width": 1738,
+      "height": 905,
+      "bytes": 280258,
+      "sha256": "d4a05080371abb3485c8bd663ec482f56dee8de1ced09d37957846484a9cfa1e"
+    },
+    {
+      "file": "img/home/companions-connected-v3-960.webp",
+      "source": "exec-f7fc55ef-b90c-40e9-9442-7b339fa8b7a1.png",
+      "width": 960,
+      "height": 500,
+      "bytes": 119088,
+      "sha256": "219e0599222eff654ec2495602a5a66b47690c93f68045144aa7f3f041e6d3ad"
+    },
+    {
+      "file": "img/home/games-connected-v3.webp",
+      "source": "exec-60b50d9b-3a9a-4cc0-8e68-944a222e1014.png",
+      "width": 1737,
+      "height": 906,
+      "bytes": 161332,
+      "sha256": "62ed1750d1a343fa8551470525bce6ac9084c7f0f2f572df88c1e639c98391f3"
+    },
+    {
+      "file": "img/home/games-connected-v3-960.webp",
+      "source": "exec-60b50d9b-3a9a-4cc0-8e68-944a222e1014.png",
+      "width": 960,
+      "height": 501,
+      "bytes": 61500,
+      "sha256": "d254ad48ac144b43bf56ea87f9e83d9267b9af884482d6efe6fe88d896a9adae"
+    },
+    {
+      "file": "img/home/client-crafted-v3.webp",
+      "source": "exec-28ff74e6-f285-40be-9ff3-e1f47620ec4a.png",
+      "width": 1484,
+      "height": 1060,
+      "bytes": 232252,
+      "sha256": "f55e1cd61fbfd08c879f4b9b849a402e107a198410edc5bae545d8b9ca525277"
+    },
+    {
+      "file": "img/home/client-crafted-v3-960.webp",
+      "source": "exec-28ff74e6-f285-40be-9ff3-e1f47620ec4a.png",
+      "width": 960,
+      "height": 686,
+      "bytes": 120768,
+      "sha256": "a65275ccce672dabd5ec08ee341d034336025bf73e964cfbd70f21899edf0eb5"
+    },
+    {
+      "file": "img/home/market-crafted-v3.webp",
+      "source": "exec-1ea1bd0c-87fd-4cca-9324-89b9511cf7c4.png",
+      "width": 1484,
+      "height": 1060,
+      "bytes": 147836,
+      "sha256": "aadf029cbdce589006e2f977f23913550e2640d0f45e180da8ec2d116c80f104"
+    },
+    {
+      "file": "img/home/market-crafted-v3-960.webp",
+      "source": "exec-1ea1bd0c-87fd-4cca-9324-89b9511cf7c4.png",
+      "width": 960,
+      "height": 686,
+      "bytes": 79530,
+      "sha256": "0bd3dafc481ecae6d4c19586c0fe654749709f81410b18e3f1c2abc8706e0cbe"
+    },
+    {
+      "file": "img/home/hero-connected-v3-mobile.webp",
+      "source": "exec-c8fb4a1f-43f8-40d6-9155-b96799864148.png",
+      "width": 960,
+      "height": 1008,
+      "bytes": 252884,
+      "sha256": "3ba5cae03e973a0bde130f8eee8b10c2a4375a7676e69533c54b4871dffffcaf"
+    },
+    {
+      "file": "img/home/fractura-connected-v3-mobile.webp",
+      "source": "exec-70f2496f-ac9d-4db6-a69c-0427d946f8ab.png",
+      "width": 960,
+      "height": 1008,
+      "bytes": 289218,
+      "sha256": "db20aab3fb2eec66a43f92d0f3ff6926535b739a257aad8c6274b23d675ca758"
+    },
+    {
+      "file": "img/home/companions-connected-v3-mobile.webp",
+      "source": "exec-bbc74aae-315d-4b75-99bb-3aa7acaf31e4.png",
+      "width": 960,
+      "height": 1008,
+      "bytes": 268180,
+      "sha256": "ceb679466be144546702e89fd793c4da0e01f1a877c097f3160b3aac5f3b4b40"
+    },
+    {
+      "file": "img/home/furia-ui-frame-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_marco.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 160,
+      "bytes": 72902,
+      "sha256": "37a7e11b9b505ac5b9cac1101368522e2bbf7f2d695762ff12723ca4953fc0da"
+    },
+    {
+      "file": "img/home/furia-ui-skull-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_emblema.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 256,
+      "height": 256,
+      "bytes": 103732,
+      "sha256": "1cad7c23f8847918bc4caa51bbf17ffdae34d3a15d3b086251868208dcbee5ae"
+    },
+    {
+      "file": "img/home/furia-ui-eyes-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_emblema_ojos.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 256,
+      "height": 256,
+      "bytes": 10196,
+      "sha256": "ca18fa4b12e6bb9738b6642993e59f25a8ef763f048b5d34f132888ab5558fb4"
+    },
+    {
+      "file": "img/home/furia-ui-energy-v3.webp",
+      "source": "MU_PANIC_FURIA_ELECTRICA/furia_energia_roja.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 64,
+      "bytes": 94326,
+      "sha256": "3541576969057c208adfbb3f7255b4ff2bd3cb842b050fdb6c3d578ae011b652"
+    },
+    {
+      "file": "img/home/furia-ui-digits-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/numeros.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1200,
+      "height": 200,
+      "bytes": 235806,
+      "sha256": "6774379906d4fe8c0c7b0d977ca53cafd606a27fe9f93dbe46f6183ffc13281a"
+    },
+    {
+      "file": "img/home/furia-ui-masacre-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/cartel_masacre.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 256,
+      "bytes": 376986,
+      "sha256": "8f8f3922bd1a8f8c6e5d0c45e5a6b8688cb6b8949eef88e8ada38a58a1ebc77f"
+    },
+    {
+      "file": "img/home/furia-energy-v3.mp4",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/energia_cargada_doble_latido_2240x160_2s.mp4",
+      "origin": "Actual game effect from prior chat, resized H.264 30fps for web, audio removed, 2s loop preserved",
+      "width": 1120,
+      "height": 80,
+      "bytes": 502866,
+      "sha256": "fc864f990b7ff5542c271fad2a28bd637eaaefc87bf819a99ef896890f67bca3"
+    },
+    {
+      "file": "img/home/furia-aura-v3.mp4",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/pulso_calavera_doble_latido_512x512_2s.mp4",
+      "origin": "Actual game effect from prior chat, resized H.264 30fps for web, audio removed, 2s loop preserved",
+      "width": 256,
+      "height": 256,
+      "bytes": 114103,
+      "sha256": "c823b8f3bfb326e5b7495f663632400937f8f8b66d25cee45178dde267e66e2f"
+    },
+    {
+      "file": "img/home/furia-energy-v3.webm",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/energia_cargada_doble_latido_2240x160_2s.mp4",
+      "origin": "Actual game effect, VP9 30fps web derivative, 2s loop, no audio",
+      "width": 1120,
+      "height": 80,
+      "bytes": 571730,
+      "sha256": "d2858fd3fbedba5bc9ae3bac66109d9a5ad2a76b3e89271fe9c952e79dc26475"
+    },
+    {
+      "file": "img/home/furia-aura-v3.webm",
+      "source": "MU_PANIC_FURIA_LATIDOS_Y_DESTELLO/pulso_calavera_doble_latido_512x512_2s.mp4",
+      "origin": "Actual skull pulse video, VP9 with alpha keyed from original pure-black backdrop, 30fps 2s loop, no audio",
+      "width": 256,
+      "height": 256,
+      "bytes": 471932,
+      "sha256": "4b94a2cf14737dba93f5b7222465e1b4be489cde16e8207f422e465f46624ef9"
+    },
+    {
+      "file": "img/home/furia-world-v3.webp",
+      "source": "exec-3185a8bd-27cd-4e3a-96b3-3d220fe9d996.png",
+      "origin": "New imagegen environment for Furia; no repeated game character, real UI layered separately",
+      "width": 1942,
+      "height": 809,
+      "bytes": 194898,
+      "sha256": "5649dd6a0c42808583acfb47e3e3c9bc016bdf456695c015e43e88074f0f7f15"
+    },
+    {
+      "file": "img/home/furia-world-v3-960.webp",
+      "source": "exec-3185a8bd-27cd-4e3a-96b3-3d220fe9d996.png",
+      "origin": "New imagegen environment for Furia; no repeated game character, real UI layered separately",
+      "width": 960,
+      "height": 400,
+      "bytes": 60984,
+      "sha256": "cece18a58967aec99f6e69512fcd0aee7a011f91b15e342785c62296591c03a0"
+    },
+    {
+      "file": "img/home/furia-world-v3-mobile.webp",
+      "source": "exec-ea8e19ff-a0c9-44c6-a1cb-ea63e05bbd55.png",
+      "origin": "New imagegen environment for Furia; no repeated game character, real UI layered separately",
+      "width": 960,
+      "height": 1008,
+      "bytes": 168488,
+      "sha256": "d75b3c9db0ab686a82f81b5ac8b804f42714607d14e7bf602da67b27ae8c38cc"
+    },
+    {
+      "file": "img/home/market-world-v4.webp",
+      "source": "exec-41ded975-2d48-408e-a9d3-7cef3f75d0ed.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 1838,
+      "height": 856,
+      "bytes": 368322,
+      "sha256": "155a52670b8a21db0b11c854758518036b512b46a142836d495b09ea8f2816d5"
+    },
+    {
+      "file": "img/home/market-world-v4-960.webp",
+      "source": "exec-41ded975-2d48-408e-a9d3-7cef3f75d0ed.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 960,
+      "height": 447,
+      "bytes": 141952,
+      "sha256": "770f8263d89d934d7ea0c17b8189be264faecd62711361c584b23ab4f22c452a"
+    },
+    {
+      "file": "img/home/games-hall-v4.webp",
+      "source": "exec-3459b4d9-2305-4d67-af57-4dbb8e0fd468.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 1836,
+      "height": 856,
+      "bytes": 354024,
+      "sha256": "57798f83fdad0408f196e18e68daf260d08f518c4ec347e3642a44a5a4bcab6c"
+    },
+    {
+      "file": "img/home/games-hall-v4-960.webp",
+      "source": "exec-3459b4d9-2305-4d67-af57-4dbb8e0fd468.png",
+      "origin": "New imagegen scene from actual MU PANIC references",
+      "width": 960,
+      "height": 448,
+      "bytes": 123766,
+      "sha256": "be0d07b92a4e1281bee6065f3f52d8540b3e35137e1270faf9c2bdac4f01851e"
+    },
+    {
+      "file": "img/home/hub-real-v4.webp",
+      "source": "exec-e19e8661-b941-4f6a-b5c3-cf19eff24b97.png",
+      "origin": "Actual Hub reference extraction",
+      "width": 1440,
+      "height": 877,
+      "bytes": 318474,
+      "sha256": "feade5a47ab7181217ceb24b2cf4c6e1ce7d571a40a0e7c557e1107068f99d92"
+    },
+    {
+      "file": "img/home/roulette-wheel-v4.webp",
+      "source": "exec-bd8a19c9-bf55-40a2-be6f-99417e3808cf.png",
+      "origin": "New top-down animation prop",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 384598,
+      "sha256": "2ae4f82845e41a72d2f0389f7b6ba38083e3a9e4f60a55e7ae72cf0b244edce0"
+    },
+    {
+      "file": "img/home/hub-games-real-v4.webp",
+      "source": "exec-9310898d-c7c5-4acb-875d-2e718677f4c8.png",
+      "origin": "Actual minigame selector reference extraction",
+      "width": 1440,
+      "height": 810,
+      "bytes": 295528,
+      "sha256": "b2bc22d6eb549e31e813259f040d8039de273e9004103194918c49cc24b66206"
+    },
+    {
+      "file": "img/home/market-world-v4-mobile.webp",
+      "source": "exec-cb717203-afa2-4dfd-a66a-d3e75e7c36ad.png",
+      "origin": "New portrait composition from approved Vessara market scene; complete subjects, no viewport crop",
+      "width": 960,
+      "height": 1018,
+      "bytes": 224622,
+      "sha256": "bc306c0921cd46059576f0fa8e17573b2929e65dc7ecafaed43d0134ad0433d4"
+    },
+    {
+      "file": "img/home/games-hall-v4-mobile.webp",
+      "source": "exec-8d035873-ce3f-4a1a-b930-340465191733.png",
+      "origin": "New portrait arcade composition, complete tabletop for independent animation",
+      "width": 960,
+      "height": 1016,
+      "bytes": 280860,
+      "sha256": "7b316a9af0fd6f8eee736dd09e20527e5a7e8af8f763c7db2d70d4b6a27440cb"
+    },
+    {
+      "file": "img/home/battle-clouds-v5.webp",
+      "source": "exec-df400b7d-1942-4d6f-aa47-7458e41432fe.png",
+      "origin": "Imagegen production scene or animation layer for V5",
+      "width": 1600,
+      "height": 667,
+      "bytes": 342174,
+      "sha256": "4f5b286e20e212cf39d689901ac7c5eb8eb9d8a32586e6deab2e571d6e43decb"
+    },
+    {
+      "file": "img/home/hub-world-v5.webp",
+      "source": "exec-f5cfc37f-82e1-4568-90a6-b74683fffb6e.png",
+      "origin": "Imagegen production scene or animation layer for V5",
+      "width": 1600,
+      "height": 763,
+      "bytes": 387160,
+      "sha256": "1fc65feb45d0702faa6db6bc3307d00115f1710dc6f66b48d578e2a680cdfc1e"
+    },
+    {
+      "file": "img/home/games-hall-v5.webp",
+      "source": "exec-4a4c40b9-a0fa-4d5e-add0-be7f2a570280.png",
+      "origin": "Imagegen production scene or animation layer for V5",
+      "width": 1836,
+      "height": 856,
+      "bytes": 359050,
+      "sha256": "bb6521f3dd69ad2cd28ee1ebbe6092576e0db0b6d12b5793f21e3a46691a1977"
+    },
+    {
+      "file": "img/home/games-hall-v5-960.webp",
+      "source": "exec-4a4c40b9-a0fa-4d5e-add0-be7f2a570280.png",
+      "origin": "Imagegen production scene or animation layer for V5",
+      "width": 960,
+      "height": 448,
+      "bytes": 131230,
+      "sha256": "3367b1344684025b46d610da8cce2f3203c7577d533fb7d0b084c2d9af430016"
+    },
+    {
+      "file": "img/home/games-hall-v5-mobile.webp",
+      "source": "exec-92d396fd-c709-4f3a-85d7-8d01ef67fb8f.png",
+      "origin": "Imagegen production scene or animation layer for V5",
+      "width": 960,
+      "height": 1016,
+      "bytes": 290886,
+      "sha256": "4c27785f33bb77b5c7baaf2c5ee4208779e87997cc88502f8999a885c206480e"
+    },
+    {
+      "file": "img/home/master-real-v5.webp",
+      "source": "image(20261020-020400).png",
+      "origin": "Actual Master screenshot; format conversion only, no regenerated interface pixels",
+      "width": 2047,
+      "height": 1279,
+      "bytes": 410572,
+      "sha256": "a5a335e63ec1ce238603baadc373a684423b36ecf7edd7d248eeddb76ee392a5"
+    },
+    {
+      "file": "img/home/join-rocks-v6.webp",
+      "source": "exec-4bc6f0cc-87ef-43a1-bc45-cf96d02a7e62.png",
+      "width": 1280,
+      "height": 427,
+      "bytes": 86986,
+      "sha256": "363deec425bf971e5ee2841d013590fc9a78f54dbbba46a2d113abeb76b80f36",
+      "role": "Unique environmental transition, alpha preserved"
+    },
+    {
+      "file": "img/home/join-mist-v6.webp",
+      "source": "exec-b6987833-d664-45e6-aea5-e85693ee11a1.png",
+      "width": 1280,
+      "height": 427,
+      "bytes": 166820,
+      "sha256": "d2b5523e72f3e8f1078b223254799596db38a540d3d9af59bdcde206e6b8b08c",
+      "role": "Unique environmental transition, alpha preserved"
+    },
+    {
+      "file": "img/home/join-forest-v6.webp",
+      "source": "exec-8af3e759-01a4-43b2-9d8e-43579e67e45b.png",
+      "width": 1280,
+      "height": 427,
+      "bytes": 165518,
+      "sha256": "e4900e0d7d8898b360014edfec9c2363bf7b872d533c49028224f0f7a511d3ca",
+      "role": "Unique environmental transition, alpha preserved"
+    },
+    {
+      "file": "img/home/join-canopy-v6.webp",
+      "source": "exec-483524c2-e0af-4456-92b7-8cc986c9561b.png",
+      "width": 1280,
+      "height": 427,
+      "bytes": 188088,
+      "sha256": "9e5a807d1138a0057b7577cad626f15fbed3634a787112dc07fe2a0c57fae37a",
+      "role": "Unique environmental transition, alpha preserved"
+    },
+    {
+      "file": "img/home/join-market-v6.webp",
+      "source": "exec-f49749aa-9a10-4e10-b6d3-90d2eacf9377.png",
+      "width": 1280,
+      "height": 427,
+      "bytes": 130678,
+      "sha256": "7cc724fb495970a35d744ecea3d99b535fcbe2dcb8e0f219c9bd928c67829ded",
+      "role": "Unique environmental transition, alpha preserved"
+    },
+    {
+      "file": "img/home/join-arcade-v6.webp",
+      "source": "exec-f39f6516-0d39-4b6f-8f7a-3df73c1ffd70.png",
+      "width": 1280,
+      "height": 427,
+      "bytes": 149604,
+      "sha256": "5fa68926e5915737584f936327aec6e644e915569de58473a3eb69e1d17b4e67",
+      "role": "Unique environmental transition, alpha preserved"
+    },
+    {
+      "file": "img/home/furia-ui-combo-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/cartel_combo.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 256,
+      "bytes": 397702,
+      "sha256": "4238301a6b87bd366ff10af02a532c54ea11808ea5b13d46fba1c04342267716"
+    },
+    {
+      "file": "img/home/furia-ui-imparable-v3.webp",
+      "source": "MU_PANIC_FURIA_COMBO_EFECTOS/cartel_imparable.png",
+      "origin": "Existing game interface created in prior chat; same pixels, lossless WebP",
+      "width": 1024,
+      "height": 256,
+      "bytes": 363316,
+      "sha256": "aa1effbc1487b0427b7cb108b6f42f539304b1e4a2e4a4939431a3d9f9b0ab59"
+    },
+    {
+      "file": "img/home/play-button-account-v16.webp",
+      "source": "exec-b85a1f88-1651-4580-8fcd-c4bdc7955334.png",
+      "origin": "New built-in imagegen UI artwork, transparent alpha, WebP quality 94",
+      "width": 2172,
+      "height": 724,
+      "bytes": 431436,
+      "sha256": "dec4ee4d357489f0107b0c995832ee7dba838de44283b763c011054abf49ca44"
+    },
+    {
+      "file": "img/home/play-button-download-v16.webp",
+      "source": "exec-9354a9eb-160a-4c5c-bf9f-5827d1a22289.png",
+      "origin": "New built-in imagegen UI artwork, transparent alpha, WebP quality 94",
+      "width": 2172,
+      "height": 724,
+      "bytes": 344200,
+      "sha256": "d059877c7d8d270c7e87096bb24859b53cacf70bf5a639bca804b4f611c0bbff"
+    }
+  ]
+}

@@ -10,6 +10,17 @@ $root=sys_get_temp_dir().'/panic-management-'.bin2hex(random_bytes(5));mkdir($ro
 try {
  $manager=new PanicRechargeManagement($root);$catalogue=$manager->catalogue();
  assertManagement(count($catalogue['packages'])===5,'Initial packages');
+ $presentation=$manager->storefront();assertManagement($presentation['vip']['days']===null && $presentation['vip']['price_coins']===null,'VIP offer stays pending');
+ $_SESSION['username']='otheradmin';denyManagement(fn()=>$manager->saveStorefront($presentation,0));$_SESSION['username']='panic';
+ $presentation['products'][0]['price_coins']=100000;$presentation['products'][0]['vip_price_coins']=90000;$presentation['products'][0]['available']=true;
+ $presentation['vip']['benefits'][1]=['title'=>'Más experiencia','detail'=>'Valor confirmado por el administrador de prueba','enabled'=>true];
+ $presentation=$manager->saveStorefront($presentation,0);assertManagement($manager->storefront()['products'][0]['vip_price_coins']===90000,'Manual VIP price persisted');
+ assertManagement($manager->storefront()['vip']['benefits'][1]['enabled'],'Editable single VIP benefits');denyManagement(fn()=>$manager->saveStorefront($presentation,0));
+ $invalid=$presentation;$invalid['products'][0]['vip_price_coins']=100001;denyManagement(fn()=>$manager->saveStorefront($invalid,1));
+ $invalid=$presentation;$invalid['products'][1]['available']=true;denyManagement(fn()=>$manager->saveStorefront($invalid,1));
+ $invalid=$presentation;$invalid['vip']['benefits'][1]['detail']='';denyManagement(fn()=>$manager->saveStorefront($invalid,1));
+ $invalid=$presentation;$invalid['vip']['days']=0;denyManagement(fn()=>$manager->saveStorefront($invalid,1));
+ assertManagement($manager->storefront()['revision']===1,'Rejected writes preserve configuration');
  $_SESSION['username']='otheradmin';assertManagement(!panicRechargeAdminAllowed(),'Other admin denied');denyManagement(fn()=>$manager->saveCatalogue($catalogue['packages'],0));
  $_SESSION['username']='panic';$GLOBALS['logged']=false;assertManagement(!panicRechargeAdminAllowed(),'Anonymous denied');$GLOBALS['logged']=true;
  $GLOBALS['admins']=['otheradmin'=>1];assertManagement(!panicRechargeAdminAllowed(),'Removed CMS admin denied');$GLOBALS['admins']=['panic'=>1];

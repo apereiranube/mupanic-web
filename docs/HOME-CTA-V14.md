@@ -1,0 +1,7 @@
+# Cierre de Inicio V14
+
+El cierre se convierte en una escena del mundo: continuación de la arquitectura del salón, con un arco abierto hacia el exterior, título protagonista, detalle dorado y dos acciones reunidas. Se retira la composición horizontal anterior de texto y botones separados. En celular se muestra primero el arco y después el texto con botones grandes apilados. El sombreado detrás de Vessara y minijuegos se conserva.
+
+Arte nuevo creado con la herramienta integrada de imágenes, referencia `journey-games-v13.webp`. Archivo final: `overlay/templates/mupanic/img/home/play-threshold-v14.webp`, 2172×724 nativos. La instalación comprueba y copia este archivo antes de publicar las plantillas.
+
+Prompt final: “Full bleed panoramic 3:1 closing call-to-action background for MU PANIC. Continue the immediately preceding gothic games hall materials and lighting: burgundy velvet, dark carved stone, antique gold, candles and reflective floor. At the right third a tall real open gothic arch leads into cool mist, wooded paths and distant medieval towers, inviting an adventure. Left 60 percent a spacious charcoal architectural recess with fine stone detail, reflected amber illumination and quiet space for HTML text and buttons; not flat black. Thin floor mist, a few warm motes. Crisp dark medieval MU fantasy, controlled gold and burgundy, restrained saturation. No roulette, machines, coins, weapons, characters, generic knight, text, logos, UI, frames or rectangular panels. Fill all edges with environment.”

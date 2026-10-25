@@ -1,0 +1,28 @@
+{
+  "tool": "image_gen built-in",
+  "purpose": "Production environmental transitions for connected-v6 Inicio only",
+  "references": [
+    "User screenshots image(20261020-153332).png and image(20261020-153340).png",
+    "Existing Vessara identity img/market/vessara-trade-v3.webp",
+    "Approved companion scene as environment/style reference only"
+  ],
+  "briefs": {
+    "market-world-v4": "New wide continuous Loren Market square; preserve Vessara identity, show MU players trading equipment at stalls, character and market at right with dark paved arcade for left copy, muted bronze/charcoal, warm lamps, forest stone transition. No giant jewel lineup, labels, UI, pets, BK/RF or Fractura boss.",
+    "games-hall-v4": "New wide physical MU-style arcade with the actual selector themes: red-dragon-emblem slot reels, burgundy cards and purple gem, roulette table bowl, treasure and tower. Dark vaulted hall, controlled gold and burgundy; empty roulette recess for independent rotating layer. No living dragon, labels or pasted screenshots.",
+    "hub-real-v4": "Preserve and extract the complete current Hub Inicio window from the actual user screenshot, including frame, crest, header and menu; remove gameplay, minimap, chat and HUD outside the window. Transparent background, front view.",
+    "hub-games-real-v4": "Preserve and extract complete current Hub Juegos window with eight game illustrations and navigation from actual screenshot; remove outside gameplay. Transparent background, front view.",
+    "roulette-wheel-v4": "Single complete circular MU-style roulette wheel, exactly top-down, gold/bronze engravings, burgundy/charcoal pockets and green zero, dark wood and gold spindle, transparent margin. No table or scenery. Independent prop to rotate in CSS.",
+    "market-world-v4-mobile": "Recompose the approved market scene vertically for mobile: same Vessara identity trading MU helmet with armored player, full heads/hands, counter and overhead lamp, deep market square, no crop of wide art; charcoal fog edges.",
+    "games-hall-v4-mobile": "Recompose the approved arcade vertically: complete red-dragon-emblem slot machine, burgundy cards, fully visible gold roulette tabletop with empty bowl at x50% y77%, width74% height16%, dark vaulted hall, no crop of wide art, no living dragon or text.",
+    "battle-clouds-v5": "Wide realistic gray/silver storm cloud animation layer with transparent gaps and feathered alpha. No architecture, people, particles or black smoke. Restricted to hero sky.",
+    "hub-world-v5": "Continue approved companion forest stone steps into a gothic vaulted chamber/workshop. Calm detailed architectural backdrop for real Hub overlays, warm lanterns, muted bronze, no UI or characters.",
+    "games-hall-v5": "Edit only empty roulette bowl of the approved wide arcade image: add a physically integrated high-detail roulette wheel in exact perspective, preserve everything else. Replaces detached flat web overlay.",
+    "games-hall-v5-mobile": "Same precise bowl replacement for portrait arcade image; preserve complete table and every other object. Integrated painted wheel, no CSS spinning prop.",
+    "join-rocks-v6": "Irregular low volcanic rubble, subtle embers, transparent above and below; only beneath hero/server statistics.",
+    "join-mist-v6": "Cool slate-blue cloud mist into dim crimson ash, translucent tendrils and tiny distant gothic spires at far edges. Transition to Fractura.",
+    "join-forest-v6": "Ancient ivy, mossy masonry, roots, sparse forest mist and restrained sunlight. Transition into companion forest.",
+    "join-canopy-v6": "Sparse ivy canopy, bare branches, arch remnants, silvery woodland haze and nearly empty middle. Transition from forest to Hub.",
+    "join-market-v6": "Weathered gothic arch fragments, hanging lantern, warm amber dust and ivy, transparent center. Transition to outdoor market.",
+    "join-arcade-v6": "Amber lantern haze, cobblestones and subtle burgundy fabric at right, arch and lantern at left. Transition from market to game hall."
+  }
+}

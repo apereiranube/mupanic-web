@@ -7,6 +7,8 @@ on:
       - 'overlay/modules/information.php'
       - 'overlay/templates/mupanic/css/information.css'
       - 'overlay/templates/mupanic/js/main.js'
+      - 'overlay/templates/mupanic/js/information.js'
+      - 'overlay/templates/mupanic/index.php'
       - 'overlay/templates/mupanic/img/server/**'
       - 'scripts/deploy-beta.sh'
       - 'scripts/deploy-prod.sh'
@@ -30,11 +32,12 @@ jobs:
           php -l overlay/modules/information.php
           php -l tests/fixtures/systems.php
           node --check overlay/templates/mupanic/js/main.js
+          node --check overlay/templates/mupanic/js/information.js
           bash -n scripts/deploy-beta.sh
           bash -n scripts/deploy-prod.sh
       - name: Install browser test dependency
         run: |
-          npm install --no-save --package-lock=false playwright@1.58.2
+          npm install --no-save --package-lock=false playwright@1.58.2 three@0.128.0
           npx playwright install --with-deps chromium
       - name: Validate desktop and mobile
         env:

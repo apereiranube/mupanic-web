@@ -2,14 +2,42 @@
   'use strict';
   const shop = document.querySelector('[data-recharge-shop]');
   if (!shop) return;
+  const navigation = shop.querySelector('.eryns-store-top');
+  const siteHeader = document.querySelector('.site-header');
+  function navigationOffsets() {
+    shop.style.setProperty('--eryns-header-offset', (siteHeader ? siteHeader.getBoundingClientRect().height : 0) + 'px');
+    shop.style.setProperty('--eryns-nav-height', (navigation ? navigation.getBoundingClientRect().height : 0) + 'px');
+  }
+  navigationOffsets();
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(navigationOffsets);
+    if (navigation) observer.observe(navigation);
+    if (siteHeader) observer.observe(siteHeader);
+  } else window.addEventListener('resize', navigationOffsets);
   const form = shop.querySelector('[data-cart-form]');
   const packages = Array.from(shop.querySelectorAll('[data-package]'));
   const format = new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 });
-  const coins = value => format.format(value) + ' WCoin C';
+  const coins = value => format.format(value) + ' Eryns';
   const pesos = cents => '$ ' + format.format(cents / 100);
   const submit = form.querySelector('[data-cart-submit]');
+  const methods = Array.from(form.querySelectorAll('[name="payment_method"]'));
+  function paymentMethod() {
+    const chosen = methods.find(input => input.checked);
+    const bank = chosen && chosen.value === 'bank_transfer';
+    const destination = new URL(form.action); destination.hash = bank ? 'bank-transfers' : 'recharge-checkout'; form.action = destination.href;
+    if (chosen) submit.dataset.enabled = chosen.dataset.methodEnabled;
+    const cuit = form.querySelector('[name="buyer_cuit"]');
+    if (cuit) { cuit.required = Boolean(bank); cuit.disabled = !bank; form.querySelector('[data-bank-cuit]').hidden = !bank; }
+    const label = bank ? 'Ver datos de transferencia' : 'Pagar con Ualá';
+    if (form.dataset.sending !== '1') submit.textContent = submit.dataset.enabled === '1' ? label + ' →' : 'Medio de pago no disponible';
+    const mobile = shop.querySelector('[data-mobile-submit]'); if (mobile) mobile.textContent = submit.textContent;
+    const explanation = shop.querySelector('[data-payment-explanation]');
+    if (explanation) explanation.textContent = bank ? 'Verás la cuenta bancaria. Adjuntá el comprobante en Discord. La acreditación puede demorar hasta 48 horas y requiere la confirmación del ingreso.' : 'Continuás en Ualá para completar el pago.';
+  }
+  methods.forEach(input => input.addEventListener('change', updateCart));
   function updateCart() {
-    let total = 0, received = 0, valid = true;
+    paymentMethod();
+    let total = 0, received = 0, bonus = 0, base = 0, valid = true;
     const rows = document.createDocumentFragment();
     packages.forEach(card => {
       const input = card.querySelector('input[type=number]');
@@ -23,6 +51,8 @@
       if (!active) return;
       total += Number(card.dataset.price) * quantity;
       received += Number(card.dataset.coins) * quantity;
+      bonus += Number(card.dataset.bonus || 0) * quantity;
+      base += Number(card.dataset.baseCoins || card.dataset.coins) * quantity;
       const row = document.createElement('div');
       const label = document.createElement('span');
       const value = document.createElement('b');
@@ -33,12 +63,33 @@
     if (!rows.childNodes.length) {
       const empty = document.createElement('p'); empty.textContent = 'Sumá paquetes con + o escribí una cantidad.'; rows.append(empty);
     }
+    shop.querySelectorAll('[data-choose-package]').forEach(button => {
+      const selected = packages.find(card => card.querySelector('input').id === 'quantity-' + button.dataset.choosePackage);
+      const single = selected && selected.querySelector('input').value === '1' && packages.every(card => card === selected || card.querySelector('input').value === '0');
+      button.setAttribute('aria-pressed', String(Boolean(single)));
+      const choice=button.querySelector('.eryns-card-choice'); if(choice) choice.textContent=single?'Elegido ✓':'Elegir pack';
+    });
     shop.querySelector('[data-cart-lines]').replaceChildren(rows);
-    shop.querySelector('[data-total-coins]').textContent = coins(received);
+    const counter = shop.querySelector('[data-total-coins]');
+    const unit = document.createElement('small'); unit.textContent = 'Eryns';
+    const changed = counter.textContent !== coins(received);
+    counter.replaceChildren(document.createTextNode(format.format(received) + ' '), unit);
+    if (changed && counter.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) counter.animate([{transform:'translateY(4px)',opacity:.5},{transform:'translateY(0)',opacity:1}],{duration:250});
+    const bonusRow = shop.querySelector('[data-bonus-row]');
+    if (bonusRow) { bonusRow.hidden = bonus === 0; bonusRow.querySelector('[data-bonus-rate]').textContent = '+' + new Intl.NumberFormat('es-AR',{maximumFractionDigits:1}).format(base ? bonus / base * 100 : 0) + '%'; }
+    const breakdown = shop.querySelector('[data-bonus-breakdown]');
+    if (breakdown) { breakdown.hidden = bonus === 0; breakdown.textContent = format.format(base) + ' + ' + format.format(bonus) + ' de regalo'; }
+    const includes = shop.querySelector('[data-price-includes]');
+    if (includes) includes.textContent = bonus ? 'Incluye ' + format.format(bonus) + ' Eryns de regalo.' : 'Pago único. Sin suscripción.';
+    const upgrade = shop.querySelector('[data-upgrade-package]');
+    if (upgrade) upgrade.hidden = !(valid && total > 0 && received < Number(upgrade.dataset.upgradeCoins) && total < Number(upgrade.dataset.upgradePrice));
     shop.querySelector('[data-total-price]').textContent = pesos(total) + ' ARS';
     const allowed = valid && total > 0 && total <= 100000000 && received <= 1000000;
+    const mobile = shop.querySelector('[data-mobile-summary]');
+    if (mobile) { mobile.hidden = !allowed || Boolean(shop.dataset.checkoutTarget && shop.dataset.checkoutTarget.startsWith('bank-')); mobile.querySelector('[data-mobile-coins]').textContent = coins(received); mobile.querySelector('[data-mobile-price]').textContent = pesos(total) + ' ARS'; }
     submit.disabled = !allowed || submit.dataset.enabled !== '1' || form.dataset.sending === '1';
-    shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 || received > 1000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todas tus monedas.';
+    const mobileSubmit = shop.querySelector('[data-mobile-submit]'); if (mobileSubmit) mobileSubmit.disabled = submit.disabled;
+    shop.querySelector('[data-cart-hint]').textContent = !valid ? 'Usá cantidades enteras de 0 a 99.' : total > 100000000 || received > 1000000 ? 'El máximo por compra es $1.000.000.' : total === 0 ? 'Elegí al menos un paquete para continuar.' : 'Un solo pago. Todos tus Eryns.';
   }
   packages.forEach(card => {
     const input = card.querySelector('input[type=number]');
@@ -48,13 +99,144 @@
       updateCart();
     }));
   });
+  shop.querySelectorAll('[data-choose-package]').forEach(button => button.addEventListener('click', () => {
+    packages.forEach(card => { card.querySelector('input').value = card.querySelector('input').id === 'quantity-' + button.dataset.choosePackage ? '1' : '0'; });
+    updateCart();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      button.classList.remove('is-flashing');
+      requestAnimationFrame(() => requestAnimationFrame(() => button.classList.add('is-flashing')));
+    }
+  }));
+  shop.querySelectorAll('[data-choose-package]').forEach(button => button.addEventListener('animationend', event => { if (event.animationName === 'eryns-selection-flash') button.classList.remove('is-flashing'); }));
+  const vipDetails = shop.querySelector('#eryns-vip-plan-details');
+  const vipCta = shop.querySelector('[data-vip-cta]');
+  if (vipCta && vipDetails && !vipCta.hasAttribute('data-target-price')) {
+    vipCta.addEventListener('click', () => { vipDetails.open = true; vipDetails.scrollIntoView({behavior:'auto',block:'nearest'}); });
+    vipDetails.addEventListener('toggle', () => vipCta.setAttribute('aria-expanded', String(vipDetails.open)));
+  }
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const surfaces = Array.from(shop.querySelectorAll('.eryns-motion-surface'));
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('is-visible', entry.isIntersecting)), {rootMargin:'60px'});
+    surfaces.forEach(surface => observer.observe(surface));
+  } else surfaces.forEach(surface => surface.classList.add('is-visible'));
+  let pointerFrame = 0;
+  const tilted = Array.from(shop.querySelectorAll('[data-tilt]'));
+  function resetMotion() {
+    cancelAnimationFrame(pointerFrame); pointerFrame = 0;
+    tilted.forEach(card => { card.style.removeProperty('--tilt-x'); card.style.removeProperty('--tilt-y'); });
+  }
+  function moveSurface(surface, event) {
+    if (reducedMotion.matches || !finePointer.matches) return;
+    const x = event.clientX, y = event.clientY;
+    cancelAnimationFrame(pointerFrame);
+    pointerFrame = requestAnimationFrame(() => {
+      const rect = surface.getBoundingClientRect();
+      const dx = Math.max(-.5, Math.min(.5, (x - rect.left) / rect.width - .5));
+      const dy = Math.max(-.5, Math.min(.5, (y - rect.top) / rect.height - .5));
+      surface.style.setProperty('--tilt-y', (dx * 8) + 'deg');
+      surface.style.setProperty('--tilt-x', (-dy * 6) + 'deg');
+      pointerFrame = 0;
+    });
+  }
+  tilted.forEach(card => { card.addEventListener('pointermove', event => moveSurface(card, event)); card.addEventListener('pointerleave', resetMotion); });
+  reducedMotion.addEventListener('change', resetMotion); finePointer.addEventListener('change', resetMotion);
+  const upgrade = shop.querySelector('[data-upgrade-package]');
+  if (upgrade) upgrade.addEventListener('click', () => { const button = shop.querySelector('[data-choose-package="' + upgrade.dataset.upgradePackage + '"]'); if (button) button.click(); });
+  const mountMessage = shop.querySelector('[data-target-message]');
+  shop.querySelectorAll('[data-target-price]').forEach(button => button.addEventListener('click', () => {
+    if (button.disabled) return;
+    const price = Number(button.dataset.targetPrice);
+    if (!Number.isSafeInteger(price) || price <= 0) return;
+    const candidates = packages.map(card => ({card,quantity:1,cost:Number(card.dataset.price),units:Number(card.dataset.coins)})).filter(item => item.units >= price);
+    packages.forEach(card => { const quantity = Math.ceil(price / Number(card.dataset.coins)); if (quantity <= 99 && quantity * Number(card.dataset.coins) <= 1000000 && quantity * Number(card.dataset.price) <= 100000000) candidates.push({card,quantity,cost:quantity*Number(card.dataset.price),units:quantity*Number(card.dataset.coins)}); });
+    candidates.sort((a,b) => a.cost - b.cost || a.units - b.units);
+    if (!candidates.length) { mountMessage.textContent = 'Revisá las cantidades permitidas antes de recargar para este objetivo.'; return; }
+    const selected = candidates[0]; packages.forEach(card => { card.querySelector('input').value = card === selected.card ? String(selected.quantity) : '0'; });
+    updateCart(); mountMessage.textContent = 'Objetivo: ' + button.dataset.targetName + '. Elegimos una recarga que alcanza su precio de ' + coins(price) + '.';
+    if (button.dataset.targetVip === '1') {
+      mountMessage.textContent += ' Elegí el medio de pago y activá o renová el VIP dentro del juego.';
+      shop.querySelector('#recharge-cart').scrollIntoView({behavior:'auto',block:'start'});
+      submit.focus({preventScroll:true});
+    } else shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'});
+  }));
+  if (new URLSearchParams(window.location.search).get('recharge_goal') === 'vip' && vipCta && vipCta.hasAttribute('data-target-price')) vipCta.click();
+  function revealUtility() { const panel = document.querySelector(window.location.hash === '#recharge-history' ? '#recharge-history' : window.location.hash === '#recharge-guide' ? '#recharge-guide' : 'body'); if (panel.tagName === 'DETAILS') panel.open = true; }
+  shop.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
+    const hash = link.getAttribute('href'); const panel = document.getElementById(hash.slice(1));
+    if (!panel || !shop.contains(panel)) return;
+    event.preventDefault(); if (panel.tagName === 'DETAILS') panel.open = true;
+    history.replaceState(null, '', window.location.pathname + window.location.search + hash);
+    panel.scrollIntoView({behavior:'auto',block:'start'});
+  }));
+  window.addEventListener('hashchange', revealUtility); revealUtility();
+  requestAnimationFrame(() => { const cards = shop.querySelector('.eryns-denominations'); const selected = shop.querySelector('[data-choose-package][aria-pressed="true"]'); if (cards && selected && window.matchMedia('(max-width:700px)').matches) cards.scrollLeft = selected.offsetLeft - cards.offsetLeft - (cards.clientWidth - selected.clientWidth) / 2; });
+  const tabs = Array.from(shop.querySelectorAll('[data-experience-tab]'));
+  function activateTab(tab) {
+    tabs.forEach(button => { const active = button === tab; button.setAttribute('aria-selected', String(active)); button.tabIndex = active ? 0 : -1; });
+    shop.querySelectorAll('[data-experience]').forEach(panel => { panel.hidden = panel.dataset.experience !== tab.dataset.experienceTab; });
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activateTab(tab));
+    tab.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next === undefined) return;
+      event.preventDefault(); activateTab(tabs[next]); tabs[next].focus();
+    });
+  });
+  shop.querySelectorAll('[data-open-creature]').forEach(button => {
+    const dialog = document.getElementById(button.dataset.openCreature);
+    if (!dialog || typeof dialog.showModal !== 'function') return;
+    let originalOverflow;
+    button.addEventListener('click', () => { originalOverflow = document.body.style.overflow; dialog.showModal(); document.body.style.overflow = 'hidden'; dialog.querySelector('[data-close-creature]').focus(); });
+    dialog.querySelector('[data-close-creature]').addEventListener('click', () => dialog.close());
+    dialog.querySelector('[data-return-to-buy]').addEventListener('click', () => { dialog.close(); shop.querySelector('[data-choose-package]').focus({preventScroll:true}); if (button.dataset.targetVip === '1') {
+      mountMessage.textContent += ' Elegí el medio de pago y activá o renová el VIP dentro del juego.';
+      shop.querySelector('#recharge-cart').scrollIntoView({behavior:'auto',block:'start'});
+      submit.focus({preventScroll:true});
+    } else shop.querySelector('#recharge-packages').scrollIntoView({behavior:'auto',block:'start'}); });
+    dialog.addEventListener('close', () => { document.body.style.overflow = originalOverflow; button.focus({preventScroll:true}); });
+  });
   form.addEventListener('submit', event => {
     if (form.dataset.sending === '1' || submit.disabled) { event.preventDefault(); return; }
     form.dataset.sending = '1'; submit.textContent = 'Preparando tu compra…';
-    setTimeout(() => { submit.disabled = true; }, 0);
+    setTimeout(() => { submit.disabled = true; const mobileSubmit=shop.querySelector('[data-mobile-submit]'); if(mobileSubmit) mobileSubmit.disabled=true; }, 0);
   });
-  window.addEventListener('pageshow', event => { if (event.persisted) { form.dataset.sending = ''; submit.textContent = submit.dataset.enabled === '1' ? 'Pagar con Ualá' : 'Pagos próximamente'; updateCart(); } });
+  window.addEventListener('pageshow', event => { if (event.persisted) { form.dataset.sending = ''; submit.textContent = submit.dataset.enabled === '1' ? 'Pagar con Ualá →' : 'Pagos próximamente'; updateCart(); } });
   updateCart();
+  if (shop.dataset.checkoutTarget) {
+    const continuePayment = () => {
+      const target = document.getElementById(shop.dataset.checkoutTarget) || document.getElementById('bank-transfers') || document.getElementById('recharge-checkout');
+      if (!target) return;
+      navigationOffsets();
+      const destination = new URL(window.location.href); destination.hash = target.id;
+      window.history.replaceState(window.history.state, '', destination.href);
+      target.focus({preventScroll:true});
+      const offset = (siteHeader ? siteHeader.getBoundingClientRect().height : 0) + (navigation ? navigation.getBoundingClientRect().height : 0) + 16;
+      window.scrollTo({top:Math.max(0,window.scrollY + target.getBoundingClientRect().top - offset),behavior:'instant'});
+    };
+    const scheduleContinuation = () => requestAnimationFrame(() => requestAnimationFrame(continuePayment));
+    if (document.readyState === 'complete') scheduleContinuation();
+    else window.addEventListener('pageshow', scheduleContinuation, {once:true});
+  }
+  shop.querySelectorAll('[data-bank-copy]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const feedback = button.closest('.bank-payment').querySelector('[data-bank-copy-feedback]');
+      try {
+        await navigator.clipboard.writeText(button.dataset.bankCopy);
+        feedback.textContent = 'Copiaste el ' + button.dataset.copyLabel + '.';
+        const original = button.textContent; button.textContent = 'Copiado ✓';
+        setTimeout(() => { button.textContent = original; }, 2000);
+      } catch (_) {
+        feedback.textContent = 'No se pudo copiar. Seleccioná el ' + button.dataset.copyLabel + ' y copialo manualmente.';
+      }
+    });
+  });
   const orders = Array.from(shop.querySelectorAll('[data-order-id]'));
   const message = shop.querySelector('[data-history-update]');
   let checks = 0;

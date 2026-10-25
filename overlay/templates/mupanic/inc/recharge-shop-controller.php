@@ -1,9 +1,10 @@
 <?php
 if(!defined('access') || !access) die();
 require_once __DIR__.'/recharge-orders.php';
-$shopStore=null; $shopSettings=null; $shopCanBuy=false; $shopMessage=null; $shopCreated=null;
+$shopStore=null; $shopSettings=null; $shopCanBuy=false; $shopMessage=null; $shopCreated=null; $bankContinueOrder=null;
 $shopHistory=['total'=>0,'orders'=>[]]; $shopPage=max(1,min(500,(int)($_GET['compras'] ?? 1)));
 $shopAdmin=panicRechargeAdminAllowed();
+require __DIR__.'/recharge-bank-shop.php';
 try {
     $shopStore=new PanicRechargeOrders();
     [$shopApi,$shopMerchant,$shopSettings]=panicRechargeShopGateway();
@@ -15,9 +16,11 @@ $shopQuantities=[]; foreach($rechargePackages as $offer) $shopQuantities[$offer[
 if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && isset($_POST['recharge_action'])) {
     try {
         if(!is_string($_POST['recharge_csrf'] ?? null) || !hash_equals($_SESSION['recharge_csrf'],$_POST['recharge_csrf'])) throw new RuntimeException('Session expired');
-        if(!$shopStore || !$shopSettings) throw new RuntimeException('Shop unavailable');
         $action=$_POST['recharge_action'];
-        if($action==='create') {
+        if($action==='bank_ready' || ($action==='create' && ($_POST['payment_method'] ?? '')==='bank_transfer')) {
+            $bankContinueOrder=panicBankShopAction($action,$bankStore,$bankCanBuy,$bankEnvironment,$bankWorker ?? [],$rechargeAccount,$rechargePackages,$shopQuantities,$shopMessage);
+        } elseif($action==='create') {
+            if(!$shopStore || !$shopSettings) throw new RuntimeException('Shop unavailable');
             if(!$shopCanBuy) throw new RuntimeException('Shop closed');
             if(!is_array($_POST['quantity'] ?? null)) throw new InvalidArgumentException('Invalid cart');
             $cart=PanicRecharge::cart($rechargePackages,$_POST['quantity']);
@@ -27,15 +30,17 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && isset($_POST['recharge_action'
             $_SESSION['recharge_nonce']=bin2hex(random_bytes(16));
             $shopMessage=isset($shopCreated['checkout_url'])?'Tu compra está preparada. Revisá el total y continuá a Ualá.':'Guardamos tu compra. Revisá su estado en Mis compras; no vuelvas a crearla.';
         } elseif($action==='refresh') {
+            if(!$shopStore || !$shopSettings) throw new RuntimeException('Shop unavailable');
             if(time()-(int)($_SESSION['recharge_check_time'] ?? 0)<15) throw new RuntimeException('Check too soon');
             $_SESSION['recharge_check_time']=time();
             $order=$shopStore->owned($_POST['order_id'] ?? '',$rechargeAccount);
             if($order['live']!==($shopSettings['environment']==='production')) throw new RuntimeException('Different payment environment');
             $shopStore->refresh($order['id'],$shopApi,$shopMerchant); $shopMessage='Estado de compra actualizado.';
         } else throw new InvalidArgumentException('Invalid action');
-    } catch(InvalidArgumentException $exception) { $shopMessage='Revisá las cantidades: de 0 a 99 por paquete y hasta $1.000.000 por compra.'; }
+    } catch(InvalidArgumentException $exception) { $shopMessage=$bankSelected?$exception->getMessage():'Revisá las cantidades: de 0 a 99 por paquete y hasta $1.000.000 por compra.'; }
     catch(Throwable $exception) {
         $messages=['Session expired'=>'Tu sesión venció. Recargá la página y volvé a intentar.',
+            'Shop closed'=>'Ualá está deshabilitado. Prepará tu recarga por transferencia bancaria.',
             'Check too soon'=>'Esperá 15 segundos antes de volver a consultar.',
             'Too many open orders'=>'Tenés 5 compras pendientes. Completá o revisá las anteriores antes de preparar otra.',
             'Checkout unconfirmed; existing order retained'=>'Guardamos tu compra, pero falta confirmar el enlace de Ualá. Conservá su número y consultá al equipo; no vuelvas a pagar.'];
@@ -43,3 +48,5 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && isset($_POST['recharge_action'
     }
 }
 if($shopStore) { try { $shopHistory=$shopStore->history($rechargeAccount,$shopPage); } catch(Throwable $ignored) {} }
+
+if($bankStore) { try { $bankHistory=$bankStore->history($rechargeAccount,$bankPage); } catch(Throwable $ignored) {} }

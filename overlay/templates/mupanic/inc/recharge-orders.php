@@ -80,6 +80,10 @@ final class PanicRechargeOrders {
             return ['total'=>count($rows),'orders'=>array_map([self::class,'publicOrder'],array_slice($rows,(max(1,$page)-1)*10,10))];
         });
     }
+    public function administrationRows() {
+        if(!panicRechargeAdminAllowed())throw new RuntimeException('Forbidden');
+        return $this->locked(function($orders){return array_values($orders);});
+    }
     public function administration(array $filter,$page=1) {
         if(!panicRechargeAdminAllowed()) throw new RuntimeException('Forbidden');
         return $this->locked(function($orders) use ($filter,$page) {
@@ -223,8 +227,13 @@ function panicRechargeShopGateway() {
     if($live && (($options['production_verified'] ?? false)!==true || !in_array($unit,['ARS','centavos'],true))) throw new RuntimeException('Production not verified');
     return [new PanicUalaBisApi($settings['uala_bis'],$settings['environment'],null,$unit),$settings['uala_bis']['client_id'],$settings];
 }
+function panicRechargeUalaCheckoutEnabled() {
+    $config=require __DIR__.'/recharge-config.php';
+    return ($config['providers']['uala_bis']['checkout_enabled'] ?? false)===true;
+}
+
 function panicRechargeCanBuy(array $settings,$account,$workerReady) {
-    if(!$workerReady) return false;
+    if(!panicRechargeUalaCheckoutEnabled() || !$workerReady) return false;
     if($settings['environment']==='test') return true;
     return $settings['environment']==='production' && ($settings['sales_enabled'] ?? false)===true &&
         ($settings['recharges']['production_verified'] ?? false)===true && in_array($settings['recharges']['amount_unit'] ?? null,['ARS','centavos'],true);
@@ -232,10 +241,11 @@ function panicRechargeCanBuy(array $settings,$account,$workerReady) {
 
 function panicRechargeStatus(array $order) {
     if($order['payment_state']==='review') return ['review','En revisión','El equipo necesita revisar esta compra.'];
-    if($order['delivery_state']==='credited') return ['credited','Monedas acreditadas','Ya podés usar tus WCoin C en el juego.'];
-    if($order['payment_state']==='approved') return ['approved','Pago aprobado · entrega pendiente','Desconectate del juego para recibir las monedas. La entrega se reintenta automáticamente.'];
+    if($order['delivery_state']==='credited') return ['credited','Eryns acreditados','Ya podés usar tus Eryns en el juego.'];
+    if($order['payment_state']==='approved') return ['approved','Pago aprobado · entrega pendiente','Desconectate del juego para recibir tus Eryns. La entrega se reintenta automáticamente.'];
     if($order['payment_state']==='creating') return ['creating','Compra pendiente de revisión','Conservá el número de compra y consultá al equipo antes de iniciar otra.'];
-    if(in_array($order['payment_state'],['rejected','cancelled'],true)) return ['rejected','Pago no aprobado','Esta compra no acreditó monedas.'];
+    if(in_array($order['payment_state'],['rejected','cancelled'],true)) return ['rejected','Pago no aprobado','Esta compra no acreditó Eryns.'];
+    if(!panicRechargeUalaCheckoutEnabled())return ['pending','Pago pendiente de Ualá','Ualá está deshabilitado. Consultá al equipo si ya pagaste esta compra.'];
     return ['pending','Esperando el pago','Completá el pago en Ualá.'];
 }
 

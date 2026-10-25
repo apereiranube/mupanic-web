@@ -1,0 +1,28 @@
+<?php
+if(!defined('PANIC_ECO_ADMIN') || PANIC_ECO_ADMIN!==true) { http_response_code(403); exit; }
+$names=panicEcoGameNames();$game=$_GET['juego']??'';$ranking=$_GET['ranking']??'ganadores';
+if(!is_string($game) || ($game!=='' && !isset($names[$game])) || !is_string($ranking) || !in_array($ranking,['ganadores','perdedores'],true))throw new InvalidArgumentException('Elegí uno de los juegos del panel.');
+$games=$ecoRepository->games();$winners=$ecoRepository->players();$losers=$ecoRepository->players(true);$detail=$game!==''?$ecoRepository->gameDetail($game):[];
+$bet=panicEcoSum($games,'Apostado');$house=panicEcoSum($games,'NetoRetirado');$housePct=panicEcoRatio($house,$bet);
+$lead=panicEcoRangeWords($ecoFilters).' se apostaron '.panicEcoNumber($bet).' Eryns en los juegos';
+$lead.=$house<0?' y los jugadores recibieron '.panicEcoNumber(abs($house)).' Eryns de más en premios.':' y la casa se quedó con '.panicEcoNumber($house).($housePct===null?'':' ('.panicEcoNumber($housePct,1).'%)').'.';
+panicEcoSentence($lead,'Lo que se quedó la casa es lo apostado menos los premios pagados. Esos Eryns desaparecen; no son pesos cobrados por el servidor.');
+if(!$games)panicEcoEmpty($ecoFilters['tests']);
+echo '<div class="eco-game-grid">';$byGame=[];foreach($games as $row)$byGame[$row['Juego']]=$row;
+foreach($names as $code=>$name) {
+    $r=$byGame[$code]??null;$pct=$r && $r['DevueltoPct']!==null?(float)$r['DevueltoPct']:null;$v=panicEcoVerdict('payout',$pct,true);
+    $url=str_replace('#economia','#eco-game-detail',panicEcoUrl($ecoFilters['query'],['juego'=>$code]));
+    echo '<article class="eco-game-card'.($code===$game?' is-selected':'').'"><a class="eco-game-main" href="'.panicEcoEscape($url).'"><span class="eco-game-icon">'.panicEcoIcon('dice').'</span><h3>'.panicEcoEscape($name).'</h3><p>'.($r?'Se jugó '.panicEcoCount($r['Jugadas'],'vez','veces').'.':'Todavía no se jugó en estas fechas.').'</p><span class="eco-game-house-label">Lo que se quedó la casa</span><strong class="eco-game-house '.($r && (float)$r['NetoRetirado']<0?'eco-amount--in':'eco-amount--out').'">'.($r && (float)$r['NetoRetirado']<0?'▲ ':'▼ ').panicEcoNumber($r?abs((float)$r['NetoRetirado']):0).'</strong><small>'.($r && (float)$r['NetoRetirado']<0?'Eryns devueltos de más':'Eryns que salieron').'</small><span class="eco-game-action">Ver últimas jugadas →</span></a><div class="eco-game-payout"><span>Volvió a los jugadores '.panicEcoHelp('De cada 100 Eryns apostados, cuántos volvieron como premio. Lo normal es cerca de 94. Con pocas jugadas puede variar mucho.').'</span><div><b>'.($pct===null?'—':panicEcoNumber($pct,1).'%').'</b><span class="eco-badge eco-badge--'.$v['tone'].'">'.panicEcoIcon($v['tone']==='good'?'check':($v['tone']==='quiet'?'minus':'alert')).$v['label'].'</span></div></div></article>';
+}
+echo '</div><p class="eco-note eco-note--notice">Con pocas jugadas los porcentajes saltan mucho. Mirá la tendencia de varios días.</p>';
+echo '<div class="eco-rank-grid">';
+panicEcoRankList('Quién más ganó',array_values(array_filter($winners,function($r){return (float)$r['NetoJugador']>0;})),'NetoJugador','Eryns','in','Todavía no hay jugadores con ganancia en estas fechas.');
+panicEcoRankList('Quién más perdió',array_values(array_filter($losers,function($r){return (float)$r['NetoJugador']<0;})),'NetoJugador','Eryns','out','Todavía no hay jugadores con pérdida en estas fechas.');echo '</div>';
+if($game!=='') { panicEcoDetailStart('Últimas jugadas de '.$names[$game],true,'eco-game-detail');
+    panicEcoTable('Lo último que pasó en '.$names[$game],['FechaAR'=>'Cuándo · hora Argentina','Cuenta'=>'Jugador','Personaje'=>'Personaje','Tx'=>'Operación','Evento'=>'Qué pasó','Gastado'=>'Apostaron · Eryns','Recibido'=>'Ganaron en premios · Eryns','Detalle'=>'Más información'],$detail,['numbers'=>['Gastado','Recibido'],'dates'=>['FechaAR'],'note'=>'Últimas 200 líneas del juego en estas fechas. Una jugada puede registrar su apuesta y su premio por separado.']);panicEcoDetailEnd(); }
+panicEcoDetailStart('Comparación de juegos, top 20 y gráficos completos');
+panicEcoTable('Todos los juegos, en números',['Juego'=>'Juego','Jugadas'=>'Veces que se jugó','Apostado'=>'Apostaron · Eryns','Pagado'=>'Ganaron en premios · Eryns','NetoRetirado'=>'Lo que se quedó la casa · Eryns','DevueltoPct'=>'Volvió a los jugadores · %','PremioMayor'=>'Premio más grande · Eryns'],$games,['numbers'=>['Jugadas','Apostado','Pagado','NetoRetirado','DevueltoPct','PremioMayor'],'decimals'=>['DevueltoPct'],'links'=>['Juego'=>function($r) use($ecoFilters){return str_replace('#economia','#eco-game-detail',panicEcoUrl($ecoFilters['query'],['juego'=>$r['Juego']]));}]]);
+foreach(['Quién más ganó · top 20'=>$winners,'Quién más perdió · top 20'=>$losers] as $label=>$rows)panicEcoTable($label,['Cuenta'=>'Jugador','Apostado'=>'Apostaron · Eryns','Pagado'=>'Ganaron en premios · Eryns','NetoJugador'=>'Ganancia o pérdida · Eryns'],$rows,['numbers'=>['Apostado','Pagado','NetoJugador'],'note'=>'Se suman apuestas y premios de cada jugador en todo el rango. Un valor negativo es una pérdida para el jugador.']);
+$aligned=[];foreach($ecoRepository->gameSeries() as $r){$k=$r['Periodo'];if(!isset($aligned[$k]))$aligned[$k]=['Periodo'=>$k]+array_fill_keys(array_keys($names),0);$aligned[$k][$r['Juego']]=$r['NetoRetirado'];}
+panicEcoChart('Lo que se quedó la casa, juego por juego','line',array_values($aligned),$names);
+$pie=[];foreach($games as $r)$pie[]=['Periodo'=>$names[$r['Juego']]??$r['Juego'],'Apostado'=>$r['Apostado']];panicEcoChart('Dónde se apostó más','doughnut',$pie,['Apostado'=>'Apostaron · Eryns']);panicEcoDetailEnd();

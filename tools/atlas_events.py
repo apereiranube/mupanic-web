@@ -68,7 +68,7 @@ def build_events(archive):
   p='Data/Event/'+file+'.dat'
   return sections(read(p)) if p in members else {}
  # Item summaries retain configured pools; no invented odds or currency names.
- bag_files={int(m[1]):p for p in members if (m:=re.match(r'Data/EventItemBag/(\d+) - .+\.txt$',p))}
+ bag_files={int(m[1]):p for p in members if (m:=re.match(r'Data/EventItemBag/(?:.*/)?(\d+) - .+\.txt$',p))}
  bag_names={};bag_monsters={}
  if 'Data/EventItemBagManager.txt' in members:
   for row in sections('0\n'+read('Data/EventItemBagManager.txt')+'\nend').get(0,[]):

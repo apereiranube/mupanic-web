@@ -1,0 +1,26 @@
+{
+  "revision": "2026-10-14",
+  "rewards": {
+    "W": {
+      "contribution": 2000,
+      "fragments": 3,
+      "bless": 2,
+      "soul": 2,
+      "chaos": 1
+    },
+    "L": {
+      "contribution": 500,
+      "fragments": 1,
+      "bless": 0,
+      "soul": 0,
+      "chaos": 1
+    },
+    "T": {
+      "contribution": 1000,
+      "fragments": 2,
+      "bless": 1,
+      "soul": 1,
+      "chaos": 0
+    }
+  }
+}

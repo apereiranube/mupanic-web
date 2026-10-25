@@ -139,14 +139,86 @@
     "width": 10,
     "height": 30
   },
-  "7289-0": {
-    "file": "img/atlas/drops/7289-0-4fed847c48b5.webp",
-    "width": 32,
-    "height": 28
+  "7368-0": {
+    "file": "img/atlas/vinculos/fragmentos.webp",
+    "width": 384,
+    "height": 384
   },
-  "7290-0": {
-    "file": "img/atlas/drops/7290-0-af62c96574df.webp",
-    "width": 32,
-    "height": 28
+  "7369-0": {
+    "file": "img/atlas/vinculos/nucleos.webp",
+    "width": 384,
+    "height": 384
+  },
+  "-1-211": {
+    "file": "img/market/emblems/armor.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-212": {
+    "file": "img/market/emblems/armor.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-213": {
+    "file": "img/market/emblems/armor.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-214": {
+    "file": "img/market/emblems/armor.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-215": {
+    "file": "img/market/emblems/armor.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-216": {
+    "file": "img/market/emblems/armor.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-217": {
+    "file": "img/market/emblems/relic.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-218": {
+    "file": "img/market/emblems/relic.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-219": {
+    "file": "img/market/emblems/relic.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "-1-220": {
+    "file": "img/market/emblems/relic.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "7199-0": {
+    "file": "img/market/emblems/jewel.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
+  },
+  "7210-0": {
+    "file": "img/market/emblems/jewel.svg",
+    "width": 64,
+    "height": 64,
+    "kind": "symbol"
   }
 }

@@ -1,0 +1,68 @@
+# Recargas por transferencia bancaria — beta
+
+Por el momento la tienda ofrece únicamente transferencia bancaria para nuevas recargas. Ualá está deshabilitado en la configuración pública y en la validación del servidor; se conservan su historial y la conciliación de pagos anteriores. Se reutilizan el bot y el servicio de recargas del VPS. La cuenta administradora `panic`, con permiso de administrador en WebEngine, configura la cuenta receptora desde `/usercp/shopadmin/?vista=configuracion#shop-bank`. La pantalla `/usercp/shopadmin/?vista=transferencias` muestra sólo transferencias por aprobar, separadas de las configuraciones.
+
+## Circuito
+
+1. El usuario elige paquetes, selecciona transferencia, ingresa su CUIT y acepta expresamente las condiciones vigentes. El servidor valida el dígito verificador y guarda importe, Eryns y datos bancarios de esa compra.
+2. Después de generar la recarga, la web lleva directamente a esa operación en «Mis transferencias». Allí aparecen tres pasos: hacer la transferencia, enviar el comprobante y recibir los Eryns. Puede copiar importe, alias y CBU/CVU con un botón. Cambiar la cuenta receptora no cambia las instrucciones de compras anteriores.
+3. Después de pagar, pulsa «Ya transferí · Enviar comprobante». Recibe un código privado que vence en 30 minutos y un enlace al canal soporte existente de Discord.
+4. En soporte pulsa «Recarga por transferencia» o usa `/recarga`. El bot solicita el código y abre un ticket privado para ese comprador y los roles de soporte existentes. El código vincula la compra con el usuario real de la interacción de Discord.
+5. El comprador adjunta el comprobante en su ticket. El bot registra el enlace al mensaje; si estuvo desconectado, el comprador puede pulsar «Ya adjunté el comprobante» para reintentar.
+6. `panic` abre el comprobante desde el panel web, verifica el ingreso real en el banco, ingresa el número de operación del banco (el que figura en el detalle del movimiento, no el código de Discord) y marca la confirmación. También puede rechazar una orden pendiente.
+7. El servicio existente acredita Eryns con la cuenta desconectada del juego. Un comprobante adjunto nunca aprueba el pago automáticamente. La acreditación puede demorar hasta 48 horas, como se informa antes del pago y en el ticket.
+8. Después del recibo SQL confirmado, el bot menciona al comprador en su ticket privado para avisarle que los Eryns están acreditados. El registro conserva el mensaje enviado; si se pierde la respuesta de la web, el bot recupera el aviso existente antes de reintentar.
+
+## Instalación en el VPS
+
+Primero actualizar beta desde cPanel con «Update from Remote» y «Deploy HEAD Commit». Después ejecutar como administrador el instalador del paquete desde Descargas:
+
+```powershell
+.\Instalar_Transferencias.ps1 -Action Aplicar
+```
+
+El instalador comprueba la versión del `index.js` que se leyó del VPS, crea un respaldo verificado en Descargas y agrega el módulo al bot existente en `C:\MU_PANIC_BOT`. Agrega `/recarga` y el panel de transferencias; mantiene los demás comandos y tickets.
+
+Actualiza el servicio existente en `C:\MuServer43\RechargeSync` y la rutina SQL de entregas. Conserva token, configuración y recibos anteriores. La migración admite ambos proveedores y conserva la compatibilidad con el servicio anterior. Sólo pausa las tareas `MU PANIC Discord Bot` y `MU PANIC Recharge Worker`, conserva su habilitación y reinicia las que estaban ejecutándose. Ejecuta una consulta del servicio al terminar. Los GameServers no necesitan reiniciarse.
+
+Los secretos siguen en `C:\MuServer43\PaymentsPrivate`. El módulo usa el token HMAC del servicio existente para comunicarse con beta; no coloca el token de Discord en la web.
+
+En el panel web completar titular, banco, alias o CBU/CVU y opcionalmente CUIT del titular. El ID del canal soporte se propone a partir de la conexión del bot. Revisar que el servidor y canal sean correctos, marcar «Ofrecer transferencias bancarias» y guardar. El bot y el servicio versión 3 deben haber reportado actividad en los últimos 3 minutos, en el mismo ambiente, para permitir compras.
+
+## Prueba de aceptación
+
+Comprobar primero el ambiente indicado en el panel. El ambiente `test` separa las órdenes, pero la aprobación ejecuta la acreditación SQL real en la cuenta elegida: usar una cuenta de prueba y un importe controlado.
+
+Preparar una compra, verificar los datos bancarios, obtener un código, abrir el ticket y revisar sus permisos desde otro usuario sin rol de soporte. Adjuntar un comprobante de prueba y verificar que aparece en el panel sin acreditar. Confirmar el ingreso sólo cuando corresponda, usar una referencia única, desconectar la cuenta y comprobar el saldo. Reintentar el servicio debe conservar el mismo saldo; una orden rechazada no debe acreditar.
+
+## Recuperación
+
+El respaldo en Descargas incluye `RESTAURAR.ps1`. Ejecutarlo como administrador restaura los archivos anteriores si no hubo modificaciones posteriores. La restauración conserva el registro SQL y las órdenes para evitar perder evidencia o repetir entregas. La migración SQL conserva compatibilidad con el servicio anterior.
+
+Si la creación de un canal queda con resultado incierto, el bot busca un canal con el mismo identificador antes de reutilizarlo. No crea otro canal automáticamente tras una reserva incierta: soporte debe revisar la compra. El comprador no debe repetir la transferencia. Los códigos se pueden renovar desde la web y se almacenan como hash en el registro privado.
+
+El registro privado `/home/mupanic/payments-private/recharge-bank.json` guarda configuración, CUIT y órdenes; respaldarlo con los demás archivos privados. Los comprobantes permanecen en los tickets de Discord. No borrar tickets pendientes ni su evidencia. El registro admite hasta 5.000 órdenes; requiere una política de archivo antes de alcanzar ese límite.
+
+## Validación del código
+
+`tests/recharge-bank.php`: estados, CUIT, identidad, autorización, comprobante, referencia única, aislamiento de ambiente y recibos idempotentes. `tests/recharge-bank-bot.cjs`: firmas, permisos privados y recuperación del mismo canal. `tests/recharge-bank-browser.cjs`: selector, CUIT, importe y diseño a 1440/390/320 px. Las pruebas usan datos ficticios y no cobran ni conectan al Discord real. La ejecución de SQL y las tareas de Windows requieren la prueba de aceptación en el VPS.
+
+## Actualización de avisos
+
+Con V1 ya instalada, desplegar primero beta desde cPanel. Ejecutar `Actualizar_Avisos.ps1` desde el paquete de avisos como administrador del VPS. Actualiza únicamente `C:\MU_PANIC_BOT\transferencias.js`, comprueba su versión y crea respaldo con restauración en Descargas. Reinicia sólo la tarea del bot si estaba ejecutándose. Conserva SQL, configuración, credenciales y el servicio de recargas. También avisa por compras ya acreditadas que todavía no tengan un aviso registrado. El ticket debe seguir existiendo.
+
+## Panel administrador
+
+`/usercp/shopadmin/` abre Inicio con estadísticas de los registros privados de ambos medios de pago. El menú tiene seis destinos: Inicio, Transferencias por aprobar, Compras, Economía, Referidos y Configuración. Sólo Configuración contiene los formularios de cuenta receptora, paquetes, monturas, VIP y datos de entrega.
+
+`?vista=compras` es el historial unificado de Ualá y transferencias: conserva órdenes pendientes, aprobadas, acreditadas y rechazadas. Incluye operación bancaria, estado de entrega, saldo antes/después y enlaces al comprobante y ticket cuando corresponda. Los filtros por cuenta, operación, medio, estado y ambiente se aplican antes de paginar y calcular totales. Por defecto incluye pruebas y producción, claramente identificadas. Inicio permite separar esos ambientes y muestra pagos aprobados, Eryns entregados, transferencias pendientes y entregas pendientes. Una lectura incompleta se informa como error; no representa ausencia de pagos.
+
+Los enlaces anteriores de Economía, Referidos y Transferencias siguen funcionando. Los anclajes antiguos de configuración redirigen a la pantalla de Configuración.
+
+## Condiciones y aceptación
+
+Las páginas `/tos/`, `/refunds/` y `/privacy/` usan la versión `2026-10-21.2`. Describen Eryns, soporte privado de Discord, datos de la transferencia y el proceso de hasta 48 horas. La casilla del formulario comienza desmarcada. El servidor rechaza la creación sin aceptación o con una versión anterior y no escribe una orden en esos casos.
+
+Cada nueva transferencia conserva `terms_acceptance` con versión, cuenta y fecha UTC generada por el servidor. Los reintentos conservan la aceptación original; las operaciones anteriores siguen funcionando sin atribuirles una aceptación retroactiva. El panel de revisión muestra estos datos dentro de «Datos de esta transferencia». No se envían al bot ni al servicio de acreditación.
+
+Al modificar las condiciones, actualizar su fecha y versión en las tres páginas y `PanicBankTransfers::TERMS_VERSION`, conservando el texto anterior en el historial de Git. Este registro documenta una aceptación; no implica renuncia a derechos ni garantiza la validez jurídica de todas las cláusulas.

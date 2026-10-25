@@ -1,0 +1,71 @@
+name: Vessara market checks
+on:
+  push:
+    branches: [beta, main]
+    paths:
+      - 'overlay/templates/mupanic/inc/market*.php'
+      - 'overlay/templates/mupanic/js/market.js'
+      - 'overlay/templates/mupanic/js/market-listings.js'
+      - 'overlay/templates/mupanic/inc/market-item-display.php'
+      - 'overlay/templates/mupanic/inc/market-item-images.json'
+      - 'overlay/templates/mupanic/css/market.css'
+      - 'overlay/templates/mupanic/img/market/**'
+      - 'overlay/templates/mupanic/index.php'
+      - 'tests/market*.php'
+      - 'tests/market-browser.cjs'
+      - 'tests/market-hall-browser.cjs'
+      - 'tests/market-listings-browser.cjs'
+      - 'tests/market-carousel-browser.cjs'
+      - 'tests/market-jewels-browser.cjs'
+      - 'tests/market-mobile-navigation-browser.cjs'
+      - 'tests/market-desktop-scroll-browser.cjs'
+      - 'tests/market-listings-data.php'
+      - 'tests/market-item-display.php'
+      - 'tests/fixtures/market.php'
+      - '.github/workflows/market-beta.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP syntax and public data checks
+        run: |
+          php -l overlay/templates/mupanic/index.php
+          php -l overlay/templates/mupanic/inc/template.functions.php
+          php -l overlay/templates/mupanic/inc/market-data.php
+          php -l overlay/templates/mupanic/inc/market.php
+          php tests/market-data.php
+          php -l overlay/templates/mupanic/inc/market-listings-data.php
+          php tests/market-listings-data.php
+          php -l overlay/templates/mupanic/inc/market-item-display.php
+          php tests/market-item-display.php
+          php tests/market-cache.php
+          php tests/market-render.php
+          node --check overlay/templates/mupanic/js/market.js
+          node --check overlay/templates/mupanic/js/market-listings.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install UI test tools
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Validate market at desktop and mobile widths
+        env:
+          MARKET_SCREENSHOT_DIR: market-screenshots
+        run: |
+          node tests/market-browser.cjs
+          node tests/market-hall-browser.cjs
+          node tests/market-listings-browser.cjs
+          node tests/market-carousel-browser.cjs
+          node tests/market-jewels-browser.cjs
+          node tests/market-mobile-navigation-browser.cjs
+          node tests/market-desktop-scroll-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vessara-market-screenshots
+          path: market-screenshots/

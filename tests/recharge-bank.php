@@ -1,0 +1,62 @@
+<?php
+define('access',true);$_SESSION=['username'=>'panic'];function isLoggedIn(){return true;}function config($key,$return){return ['panic'=>true];}
+require __DIR__.'/../overlay/templates/mupanic/inc/recharge-bank.php';
+function okBank($x,$why){if(!$x)throw new RuntimeException($why);}
+function failsBank(callable $f,$why){try{$f();}catch(Throwable $e){return;}throw new RuntimeException($why);}
+$root=sys_get_temp_dir().'/panic-bank-'.bin2hex(random_bytes(6));mkdir($root,0700);file_put_contents($root.'/settings.json',json_encode(['environment'=>'test']));
+$b=new PanicBankTransfers($root);$c=$b->config();okBank(!$c['enabled'],'Closed by default');
+failsBank(function(){PanicBankTransfers::cuit('20123456780');},'Bad CUIT checksum');
+failsBank(function(){PanicBankTransfers::cuit('00000000000');},'Empty CUIT');
+okBank(PanicBankTransfers::cuit('20-12345678-6')==='20123456786','Normalize CUIT');
+$guild='1555229554920915057';$support='1555229554920915058';$user='1555229554920915059';$channel='1555229554920915060';$message='1555229554920915061';
+$c=$b->saveConfig(['enabled'=>true,'holder'=>'Titular de prueba','bank'=>'Banco de prueba','alias'=>'mu.panic.prueba','guild_id'=>$guild,'support_channel_id'=>$support],0);
+failsBank(function()use($b){$b->saveConfig([],0);},'Configuration revision collision');
+$worker=['version'=>3,'environment'=>'test','last_success'=>time()];$cat=(require __DIR__.'/../overlay/templates/mupanic/inc/recharge-config.php')['packages'];$cart=PanicRecharge::cart($cat,['wcoin-1000'=>1]);
+failsBank(function()use($b,$cart,$worker){$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);},'No bot heartbeat');
+$b->bot(['action'=>'heartbeat','environment'=>'test','guild_id'=>$guild,'support_channel_id'=>$support]);
+failsBank(function()use($b,$cart,$worker){$worker['version']=2;$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);},'Old worker cannot offer bank transfers');
+failsBank(function()use($b,$cart,$worker){$b->begin('panic',$cart,str_repeat('e',32),'20123456786','test',$worker);},'Missing consent rejected');
+failsBank(function()use($b,$cart,$worker){$b->begin('panic',$cart,str_repeat('e',32),'20123456786','test',$worker,'old-version');},'Outdated terms rejected');
+okBank($b->history('panic')['total']===0,'Rejected consent creates no order');
+$o=$b->begin('panic',$cart,str_repeat('a',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);
+okBank($o['terms_acceptance']['version']===PanicBankTransfers::TERMS_VERSION && $o['terms_acceptance']['account']==='panic' && strtotime($o['terms_acceptance']['accepted_at'])!==false,'Acceptance stored with account and server timestamp');
+okBank($b->get($o['id'])['terms_acceptance']===$o['terms_acceptance'],'Acceptance persists');
+okBank($b->begin('panic',$cart,str_repeat('a',32),'20-12345678-6','test',$worker,PanicBankTransfers::TERMS_VERSION)['id']===$o['id'],'Duplicate checkout reuses order');
+failsBank(function()use($b,$o){$b->get($o['id'],'other');},'Order ownership');
+failsBank(function()use($b,$o){$b->ready($o['id'],'other');},'Other account cannot issue code');
+$claim=$b->ready($o['id'],'panic');okBank(strlen($claim['code'])===24,'Private claim code');
+$r=['action'=>'claim','environment'=>'test','guild_id'=>$guild,'discord_id'=>$user,'code'=>$claim['code']];
+$result=$b->bot($r);okBank($result['can_create'] && $result['order']['cuit']==='20123456786','Owner binding');
+okBank(!$b->bot($r)['can_create'],'No second channel creation on retry');
+failsBank(function()use($b,$r){$r['discord_id']='1555229554920915069';$b->bot($r);},'Different Discord user cannot claim code');
+$t=['action'=>'ticket','environment'=>'test','guild_id'=>$guild,'discord_id'=>$user,'id'=>$o['id'],'channel_id'=>$channel];$b->bot($t);$b->bot($t);
+failsBank(function()use($b,$t){$t['channel_id']='1555229554920915070';$b->bot($t);},'Cannot replace existing channel');
+failsBank(function()use($b,$o){$b->approve($o['id'],'BANK1234',true);},'Attachment required');
+$receipt=$t+['message_id'=>$message,'has_attachment'=>true];$receipt['action']='receipt';
+failsBank(function()use($b,$receipt){$receipt['discord_id']='1555229554920915071';$b->bot($receipt);},'Receipt must be buyer attachment');
+$b->bot($receipt);
+failsBank(function()use($b,$o){$b->approve($o['id'],'BANK1234',false);},'Explicit bank verification required');
+$_SESSION['username']='other';failsBank(function()use($b,$o){$b->approve($o['id'],'BANK1234',true);},'Only authorized administrator can approve');$_SESSION['username']='panic';
+okBank(!$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'],'No notification before credit');
+$approved=$b->approve($o['id'],'BANK1234',true);
+okBank($b->history(null,1,true,true)['total']===0,'Approved orders leave pending review queue');
+okBank(!$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'],'Approval alone does not notify credit');
+failsBank(function()use($b,$t){$b->bot(array_replace($t,['action'=>'notified','message_id'=>'1555229554920915062']));},'Cannot mark an uncredited order notified');
+okBank(count($b->jobs('test'))===1 && !$b->jobs('production'),'Only approved matching environment queued');
+$job=$b->jobs('test')[0];okBank($job['provider']==='bank_transfer' && !isset($job['cuit']),'Delivery contains no CUIT');
+failsBank(function()use($b,$o){$b->reject($o['id']);},'Cannot reject approved delivery');
+failsBank(function()use($b,$job){$b->acknowledge($job+['state'=>'credited','before_coin'=>100,'after_coin'=>1099]);},'Wrong delta refused');
+$ack=$job+['state'=>'credited','before_coin'=>100,'after_coin'=>1100];$b->acknowledge($ack);$b->acknowledge($ack);
+okBank(!$b->jobs('test') && $b->get($o['id'])['delivery_state']==='credited','Idempotent receipt and no redelivery');
+$notices=$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'];okBank(count($notices)===1 && !isset($notices[0]['cuit']),'Credit notification contains no CUIT');
+failsBank(function()use($b,$t){$b->bot(array_replace($t,['action'=>'notified','channel_id'=>'1555229554920915099','message_id'=>'1555229554920915062']));},'Wrong ticket cannot acknowledge notification');
+$notice=array_replace($t,['action'=>'notified','message_id'=>'1555229554920915062']);$b->bot($notice);$b->bot($notice);
+okBank(!$b->bot(['action'=>'notifications','environment'=>'test','guild_id'=>$guild])['orders'],'Acknowledged notification not queued again');
+// Account changes do not rewrite old bank instructions.
+$c['holder']='Nuevo titular';$c=$b->saveConfig($c,$c['revision']);okBank($b->get($o['id'])['bank']['holder']==='Titular de prueba','Immutable bank snapshot');
+$o2=$b->begin('panic',$cart,str_repeat('b',32),'20123456786','test',$worker,PanicBankTransfers::TERMS_VERSION);$code2=$b->ready($o2['id'],'panic')['code'];$r['code']=$code2;$b->bot($r);$t['id']=$o2['id'];$b->bot($t);$receipt['id']=$o2['id'];$b->bot($receipt);
+failsBank(function()use($b,$o2){$b->approve($o2['id'],'bank1234',true);},'Same bank operation cannot be reused after bank settings change');
+$b->reject($o2['id']);okBank(!$b->jobs('test'),'Rejected transfer does not deliver');
+$data=json_decode(file_get_contents($root.'/recharge-bank.json'),true);okBank(!str_contains(json_encode($data),$code2),'Claim code stored only as hash');
+foreach(glob($root.'/*')as $f)unlink($f);rmdir($root);
+echo "Bank transfer state machine, CUIT, snapshots, authorization, receipt and duplicate checks passed.\n";

@@ -1,0 +1,24 @@
+name: Fractura ranks and distinctions
+on:
+  push:
+    branches: [beta]
+    paths:
+      - 'overlay/templates/mupanic/inc/fractura-ranks.*'
+      - 'overlay/templates/mupanic/inc/fractura-hall.php'
+      - 'tests/fractura-ranks.php'
+      - '.github/workflows/fractura-ranks.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ranks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax and read-only ranks/distinctions fixtures
+        run: |
+          php -l overlay/templates/mupanic/inc/fractura-ranks.php
+          php -l overlay/templates/mupanic/inc/fractura-hall.php
+          php tests/fractura-ranks.php
+          php tests/fractura-week.php
+

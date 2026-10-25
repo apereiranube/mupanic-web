@@ -1,0 +1,749 @@
+/* MU PANIC · Mercado de Vessara
+   Misma línea que El servidor: escenas a sangre con fondo fijo por sección,
+   uniones de arte entre escenas, marcos de bronce y brasas livianas.
+   Rendimiento: sin desenfoques de fondo ni lienzos a pantalla completa;
+   las animaciones solo corren con su sección en pantalla. */
+
+/* ---------- Contenedores del sitio ---------- */
+.is-market{background:#0b0c0e;color:#eee6d8}
+html:has(body.is-market),body.is-market{overflow-x:clip}
+.is-market .inner-hero{display:none}
+.is-market .inner-content{padding:0;background:#0b0c0e}
+.is-market .inner-content>.shell{width:100%;max-width:none;padding:0}
+.is-market .module-surface{background:none;border:0;padding:0;overflow:visible;color:#eee6d8}
+.is-market .footer-modern{margin-top:0}
+
+/* ---------- Base ---------- */
+.vessara-page{--bg:#0b0c0e;--ink:#eee6d8;--muted:#b6b3ad;--bronze:#c6a578;--bronze-hi:#e3c79e;--ember:#df9c7f;--zen:#f0cf8a;--eryns:#b1e4ff;--line:#c6a57836;--serif:Georgia,'Times New Roman',serif;--sans:Manrope,Arial,sans-serif;
+ --frame:url('../img/server/v3/marco-grande-f1f30d068b9c.webp');--frame-s:url('../img/server/v3/marco-chico-261425c19320.webp');
+ position:relative;background:var(--bg);color:var(--ink);font:400 15px/1.7 var(--sans);-webkit-font-smoothing:antialiased}
+.vessara-page *,.vessara-page *::before,.vessara-page *::after{box-sizing:border-box}
+.vessara-page [hidden]{display:none!important}
+.vessara-page img{max-width:100%;display:block}
+.vessara-page a{color:inherit}
+.vessara-page :focus-visible{outline:2px solid var(--bronze-hi);outline-offset:3px}
+.vessara-page h1,.vessara-page h2,.vessara-page h3,.vessara-page h4{font-family:var(--serif);font-weight:500;color:var(--ink);text-wrap:balance;margin:0;text-transform:none;letter-spacing:-.02em}
+.vessara-page h2{font-size:clamp(36px,4.05vw,64px);letter-spacing:-.045em;line-height:1.04}
+.vessara-page p{margin:0;color:var(--muted);line-height:1.75}
+.vs-wrap{position:relative;z-index:2;width:min(1320px,100%);margin-inline:auto;padding-inline:max(24px,env(safe-area-inset-left,0px))}
+.vs-ey{font:600 9px/1.7 var(--sans);letter-spacing:.19em;text-transform:uppercase;color:var(--bronze);margin:0 0 16px!important}
+.vs-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.vs-head h2{max-width:720px}
+.vs-lead{max-width:440px;font-size:16px}
+.vs-k{display:block;font:600 9px/1.4 var(--sans);letter-spacing:.17em;text-transform:uppercase;color:var(--bronze)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.vessara-cta,.vessara-link,.vessara-listings-entry{display:inline-flex;align-items:center;gap:20px;min-height:50px;padding:14px 22px;font:600 11px/1 var(--sans);letter-spacing:.06em;text-decoration:none;border:1px solid #c7a16b;transition:background .25s,border-color .25s,color .25s}
+.vessara-cta{background:linear-gradient(140deg,#7d5d33,#382b1c);color:#f6e7cb!important}
+.vessara-cta:hover{background:#76552e;border-color:#ebca90;color:#fff2d8!important}
+.vessara-link,.vessara-listings-entry{background:#0b0c0e80;color:#e3cfad!important;border-color:#b59a746a}
+.vessara-link:hover,.vessara-listings-entry:hover{background:#c6a57822;color:#fff0d8!important}
+.vessara-cta span,.vessara-link span{font-size:16px}
+.vessara-hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+/* Marcos de bronce (9 piezas) */
+.vs-framed,.vessara-stats>article,.vs-deal,.vessara-listings-board,.vessara-ledger,.vessara-tape,.vessara-activity,.vessara-guarantee-rules>article{position:relative;background:linear-gradient(#14110ee6,#0b0c0ef2);isolation:isolate}
+.vessara-stats>article::after,.vs-deal::after,.vessara-listings-board::after,.vessara-ledger::after,.vessara-tape::after,.vessara-activity::after{content:"";position:absolute;inset:-6px;z-index:5;pointer-events:none;border:56px solid transparent;border-image:var(--frame) 180 fill/56px/0 stretch;opacity:.95}
+.vessara-guarantee-rules>article::after{content:"";position:absolute;inset:-3px;z-index:5;pointer-events:none;border:28px solid transparent;border-image:var(--frame-s) 90/28px/0 stretch}
+.vessara-stats>article::after,.vs-deal::after,.vessara-listings-board::after,.vessara-ledger::after,.vessara-tape::after,.vessara-activity::after{border-image:var(--frame) 180/56px/0 stretch}
+
+/* ---------- Escenas con fondo fijo y uniones ---------- */
+.vs-sc{position:relative;isolation:isolate;padding:200px 0 240px}
+.vs-bg{position:absolute;inset:0;z-index:0;clip-path:inset(0);pointer-events:none}
+.vs-stick{position:sticky;top:0;height:100vh;height:100lvh;overflow:hidden}
+.vs-stick img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);filter:saturate(.9)}
+.vs-stick::after{content:"";position:absolute;inset:0}
+.vs-l .vs-stick::after{background:linear-gradient(90deg,#0b0c0ee6 0,#0b0c0ea6 38%,#0b0c0e33 66%,#0b0c0e59)}
+.vs-c .vs-stick::after{background:radial-gradient(ellipse 80% 75% at 50% 50%,#0b0c0e80,#0b0c0ebf)}
+.vs-v .vs-stick::after{background:radial-gradient(ellipse 60% 55% at 50% 50%,#0b0c0e8c,#0b0c0e59 75%,#0b0c0e80)}
+.vs-v .vs-stick img{transform:scale(1.04);filter:saturate(1)}
+.vs-d .vs-stick::after{background:linear-gradient(#0b0c0ecc,#0b0c0ee0 40%,#0b0c0ef0)}
+.vs-join{position:absolute;left:50%;top:0;z-index:1;width:max(115%,1700px);max-width:none!important;height:auto;transform:translate(-50%,-50%);pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.vs-sc h2,.vs-sc .vs-head p,.vessara-guarantee-copy p{text-shadow:0 1px 3px #000,0 2px 14px #000}
+.vs-js .vs-rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.vs-js .vs-rv.is-in{opacity:1;transform:none}
+
+/* ---------- 1 · Portada ---------- */
+.vs-sc-1{min-height:100vh;min-height:100svh;padding:150px 0 0;display:flex;flex-direction:column}
+.vs-sc-1>.vs-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:170px}
+.vs-sc-1 .vs-stick img{animation:vsDrift 28s ease-in-out infinite alternate}
+@keyframes vsDrift{from{transform:scale(1.12)}to{transform:scale(1.2) translate(-1.5%,-1%)}}
+.vessara-market-brand{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.vessara-market-brand img{width:42px;height:42px;filter:drop-shadow(0 0 12px #e3c79e55)}
+.vessara-market-brand span{font:600 9px/1.6 var(--sans);letter-spacing:.2em;color:var(--bronze)}
+.vessara-market-brand b{display:block;font-weight:600;color:#a9a399}
+.vessara-intro{max-width:600px}
+.vessara-page h1{font-size:clamp(54px,7vw,112px);letter-spacing:-.055em;line-height:.96;text-shadow:0 2px 30px #000}
+.vessara-page h1 em{font-style:italic;color:var(--bronze-hi);background:linear-gradient(100deg,#e3c79e 0,#e3c79e 40%,#fff3dc 50%,#e3c79e 60%,#e3c79e);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:vsShine 7s ease-in-out infinite}
+@keyframes vsShine{0%,70%{background-position:100% 0}100%{background-position:-50% 0}}
+.vessara-lead{font-size:20px!important;color:#e5dccd!important;margin-top:26px!important;text-shadow:0 1px 10px #000}
+.vessara-intro-description{max-width:470px;margin-top:12px!important;text-shadow:0 1px 10px #000}
+/* Cinta de últimos tratos */
+.vessara-ticker{position:absolute;left:0;right:0;top:0;transform:translateY(-50%);z-index:3;display:grid;box-shadow:0 10px 40px #000c;grid-template-columns:auto 1fr auto;align-items:stretch;border-block:1px solid #b89a675c;background:linear-gradient(90deg,#0b0c0ef2,#0b0c0ed9 50%,#0b0c0ef2)}
+.vessara-ticker-label{display:flex;align-items:center;gap:12px;padding:16px 26px;font:700 9px/1.35 var(--sans);letter-spacing:.2em;color:var(--bronze-hi);border-right:1px solid var(--line)}
+.vessara-ticker-label i{width:8px;height:8px;border-radius:50%;background:#7fe39a;box-shadow:0 0 0 0 #7fe39a99;animation:vsPing 2s infinite}
+@keyframes vsPing{70%{box-shadow:0 0 0 9px #7fe39a00}100%{box-shadow:0 0 0 0 #7fe39a00}}
+.vessara-ticker-window{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.vessara-ticker-track{display:flex;width:max-content;animation:vsTicker 60s linear infinite}
+.vessara-ticker-track.is-static{animation:none}
+.vessara-ticker.is-paused .vessara-ticker-track{animation-play-state:paused}
+@keyframes vsTicker{to{transform:translate3d(-50%,0,0)}}
+.vessara-ticker-group{display:flex}
+.vessara-ticker-sale{display:grid;grid-template-columns:auto auto;column-gap:14px;align-items:baseline;padding:13px 30px;border-right:1px solid #c6a57824;white-space:nowrap}
+.vessara-ticker-sale strong{font:500 15px/1.3 var(--serif);color:#efe3cf}
+.vessara-ticker-sale b{font:700 13px var(--sans);color:var(--zen)}
+.vessara-ticker-sale.is-eryns b{color:var(--eryns)}
+.vessara-ticker-sale small{font-size:11px;color:#8f8a82}
+.vessara-ticker-empty{display:block;padding:16px 26px;color:#a9a399;font-size:13px}
+.vessara-ticker-pause{background:none;border:0;border-left:1px solid var(--line);color:var(--bronze);padding:0 20px;cursor:pointer;font-size:13px}
+
+/* ---------- 2 · Pulso en vivo ---------- */
+.vessara-session{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font:600 9px/1 var(--sans);letter-spacing:.18em;color:#a9a399}
+.vessara-session i{font-style:normal;color:var(--bronze);margin:0 4px}
+.vessara-session-clock time{font:500 22px/1 var(--serif);letter-spacing:0;color:var(--ink);font-variant-numeric:tabular-nums}
+.vessara-session-clock b{color:var(--bronze)}
+.vessara-effects-toggle{background:#0b0c0e99;border:1px solid #b59a7455;color:#c8b393;font:600 9px/1 var(--sans);letter-spacing:.12em;padding:9px 12px;cursor:pointer}
+.vessara-effects-toggle:disabled{opacity:.5;cursor:default}
+.vessara-stats{display:grid;grid-template-columns:1fr 1.15fr 1.15fr;gap:26px}
+.vessara-stats>article{padding:40px 38px 36px;min-height:270px;display:flex;flex-direction:column;overflow:hidden}
+.vessara-stats>article>*{position:relative;z-index:2}
+.vessara-stats strong{display:block;margin:12px 0 6px;font:500 clamp(40px,4vw,62px)/1 var(--serif);letter-spacing:-.03em;color:#f3e7d2;font-variant-numeric:tabular-nums;white-space:nowrap}
+.vessara-stats small{font-size:13px;color:var(--muted)}
+.vessara-stats small b{color:#e9dcc6}
+.vessara-stat-zen strong{color:var(--zen)}
+.vessara-stat-eryns strong{color:var(--eryns)}
+.vessara-stats .vs-coin{position:absolute!important;z-index:1!important;right:-26px;top:-20px;width:150px;height:150px;opacity:.22;transform:rotate(-12deg);transition:opacity .4s,transform .6s}
+.vessara-stats article.is-updating .vs-coin{opacity:.6;transform:rotate(8deg) scale(1.08)}
+.vessara-stats article.is-updating{box-shadow:0 0 0 1px #e3c79e66,0 0 46px #c6a57844}
+.vessara-live-label{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-bottom:16px;padding:6px 10px;border:1px solid #7fe39a55;background:#0e2116aa;font:700 9px/1 var(--sans);letter-spacing:.16em;color:#9df0b4}
+.vessara-live-label i{width:7px;height:7px;border-radius:50%;background:#7fe39a;animation:vsPing 2s infinite}
+.vessara-live-label.is-stale{border-color:#df9c7f55;background:#2a120c99;color:#f0b8a0}
+.vessara-live-label.is-stale i{background:#df9c7f;animation:none}
+.vessara-card-connection.is-stale{color:#f0b8a0}
+.vessara-today-footer{margin-top:auto;padding-top:18px;display:flex;gap:10px;align-items:center;font:600 9px/1 var(--sans);letter-spacing:.16em;color:#a9a399;border-top:1px solid var(--line)}
+.vessara-today-footer i{font-style:normal;color:var(--bronze)}
+.vessara-spark{width:100%;height:58px;margin-top:auto;overflow:visible}
+.vessara-spark polygon{fill:#c6a57822}
+.vessara-spark polyline{fill:none;stroke:var(--zen);stroke-width:2;vector-effect:non-scaling-stroke;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.6s ease}
+.vessara-stat-eryns .vessara-spark polyline{stroke:var(--eryns)}
+.vessara-stat-eryns .vessara-spark polygon{fill:#b1e4ff1c}
+.vessara-stats.is-in .vessara-spark polyline,.vessara-page:not(.vs-js) .vessara-spark polyline{stroke-dashoffset:0}
+.vessara-card-caption{display:block;margin-top:8px;font:600 8px/1 var(--sans);font-style:normal;letter-spacing:.18em;color:#8d8b86}
+
+/* ---------- 3 · Así se sella un trato ---------- */
+.vs-deal{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0;overflow:hidden}
+.vs-stage{position:relative;min-height:470px;overflow:hidden;background:linear-gradient(#0b0c0ecc,#0b0c0ef0),var(--deal-bg) 52% 78%/180% auto no-repeat,radial-gradient(ellipse 60% 55% at 50% 52%,#3a2a1866,#0b0c0e00 70%),linear-gradient(#120f0c,#0b0c0e);border-right:1px solid var(--line)}
+.vs-npc{position:absolute;top:28px;padding:9px 14px;border:1px solid #c6a57844;background:#0b0c0ecc;font-size:12px;transition:opacity .5s,border-color .5s}
+.vs-npc b{display:block;font:700 8px/1.4 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.vs-npc span{font:500 16px var(--serif);color:var(--ink)}
+.vs-seller{left:28px}.vs-buyer{right:28px;opacity:.25}
+.vs-item{position:absolute;left:50%;top:50%;width:230px;display:flex;align-items:center;gap:14px;padding:12px 16px 12px 12px;background:linear-gradient(#1d1712f2,#100d0bf2);border:1px solid #c6a57877;box-shadow:0 20px 40px #000a;transform:translate(-150%,-50%);transition:transform 1s cubic-bezier(.3,.9,.3,1),box-shadow .5s,border-color .5s;z-index:3}
+.vs-item img{width:64px;height:64px;object-fit:contain;filter:drop-shadow(0 0 12px #e05b3f88)}
+.vs-item b{display:block;font:500 17px/1.2 var(--serif);color:#8af0a8}
+.vs-item small{font:700 13px var(--sans);color:var(--eryns)}
+.vs-vault{position:absolute;left:50%;top:50%;width:300px;height:170px;transform:translate(-50%,-50%) scale(.85);border:1px dashed #c6a57866;opacity:0;transition:opacity .6s,transform .6s;display:flex;justify-content:space-between;align-items:flex-end;padding:10px 12px;z-index:2}
+.vs-vault span{font:700 8px/1 var(--sans);letter-spacing:.2em;color:var(--bronze)}
+.vs-vault i{font:600 11px var(--sans);font-style:normal;color:#e3cfad}
+.vs-stamp{position:absolute;left:50%;top:50%;width:120px;height:120px;transform:translate(-50%,-260%) rotate(-25deg) scale(1.6);opacity:0;z-index:4;filter:drop-shadow(0 10px 20px #000) drop-shadow(0 0 18px #e3c79e88);transition:transform .45s cubic-bezier(.6,0,.9,.4),opacity .3s}
+.vs-ring{position:absolute;left:calc(50% - 120px);top:50%;width:140px;height:140px;margin:-70px 0 0 -70px;border-radius:50%;border:2px solid #f3d49a;opacity:0;z-index:3}
+.vs-coins{position:absolute;inset:0;pointer-events:none;z-index:4}
+.vs-coins img{position:absolute;left:50%;top:50%;width:42px;height:42px;margin:-21px;opacity:0}
+.vs-web{position:absolute;right:30px;bottom:110px;width:200px;padding:10px 12px;border:1px solid #6aa7c855;background:#0d1418e6;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s;z-index:2}
+.vs-web span{display:block;font:700 8px/1.4 var(--sans);letter-spacing:.16em;color:#8fbfd8}
+.vs-web b{display:block;font:500 15px var(--serif);color:#8af0a8}
+.vs-web i{font:700 12px var(--sans);font-style:normal;color:var(--eryns)}
+.vs-pay{position:absolute;left:28px;right:28px;bottom:70px;display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);background:#0b0c0ee6;opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s;z-index:2}
+.vs-pay div{padding:10px 14px;border-left:1px solid var(--line)}
+.vs-pay div:first-child{border:0}
+.vs-pay span{display:block;font:600 8px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#a9a399}
+.vs-pay b{font:500 20px var(--serif);color:var(--ink)}
+.vs-tax b{color:var(--ember)}
+.vs-net b{color:var(--eryns)}
+.vs-caption{position:absolute;left:28px;right:28px;bottom:22px;font:500 14px/1.4 var(--serif)!important;color:#e9dcc6!important;z-index:2}
+/* estados */
+.vs-stage[data-step="1"] .vs-item{transform:translate(-115%,-50%)}
+.vs-stage[data-step="2"] .vs-item,.vs-stage[data-step="3"] .vs-item{transform:translate(-50%,-50%)}
+.vs-stage[data-step="2"] .vs-vault,.vs-stage[data-step="3"] .vs-vault{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.vs-stage[data-step="2"] .vs-stamp{opacity:.9;transform:translate(-50%,-128%) rotate(-8deg) scale(.55);transition-duration:.6s}
+.vs-stage[data-step="3"] .vs-stamp{opacity:.9;transform:translate(-50%,-128%) rotate(-8deg) scale(.55)}
+.vs-stage[data-step="3"] .vs-web{opacity:1;transform:none}
+.vs-stage[data-step="3"] .vs-buyer,.vs-stage[data-step="4"] .vs-buyer,.vs-stage[data-step="5"] .vs-buyer{opacity:1}
+.vs-stage[data-step="4"] .vs-item{transform:translate(-50%,-50%);border-color:#f3d49a;box-shadow:0 0 0 1px #f3d49a55,0 20px 50px #000c,0 0 60px #e3c79e44}
+.vs-stage[data-step="4"] .vs-stamp{opacity:1;transform:translate(-150%,-55%) rotate(0) scale(.8)}
+.vs-stage[data-step="4"] .vs-ring{animation:vsRing 1s .4s ease-out}
+@keyframes vsRing{from{opacity:.9;transform:scale(.6)}to{opacity:0;transform:scale(2.4)}}
+.vs-stage[data-step="5"] .vs-item{transform:translate(48%,-150%) scale(.8);opacity:.9}
+.vs-stage[data-step="5"] .vs-stamp{opacity:0;transform:translate(-50%,-50%) scale(.9)}
+.vs-stage[data-step="5"] .vs-pay{opacity:1;transform:none}
+.vs-stage[data-step="5"] .vs-seller{border-color:#b1e4ff88}
+.vs-stage[data-step="5"] .vs-coins img{animation:vsCoin 1.4s cubic-bezier(.3,.7,.4,1) forwards}
+.vs-coins img:nth-child(1){--x:-300px;--y:-150px;animation-delay:.05s!important}
+.vs-coins img:nth-child(2){--x:-270px;--y:-170px;animation-delay:.15s!important}
+.vs-coins img:nth-child(3){--x:-320px;--y:-175px;animation-delay:.25s!important}
+.vs-coins img:nth-child(4){--x:-285px;--y:-140px;animation-delay:.35s!important}
+.vs-coins img:nth-child(5){--x:-305px;--y:-165px;animation-delay:.45s!important}
+.vs-coins img:nth-child(6){--x:-260px;--y:-155px;animation-delay:.55s!important}
+.vs-coins img:nth-child(7){--x:-120px;--y:-60px;animation-delay:.3s!important;filter:hue-rotate(-30deg) saturate(.6)}
+@keyframes vsCoin{0%{opacity:0;transform:translate(60px,0) scale(.4)}20%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.8)}}
+.vs-steps{list-style:none;margin:0;padding:22px 26px}
+.vs-steps li{border-bottom:1px solid #c6a57822}
+.vs-steps li:last-child{border:0}
+.vs-steps button{position:relative;display:grid;grid-template-columns:34px 1fr;gap:14px;width:100%;padding:16px 4px;background:none;border:0;text-align:left;color:inherit;cursor:pointer;font:inherit}
+.vs-n{font:500 22px/1 var(--serif);color:#6f6a63;transition:color .3s}
+.vs-steps b{display:block;font:500 18px/1.3 var(--serif);color:#a9a399;transition:color .3s}
+.vs-steps small{display:block;max-height:0;overflow:hidden;opacity:0;font-size:13px;line-height:1.6;color:var(--muted);transition:max-height .45s,opacity .45s,margin .45s}
+.vs-steps li.on .vs-n,.vs-steps li.done .vs-n{color:var(--bronze-hi)}
+.vs-steps li.on b{color:var(--ink)}
+.vs-steps li.on small{max-height:90px;opacity:1;margin-top:6px}
+.vs-pg{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--bronze-hi);transform:scaleX(0);transform-origin:left}
+.vs-steps li.on .vs-pg{transform:scaleX(1)}
+.vs-pg.run{animation:vsProg var(--d,5000ms) linear forwards}
+@keyframes vsProg{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* ---------- 4 · Vidriera ---------- */
+.vessara-listings-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:40px}
+.vessara-listings-heading p{max-width:520px;margin-top:14px!important}
+.vessara-promoted{margin-bottom:44px}
+.vessara-promoted-heading{display:flex;align-items:center;gap:22px;margin-bottom:18px}
+.vessara-promoted-heading img{width:140px;height:94px;object-fit:cover;border:1px solid #c6a57855}
+.vessara-promoted-heading h3{font-size:26px}
+.vessara-promoted-heading p{font-size:14px}
+.vessara-promoted-grid{overflow:hidden;padding:10px 0 18px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent);mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent)}
+.vessara-marquee-motion{display:flex;width:max-content;animation:vsMarquee var(--vessara-duration,30s) linear infinite}
+.vessara-promoted-grid:hover .vessara-marquee-motion,.vessara-promoted-grid:focus-within .vessara-marquee-motion,.vessara-promoted.is-offscreen .vessara-marquee-motion,.vessara-promoted.is-page-hidden .vessara-marquee-motion,.effects-paused .vessara-marquee-motion{animation-play-state:paused}
+.vessara-promoted.is-reduced-motion .vessara-promoted-grid{overflow-x:auto}
+.vessara-promoted.is-reduced-motion .vessara-marquee-motion{animation:none}
+@keyframes vsMarquee{to{transform:translate3d(calc(-1 * var(--vessara-travel,1100px)),0,0)}}
+.vessara-marquee-group{display:flex;gap:14px;padding-right:14px}
+.vessara-marquee-group>.vessara-offer{width:300px;flex:none}
+.vessara-listings-board{padding:38px 40px 30px}
+.vessara-listings-board>*{position:relative;z-index:6}
+.vessara-listings-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
+.vessara-listings-top h3{font-size:26px}
+.vessara-listings-top span{font:600 10px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#a9a399}
+.vessara-listings-controls,.vessara-toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:26px}
+.vessara-listings-currencies,.vessara-filters{display:inline-flex;border:1px solid #c6a57844}
+.vessara-listings-currencies button,.vessara-filters button{background:none;border:0;color:#a9a399;font:600 11px/1 var(--sans);letter-spacing:.06em;padding:12px 16px;cursor:pointer;transition:background .2s,color .2s}
+.vessara-listings-currencies button[aria-pressed="true"],.vessara-filters button[aria-pressed="true"]{background:linear-gradient(140deg,#7d5d33,#382b1c);color:#f6e7cb}
+.vessara-listings-search,.vessara-search{flex:1;min-width:200px}
+.vessara-listings-search input,.vessara-search input,.vessara-listings-sort select{width:100%;height:42px;padding:0 14px;background:#0b0c0ecc;border:1px solid #c6a57844;color:var(--ink);font:500 13px var(--sans);border-radius:0;outline:0}
+.vessara-listings-search input:focus,.vessara-search input:focus,.vessara-listings-sort select:focus{border-color:var(--bronze-hi)}
+.vessara-listings-sort select{width:auto;min-width:170px;appearance:none;padding-right:34px;background-image:linear-gradient(45deg,transparent 50%,#c6a578 50%),linear-gradient(135deg,#c6a578 50%,transparent 50%);background-position:calc(100% - 18px) 18px,calc(100% - 13px) 18px;background-size:5px 5px;background-repeat:no-repeat}
+.vessara-offer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.vessara-offer-grid:has(>.vessara-offer:only-child){grid-template-columns:minmax(0,320px);justify-content:center}
+.vessara-listings-state{padding:30px 0;text-align:center}
+.vessara-listings-pagination{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:26px;font-size:12px;color:#a9a399}
+.vessara-listings-pagination button{background:#0b0c0e;border:1px solid #c6a57855;color:#e3cfad;padding:10px 14px;font:600 11px var(--sans);cursor:pointer}
+.vessara-listings-pagination button:disabled{opacity:.35;cursor:default}
+.vessara-listings-foot{margin-top:22px;font-size:11px;color:#8d8b86;text-align:center}
+
+/* Tarjeta del objeto (la arma market-listings.js) */
+.vessara-offer{position:relative;display:flex;flex-direction:column;min-width:0;background:linear-gradient(#17130fe6,#0d0c0bf2);border:1px solid #c6a57833;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s;outline:0}
+.vessara-offer:hover,.vessara-offer:focus-visible,.vessara-offer[aria-expanded="true"]{transform:translateY(-4px);border-color:#e3c79e99;box-shadow:0 18px 40px #000b,0 0 30px #c6a57822}
+.vessara-offer.is-featured{border-color:#e9c97d88;background:linear-gradient(#251c11f0,#0f0c09f5)}
+.vessara-item-media{position:relative;display:grid;place-items:center;aspect-ratio:4/3;background:radial-gradient(ellipse 55% 50% at 50% 55%,#c6a57826,#0b0c0e00 70%),#0b0c0e;border-bottom:1px solid #c6a57826;overflow:hidden}
+.vessara-item-media::after{content:"";position:absolute;left:18%;right:18%;bottom:12%;height:12%;border-radius:50%;background:radial-gradient(#000a,#0000 70%)}
+.vessara-item-photo{position:relative;z-index:1;width:auto;height:auto;max-width:min(62%,calc(var(--nat-w,180px) * 1.25));max-height:min(78%,calc(var(--nat-h,180px) * 1.25));object-fit:contain;filter:drop-shadow(0 8px 14px #000c);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.vessara-item-photo.is-small-sprite{width:var(--sprite-width,96px);height:auto;image-rendering:auto}
+.vessara-offer:hover .vessara-item-photo{transform:translateY(-6px) scale(1.05)}
+.vessara-item-media.is-missing{color:#8d8b86;font-size:11px}
+.vessara-photo-missing{position:relative;z-index:1}
+.vessara-offer-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.vessara-offer-tags{display:flex;gap:6px;flex-wrap:wrap}
+.vessara-offer-currency,.vessara-offer-badge{font:700 8px/1 var(--sans);letter-spacing:.16em;padding:5px 7px;border:1px solid #f0cf8a44;color:var(--zen)}
+.vessara-offer-currency.is-eryns{border-color:#b1e4ff44;color:var(--eryns)}
+.vessara-offer-badge{background:linear-gradient(90deg,#f6dc96,#c6a578);color:#0b0c0e;border:0}
+.vessara-offer h4.vessara-item-title{font-size:19px;line-height:1.2;margin:6px 0 0;overflow-wrap:anywhere}
+.vessara-offer-seller{font-size:12px!important;color:#8f8a82!important}
+.vessara-offer-price{margin-top:6px;font:700 18px var(--sans);color:var(--zen)}
+.vessara-offer-price.is-eryns{color:var(--eryns)}
+/* Colores de rareza como en el juego */
+.vessara-item-title{color:#f0e1c9}
+.vessara-item-title.is-excellent{color:#8af0a8}
+.vessara-item-title.is-ancient{color:#7fc9ff}
+.vessara-item-title.is-socket{color:#c5baf8}
+.vessara-item-title.is-harmony{color:#ffcc88}
+.vessara-item-level{font-size:.87em;font-weight:700;white-space:nowrap}
+.vessara-item-level.is-max{color:#ff7d81}
+.vessara-item-level.is-high{color:#ffa77a}
+.vessara-item-level.is-strong{color:#f2d38a}
+.vessara-item-level.is-medium{color:#dec5a8}
+.vessara-item-level.is-low{color:#ada69f;font-weight:500}
+
+/* Ficha del objeto (se agrega al body) */
+.vessara-tooltip{position:fixed;z-index:1200;width:min(380px,calc(100vw - 28px));max-height:calc(100vh - 28px);overflow:auto;padding:18px 20px 16px;background:linear-gradient(#16120ff7,#0b0a09fa);border:1px solid #c6a57877;box-shadow:0 30px 60px #000d,inset 0 0 0 1px #00000080;color:#eee6d8;font:400 13px/1.6 Manrope,Arial,sans-serif;border-radius:4px}
+.vessara-tooltip.is-featured{border-color:#e9c97d}
+.vessara-tooltip h3,.vessara-tooltip h4{font-family:Georgia,serif;margin:0}
+.vessara-tooltip-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.vessara-tooltip-eyebrow{font:700 9px/1 Manrope,Arial,sans-serif;letter-spacing:.18em;color:#c6a578}
+.vessara-tooltip-close{background:none;border:1px solid #c6a57855;color:#e3cfad;width:28px;height:28px;cursor:pointer}
+.vessara-tooltip-intro{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center}
+.vessara-tooltip-intro .vessara-item-media{aspect-ratio:1;border:1px solid #c6a57833;border-radius:3px}
+.vessara-tooltip-name h3{font-size:22px;line-height:1.15;font-weight:500}
+.vessara-tooltip-name p{margin:4px 0 0;font-size:12px;color:#8f8a82}
+.vessara-tooltip-promoted{display:inline-block;margin-bottom:6px;font:700 8px/1 Manrope,Arial,sans-serif;letter-spacing:.16em;color:#f3cf86}
+.vessara-tooltip-pricebar{display:flex;justify-content:space-between;align-items:center;margin:16px 0 4px;padding:12px 14px;background:#0b0c0e;border:1px solid #c6a57833}
+.vessara-tooltip-pricebar span{font:600 9px/1 Manrope,Arial,sans-serif;letter-spacing:.16em;color:#a9a399}
+.vessara-tooltip-pricebar strong{font:700 18px Manrope,Arial,sans-serif;color:#f0cf8a}
+.vessara-tooltip-pricebar strong.is-eryns{color:#b1e4ff}
+.vessara-tooltip-section{padding:12px 0 4px;border-top:1px solid #c6a57826;margin-top:10px}
+.vessara-tooltip-section h4{font:700 9px/1.4 Manrope,Arial,sans-serif;letter-spacing:.18em;color:#c6a578;margin-bottom:6px}
+.vessara-tooltip-section ul{list-style:none;margin:0;padding:0}
+.vessara-tooltip-section li{position:relative;padding:3px 0 3px 14px;color:#ddd3c4}
+.vessara-tooltip-section li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;background:currentColor;opacity:.6}
+.vessara-tooltip-section.is-excellent h4,.vessara-tooltip-excellent{color:#95e8b6!important}
+.vessara-tooltip-ancient{color:#a5cdff!important}
+.vessara-tooltip-harmony{color:#ffcc88!important}
+.vessara-tooltip-special,.vessara-tooltip-socket{color:#c5baf8!important}
+.vessara-tooltip-not-ready{margin:12px 0 0;font-size:12px;color:#a9a399}
+.vessara-tooltip-footer{margin-top:12px;padding-top:10px;border-top:1px solid #c6a57826;font-size:11px;color:#8d8b86}
+.vessara-tooltip-backdrop{position:fixed;inset:0;z-index:1190;background:#000000b8}
+
+/* ---------- 5 · Registro, récords y 7 días ---------- */
+.vessara-ledger-heading .vs-head{margin-bottom:22px}
+.vessara-update{text-align:right;font-size:11px;color:#8d8b86}
+.vessara-live{display:inline-flex;align-items:center;gap:8px;color:#9df0b4!important;font:600 11px var(--sans)!important}
+.vessara-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#7fe39a;animation:vsPing 2s infinite}
+.vessara-live.is-stale{color:#f0b8a0!important}
+.vessara-live.is-stale::before{background:#df9c7f;animation:none}
+.vessara-update b{color:var(--bronze-hi)}
+.vs-floor-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:26px;align-items:start}
+.vessara-ledger{padding:34px 34px 24px}
+.vessara-ledger>*{position:relative;z-index:6}
+.vessara-table-wrap{max-height:520px;overflow:auto;scrollbar-width:thin;scrollbar-color:#c6a57855 transparent}
+.vessara-table{width:100%;border-collapse:collapse;font-size:13px}
+.vessara-table th{position:sticky;top:0;z-index:1;background:#110e0c;text-align:left;font:700 8px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--bronze);padding:12px 12px;border-bottom:1px solid var(--line)}
+.vessara-table td{padding:12px;border-bottom:1px solid #c6a5781a;color:#cfc6b8;white-space:nowrap}
+.vessara-table td:first-child{white-space:normal}
+.vessara-table tbody tr{transition:background .3s}
+.vessara-table tbody tr:hover{background:#c6a5780f}
+.vessara-table tr.is-new{animation:vsNewRow 2.4s ease}
+@keyframes vsNewRow{0%,40%{background:#e3c79e33}100%{background:transparent}}
+.vessara-item-mark{color:var(--bronze);margin-right:8px}
+.vessara-table strong{font:500 15px var(--serif);color:#efe3cf}
+.vessara-price{font-weight:700;color:var(--zen)!important}
+.vessara-price.is-eryns{color:var(--eryns)!important}
+.vessara-table time{color:#8f8a82}
+.vessara-empty{padding:26px 0;text-align:center}
+.vessara-ledger-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:16px;font-size:11px;color:#8d8b86}
+.vessara-ledger-footer b{color:var(--bronze-hi)}
+.vessara-tape{padding:34px 30px 30px}
+.vessara-tape>*{position:relative;z-index:6}
+.vessara-tape-head h2{font-size:clamp(28px,2.4vw,38px)!important;margin-bottom:20px}
+.vessara-top-grid{display:grid;gap:10px}
+.vessara-top-card{position:relative;padding:14px 16px;border:1px solid #c6a57826;background:#0b0c0eb3;transition:border-color .3s,transform .3s}
+.vessara-top-card:hover{border-color:#c6a57866;transform:translateX(4px)}
+.vessara-top-label{display:block;font:700 8px/1.4 var(--sans);letter-spacing:.18em;color:var(--bronze);margin-bottom:4px}
+.vessara-top-card strong{display:block;font:500 18px/1.25 var(--serif);color:var(--ink)}
+.vessara-top-card b{display:block;font:700 13px var(--sans);color:var(--zen)}
+.vessara-top-card.is-eryns b{color:var(--eryns)}
+.vessara-top-card small{font-size:11px;color:#8d8b86}
+.vessara-top-empty{font-size:13px!important;color:#7d7973!important;font-style:italic}
+.vessara-bottom{margin-top:34px}
+.vessara-activity{padding:34px 38px 30px}
+.vessara-activity>*{position:relative;z-index:6}
+.vessara-activity .vs-head{margin-bottom:24px}
+.vessara-activity h2{font-size:clamp(28px,2.6vw,42px)!important}
+.vessara-chart-unit{font:700 9px var(--sans);letter-spacing:.18em;color:#a9a399}
+.vessara-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;align-items:end;height:220px}
+.vessara-day{display:flex;flex-direction:column;align-items:center;gap:8px;height:100%}
+.vessara-day strong{font:500 18px var(--serif);color:var(--ink)}
+.vessara-day>div{flex:1;width:100%;max-width:70px;display:flex;align-items:flex-end;border-bottom:1px solid var(--line)}
+.vessara-day i{display:block;width:100%;min-height:3px;background:linear-gradient(#e3c79e,#7d5d33);box-shadow:0 0 18px #c6a57844;transform:scaleY(0);transform-origin:bottom;transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.vessara-bottom.is-in .vessara-day i,.vessara-page:not(.vs-js) .vessara-day i{transform:scaleY(1)}
+.vessara-day:nth-child(2) i{transition-delay:.06s}.vessara-day:nth-child(3) i{transition-delay:.12s}.vessara-day:nth-child(4) i{transition-delay:.18s}.vessara-day:nth-child(5) i{transition-delay:.24s}.vessara-day:nth-child(6) i{transition-delay:.3s}.vessara-day:nth-child(7) i{transition-delay:.36s}
+.vessara-day span{font:600 10px var(--sans);color:#8d8b86}
+
+/* ---------- 6 · Garantía y cierre ---------- */
+.vs-sc-5{text-align:center;padding-bottom:200px}
+.vessara-guarantee-copy{max-width:720px;margin:0 auto 54px}
+.vessara-guarantee-copy p{margin-top:16px!important;font-size:16px}
+.vessara-guarantee-copy blockquote{margin:30px 0 0;font:italic 500 clamp(22px,2.2vw,30px)/1.3 var(--serif);color:var(--bronze-hi);text-shadow:0 2px 20px #000}
+.vessara-guarantee-rules{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;text-align:left}
+.vessara-guarantee-rules>article{padding:28px 30px}
+.vessara-guarantee-rules>article>*{position:relative;z-index:6}
+.vessara-guarantee-rules span{display:block;font:700 9px/1.4 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--bronze)}
+.vessara-guarantee-rules strong{display:block;margin:8px 0 6px;font:500 26px/1.15 var(--serif);color:var(--ink)}
+.vessara-guarantee-rules p{font-size:13px}
+.vessara-guarantee-join{margin-top:60px}
+.vessara-guarantee-join>p{font:500 22px var(--serif);color:var(--ink)}
+.vessara-guarantee-join .vessara-hero-actions{justify-content:center}
+
+/* ---------- Aviso de nuevo trato ---------- */
+.vessara-new-trades{position:fixed;right:24px;bottom:24px;z-index:1100;width:min(340px,calc(100vw - 32px));padding:16px 18px;background:linear-gradient(#211a12f7,#0f0c09fa);border:1px solid #e3c79e;box-shadow:0 20px 50px #000c;animation:vsToast .5s cubic-bezier(.2,1.3,.4,1)}
+.vessara-new-trades.is-eryns{border-color:#b1e4ff}
+.vessara-new-trades small{display:block;font:700 9px/1.4 var(--sans);letter-spacing:.18em;color:var(--bronze)}
+.vessara-new-trades strong{display:block;font:500 19px/1.25 var(--serif);color:#8af0a8;margin-top:4px}
+.vessara-new-trades b{font:700 14px var(--sans);color:var(--zen)}
+.vessara-new-trades.is-eryns b{color:var(--eryns)}
+.vessara-deal-route{display:flex;gap:8px;margin-top:4px;font-size:12px;color:#a9a399}
+.vessara-deal-route i{font-style:normal;color:var(--bronze)}
+@keyframes vsToast{from{opacity:0;transform:translateY(20px) scale(.95)}}
+.vessara-trade-burst{position:fixed;inset:0;z-index:1090;pointer-events:none;opacity:0}
+.vessara-trade-burst.is-firing{animation:vsBurst 1.6s ease}
+.vessara-trade-burst i{position:absolute;right:120px;bottom:90px;width:120px;height:120px;border-radius:50%;border:2px solid #f3d49a}
+.vessara-trade-burst.is-firing i{animation:vsRing 1.2s ease-out forwards}
+.vessara-trade-burst i:nth-child(2){animation-delay:.15s!important}.vessara-trade-burst i:nth-child(3){animation-delay:.3s!important}
+@keyframes vsBurst{0%,100%{opacity:0}10%,70%{opacity:1}}
+
+/* ---------- Pausas y accesibilidad ---------- */
+.effects-paused .vs-stick img,.effects-paused h1 em,.effects-background .vs-stick img,.vs-sc:not(.is-live) .vs-stick img,.vs-sc:not(.is-live) h1 em{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){
+ .vessara-page *,.vessara-page *::before,.vessara-page *::after{animation:none!important;transition:none!important}
+ .vs-js .vs-rv{opacity:1;transform:none}
+ .vessara-day i{transform:none}
+ .vessara-ticker-window{overflow-x:auto}
+}
+
+/* ---------- Pantallas medianas y celular ---------- */
+@media (max-width:1100px){
+ .vessara-stats{grid-template-columns:1fr 1fr}
+ .vessara-stat-trades{grid-column:1/-1}
+ .vs-deal{grid-template-columns:1fr}
+ .vs-stage{border-right:0;border-bottom:1px solid var(--line)}
+ .vs-floor-grid{grid-template-columns:1fr}
+}
+@media (max-width:1000px){
+ .vessara-offer-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+ .vs-sc{padding:140px 0 170px}
+ .vs-sc-1{padding-top:110px}
+ .vs-sc-1 .vs-stick img{object-position:84% 40%!important}
+ .vs-join{width:320%}
+ .vs-head{margin-bottom:28px}
+ .vessara-stats{grid-template-columns:1fr;gap:20px}
+ .vessara-stats>article{padding:32px 28px 28px;min-height:0}
+ .vessara-ticker{grid-template-columns:1fr auto}
+ .vessara-ticker-label{display:none}
+ .vs-stage{min-height:430px}
+ .vs-item{width:200px}
+ .vs-vault{width:240px}
+ .vs-web{right:14px;bottom:118px;width:170px}
+ .vs-npc{top:16px}.vs-seller{left:14px}.vs-buyer{right:14px}
+ .vs-pay{left:14px;right:14px}
+ .vs-caption{left:14px;right:14px}
+ .vs-coins img:nth-child(n){--x:-150px}
+ .vs-stage[data-step="1"] .vs-item{transform:translate(-62%,-50%)}
+ .vs-stage[data-step="5"] .vs-item{transform:translate(-8%,-165%) scale(.72)}
+ .vs-stage[data-step="4"] .vs-stamp{transform:translate(-135%,-55%) scale(.66)}
+ .vs-ring{left:calc(50% - 95px)}
+ .vs-steps{padding:10px 18px}
+ .vessara-listings-board,.vessara-ledger,.vessara-tape,.vessara-activity{padding:28px 22px 22px}
+ .vessara-listings-sort{width:100%}
+ .vessara-listings-sort select{width:100%}
+ .vessara-promoted-heading img{width:96px;height:64px}
+ .vessara-offer-grid>.vessara-offer{flex-direction:row;align-items:stretch}
+ .vessara-offer-grid .vessara-item-media{width:116px;flex:none;aspect-ratio:auto;border-bottom:0;border-right:1px solid #c6a57826}
+ .vessara-offer-grid .vessara-offer-body{padding:12px 14px}
+ .vessara-offer-grid .vessara-offer h4.vessara-item-title,.vessara-offer-grid h4.vessara-item-title{font-size:17px}
+ .vessara-offer-grid .vessara-offer-price{font-size:16px}
+ .vessara-table th:nth-child(5),.vessara-table td:nth-child(5){display:none}
+ .vessara-bars{height:170px;gap:8px}
+ .vessara-guarantee-rules{grid-template-columns:1fr}
+ .vessara-update{text-align:left}
+}
+
+/* ---------- Vidriera con más presencia ---------- */
+.vs-sc-2{padding-top:210px}
+#vessara-listings-title{font-size:clamp(44px,5.2vw,84px)}
+.vs-bolsa .vessara-listings{margin-top:150px;padding-top:70px}
+.vs-bolsa .vessara-listings::before{content:"";position:absolute;left:50%;top:0;width:min(900px,90%);height:44px;transform:translateX(-50%);background:url('../img/server/v3/separador-4b5352fda676.webp') center/contain no-repeat;opacity:.9}
+.vs-showcount{display:grid;grid-template-columns:auto auto;align-items:center;column-gap:12px;justify-items:start;text-align:left}
+.vs-showcount b{font:500 clamp(54px,5vw,80px)/1 var(--serif);color:var(--bronze-hi);font-variant-numeric:tabular-nums;text-shadow:0 0 30px #c6a57855}
+.vs-showcount small{grid-column:2;font:600 10px/1.4 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#cbbfae}
+.vs-showcount .vs-live-dot{grid-row:1;grid-column:1;justify-self:end;align-self:start;margin-top:10px;width:9px;height:9px;border-radius:50%;background:#7fe39a;animation:vsPing 2s infinite;display:none}
+.vs-showcount .vessara-listings-entry{grid-column:1/-1;margin-top:16px}
+.vs-showcount{grid-template-columns:auto}
+.vs-showcount small{grid-column:1}
+/* Tarjetas como vitrinas: pedestal, brillo de rareza y luz al pasar el mouse */
+.vessara-offer{--glow:#c6a578;border-color:#c6a57844;background:linear-gradient(#18140fe8,#0c0b0af5)}
+.vessara-offer.is-excellent{--glow:#5fe08a}.vessara-offer.is-ancient{--glow:#4fb4ff}.vessara-offer.is-socket{--glow:#a594ff}.vessara-offer.is-harmony{--glow:#ffb35c}
+.vessara-offer .vessara-item-media{aspect-ratio:5/4;background:radial-gradient(ellipse 46% 40% at 50% 58%,color-mix(in srgb,var(--glow) 30%,transparent),transparent 72%),radial-gradient(ellipse 80% 60% at 50% 100%,#2a2015,transparent 70%),#0b0c0e}
+.vessara-offer .vessara-item-media::after{left:22%;right:22%;bottom:13%;height:9%;background:radial-gradient(ellipse at center,#c6a57855,#0b0c0e00 70%);box-shadow:0 0 0 1px #c6a57826}
+.vessara-offer .vessara-item-media::before{content:"";position:absolute;left:30%;right:30%;top:-10%;bottom:16%;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--glow) 22%,transparent));opacity:0;transform:scaleY(.4);transform-origin:bottom;transition:opacity .45s,transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.vessara-offer:hover .vessara-item-media::before,.vessara-offer:focus-visible .vessara-item-media::before,.vessara-offer[aria-expanded="true"] .vessara-item-media::before{opacity:1;transform:none}
+.vessara-offer .vessara-item-photo{width:auto;height:auto;max-width:min(62%,calc(var(--nat-w,180px) * 1.25));max-height:min(66%,calc(var(--nat-h,180px) * 1.25));animation:vsFloat 5s ease-in-out infinite}
+.vessara-offer .vessara-item-photo.is-small-sprite,.vessara-tooltip .vessara-item-photo.is-small-sprite{width:min(var(--sprite-width,96px),calc(var(--nat-w,64px) * 1.5));max-width:none;max-height:none;height:auto}
+.vessara-offer:nth-child(2n) .vessara-item-photo{animation-delay:-1.6s}.vessara-offer:nth-child(3n) .vessara-item-photo{animation-delay:-3.1s}
+@keyframes vsFloat{50%{transform:translateY(-7px)}}
+.vs-sc:not(.is-live) .vessara-item-photo,.effects-paused .vessara-item-photo{animation-play-state:paused}
+.vessara-offer:hover .vessara-item-photo{animation-play-state:paused;transform:translateY(-10px) scale(1.07)}
+.vessara-offer:hover,.vessara-offer:focus-visible,.vessara-offer[aria-expanded="true"]{border-color:color-mix(in srgb,var(--glow) 70%,#e3c79e);box-shadow:0 22px 46px #000c,0 0 34px color-mix(in srgb,var(--glow) 25%,transparent)}
+.vessara-offer-body{padding:16px 18px 18px}
+.vessara-offer h4.vessara-item-title{font-size:21px}
+.vessara-offer-price{font-size:20px}
+/* Destacados: más grandes y con borde dorado */
+.vessara-promoted{padding:26px 0 0;margin-bottom:56px}
+.vessara-promoted-heading h3{font-size:clamp(28px,2.6vw,38px)}
+.vessara-marquee-group>.vessara-offer{width:340px}
+.vessara-offer.is-featured{border:1px solid #e9c97dcc;box-shadow:0 0 0 1px #00000080,0 16px 40px #000b,inset 0 0 40px #e9c97d14}
+.vessara-offer.is-featured::before{content:"";position:absolute;inset:-1px;z-index:3;pointer-events:none;background:linear-gradient(115deg,transparent 45%,#fff3d422 50%,transparent 55%) 200% 0/250% 100% no-repeat;animation:vsSheen 7s ease-in-out infinite}
+@keyframes vsSheen{0%,75%{background-position:200% 0}100%{background-position:-60% 0}}
+.vs-sc:not(.is-live) .vessara-offer.is-featured::before,.effects-paused .vessara-offer.is-featured::before{animation-play-state:paused}
+@media (max-width:1000px){.vessara-offer .vessara-item-media{aspect-ratio:4/3}}
+@media (max-width:760px){
+ .vs-sc-2{padding-top:160px}
+ .vs-bolsa .vessara-listings{margin-top:90px;padding-top:56px}
+ .vessara-offer-grid .vessara-item-media{aspect-ratio:auto}
+ .vessara-offer-grid .vessara-item-photo{max-height:min(90px,calc(var(--nat-h,90px) * 1.25))}
+ .vessara-marquee-group>.vessara-offer{width:270px}
+ .vs-showcount b{font-size:48px}
+}
+
+/* Cinta tipo bolsa: sube o baja respecto de la venta anterior del mismo objeto */
+.vessara-ticker-sale i{font-style:normal;font:700 11px var(--sans);margin-left:-8px}
+.vessara-ticker-sale.is-up i{color:#7fe39a}
+.vessara-ticker-sale.is-down i{color:#ff8a7a}
+.vessara-ticker-sale.is-flat i{color:#8d8b86}
+/* La cinta de últimas ventas viaja entre las dos filas de monedas de la unión */
+.vs-sc-2>.vs-join{width:max(140%,2300px);transform:translate(-50%,-51%)}
+.vessara-ticker{background:linear-gradient(90deg,#0b0c0ee0,#0b0c0ec7 50%,#0b0c0ee0);box-shadow:0 0 30px #000a}
+.vessara-ticker-sale{padding:9px 28px}
+.vessara-ticker-label{padding:10px 24px}
+@media (max-width:760px){.vs-sc-2>.vs-join{width:420%}}
+
+/* ---------- Marcos art déco (estilo Wall Street años 20) ----------
+   Reemplazan los marcos de bronce ornamentado: línea dorada fina,
+   esquinas escalonadas y un rombo arriba. Todo con CSS, nítido en cualquier pantalla. */
+.vs-deal,.vessara-listings-board,.vessara-ledger,.vessara-tape,.vessara-activity,.vessara-guarantee-rules>article,.vs-board,.vessara-stats>article{
+ background:linear-gradient(180deg,#15120fe6,#0b0c0ef2);border:1px solid #c9a86a59;
+ box-shadow:0 26px 60px #0009,inset 0 0 0 5px #0b0c0ecc,inset 0 0 0 6px #c9a86a24}
+.vs-deal::before,.vessara-listings-board::before,.vessara-ledger::before,.vessara-tape::before,.vessara-activity::before,.vessara-guarantee-rules>article::before,.vs-board::before,.vessara-stats>article::before{
+ content:"";position:absolute;inset:-1px;z-index:5;pointer-events:none;
+ --g:#e3c79e;--h:#c9a86a99;
+ background:
+  linear-gradient(var(--g),var(--g)) 0 0/28px 2px,linear-gradient(var(--g),var(--g)) 0 0/2px 28px,
+  linear-gradient(var(--g),var(--g)) 100% 0/28px 2px,linear-gradient(var(--g),var(--g)) 100% 0/2px 28px,
+  linear-gradient(var(--g),var(--g)) 0 100%/28px 2px,linear-gradient(var(--g),var(--g)) 0 100%/2px 28px,
+  linear-gradient(var(--g),var(--g)) 100% 100%/28px 2px,linear-gradient(var(--g),var(--g)) 100% 100%/2px 28px,
+  linear-gradient(var(--h),var(--h)) 9px 9px/14px 1px,linear-gradient(var(--h),var(--h)) 9px 9px/1px 14px,
+  linear-gradient(var(--h),var(--h)) calc(100% - 9px) 9px/14px 1px,linear-gradient(var(--h),var(--h)) calc(100% - 9px) 9px/1px 14px,
+  linear-gradient(var(--h),var(--h)) 9px calc(100% - 9px)/14px 1px,linear-gradient(var(--h),var(--h)) 9px calc(100% - 9px)/1px 14px,
+  linear-gradient(var(--h),var(--h)) calc(100% - 9px) calc(100% - 9px)/14px 1px,linear-gradient(var(--h),var(--h)) calc(100% - 9px) calc(100% - 9px)/1px 14px;
+ background-repeat:no-repeat}
+.vs-deal::after,.vessara-listings-board::after,.vessara-ledger::after,.vessara-tape::after,.vessara-activity::after,.vessara-guarantee-rules>article::after,.vs-board::after,.vessara-stats>article::after{
+ content:"";position:absolute;inset:auto;left:50%;top:-6px;right:auto;bottom:auto;width:11px;height:11px;margin-left:-6px;border:1px solid #e3c79e;border-image:none;opacity:1;
+ background:#0b0c0e;transform:rotate(45deg);box-shadow:0 0 12px #e3c79e88;z-index:5;pointer-events:none}
+
+/* ---------- Pulso como pantallas de bolsa ---------- */
+.vessara-stats>article{background:linear-gradient(165deg,#ffffff0f,#ffffff03 38%,#0b0c0ed9 70%),#0b0c0ecc;min-height:230px}
+.vessara-stats>article>.vs-scan{position:absolute!important;z-index:1!important;left:0;right:0;top:0;height:40%;background:linear-gradient(180deg,transparent,#e3c79e0d,transparent);transform:translateY(-100%);animation:vsScan 6s linear infinite;pointer-events:none}
+@keyframes vsScan{to{transform:translateY(250%)}}
+.vessara-stats strong{text-shadow:0 0 22px currentColor;font-variant-numeric:tabular-nums}
+.vessara-stat-trades strong{color:#f3e7d2;text-shadow:0 0 22px #e3c79e55}
+.vs-sc:not(.is-live) .vs-scan,.effects-paused .vs-scan{animation-play-state:paused}
+
+/* Tablero de cotizaciones */
+.vs-board{position:relative;isolation:isolate;margin-top:26px;padding:30px 34px 22px}
+.vs-board>*{position:relative;z-index:6}
+.vs-board-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px 20px;margin-bottom:16px}
+.vs-board-head h3{display:flex;align-items:center;gap:10px;font-size:24px}
+.vs-board-head h3 i{width:8px;height:8px;border-radius:50%;background:#7fe39a;animation:vsPing 2s infinite}
+.vs-board-head span{font:600 9px/1.5 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8d8b86}
+.vs-board-cols,.vs-board-row{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,1.4fr) minmax(0,1fr) minmax(0,.6fr) minmax(0,1.1fr);align-items:center;gap:14px}
+.vs-board-cols{padding:0 16px 10px;border-bottom:1px solid #c9a86a40;font:700 8px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze)}
+.vs-board-cols span:nth-child(n+2){text-align:right}
+.vs-board-rows{display:grid}
+.vs-board-row{position:relative;padding:12px 16px;border-bottom:1px solid #c9a86a17;font-variant-numeric:tabular-nums;transition:background .3s}
+.vs-board-row:nth-child(odd){background:#ffffff05}
+.vs-board-row:hover{background:#e3c79e0f}
+.vs-board-row>*:nth-child(n+2){text-align:right}
+.vs-js .vs-board .vs-board-row{opacity:0;transform:translateX(18px);transition:opacity .5s calc(var(--i)*70ms),transform .6s calc(var(--i)*70ms) cubic-bezier(.2,.8,.2,1),background .3s}
+.vs-js .vs-board.is-in .vs-board-row{opacity:1;transform:none}
+.vs-board-row.is-new{animation:vsNewRow 2.4s ease}
+.vs-board-item{display:flex;align-items:baseline;gap:10px;min-width:0}
+.vs-board-item b{font:500 16px/1.3 var(--serif);color:#efe3cf;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vs-board-item small{font:700 8px/1 var(--sans);letter-spacing:.16em;color:#a99a7f}
+.vs-board-row.is-eryns .vs-board-item small{color:#7fb5cf}
+.vs-board-price{font:700 15px var(--sans);color:var(--zen)}
+.vs-board-row.is-eryns .vs-board-price{color:var(--eryns)}
+.vs-board-chg{justify-self:end;font:700 12px var(--sans);padding:4px 8px;border:1px solid transparent}
+.vs-board-chg.is-up{color:#8ef0a8;background:#7fe39a14;border-color:#7fe39a33}
+.vs-board-chg.is-down{color:#ff9a8a;background:#ff8a7a14;border-color:#ff8a7a33}
+.vs-board-chg.is-flat{color:#a9a399}
+.vs-board-chg.is-new{color:#e3c79e;border-color:#e3c79e33;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.vs-board-n{font:600 13px var(--sans);color:#cfc6b8}
+.vs-board-spark{justify-self:end;width:100%;max-width:130px;height:28px}
+.vs-board-spark polyline{fill:none;stroke:#c9a86a;stroke-width:1.6;vector-effect:non-scaling-stroke}
+.vs-board-spark.is-up polyline{stroke:#7fe39a}.vs-board-spark.is-down polyline{stroke:#ff8a7a}
+.vs-board-empty{padding:22px 16px;font-size:13px}
+@media (max-width:760px){
+ .vs-board{padding:24px 16px 16px}
+ .vs-board-cols,.vs-board-row{grid-template-columns:minmax(0,1.7fr) minmax(0,1.2fr) minmax(0,.9fr);gap:10px}
+ .vs-board-cols span:nth-child(n+4),.vs-board-row>*:nth-child(n+4){display:none}
+ .vs-board-row{padding:11px 8px}
+ .vs-board-item{flex-direction:column;gap:2px}
+ .vs-board-item b{font-size:14px;white-space:normal}
+ .vs-board-price{font-size:13px}
+}
+.vessara-stats>article{overflow:visible}
+.vessara-stats .vs-coin{right:14px;top:14px;width:110px;height:110px}
+.vessara-stats>article>.vs-scan{inset:0;height:auto;transform:none;background:linear-gradient(180deg,transparent,#e3c79e10 50%,transparent) 0 -60%/100% 40% no-repeat;animation:vsScan2 6s linear infinite}
+@keyframes vsScan2{to{background-position:0 160%}}
+.vs-board-chg{white-space:nowrap}.vs-board-price{white-space:nowrap}@media (max-width:760px){.vs-board-chg{font-size:11px;padding:3px 6px}.vs-board-price{white-space:normal}}
+
+/* ---------- Contadores tipo bolsa (fichas que giran como odómetro) ---------- */
+.vessara-stats strong{display:flex;align-items:center;gap:3px;font:400 clamp(40px,3.6vw,58px)/1 'VT323',monospace;letter-spacing:0;text-shadow:none;margin:14px 0 10px}
+.vessara-stats .od-d{position:relative;display:inline-block;height:1.08em;width:.62em;overflow:hidden;border-radius:4px;background:linear-gradient(#1c1915,#0b0a09 49%,#000 50%,#15120f 51%,#0b0a09);box-shadow:inset 0 1px 0 #ffffff14,inset 0 -1px 0 #0008,0 2px 6px #000a;text-align:center}
+.vessara-stats .od-d::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#000;box-shadow:0 1px 0 #ffffff12;z-index:2}
+.vessara-stats .od-col{display:block;transform:translateY(calc(var(--n,0) * -1.08em));transition:transform 1.6s cubic-bezier(.2,.9,.25,1)}
+.vessara-stats .od-col>i{display:block;height:1.08em;line-height:1.08em;font-style:normal;text-shadow:0 0 12px currentColor,0 0 2px currentColor}
+.vs-js .vessara-stats:not(.is-in) .od-col{transform:translateY(0);transition:none}
+.vessara-stats .od-sep{width:.25em;text-align:center;opacity:.7}
+.vessara-stat-trades strong{color:#ffd38a}
+.vessara-stat-zen strong{color:#ffcf6e}
+.vessara-stat-eryns strong{color:#9fdcff}
+.vessara-stats article.is-updating .od-d{box-shadow:inset 0 1px 0 #ffffff20,0 0 16px #ffd38a66}
+
+/* ---------- Tablero como pantalla LED ---------- */
+.vs-board{background:radial-gradient(ellipse at 50% 0,#2a1d0c55,transparent 60%),#070605;padding:40px 40px 28px}
+.vs-board>.vs-bulbs{position:absolute;inset:12px;z-index:4;pointer-events:none;border:5px dotted #ffcf7a;border-radius:2px;filter:drop-shadow(0 0 4px #ffb94d) drop-shadow(0 0 10px #ff9d2e88);opacity:.9;animation:vsBulbs 1.2s steps(1) infinite}
+.vs-board>.vs-bulbs-b{inset:12px;border-color:#fff1c8;opacity:0;animation-delay:.6s;clip-path:inset(0)}
+@keyframes vsBulbs{0%{opacity:.95}50%{opacity:.25}}
+.vs-board>.vs-bulbs-b{animation-name:vsBulbsB}
+@keyframes vsBulbsB{0%{opacity:0}50%{opacity:.8}}
+.vs-board-head h3{font:400 30px/1 'VT323',monospace;letter-spacing:.06em;text-transform:uppercase;color:#ffcf6e;text-shadow:0 0 10px #ffb94d99}
+.vs-led{position:relative;overflow:hidden;margin:0 0 18px;padding:8px 0;background:#0d0a06;border:1px solid #3a2a12;box-shadow:inset 0 0 18px #000}
+.vs-led::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle,transparent 45%,#0d0a06 55%) 0 0/4px 4px}
+.vs-led-track{display:inline-block;white-space:nowrap;font:400 26px/1 'VT323',monospace;letter-spacing:.12em;color:#ffb347;text-shadow:0 0 6px #ff9d2e,0 0 14px #ff9d2e88;animation:vsLed var(--led-time,40s) linear infinite;padding-left:100%}
+@keyframes vsLed{to{transform:translateX(-50%)}}
+.vs-board-rows{position:relative}
+.vs-board-rows::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,#0000 0 2px,#0000004d 2px 3px);mix-blend-mode:multiply}
+.vs-board-cols{font:400 15px/1 'VT323',monospace;letter-spacing:.16em;color:#b08a4f}
+.vs-board-row{background:none!important;border-bottom:1px dashed #3a2a1288}
+.vs-board-row:hover{background:#ffb34710!important}
+.vs-board-item b{font:400 24px/1.1 'VT323',monospace;letter-spacing:.06em;text-transform:uppercase;color:#ffe3b0;text-shadow:0 0 8px #ffb34766}
+.vs-board-item small{font:400 14px/1 'VT323',monospace;letter-spacing:.12em}
+.vs-board-price{font:400 24px/1 'VT323',monospace;letter-spacing:.05em;color:#ffcf6e;text-shadow:0 0 8px #ffb94d88}
+.vs-board-row.is-eryns .vs-board-price{color:#9fdcff;text-shadow:0 0 8px #6fc3ff88}
+.vs-board-chg{font:400 22px/1 'VT323',monospace;letter-spacing:.04em;padding:2px 8px;text-shadow:0 0 8px currentColor}
+.vs-board-chg.is-up{animation:vsBlinkUp 2.4s ease-in-out infinite}
+.vs-board-chg.is-down{animation:vsBlinkDown 2.4s ease-in-out infinite}
+@keyframes vsBlinkUp{50%{background:#7fe39a2e;box-shadow:0 0 14px #7fe39a55}}
+@keyframes vsBlinkDown{50%{background:#ff8a7a2e;box-shadow:0 0 14px #ff8a7a55}}
+.vs-board-chg.is-new{font-size:16px}
+.vs-board-n{font:400 22px/1 'VT323',monospace;color:#e9d2a8}
+.vs-board-spark polyline{stroke-width:2;filter:drop-shadow(0 0 3px currentColor)}
+.vs-board-spark.is-up{color:#7fe39a}.vs-board-spark.is-down{color:#ff8a7a}.vs-board-spark.is-flat{color:#c9a86a}
+.vs-sc:not(.is-live) .vs-bulbs,.vs-sc:not(.is-live) .vs-led-track,.vs-sc:not(.is-live) .vs-board-chg,.effects-paused .vs-bulbs,.effects-paused .vs-led-track,.effects-paused .vs-board-chg{animation-play-state:paused}
+
+/* ---------- Vidriera más cerca y tarjetas más chicas ---------- */
+.vs-bolsa .vessara-listings{margin-top:60px;padding-top:56px}
+#vessara-listings-title{font-size:clamp(40px,4.4vw,70px)}
+.vessara-listings-heading{margin-bottom:28px}
+.vessara-promoted{padding-top:10px;margin-bottom:36px}
+.vessara-marquee-group>.vessara-offer{width:270px}
+.vessara-offer-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.vessara-offer .vessara-item-media{aspect-ratio:4/3}
+.vessara-offer-body{padding:12px 14px 14px}
+.vessara-offer h4.vessara-item-title{font-size:17px}
+.vessara-offer-price{font-size:16px}
+.vessara-offer-seller{font-size:11px!important}
+.vessara-listings-board{padding:30px 32px 24px}
+@media (max-width:1280px){.vessara-offer-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:1000px){.vessara-offer-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+ .vs-bolsa .vessara-listings{margin-top:40px;padding-top:44px}
+ .vs-board{padding:30px 18px 18px}
+ .vs-board>.vs-bulbs{inset:8px;border-width:4px}
+ .vs-board-item b,.vs-board-price{font-size:19px}
+ .vs-board-chg{font-size:17px}
+ .vs-led-track{font-size:21px}
+ .vessara-stats strong{font-size:48px}
+}
+@media (prefers-reduced-motion:reduce){.vessara-stats .od-col{transition:none}}
+
+/* ---------- Marco principal de la Bolsa (arte) ---------- */
+.vs-deal::before,.vessara-listings-board::before,.vessara-ledger::before,.vessara-activity::before{
+ background:none;inset:-10px;border:66px solid transparent;border-image:url('../img/market/bolsa/mkt-marco-grande-24d6ee6b0b84.webp') 200/66px/0 stretch;filter:drop-shadow(0 6px 14px #000c)}
+.vs-deal::after,.vessara-listings-board::after,.vessara-ledger::after,.vessara-activity::after{
+ width:150px;height:77px;margin-left:-75px;top:-14px;border:0;transform:none;box-shadow:none;background:url('../img/market/bolsa/mkt-marco-remate-a9510d264910.webp') center/contain no-repeat;filter:drop-shadow(0 4px 8px #000)}
+.vs-deal,.vessara-listings-board,.vessara-ledger,.vessara-activity{border-color:transparent;box-shadow:0 26px 60px #0009}
+.vessara-listings-board{padding-top:44px}
+@media (max-width:760px){
+ .vs-deal::before,.vessara-listings-board::before,.vessara-ledger::before,.vessara-activity::before{inset:-6px;border-width:44px;border-image-width:44px}
+ .vs-deal::after,.vessara-listings-board::after,.vessara-ledger::after,.vessara-activity::after{width:110px;height:56px;margin-left:-55px;top:-10px}
+}
+.vs-caption{left:56px;right:40px;bottom:28px}
+.vs-seller{left:52px;top:40px}.vs-buyer{right:40px;top:40px}
+.vs-pay{left:52px;right:40px}
+.vs-steps{padding:34px 40px 30px 26px}
+@media (max-width:760px){.vs-caption{left:30px;right:24px}.vs-seller{left:28px;top:28px}.vs-buyer{right:24px;top:28px}.vs-pay{left:28px;right:24px}.vs-steps{padding:14px 26px 22px}}
+
+/* ---------- Marco de marquesina del tablero (arte) + luces que corren ---------- */
+.vs-board{border-color:transparent;box-shadow:0 26px 60px #000a;padding:62px 64px 50px}
+.vs-board::before,.vs-board::after{display:none}
+.vs-board>.vs-bulbs{inset:-10px;border:60px solid transparent;border-radius:0;border-image:url('../img/market/bolsa/mkt-marco-tablero-8ef1ce90861f.webp') 140/60px/0 round;filter:drop-shadow(0 0 10px #ffae4255) drop-shadow(0 8px 16px #000c);opacity:1;animation:vsBulbGlow 2.4s ease-in-out infinite;clip-path:none}
+@keyframes vsBulbGlow{50%{filter:drop-shadow(0 0 16px #ffb94d88) drop-shadow(0 8px 16px #000c) brightness(1.08)}}
+.vs-board>.vs-bulbs-b{animation:vsChase 2.2s linear infinite;opacity:1;filter:brightness(1.9) saturate(1.3) drop-shadow(0 0 8px #ffd27a);
+ -webkit-mask-image:linear-gradient(90deg,transparent 0 35%,#000 47% 53%,transparent 65% 100%);mask-image:linear-gradient(90deg,transparent 0 35%,#000 47% 53%,transparent 65% 100%);
+ -webkit-mask-size:40% 100%;mask-size:40% 100%;-webkit-mask-repeat:repeat-x;mask-repeat:repeat-x}
+@keyframes vsChase{from{-webkit-mask-position:0 0;mask-position:0 0}to{-webkit-mask-position:250% 0;mask-position:250% 0}}
+@media (max-width:760px){
+ .vs-board{padding:46px 30px 36px}
+ .vs-board>.vs-bulbs{inset:-6px;border-width:40px;border-image-width:40px}
+}
+@media (max-width:760px){
+ .vs-board{padding:44px 22px 32px}
+ .vs-board-head h3{font-size:22px}
+ .vs-board-cols,.vs-board-row{grid-template-columns:minmax(0,1.5fr) minmax(0,1.1fr) minmax(0,.8fr);gap:8px}
+ .vs-board-cols{font-size:12px;letter-spacing:.08em;padding:0 6px 8px}
+ .vs-board-row{padding:10px 6px}
+ .vs-board-item b{font-size:16px;letter-spacing:.02em}
+ .vs-board-price{font-size:16px;letter-spacing:0;overflow-wrap:anywhere;min-width:0}
+ .vs-board-chg{font-size:14px;padding:2px 4px}
+ .vs-board-chg.is-new{font-size:11px}
+ .vs-led-track{font-size:18px}
+}
+
+/* ---------- Marco chico de la Bolsa (arte): pantallas, reglas y récords ---------- */
+.vessara-stats>article::before,.vessara-guarantee-rules>article::before,.vessara-tape::before{
+ background:none;inset:-4px;border:40px solid transparent;border-image:url('../img/market/bolsa/mkt-marco-chico-745b1ee29c1a.webp') 100/40px/0 stretch;filter:drop-shadow(0 4px 10px #000b)}
+.vessara-stats>article::after,.vessara-guarantee-rules>article::after,.vessara-tape::after{display:none}
+.vessara-stats>article,.vessara-guarantee-rules>article,.vessara-tape{border-color:transparent;box-shadow:0 20px 44px #0009}
+@media (max-width:760px){.vessara-stats>article::before,.vessara-guarantee-rules>article::before,.vessara-tape::before{border-width:32px;border-image-width:32px}}
+/* El mercado en vivo entra directo después de la cinta de últimas ventas */
+.vs-bolsa{padding-top:200px}
+.vs-bolsa .vessara-session{justify-content:flex-end;margin-bottom:16px}
+@media (max-width:760px){.vs-bolsa{padding-top:150px}.vs-bolsa .vessara-session{justify-content:flex-start}}
+.vs-bolsa{padding-top:150px}
+@media (max-width:760px){.vs-bolsa{padding-top:120px}}
+/* Destacados: título simple y tarjetas con marco rojo */
+.vessara-promoted-heading{margin-bottom:12px}
+.vessara-promoted-heading h3{display:flex;align-items:center;gap:12px;font-size:clamp(24px,2vw,32px);color:#f3d6c8}
+.vessara-promoted-heading h3::before{content:"✦";font-size:.7em;color:#ff6b55;text-shadow:0 0 12px #ff3b2a}
+.vessara-offer.is-featured{--glow:#ff4a36;border:1px solid #d8402e;background:linear-gradient(#2a110cf0,#110807f5);box-shadow:0 0 0 1px #00000080,inset 0 0 0 3px #1a0907,inset 0 0 0 4px #e0533f66,0 0 22px #ff3b2a40,0 16px 40px #000b}
+.vessara-offer.is-featured:hover,.vessara-offer.is-featured:focus-visible,.vessara-offer.is-featured[aria-expanded="true"]{border-color:#ff7a5f;box-shadow:inset 0 0 0 3px #1a0907,inset 0 0 0 4px #ff7a5f99,0 0 34px #ff3b2a77,0 22px 46px #000c}
+.vessara-offer.is-featured::before{background:linear-gradient(115deg,transparent 45%,#ffb3a033 50%,transparent 55%) 200% 0/250% 100% no-repeat}
+.vessara-offer.is-featured .vessara-item-media{background:radial-gradient(ellipse 46% 40% at 50% 58%,#ff4a3633,transparent 72%),radial-gradient(ellipse 80% 60% at 50% 100%,#2a120c,transparent 70%),#0b0807;border-bottom-color:#e0533f44}
+.vessara-offer-badge{background:linear-gradient(90deg,#ff7a5f,#c2321f);color:#fff3ee}
+.vessara-tooltip.is-featured{border-color:#e0533f}
+.vessara-tooltip-promoted{color:#ff8a72}
+.vs-bolsa .vessara-listings{margin-top:34px;padding-top:50px}.vessara-listings-heading{margin-bottom:18px}@media (max-width:760px){.vs-bolsa .vessara-listings{margin-top:26px;padding-top:42px}}
+/* Registro y récords con la misma altura: la tabla se adapta y scrollea por dentro */
+.vs-floor-grid{align-items:stretch}
+.vessara-ledger{display:flex;flex-direction:column;min-height:0}
+.vessara-ledger .vessara-table-wrap{flex:1 1 0;min-height:320px;max-height:none}
+.vessara-tape{display:flex;flex-direction:column}
+@media (max-width:1100px){.vessara-ledger .vessara-table-wrap{flex:none;max-height:520px}}
+.vessara-ledger-footer{padding:0 30px}
+/* Las uniones son más anchas que la pantalla: se recortan a los costados sin crear desplazamiento lateral */
+.vs-sc{overflow-x:clip;overflow-y:visible}
+
+/* Ficha en celular: ventana modal desde arriba, con la X siempre visible */
+@media(max-width:720px),(pointer:coarse){
+ .vessara-tooltip-backdrop:not([hidden]){display:block;touch-action:none;overscroll-behavior:contain}
+ .vessara-tooltip{box-sizing:border-box;left:max(12px,env(safe-area-inset-left,0px))!important;right:max(12px,env(safe-area-inset-right,0px))!important;top:max(12px,calc(env(safe-area-inset-top,0px) + 12px))!important;bottom:auto!important;width:auto!important;max-width:none!important;
+  max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;overscroll-behavior:contain;padding:14px 16px 17px}
+ .vessara-tooltip-top{position:sticky;top:-14px;z-index:3;margin:-7px -2px 10px;padding:8px 2px 12px;background:linear-gradient(180deg,#16120f 85%,#16120ff5);border-bottom:1px solid #c6a57844}
+ .vessara-tooltip-close{flex:none;display:grid;place-items:center;width:42px;height:42px;min-width:42px;font-size:18px}
+ body.vessara-tooltip-open .vessara-marquee-motion{animation-play-state:paused!important}
+}
+.vessara-listings-top span{text-transform:none;letter-spacing:.04em;font-size:12px}
+/* Destacados en una sola fila compacta */
+.vessara-promoted{padding-top:0;margin-bottom:30px}
+.vessara-promoted-grid{padding:8px 0 12px}
+.vessara-marquee-group>.vessara-offer .vessara-item-media{aspect-ratio:16/10}
+.vessara-marquee-group>.vessara-offer .vessara-offer-body{padding:10px 14px 12px;gap:2px}
+@media (max-width:760px){.vessara-offer-grid .vessara-offer-body{min-width:0;flex:1}.vessara-offer-grid .vessara-offer-price,.vessara-offer-grid .vessara-offer-seller{overflow-wrap:anywhere}.vessara-offer-grid .vessara-offer-tags{min-width:0}}
+@media (max-width:360px){.vessara-offer-grid .vessara-item-media{width:92px}.vessara-offer-grid .vessara-offer-tags span{letter-spacing:.08em}}
+@media (min-width:901px) and (max-width:1100px){.vs-floor-grid{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}.vessara-ledger .vessara-table-wrap{flex:1 1 0;max-height:none}.vessara-table th:nth-child(5),.vessara-table td:nth-child(5){display:none}}

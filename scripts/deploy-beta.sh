@@ -30,10 +30,127 @@ for module in "${DEPLOY_MODULES[@]}"; do
   fi
 done
 
+# The Inicio release ships as one complete unit. Existing server page is unchanged.
+for file in inc/home-data.php inc/home-launch.php inc/home-world.php css/home-launch.css js/home-launch.js js/mu-panic-brasas.js; do
+  test -s "$TEMPLATE_SOURCE/$file"
+done
+for scene in hero-connected fractura-connected companions-connected games-connected client-crafted market-crafted furia-world; do
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v3.webp"
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v3-960.webp"
+done
+
+for scene in hero-connected fractura-connected companions-connected furia-world; do
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v3-mobile.webp"
+done
+
+for asset in furia-ui-frame-v3.webp furia-ui-skull-v3.webp furia-ui-eyes-v3.webp furia-ui-energy-v3.webp furia-ui-digits-v3.webp furia-ui-masacre-v3.webp furia-ui-combo-v3.webp furia-ui-imparable-v3.webp furia-energy-v3.mp4 furia-aura-v3.mp4 furia-energy-v3.webm furia-aura-v3.webm; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
+done
+
+# The connected lower homepage ships with its UI cutouts and animation prop.
+for scene in market-world games-hall; do
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v4.webp"
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v4-960.webp"
+  test -s "$TEMPLATE_SOURCE/img/home/$scene-v4-mobile.webp"
+done
+for asset in hub-real-v4.webp hub-games-real-v4.webp roulette-wheel-v4.webp; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
+done
+
+# V5: real Master capture, Hub environment, sky layer and integrated roulette artwork.
+for asset in master-real-v5.webp hub-world-v5.webp battle-clouds-v5.webp games-hall-v5.webp games-hall-v5-960.webp games-hall-v5-mobile.webp; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
+done
+
+# V6: every environmental join is part of the homepage deployment.
+for kind in rocks mist forest canopy market arcade; do
+  test -s "$TEMPLATE_SOURCE/img/home/join-$kind-v6.webp"
+done
+
+# Inicio must not deploy PHP that silently hides missing screenshots.
+HOME_RELEASE_ASSETS=(hero-rf-mg-v10.mp4 hero-rf-mg-v10.webp hero-world-v10.webp journey-world-v12.webp hub-desk-v12.webp hub-plates-v12.webp journey-forest-v13.webp journey-market-v13.webp journey-games-v13.webp join-canopy-v13.webp play-threshold-v14.webp play-button-account-v16.webp play-button-download-v16.webp stats-core-v15.webp stats-emblems-v15.webp stats-world-v15.webp)
+for asset in "${HOME_RELEASE_ASSETS[@]}"; do
+  test -s "$TEMPLATE_SOURCE/img/home/$asset"
+done
+
+# The Eryns storefront and its original artwork must arrive together.
+if [ ! -s "$TEMPLATE_SOURCE/img/recharge/eryns-legends-v3.webp" ]; then
+  echo "[MU PANIC] ERROR: Missing Eryns storefront artwork." >&2
+  exit 1
+fi
+
+# Fractura's separate character layers, world, scenic key art and altars deploy together.
+for asset in balance-forge-v5.svg aldren-varkor-v2.webp lord-of-fracture-v2.webp aldren-layer-v3.webp varkor-layer-v3.webp vulcanus-world-v3.webp boss-layer-v3.webp faction-altars-v3.webp; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/fractura/$asset" ]; then
+    echo "[MU PANIC] ERROR: Missing Fractura asset: $asset" >&2
+    exit 1
+  fi
+done
+
+test -s "$TEMPLATE_SOURCE/fonts/fractura-matrix-v11.ttf"
+
+# The Vínculos guide and its illustrated bestiary must arrive together.
+for asset in eryns-pack-pouch.webp eryns-pack-chest.webp eryns-pack-legendary.webp theryon-scene-v5.webp nerathys-scene-v5.webp vaeraxes-scene-v5.webp vip-champion-scene-v5.webp vip-insignia-v5.svg vip-benefit-crown-v5.svg vip-benefit-shield-v5.svg vip-benefit-star-v5.svg; do
+  test -s "$TEMPLATE_SOURCE/img/recharge/$asset"
+done
+test -s "$TEMPLATE_SOURCE/inc/recharge-storefront.json"
+test -s "$TEMPLATE_SOURCE/inc/recharge-vip-status.php"
+test -s "$TEMPLATE_SOURCE/inc/recharge-vip-showcase.php"
+test -s "$TEMPLATE_SOURCE/inc/recharge-admin-storefront.php"
+test -s "$TEMPLATE_SOURCE/js/recharge-admin.js"
+test -s "$TEMPLATE_SOURCE/inc/account-dashboard.php"
+
+for file in atlas-vinculos.php atlas-vinculos.json; do
+  test -s "$TEMPLATE_SOURCE/inc/$file"
+done
+for portrait in aelira-cinematic sylthara-cinematic elyndra-cinematic aurik-cinematic aurion-cinematic vaeryn-cinematic vaerath-cinematic vaerion-cinematic grum-cinematic vaelkar-cinematic aurethia-cinematic theryon-cinematic nerathys-cinematic vaeraxes-cinematic sanctum-cinematic ritual-cinematic fragmentos nucleos luck-hd assembly-hd; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/atlas/vinculos/$portrait.webp" ]; then
+    echo "[MU PANIC] ERROR: Missing Vínculos portrait: $portrait" >&2
+    exit 1
+  fi
+done
+
 # Page artwork must be present before any deployment copy.
 for asset in server-world server-progression server-atlas server-events server-portals; do
   if [ ! -s "$TEMPLATE_SOURCE/img/server/$asset.webp" ]; then
     echo "[MU PANIC] ERROR: Missing page artwork: $asset.webp" >&2
+    exit 1
+  fi
+done
+
+# El servidor V2: escenas, "Un día en MU PANIC" y comunidad deben llegar completas.
+for asset in server-hero server-furia server-fractura server-vessara server-companeros server-hub server-cliente server-comunidad server-cierre dia-1-tributo dia-2-caza dia-3-mercado dia-4-fractura dia-5-hub; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/server/v2/$asset.webp" ]; then
+    echo "[MU PANIC] ERROR: Missing server page artwork: $asset.webp" >&2
+    exit 1
+  fi
+done
+
+# El servidor V3: cada imagen que nombran la página, su CSS y su JS debe viajar completa.
+SERVER_V3_REFS=$(grep -ohE '(server/v3/|\$srvV3; \?>)[a-z0-9-]+-[0-9a-f]{12}\.webp' \
+  "$MODULE_SOURCE/information.php" "$TEMPLATE_SOURCE/css/information.css" "$TEMPLATE_SOURCE/js/information.js" \
+  | grep -oE '[a-z0-9-]+-[0-9a-f]{12}\.webp' | sort -u)
+if [ -z "$SERVER_V3_REFS" ]; then
+  echo "[MU PANIC] ERROR: El servidor V3 no referencia imágenes" >&2
+  exit 1
+fi
+for asset in $SERVER_V3_REFS; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/server/v3/$asset" ]; then
+    echo "[MU PANIC] ERROR: Missing server page artwork: v3/$asset" >&2
+    exit 1
+  fi
+done
+
+# Mercado de Vessara (la Bolsa): cada imagen que nombran la página y su CSS debe viajar completa.
+MARKET_BOLSA_REFS=$(grep -ohE 'bolsa/[a-z0-9-]+-[0-9a-f]{12}\.webp' \
+  "$TEMPLATE_SOURCE/inc/market.php" "$TEMPLATE_SOURCE/css/market.css" | sort -u)
+if [ -z "$MARKET_BOLSA_REFS" ]; then
+  echo "[MU PANIC] ERROR: El Mercado no referencia su arte" >&2
+  exit 1
+fi
+for asset in $MARKET_BOLSA_REFS; do
+  if [ ! -s "$TEMPLATE_SOURCE/img/market/$asset" ]; then
+    echo "[MU PANIC] ERROR: Missing market artwork: $asset" >&2
     exit 1
   fi
 done
@@ -134,6 +251,14 @@ for asset in "${TERRITORY_ART_FILES[@]}"; do
   fi
 done
 
+# Install only the explicitly approved public launcher route, never the whole API tree.
+if [ -L "$DEPLOY_ROOT/api" ] || [ -L "$DEPLOY_ROOT/api/launcher.php" ]; then
+  echo "[MU PANIC] ERROR: Launcher API destination must not be a symlink." >&2
+  exit 1
+fi
+test -s "$SOURCE_ROOT/overlay/api/launcher.php"
+test -s "$TEMPLATE_SOURCE/inc/launcher-data.php"
+
 # Never read, rewrite or copy live config or credentials.
 if [ -L "$DEPLOY_ROOT/templates" ] || [ -L "$TEMPLATE_DEST" ] || [ -L "$DEPLOY_ROOT/modules" ]; then
   echo "[MU PANIC] ERROR: Deployment destinations must not be symlinks." >&2
@@ -162,7 +287,35 @@ if [ -f "$HERO_DEST" ]; then
   HERO_PRESENT=1
 fi
 
+# Install and verify release media before publishing templates. An exhausted quota
+# stops here rather than leaving a new page with missing client windows or joins.
+mkdir -p "$TEMPLATE_DEST/img/home"
+for asset in "${HOME_RELEASE_ASSETS[@]}"; do
+  source_asset="$TEMPLATE_SOURCE/img/home/$asset"
+  target_asset="$TEMPLATE_DEST/img/home/$asset"
+  source_digest="$(sha256sum "$source_asset" | cut -d ' ' -f 1)"
+  if [ -s "$target_asset" ] && [ "$(sha256sum "$target_asset" | cut -d ' ' -f 1)" = "$source_digest" ]; then
+    continue
+  fi
+  if ! cp "$source_asset" "$target_asset.installing"; then
+    rm -f "$target_asset.installing"
+    echo "[MU PANIC] ERROR: Cannot install Inicio media. Check hosting disk quota: $asset" >&2
+    exit 1
+  fi
+  if [ "$(sha256sum "$target_asset.installing" | cut -d ' ' -f 1)" != "$source_digest" ]; then
+    rm -f "$target_asset.installing"
+    echo "[MU PANIC] ERROR: Incomplete Inicio asset: $asset" >&2
+    exit 1
+  fi
+  mv -f "$target_asset.installing" "$target_asset"
+done
+
+# Snapshot only the Economy release files before the existing overlay copy.
+ECO_BACKUP="$(/bin/bash "$SOURCE_ROOT/scripts/economy-install.sh" Preparar "$DEPLOY_ROOT")"
+echo "[MU PANIC] Economy backup: $ECO_BACKUP"
+
 cp -a "$TEMPLATE_SOURCE/." "$TEMPLATE_DEST/"
+/bin/bash "$SOURCE_ROOT/scripts/economy-install.sh" Finalizar "$DEPLOY_ROOT" "$ECO_BACKUP"
 
 if [ "$HERO_PRESENT" -eq 1 ] && [ -f "$HERO_KEEP" ]; then
   cp -a "$HERO_KEEP" "$HERO_DEST"
@@ -185,5 +338,9 @@ done
 for asset in 6159-0-cd8d6cb459d6.webp 7181-0-29ae502f9fef.webp 7182-0-55910930295d.webp 7184-0-685e3ef7832d.webp 7190-0-1c1bb600aa8c.webp 7209-0-ad95e9dee78b.webp; do
   rm -f "$TEMPLATE_DEST/img/atlas/drops/$asset"
 done
+
+/bin/bash "$SOURCE_ROOT/scripts/deploy-launcher.sh" "$DEPLOY_ROOT"
+mkdir -p "$DEPLOY_ROOT/api"
+cp -a "$SOURCE_ROOT/overlay/api/launcher.php" "$DEPLOY_ROOT/api/launcher.php"
 
 echo "[MU PANIC] Beta overlay deployed successfully."

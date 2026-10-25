@@ -1,0 +1,4 @@
+Instalacion VPS: crea/actualiza una vista SQL con 9 campos publicos de ventas confirmadas y otorga SELECT exclusivamente sobre esa vista al rol public de la base existente. No habilita nuevos inicios de sesion ni conexiones externas. No otorga permisos sobre tablas, inventarios o saldos. Conserva el cierre de ventas pendiente de cobro como venta entregada. No incluye operaciones canceladas ni MarketCoin.
+Ejecutar INSTALAR.ps1 desde PowerShell de administrador, con SQL local y MuOnline43. Despues actualizar/desplegar beta en cPanel. No requiere cerrar clientes ni reiniciar procesos.
+Solo modifica definicion/permisos de dbo.PanicMarketPublicSales, dentro de transaccion. Valida conteos y columnas antes de confirmar. Guarda la definicion anterior si existia. Un fallo previo al commit revierte los cambios de SQL.
+0=Zen, 1=Eryns. El volumen es el precio completo pagado en cada trato, no la cantidad de moneda existente en el servidor.

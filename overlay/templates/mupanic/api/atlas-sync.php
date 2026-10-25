@@ -22,8 +22,9 @@ if(strlen($body) > 8000000) atlasReply(413, 'Snapshot too large');
 if(!hash_equals(hash_hmac('sha256', $stamp."\n".$body, $token), $signature)) atlasReply(401, 'Invalid signature');
 $snapshot = json_decode($body, true);
 $required = array('schemaVersion','generatedAt','sourceHash','revision','accounts','masterMonsterMin','resets','experience','maps','drops','crafting');
-if(!is_array($snapshot) || array_diff($required, array_keys($snapshot)) || array_diff(array_keys($snapshot), array_merge($required, array('eventBags')))) atlasReply(422, 'Invalid snapshot fields');
+if(!is_array($snapshot) || array_diff($required, array_keys($snapshot)) || array_diff(array_keys($snapshot), array_merge($required, array('eventBags','hunting')))) atlasReply(422, 'Invalid snapshot fields');
 if($snapshot['schemaVersion'] !== 2 || !is_string($snapshot['generatedAt']) || strtotime($snapshot['generatedAt']) === false || !is_string($snapshot['sourceHash']) || !preg_match('/^[a-f0-9]{64}$/D', $snapshot['sourceHash'])) atlasReply(422, 'Invalid snapshot metadata');
+if(isset($snapshot['hunting']) && (!is_array($snapshot['hunting']) || ($snapshot['hunting']['version'] ?? null) !== 3 || !isset($snapshot['hunting']['generatedAt'],$snapshot['hunting']['sourceHash']) || strtotime($snapshot['hunting']['generatedAt']) === false || !preg_match('/^[a-f0-9]{64}$/D',$snapshot['hunting']['sourceHash']))) atlasReply(422, 'Invalid hunting metadata');
 // Keep account names controlled because existing template sections display them directly.
 if(!is_array($snapshot['accounts']) || count($snapshot['accounts']) !== 4) atlasReply(422, 'Invalid accounts');
 foreach(array('Free','VIP 1','VIP 2','VIP 3') as $i=>$name) {

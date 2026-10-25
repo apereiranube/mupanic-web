@@ -23,3 +23,10 @@ assert.equal(find('Selupan',{type:'boss'}).length,1,'Event-only boss can be foun
 assert.equal(find('Do not claim').length,0,'Unsupported rewards must not assert item availability');
 assert.equal(find('Selupan')[0].maps.length,0,'Unknown boss map stays unknown');
 console.log('Atlas search: 10 behavior checks passed.');
+// A real ItemDrop pool must expose the item and its map, never an imaginary box.
+const directData={maps:data.maps,drops:[{id:-1,bagId:217,name:'Joyería inicial',map:0,monster:3,min:1,max:10}],eventBags:[{id:217,name:'Joyería inicial',monster:-1,kind:'direct',dropRoutes:[0],format:'advanced',items:[{id:6666,name:'Ring of Test'}]}]};
+const direct=build(directData);
+assert.ok(!direct.some(e=>e.type==='object'&&e.id===-1));
+assert.deepEqual(filter(direct,{query:'Ring of Test',type:'object',map:'0',level:''})[0].routes[0].maps,[0]);
+assert.equal(filter(direct,{query:'Ring of Test',type:'object',map:'1',level:''}).length,0);
+console.log('Atlas direct loot: correct object, map and no imaginary box.');

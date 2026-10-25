@@ -81,9 +81,9 @@ class FixtureLedger implements PanicRechargeLedger {
 $ledger=new FixtureLedger($order); $reconciler=new PanicRechargeReconciler($mobbex,$ledger,'SHOP-1');
 expect($reconciler->reconcile('PAY-123')==='ready','Reconciler');
 $reconciler->reconcile('PAY-123'); expect($ledger->jobs===1,'Replay produces one fixture job');
-// Entire public catalogue is closed and has no secrets or made-up offers.
+// Bank transfer is the only current checkout; private settings control its availability.
 $config=require __DIR__.'/../overlay/templates/mupanic/inc/recharge-config.php';
-expect(count($config['packages'])===5 && $config['providers']['mercadopago']['state']==='disabled' && $config['providers']['uala_bis']['state']==='pending','Prelaunch configuration');
+expect(count($config['packages'])===5 && $config['providers']['mercadopago']['state']==='disabled' && $config['providers']['uala_bis']['state']==='disabled' && $config['providers']['uala_bis']['checkout_enabled']===false && $config['primary_provider']==='bank_transfer','Bank-only checkout configuration');
 foreach($config['packages'] as $offer) {
     $offer=PanicRecharge::package($offer);
     expect($offer['price_cents']===$offer['coins']*100 && $offer['bonus']===0,'Approved one peso per WCoin rate');

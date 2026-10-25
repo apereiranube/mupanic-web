@@ -27,7 +27,7 @@ async function eventImages(page){
 async function shot(page,name){if(output)await page.screenshot({path:path.join(output,name+'.png')});}
 (async()=>{
  if(output)fs.mkdirSync(output,{recursive:true});
- const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
+ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_BIN||undefined,headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const [width,height] of [[1920,1080],[1366,768],[1024,768],[390,844],[320,700]]){
   const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'}),errors=[];
   await setup(page,errors);await page.goto('https://atlas.test/info/');await page.evaluate(()=>document.fonts.ready);
@@ -87,8 +87,10 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   const choices=zone.locator('[data-atlas-mob-select]');
   if(await choices.count()>1){const second=choices.nth(1);await second.click();assert.equal(await second.getAttribute('aria-pressed'),'true');assert.equal(await zone.locator('[data-atlas-mob]:visible').getAttribute('data-atlas-mob'),await second.getAttribute('data-atlas-mob-select'));await choices.first().click();}
   assert.equal(await zone.locator('[data-atlas-mob]:visible').count(),1);
-  assert.ok(await zone.locator('[data-atlas-rates]').count()>0,'Rate verification uses a populated loot list');
+  assert.equal(await zone.locator('[data-atlas-rates]').count(),0,'Unopened loot stays out of the live DOM');
   await zone.locator('[data-atlas-mob]:visible .atlas-loot>summary').click();
+  await zone.locator('[data-atlas-mob]:visible [data-atlas-rates]').first().waitFor({state:'visible'});
+  assert.ok(await zone.locator('[data-atlas-rates]').count()>0,'Opening loot reveals its real rates');
   await lorencia.locator('[data-atlas-account]').selectOption('1');
   assert.equal(await lorencia.locator('[data-atlas-account]').inputValue(),'1');
   assert.equal(await lorencia.locator('[data-atlas-panel="7"] [data-atlas-rates]').evaluateAll(rows=>rows.every(row=>row.textContent===JSON.parse(row.dataset.atlasRates)[1].toLocaleString('es-AR',{maximumFractionDigits:6})+'%')),true,'Display configured VIP rates');
@@ -106,8 +108,8 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
 
   await page.locator('.wiki-nav a[href="#recompensas"]').click();
   const rewards=page.locator('#recompensas [data-reward-list]');
-  assert.equal(await rewards.count(),70);
-  assert.equal(await rewards.locator('summary img').count(),70,'Every reward card has an image');
+  assert.equal(await rewards.count(),46);
+  assert.equal(await rewards.locator('summary img').count(),46,'Every reward card has an image');
   await rewards.locator('summary img').evaluateAll(async images=>{await Promise.all(images.map(img=>img.decode()));});
   assert.equal(await rewards.locator('summary img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true,'All reward images decode without clicking or reloading');
   await noOverflow(page,'all-rewards');
@@ -139,7 +141,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   await page.locator('.wiki-nav a[href="#eventos"]').click();
   assert.equal(await page.locator('.atlas-event-card').count(),enabledEvents.length);assert.equal(await page.locator('[data-event-group=all]').count(),0);assert.equal(await page.locator('.atlas-event-card:visible').count(),enabledEvents.filter(e=>e.group==='classic').length);if([1920,390].includes(width)){await page.locator('#eventos').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+width);}
   if([1920,390].includes(width)){for(const kind of ['classic','invasion','staff']){await page.locator('[data-event-group="'+kind+'"]').click();await page.locator('.atlas-event-grid').scrollIntoViewIfNeeded();await shot(page,'atlas-events-'+kind+'-'+width);}}
-  await page.locator('[data-event-group=staff]').click();assert.equal(await page.locator('.atlas-event-card:visible').count(),6);await page.locator('[data-event-group=custom]').click();
+  await page.locator('[data-event-group=staff]').click();assert.equal(await page.locator('.atlas-event-card:visible').count(),8);await page.locator('[data-event-group=custom]').click();
   await page.locator('[data-event-search]').fill('Maldito');assert.equal(await page.locator('.atlas-event-card:visible').count(),1);await page.locator('[data-event-search]').fill('');
   assert.equal(await page.locator('.atlas-event-card [data-atlas-event-open=auction]').count(),0);
   assert.equal(await page.locator('.atlas-event-validation,.atlas-event-audit-date').count(),0);
@@ -167,7 +169,7 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
     if(['blood-castle','illusion-temple'].includes(id)&&[1920,390].includes(width))await shot(page,'atlas-event-tiers-'+id+'-'+width);
    }
    if(['pandora','invasion-8'].includes(id)&&[1920,390].includes(width))await shot(page,'atlas-event-guide-'+id+'-'+width);
-   if(id==='pandora'){assert.ok((await modal.textContent()).includes('19:15'));await page.keyboard.press('Escape');}
+   if(id==='pandora'){assert.ok((await modal.textContent()).includes(enabledEvents.find(e=>e.id==='pandora').schedule.map(r=>String(r[4]).padStart(2,'0')+':'+String(r[5]).padStart(2,'0'))[0]));await page.keyboard.press('Escape');}
    else if(id==='blood-castle')await modal.locator('[data-atlas-event-close]').click();
    else await page.mouse.click(3,3);
    assert.equal(await modal.evaluate(el=>el.open),false);

@@ -17,14 +17,19 @@ cp "$SOURCE_ROOT/tools/auditoria/preparar-auditoria.php" "$DEST/preparar-auditor
 chmod 600 "$DEST/preparar-auditoria.php"
 cp "$SOURCE_ROOT/tools/main/separar-main.php" "$DEST/separar-main.php"
 chmod 600 "$DEST/separar-main.php"
+cp "$SOURCE_ROOT/tools/main/promover-beta.php" "$DEST/promover-beta.php"
+chmod 600 "$DEST/promover-beta.php"
 # La auditoria cerrada permite solo sus herramientas protegidas por Basic Auth.
 php -r '
 $path = $argv[1];
-$old = "RewriteRule ^(?!(?:index|preparar-auditoria)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]";
-$new = "RewriteRule ^(?!(?:index|preparar-auditoria|separar-main)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]";
+$new = "RewriteRule ^(?!(?:index|preparar-auditoria|separar-main|promover-beta)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]";
+$olds = [
+  "RewriteRule ^(?!(?:index|preparar-auditoria)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]",
+  "RewriteRule ^(?!(?:index|preparar-auditoria|separar-main)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]",
+];
 $before = file_get_contents($path);
 if ($before === false) { fwrite(STDERR, "No se pudo leer la proteccion de auditoria.\n"); exit(1); }
-$after = str_replace($old, $new, $before);
+$after = str_replace($olds, $new, $before);
 if ($after !== $before) {
     $temporary = tempnam(dirname($path), ".audit-rules-");
     if ($temporary === false) exit(1);

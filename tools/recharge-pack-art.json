@@ -1,0 +1,36 @@
+{
+  "generator": "Built-in image_gen",
+  "reference": "exec-c79efea6-64ad-48df-9218-b07a4733d34b.png",
+  "assets": [
+    {
+      "key": "pouch",
+      "file": "overlay/templates/mupanic/img/recharge/eryns-pack-pouch.webp",
+      "source": "exec-c1fe24f3-87e9-4aa0-9172-0c09f59fe15e.png",
+      "prompt": "Use case: ads-marketing. Asset type: transparent premium virtual currency package illustration for MU PANIC fantasy MMO store. A dark midnight-blue velvet drawstring pouch with copper clasps, half open, spilling just five silver-and-copper Eryns medallions with luminous sapphire crystal cores. Small starter currency pack, modest size, clean silhouette and a few tiny blue sparkles. Three-quarter product view. Match the reference medallion design as the currency inside the package; the reference is a design reference, not an edit target. AAA fantasy game item shop artwork, polished realistic 3D stylized render, detailed cloth/metal, bright cinematic blue and amber light. Entire object visible, full silhouette, occupies 80 percent of square canvas. True transparent alpha background, no ground plane, no shadow rectangle, no environment, no UI, no text, no letters, no numbers, no border, no background glow disc. Crisp premium object with open transparent space around edges.",
+      "width": 800,
+      "height": 800,
+      "alpha": true,
+      "sha256": "71260f0cf3c653ed68b709e356e14334f1d538dd88f21cf438ec22566948a524"
+    },
+    {
+      "key": "chest",
+      "file": "overlay/templates/mupanic/img/recharge/eryns-pack-chest.webp",
+      "source": "exec-bdb5895f-612a-4f92-92a5-a9f3db62f4d0.png",
+      "prompt": "Use case: ads-marketing. Asset type: transparent premium virtual currency package illustration for MU PANIC fantasy MMO store. One elegant medium treasure chest of midnight-blue lacquered wood, silver embossed metal and copper edging. Open lid, filled with silver and copper Eryns medallions with sapphire crystal cores. Moderate ice-blue glow rising from the open chest, a few particles. Appealing medium currency pack, clear readable chest silhouette. Three-quarter product view. Match the reference medallion design as the currency inside the package; the reference is a design reference, not an edit target. AAA fantasy game item shop artwork, polished realistic 3D stylized render, detailed cloth/metal, bright cinematic blue and amber light. Entire object visible, full silhouette, occupies 80 percent of square canvas. True transparent alpha background, no ground plane, no shadow rectangle, no environment, no UI, no text, no letters, no numbers, no border, no background glow disc. Crisp premium object with open transparent space around edges.",
+      "width": 800,
+      "height": 800,
+      "alpha": true,
+      "sha256": "933be1b06eb1f07aa6f57cbf8922c92e8926060eedd68eaa48c2880f96644d19"
+    },
+    {
+      "key": "legendary",
+      "file": "overlay/templates/mupanic/img/recharge/eryns-pack-legendary.webp",
+      "source": "exec-d78910b0-4c9e-470e-bc39-ccf4a4dbeabb.png",
+      "prompt": "Use case: ads-marketing. Asset type: transparent premium virtual currency package illustration for MU PANIC fantasy MMO store. One monumental legendary treasure coffer with tall open lid, dark midnight-blue enameled metal, ornate silver wing-like blades and luminous copper filigree, sapphire insets. Brimming with silver and copper Eryns medallions with luminous sapphire cores. Rich electric-blue magical flame and fine orange sparks rising from inside. Premium largest currency pack, extravagant but clean and identifiable single chest, three-quarter product view. Match the reference medallion design as the currency inside the package; the reference is a design reference, not an edit target. AAA fantasy game item shop artwork, polished realistic 3D stylized render, detailed cloth/metal, bright cinematic blue and amber light. Entire object visible, full silhouette, occupies 80 percent of square canvas. True transparent alpha background, no ground plane, no shadow rectangle, no environment, no UI, no text, no letters, no numbers, no border, no background glow disc. Crisp premium object with open transparent space around edges.",
+      "width": 800,
+      "height": 800,
+      "alpha": true,
+      "sha256": "2ced89f02c50b5320bd386926267a3d27f0c5d0223b9f4e581b75541792e4ccc"
+    }
+  ]
+}

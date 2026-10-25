@@ -1,6 +1,7 @@
 <?php
 define('access','api');
 require_once __DIR__.'/../inc/recharge-orders.php';
+require_once __DIR__.'/../inc/recharge-bank.php';
 header('Content-Type: application/json; charset=utf-8'); header('Cache-Control: no-store');
 function rechargeWorkerError($code) { http_response_code($code); echo '{"error":"Recharge unavailable"}'; exit; }
 if(($_SERVER['REQUEST_METHOD'] ?? '')!=='POST') rechargeWorkerError(405);
@@ -12,7 +13,9 @@ if($request===null) rechargeWorkerError(401);
 try {
     if(($request['action'] ?? '')==='ack') {
         // Accept stored SQL receipts even during provider outages or environment changes.
-        $result=$store->acknowledge($request['receipt'] ?? []);
+        $receipt=$request['receipt'] ?? [];
+        if(($receipt['provider'] ?? 'uala_bis')==='bank_transfer') { (new PanicBankTransfers())->acknowledge($receipt); $result=['state'=>'credited','id'=>$receipt['id']]; }
+        else $result=$store->acknowledge($receipt);
     } elseif(in_array($request['action'] ?? '',['poll','report'],true)) {
         [$api,$merchant,$settings]=panicRechargeShopGateway();
         if(($request['environment'] ?? '')!==$settings['environment']) rechargeWorkerError(409);
@@ -22,6 +25,10 @@ try {
         } else {
             $management->report($request,'polling');
             $result=$store->poll($api,$merchant,$settings['environment']==='production',($request['version'] ?? 1)>=2);
+            if(($request['version'] ?? 1)>=3) {
+                $bank=(new PanicBankTransfers())->jobs($settings['environment'],max(1,3-count($result['jobs'])));
+                if($bank) { $result['jobs']=array_slice($result['jobs'],0,3-count($bank)); $result['jobs']=array_merge($result['jobs'],$bank); }
+            }
         }
     } else rechargeWorkerError(422);
     $result['nonce']=$request['nonce']; $reply=json_encode($result,JSON_THROW_ON_ERROR);

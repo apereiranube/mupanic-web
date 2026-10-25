@@ -1,19 +1,50 @@
 <?php
-define('access',true);define('__BASE_URL__','https://preview.test/beta/');
+define('access',true);define('__BASE_URL__','https://preview.test/beta/');define('__PATH_TEMPLATE__',__BASE_URL__.'templates/mupanic/');
 $inc=dirname(__DIR__,2).'/overlay/templates/mupanic/inc';
 require $inc.'/account.php';
 function isLoggedIn(){return true;}
 function config($k,$r){return false;}
-class Connection {static function Database($n){return new self;} function query_fetch($s,$p=[]){return [['balance'=>1011]];}}
+class Connection {static function Database($n){return new self;} function query_fetch($s,$p=[]){if(strpos($s,'AccountLevel')!==false) return getenv('RECHARGE_FIXTURE')==='vip-unknown'?null:[['active'=>in_array(getenv('RECHARGE_FIXTURE'),['vip','mount-vip','vip-priced-active'],true)?1:0,'days_remaining'=>in_array(getenv('RECHARGE_FIXTURE'),['vip','mount-vip','vip-priced-active'],true)?12:0]];return [['balance'=>1011]];}}
 $_SESSION=['username'=>'Agustin','recharge_csrf'=>str_repeat('a',64),'recharge_nonce'=>str_repeat('b',32)];
 require $inc.'/recharge-orders.php';
 $catalogue=(require $inc.'/recharge-config.php')['packages'];
+if(getenv('RECHARGE_FIXTURE')==='bonus') { $catalogue[4]['bonus']=2000;$catalogue[4]['featured']=true; }
 $cart=PanicRecharge::cart($catalogue,['wcoin-20000'=>5]);
 $one=PanicRecharge::order('Agustin',$cart,'uala_bis',false);$one['lines']=$cart['lines'];$one['payment_state']='approved';
 $two=$one;$two['id']='PANIC-'.str_repeat('c',32);$two['coins']=55000;$two['price_cents']=5500000;$two['delivery_state']='credited';$two['lines']=PanicRecharge::cart($catalogue,['wcoin-20000'=>2,'wcoin-5000'=>3])['lines'];
 $three=$one;$three['id']='PANIC-'.str_repeat('d',32);$three['payment_state']='pending';$three['checkout_url']='https://stage.uala-checkout.com/fixture';
 $shopHistory=['total'=>3,'orders'=>[$one,$two,$three]];$shopCanBuy=true;$shopSettings=['environment'=>'test'];$shopAdmin=false;$shopCreated=null;$shopMessage=null;$shopQuantities=['wcoin-20000'=>'5'];$shopPage=1;
-$markup=file_get_contents($inc.'/recharge.php');$markup=str_replace("require __DIR__.'/recharge-shop-controller.php';",'',$markup);$markup=str_replace('$publicOffers=[];', '$publicOffers=$rechargeConfig["packages"];',$markup);$markup=str_replace('__DIR__',var_export($inc,true),$markup);
-echo '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="https://preview.test/beta/"><link rel="stylesheet" href="templates/mupanic/css/style.css"><link rel="stylesheet" href="templates/mupanic/css/account.css"><link rel="stylesheet" href="templates/mupanic/css/recharge.css"><style>body{margin:0;background:#f3ece2}.fixture-wrap{max-width:1280px;margin:30px auto;padding:30px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:30px}.fixture-nav{padding:25px;background:#202b28;color:#ead7bd}.fixture-content{background:#fffaf4;padding:30px;min-width:0}@media(max-width:800px){.fixture-wrap{display:block;padding:20px;margin:0}.fixture-nav{display:none}.fixture-content{padding:20px}}</style></head><body class="is-account"><div class="fixture-wrap"><aside class="fixture-nav"><h2>MU PANIC</h2><p>Mi cuenta</p><hr><p>Inicio del panel</p><p>Mis personajes</p><p>Recargar WCoin C</p></aside><main class="fixture-content">';
-eval('?>'.$markup);
-echo '</main></div><script src="templates/mupanic/js/recharge.js"></script></body></html>';
+$fixtureMode=getenv('RECHARGE_FIXTURE');
+require_once $inc.'/recharge-bank.php';
+$bankConfig=PanicBankTransfers::defaults();$bankConfig['enabled']=true;$bankCanBuy=true;$bankSelected=false;$bankCuit='';$bankPage=1;$bankHistory=['orders'=>[],'total'=>0];
+if(in_array($fixtureMode,['bank','bank-created','bank-error'],true)) {
+    $bankConfig['enabled']=true;$bankCanBuy=true;
+    $shopMessage='Ahora abrí Discord y usá el código de tu compra para adjuntar el comprobante en un ticket privado.';
+    $_POST['recharge_action']='bank_ready';
+    $bankOrder=PanicRecharge::order('Agustin',PanicRecharge::cart($catalogue,['wcoin-1000'=>1]),'bank_transfer',false);
+    $bankOrder['id']='PANIC-'.str_repeat('e',32);
+    $bankOrder+=['bank'=>['holder'=>'Titular de prueba','bank'=>'Banco de prueba','recipient_cuit'=>'20123456786','alias'=>'mu.panic.prueba','cbu'=>'0140000701100008921240'], 'discord'=>['guild_id'=>'1555229554920915057','support_channel_id'=>'1555229554920915058'],'ticket_channel'=>null,'cuit'=>'20123456786','discord_id'=>null];
+    $bankHistory=['orders'=>[$bankOrder],'total'=>1];
+    $_SESSION['bank_claim_code']=['id'=>$bankOrder['id'],'code'=>str_repeat('a',24),'expires'=>time()+1800];
+    $bankContinueOrder=$bankOrder;
+    if($fixtureMode==='bank-created') { $_POST['recharge_action']='create'; $shopMessage='Transferencia preparada.'; unset($_SESSION['bank_claim_code']); }
+    if($fixtureMode==='bank-error') { $_POST['recharge_action']='create'; $bankContinueOrder=null; $shopMessage='Revisá el CUIT.'; }
+}
+
+if(in_array($fixtureMode,['zero','bonus'],true)) $shopQuantities=array_fill_keys(array_column($catalogue,'id'),'0');
+if(in_array($fixtureMode,['closed','vip-priced-closed'],true)) { $shopCanBuy=false; $bankCanBuy=false; }
+if($fixtureMode==='ready') $shopCreated=$three;
+if($fixtureMode==='empty') { $shopHistory=['total'=>0,'orders'=>[]];$shopQuantities=[]; }
+$storefrontRoot=null;
+if(in_array($fixtureMode,['mount-normal','mount-vip','vip-priced','vip-priced-active','vip-priced-bonus','vip-priced-closed'],true)) {
+    $storefrontRoot=sys_get_temp_dir().'/panic-storefront-preview-'.bin2hex(random_bytes(5));mkdir($storefrontRoot,0700);
+    $presentation=PanicRechargeManagement::storefrontDefaults();$presentation['products'][0]['price_coins']=100000;$presentation['products'][0]['vip_price_coins']=90000;$presentation['products'][0]['available']=true;
+    if(strpos($fixtureMode,'vip-priced')===0) { $presentation['vip']['price_coins']=25000;$presentation['vip']['days']=30; }
+    file_put_contents($storefrontRoot.'/recharge-storefront.json',json_encode($presentation));
+}
+if($fixtureMode==='vip-priced-bonus') { foreach($catalogue as &$offer) { if($offer['id']==='wcoin-20000') { $offer['bonus']=5000; } } unset($offer); }
+$markup=file_get_contents($inc.'/recharge.php');
+if($storefrontRoot) $markup=str_replace('(new PanicRechargeManagement())->storefront()', '(new PanicRechargeManagement('.var_export($storefrontRoot,true).'))->storefront()', $markup);$markup=str_replace("require __DIR__.'/recharge-shop-controller.php';",'',$markup);$markup=str_replace('$publicOffers=[];', '$publicOffers=$catalogue;',$markup);$markup=str_replace('__DIR__',var_export($inc,true),$markup);
+echo '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><base href="https://preview.test/beta/"><link rel="stylesheet" href="templates/mupanic/css/style.css"><link rel="stylesheet" href="templates/mupanic/css/account.css"><link rel="stylesheet" href="templates/mupanic/css/recharge.css"><style>body{margin:0}.fixture-wrap{max-width:1560px;width:calc(100% - 48px);margin:100px auto 30px}.fixture-content{min-width:0}@media(max-width:900px){.fixture-wrap{margin:90px auto 0;width:calc(100% - 32px)}}</style></head><body class="is-account"><div class="fixture-wrap account-layout"><aside class="account-nav"><div class="account-nav-head"><small>MU PANIC</small><strong>Mi cuenta</strong></div><nav aria-label="Opciones de mi cuenta"><a class="account-overview-link" href="https://preview.test/beta/usercp/">Inicio del panel</a><div class="account-nav-group"><span class="account-nav-group-title">Personajes</span><ul class="account-menu"><li><a href="https://preview.test/beta/usercp/myaccount/">Mis personajes</a></li></ul></div><div class="account-nav-group"><span class="account-nav-group-title">Eryns y VIP</span><ul class="account-menu"><li><a href="https://preview.test/beta/usercp/recharge/" aria-current="page">Recargar Eryns</a></li><li><a href="https://preview.test/beta/usercp/vip/">VIP MU PANIC</a></li><li><a href="https://preview.test/beta/usercp/referidos/">Referidos</a></li></ul></div></nav></aside><main class="fixture-content module-surface">';
+try { eval('?>'.$markup); } finally { if($storefrontRoot) { foreach(glob($storefrontRoot.'/*') as $path) unlink($path);rmdir($storefrontRoot); } }
+echo '</main></div><script src="templates/mupanic/js/account.js"></script><script src="templates/mupanic/js/recharge.js"></script></body></html>';

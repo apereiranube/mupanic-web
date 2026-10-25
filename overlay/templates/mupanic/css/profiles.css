@@ -1,6 +1,5 @@
 /* Public profiles: present the CMS values without changing account or game data. */
 .is-profile{background:#0b1012;color:#e6dfd3}
-.is-profile .site-header{background:#091012ed;border-bottom-color:#d7a57d26}
 .is-profile .inner-hero{padding:130px 0 25px;background:#0b1012;border-bottom:1px solid #c7945e30}
 .is-profile .inner-head{align-items:center;gap:24px}
 .is-profile .inner-head h1{font:500 clamp(30px,3vw,42px)/1.05 var(--display);margin:12px 0 0;color:#eee5d7}

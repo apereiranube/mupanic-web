@@ -70,7 +70,7 @@ $eventImage=function($e) use($atlasAssets,$eventGuides) {
  </div></div></div></article>
  <?php } ?>
  <div class="atlas-event-reward-lists" aria-label="Detalle de premios del evento">
- <?php $rewardBags = array_filter($wiki['eventBags'] ?? [], function($bag) { return $bag['monster'] < 0 && $bag['item'] < 0; }); include(__DIR__.'/atlas-reward-cards.php'); ?>
+ <?php $rewardBags = array_filter($wiki['eventBags'] ?? [], function($bag) { return ($bag['kind'] ?? '') !== 'direct' && $bag['monster'] < 0 && $bag['item'] < 0; }); include(__DIR__.'/atlas-reward-cards.php'); ?>
  </div>
  <script type="application/json" data-event-data><?php echo json_encode($eventSnapshot,JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT); ?></script>
 </section>

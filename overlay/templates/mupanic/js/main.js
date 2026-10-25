@@ -154,6 +154,7 @@
     wiki.querySelectorAll('[data-event-reward-list]').forEach(function(list) { list.hidden = true; });
     if (target) {
       target.hidden = false;
+      if (target.matches('[data-vinculo]')) target.open = true;
       var atlasPanel = target.closest('[data-atlas-panel]');
       if (atlasPanel) { selectAtlasSpot(atlasPanel.closest('[data-atlas-explorer]'), atlasPanel.getAttribute('data-atlas-panel')); if (target.hasAttribute('data-atlas-mob')) selectAtlasMonster(atlasPanel, target.getAttribute('data-atlas-mob')); }
       var details = target.closest('details');
@@ -303,18 +304,19 @@
     matches.slice(0,finderLimit).forEach(function (entry) {
       var card = document.createElement('article'); card.className = 'atlas-find-card';
       var header = document.createElement('header');
-      var portrait = data.portraits && data.portraits[String(entry.id)];
-      if (entry.type === 'mob' && portrait) {
+      var portrait = entry.image ? {file:entry.image} : (data.portraits && data.portraits[String(entry.id)]);
+      if ((entry.image || entry.type === 'mob') && portrait) {
         var image = document.createElement('img'); image.src = sourceBase() + portrait.file; image.alt = entry.name;
         image.width = 72; image.height = 72; image.loading = 'lazy'; header.appendChild(image);
       }
       var names = document.createElement('div'), type = document.createElement('small'), title = document.createElement('h3');
-      type.textContent = {object:'OBJETO', mob:'MONSTRUO', map:'MAPA'}[entry.type]; title.textContent = entry.name;
+      type.textContent = {pet:'MASCOTA', mount:'MONTURA', material:'MATERIAL'}[entry.category] || {object:'OBJETO', mob:'MONSTRUO', map:'MAPA'}[entry.type]; title.textContent = entry.name;
       names.appendChild(type); names.appendChild(title); header.appendChild(names); card.appendChild(header);
       var routes = entry.routes.filter(function (route) { return finderMap.value === '' || entry.type === 'map' || (route.maps || []).includes(Number(finderMap.value)); });
       if (entry.type === 'object') {
         finderRoutes(card,routes.filter(function (route) { return route.kind === 'drop'; }),'Drops de monstruos');
         finderRoutes(card,routes.filter(function (route) { return route.kind === 'reward'; }),'Cajas, bosses y eventos');
+        finderRoutes(card,routes.filter(function (route) { return route.kind === 'guide'; }),'Vínculos de PANIC');
       } else {
         finderRoutes(card,routes,'Dónde encontrarlo');
         if (!entry.maps.length) { var note = document.createElement('p'); note.textContent = 'La ubicación de aparición no está confirmada en la población fija. Consultá las condiciones del evento.'; card.appendChild(note); }
@@ -351,6 +353,23 @@
     });
   }
   wiki.querySelectorAll('[data-atlas-explorer]').forEach(function(explorer) {
+    // Keep unopened, repeated mob loot lists out of layout and selector scans.
+    // Their original HTML stays available when JavaScript is disabled.
+    function updateAtlasRates(container) {
+      var account = Number(explorer.querySelector('[data-atlas-account]').value);
+      container.querySelectorAll('[data-atlas-rates]').forEach(function(rate) {
+        rate.textContent = JSON.parse(rate.getAttribute('data-atlas-rates'))[account].toLocaleString('es-AR',{maximumFractionDigits:6}) + '%';
+      });
+    }
+    explorer.querySelectorAll('.atlas-loot').forEach(function(loot) {
+      var summary = loot.querySelector('summary'), parked = document.createDocumentFragment();
+      function park() { Array.from(loot.childNodes).forEach(function(node) { if(node !== summary) parked.appendChild(node); }); }
+      if(!loot.open) park();
+      loot.addEventListener('toggle',function() {
+        if(loot.open) { loot.appendChild(parked); updateAtlasRates(loot); }
+        else park();
+      });
+    });
     explorer.querySelectorAll('[data-atlas-panel]').forEach(function(panel) {
       var first = panel.querySelector('[data-atlas-mob]'); if (first) selectAtlasMonster(panel, first.getAttribute('data-atlas-mob'));
       panel.querySelectorAll('[data-atlas-mob-select]').forEach(function(button) { button.addEventListener('click', function() { selectAtlasMonster(panel, button.getAttribute('data-atlas-mob-select')); }); });
@@ -368,12 +387,7 @@
       event.currentTarget.setAttribute('aria-pressed',String(zoomed));
       event.currentTarget.textContent = zoomed ? 'Alejar −' : 'Acercar +';
     });
-    explorer.querySelector('[data-atlas-account]').addEventListener('change',function(event) {
-      var account = Number(event.target.value);
-      explorer.querySelectorAll('[data-atlas-rates]').forEach(function(rate) {
-        rate.textContent = JSON.parse(rate.getAttribute('data-atlas-rates'))[account].toLocaleString('es-AR',{maximumFractionDigits:6}) + '%';
-      });
-    });
+    explorer.querySelector('[data-atlas-account]').addEventListener('change',function() { updateAtlasRates(explorer); });
   });
   // Keep just one map expanded; deep links still open the requested map.
   wiki.querySelectorAll('#progresion > .wiki-map-list > .wiki-map').forEach(function(map) {
@@ -479,6 +493,7 @@
 })();
 
 ;(function () {
+  if (document.body.classList.contains('is-home-launch')) return;
   if (!window.matchMedia || !window.matchMedia('(pointer:fine)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -503,6 +518,7 @@
   if (!document.body.classList.contains('is-home') && !document.body.classList.contains('is-server-info')) return;
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+  if (document.body.classList.contains('is-home-launch')) return;
   var layer = document.createElement('div');
   layer.className = 'ambient-embers';
   layer.setAttribute('aria-hidden', 'true');

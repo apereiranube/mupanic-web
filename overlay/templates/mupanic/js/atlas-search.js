@@ -33,6 +33,7 @@
       });
     });
     data.drops.forEach(function (drop, i) {
+      if (drop.id < 0) return; // selection of a loot pool, not an obtainable box
       var maps = data.maps.filter(function (map) { return map.monsters.some(function (mob) { return compatible(drop,map,mob); }); });
       object(drop).routes.push({kind:'drop', label:'Drop de monstruos · Lv. ' + drop.min + '–' + drop.max,
         detail:maps.length ? maps.map(function (m) { return m.name; }).join(', ') : 'Sin población fija compatible identificada',
@@ -51,10 +52,31 @@
         if (item.setName) { var obj = object(item); obj.aliases = Array.from(new Set((obj.aliases || []).concat(item.setName))); }
         if (seen.has(item.id)) return;
         seen.add(item.id);
-        object(item).routes.push({kind:'reward', label:bag.name, detail:bag.monster >= 0 ? 'Recompensa de ' + (bag.monsterName || bag.name) : 'Caja o evento',
+        if (bag.kind === 'direct') {
+          (bag.dropRoutes || []).forEach(function (index) {
+            var drop = data.drops[index];
+            var maps = data.maps.filter(function (map) { return map.monsters.some(function (mob) { return compatible(drop,map,mob); }); });
+            object(item).routes.push({kind:'drop', label:'Drop directo · ' + bag.name,
+              detail:(maps.length ? maps.map(function (map) { return map.name; }).join(', ') : 'Condición de boss o evento') + ' · selección de un objeto del grupo',
+              maps:maps.map(function (map) { return map.id; }), hash:'#drop-' + index});
+          });
+        } else object(item).routes.push({kind:'reward', label:bag.name, detail:bag.monster >= 0 ? 'Recompensa de ' + (bag.monsterName || bag.name) : 'Caja o evento',
           maps:[], hash:'#recompensa-' + bag.id});
       });
     });
+    if (data.vinculos) {
+      data.vinculos.entries.concat(data.vinculos.materials).forEach(function (item) {
+        var entry = object(item);
+        entry.name = item.name;
+        entry.aliases = (item.aliases || []).concat(item.title || '');
+        entry.category = item.kind === 'montura' ? 'mount' : item.kind ? 'pet' : 'material';
+        entry.image = item.image;
+        // Companions are obtained through their own system, never stale reward lists.
+        if (item.kind) entry.routes = [];
+        entry.routes.push({kind:'guide', label:item.kind ? 'Ficha, poderes e historia' : 'Material: uso y cantidades',
+          detail:item.obtain, maps:[], hash:'#vinculo-' + item.slug});
+      });
+    }
     entries = entries.concat(Array.from(mobs.values()), Array.from(objects.values()));
     entries.forEach(function (entry) { entry.text = normalize(entry.name + ' ' + (entry.aliases || []).join(' ')); });
     return entries;
@@ -62,7 +84,7 @@
   function filter(entries, options) {
     var words = normalize(options.query).split(/\s+/).filter(Boolean);
     return entries.filter(function (entry) {
-      if (options.type && entry.type !== options.type && !(options.type === 'boss' && entry.type === 'mob' && entry.boss)) return false;
+      if (options.type && entry.type !== options.type && entry.category !== options.type && !(options.type === 'boss' && entry.type === 'mob' && entry.boss)) return false;
       if (!words.every(function (word) { return entry.text.includes(word); })) return false;
       if (options.map !== '') {
         var map = Number(options.map);

@@ -4,7 +4,7 @@
     <p>Buscá un objeto para ver cómo conseguirlo, o un mob para encontrar sus mapas y spots.</p>
     <div class="atlas-finder-controls">
         <label class="wiki-control">Nombre del objeto, mob o mapa<input type="search" data-atlas-query placeholder="Por ejemplo: Chaos, Spider o LaCleon" autocomplete="off"></label>
-        <label class="wiki-control">Mostrar<select data-atlas-type><option value="">Todo</option><option value="object">Objetos</option><option value="mob">Mobs</option><option value="boss">Mobs con recompensas especiales</option><option value="map">Mapas</option></select></label>
+        <label class="wiki-control">Mostrar<select data-atlas-type><option value="">Todo</option><option value="object">Objetos</option><option value="pet">Mascotas</option><option value="mount">Monturas</option><option value="material">Materiales del vínculo</option><option value="mob">Mobs</option><option value="boss">Mobs con recompensas especiales</option><option value="map">Mapas</option></select></label>
         <label class="wiki-control">Mapa<select data-atlas-map><option value="">Todos los mapas</option><?php foreach($wiki['maps'] as $finderMap) { ?><option value="<?php echo $finderMap['id']; ?>"><?php echo panicWikiEscape($finderMap['name']); ?></option><?php } ?></select></label>
         <label class="wiki-control" data-atlas-level-control hidden>Nivel máximo del mob<input type="number" data-atlas-level min="0" max="10000" placeholder="Sin límite"></label>
     </div>

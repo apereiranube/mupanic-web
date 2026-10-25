@@ -1,0 +1,115 @@
+/* Same cream, charcoal and semantic colors as the friendly Economy panel. */
+.is-account .module-surface:has(.shop-management--v6){background:#fbf7ef!important}
+.is-account .shop-management--v6{--admin-ink:#303744;--admin-muted:#626875;--admin-line:#e2ddd4;--admin-green:#197b44;background:#fbf7ef;color:var(--admin-ink);padding:24px;border:1px solid var(--admin-line);border-radius:12px;font-size:14px;line-height:1.65;overflow:clip}
+.shop-management--v6 *{box-sizing:border-box}
+.is-account .shop-management--v6 .recharge-hero{margin:0 0 22px;padding:26px;background:radial-gradient(ellipse at 90% 10%,#80613d55,transparent 60%),linear-gradient(120deg,#181e29,#2c3341);border:1px solid #80613d88;border-radius:12px;color:#fff6e4}
+.is-account .shop-management--v6 .recharge-hero h2{font:750 clamp(27px,3vw,38px)/1.2 var(--body);letter-spacing:-.03em;margin:8px 0 12px;color:#fff6e4}
+.is-account .shop-management--v6 .recharge-hero h2 br{display:none}
+.is-account .shop-management--v6 .recharge-hero h2 em{font-style:normal;color:#f0cf9e}
+.is-account .shop-management--v6 .recharge-hero p{font-size:14px;line-height:1.7;color:#e0d9ce}
+.is-account .shop-management--v6 .recharge-hero .eyebrow{color:#e7ba7e}
+.is-account .shop-management--v6 .shop-admin-badges :is(span,a){font-size:12px;color:#f3d5ad;background:#ffffff0a;border-color:#bd956655;border-radius:7px}
+.is-account .shop-management--v6 .recharge-sections{padding:0 0 18px;margin:0 0 22px;border-bottom:1px solid var(--admin-line);background:transparent;gap:8px}
+.is-account .shop-management--v6 .recharge-sections a{padding:10px 13px;background:#fffdf9;color:#444b57;border:1px solid #d6cfc3;border-radius:7px;min-height:44px;font-size:13px;font-weight:700;text-decoration:none}
+.is-account .shop-management--v6 .recharge-sections a:hover{background:#f0e6d8;border-color:#a68a65}
+.is-account .shop-management--v6 .recharge-sections a[aria-current=page]{background:#282f3c;color:#f4d5ab;border-color:#535962}
+.is-account .shop-management--v6 .recharge-section{padding:24px;margin:20px 0;border:1px solid var(--admin-line);border-top:4px solid #b47d40;border-radius:10px;background:#fffdf9;scroll-margin-top:110px;min-width:0}
+.is-account .shop-management--v6 #shop-catalogue{border-top-color:#b47d40}
+.is-account .shop-management--v6 #shop-bank{border-top-color:#477d65}
+.is-account .shop-management--v6 #shop-mounts{border-top-color:#8a72a1}
+.is-account .shop-management--v6 #shop-vip{border-top-color:#bc912c}
+.is-account .shop-management--v6 #shop-orders{border-top-color:#5b7e9a}
+.is-account .shop-management--v6 #shop-delivery{border-top-color:#54876a}
+.is-account .shop-management--v6 :is(h3,h4){font-family:var(--body);font-weight:750;color:#303744;line-height:1.3}
+.is-account .shop-management--v6 .recharge-section-head h3{font-size:23px;margin:6px 0}
+.is-account .shop-management--v6 .recharge-section-head>span{font-size:12px;color:#626875;background:#f2eee7;padding:6px 10px;border-radius:6px}
+.is-account .shop-management--v6 .eyebrow{color:#866036;font-size:10px;font-weight:800;letter-spacing:.12em}
+.is-account .shop-management--v6 :is(p,.recharge-section>p){color:#4c5360;font-size:14px;line-height:1.7}
+.is-account .shop-management--v6 :is(.recharge-subtle,.recharge-section>p.recharge-subtle){color:#626875;font-size:12px;line-height:1.7}
+.is-account .shop-management--v6 :is(.recharge-subtle b,p b){color:#303744}
+.is-account .shop-management--v6 label{color:#414956!important;font-size:13px;font-weight:650;line-height:1.6}
+.is-account .shop-management--v6 input:not([type=checkbox]),.is-account .shop-management--v6 select,.is-account .shop-management--v6 textarea{background:#fffdf9;color:#282c36;border:1px solid #c8c0b4;border-radius:6px;padding:11px 12px;font:400 14px/1.5 var(--body);min-height:44px}
+.is-account .shop-management--v6 input::placeholder,.is-account .shop-management--v6 textarea::placeholder{color:#767778;opacity:1}
+.is-account .shop-management--v6 input[type=checkbox]{accent-color:#477d65;width:18px;height:18px}
+.is-account .shop-management--v6 :is(input,textarea,select):focus-visible{outline:3px solid #ae7b3b70;outline-offset:2px;border-color:#98713c}
+.is-account .shop-management--v6 .shop-editor-grid{gap:18px}
+.is-account .shop-management--v6 :is(.shop-admin-catalogue,.shop-presentation-form){background:transparent}
+.is-account .shop-management--v6 details{background:#f8f4ed;border:1px solid #dfd7ca;border-radius:8px;color:#414956;margin:12px 0}
+.is-account .shop-management--v6 :is(.shop-package-fold>summary,.shop-benefit-fold>summary,.shop-system-details>summary,.bank-admin .recharge-order summary){font-size:14px;line-height:1.5;font-weight:700;color:#414956;padding:16px;cursor:pointer}
+.is-account .shop-management--v6 :is(.shop-package-fold>summary>span,.shop-benefit-fold>summary>span){font-size:11px;color:#626875;background:#eee7dc;padding:4px 8px;border-radius:5px;white-space:normal}
+.is-account .shop-management--v6 :is(.shop-package-editor,.shop-benefit-fold fieldset){border:0;background:#fffdf9;padding:20px;border-radius:0 0 8px 8px}
+.is-account .shop-management--v6 legend{font-size:13px;font-weight:700;color:#66604f;border-color:#e2ddd4}
+.is-account .shop-management--v6 .shop-pack-preview{background:#eaf4ed;color:#21633d;border:1px solid #b8d6c0;border-radius:7px;padding:12px 14px;font-size:13px;line-height:1.6;margin:0 0 18px}
+.is-account .shop-management--v6 :is(.shop-mount-editor,.shop-vip-grid article){padding:18px;background:#f7f3ec;border:1px solid #dfd7ca;border-radius:8px;color:#414956}
+.is-account .shop-management--v6 :is(.shop-mount-editor h4,.shop-vip-grid h4){font:750 20px/1.3 var(--body);color:#3e3548}
+.is-account .shop-management--v6 .shop-mount-editor img{border-radius:6px}
+.is-account .shop-management--v6 .shop-vip-editor-top{background:#f5efdf;border:1px solid #e0d4b9;border-radius:8px;padding:18px}
+.is-account .shop-management--v6 .shop-presentation-save{padding:18px 0;background:transparent;border-top:1px solid #e2ddd4;gap:16px}
+.is-account .shop-management--v6 .shop-presentation-save span{color:#626875;font-size:12px}
+.is-account .shop-management--v6 .recharge-button{background:#2e3644;color:#fff3df!important;border:1px solid #2e3644;border-radius:7px;min-height:46px;font-size:14px;font-weight:700;padding:12px 18px;line-height:1.5;box-shadow:none;cursor:pointer}
+.is-account .shop-management--v6 .recharge-button:hover{background:#444f62;border-color:#444f62}
+.is-account .shop-management--v6 .recharge-text-button,.is-account .shop-management--v6 .recharge-pagination a{color:#835823;font-size:13px;line-height:1.6}
+.is-account .shop-management--v6 :is(a,button,summary):focus-visible{outline:3px solid #ae7b3b90;outline-offset:3px}
+.is-account .shop-management--v6 :is(.recharge-notice,.bank-admin>[role=status]){padding:16px 18px;background:#edf5ee;border:1px solid #b9d4c0;border-radius:8px;color:#285c3c;font-size:14px;line-height:1.7;margin:16px 0}
+.is-account .shop-management--v6 :is(.recharge-notice.shop-error,.bank-admin>.shop-error){padding:16px 18px;background:#fff0eb;border:1px solid #dfb2a5;border-radius:8px;color:#8e3024;font-size:14px;line-height:1.7}
+.is-account .shop-management--v6 :is(.shop-admin-metrics>div,.shop-admin-revenue>div){padding:18px;background:#f5f0e7;border:1px solid #dfd7ca;border-radius:8px}
+.is-account .shop-management--v6 :is(.shop-admin-metrics span,.shop-admin-revenue span){color:#626875;font-size:12px}
+.is-account .shop-management--v6 :is(.shop-admin-metrics strong,.shop-admin-revenue strong){font:750 25px/1.3 var(--body);color:#303744}
+.is-account .shop-management--v6 .recharge-history-list{gap:18px}
+.is-account .shop-management--v6 .recharge-order{padding:22px;background:#fffdf9;border:1px solid #d9d3c7;border-left:4px solid #be9754;border-radius:8px;color:#303744}
+.is-account .shop-management--v6 .recharge-order-top{font-size:12px;color:#626875;gap:12px}
+.is-account .shop-management--v6 .recharge-order-value{gap:16px;flex-wrap:wrap}
+.is-account .shop-management--v6 .recharge-order-value strong{font:750 23px/1.3 var(--body);color:#303744;overflow-wrap:anywhere}
+.is-account .shop-management--v6 .recharge-order-value small{font:600 13px/1.5 var(--body);color:#626875;display:block;margin-top:4px}
+.is-account .shop-management--v6 .recharge-order-value>b{font-size:21px;color:#197b44;white-space:normal}
+.is-account .shop-management--v6 .bank-admin .recharge-order :is(p,p b){color:#414956;font-size:13px}
+.is-account .shop-management--v6 .bank-admin .recharge-order .recharge-subtle{font-size:12px;color:#626875}
+.is-account .shop-management--v6 .recharge-order p{overflow-wrap:anywhere}
+.is-account .shop-management--v6 .recharge-status{padding:6px 10px;background:#fff2d4;border:1px solid #d7bc80;border-radius:6px;color:#7a560e;font-size:12px;font-weight:700;white-space:normal}
+.is-account .shop-management--v6 .recharge-order[data-order-state=credited] .recharge-status{background:#edf5ee;border-color:#b9d4c0;color:#285c3c}
+.is-account .shop-management--v6 .recharge-order[data-order-state=rejected] .recharge-status{background:#fff0eb;border-color:#dfb2a5;color:#8e3024}
+.is-account .shop-management--v6 .bank-admin button[value=bank_approve]{background:#267346;border-color:#267346}
+.is-account .shop-management--v6 .bank-admin button[value=bank_approve]:hover{background:#1c5c36}
+.is-account .shop-management--v6 .bank-admin button[value=bank_reject]{margin-top:12px;color:#9c3c32;background:#fff4ef;border:1px solid #dcb7ad;border-radius:7px;padding:10px 14px;min-height:44px;text-decoration:none}
+.is-account .shop-management--v6 .bank-admin a.recharge-text-button{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;margin:4px 6px 10px 0;border:1px solid #c9b99e;border-radius:6px;background:#f8f0e3;color:#755124;text-decoration:none}
+.is-account .shop-management--v6 .shop-order-filters{padding:16px;background:#f2eee7;border:1px solid #e2ddd4;border-radius:8px;gap:14px}
+.is-account .shop-management--v6 .shop-system-details{background:#f2eee7;padding:4px 12px;border:1px solid #dfd7ca}
+.is-account .shop-management--v6 .shop-vip-grid{gap:14px}
+@media(max-width:650px){.is-account .shop-management--v6{padding:12px;border-radius:8px}.is-account .shop-management--v6 .recharge-hero{padding:22px 18px}.is-account .shop-management--v6 .recharge-section{padding:18px 14px;margin:16px 0}.is-account .shop-management--v6 .recharge-section-head{align-items:flex-start;flex-wrap:wrap}.is-account .shop-management--v6 .recharge-section-head h3{font-size:21px}.is-account .shop-management--v6 .recharge-sections a{flex:1 1 auto;text-align:center;font-size:12px}.is-account .shop-management--v6 .shop-editor-grid{grid-template-columns:minmax(0,1fr)}.is-account .shop-management--v6 .recharge-order{padding:16px}.is-account .shop-management--v6 .recharge-order-value strong{font-size:21px}.is-account .shop-management--v6 .shop-vip-editor-top{padding:12px}.is-account .shop-management--v6 .recharge-button{width:100%}}
+
+.is-account .shop-management--v6 .recharge-hero p{color:#e0d9ce;font-size:14px;line-height:1.7}
+
+/* One navigation menu, one screen per task. */
+.admin-console-menu{display:flex;flex-wrap:wrap;gap:8px;padding:16px;margin-bottom:18px;background:#fbf7ef;border:1px solid #e2ddd4;border-radius:10px}
+.is-account .admin-console-menu a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 15px;background:#fffdf9;border:1px solid #d6cfc3;border-radius:7px;font-size:13px;font-weight:700;line-height:1.4;color:#444b57;text-decoration:none}
+.is-account .admin-console-menu a:hover{background:#f0e6d8;border-color:#a68a65}
+.is-account .admin-console-menu a[aria-current=page]{background:#282f3c;border-color:#535962;color:#f4d5ab}
+.admin-console-menu a:focus-visible{outline:3px solid #ae7b3b90;outline-offset:3px}
+.is-account .module-surface:has(.admin-console-menu){padding:0;background:transparent;border:0}
+.admin-console-content .admin-overview-filters{display:flex;flex-wrap:wrap;align-items:end;gap:14px;padding:18px;border:1px solid #e2ddd4;border-radius:8px;background:#f2eee7;margin:20px 0}
+.admin-overview-filters label{flex:1;min-width:160px}
+.admin-overview-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0 12px}
+.is-account .shop-management--v6 .admin-overview-metric{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;padding:22px 18px;background:#fffdf9;border:1px solid #ded6c9;border-top:4px solid #9a733d;border-radius:10px;text-decoration:none;color:#303744;box-shadow:0 5px 16px #3e342806}
+.admin-overview-metric span{font-size:12px;font-weight:750;line-height:1.5;min-height:36px}
+.admin-overview-metric strong{font:750 clamp(25px,2.8vw,36px)/1.2 var(--body);letter-spacing:-.03em;max-width:100%;overflow-wrap:anywhere;color:#303744}
+.admin-overview-metric small{font-size:11px;line-height:1.6;color:#626875}
+.is-account .shop-management--v6 .admin-overview-metric.is-money{border-top-color:#267346;background:#f1f8f2}
+.admin-overview-metric.is-money strong{color:#197b44}
+.is-account .shop-management--v6 .admin-overview-metric.is-delivered{border-top-color:#776199;background:#f7f3fb}
+.admin-overview-metric.is-delivered strong{color:#6c528f}
+.is-account .shop-management--v6 .admin-overview-metric.is-review{border-top-color:#bd8b21;background:#fff8e7}
+.admin-overview-metric.is-review strong{color:#956816}
+.is-account .shop-management--v6 .admin-overview-metric.is-waiting{border-top-color:#497d9a;background:#f1f7fa}
+.admin-overview-metric.is-waiting strong{color:#37647d}
+.admin-payment-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:22px 0 32px}
+.admin-payment-split article{display:flex;flex-direction:column;gap:7px;padding:20px;background:#fffdf9;border:1px solid #e2ddd4;border-radius:8px}
+.admin-payment-split span{font-size:13px;font-weight:700;color:#414956}
+.admin-payment-split strong{font:750 25px/1.3 var(--body);color:#197b44;overflow-wrap:anywhere}
+.admin-payment-split small{font-size:12px;color:#626875}
+.admin-console-content .recharge-history-list{margin-top:20px}
+.admin-console-content .recharge-order details{padding:14px 16px}
+.admin-console-content .recharge-order summary{cursor:pointer;min-height:30px;font-size:13px;font-weight:700}
+.is-account .shop-management--v6 .recharge-order[data-order-state=approved] .recharge-status{background:#eaf3f8;border-color:#a9c4d2;color:#315c74}
+.admin-console-content .recharge-order-reference{overflow-wrap:anywhere}
+@media(max-width:1000px){.admin-overview-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.admin-console-menu{padding:12px;gap:7px}.is-account .admin-console-menu a{flex:1 1 calc(50% - 7px);padding:10px;font-size:12px}.admin-overview-metrics{gap:10px}.is-account .shop-management--v6 .admin-overview-metric{padding:17px 12px}.admin-overview-metric strong{font-size:27px}.admin-overview-metric span{font-size:11px}.admin-overview-metric small{font-size:10px}.admin-payment-split{grid-template-columns:1fr}.admin-overview-filters label{min-width:100%}.admin-overview-filters button{width:100%}}

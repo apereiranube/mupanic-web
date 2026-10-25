@@ -1,0 +1,32 @@
+[
+  {
+    "minimum": 0,
+    "nexo": "Juramentado",
+    "caos": "Desatado"
+  },
+  {
+    "minimum": 1500,
+    "nexo": "Portador del Sello",
+    "caos": "Portador de la Ruptura"
+  },
+  {
+    "minimum": 5000,
+    "nexo": "Forjador de Lazos",
+    "caos": "Quebrantador"
+  },
+  {
+    "minimum": 12000,
+    "nexo": "Bastión del Nexo",
+    "caos": "Azote de la Fractura"
+  },
+  {
+    "minimum": 25000,
+    "nexo": "Custodio del Pacto",
+    "caos": "Heraldo del Abismo"
+  },
+  {
+    "minimum": 50000,
+    "nexo": "Pilar del Mundo",
+    "caos": "Soberano de las Cenizas"
+  }
+]

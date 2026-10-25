@@ -9,7 +9,7 @@ function panicAtlasDropGroups($drops) {
         $key = (string)$drop['id'].($levels ? '' : '-'.($drop['variant'] ?? 0));
         if(!isset($groups[$key])) {
             $name = $levels ? preg_replace('/\s+\d+$/', '', $drop['name']) : $drop['name'];
-            $category = in_array($drop['id'], [6159,7181,7182,7184,7190,7209], true) ? 'joyas' : (in_array($drop['id'], [6670,6708], true) ? 'alas' : (in_array($drop['id'], [6214,6215,6216], true) ? 'sockets' : (in_array($drop['id'], array_merge($numbered,[7269,7278]), true) ? 'entradas' : (in_array($drop['id'], [7289,7290], true) ? 'cajas' : 'materiales'))));
+            $category = $drop['id'] === -1 ? (in_array($drop['variant'],[217,218,219,220],true) ? 'joyeria' : 'equipo') : ($drop['id'] === 7208 ? 'pociones' : (in_array($drop['id'], [6159,7181,7182,7184,7190,7199,7209,7210], true) ? 'joyas' : (in_array($drop['id'], [6670,6708], true) ? 'alas' : (in_array($drop['id'], [6214,6215,6216], true) ? 'sockets' : (in_array($drop['id'], array_merge($numbered,[7269,7278]), true) ? 'entradas' : (in_array($drop['id'], [7289,7290], true) ? 'cajas' : 'materiales'))))));
             $groups[$key] = ['key'=>$key,'name'=>$name,'category'=>$category,'numbered'=>$levels,'rules'=>[]];
         }
         $groups[$key]['rules'][$index] = $drop;

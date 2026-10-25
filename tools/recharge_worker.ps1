@@ -2,6 +2,7 @@ param(
     [string]$SqlServer = '',
     [System.Management.Automation.PSCredential]$SqlCredential,
     [switch]$Install,
+    [switch]$UpgradeExisting,
     [switch]$InstallTask,
     [switch]$Run,
     [switch]$Status,
@@ -9,6 +10,7 @@ param(
     [string]$PrivateRoot = 'C:\MuServer43\PaymentsPrivate'
 )
 $ErrorActionPreference = 'Stop'
+if ($UpgradeExisting -and -not $Install) { throw '-UpgradeExisting requiere -Install.' }
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $endpoint = 'https://beta.mupanic.com.ar/templates/mupanic/api/recharge-worker.php'
 $tokenPath = Join-Path $PrivateRoot 'recharge-worker-token'
@@ -72,6 +74,7 @@ function Read-RechargeSql([string]$Sql, $Job = $null) {
         $command.Parameters.Add('@Coins',[System.Data.SqlDbType]::Int).Value = [int]$Job.coins
         $command.Parameters.Add('@PriceCents',[System.Data.SqlDbType]::Int).Value = [int]$Job.price_cents
         $command.Parameters.Add('@Environment',[System.Data.SqlDbType]::VarChar,10).Value = [string]$Job.environment
+        $command.Parameters.Add('@Provider',[System.Data.SqlDbType]::VarChar,20).Value = [string]$Job.provider
     }
     $table = New-Object System.Data.DataTable
     $reader = $null
@@ -127,7 +130,7 @@ function Get-RechargeVipConfig {
     return $found
 }
 function Confirm-RechargeReceipt($Row) {
-    $receipt = @{ id=[string]$Row.OrderID; payment_id=[string]$Row.PaymentID; account=[string]$Row.AccountID; coins=[int]$Row.Coins; environment=[string]$Row.Environment; state='credited'; before_coin=[int]$Row.BeforeCoin; after_coin=[int]$Row.AfterCoin }
+    $receipt = @{ id=[string]$Row.OrderID; payment_id=[string]$Row.PaymentID; account=[string]$Row.AccountID; coins=[int]$Row.Coins; environment=[string]$Row.Environment; provider=[string]$Row.Provider; state='credited'; before_coin=[int]$Row.BeforeCoin; after_coin=[int]$Row.AfterCoin }
     $ack = Invoke-RechargeBridge @{ action='ack'; receipt=$receipt }
     if ($ack.state -cne 'credited' -or $ack.id -cne $receipt.id) { throw 'La web no confirmo el recibo SQL; se reintentara sin duplicar monedas.' }
     $command = $script:connection.CreateCommand()
@@ -149,7 +152,7 @@ IF OBJECT_ID('dbo.MUPanicRechargeDeliveries','U') IS NULL
 CREATE TABLE dbo.MUPanicRechargeDeliveries (
     OrderID varchar(38) COLLATE Latin1_General_BIN2 NOT NULL PRIMARY KEY,
     PaymentID varchar(120) COLLATE Latin1_General_BIN2 NOT NULL,
-    Provider varchar(20) NOT NULL CHECK(Provider='uala_bis'),
+    Provider varchar(20) NOT NULL CONSTRAINT CK_MUPanicRechargeProvider CHECK(Provider IN ('uala_bis','bank_transfer')),
     Environment varchar(10) NOT NULL CHECK(Environment IN ('test','production')),
     AccountID varchar(10) NOT NULL,
     Coins int NOT NULL CHECK(Coins BETWEEN 1 AND 1000000),
@@ -163,6 +166,18 @@ CREATE TABLE dbo.MUPanicRechargeDeliveries (
     CONSTRAINT CK_MUPanicRechargeBalance CHECK(AfterCoin>=BeforeCoin),
     CONSTRAINT CK_MUPanicRechargeDelta CHECK(AfterCoin-BeforeCoin=Coins)
 );
+-- Upgrade only the provider constraint; preserve every existing delivery receipt.
+DECLARE @ProviderConstraint sysname;
+SELECT @ProviderConstraint=name FROM sys.check_constraints
+WHERE parent_object_id=OBJECT_ID('dbo.MUPanicRechargeDeliveries')
+AND (parent_column_id=COLUMNPROPERTY(OBJECT_ID('dbo.MUPanicRechargeDeliveries'),'Provider','ColumnId') OR name='CK_MUPanicRechargeProvider');
+IF @ProviderConstraint IS NOT NULL
+BEGIN
+    DECLARE @DropProviderConstraint nvarchar(512);
+    SET @DropProviderConstraint=N'ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT '+QUOTENAME(@ProviderConstraint);
+    EXEC sys.sp_executesql @DropProviderConstraint;
+END;
+ALTER TABLE dbo.MUPanicRechargeDeliveries WITH CHECK ADD CONSTRAINT CK_MUPanicRechargeProvider CHECK(Provider IN ('uala_bis','bank_transfer'));
 -- Upgrade the price constraint without changing existing receipts.
 ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT CK_MUPanicRechargePrice;
 ALTER TABLE dbo.MUPanicRechargeDeliveries WITH CHECK ADD CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents BETWEEN 100 AND 100000000 AND PriceCents%100=0 AND PriceCents<=Coins*100);
@@ -171,13 +186,13 @@ IF OBJECT_ID('dbo.MUPanicAckRecharge','P') IS NULL EXEC('CREATE PROCEDURE dbo.MU
 COMMIT;
 GO
 ALTER PROCEDURE dbo.MUPanicApplyRecharge
-    @OrderID varchar(38),@PaymentID varchar(120),@Account varchar(10),@Coins int,@PriceCents int,@Environment varchar(10)
+    @OrderID varchar(38),@PaymentID varchar(120),@Account varchar(10),@Coins int,@PriceCents int,@Environment varchar(10),@Provider varchar(20)='uala_bis'
 WITH EXECUTE AS CALLER
 AS
 BEGIN
     SET NOCOUNT ON; SET XACT_ABORT ON; SET LOCK_TIMEOUT 5000;
     IF LEN(@OrderID)<>38 OR LEFT(@OrderID,6)<>'PANIC-' OR LEN(@PaymentID)<1 OR LEN(@Account)<1 OR
-        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents NOT BETWEEN 100 AND 100000000 OR @PriceCents%100<>0 OR @PriceCents>@Coins*100 OR @Environment NOT IN ('test','production')
+        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents NOT BETWEEN 100 AND 100000000 OR @PriceCents%100<>0 OR @PriceCents>@Coins*100 OR @Environment NOT IN ('test','production') OR @Provider IS NULL OR @Provider NOT IN ('uala_bis','bank_transfer')
     BEGIN RAISERROR('Orden invalida.',16,1); RETURN; END;
     BEGIN TRY
         BEGIN TRANSACTION;
@@ -188,12 +203,12 @@ BEGIN
         IF EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WITH(UPDLOCK,HOLDLOCK) WHERE OrderID=@OrderID)
         BEGIN
             IF NOT EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WHERE OrderID=@OrderID AND PaymentID=@PaymentID AND
-                AccountID=@Account AND Coins=@Coins AND PriceCents=@PriceCents AND Environment=@Environment)
+                AccountID=@Account AND Coins=@Coins AND PriceCents=@PriceCents AND Environment=@Environment AND Provider=@Provider)
                 RAISERROR('Orden ya registrada con otros datos.',16,1);
         END
         ELSE
         BEGIN
-            IF EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WITH(UPDLOCK,HOLDLOCK) WHERE Environment=@Environment AND Provider='uala_bis' AND PaymentID=@PaymentID)
+            IF EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WITH(UPDLOCK,HOLDLOCK) WHERE Environment=@Environment AND Provider=@Provider AND PaymentID=@PaymentID)
                 RAISERROR('Pago ya acreditado.',16,1);
             DECLARE @Online tinyint,@BeforeC int,@BeforeP int,@BeforeG int;
             SELECT @Online=ConnectStat FROM dbo.MEMB_STAT WITH(UPDLOCK,HOLDLOCK) WHERE memb___id=@Account;
@@ -208,10 +223,10 @@ BEGIN
             IF NOT EXISTS(SELECT 1 FROM dbo.CashShopData WHERE AccountID=@Account AND WCoinC=@BeforeC+@Coins AND WCoinP=@BeforeP AND GoblinPoint=@BeforeG)
                 RAISERROR('Resultado inesperado: se revierte la entrega.',16,1);
             INSERT dbo.MUPanicRechargeDeliveries(OrderID,PaymentID,Provider,Environment,AccountID,Coins,PriceCents,BeforeCoin,AfterCoin,CreditedAt)
-                VALUES(@OrderID,@PaymentID,'uala_bis',@Environment,@Account,@Coins,@PriceCents,@BeforeC,@BeforeC+@Coins,SYSUTCDATETIME());
+                VALUES(@OrderID,@PaymentID,@Provider,@Environment,@Account,@Coins,@PriceCents,@BeforeC,@BeforeC+@Coins,SYSUTCDATETIME());
         END;
         COMMIT;
-        SELECT 'credited' AS Result,OrderID,PaymentID,Environment,AccountID,Coins,BeforeCoin,AfterCoin
+        SELECT 'credited' AS Result,OrderID,PaymentID,Provider,Environment,AccountID,Coins,BeforeCoin,AfterCoin
             FROM dbo.MUPanicRechargeDeliveries WHERE OrderID=@OrderID;
     END TRY
     BEGIN CATCH
@@ -270,11 +285,13 @@ if ($Install -and $null -eq $script:connection -and $null -eq $SqlCredential) {
 if ($null -eq $script:connection) { throw 'No se pudo conectar a MuOnline43. No se modificaron saldos.' }
 try {
     if ($Install) {
+        if ($UpgradeExisting -and (-not (Test-Path -LiteralPath $tokenPath) -or -not (Test-Path -LiteralPath $settingsPath))) { throw 'Falta la instalacion previa del servicio.' }
         foreach ($batch in [regex]::Split($installSql,'(?im)^GO\s*$')) {
             if ([string]::IsNullOrWhiteSpace($batch)) { continue }
             $command=$script:connection.CreateCommand()
             try { $command.CommandText=$batch; $command.CommandTimeout=60; $command.ExecuteNonQuery() | Out-Null } finally { $command.Dispose() }
         }
+        if ($UpgradeExisting) { Write-Host 'SQL de entregas actualizado; se conservaron configuracion y token.'; return }
         [IO.Directory]::CreateDirectory($PrivateRoot) | Out-Null
         # Restrict persistent tokens/configuration to SYSTEM and local Administrators.
         $acl = New-Object Security.AccessControl.DirectorySecurity
@@ -308,28 +325,28 @@ try {
         try { $owns=$mutex.WaitOne(0) } catch [Threading.AbandonedMutexException] { $owns=$true }
         if (-not $owns) { Write-RechargeLog 'Ya hay otra ejecucion activa.'; return }
         # SQL commits are recovered first, even if the gateway or last HTTP acknowledgment failed.
-        $unacknowledged=Read-RechargeSql 'SELECT TOP(10) OrderID,PaymentID,AccountID,Environment,Coins,BeforeCoin,AfterCoin FROM dbo.MUPanicRechargeDeliveries WHERE AcknowledgedAt IS NULL ORDER BY CreditedAt'
+        $unacknowledged=Read-RechargeSql 'SELECT TOP(10) OrderID,PaymentID,Provider,AccountID,Environment,Coins,BeforeCoin,AfterCoin FROM dbo.MUPanicRechargeDeliveries WHERE AcknowledgedAt IS NULL ORDER BY CreditedAt'
         foreach ($row in $unacknowledged.Rows) { Confirm-RechargeReceipt $row }
-        $result=Invoke-RechargeBridge @{ action='poll'; environment=$Environment; version=2 }
+        $result=Invoke-RechargeBridge @{ action='poll'; environment=$Environment; version=3 }
         if ($null -eq $result.jobs -or @($result.jobs).Count -gt 3) { throw 'Cola firmada invalida.' }
         $waiting=0
         foreach ($job in @($result.jobs)) {
             if ([string]$job.id -cnotmatch '^PANIC-[a-f0-9]{32}$' -or [string]$job.payment_id -cnotmatch '^[A-Za-z0-9_-]{1,120}$' -or
-                [string]$job.account -cnotmatch '^[A-Za-z0-9_]{1,10}$' -or $job.provider -cne 'uala_bis' -or $job.environment -cne $Environment -or
+                [string]$job.account -cnotmatch '^[A-Za-z0-9_]{1,10}$' -or $job.provider -cnotin @('uala_bis','bank_transfer') -or $job.environment -cne $Environment -or
                 ($job.coins -isnot [int] -and $job.coins -isnot [long]) -or $job.coins -lt 1 -or $job.coins -gt 1000000 -or ($job.price_cents -isnot [int] -and $job.price_cents -isnot [long]) -or ($job.price_cents -lt 100 -or $job.price_cents -gt 100000000 -or $job.price_cents % 100 -ne 0 -or $job.price_cents -gt $job.coins*100)) { throw 'Orden firmada fuera de limites; no se acreditan monedas.' }
-            $receipt=Read-RechargeSql 'EXEC dbo.MUPanicApplyRecharge @OrderID=@OrderID,@PaymentID=@PaymentID,@Account=@Account,@Coins=@Coins,@PriceCents=@PriceCents,@Environment=@Environment' $job
+            $receipt=Read-RechargeSql 'EXEC dbo.MUPanicApplyRecharge @OrderID=@OrderID,@PaymentID=@PaymentID,@Account=@Account,@Coins=@Coins,@PriceCents=@PriceCents,@Environment=@Environment,@Provider=@Provider' $job
             if ($receipt.Rows.Count -ne 1) { throw 'Resultado SQL no confirmado; se conserva el registro.' }
             if ($receipt.Rows[0].Result -ceq 'waiting_offline') { $waiting++; Write-RechargeLog ('Cuenta conectada o estado desconocido: ' + [string]$job.account + '. Entrega pendiente.'); continue }
             if ($receipt.Rows[0].Result -cne 'credited') { throw 'Estado SQL inesperado.' }
             Confirm-RechargeReceipt $receipt.Rows[0]
             Write-RechargeLog ('Entrega ' + [string]$job.id + ' para ' + [string]$job.account + ': ' + $receipt.Rows[0].BeforeCoin + ' -> ' + $receipt.Rows[0].AfterCoin + ' WCoin C.')
         }
-        Invoke-RechargeBridge @{ action='report'; environment=$Environment; version=2; phase='ok'; jobs=@($result.jobs).Count; check_errors=[int]$result.check_errors; waiting=$waiting; vip_config=(Get-RechargeVipConfig) } | Out-Null
+        Invoke-RechargeBridge @{ action='report'; environment=$Environment; version=3; phase='ok'; jobs=@($result.jobs).Count; check_errors=[int]$result.check_errors; waiting=$waiting; vip_config=(Get-RechargeVipConfig) } | Out-Null
         Write-RechargeLog ('Consulta completada. Compras listas: ' + @($result.jobs).Count + '; verificaciones pendientes: ' + [string]$result.check_errors + '.')
     } finally { if ($owns) { $mutex.ReleaseMutex() }; $mutex.Dispose() }
 } catch {
     $failure=$_
-    if ($Run) { try { Invoke-RechargeBridge @{ action='report'; environment=$Environment; version=2; phase='error' } | Out-Null } catch {} }
+    if ($Run) { try { Invoke-RechargeBridge @{ action='report'; environment=$Environment; version=3; phase='error' } | Out-Null } catch {} }
     Write-RechargeLog ('Ejecucion detenida: ' + $failure.Exception.Message + ' La tarea volvera a consultar en su siguiente ejecucion.')
     throw
 } finally { $script:connection.Dispose() }

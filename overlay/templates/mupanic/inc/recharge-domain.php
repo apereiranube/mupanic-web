@@ -3,7 +3,7 @@ if(!defined('access') || !access) die();
 
 /** Payment core. Delivery uses the private signed worker and SQL ledger. */
 final class PanicRecharge {
-    const PROVIDERS = ['uala_bis', 'mobbex', 'mercadopago'];
+    const PROVIDERS = ['uala_bis', 'mobbex', 'mercadopago', 'bank_transfer'];
 
     public static function cents($value) {
         // Amounts are stored as integer centavos; API decimals are converted once.
@@ -47,7 +47,7 @@ final class PanicRecharge {
             $cents+=$offer['price_cents']*$quantity; $coins+=($offer['coins']+$offer['bonus'])*$quantity;
         }
         if(!$lines || $cents>100000000 || $coins>1000000) throw new InvalidArgumentException('Cart empty or outside limits');
-        return ['id'=>'cart','title'=>'Recarga de '.number_format($coins,0,',','.').' WCoin C',
+        return ['id'=>'cart','title'=>'Recarga de '.number_format($coins,0,',','.').' Eryns',
             'price_cents'=>$cents,'coins'=>$coins,'bonus'=>0,'lines'=>$lines];
     }
 

@@ -1,0 +1,10 @@
+{
+  "generator": "Built-in image_gen",
+  "purpose": "Illustrated Eryns treasury for the player recharge panel; conceptual game currency, no payment logos",
+  "prompt": "Use case: stylized-concept. Asset type: cinematic header background for MU PANIC Eryns currency recharge panel, wide landscape 3:2. Primary request: polished dark fantasy AAA game key art of a small treasury of enchanted silver coin medallions with faceted cyan crystal cores, thin copper rims, subtle violet rune engravings, a few silver medallions floating above a black stone altar. The right third is the main subject, a large upright medallion and a short pile of matching tokens, premium sharp metal and crystal detail; left 55 percent has mostly dark negative space and atmospheric ruined arches suitable for readable white headline overlaid by website code. Deep midnight navy and charcoal black, icy cyan highlights, restrained copper edges, violet magic wisps and tiny embers. Coherent modern medieval fantasy aesthetic similar to an epic MU Online bestiary, dramatic controlled lighting, rich material realism, no overwhelming gold. No UI, no typography, no letters, no numbers, no currency marks, no logos, no watermark. Entire foreground subject should fit fully inside safe margins. Subject illustrated as concept art, not real-world money.",
+  "file": "img/recharge/eryns-treasury-v1.webp",
+  "source": "exec-5a7f7d08-bece-4782-963e-469ce34ab262.png",
+  "width": 1536,
+  "height": 1024,
+  "sha256": "c39ff44957d7196f04e1b7fab90ad7158e72cccf7e03466f77fe94788c2d6e8d"
+}

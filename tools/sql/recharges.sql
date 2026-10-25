@@ -9,7 +9,7 @@ IF OBJECT_ID('dbo.MUPanicRechargeDeliveries','U') IS NULL
 CREATE TABLE dbo.MUPanicRechargeDeliveries (
     OrderID varchar(38) COLLATE Latin1_General_BIN2 NOT NULL PRIMARY KEY,
     PaymentID varchar(120) COLLATE Latin1_General_BIN2 NOT NULL,
-    Provider varchar(20) NOT NULL CHECK(Provider='uala_bis'),
+    Provider varchar(20) NOT NULL CONSTRAINT CK_MUPanicRechargeProvider CHECK(Provider IN ('uala_bis','bank_transfer')),
     Environment varchar(10) NOT NULL CHECK(Environment IN ('test','production')),
     AccountID varchar(10) NOT NULL,
     Coins int NOT NULL CHECK(Coins BETWEEN 1 AND 1000000),
@@ -23,6 +23,18 @@ CREATE TABLE dbo.MUPanicRechargeDeliveries (
     CONSTRAINT CK_MUPanicRechargeBalance CHECK(AfterCoin>=BeforeCoin),
     CONSTRAINT CK_MUPanicRechargeDelta CHECK(AfterCoin-BeforeCoin=Coins)
 );
+-- Upgrade only the provider constraint; preserve every existing delivery receipt.
+DECLARE @ProviderConstraint sysname;
+SELECT @ProviderConstraint=name FROM sys.check_constraints
+WHERE parent_object_id=OBJECT_ID('dbo.MUPanicRechargeDeliveries')
+AND (parent_column_id=COLUMNPROPERTY(OBJECT_ID('dbo.MUPanicRechargeDeliveries'),'Provider','ColumnId') OR name='CK_MUPanicRechargeProvider');
+IF @ProviderConstraint IS NOT NULL
+BEGIN
+    DECLARE @DropProviderConstraint nvarchar(512);
+    SET @DropProviderConstraint=N'ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT '+QUOTENAME(@ProviderConstraint);
+    EXEC sys.sp_executesql @DropProviderConstraint;
+END;
+ALTER TABLE dbo.MUPanicRechargeDeliveries WITH CHECK ADD CONSTRAINT CK_MUPanicRechargeProvider CHECK(Provider IN ('uala_bis','bank_transfer'));
 -- Upgrade the price constraint without changing existing receipts.
 ALTER TABLE dbo.MUPanicRechargeDeliveries DROP CONSTRAINT CK_MUPanicRechargePrice;
 ALTER TABLE dbo.MUPanicRechargeDeliveries WITH CHECK ADD CONSTRAINT CK_MUPanicRechargePrice CHECK(PriceCents BETWEEN 100 AND 100000000 AND PriceCents%100=0 AND PriceCents<=Coins*100);
@@ -31,13 +43,13 @@ IF OBJECT_ID('dbo.MUPanicAckRecharge','P') IS NULL EXEC('CREATE PROCEDURE dbo.MU
 COMMIT;
 GO
 ALTER PROCEDURE dbo.MUPanicApplyRecharge
-    @OrderID varchar(38),@PaymentID varchar(120),@Account varchar(10),@Coins int,@PriceCents int,@Environment varchar(10)
+    @OrderID varchar(38),@PaymentID varchar(120),@Account varchar(10),@Coins int,@PriceCents int,@Environment varchar(10),@Provider varchar(20)='uala_bis'
 WITH EXECUTE AS CALLER
 AS
 BEGIN
     SET NOCOUNT ON; SET XACT_ABORT ON; SET LOCK_TIMEOUT 5000;
     IF LEN(@OrderID)<>38 OR LEFT(@OrderID,6)<>'PANIC-' OR LEN(@PaymentID)<1 OR LEN(@Account)<1 OR
-        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents NOT BETWEEN 100 AND 100000000 OR @PriceCents%100<>0 OR @PriceCents>@Coins*100 OR @Environment NOT IN ('test','production')
+        @Coins NOT BETWEEN 1 AND 1000000 OR @PriceCents NOT BETWEEN 100 AND 100000000 OR @PriceCents%100<>0 OR @PriceCents>@Coins*100 OR @Environment NOT IN ('test','production') OR @Provider IS NULL OR @Provider NOT IN ('uala_bis','bank_transfer')
     BEGIN RAISERROR('Orden invalida.',16,1); RETURN; END;
     BEGIN TRY
         BEGIN TRANSACTION;
@@ -48,12 +60,12 @@ BEGIN
         IF EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WITH(UPDLOCK,HOLDLOCK) WHERE OrderID=@OrderID)
         BEGIN
             IF NOT EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WHERE OrderID=@OrderID AND PaymentID=@PaymentID AND
-                AccountID=@Account AND Coins=@Coins AND PriceCents=@PriceCents AND Environment=@Environment)
+                AccountID=@Account AND Coins=@Coins AND PriceCents=@PriceCents AND Environment=@Environment AND Provider=@Provider)
                 RAISERROR('Orden ya registrada con otros datos.',16,1);
         END
         ELSE
         BEGIN
-            IF EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WITH(UPDLOCK,HOLDLOCK) WHERE Environment=@Environment AND Provider='uala_bis' AND PaymentID=@PaymentID)
+            IF EXISTS(SELECT 1 FROM dbo.MUPanicRechargeDeliveries WITH(UPDLOCK,HOLDLOCK) WHERE Environment=@Environment AND Provider=@Provider AND PaymentID=@PaymentID)
                 RAISERROR('Pago ya acreditado.',16,1);
             DECLARE @Online tinyint,@BeforeC int,@BeforeP int,@BeforeG int;
             SELECT @Online=ConnectStat FROM dbo.MEMB_STAT WITH(UPDLOCK,HOLDLOCK) WHERE memb___id=@Account;
@@ -68,10 +80,10 @@ BEGIN
             IF NOT EXISTS(SELECT 1 FROM dbo.CashShopData WHERE AccountID=@Account AND WCoinC=@BeforeC+@Coins AND WCoinP=@BeforeP AND GoblinPoint=@BeforeG)
                 RAISERROR('Resultado inesperado: se revierte la entrega.',16,1);
             INSERT dbo.MUPanicRechargeDeliveries(OrderID,PaymentID,Provider,Environment,AccountID,Coins,PriceCents,BeforeCoin,AfterCoin,CreditedAt)
-                VALUES(@OrderID,@PaymentID,'uala_bis',@Environment,@Account,@Coins,@PriceCents,@BeforeC,@BeforeC+@Coins,SYSUTCDATETIME());
+                VALUES(@OrderID,@PaymentID,@Provider,@Environment,@Account,@Coins,@PriceCents,@BeforeC,@BeforeC+@Coins,SYSUTCDATETIME());
         END;
         COMMIT;
-        SELECT 'credited' AS Result,OrderID,PaymentID,Environment,AccountID,Coins,BeforeCoin,AfterCoin
+        SELECT 'credited' AS Result,OrderID,PaymentID,Provider,Environment,AccountID,Coins,BeforeCoin,AfterCoin
             FROM dbo.MUPanicRechargeDeliveries WHERE OrderID=@OrderID;
     END TRY
     BEGIN CATCH

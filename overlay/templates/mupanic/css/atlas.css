@@ -1,6 +1,5 @@
 /* Atlas PANIC — one presentation system. Real terrain, real portraits, live rewards. */
 .is-wiki{--atlas-bg:#1b2223;--atlas-panel:#202a2e;--atlas-panel-raised:#293438;--atlas-line:#c7996b55;--atlas-copper:#e7b887;--atlas-ink:#f5eee1;--atlas-muted:#c6cfc7;background-color:var(--atlas-bg);background-image:url('../img/atlas/atlas-relics.svg'),radial-gradient(ellipse 900px 800px at -10% 40%,#b57a4840,transparent 72%),radial-gradient(ellipse 1000px 900px at 110% 80%,#6f8c8930,transparent 72%),url('../img/atlas/atlas-mineral.svg'),linear-gradient(125deg,#262a27,#1b2427 55%,#292823);background-size:640px 640px,auto,auto,240px 240px,auto;background-attachment:fixed;color:var(--atlas-ink)}
-.is-wiki .site-header{background:#091012ed;border-bottom-color:#d7a57d26}
 .is-wiki .inner-content{padding:36px 0 80px}
 .is-wiki .module-surface{padding:0;border:0;background:none;overflow:visible;color:var(--atlas-ink)}
 .is-wiki .module-surface :is(h2,h3,h4){color:var(--atlas-ink)}
@@ -364,7 +363,7 @@
 .atlas-event-dialog .atlas-event-full{margin:0;border:0}
 
 /* The shared desktop navbar declares display:flex late in the cascade. */
-@media(max-width:900px){.is-wiki .main-nav:not(.open){display:none}.is-wiki .main-nav.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;align-items:stretch;width:auto;margin:0}.is-wiki .nav-actions{margin-left:auto}}
+
 
 /* Published event catalogue and live agenda. */
 .atlas-event-card[hidden]{display:none}.atlas-event-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:28px 0 10px}.atlas-event-controls button{border:1px solid var(--atlas-line);background:#141f21;padding:10px 14px;color:#b8baaa;font:11px var(--body);cursor:pointer}.atlas-event-controls button:disabled{opacity:.45;cursor:default}.atlas-event-controls button[aria-pressed="true"]{border-color:#b78d60;background:#b78d601a;color:#edc99d}.atlas-event-controls label{flex:1;min-width:160px}.atlas-event-controls input{width:100%;background:#10191b;border:1px solid var(--atlas-line);padding:10px 14px;color:#ddd2bc;font:12px var(--body)}.atlas-event-controls button:focus-visible,.atlas-event-controls input:focus-visible{outline:2px solid #d5a576;outline-offset:2px}
@@ -420,3 +419,189 @@
 @media(max-width:750px){.atlas-event-prizes{grid-template-columns:repeat(2,minmax(0,1fr))}.atlas-event-prize b{font-size:12px}.atlas-event-prize small{font-size:10px}.atlas-event-prize-heading{align-items:flex-start}.atlas-event-delivery{flex-wrap:wrap}.atlas-event-copy{padding:24px 20px}.atlas-event-prize-heading select{font-size:12px}}
 
 .atlas-boss-event-guide{padding:18px;margin:20px 0;background:linear-gradient(120deg,#b78a5118,#273338);border:1px solid #bc956b40;border-radius:3px}.atlas-boss-event-guide>p{font-size:13px}.atlas-boss-event-guide .atlas-event-facts dd{font-size:13px}
+
+/* Vínculos — illustrated bestiary, exclusive companions and playable lineages. */
+.panic-wiki.atlas-boot[data-atlas-initial=vinculos] #vinculos{display:block}
+.atlas-vinculos{--v-accent:#c7a378;--v-glow:151,112,74;--v-mist:122,85,189;background:#0b0f16;padding:0 0 1px;isolation:isolate}
+.atlas-vinculos [id^=vinculo-]{scroll-margin-top:110px}
+.atlas-vinculos .eyebrow{font-size:10px;letter-spacing:.19em;color:#c9aa89}
+.atlas-vinculos a:focus-visible,.atlas-vinculos summary:focus-visible{outline:2px solid #e7c59a;outline-offset:4px}
+.vinculos-home{display:flex;align-items:center;gap:24px;margin:24px 0;padding:18px 28px;border:1px solid #b7916955;background:radial-gradient(ellipse at 10% 50%,#62476b33,transparent 65%),#11191b;text-decoration:none!important;overflow:hidden}
+.vinculos-home>img{width:180px;height:170px;object-fit:contain;filter:drop-shadow(0 0 20px #71459133)}
+.vinculos-home h3{font-size:36px!important;margin:10px 0!important}.vinculos-home p{margin:0 0 12px}.vinculos-home strong{color:#d7b48d;font-size:12px}
+.vinculos-hero{position:relative;display:grid;grid-template-columns:1.1fr 1fr;align-items:center;min-height:620px;padding:48px 38px 35px;overflow:hidden;border:1px solid #8981ae45;background:linear-gradient(90deg,#080c13f0 0%,#080c1399 43%,#0a0e1612 80%),url('../img/atlas/vinculos/sanctum-cinematic.webp') 65% center/cover}
+.vinculos-hero:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#0b0f16,transparent 25%),radial-gradient(ellipse at 82% 38%,#8e63e81c,transparent 60%)}
+.vinculos-hero-copy{z-index:2;position:relative;min-width:0}
+.panic-wiki .vinculos-hero h2{font:500 clamp(52px,4.8vw,82px)/1.04 var(--display);letter-spacing:-.025em;color:#f0ece5;margin:26px -30px 26px 0;text-shadow:0 3px 25px #0008}
+.vinculos-hero h2 em{font-style:normal;background:linear-gradient(110deg,#eed9b4,#a7a1eb 65%,#a1d1e1);background-clip:text;-webkit-background-clip:text;color:transparent}
+.panic-wiki .vinculos-hero p{max-width:400px;font-size:15px;line-height:1.85;color:#c7c5d0}
+.vinculos-hero-actions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin:30px 0 42px}
+.atlas-vinculos a.vinculos-action{display:inline-flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 19px;border:1px solid #d8b486;box-shadow:inset 0 0 22px #b68b4c1a,0 0 22px #b68b4c14;background:linear-gradient(120deg,#cdb18b24,#837ba623);color:#f1dcbc;font-size:12px;font-weight:600;text-decoration:none;transition:box-shadow .2s,background .2s}
+.atlas-vinculos a.vinculos-action:hover{background:#cba57b30;box-shadow:0 0 24px #d6a36830}
+.vinculos-hero-actions>a:not(.vinculos-action){font-size:12px;color:#cfc4de;text-decoration:none}
+.vinculos-hero-signature{display:flex;justify-content:space-between;gap:10px;max-width:420px;padding-top:18px;border-top:1px solid #c4b0db36;font-size:8px;letter-spacing:.16em;color:#a09cae}
+.vinculos-hero-art{position:relative;z-index:1;align-self:stretch;min-height:490px;min-width:0}
+.vinculos-hero-art img{position:absolute;width:128%;height:92%;max-width:none;object-fit:contain;left:-15%;top:-5%;filter:drop-shadow(0 14px 28px #000a) drop-shadow(0 0 23px #8360c148);animation:vinculos-float 7s ease-in-out infinite}
+.vinculos-hero-creature{position:absolute;bottom:30px;right:0;text-align:right;border-right:2px solid #a58bd9;padding-right:18px}
+.vinculos-hero-creature span{display:block;font-size:8px;letter-spacing:.2em;color:#d3b4ef}
+.vinculos-hero-creature strong{display:block;font:500 33px/1.2 var(--display);color:#f1e6cf;margin:8px 0}
+.vinculos-hero-creature small{display:block;font-size:10px;color:#c1b8cc}
+.vinculos-chapters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 20px 0}
+.atlas-vinculos a.vinculos-chapter{position:relative;min-width:0;min-height:260px;overflow:hidden;border:1px solid #9c7daf50;background:radial-gradient(ellipse at 70% 20%,#67479148,transparent 70%),#111522;text-decoration:none;transition:border-color .25s,box-shadow .25s}
+.vinculos-chapter--mounts{background:radial-gradient(ellipse at 70% 20%,#31588e50,transparent 70%),#101824!important}
+.vinculos-chapter--pact{background:radial-gradient(ellipse at 70% 20%,#375b5450,transparent 70%),#111b1e!important}
+.vinculos-chapter:hover{border-color:#ccb48a!important;box-shadow:0 0 20px #ab84e225}
+.vinculos-chapter>img{position:absolute;right:-15px;top:8px;width:76%;height:180px;object-fit:contain;filter:drop-shadow(0 6px 15px #0008);transition:transform .3s}
+.vinculos-chapter:hover>img{transform:translateY(-4px)}
+.vinculos-chapter-number{position:absolute;top:16px;left:18px;font:500 47px/1 var(--display);color:#aaa3c935}
+.vinculos-chapter>div{position:absolute;z-index:1;bottom:0;left:0;right:0;padding:28px 18px 19px;background:linear-gradient(0deg,#0c101cf5 70%,transparent)}
+.vinculos-chapter small{display:block;font-size:8px;letter-spacing:.13em;color:#b6a0c3}
+.vinculos-chapter strong{display:block;font:500 clamp(22px,2vw,30px)/1.15 var(--display);color:#eee4d4;margin:10px 0}
+.vinculos-chapter>div>span{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:#b7b6c6}
+.vinculos-chapter-tools{grid-column:1/-1;display:flex;justify-content:center;gap:36px;padding:18px 0;border-bottom:1px solid #8a7eab35}
+.vinculos-chapter-tools>a{font-size:11px;color:#c1b6ce;text-decoration:none}
+.vinculos-chapter-tools span{margin-left:12px;color:#d8bc94}
+.vinculos-showcase,.vinculos-pact,.vinculos-materials{position:relative;margin:0;padding:68px 24px 44px}
+.vinculos-showcase--exclusive{background:radial-gradient(ellipse at 5% 45%,#54367420,transparent 60%)}
+.vinculos-showcase--mounts{border-top:1px solid #b18b6340;background:radial-gradient(ellipse at 80% 30%,#32486d24,transparent 65%)}
+.vinculos-section-heading{display:flex;align-items:flex-start;gap:24px;padding-bottom:28px;position:relative}
+.vinculos-section-index{font:500 100px/.9 var(--display);letter-spacing:-.04em;color:#cab39123;flex-shrink:0}
+.vinculos-section-heading>div{min-width:0}
+.panic-wiki .vinculos-section-heading h3{font:500 clamp(40px,4vw,64px)/1.06 var(--display);letter-spacing:-.02em;color:#eee6dc;margin:17px 0 20px}
+.vinculos-section-heading h3 em,.vinculos-finale h3 em,.vinculos-ritual h3 em{color:#c6acdd;font-style:normal}
+.panic-wiki .vinculos-section-heading p{font-size:14px;line-height:1.85;color:#b6b5c2;max-width:650px;margin:0}
+.vinculos-store-strip{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:15px 19px;border-block:1px solid #a486bb40;background:linear-gradient(90deg,#55337720,transparent);margin:4px 0 24px}
+.vinculos-store-strip>span{font-size:9px;letter-spacing:.13em;color:#c3accf}.vinculos-store-strip>strong{font-size:11px;font-weight:400;color:#e1c69e}
+.vinculos-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:15px}
+.vinculo-card{--v-accent:#bab0d5;--v-glow:123,102,164;position:relative;min-width:0;border:1px solid rgba(var(--v-glow),.4);background:linear-gradient(145deg,#161a25,#0d131b);overflow:hidden;box-shadow:0 10px 30px #0003;transition:border-color .2s,box-shadow .2s}
+.vinculo-card:hover,.vinculo-card[open]{border-color:var(--v-accent);box-shadow:0 0 28px rgba(var(--v-glow),.12)}
+.vinculo-card>summary{display:block;cursor:pointer;list-style:none}.vinculo-card>summary::-webkit-details-marker{display:none}
+.vinculo-portrait{position:relative;height:280px;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,rgba(var(--v-glow),.2),transparent 68%),linear-gradient(0deg,#111722cc,#10131b30),url('../img/atlas/vinculos/sanctum-cinematic.webp') 70% center/cover}
+.vinculo-portrait:after{content:'';position:absolute;bottom:0;left:0;right:0;height:75px;background:linear-gradient(0deg,#121722,transparent);pointer-events:none}
+.vinculo-portrait img{position:absolute;z-index:1;inset:35px 12px 10px;width:calc(100% - 24px);height:calc(100% - 45px);max-width:none;max-height:none;object-fit:contain;object-position:center;filter:drop-shadow(0 9px 15px #0007);transition:filter .3s}
+.vinculo-card:hover .vinculo-portrait img{filter:drop-shadow(0 9px 15px #0007) drop-shadow(0 0 10px rgba(var(--v-glow),.5))}
+.vinculo-portrait>span{position:absolute;z-index:3;left:14px;top:14px;color:var(--v-accent);background:#0b111bcc;border:1px solid rgba(var(--v-glow),.35);padding:7px 9px;font-size:8px;letter-spacing:.1em}
+.vinculo-aura{position:absolute;inset:14%;border-radius:50%;background:radial-gradient(ellipse,rgba(var(--v-glow),.14),transparent 65%);filter:blur(20px);animation:vinculos-breathe 5s ease-in-out infinite;pointer-events:none}
+.vinculo-heading{padding:21px 18px;min-height:335px;display:flex;flex-direction:column;position:relative;z-index:2}
+.panic-wiki .vinculo-heading h4{font:500 35px/1.1 var(--display);margin:0 0 9px;color:#f1e6d5;letter-spacing:-.015em}
+.panic-wiki .vinculo-heading>p{font-size:11px;margin:0 0 19px;color:var(--v-accent)}
+.vinculo-heading ul{list-style:none;padding:0;margin:0 0 24px;display:grid;gap:8px}
+.vinculo-heading li{font-size:11px;line-height:1.65;padding:9px 11px;background:rgba(var(--v-glow),.07);border-left:2px solid rgba(var(--v-glow),.5);color:#dbd9e3}
+.vinculo-heading li.vinculo-power{display:block;min-height:82px;padding:10px 12px}.vinculo-power strong{display:block;font:500 30px/1.05 var(--display);color:#f0e1ce;letter-spacing:-.02em}.vinculo-power span{display:block;font-size:10px;line-height:1.5;color:#bfb8d1;margin-top:7px}.vinculos-grid--mounts .vinculo-power strong{color:var(--v-accent)}
+.vinculo-open{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;border-top:1px solid rgba(var(--v-glow),.3);padding-top:16px;color:var(--v-accent);font-size:10px;line-height:1.6}
+.vinculo-open b{position:relative;display:block;flex:0 0 26px;width:26px;height:26px;border:1px solid rgba(var(--v-glow),.4);transform:none}
+.vinculo-toggle:before,.vinculo-toggle:after{content:'';position:absolute;left:50%;top:50%;background:currentColor;transform:translate(-50%,-50%)}
+.vinculo-toggle:before{width:12px;height:2px}.vinculo-toggle:after{width:2px;height:12px}
+.vinculo-card[open] .vinculo-toggle:after{display:none}
+.vinculo-story{border-top:1px solid rgba(var(--v-glow),.35);padding:25px;background:#0e141c}
+.vinculo-story blockquote{margin:0 0 24px;padding-left:16px;border-left:2px solid var(--v-accent);color:#d9c9e2;font:italic 19px/1.7 Georgia,serif}
+.panic-wiki .vinculo-story>p,.panic-wiki .vinculo-role p{font-size:13px;line-height:1.95;color:#bbbccc}
+.vinculo-role{padding:18px;background:rgba(var(--v-glow),.07);margin:22px 0}.vinculo-role strong{font-size:11px;color:var(--v-accent)}.vinculo-role p{margin:10px 0 0}
+.vinculo-facts{display:grid;gap:17px;padding-top:18px;border-top:1px solid rgba(var(--v-glow),.25)}.vinculo-facts dt{font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#9495a8;margin-bottom:8px}.vinculo-facts dd{margin:0;font-size:12px;line-height:1.7;color:#ddd1bb}
+.vinculo-sale{font-size:11px!important;color:var(--v-accent)!important}
+.vinculos-grid--exclusive{grid-template-columns:1fr;gap:24px}
+.vinculos-grid--exclusive .vinculo-card>summary{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.vinculos-grid--exclusive .vinculo-portrait{height:500px}
+.vinculos-grid--exclusive .vinculo-heading{padding:35px 32px;min-height:500px}
+.panic-wiki .vinculos-grid--exclusive h4{font-size:clamp(43px,4.2vw,65px)}
+.vinculos-grid--exclusive .vinculo-heading>p{font-size:14px;margin:0 0 25px}
+.vinculos-grid--exclusive .vinculo-heading ul{grid-template-columns:1fr 1fr;gap:9px}
+.vinculos-grid--exclusive .vinculo-heading li{padding:12px;font-size:12px;min-height:61px;display:flex;align-items:center}
+#vinculo-aurethia{--v-accent:#edc99a;--v-glow:194,144,74;background:linear-gradient(135deg,#201c21,#111824)}
+#vinculo-aurethia .vinculo-portrait{background:radial-gradient(ellipse at 55% 50%,#ad854c29,transparent 62%),linear-gradient(0deg,#111722e6,#15212b70),url('../img/atlas/vinculos/ritual-cinematic.webp') right center/cover}
+#vinculo-theryon{--v-accent:#b7d8f1;--v-glow:107,146,186}
+#vinculo-nerathys{--v-accent:#d6b5f1;--v-glow:159,104,197}
+#vinculo-vaeraxes{--v-accent:#edaa97;--v-glow:180,69,65}
+.vinculos-grid--mounts .vinculo-portrait{height:330px}
+.vinculos-grid--mounts .vinculo-heading{min-height:330px}
+.vinculos-grid--mounts .vinculo-heading li{font-size:14px;color:#ebe3dd}
+.vinculos-grid--mounts .vinculo-heading h4{font-size:38px}
+.vinculos-showcase--mounts>.wiki-note{font-size:10px;line-height:1.9;margin:20px 0 0;padding-left:15px;border-left:1px solid #aa896955;color:#9995a4}
+.vinculos-pact{border-top:1px solid #a7b89a30;background:radial-gradient(ellipse at 25% 20%,#32654b18,transparent 65%)}
+.vinculos-prologue{border:1px solid #8b9f8b40;background:#151c21;margin:8px 0 25px}
+.vinculos-prologue>summary{position:relative;display:block;cursor:pointer;list-style:none;padding:22px 65px 22px 24px}.vinculos-prologue>summary::-webkit-details-marker{display:none}
+.vinculos-prologue>summary span{display:block;font-size:8px;letter-spacing:.15em;color:#abc2b1}.vinculos-prologue>summary strong{display:block;font:500 26px/1.3 var(--display);margin:10px 0 0;color:#e9e2d2}.vinculos-prologue>summary b{position:absolute;right:25px;top:35px;color:#b9cebc;font-size:24px;font-weight:400}
+.vinculos-prologue[open]>summary b{transform:rotate(45deg)}.vinculos-prologue>div{padding:0 24px 24px;max-width:840px}.panic-wiki .vinculos-prologue p{font-size:14px;line-height:2;color:#bbbfc2}
+.vinculos-lineages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:24px 0 46px}
+.atlas-vinculos .vinculos-lineages a{position:relative;display:block;min-width:0;padding:175px 18px 20px;text-decoration:none;border:1px solid #788d7845;background:radial-gradient(ellipse at 65% 20%,#48755230,transparent 70%),#131b21;overflow:hidden}
+.vinculos-lineages a>img{position:absolute;top:5px;left:10%;width:80%;height:170px;object-fit:contain;filter:drop-shadow(0 5px 15px #0006)}
+.vinculos-lineages a>div{position:relative}.vinculos-lineages span{color:#b6cab4;font-size:9px;letter-spacing:.15em}.vinculos-lineages strong{display:block;font:500 25px/1.18 var(--display);color:#eee3cf;margin:10px 0}.panic-wiki .vinculos-lineages p{font-size:11px;line-height:1.8;color:#abaeba;margin:0}
+.vinculos-lineages .vinculos-lineage--poder{background:radial-gradient(ellipse at 65% 20%,#327f9930,transparent 70%),#121b25}.vinculos-lineages .vinculos-lineage--memoria{background:radial-gradient(ellipse at 65% 20%,#8a5d4230,transparent 70%),#191a20}
+.vinculos-family{--v-accent:#b4d1ad;--v-glow:98,141,96;margin:50px 0 0;padding-top:28px;border-top:1px solid rgba(var(--v-glow),.4)}
+.vinculos-family--memoria{--v-accent:#ddbe96;--v-glow:157,116,72}.vinculos-family--poder{--v-accent:#a6d2ee;--v-glow:76,130,171}
+.vinculos-family .vinculo-card{--v-accent:inherit;--v-glow:inherit}
+.vinculos-family-heading{display:flex;align-items:center;gap:22px;margin:0 0 23px}.vinculos-family-heading>div{min-width:0}.vinculos-family-sigil{display:grid;place-items:center;flex:0 0 64px;width:64px;height:64px;border:1px solid rgba(var(--v-glow),.4);transform:rotate(45deg);color:var(--v-accent);background:rgba(var(--v-glow),.08)}.vinculos-family-sigil svg{width:30px;height:30px;transform:rotate(-45deg)}
+.panic-wiki .vinculos-family-heading h3{font:500 clamp(29px,3vw,40px)/1.15 var(--display);margin:12px 0;color:#e7e1d8}.panic-wiki .vinculos-family-heading p{font-size:12px;line-height:1.8;color:#acaebd;margin:0}.vinculos-family .eyebrow{color:var(--v-accent)}
+.vinculos-evolution{display:flex;align-items:center;gap:12px;margin:0 0 20px;flex-wrap:wrap}.vinculos-evolution>a{flex:1;min-width:80px;padding:12px;border:1px solid rgba(var(--v-glow),.4);background:rgba(var(--v-glow),.06);text-decoration:none}.vinculos-evolution small{display:block;font-size:8px;letter-spacing:.15em;color:var(--v-accent)}.vinculos-evolution strong{display:block;font:500 24px/1 var(--display);color:#e6e0d6;margin-top:9px}.vinculos-evolution>span{color:var(--v-accent)}
+.vinculos-family--memoria .vinculos-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.vinculos-grum{display:grid;grid-template-columns:1fr 1.3fr;gap:32px;align-items:center;margin:50px 0 0;padding-top:35px;border-top:1px solid #957c6650}.vinculos-grum .vinculo-portrait{height:250px}.vinculos-grum .vinculo-heading{min-height:230px}.vinculos-grum>div{padding:20px 10px}.panic-wiki .vinculos-grum h3{font:500 36px/1.2 var(--display);color:#ead7b9}.panic-wiki .vinculos-grum p{font-size:13px;line-height:1.95;color:#b4b4c0}
+.vinculos-ritual{position:relative;overflow:hidden;margin:0 24px 0;padding:0;border:1px solid #6a9eb750;background:#101924}
+.vinculos-ritual-intro{position:relative;min-height:330px;padding:42px 30px;background:linear-gradient(90deg,#08141ae8,#08141a88 58%,transparent),url('../img/atlas/vinculos/ritual-cinematic.webp') right center/cover}
+.panic-wiki .vinculos-ritual h3{font:500 clamp(38px,4vw,58px)/1.1 var(--display);color:#e5e9ea;margin:22px 0}.vinculos-ritual h3 em{color:#a4d9e6}.panic-wiki .vinculos-ritual-intro>p{font-size:13px;line-height:1.85;max-width:530px;color:#bbc9d3}
+.vinculos-ritual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:0 12px;margin:0;border-top:1px solid #6a9eb745}
+.vinculos-ritual-grid>div{padding:26px 18px;border-right:1px solid #6a9eb730;min-width:0}.vinculos-ritual-grid>div:last-child{border-right:0}.vinculos-ritual-grid>div>span{font-size:9px;letter-spacing:.1em;color:#94c7d7}.panic-wiki .vinculos-ritual-grid h4{font:500 29px/1.15 var(--display);margin:17px 0;color:#e1e5dc}.panic-wiki .vinculos-ritual-grid p{font-size:12px;line-height:1.95;color:#adbcc6}.vinculos-ritual-grid strong{color:#d4c6a4;font-weight:500}
+.panic-wiki .vinculos-ritual>p{font-size:12px;line-height:1.95;margin:0;padding:24px 30px;border-top:1px solid #6a9eb730;color:#b4c5cf}
+.vinculos-grid--materials{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch;grid-auto-rows:1fr;gap:18px}
+.vinculo-material{display:flex;flex-direction:column;position:relative;padding:26px;border:1px solid #82989f40;background:radial-gradient(ellipse at 50% 10%,#244c5a32,transparent 55%),#111924;min-width:0}
+.vinculo-material-art{height:200px;flex:0 0 200px;margin:-6px 0 20px;display:grid;place-items:center;background:radial-gradient(ellipse,#60869a22,transparent 65%)}.vinculo-material-art img{width:200px;height:200px;max-width:100%;object-fit:contain;filter:drop-shadow(0 0 13px #38778a35)}
+.panic-wiki .vinculo-material h4{font:500 32px/1.16 var(--display);min-height:73px;margin:14px 0 18px;color:#e5e3dc}.panic-wiki .vinculo-material p{font-size:12px;line-height:1.95;color:#b2bfca;margin:0 0 16px}
+.vinculo-source{margin-top:auto!important;border-top:1px solid #82989f35;padding-top:18px;color:#c5b38e!important;font-size:10px!important}
+.vinculo-drop-rules{margin-top:10px;border-top:1px solid #82989f35;padding-top:16px}.vinculo-drop-rules summary{cursor:pointer;color:#c7b291;font-size:11px;line-height:1.8}.vinculo-drop-rules ul{padding:0;list-style:none;margin:16px 0;max-height:260px;overflow:auto}.vinculo-drop-rules li{display:flex;justify-content:space-between;gap:10px;font-size:11px;border-bottom:1px solid #82989f25;padding:10px 0}.vinculo-drop-rules small{font-size:10px;line-height:1.8;display:block;color:#97a8b5}
+.vinculos-finale{position:relative;text-align:center;margin:10px 0 0;padding:72px 25px 82px;background:linear-gradient(0deg,#0b0f16,#0b0f16aa,#0b0f16),url('../img/atlas/vinculos/sanctum-cinematic.webp') center/cover;border-top:1px solid #8f789d40}
+.panic-wiki .vinculos-finale h3{font:500 clamp(36px,4vw,62px)/1.1 var(--display);color:#ece5da;margin:22px 0 30px}
+@keyframes vinculos-float{50%{transform:translateY(-10px)}}@keyframes vinculos-breathe{50%{opacity:.4;transform:scale(1.08)}}
+@media(max-width:1150px){.vinculos-grid--pact{grid-template-columns:repeat(2,minmax(0,1fr))}.vinculos-hero{min-height:580px;padding:35px 26px}.vinculos-hero h2{font-size:60px}.vinculos-hero-art img{width:135%;left:-20%}.vinculos-section-index{font-size:80px}.vinculos-grid--mounts{grid-template-columns:1fr}.vinculos-grid--mounts .vinculo-card>summary{display:grid;grid-template-columns:1fr 1fr;align-items:center}.vinculos-grid--mounts .vinculo-heading{min-height:300px;padding:25px}.vinculos-grid--mounts .vinculo-portrait{height:330px}}
+@media(max-width:750px){.vinculos-hero{grid-template-columns:1fr;min-height:0;padding:35px 23px 20px;background-position:65% center}.panic-wiki .vinculos-hero h2{font-size:clamp(47px,8vw,64px);margin-right:0}.vinculos-hero-art{min-height:330px;max-width:480px;width:100%;margin:auto}.vinculos-hero-art img{width:100%;height:100%;left:0;top:-25px}.vinculos-hero-creature{bottom:0;right:0}.vinculos-hero-actions{margin-bottom:24px}.vinculos-hero-signature{margin-bottom:20px}.vinculos-chapters{gap:10px;margin-inline:14px}.vinculos-chapter{min-height:240px!important}.vinculos-chapter>img{width:92%;height:160px;right:-7px}.vinculos-chapter>div{padding:25px 12px 15px}.vinculos-chapter small{font-size:7px}.vinculos-chapter>div>span{font-size:9px}.vinculos-chapter-number{font-size:35px;left:12px}.vinculos-chapters strong{font-size:21px}.vinculos-showcase,.vinculos-pact,.vinculos-materials{padding:50px 18px 34px}.vinculos-section-heading{gap:15px}.vinculos-section-index{font-size:65px}.vinculos-section-heading h3{font-size:43px!important}.vinculos-grid--exclusive .vinculo-card>summary{grid-template-columns:1fr}.vinculos-grid--exclusive .vinculo-portrait{height:380px}.vinculos-grid--exclusive .vinculo-heading{min-height:335px;padding:26px}.vinculos-lineages{grid-template-columns:1fr}.atlas-vinculos .vinculos-lineages a{padding:28px 24px 28px 150px;min-height:180px;display:flex;align-items:center}.vinculos-lineages a>img{left:5px;top:10px;width:130px;height:160px}.vinculos-grum{grid-template-columns:1fr 1fr;gap:15px}.vinculos-grum>div{padding:10px 0}.vinculos-grum h3{font-size:29px!important}.vinculos-ritual{margin-inline:18px}.vinculos-ritual-intro{padding:30px 23px}.vinculos-ritual-grid{grid-template-columns:1fr}.vinculos-ritual-grid>div{border-right:0;border-bottom:1px solid #6a9eb730;padding:24px 18px}.vinculos-ritual-grid>div:last-child{border-bottom:0}.vinculos-home{padding:20px;gap:8px}.vinculos-home>img{width:120px}.vinculos-home h3{font-size:29px!important}}
+@media(max-width:540px){.atlas-vinculos [id^=vinculo-]{scroll-margin-top:90px}.vinculos-hero{padding-top:28px}.atlas-vinculos .vinculos-hero .eyebrow{font-size:8px;letter-spacing:.13em}.panic-wiki .vinculos-hero h2{font-size:49px}.vinculos-hero-actions{gap:18px}.vinculos-hero-art{min-height:310px}.vinculos-hero-creature strong{font-size:30px}.vinculos-hero-creature small{font-size:9px}.vinculos-hero-signature{font-size:7px;letter-spacing:.1em}.vinculos-chapters{grid-template-columns:1fr;margin-inline:14px}.atlas-vinculos a.vinculos-chapter{min-height:160px!important}.vinculos-chapter>img{width:45%;right:0;top:0;height:160px}.vinculos-chapter>div{right:25%;padding:20px 18px;background:linear-gradient(90deg,#0c101c,transparent)}.vinculos-chapter-number{font-size:36px;top:12px;left:18px}.vinculos-chapters strong{font-size:26px}.vinculos-chapter>div>span{font-size:9px}.vinculos-chapter small{font-size:7px;letter-spacing:.06em}.vinculos-chapter-tools{justify-content:space-between;gap:10px;padding:13px 0}.vinculos-chapter-tools>a{font-size:9px}.vinculos-chapter-tools span{margin-left:3px}.vinculos-section-heading{gap:12px}.vinculos-section-index{font-size:49px}.vinculos-section-heading h3{font-size:37px!important;margin-top:13px!important}.atlas-vinculos .vinculos-section-heading .eyebrow{font-size:8px;letter-spacing:.1em}.panic-wiki .vinculos-section-heading p{font-size:12px}.vinculos-store-strip{display:block;padding:14px}.vinculos-store-strip>span{font-size:8px}.vinculos-store-strip>strong{display:block;margin-top:9px}.vinculos-grid,.vinculos-family--memoria .vinculos-grid{grid-template-columns:1fr}.vinculos-grid--exclusive .vinculo-portrait{height:320px}.vinculos-grid--exclusive .vinculo-heading{padding:23px;min-height:340px}.vinculos-grid--exclusive .vinculo-heading li{font-size:11px;padding:10px;min-height:64px}.vinculos-grid--mounts .vinculo-card>summary{display:block}.vinculos-grid--mounts .vinculo-portrait{height:340px}.vinculos-grid--mounts .vinculo-heading{min-height:330px;padding:23px}.vinculo-portrait{height:300px}.vinculo-heading{padding:23px;min-height:350px}.vinculo-story{padding:23px}.vinculos-prologue>summary{padding:22px 45px 22px 19px}.vinculos-prologue>summary strong{font-size:23px}.vinculos-prologue>summary b{right:18px}.vinculos-prologue>div{padding:0 19px 23px}.panic-wiki .vinculos-prologue p{font-size:12px}.vinculos-family-heading{gap:16px}.vinculos-family-sigil{flex-basis:43px;width:43px;height:43px}.vinculos-family-sigil svg{width:25px;height:25px}.panic-wiki .vinculos-family-heading h3{font-size:29px}.vinculos-evolution{gap:7px}.vinculos-evolution>a{min-width:0;padding:10px 8px}.vinculos-evolution small{font-size:7px}.vinculos-evolution strong{font-size:21px}.vinculos-evolution>span{font-size:10px}.vinculos-grum{grid-template-columns:1fr}.vinculos-grum>div{padding:8px}.vinculos-grum .vinculo-heading{min-height:230px}.vinculos-grid--materials{grid-auto-rows:auto}.vinculo-material{padding:23px}.panic-wiki .vinculo-material h4{min-height:0;font-size:30px}.vinculos-finale{padding:55px 23px 65px}.vinculos-home{display:block}.vinculos-home>img{float:right;width:100px;height:110px}}
+@media(max-width:350px){.panic-wiki .vinculos-hero h2{font-size:43px}.vinculos-hero-art{min-height:270px}.vinculos-section-index{font-size:39px}.vinculos-section-heading h3{font-size:32px!important}.vinculos-showcase,.vinculos-pact,.vinculos-materials{padding-inline:14px}.vinculos-chapters strong{font-size:23px}.vinculos-evolution strong{font-size:18px}.vinculos-grid--exclusive .vinculo-heading{padding:21px;min-height:370px}.vinculo-heading{min-height:375px}.vinculos-chapter>div{right:15%}}
+@media(prefers-reduced-motion:reduce){.atlas-vinculos *{animation:none!important;transition:none!important}}
+
+.vinculos-grid--exclusive .vinculo-heading li.vinculo-power{display:block;min-height:82px;padding:10px 12px}.vinculos-grid--mounts .vinculo-heading li.vinculo-power{font-size:12px}
+@media(min-width:541px) and (max-width:1150px){.vinculos-grid--pact .vinculo-heading{min-height:355px}}
+
+/* The chronicle leads the bestiary; all three chapters share the same world. */
+.vinculos-hero-art--pact .vinculos-hero-member{width:69%;height:73%;top:9%;left:0;object-position:center;filter:drop-shadow(0 12px 24px #000a)}
+.vinculos-hero-art--pact .vinculos-hero-member--aurion{left:-12%;top:22%;height:62%;width:67%;animation-delay:-2s}
+.vinculos-hero-art--pact .vinculos-hero-member--vaerion{left:38%;top:14%;height:64%;width:62%;animation-delay:-4s}
+.vinculos-hero-art--pact .vinculos-hero-member--elyndra{left:17%;top:-2%;height:89%;width:77%;z-index:1}
+.vinculos-hero-art--pact .vinculos-hero-creature{z-index:2;bottom:0}
+.vinculos-chronicle{position:relative;overflow:hidden;border:1px solid #8c789e45;background:#111722;margin:8px 0 30px}
+.vinculos-chronicle--pact>header{padding:42px 32px;min-height:290px;background:linear-gradient(90deg,#0a131cf2,#0a131c9c 60%,#0a131c20),url('../img/atlas/vinculos/ritual-cinematic.webp') right center/cover}
+.panic-wiki .vinculos-chronicle h4{font:500 clamp(33px,3.4vw,49px)/1.12 var(--display);color:#eee6db;margin:20px 0;letter-spacing:-.015em}
+.panic-wiki .vinculos-chronicle-motto{font:italic 17px/1.8 Georgia,serif;color:#bad3cc;margin:18px 0 0}
+.vinculos-prologue-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:0 12px;background:linear-gradient(120deg,#1b2b2b50,#141523)}
+.vinculos-prologue-acts>div{position:relative;padding:28px 20px 25px;border-right:1px solid #9fb8ad25;min-width:0}.vinculos-prologue-acts>div:last-child{border-right:0}
+.vinculos-prologue-acts>div>span{font:500 42px/1 var(--display);color:#91c6b650;display:block;margin-bottom:18px}
+.panic-wiki .vinculos-prologue-acts h5{font:500 24px/1.2 var(--display);color:#e2dacb;margin:0 0 17px}
+.panic-wiki .vinculos-chronicle p{font-size:13px;line-height:1.95;color:#bdc0cb}.panic-wiki .vinculos-prologue-acts p{margin:0}
+.vinculos-pact-seal{display:flex;gap:16px;justify-content:space-around;flex-wrap:wrap;padding:20px 18px;border-top:1px solid #9fb8ad25;color:#c8b894;font-size:9px;letter-spacing:.16em}
+.vinculos-legend-art{display:flex;align-items:center;justify-content:center;gap:0;height:370px;padding:18px 24px 0;background:linear-gradient(0deg,#111722,transparent 60%),url('../img/atlas/vinculos/sanctum-cinematic.webp') center/cover}
+.vinculos-legend-art img{width:50%;height:100%;min-width:0;object-fit:contain;filter:drop-shadow(0 12px 22px #0009)}
+.vinculos-chronicle--mounts .vinculos-legend-art img{width:33.333%}.vinculos-chronicle--mounts .vinculos-legend-art{height:350px;background-position:center 35%}
+.vinculos-legend-copy{position:relative;padding:28px 32px 34px;max-width:940px;margin:auto}
+.vinculos-legend-copy blockquote{margin:20px 0 25px;padding-left:18px;border-left:2px solid #aa8ac7;color:#d4c3e2;font:italic 18px/1.8 Georgia,serif}
+.vinculos-chronicle--mounts .vinculos-legend-copy blockquote{border-color:#c28e73;color:#dec4b5}
+.vinculos-chronicle--mounts{border-color:#a7805c50}.vinculos-showcase--exclusive{border-top:1px solid #8b729e45}
+.vinculo-card>summary:focus-visible .vinculo-toggle,.vinculo-card>summary:hover .vinculo-toggle{background:rgba(var(--v-glow),.13);border-color:var(--v-accent)}
+@media(max-width:1150px){.vinculos-prologue-acts{grid-template-columns:1fr;padding:0 24px}.vinculos-prologue-acts>div{padding:23px 0 25px;border-right:0;border-bottom:1px solid #9fb8ad25}.vinculos-prologue-acts>div:last-child{border-bottom:0}.vinculos-prologue-acts>div>span{float:left;margin:0 18px 10px 0;font-size:34px}.panic-wiki .vinculos-prologue-acts h5{margin:4px 0 16px}.vinculos-prologue-acts p{clear:both}.vinculos-legend-art{height:320px}}
+@media(max-width:750px){.vinculos-hero-art--pact{min-height:370px}.vinculos-hero-art--pact .vinculos-hero-member--aurion{top:16%;left:-7%;width:63%;height:65%}.vinculos-hero-art--pact .vinculos-hero-member--vaerion{top:13%;left:44%;width:62%;height:64%}.vinculos-hero-art--pact .vinculos-hero-member--elyndra{top:-7%;left:19%;width:69%;height:89%}.vinculos-hero-art--pact .vinculos-hero-creature{bottom:3px}.vinculos-chronicle--pact>header{padding:32px 24px;min-height:290px}.vinculos-legend-copy{padding:24px}.vinculos-legend-art{height:300px;padding:16px 4px 0}.vinculos-chronicle--mounts .vinculos-legend-art{height:260px}}
+@media(max-width:540px){.vinculos-hero-art--pact{min-height:310px}.vinculos-hero-art--pact .vinculos-hero-creature strong{font-size:29px}.vinculos-hero-art--pact .vinculos-hero-creature small{font-size:9px}.vinculos-legend-copy{padding:22px 19px}.vinculos-chronicle--pact>header{padding:28px 20px}.vinculos-prologue-acts{padding:0 20px}.vinculos-legend-art{height:260px}.vinculos-chronicle--mounts .vinculos-legend-art{height:200px}.vinculos-pact-seal{font-size:7px;gap:12px}.panic-wiki .vinculos-chronicle h4{font-size:33px}.vinculos-legend-copy blockquote{font-size:16px}.vinculos-hero-art--pact .vinculos-hero-member--aurion{top:16%;height:59%}.vinculos-hero-art--pact .vinculos-hero-member--vaerion{top:15%;height:57%}.vinculos-hero-art--pact .vinculos-hero-member--elyndra{height:83%}}
+
+/* Clear space around the artwork, with a separate silhouette for each lineage. */
+.vinculos-grum-quote{font:italic 19px/1.7 Georgia,serif;color:#d8bc96;margin:24px 0;padding-left:16px;border-left:2px solid #ae8862}
+.is-wiki:has(#vinculos:not([hidden])){background-image:radial-gradient(ellipse at 85% 30%,#48405c24,transparent 65%),linear-gradient(125deg,#151c20,#0e151b 60%,#191d24);background-size:auto;background-attachment:fixed}
+.atlas-vinculos .vinculos-hero{border:0;box-shadow:0 16px 45px #0003;grid-template-columns:1fr 1.2fr}
+.vinculos-hero-signature{border-top:0}
+.vinculos-hero-art--pact{display:grid;grid-template-columns:34% 28% 38%;align-items:center;padding:15px 0 105px;min-height:490px}
+.vinculos-hero-art--pact img.vinculos-hero-member{position:relative;inset:auto;width:100%;height:330px;max-width:100%;z-index:1;object-fit:contain;animation:none;transform:none}
+.vinculos-hero-art--pact img.vinculos-hero-member--elyndra{height:410px;grid-column:2;grid-row:1;object-position:center bottom;transform:scale(1.65);transform-origin:center bottom}
+.vinculos-hero-art--pact img.vinculos-hero-member--aurion{grid-column:1;grid-row:1;height:310px;align-self:end;object-position:center bottom;transform:scale(1.25);transform-origin:center bottom}
+.vinculos-hero-art--pact img.vinculos-hero-member--vaerion{grid-column:3;grid-row:1;height:330px;align-self:center;filter:drop-shadow(0 12px 22px #0009) drop-shadow(0 0 12px #319aca35)}
+.vinculos-hero-art--pact .vinculos-hero-creature{border-right:0;padding-right:0;right:0;bottom:10px;text-align:center;width:100%}
+.atlas-vinculos a.vinculos-chapter{border-color:#aaa2b32e}
+@media(max-width:1150px){.atlas-vinculos .vinculos-hero{grid-template-columns:1fr}.vinculos-hero-art--pact{min-height:390px;width:100%;max-width:610px;margin:auto;padding:0 0 85px}.vinculos-hero-art--pact img.vinculos-hero-member{height:290px}.vinculos-hero-art--pact img.vinculos-hero-member--elyndra{height:350px}.vinculos-hero-art--pact img.vinculos-hero-member--aurion{height:265px}.vinculos-hero-art--pact img.vinculos-hero-member--vaerion{height:290px}.panic-wiki .vinculos-hero h2{margin-right:0}.panic-wiki .vinculos-hero-copy>p{max-width:590px}}
+@media(max-width:540px){.vinculos-hero-art--pact{min-height:300px;padding:0 0 80px}.vinculos-hero-art--pact img.vinculos-hero-member{height:210px}.vinculos-hero-art--pact img.vinculos-hero-member--elyndra{height:240px}.vinculos-hero-art--pact img.vinculos-hero-member--aurion{height:190px}.vinculos-hero-art--pact img.vinculos-hero-member--vaerion{height:210px}.vinculos-hero-art--pact .vinculos-hero-creature strong{font-size:27px}.vinculos-hero-art--pact .vinculos-hero-creature{bottom:5px}}
+
+/* Elite hunting grounds keep the existing territory art and explorer layout. */
+.atlas-pin.atlas-pin--super{background:#a66a22;border-color:#ffe0a0;color:#fff6e5;box-shadow:0 0 0 3px #c3934529,0 0 17px #c3934566}
+.atlas-drop-conditions>a{color:#e1bd83;text-decoration:underline;text-underline-offset:3px}

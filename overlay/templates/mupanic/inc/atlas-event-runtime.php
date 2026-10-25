@@ -22,7 +22,10 @@ function panicAtlasEvents() {
     $path=panicAtlasRuntimeDirectory().'/public-events.json';
     if(is_file($path) && !is_link($path) && filesize($path)<=1000000) {
         $data=json_decode(file_get_contents($path),true);
-        if(panicAtlasEventsValid($data)) return $data;
+        if(panicAtlasEventsValid($data)) {
+            $fallback=json_decode(file_get_contents(__DIR__.'/public-events.json'),true);
+            return strtotime($data['generatedAt']) >= strtotime($fallback['generatedAt']) ? $data : $fallback;
+        }
     }
     return json_decode(file_get_contents(__DIR__.'/public-events.json'),true);
 }

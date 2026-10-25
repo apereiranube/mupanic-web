@@ -1,0 +1,41 @@
+name: Recharge validation
+on:
+  push:
+    branches: [beta]
+    paths: ['overlay/templates/mupanic/**/recharge*', 'overlay/templates/mupanic/inc/recharge*', 'overlay/templates/mupanic/index.php', 'tools/recharge_worker.ps1', 'tools/sql/recharges.sql', 'tools/discord-bank/**', 'tests/recharge*', 'tests/fixtures/recharge*', '.github/workflows/recharges.yml']
+  pull_request:
+    paths: ['overlay/templates/mupanic/**', 'tools/discord-bank/**', 'tools/recharge_worker.ps1', 'tools/sql/recharges.sql', 'tests/recharge*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recharge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: PHP and bot tests
+        run: |
+          for test in tests/recharge*.php; do php "$test"; done
+          find overlay/templates/mupanic -name 'recharge*.php' -print0 | xargs -0 -n1 php -l
+          node tests/recharge-bank-bot.cjs
+          node tests/recharge-bank-contract.cjs
+      - name: PowerShell syntax
+        shell: pwsh
+        run: |
+          foreach ($file in @('tools/recharge_worker.ps1','tools/discord-bank/Instalar_Transferencias.ps1','tools/discord-bank/Actualizar_Avisos.ps1')) {
+            $errors=$null; $tokens=$null
+            [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $file),[ref]$tokens,[ref]$errors) | Out-Null
+            if ($errors.Count) { $errors | Format-List; exit 1 }
+          }
+      - name: Browser tests
+        run: |
+          npm install --no-save --package-lock=false playwright@1.58.2
+          npx playwright install --with-deps chromium
+          node tests/recharge-shop-browser.cjs
+          node tests/recharge-admin-browser.cjs
+          node tests/recharge-admin-navigation.cjs
+          node tests/recharge-bank-browser.cjs

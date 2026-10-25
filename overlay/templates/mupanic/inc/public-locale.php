@@ -1,0 +1,67 @@
+<?php
+if(!defined('access') || !access) die();
+/** MU PANIC: textos en castellano (rioplatense) para Crear cuenta, Ingresar, Recuperar contraseña y Verificar correo.
+ * Claves de WebEngine CMS 1.2.7 (MIT). Se aplican en memoria solo en esas páginas; no cambia el idioma del CMS.
+ */
+return [
+    'module_titles_txt_1' => 'Creá tu cuenta',
+    'module_titles_txt_2' => 'Ingresá a tu cuenta',
+    'module_titles_txt_15' => 'Recuperá tu contraseña',
+    'module_titles_txt_20' => 'Verificación de correo',
+
+    'register_txt_1' => 'Usuario:',
+    'register_txt_2' => 'Contraseña:',
+    'register_txt_3' => 'Repetir contraseña:',
+    'register_txt_4' => 'Correo electrónico:',
+    'register_txt_5' => 'Crear cuenta',
+    'register_txt_6' => 'De %s a %s letras o números. Es el usuario para entrar al juego.',
+    'register_txt_7' => 'De %s a %s caracteres.',
+    'register_txt_8' => 'Escribila de nuevo.',
+    'register_txt_9' => 'Usá un correo real: lo vas a necesitar si olvidás tu contraseña.',
+    'register_txt_10' => 'Al crear tu cuenta aceptás los <br><a href="%s" target="_blank">Términos y condiciones</a>.',
+
+    'login_txt_1' => 'Usuario:',
+    'login_txt_2' => 'Contraseña:',
+    'login_txt_3' => 'Ingresar',
+    'login_txt_4' => '¿Olvidaste tu contraseña?',
+    'login_txt_5' => 'Usaste %s de %s intentos. Si los usás todos, vas a tener que esperar 15 minutos para volver a intentar.',
+    'login_txt_6' => 'Salir',
+
+    'forgotpass_txt_1' => 'Correo electrónico:',
+    'forgotpass_txt_2' => 'Enviar correo de recuperación',
+    'forgotpass_txt_3' => 'Usuario:',
+
+    'success_1' => '¡Tu cuenta quedó creada! En unos segundos te llevamos a ingresar.',
+    'success_6' => 'Te enviamos un correo con un link para recuperar el acceso a tu cuenta.',
+    'success_7' => 'Te enviamos un correo con tu nueva contraseña.',
+    'success_18' => 'Te enviamos un link a tu correo para terminar de crear la cuenta.',
+    'success_20' => 'El correo de tu cuenta se cambió correctamente.',
+
+    'error_1' => 'La contraseña no es correcta. Probá de nuevo.',
+    'error_2' => 'Ese usuario no existe.',
+    'error_3' => 'Hiciste demasiados intentos fallidos. Esperá 15 minutos y volvé a intentar.',
+    'error_4' => 'Completá todos los campos.',
+    'error_5' => 'El usuario tiene que tener entre 4 y 10 caracteres.',
+    'error_6' => 'El usuario solo puede tener letras y números.',
+    'error_7' => 'La contraseña no tiene un largo válido.',
+    'error_8' => 'Las contraseñas no coinciden.',
+    'error_9' => 'El correo no es válido.',
+    'error_10' => 'Ese usuario ya existe. Elegí otro.',
+    'error_11' => 'Ese correo ya está registrado en otra cuenta.',
+    'error_17' => 'Por ahora no se pueden crear cuentas nuevas. Probá más tarde.',
+    'error_18' => 'No se pudo verificar que no seas un robot. Probá de nuevo.',
+    'error_19' => 'Ya pediste un cambio de contraseña: revisá tu correo.',
+    'error_20' => 'No pudimos enviarte el correo de verificación. Escribinos por Discord.',
+    'error_21' => 'No pudimos procesar el pedido. Escribinos por Discord.',
+    'error_22' => 'No pudimos crear tu cuenta. Escribinos por Discord.',
+    'error_23' => 'Hubo un error inesperado. Escribinos por Discord.',
+    'error_24' => 'Los datos del pedido no son válidos.',
+    'error_25' => 'No se pudo completar el pedido. Probá de nuevo.',
+    'error_26' => 'El pedido de cambio de contraseña venció. Pedí uno nuevo.',
+    'error_27' => 'El código de autorización no es válido.',
+    'error_29' => 'No pudimos cambiar tu contraseña. Escribinos por Discord.',
+    'error_30' => 'No hay ninguna cuenta con ese correo.',
+    'error_31' => 'Los datos de recuperación no son válidos.',
+    'error_47' => 'Esta sección no está disponible por ahora.',
+    'error_48' => 'El envío de correos no está activo. Escribinos por Discord.',
+];
