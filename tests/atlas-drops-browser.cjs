@@ -12,7 +12,7 @@ const search=require('../overlay/templates/mupanic/js/atlas-search.js');
   await page.route('**/*',route=>{const n=new URL(route.request().url()).pathname;if(n==='/info/')return route.fulfill({contentType:'text/html',body:html});if(n.startsWith('/templates/mupanic/')){const p=path.join(root,n.slice('/templates/mupanic/'.length));if(fs.existsSync(p))return route.fulfill({path:p});}errors.push('Missing '+n);return route.abort();});
   await page.goto('https://atlas.test/info/#drops');await page.evaluate(()=>document.fonts.ready);
   const drops=page.locator('#drops'),data=JSON.parse(await page.locator('#wiki-data').textContent());
-  const cards=drops.locator('[data-drop-card]');assert.equal(await cards.count(),43);assert.equal(await cards.locator('img').count(),42);assert.equal(await drops.locator('[data-drop-row]').count(),400);assert.equal(await drops.locator('table').count(),0);
+  const cards=drops.locator('[data-drop-card]');assert.equal(await cards.count(),43);assert.equal(await cards.locator('img').count(),43);assert.equal(await drops.locator('[data-drop-row]').count(),400);assert.equal(await drops.locator('table').count(),0);
   await cards.locator('img').evaluateAll(async imgs=>Promise.all(imgs.map(img=>img.decode())));
   async function overflow(){assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Horizontal overflow at '+width);}
   async function shot(name){if(output&&[1920,390].includes(width)){fs.mkdirSync(output,{recursive:true});await page.screenshot({path:path.join(output,name+'-'+width+'.png')});}}

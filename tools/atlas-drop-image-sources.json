@@ -436,5 +436,1504 @@
     "retrievedAt": "2026-10-06",
     "gameAssetsCopyright": "Webzen Inc.",
     "processing": "Lossless WebP; transparent padding trimmed; no upscaling, recolouring or AI modification."
+  },
+  "2574-0": {
+    "kind": "client-model-render",
+    "name": "Mystery Stick",
+    "model": "Data/Item/Staff15.bmd",
+    "textures": [
+      "item/mystery.ozj"
+    ],
+    "file": "img/atlas/drops/2574-0-0f75c9e522a6.webp",
+    "hash": "0f75c9e522a6feb872147192baaf667d061f49aca3f898c254400f11d5a7fff2",
+    "width": 160,
+    "height": 144,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "2575-0": {
+    "kind": "client-model-render",
+    "name": "Violent Wind Stick",
+    "model": "Data/Item/Staff16.bmd",
+    "textures": [
+      "item/violentwind.ozj",
+      "item/blwind.ozj"
+    ],
+    "file": "img/atlas/drops/2575-0-3e0789581f5f.webp",
+    "hash": "3e0789581f5fce71be4b8bcfbd6b69eee5a151fe2e5a43a16741de52847834a9",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "2576-0": {
+    "kind": "client-model-render",
+    "name": "Red Wing Stick",
+    "model": "Data/Item/Staff17.bmd",
+    "textures": [
+      "item/wingstick.ozj"
+    ],
+    "file": "img/atlas/drops/2576-0-9755f1db5ced.webp",
+    "hash": "9755f1db5ced71bea7721fdb8d8dbe61492bd7229f565786823f189a35e5fd40",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "2577-0": {
+    "kind": "client-model-render",
+    "name": "Ancient Stick",
+    "model": "Data/Item/Staff18.bmd",
+    "textures": [
+      "item/ancient_stick.ozj"
+    ],
+    "file": "img/atlas/drops/2577-0-f1c242ae8333.webp",
+    "hash": "f1c242ae83332a33f269cee6d533e0bffd8ca06b463984f7cbd1050758cfb90d",
+    "width": 160,
+    "height": 105,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "2581-0": {
+    "kind": "client-model-render",
+    "name": "Book of Samut",
+    "model": "Data/Item/Book_of_Sahamutt.bmd",
+    "textures": [
+      "item/book_of_sahamutt.ozj"
+    ],
+    "file": "img/atlas/drops/2581-0-1b86daafde42.webp",
+    "hash": "1b86daafde4256925eb51b6f59a86fe1daf5bdca936ab8f1ba2c4b89ae62eb42",
+    "width": 160,
+    "height": 145,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "2582-0": {
+    "kind": "client-model-render",
+    "name": "Book of Neil",
+    "model": "Data/Item/Book_of_Neil.bmd",
+    "textures": [
+      "item/book_of_neil.ozj"
+    ],
+    "file": "img/atlas/drops/2582-0-a6dc77008695.webp",
+    "hash": "a6dc77008695504ef2d55ad92be856869139236434ee4e0a64dada1e3ea54677",
+    "width": 160,
+    "height": 95,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "2583-0": {
+    "kind": "client-model-render",
+    "name": "Book of Lagle",
+    "model": "Data/Item/Book_of_Rargle.bmd",
+    "textures": [
+      "item/book_of_rargle.ozj"
+    ],
+    "file": "img/atlas/drops/2583-0-b06ee093edf4.webp",
+    "hash": "b06ee093edf46e85924a8139014a023ea79feb14792b3eca93ad8a8289e2bcb9",
+    "width": 160,
+    "height": 93,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "32-0": {
+    "kind": "client-model-render",
+    "name": "Sacred Glove",
+    "model": "Data/Item/Sword33.bmd",
+    "textures": [
+      "item/spweapon.ozj",
+      "item/sfbody.ozj"
+    ],
+    "file": "img/atlas/drops/32-0-ff0586e91a09.webp",
+    "hash": "ff0586e91a09ada96d502e54bdf2d9768052fad9a17ce1ac09790231e4c9027f",
+    "width": 78,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "33-0": {
+    "kind": "client-model-render",
+    "name": "Holly Storm Claws",
+    "model": "Data/Item/Sword34.bmd",
+    "textures": [
+      "item/item762_sword.ozj",
+      "item/item762_armor.ozj",
+      "item/item762_helm.ozj"
+    ],
+    "file": "img/atlas/drops/33-0-766914117276.webp",
+    "hash": "766914117276222747d6da4b7e1272211d76104580a0f99ea9e7581e7c9311ee",
+    "width": 160,
+    "height": 149,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "34-0": {
+    "kind": "client-model-render",
+    "name": "Piercing Glove",
+    "model": "Data/Item/Sword35.bmd",
+    "textures": [
+      "item/item761_sword.ozj"
+    ],
+    "file": "img/atlas/drops/34-0-17a3abcdf203.webp",
+    "hash": "17a3abcdf20349bd78d6765a5810272f970e1d50250af4a81f8ab10376fd5c74",
+    "width": 160,
+    "height": 95,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3590-0": {
+    "kind": "client-model-render",
+    "name": "Scale Helm",
+    "model": "Data/Player/HelmMale07.bmd",
+    "textures": [
+      "player/head_08.ozj",
+      "player/skin_barbarian_01.ozj",
+      "player/hide.ozj"
+    ],
+    "file": "img/atlas/drops/3590-0-e899c736b0c3.webp",
+    "hash": "e899c736b0c3c242da75e613c009687bcd4f4b09375ef3a199f4b383193e48ac",
+    "width": 160,
+    "height": 98,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3623-0": {
+    "kind": "client-model-render",
+    "name": "Violent Wind Helm",
+    "model": "Data/Player/HelmMale40.bmd",
+    "textures": [
+      "player/skinclass106head_n.ozj",
+      "player/skinclass106_headhelmet.ozj"
+    ],
+    "file": "img/atlas/drops/3623-0-c086bc0b818c.webp",
+    "hash": "c086bc0b818c04624e2b6e9180b688bd8ddc2a5b5c1bec2043c6f158e9f9dabb",
+    "width": 88,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3624-0": {
+    "kind": "client-model-render",
+    "name": "Red Wing Helm",
+    "model": "Data/Player/HelmMale41.bmd",
+    "textures": [
+      "player/skinclass206head_n.ozj",
+      "player/skinclass206_headhelmet.ozj"
+    ],
+    "file": "img/atlas/drops/3624-0-3cf4e6c5c14b.webp",
+    "hash": "3cf4e6c5c14b7bb60fed235f050e46e19e0633ec0985a0209c23b99507e3dd2b",
+    "width": 79,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3625-0": {
+    "kind": "client-model-render",
+    "name": "Ancient Helm",
+    "model": "Data/Player/HelmMale42.bmd",
+    "textures": [
+      "player/skinclass306_headhelmet.ozj",
+      "player/skinclass306head_n.ozj"
+    ],
+    "file": "img/atlas/drops/3625-0-149ea573bc5d.webp",
+    "hash": "149ea573bc5d1c92bdd3f0af1b05feb201389de7d716f98bb94d5959d11b0b44",
+    "width": 82,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3626-0": {
+    "kind": "client-model-render",
+    "name": "Demonic Helm",
+    "model": "Data/Player/HelmMale43.bmd",
+    "textures": [
+      "player/skinclass406head_n.ozj",
+      "player/skinclass406_headhelmet.ozj"
+    ],
+    "file": "img/atlas/drops/3626-0-5e232bad3f29.webp",
+    "hash": "5e232bad3f29f2a58db30a79d1bd7a9179dd0842edbcdf52cd040383595d0393",
+    "width": 112,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3643-0": {
+    "kind": "client-model-render",
+    "name": "Sacred Helm",
+    "model": "Data/Player/HelmMale60.bmd",
+    "textures": [
+      "player/sfbody.ozj",
+      "player/sfarmor.ozj"
+    ],
+    "file": "img/atlas/drops/3643-0-e99b2b4db14a.webp",
+    "hash": "e99b2b4db14a06fbb3f8ff39c045de231a0ef7fbd334f5865b3fdc63580a5284",
+    "width": 147,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3644-0": {
+    "kind": "client-model-render",
+    "name": "Storm Hard Helm",
+    "model": "Data/Player/HelmMale61.bmd",
+    "textures": [
+      "player/item762_helm.ozj",
+      "player/item762_armor.ozj"
+    ],
+    "file": "img/atlas/drops/3644-0-54e82734d08f.webp",
+    "hash": "54e82734d08f08e73a9e3d93de69bfe0c42b838eec186808162965f7bb5a1e9c",
+    "width": 89,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "3645-0": {
+    "kind": "client-model-render",
+    "name": "Piercing Helm",
+    "model": "Data/Player/HelmMale62.bmd",
+    "textures": [
+      "player/item761_pant.ozj",
+      "player/item761_helm.ozj"
+    ],
+    "file": "img/atlas/drops/3645-0-b1ec0048b9b1.webp",
+    "hash": "b1ec0048b9b10b9819cad8582df8faf9ef6081c69811dec18e98179115cfc135",
+    "width": 102,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4102-0": {
+    "kind": "client-model-render",
+    "name": "Scale Armor",
+    "model": "Data/Player/ArmorMale07.bmd",
+    "textures": [
+      "player/upper_08_m.ozj",
+      "player/hide_m.ozj"
+    ],
+    "file": "img/atlas/drops/4102-0-213733373c7d.webp",
+    "hash": "213733373c7d5b8abf75769980ca62ac26ddbf7c1d37e5d3a228f1874797cbe7",
+    "width": 160,
+    "height": 126,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4135-0": {
+    "kind": "client-model-render",
+    "name": "Violent Wind Armor",
+    "model": "Data/Player/ArmorMale40.bmd",
+    "textures": [
+      "player/skinclass106_upper.ozj"
+    ],
+    "file": "img/atlas/drops/4135-0-374b5d531e65.webp",
+    "hash": "374b5d531e6565e37f84ccb674f532d68965e0d3b4da279742e0e8c358c4c9f3",
+    "width": 147,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4136-0": {
+    "kind": "client-model-render",
+    "name": "Red Wing Armor",
+    "model": "Data/Player/ArmorMale41.bmd",
+    "textures": [
+      "player/skinclass206_upper.ozj"
+    ],
+    "file": "img/atlas/drops/4136-0-84f292c6b4bf.webp",
+    "hash": "84f292c6b4bfa3bb304377643a1592cb632e23da92a2832538c82e2a100925b1",
+    "width": 160,
+    "height": 151,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4137-0": {
+    "kind": "client-model-render",
+    "name": "Ancient Armor",
+    "model": "Data/Player/ArmorMale42.bmd",
+    "textures": [
+      "player/skinclass306_upper.ozj"
+    ],
+    "file": "img/atlas/drops/4137-0-e2ffbcc4323a.webp",
+    "hash": "e2ffbcc4323ab236f6d8259e84582c9dc3ac0ea7fcf547ee370d3af8f6d3f134",
+    "width": 117,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4138-0": {
+    "kind": "client-model-render",
+    "name": "Demonic Armor",
+    "model": "Data/Player/ArmorMale43.bmd",
+    "textures": [
+      "player/skinclass406_upper.ozj"
+    ],
+    "file": "img/atlas/drops/4138-0-c9d084d440ae.webp",
+    "hash": "c9d084d440ae5a679d23cc16b0ff9bf84b5c82eb5c208aeb23439eac13b95729",
+    "width": 127,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4155-0": {
+    "kind": "client-model-render",
+    "name": "Sacred Armor",
+    "model": "Data/Player/ArmorMale60.bmd",
+    "textures": [
+      "player/sfbody.ozj",
+      "player/sfarmor.ozj"
+    ],
+    "file": "img/atlas/drops/4155-0-63e0f0be825b.webp",
+    "hash": "63e0f0be825b64c27d644b5f1c2edd4053eb1e0c64035597dd099dddda7f4593",
+    "width": 160,
+    "height": 111,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4156-0": {
+    "kind": "client-model-render",
+    "name": "Storm Hard Armor",
+    "model": "Data/Player/ArmorMale61.bmd",
+    "textures": [
+      "player/item762_helm.ozj",
+      "player/item762_armor.ozj"
+    ],
+    "file": "img/atlas/drops/4156-0-db2e4ae7173b.webp",
+    "hash": "db2e4ae7173b8cc99d7e112629ea07a5d877b5c5c66312c50933c3a4da0909a7",
+    "width": 160,
+    "height": 135,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4157-0": {
+    "kind": "client-model-render",
+    "name": "Piercing Armor",
+    "model": "Data/Player/ArmorMale62.bmd",
+    "textures": [
+      "player/item761_armor.ozj",
+      "player/item761_helm.ozj"
+    ],
+    "file": "img/atlas/drops/4157-0-31a8c5f051d3.webp",
+    "hash": "31a8c5f051d368334e7e4f93567a3d2238f07f36f9196ed755ebabd8fe3bf8f3",
+    "width": 160,
+    "height": 132,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4614-0": {
+    "kind": "client-model-render",
+    "name": "Scale Pants",
+    "model": "Data/Player/PantMale07.bmd",
+    "textures": [
+      "player/lower_08_m.ozj",
+      "player/hide_m.ozj"
+    ],
+    "file": "img/atlas/drops/4614-0-2f30a1bcbb99.webp",
+    "hash": "2f30a1bcbb991cc3a1dd11fb955a6d242fa69ba10c1dffa51474ef861e0f95e4",
+    "width": 78,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4647-0": {
+    "kind": "client-model-render",
+    "name": "Violent Wind Pants",
+    "model": "Data/Player/PantMale40.bmd",
+    "textures": [
+      "player/skinclass106_lower.ozj"
+    ],
+    "file": "img/atlas/drops/4647-0-714d1811a0f6.webp",
+    "hash": "714d1811a0f6c7786b01584ec2907ab680cb727c4f6dbbd3176ece8069000e58",
+    "width": 105,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4648-0": {
+    "kind": "client-model-render",
+    "name": "Red Wing Pants",
+    "model": "Data/Player/PantMale41.bmd",
+    "textures": [
+      "player/skinclass206_lower.ozj",
+      "player/skinclass206_lowertail.ozt"
+    ],
+    "file": "img/atlas/drops/4648-0-2ceb4cfe63a4.webp",
+    "hash": "2ceb4cfe63a4887fdf3e556cab78c89dce227e5d653bfde3fe33e8189850314a",
+    "width": 128,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4649-0": {
+    "kind": "client-model-render",
+    "name": "Ancient Pants",
+    "model": "Data/Player/PantMale42.bmd",
+    "textures": [
+      "player/skinclass306_lower.ozj",
+      "player/skinclass306_lowertail.ozt"
+    ],
+    "file": "img/atlas/drops/4649-0-820b8ce7ad3d.webp",
+    "hash": "820b8ce7ad3dde2ddda0c0138fcab73853a30ac02024ea9965c7917b123447aa",
+    "width": 78,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4650-0": {
+    "kind": "client-model-render",
+    "name": "Demonic Pants",
+    "model": "Data/Player/PantMale43.bmd",
+    "textures": [
+      "player/skinclass406_lower.ozj"
+    ],
+    "file": "img/atlas/drops/4650-0-bfacf993c680.webp",
+    "hash": "bfacf993c680624825396ca820e1f66b5e00ac69aae88cb87b0b59d1211d3a46",
+    "width": 129,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4667-0": {
+    "kind": "client-model-render",
+    "name": "Sacred Pants",
+    "model": "Data/Player/PantMale60.bmd",
+    "textures": [
+      "player/sfbody.ozj",
+      "player/sfarmor.ozj"
+    ],
+    "file": "img/atlas/drops/4667-0-863dd2a8f080.webp",
+    "hash": "863dd2a8f08097dbf0b01e37452b925bc37a01b53e7da04013d22136efb76a67",
+    "width": 87,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4668-0": {
+    "kind": "client-model-render",
+    "name": "Storm Hard Pants",
+    "model": "Data/Player/PantMale61.bmd",
+    "textures": [
+      "player/item762_armor.ozj",
+      "player/item762_helm.ozj"
+    ],
+    "file": "img/atlas/drops/4668-0-5cc75b253240.webp",
+    "hash": "5cc75b253240e472c7b791e519c91d4c7e3b45145fb63f75e509f6ee1cc39318",
+    "width": 127,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "4669-0": {
+    "kind": "client-model-render",
+    "name": "Piercing Pants",
+    "model": "Data/Player/PantMale62.bmd",
+    "textures": [
+      "player/item761_cloth.ozt",
+      "player/item761_pant.ozj"
+    ],
+    "file": "img/atlas/drops/4669-0-a811ccf7f219.webp",
+    "hash": "a811ccf7f219c60fc6c4aac292b7794ab404560e8cd39d3d88007902ff862a32",
+    "width": 130,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5159-0": {
+    "kind": "client-model-render",
+    "name": "Violent Wind Gloves",
+    "model": "Data/Player/GloveMale40.bmd",
+    "textures": [
+      "player/skinclass106_glove.ozj"
+    ],
+    "file": "img/atlas/drops/5159-0-77d1d15482d9.webp",
+    "hash": "77d1d15482d9540b930bb4b69d4da3d670a67d76b295cfeadfdcedac5679adb7",
+    "width": 160,
+    "height": 138,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5160-0": {
+    "kind": "client-model-render",
+    "name": "Red Wing Gloves",
+    "model": "Data/Player/GloveMale41.bmd",
+    "textures": [
+      "player/skinclass206_glove.ozj"
+    ],
+    "file": "img/atlas/drops/5160-0-ad8a2c822e1e.webp",
+    "hash": "ad8a2c822e1e387666bb42fda87419bc84115b4f6ced12d998f9993ee14b08fd",
+    "width": 160,
+    "height": 145,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5161-0": {
+    "kind": "client-model-render",
+    "name": "Ancient Gloves",
+    "model": "Data/Player/GloveMale42.bmd",
+    "textures": [
+      "player/skinclass306_glove.ozj"
+    ],
+    "file": "img/atlas/drops/5161-0-fe79f4ee842c.webp",
+    "hash": "fe79f4ee842c9ce133925980c30577629c2f7c72e035c523c5dc4347b2012fe1",
+    "width": 160,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5162-0": {
+    "kind": "client-model-render",
+    "name": "Demonic Gloves",
+    "model": "Data/Player/GloveMale43.bmd",
+    "textures": [
+      "player/skinclass406_glove.ozj"
+    ],
+    "file": "img/atlas/drops/5162-0-69f98260fdab.webp",
+    "hash": "69f98260fdab0219776026b39bcfa1c40dbe41a29c53246f67a3e72754bcb942",
+    "width": 160,
+    "height": 134,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5638-0": {
+    "kind": "client-model-render",
+    "name": "Scale Boots",
+    "model": "Data/Player/BootMale07.bmd",
+    "textures": [
+      "player/boots_08.ozj",
+      "player/hide.ozj"
+    ],
+    "file": "img/atlas/drops/5638-0-d07adcbf8644.webp",
+    "hash": "d07adcbf864416a90ddcbcccf56fa4c82d7c3588c5eadd6e8fc7ccb5e7329184",
+    "width": 106,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5671-0": {
+    "kind": "client-model-render",
+    "name": "Violent Wind Boots",
+    "model": "Data/Player/BootMale40.bmd",
+    "textures": [
+      "player/skinclass106_boot.ozj"
+    ],
+    "file": "img/atlas/drops/5671-0-fdebff47f47d.webp",
+    "hash": "fdebff47f47d1b5a3e0c912a527be7e50c8b1ac678eba1ea305c96c7426a63c2",
+    "width": 100,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5672-0": {
+    "kind": "client-model-render",
+    "name": "Red Wing Boots",
+    "model": "Data/Player/BootMale41.bmd",
+    "textures": [
+      "player/skinclass206_boot.ozj"
+    ],
+    "file": "img/atlas/drops/5672-0-4c5fa5b8a417.webp",
+    "hash": "4c5fa5b8a417019659ec15bb92d2abdae8c0b6ea47bb6bab754be181c0cd2fc0",
+    "width": 90,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5673-0": {
+    "kind": "client-model-render",
+    "name": "Ancient Boots",
+    "model": "Data/Player/BootMale42.bmd",
+    "textures": [
+      "player/skinclass306_boot.ozj"
+    ],
+    "file": "img/atlas/drops/5673-0-c57b198474dc.webp",
+    "hash": "c57b198474dcaf2e02e956e0e4aad7b5f833b637f9a14a7e7f7fabc93822d260",
+    "width": 91,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5674-0": {
+    "kind": "client-model-render",
+    "name": "Demonic Boots",
+    "model": "Data/Player/BootMale43.bmd",
+    "textures": [
+      "player/skinclass406_boot.ozj"
+    ],
+    "file": "img/atlas/drops/5674-0-acbc151e5c36.webp",
+    "hash": "acbc151e5c361bf8ae521a1f6b82b906e6d38bc28b9dcac0583778446934b80c",
+    "width": 97,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5691-0": {
+    "kind": "client-model-render",
+    "name": "Sacred Boots",
+    "model": "Data/Player/BootMale60.bmd",
+    "textures": [
+      "player/sfarmor.ozj",
+      "player/sfbody.ozj"
+    ],
+    "file": "img/atlas/drops/5691-0-411ec14343e5.webp",
+    "hash": "411ec14343e5a2f908b5257aaabe38d49033f1b3e3a4b887e6962212ae22c4fc",
+    "width": 101,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5692-0": {
+    "kind": "client-model-render",
+    "name": "Storm Hard Boots",
+    "model": "Data/Player/BootMale61.bmd",
+    "textures": [
+      "player/item762_helm.ozj",
+      "player/item762_armor.ozj"
+    ],
+    "file": "img/atlas/drops/5692-0-fa4eedd30472.webp",
+    "hash": "fa4eedd304725e29cdd4b8a273f51a2de10b6e3e484d2de64bce86cc078e0106",
+    "width": 106,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "5693-0": {
+    "kind": "client-model-render",
+    "name": "Piercing Boots",
+    "model": "Data/Player/BootMale62.bmd",
+    "textures": [
+      "player/item761_armor.ozj"
+    ],
+    "file": "img/atlas/drops/5693-0-61aeb2242959.webp",
+    "hash": "61aeb2242959eea85fd6f1c5682acbdfd662c60b978d07fdbbea3e188df89d2b",
+    "width": 102,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-1": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 1",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-2": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 2",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-3": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 3",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-4": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 4",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-5": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 5",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-6": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 6",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-7": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 7",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6672-8": {
+    "kind": "client-model-render",
+    "name": "Scroll of Archangel 8",
+    "model": "Data/Item/EventBloodCastle00.bmd",
+    "textures": [
+      "item/angelscroll01.ozt"
+    ],
+    "file": "img/atlas/drops/6672-1-dabd77e59e1c.webp",
+    "hash": "dabd77e59e1cc66a51ca35d15cd7ada2d14f78eb48d6d352dfadae5145d7a29b",
+    "width": 98,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-1": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 1",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-2": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 2",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-3": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 3",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-4": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 4",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-5": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 5",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-6": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 6",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-7": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 7",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6673-8": {
+    "kind": "client-model-render",
+    "name": "Blood Bone 8",
+    "model": "Data/Item/EventBloodCastle01.bmd",
+    "textures": [
+      "item/bone02.ozt"
+    ],
+    "file": "img/atlas/drops/6673-1-22405f13efa2.webp",
+    "hash": "22405f13efa2b2c26457e70044e6086f37bc1c1bc5b1d5777918e370952ddf5d",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6705-1": {
+    "kind": "client-model-render",
+    "name": "Old Scroll 1",
+    "model": "Data/Item/scrollpaper.bmd",
+    "textures": [
+      "item/scrollpaper_01.ozt",
+      "item/scrollpaper_r.ozj"
+    ],
+    "file": "img/atlas/drops/6705-1-f1b90c1c7ed7.webp",
+    "hash": "f1b90c1c7ed7172c9216b829259862f6772942b4c4aa7d35f6172fba0d3f35af",
+    "width": 140,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6705-2": {
+    "kind": "client-model-render",
+    "name": "Old Scroll 2",
+    "model": "Data/Item/scrollpaper.bmd",
+    "textures": [
+      "item/scrollpaper_01.ozt",
+      "item/scrollpaper_r.ozj"
+    ],
+    "file": "img/atlas/drops/6705-1-f1b90c1c7ed7.webp",
+    "hash": "f1b90c1c7ed7172c9216b829259862f6772942b4c4aa7d35f6172fba0d3f35af",
+    "width": 140,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6705-3": {
+    "kind": "client-model-render",
+    "name": "Old Scroll 3",
+    "model": "Data/Item/scrollpaper.bmd",
+    "textures": [
+      "item/scrollpaper_01.ozt",
+      "item/scrollpaper_r.ozj"
+    ],
+    "file": "img/atlas/drops/6705-1-f1b90c1c7ed7.webp",
+    "hash": "f1b90c1c7ed7172c9216b829259862f6772942b4c4aa7d35f6172fba0d3f35af",
+    "width": 140,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6705-4": {
+    "kind": "client-model-render",
+    "name": "Old Scroll 4",
+    "model": "Data/Item/scrollpaper.bmd",
+    "textures": [
+      "item/scrollpaper_01.ozt",
+      "item/scrollpaper_r.ozj"
+    ],
+    "file": "img/atlas/drops/6705-1-f1b90c1c7ed7.webp",
+    "hash": "f1b90c1c7ed7172c9216b829259862f6772942b4c4aa7d35f6172fba0d3f35af",
+    "width": 140,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6705-5": {
+    "kind": "client-model-render",
+    "name": "Old Scroll 5",
+    "model": "Data/Item/scrollpaper.bmd",
+    "textures": [
+      "item/scrollpaper_01.ozt",
+      "item/scrollpaper_r.ozj"
+    ],
+    "file": "img/atlas/drops/6705-1-f1b90c1c7ed7.webp",
+    "hash": "f1b90c1c7ed7172c9216b829259862f6772942b4c4aa7d35f6172fba0d3f35af",
+    "width": 140,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6705-6": {
+    "kind": "client-model-render",
+    "name": "Old Scroll 6",
+    "model": "Data/Item/scrollpaper.bmd",
+    "textures": [
+      "item/scrollpaper_01.ozt",
+      "item/scrollpaper_r.ozj"
+    ],
+    "file": "img/atlas/drops/6705-1-f1b90c1c7ed7.webp",
+    "hash": "f1b90c1c7ed7172c9216b829259862f6772942b4c4aa7d35f6172fba0d3f35af",
+    "width": 140,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6706-1": {
+    "kind": "client-model-render",
+    "name": "Illusion Sorcerer Covenant 1",
+    "model": "Data/Item/oath.bmd",
+    "textures": [
+      "item/glass_r.ozj",
+      "item/cap.ozt"
+    ],
+    "file": "img/atlas/drops/6706-1-80088c1fef4a.webp",
+    "hash": "80088c1fef4a55272327df6fb46864dafab71dd38541ae6dbc44778da3ec3424",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6706-2": {
+    "kind": "client-model-render",
+    "name": "Illusion Sorcerer Covenant 2",
+    "model": "Data/Item/oath.bmd",
+    "textures": [
+      "item/glass_r.ozj",
+      "item/cap.ozt"
+    ],
+    "file": "img/atlas/drops/6706-1-80088c1fef4a.webp",
+    "hash": "80088c1fef4a55272327df6fb46864dafab71dd38541ae6dbc44778da3ec3424",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6706-3": {
+    "kind": "client-model-render",
+    "name": "Illusion Sorcerer Covenant 3",
+    "model": "Data/Item/oath.bmd",
+    "textures": [
+      "item/glass_r.ozj",
+      "item/cap.ozt"
+    ],
+    "file": "img/atlas/drops/6706-1-80088c1fef4a.webp",
+    "hash": "80088c1fef4a55272327df6fb46864dafab71dd38541ae6dbc44778da3ec3424",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6706-4": {
+    "kind": "client-model-render",
+    "name": "Illusion Sorcerer Covenant 4",
+    "model": "Data/Item/oath.bmd",
+    "textures": [
+      "item/glass_r.ozj",
+      "item/cap.ozt"
+    ],
+    "file": "img/atlas/drops/6706-1-80088c1fef4a.webp",
+    "hash": "80088c1fef4a55272327df6fb46864dafab71dd38541ae6dbc44778da3ec3424",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6706-5": {
+    "kind": "client-model-render",
+    "name": "Illusion Sorcerer Covenant 5",
+    "model": "Data/Item/oath.bmd",
+    "textures": [
+      "item/glass_r.ozj",
+      "item/cap.ozt"
+    ],
+    "file": "img/atlas/drops/6706-1-80088c1fef4a.webp",
+    "hash": "80088c1fef4a55272327df6fb46864dafab71dd38541ae6dbc44778da3ec3424",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "6706-6": {
+    "kind": "client-model-render",
+    "name": "Illusion Sorcerer Covenant 6",
+    "model": "Data/Item/oath.bmd",
+    "textures": [
+      "item/glass_r.ozj",
+      "item/cap.ozt"
+    ],
+    "file": "img/atlas/drops/6706-1-80088c1fef4a.webp",
+    "hash": "80088c1fef4a55272327df6fb46864dafab71dd38541ae6dbc44778da3ec3424",
+    "width": 60,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7185-1": {
+    "kind": "client-model-render",
+    "name": "Devil's Eye 1",
+    "model": "Data/Item/Devil00.bmd",
+    "textures": [
+      "item/devileye.ozj",
+      "item/devileye2.ozj"
+    ],
+    "file": "img/atlas/drops/7185-1-b120e1070ca7.webp",
+    "hash": "b120e1070ca76de11a0cefe4600a7025ac432b1f770697fe0c8873547ccc434d",
+    "width": 160,
+    "height": 133,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7185-2": {
+    "kind": "client-model-render",
+    "name": "Devil's Eye 2",
+    "model": "Data/Item/Devil00.bmd",
+    "textures": [
+      "item/devileye.ozj",
+      "item/devileye2.ozj"
+    ],
+    "file": "img/atlas/drops/7185-1-b120e1070ca7.webp",
+    "hash": "b120e1070ca76de11a0cefe4600a7025ac432b1f770697fe0c8873547ccc434d",
+    "width": 160,
+    "height": 133,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7185-3": {
+    "kind": "client-model-render",
+    "name": "Devil's Eye 3",
+    "model": "Data/Item/Devil00.bmd",
+    "textures": [
+      "item/devileye.ozj",
+      "item/devileye2.ozj"
+    ],
+    "file": "img/atlas/drops/7185-1-b120e1070ca7.webp",
+    "hash": "b120e1070ca76de11a0cefe4600a7025ac432b1f770697fe0c8873547ccc434d",
+    "width": 160,
+    "height": 133,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7185-4": {
+    "kind": "client-model-render",
+    "name": "Devil's Eye 4",
+    "model": "Data/Item/Devil00.bmd",
+    "textures": [
+      "item/devileye.ozj",
+      "item/devileye2.ozj"
+    ],
+    "file": "img/atlas/drops/7185-1-b120e1070ca7.webp",
+    "hash": "b120e1070ca76de11a0cefe4600a7025ac432b1f770697fe0c8873547ccc434d",
+    "width": 160,
+    "height": 133,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7185-5": {
+    "kind": "client-model-render",
+    "name": "Devil's Eye 5",
+    "model": "Data/Item/Devil00.bmd",
+    "textures": [
+      "item/devileye.ozj",
+      "item/devileye2.ozj"
+    ],
+    "file": "img/atlas/drops/7185-1-b120e1070ca7.webp",
+    "hash": "b120e1070ca76de11a0cefe4600a7025ac432b1f770697fe0c8873547ccc434d",
+    "width": 160,
+    "height": 133,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7185-6": {
+    "kind": "client-model-render",
+    "name": "Devil's Eye 6",
+    "model": "Data/Item/Devil00.bmd",
+    "textures": [
+      "item/devileye.ozj",
+      "item/devileye2.ozj"
+    ],
+    "file": "img/atlas/drops/7185-1-b120e1070ca7.webp",
+    "hash": "b120e1070ca76de11a0cefe4600a7025ac432b1f770697fe0c8873547ccc434d",
+    "width": 160,
+    "height": 133,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7185-7": {
+    "kind": "client-model-render",
+    "name": "Devil's Eye 7",
+    "model": "Data/Item/Devil00.bmd",
+    "textures": [
+      "item/devileye.ozj",
+      "item/devileye2.ozj"
+    ],
+    "file": "img/atlas/drops/7185-1-b120e1070ca7.webp",
+    "hash": "b120e1070ca76de11a0cefe4600a7025ac432b1f770697fe0c8873547ccc434d",
+    "width": 160,
+    "height": 133,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7186-1": {
+    "kind": "client-model-render",
+    "name": "Devil's Key 1",
+    "model": "Data/Item/Devil01.bmd",
+    "textures": [
+      "item/devilkey.ozj"
+    ],
+    "file": "img/atlas/drops/7186-1-43d2e6dc1088.webp",
+    "hash": "43d2e6dc10888176fb10ca2dadbb15aee62dcfc7eda972d5abe930c554510920",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7186-2": {
+    "kind": "client-model-render",
+    "name": "Devil's Key 2",
+    "model": "Data/Item/Devil01.bmd",
+    "textures": [
+      "item/devilkey.ozj"
+    ],
+    "file": "img/atlas/drops/7186-1-43d2e6dc1088.webp",
+    "hash": "43d2e6dc10888176fb10ca2dadbb15aee62dcfc7eda972d5abe930c554510920",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7186-3": {
+    "kind": "client-model-render",
+    "name": "Devil's Key 3",
+    "model": "Data/Item/Devil01.bmd",
+    "textures": [
+      "item/devilkey.ozj"
+    ],
+    "file": "img/atlas/drops/7186-1-43d2e6dc1088.webp",
+    "hash": "43d2e6dc10888176fb10ca2dadbb15aee62dcfc7eda972d5abe930c554510920",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7186-4": {
+    "kind": "client-model-render",
+    "name": "Devil's Key 4",
+    "model": "Data/Item/Devil01.bmd",
+    "textures": [
+      "item/devilkey.ozj"
+    ],
+    "file": "img/atlas/drops/7186-1-43d2e6dc1088.webp",
+    "hash": "43d2e6dc10888176fb10ca2dadbb15aee62dcfc7eda972d5abe930c554510920",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7186-5": {
+    "kind": "client-model-render",
+    "name": "Devil's Key 5",
+    "model": "Data/Item/Devil01.bmd",
+    "textures": [
+      "item/devilkey.ozj"
+    ],
+    "file": "img/atlas/drops/7186-1-43d2e6dc1088.webp",
+    "hash": "43d2e6dc10888176fb10ca2dadbb15aee62dcfc7eda972d5abe930c554510920",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7186-6": {
+    "kind": "client-model-render",
+    "name": "Devil's Key 6",
+    "model": "Data/Item/Devil01.bmd",
+    "textures": [
+      "item/devilkey.ozj"
+    ],
+    "file": "img/atlas/drops/7186-1-43d2e6dc1088.webp",
+    "hash": "43d2e6dc10888176fb10ca2dadbb15aee62dcfc7eda972d5abe930c554510920",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7186-7": {
+    "kind": "client-model-render",
+    "name": "Devil's Key 7",
+    "model": "Data/Item/Devil01.bmd",
+    "textures": [
+      "item/devilkey.ozj"
+    ],
+    "file": "img/atlas/drops/7186-1-43d2e6dc1088.webp",
+    "hash": "43d2e6dc10888176fb10ca2dadbb15aee62dcfc7eda972d5abe930c554510920",
+    "width": 160,
+    "height": 107,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7197-1": {
+    "kind": "client-model-render",
+    "name": "Symbol of Kundun 1",
+    "model": "Data/Item/HELLASITEM01.bmd",
+    "textures": [
+      "item/ksing01.ozj",
+      "item/ksing03.ozj",
+      "item/ksing02.ozj"
+    ],
+    "file": "img/atlas/drops/7197-1-6ad53b6711b8.webp",
+    "hash": "6ad53b6711b8fd0296382fc5c9e8c87185c10e9496d27843d923ed7b4f2f8fc5",
+    "width": 160,
+    "height": 153,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7197-2": {
+    "kind": "client-model-render",
+    "name": "Symbol of Kundun 2",
+    "model": "Data/Item/HELLASITEM01.bmd",
+    "textures": [
+      "item/ksing01.ozj",
+      "item/ksing03.ozj",
+      "item/ksing02.ozj"
+    ],
+    "file": "img/atlas/drops/7197-1-6ad53b6711b8.webp",
+    "hash": "6ad53b6711b8fd0296382fc5c9e8c87185c10e9496d27843d923ed7b4f2f8fc5",
+    "width": 160,
+    "height": 153,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7197-3": {
+    "kind": "client-model-render",
+    "name": "Symbol of Kundun 3",
+    "model": "Data/Item/HELLASITEM01.bmd",
+    "textures": [
+      "item/ksing01.ozj",
+      "item/ksing03.ozj",
+      "item/ksing02.ozj"
+    ],
+    "file": "img/atlas/drops/7197-1-6ad53b6711b8.webp",
+    "hash": "6ad53b6711b8fd0296382fc5c9e8c87185c10e9496d27843d923ed7b4f2f8fc5",
+    "width": 160,
+    "height": 153,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7197-4": {
+    "kind": "client-model-render",
+    "name": "Symbol of Kundun 4",
+    "model": "Data/Item/HELLASITEM01.bmd",
+    "textures": [
+      "item/ksing01.ozj",
+      "item/ksing03.ozj",
+      "item/ksing02.ozj"
+    ],
+    "file": "img/atlas/drops/7197-1-6ad53b6711b8.webp",
+    "hash": "6ad53b6711b8fd0296382fc5c9e8c87185c10e9496d27843d923ed7b4f2f8fc5",
+    "width": 160,
+    "height": 153,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7197-5": {
+    "kind": "client-model-render",
+    "name": "Symbol of Kundun 5",
+    "model": "Data/Item/HELLASITEM01.bmd",
+    "textures": [
+      "item/ksing01.ozj",
+      "item/ksing03.ozj",
+      "item/ksing02.ozj"
+    ],
+    "file": "img/atlas/drops/7197-1-6ad53b6711b8.webp",
+    "hash": "6ad53b6711b8fd0296382fc5c9e8c87185c10e9496d27843d923ed7b4f2f8fc5",
+    "width": 160,
+    "height": 153,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7197-6": {
+    "kind": "client-model-render",
+    "name": "Symbol of Kundun 6",
+    "model": "Data/Item/HELLASITEM01.bmd",
+    "textures": [
+      "item/ksing01.ozj",
+      "item/ksing03.ozj",
+      "item/ksing02.ozj"
+    ],
+    "file": "img/atlas/drops/7197-1-6ad53b6711b8.webp",
+    "hash": "6ad53b6711b8fd0296382fc5c9e8c87185c10e9496d27843d923ed7b4f2f8fc5",
+    "width": 160,
+    "height": 153,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7197-7": {
+    "kind": "client-model-render",
+    "name": "Symbol of Kundun 7",
+    "model": "Data/Item/HELLASITEM01.bmd",
+    "textures": [
+      "item/ksing01.ozj",
+      "item/ksing03.ozj",
+      "item/ksing02.ozj"
+    ],
+    "file": "img/atlas/drops/7197-1-6ad53b6711b8.webp",
+    "hash": "6ad53b6711b8fd0296382fc5c9e8c87185c10e9496d27843d923ed7b4f2f8fc5",
+    "width": 160,
+    "height": 153,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
+  },
+  "7208-0": {
+    "kind": "client-model-render",
+    "name": "Large Complex Potion",
+    "model": "Data/Item/megawater03.bmd",
+    "textures": [
+      "item/megawater.ozj"
+    ],
+    "file": "img/atlas/drops/7208-0-363ce3c73dde.webp",
+    "hash": "363ce3c73dde4b64fddffaed8f31f5429a40ac3f9f68bc0c1292ba8d775b874a",
+    "width": 118,
+    "height": 160,
+    "createdAt": "2026-10-25",
+    "processing": "Rendered from the MU PANIC client BMD model with its textures; cropped, resized to max 160px with Lanczos; WebP quality 90; alpha preserved.",
+    "gameAssetsCopyright": "Webzen Inc."
   }
 }
