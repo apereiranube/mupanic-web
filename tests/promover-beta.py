@@ -32,6 +32,9 @@ def make(home, mode='website'):
     (beta / 'templates/mupanic/inc/launch-config.php').write_text("<?php return ['productionMode'=>'%s'];" % mode)
     (beta / 'templates/mupanic/api/recharge-worker.php').write_text('<?php // worker')
     (beta / 'favicon.ico').write_bytes(b'\x00ico')
+    (beta / '.well-known/acme-challenge').mkdir(parents=True)
+    (beta / '.well-known/acme-challenge/tok').write_text('beta-cert')
+    (beta / 'error_log').write_text('log de beta')
     (beta / '.htaccess').write_text(GUARD + "RewriteEngine On\nRewriteRule ^([^/]+)/?$ index.php?page=$1 [QSA,L]\n")
     (root / 'auditoria-web').mkdir(parents=True)
     (root / 'auditoria-web/.htaccess').write_text('AuthType Basic\nRequire valid-user\n')
@@ -60,6 +63,7 @@ with tempfile.TemporaryDirectory(prefix='mupanic-prom-') as t:
     assert (root / 'templates/mupanic/api/recharge-worker.php').read_text() == '<?php // worker'
     assert (root / 'favicon.ico').read_bytes() == b'\x00ico'
     assert (root / 'robots.txt').exists() and (root / '.well-known').is_dir()
+    assert not (root / '.well-known/acme-challenge/tok').exists() and not (root / 'error_log').exists()
     ht = (root / '.htaccess').read_text()
     assert 'R=404' not in ht and 'index.php?page=$1' in ht and 'ea-php83' in ht and 'LANDING ONLY' not in ht
     bht = (root / 'beta/.htaccess').read_text()

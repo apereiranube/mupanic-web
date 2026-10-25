@@ -80,7 +80,8 @@ function promRootRules(string $betaOriginal,string $mainOriginal): string {
 function promBetaEntries(string $beta): array {
     $entries=[];
     foreach (scandir($beta) ?: [] as $name) {
-        if (in_array($name,['.','..','.htaccess'],true)) continue;
+        // Propios del hosting de beta (certificado del subdominio, cgi, logs): quedan en beta, no se copian.
+        if (in_array($name,['.','..','.htaccess','.well-known','cgi-bin','error_log'],true)) continue;
         if (!preg_match('/^[A-Za-z0-9_.-]+$/D',$name)) throw new RuntimeException('Nombre no válido en beta: '.$name);
         if (in_array($name,PROM_PROTECTED,true)) throw new RuntimeException('Beta contiene una carpeta reservada de main: '.$name);
         $entries[]=$name;
