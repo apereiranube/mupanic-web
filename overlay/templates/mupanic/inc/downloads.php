@@ -81,7 +81,7 @@ $dlSteps = [
             <h2>Lo que necesitás</h2>
             <dl>
                 <div><dt>Sistema</dt><dd>Windows 10 u 11.</dd></div>
-                <div><dt>Espacio libre</dt><dd>Unos 8 GB para el comprimido y la carpeta del juego. Después de instalar podés borrar el comprimido.</dd></div>
+                <div><dt>Espacio libre</dt><dd>Unos 5 GB: 1,2 GB del archivo comprimido y unos 3,5 GB del juego instalado. Después de instalar podés borrar el comprimido.</dd></div>
                 <div><dt>Internet</dt><dd>El launcher se conecta al abrirse para buscar actualizaciones.</dd></div>
             </dl>
         </div>
