@@ -1,0 +1,111 @@
+/* MU PANIC · Descargas. Todo bajo #dl-page. La pieza central es el launcher real;
+   los botones copian su JUGAR (placa de cobre con esquinas cortadas). */
+body.is-downloads{background:#0b1113}
+.is-downloads .inner-content{padding:0;background:#0b1113}
+.is-downloads .inner-content>.shell{width:100%;max-width:none;padding:0}
+.is-downloads .module-surface{padding:0;background:transparent;border:0;box-shadow:none;color:#eee9df;overflow:visible}
+.is-downloads .footer-modern{margin-top:0}
+
+#dl-page{
+  --deep:#0b1113;--panel:#121c1e;--panel-2:#172426;
+  --copper:#d7a57d;--copper-hi:#ecc7a3;--copper-lo:#9c6c47;
+  --cream:#eee9df;--muted:#a7b0b0;--line:rgba(215,165,125,.22);
+  --display:'Barlow Condensed',Impact,sans-serif;--body:Manrope,Arial,sans-serif;
+  color:var(--cream);font:400 16px/1.65 var(--body);-webkit-font-smoothing:antialiased;color-scheme:dark
+}
+#dl-page *{box-sizing:border-box}
+#dl-page [hidden]{display:none!important}
+#dl-page section{padding:0 clamp(16px,5vw,72px)}
+#dl-page h1,#dl-page h2,#dl-page h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;margin:0;color:var(--cream)}
+#dl-page h2{font-size:clamp(30px,3.4vw,44px);line-height:1.05}
+#dl-page a{color:var(--copper-hi)}
+#dl-page a:focus-visible,#dl-page button:focus-visible,#dl-page summary:focus-visible{outline:2px solid var(--copper-hi);outline-offset:3px}
+#dl-page code{font:600 .92em Consolas,monospace;color:var(--copper-hi);background:#ffffff0d;padding:1px 6px}
+
+/* Botón con la forma del JUGAR del launcher */
+#dl-page .dl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 26px;
+  font:600 19px/1 var(--display);letter-spacing:.06em;text-decoration:none;cursor:pointer;border:0;
+  color:var(--cream);background:#ffffff10;box-shadow:inset 0 0 0 1px var(--line);
+  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);transition:background .2s,color .2s}
+#dl-page .dl-btn:hover{background:#ffffff1c}
+#dl-page .dl-btn.is-main{color:#1a1410;background:linear-gradient(180deg,var(--copper-hi),var(--copper) 55%,#b98560);box-shadow:none}
+#dl-page .dl-btn.is-main:hover{background:linear-gradient(180deg,#f6dcc0,var(--copper-hi) 60%,var(--copper))}
+#dl-page .dl-btn.is-disabled{cursor:default;color:var(--muted);background:#ffffff08}
+
+/* Hero: texto a la izquierda, launcher real a la derecha */
+.dl-hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center;
+  padding-top:clamp(40px,6vw,88px)!important;padding-bottom:clamp(40px,6vw,80px)!important;
+  background:radial-gradient(ellipse 70% 80% at 85% 40%,#1c2b2e 0,transparent 70%),var(--deep)}
+.dl-hero h1{font-size:clamp(46px,5.6vw,84px);line-height:.95;max-width:11ch}
+.dl-lead{font-size:clamp(16px,1.3vw,19px);color:#cfd5d3;max-width:44ch;margin:22px 0 28px}
+.dl-meta{margin:18px 0 0;font-size:14px;color:var(--muted)}
+.dl-shot{margin:0;position:relative}
+.dl-shot img{display:block;width:100%;height:auto;border:1px solid var(--line);box-shadow:0 40px 90px #000c,0 0 0 1px #000}
+.dl-shot:before{content:"";position:absolute;inset:8% -4% -6% 10%;background:radial-gradient(closest-side,rgba(215,165,125,.18),transparent);z-index:-1}
+
+/* Mirrors: tres placas con arte */
+.dl-mirrors{padding-top:clamp(48px,6vw,88px)!important;padding-bottom:clamp(40px,5vw,72px)!important;background:linear-gradient(180deg,#0e1618,var(--deep))}
+.dl-sub{color:var(--muted);margin:10px 0 0;max-width:60ch}
+.dl-mirror-list{list-style:none;margin:28px 0 18px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,22px)}
+.dl-mirror{position:relative;min-height:300px;display:flex;align-items:flex-end;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
+.dl-mirror img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.dl-mirror:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,17,19,.05) 20%,rgba(11,17,19,.92) 78%)}
+.dl-mirror:hover img{transform:scale(1.04)}
+.dl-mirror.is-off img{filter:grayscale(.7) brightness(.7)}
+.dl-mirror-body{position:relative;z-index:1;padding:22px;width:100%}
+.dl-mirror h3{font-size:34px;line-height:1;margin-bottom:14px!important}
+.dl-mirror .dl-btn{width:100%}
+
+/* Tutorial por pasos */
+.dl-guide{padding-top:clamp(48px,6vw,88px)!important;padding-bottom:clamp(48px,6vw,88px)!important;background:var(--panel)}
+.dl-guide-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:26px 0 22px}
+.dl-guide-tabs button{display:flex;align-items:center;gap:12px;text-align:left;padding:14px 16px;border:0;cursor:pointer;
+  background:#ffffff08;color:var(--muted);font:600 15px/1.25 var(--body);border-bottom:2px solid transparent;transition:background .2s,color .2s}
+.dl-guide-tabs button span{flex:none;width:34px;height:34px;display:grid;place-items:center;font:600 22px/1 var(--display);color:var(--copper);border:1px solid var(--line)}
+.dl-guide-tabs button[aria-selected="true"]{background:var(--panel-2);color:var(--cream);border-bottom-color:var(--copper)}
+.dl-guide-tabs button[aria-selected="true"] span{background:var(--copper);color:#1a1410;border-color:var(--copper)}
+.dl-step{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(20px,3vw,48px);align-items:center}
+.dl-step img{display:block;width:100%;height:auto;border:1px solid var(--line);box-shadow:0 30px 70px #0009}
+.dl-step-count{margin:0 0 6px;font-size:14px;color:var(--copper)}
+.dl-step h3{font-size:clamp(28px,2.6vw,38px);line-height:1.05}
+.dl-step-text p{color:#cfd5d3;max-width:42ch}
+.dl-step-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+@media(prefers-reduced-motion:no-preference){.dl-step:not([hidden]){animation:dlIn .35s ease}}
+@keyframes dlIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Requisitos y avisos de Windows */
+.dl-notes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);padding-top:clamp(48px,6vw,80px)!important;padding-bottom:clamp(32px,4vw,56px)!important}
+.dl-notes h2{font-size:clamp(26px,2.4vw,34px);margin-bottom:14px!important}
+.dl-notes dl{margin:0}
+.dl-notes dl div{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line)}
+.dl-notes dt{color:var(--copper);font-weight:700}
+.dl-notes dd{margin:0;color:#cfd5d3}
+.dl-notes p{color:#cfd5d3;margin:0 0 14px;max-width:52ch}
+.dl-notes b{color:var(--cream)}
+
+/* Problemas frecuentes */
+.dl-faq{padding-bottom:clamp(56px,7vw,96px)!important;max-width:980px}
+.dl-faq h2{font-size:clamp(26px,2.4vw,34px);margin-bottom:12px!important}
+.dl-faq details{border-top:1px solid var(--line)}
+.dl-faq details:last-of-type{border-bottom:1px solid var(--line)}
+.dl-faq summary{cursor:pointer;list-style:none;padding:16px 36px 16px 0;position:relative;font-weight:600;color:var(--cream)}
+.dl-faq summary::-webkit-details-marker{display:none}
+.dl-faq summary:after{content:"+";position:absolute;right:6px;top:10px;font:400 26px/1 var(--display);color:var(--copper)}
+.dl-faq details[open] summary:after{content:"−"}
+.dl-faq details p{margin:0 0 18px;color:#cfd5d3;max-width:70ch}
+.dl-help{margin-top:22px;color:var(--muted)}
+
+@media(max-width:980px){
+  .dl-hero{grid-template-columns:1fr}
+  .dl-mirror-list{grid-template-columns:1fr}
+  .dl-mirror{min-height:200px}
+  .dl-guide-tabs{grid-template-columns:1fr 1fr}
+  .dl-step{grid-template-columns:1fr}
+  .dl-notes{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .dl-guide-tabs button{font-size:13px;padding:10px}
+  .dl-guide-tabs button span{width:28px;height:28px;font-size:18px}
+  .dl-notes dl div{grid-template-columns:1fr;gap:2px}
+  #dl-page .dl-btn{width:100%}
+}

@@ -1,0 +1,22 @@
+{
+ "version": "Cliente v1",
+ "fecha": "25 de octubre de 2026",
+ "tamano": "",
+ "links": [
+  {
+   "nombre": "Mega",
+   "url": "",
+   "arte": "img/home/hero-world-v10.webp"
+  },
+  {
+   "nombre": "MediaFire",
+   "url": "",
+   "arte": "img/home/fractura-connected-v3-960.webp"
+  },
+  {
+   "nombre": "Google Drive",
+   "url": "",
+   "arte": "img/home/companions-connected-v3-960.webp"
+  }
+ ]
+}
