@@ -351,4 +351,29 @@ done
 mkdir -p "$DEPLOY_ROOT/api"
 cp -a "$SOURCE_ROOT/overlay/api/launcher.php" "$DEPLOY_ROOT/api/launcher.php"
 
-echo "[MU PANIC] Beta overlay deployed successfully."
+# SEO: robots.txt y sitemap.xml propios en la raiz de main.
+for file in robots.txt sitemap.xml; do
+  test -s "$SOURCE_ROOT/overlay/root/$file"
+  cp "$SOURCE_ROOT/overlay/root/$file" "$DEPLOY_ROOT/$file.mupanic_tmp"
+  chmod 644 "$DEPLOY_ROOT/$file.mupanic_tmp"
+  mv -f "$DEPLOY_ROOT/$file.mupanic_tmp" "$DEPLOY_ROOT/$file"
+done
+
+# Una sola direccion para Google: www.mupanic.com.ar -> mupanic.com.ar (solo GET/HEAD).
+HT="$DEPLOY_ROOT/.htaccess"
+if [ -f "$HT" ] && [ ! -L "$HT" ] && ! grep -q '^# MU PANIC HOST UNICO v1' "$HT"; then
+  TMP="$(mktemp "$DEPLOY_ROOT/.htaccess.XXXXXX")"
+  {
+    echo '# MU PANIC HOST UNICO v1'
+    echo 'RewriteEngine On'
+    echo 'RewriteCond %{HTTP_HOST} ^www\.mupanic\.com\.ar(?::[0-9]+)?$ [NC]'
+    echo 'RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$'
+    echo 'RewriteRule ^(.*)$ https://mupanic.com.ar/$1 [R=301,L]'
+    echo ''
+    cat "$HT"
+  } > "$TMP"
+  chmod 644 "$TMP"
+  mv -f "$TMP" "$HT"
+fi
+
+echo "[MU PANIC] Production overlay deployed successfully."

@@ -150,7 +150,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta name="theme-color" content="#0b1113"/>
     <title><?php echo $isHome ? 'MU PANIC · Season 6 · Argentina' : htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])).' · MU PANIC'; ?></title>
     <meta name="description" content="MU PANIC: guerra Nexo contra Caos, mascotas evolutivas, Mercado Vessara, ocho minijuegos y un cliente renovado. Esto es MU PANIC."/>
-    <meta name="keywords" content="MU PANIC, MU Online, Season 6, Argentina, Louis UP43"/>
+    <meta name="keywords" content="MU PANIC, MU Online, MU Online Argentina, servidor de MU, Season 6, Argentina"/>
+    <link rel="canonical" href="<?php echo htmlspecialchars('https://mupanic.com.ar'.(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/')); ?>"/>
     <meta property="og:type" content="website"/>
     <?php $refPreviewCode=($_REQUEST['page']==='register' && is_string($_GET['ref'] ?? null) && preg_match('/^[A-Za-z0-9]{8}$/D',$_GET['ref'])) ? strtoupper($_GET['ref']) : null; ?>
     <?php if($refPreviewCode) { $refPreviewImg=__PATH_TEMPLATE__.'img/referidos/referidos-preview-v2.jpg'; ?>
@@ -167,9 +168,20 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="<?php echo htmlspecialchars($refPreviewImg); ?>"/>
     <?php } else { ?>
+    <?php $sharePreviewImg='https://mupanic.com.ar/templates/mupanic/img/share/mupanic-share-v1.jpg'; ?>
+    <meta property="og:site_name" content="MU PANIC"/>
+    <meta property="og:locale" content="es_AR"/>
     <meta property="og:title" content="MU PANIC · Season 6"/>
     <meta property="og:description" content="Sistemas propios. Una experiencia distinta. Descubrí MU PANIC."/>
-    <meta property="og:url" content="<?php echo __BASE_URL__; ?>"/>
+    <meta property="og:url" content="https://mupanic.com.ar/"/>
+    <meta property="og:image" content="<?php echo $sharePreviewImg; ?>"/>
+    <meta property="og:image:secure_url" content="<?php echo $sharePreviewImg; ?>"/>
+    <meta property="og:image:type" content="image/jpeg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:alt" content="MU PANIC, MU Online Season 6 argentino"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:image" content="<?php echo $sharePreviewImg; ?>"/>
     <?php } ?>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/fractura/aldren-varkor-v2.webp" fetchpriority="high"><?php } ?>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v10.webp" fetchpriority="high"><?php } ?>

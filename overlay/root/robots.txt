@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /usercp/
+Disallow: /admincp/
+Disallow: /api/
+Disallow: /templates/mupanic/api/
+
+Sitemap: https://mupanic.com.ar/sitemap.xml
