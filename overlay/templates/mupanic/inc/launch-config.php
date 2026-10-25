@@ -2,7 +2,7 @@
 if(!defined('access') or !access) die();
 // Shared by both branches: beta stays a complete website; only production home is gated.
 return [
-    'productionMode' => 'coming-soon',
+    'productionMode' => 'website',
     'productionHosts' => ['mupanic.com.ar', 'www.mupanic.com.ar'],
     'previewHosts' => ['beta.mupanic.com.ar'],
     'launchAt' => null,
