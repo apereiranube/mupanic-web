@@ -1,6 +1,6 @@
 r"""Publish an allowlisted gameplay snapshot from the Windows VPS.
 
-python tools/sync_atlas.py --server-root C:\MuServer43 --url https://beta.mupanic.com.ar/templates/mupanic/api/atlas-sync.php --token-file C:\MuServer43\AtlasPrivate\token
+python tools/sync_atlas.py --server-root C:\MuServer43 --url https://mupanic.com.ar/templates/mupanic/api/atlas-sync.php --token-file C:\MuServer43\AtlasPrivate\token
 Run once through Windows Task Scheduler; no game processes or SQL are accessed.
 """
 import argparse

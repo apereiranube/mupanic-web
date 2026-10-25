@@ -12,7 +12,7 @@ Se abre desde el enlace **Economía →** de `/usercp/shopadmin/`. Reutiliza el 
 
 1. Actualizar la rama **beta** en el checkout habitual de cPanel.
 2. Ejecutar **Deploy HEAD Commit** como de costumbre.
-3. Entrar con `panic` a `https://beta.mupanic.com.ar/usercp/shopadmin/` y abrir **Economía →**.
+3. Entrar con `panic` a `https://mupanic.com.ar/usercp/shopadmin/` y abrir **Economía →**.
 
 El script existente `scripts/deploy-beta.sh` crea primero un respaldo de cada archivo nuevo o distinto de esta entrega y luego ejecuta su copia habitual del overlay. El registro muestra `Economy backup: ...` y la verificación posterior. Si ya coinciden todos los archivos, indica `SIN_CAMBIOS` y no genera respaldos repetidos.
 

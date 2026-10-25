@@ -12,7 +12,7 @@ $atlasRunner = "$atlasRoot\AtlasSync\run_atlas.cmd"
 @'
 @echo off
 echo %date% %time% > "C:\MuServer43\AtlasPrivate\last-run.log"
-"C:\Python313\python.exe" "C:\MuServer43\AtlasSync\sync_atlas.py" --server-root "C:\MuServer43" --url "https://mupanic.com.ar/beta/templates/mupanic/api/atlas-sync.php" --token-file "C:\MuServer43\AtlasPrivate\token" >> "C:\MuServer43\AtlasPrivate\last-run.log" 2>&1
+"C:\Python313\python.exe" "C:\MuServer43\AtlasSync\sync_atlas.py" --server-root "C:\MuServer43" --url "https://mupanic.com.ar/templates/mupanic/api/atlas-sync.php" --token-file "C:\MuServer43\AtlasPrivate\token" >> "C:\MuServer43\AtlasPrivate\last-run.log" 2>&1
 exit /b %errorlevel%
 '@ | Set-Content -LiteralPath $atlasRunner -Encoding ASCII
 $atlasAction = New-ScheduledTaskAction -Execute "$env:SystemRoot\System32\cmd.exe" -Argument '/d /c C:\MuServer43\AtlasSync\run_atlas.cmd' -WorkingDirectory "$atlasRoot\AtlasSync"

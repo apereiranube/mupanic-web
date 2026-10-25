@@ -22,7 +22,7 @@ El instalador de VPS se entrega como `MU_PANIC_VESSARA_WEB_V1.zip`, con `INSTALA
 
 **Salidas, informes y backups del VPS siempre en `%USERPROFILE%\\Downloads`**, nunca en Escritorio.
 
-Secuencia: instalar solo la vista SQL en el VPS Windows (sin reiniciar GS) → verificar conteos reales → desplegar rama `beta` desde cPanel → probar `https://beta.mupanic.com.ar/market/`. No modificar `main` ni Atlas como parte de la vidriera.
+Secuencia: instalar solo la vista SQL en el VPS Windows (sin reiniciar GS) → verificar conteos reales → desplegar rama `beta` desde cPanel → probar `https://mupanic.com.ar/market/`. No modificar `main` ni Atlas como parte de la vidriera.
 
 Mientras no exista la vista, el endpoint de publicaciones devuelve 503, y el histórico de ventas de `PanicMarketPublicSales` sigue operando. No mostrar objetos ficticios ni snapshots de ofertas obsoletas. Los íconos de categoría actuales no son renders exactos del cliente; las imágenes individuales y opciones detalladas requieren una siguiente integración visual.
 

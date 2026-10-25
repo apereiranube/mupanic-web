@@ -12,7 +12,7 @@ param(
 $ErrorActionPreference = 'Stop'
 if ($UpgradeExisting -and -not $Install) { throw '-UpgradeExisting requiere -Install.' }
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-$endpoint = 'https://beta.mupanic.com.ar/templates/mupanic/api/recharge-worker.php'
+$endpoint = 'https://mupanic.com.ar/templates/mupanic/api/recharge-worker.php'
 $tokenPath = Join-Path $PrivateRoot 'recharge-worker-token'
 $settingsPath = Join-Path $PrivateRoot 'recharge-worker.json'
 $logPath = Join-Path $PrivateRoot 'recharge-worker.log'

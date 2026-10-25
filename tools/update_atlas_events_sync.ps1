@@ -32,12 +32,12 @@ try {
     foreach ($atlasFile in @('atlas_events.py','sync_atlas_events.py')) {
         Copy-Item -LiteralPath (Join-Path $atlasStage $atlasFile) -Destination (Join-Path $atlasFolder $atlasFile) -Force
     }
-    & $atlasPython (Join-Path $atlasFolder 'sync_atlas_events.py') --server-root 'C:\MuServer43' --url 'https://beta.mupanic.com.ar/templates/mupanic/api/atlas-events-sync.php' --token-file $atlasToken --force
+    & $atlasPython (Join-Path $atlasFolder 'sync_atlas_events.py') --server-root 'C:\MuServer43' --url 'https://mupanic.com.ar/templates/mupanic/api/atlas-events-sync.php' --token-file $atlasToken --force
     if ($LASTEXITCODE -ne 0) { throw 'No se pudo publicar. Desplega beta en cPanel y repeti; la tarea original no se modifico.' }
     if ($atlasCommand -notmatch 'sync_atlas_events.py') {
         $atlasExtra = @'
 set "atlasBalanceResult=%errorlevel%"
-"C:\Python313\python.exe" "C:\MuServer43\AtlasSync\sync_atlas_events.py" --server-root "C:\MuServer43" --url "https://beta.mupanic.com.ar/templates/mupanic/api/atlas-events-sync.php" --token-file "C:\MuServer43\AtlasPrivate\token" >> "C:\MuServer43\AtlasPrivate\last-run.log" 2>&1
+"C:\Python313\python.exe" "C:\MuServer43\AtlasSync\sync_atlas_events.py" --server-root "C:\MuServer43" --url "https://mupanic.com.ar/templates/mupanic/api/atlas-events-sync.php" --token-file "C:\MuServer43\AtlasPrivate\token" >> "C:\MuServer43\AtlasPrivate\last-run.log" 2>&1
 if not "%atlasBalanceResult%"=="0" exit /b %atlasBalanceResult%
 exit /b %errorlevel%
 '@

@@ -9,7 +9,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-$endpoint = 'https://beta.mupanic.com.ar/templates/mupanic/api/uala-pilot-worker.php'
+$endpoint = 'https://mupanic.com.ar/templates/mupanic/api/uala-pilot-worker.php'
 $tokenPath = Join-Path $PrivateRoot 'sandbox-worker-token'
 if (([int]$Install.IsPresent + [int]$Run.IsPresent + [int]$Revert.IsPresent) -gt 1) { throw 'Usa solo una opcion: -Install, -Run o -Revert.' }
 function Open-PilotConnection([string]$Instance, $Credential) {

@@ -45,7 +45,7 @@ este checkout.
 Verificar públicamente después de desplegar:
 
 ```sh
-curl -i https://beta.mupanic.com.ar/api/launcher.php
+curl -i https://mupanic.com.ar/api/launcher.php
 ```
 
 No se considera publicada ni verificada una URL que todavía responda 404,

@@ -1,6 +1,6 @@
 # Campaña de lanzamiento
 
-Beta conserva el sitio completo. La campaña se revisa en `https://beta.mupanic.com.ar/?preview=launch`.
+Beta conserva el sitio completo. La campaña se revisa en `https://mupanic.com.ar/?preview=launch`.
 
 La portada es una secuencia de escenas completas: batalla de lanzamiento, manifiesto No Pay to Win, economía de Zen y joyas, cliente personalizado y Hub F11, selector de eventos y comunidad. Cuatro separadores con luz conectan los cambios de escena. El Hub usa una vista completa contenida, sin recorte ni ampliación como fondo; sus funciones se explican junto a la imagen. El bloque del cliente incorpora una captura de ingreso mejorada desde una imagen proporcionada por el usuario y una segunda vista independiente del Hub, seleccionables con tabs Ingreso / Hub F11. Los tabs de eventos, del cliente y el acceso superior a Discord comparten el acabado angular del CTA principal. Reemplaza la estructura anterior de encabezado lateral y tarjetas. Los únicos enlaces externos son a Discord; no tiene accesos al Atlas ni al registro.
 

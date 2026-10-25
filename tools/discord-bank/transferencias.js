@@ -4,7 +4,7 @@ const fs = require('node:fs'), path = require('node:path');
 const { createHmac, randomBytes, timingSafeEqual } = require('node:crypto');
 const D = require('discord.js');
 const PRIVATE = 'C:\\MuServer43\\PaymentsPrivate';
-const URL = 'https://beta.mupanic.com.ar/templates/mupanic/api/recharge-bank-bot.php';
+const URL = 'https://mupanic.com.ar/templates/mupanic/api/recharge-bank-bot.php';
 const STAFF = ['👑 Owner', '🛡️ Administrador', '⚔️ Game Master', '🔨 Moderador', '🆘 Soporte'];
 const commands = [{ name: 'recarga', description: 'Abrí el ticket privado de tu recarga por transferencia', dm_permission: false }];
 const locks = new Set();

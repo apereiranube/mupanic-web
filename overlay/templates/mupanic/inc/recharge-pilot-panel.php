@@ -14,10 +14,10 @@ try {
         } else {
             $_SESSION['uala_pilot_time']=time();
             [$pilotApi,$pilotMerchant]=panicRechargePilotGateway();
-            if($_POST['uala_pilot_action']==='create') $pilotStore->begin($pilotApi,'https://beta.mupanic.com.ar/');
+            if($_POST['uala_pilot_action']==='create') $pilotStore->begin($pilotApi,'https://mupanic.com.ar/');
             elseif($_POST['uala_pilot_action']==='refresh') $pilotStore->refresh($pilotApi,$pilotMerchant);
             elseif($_POST['uala_pilot_action']==='inspect') $pilotStore->inspect($pilotApi,$pilotMerchant);
-            elseif($_POST['uala_pilot_action']==='replace') $pilotStore->replaceMissingLink($pilotApi,$pilotMerchant,'https://beta.mupanic.com.ar/');
+            elseif($_POST['uala_pilot_action']==='replace') $pilotStore->replaceMissingLink($pilotApi,$pilotMerchant,'https://mupanic.com.ar/');
         }
     }
     $pilot=$pilotStore->current();
