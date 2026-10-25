@@ -25,6 +25,45 @@ function mupanicPageTitle($page, $subpage = '') {
     return 'MU PANIC';
 }
 
+// SEO por página: título, descripción y si Google debe indexarla.
+function mupanicPageSeo($page, $subpage = '', $isHome = false) {
+    $base = 'MU PANIC: MU Online Season 6 argentino con reset dinámico, Furia, mascotas evolutivas, Mercado de Vessara y minijuegos.';
+    if($isHome) return array('MU PANIC · MU Online Season 6 Argentina', 'Servidor argentino de MU Online Season 6: EXP 15x, reset dinámico, siete clases, guerra Nexo contra Caos, mascotas evolutivas, Mercado de Vessara y ocho minijuegos. Creá tu cuenta gratis.', 'index,follow');
+    $map = array(
+        'information' => array('El servidor · MU Online Season 6 con reset dinámico', 'Cómo es MU PANIC: reset dinámico de 200 a 350 puntos, siete clases con su rol, PvP con barra de vida, Furia, eventos en vivo y VIP. Todo lo que hace distinto a este MU Online argentino.'),
+        'info' => array('Atlas · mapas, drops y eventos de MU Online', 'Atlas de MU PANIC: mapas, monstruos, drops, eventos con horarios de Argentina y recompensas de MU Online Season 6.'),
+        'downloads' => array('Descargar MU Online · cliente para Windows', 'Descargá el cliente de MU PANIC, MU Online Season 6 para Windows, con launcher propio y actualizaciones automáticas. Gratis.'),
+        'register' => array('Crear cuenta gratis · MU Online Season 6', 'Creá tu cuenta de MU PANIC gratis y empezá a jugar MU Online Season 6 en un servidor argentino.'),
+        'market' => array('Mercado de Vessara · objetos de jugadores', 'El Mercado de Vessara de MU PANIC: los objetos que los jugadores venden dentro del juego, también desde la web.'),
+        'fractura' => array('La Fractura · guerra semanal Nexo contra Caos', 'La Fractura de MU PANIC: la guerra semanal entre Nexo y Caos, sus rankings y el Salón de la Fama.'),
+        'rankings' => array('Rankings de MU Online', 'Rankings de MU PANIC: los mejores personajes y guilds del servidor de MU Online Season 6.'),
+        'castlesiege' => array('Castle Siege', 'Castle Siege en MU PANIC: la guerra por el castillo de los guilds de MU Online Season 6.'),
+        'profile' => array($subpage === 'guild' ? 'Perfil de guild' : 'Perfil de personaje', $base),
+        'tos' => array('Términos y condiciones', 'Términos y condiciones de MU PANIC.'),
+        'privacy' => array('Privacidad', 'Política de privacidad de MU PANIC.'),
+        'refunds' => array('Reembolsos', 'Política de reembolsos de MU PANIC.'),
+    );
+    $privadas = array('usercp', 'login', 'forgotpassword', 'verifyemail', 'logout');
+    $robots = in_array($page, $privadas, true) ? 'noindex,follow' : 'index,follow';
+    if(isset($map[$page])) return array($map[$page][0].' · MU PANIC', $map[$page][1], $robots);
+    return array(mupanicPageTitle($page, $subpage).' · MU PANIC', $base, $robots);
+}
+
+// Datos estructurados para Google (solo en el inicio).
+function mupanicStructuredData() {
+    $img = 'https://mupanic.com.ar/templates/mupanic/img/share/mupanic-share-v1.jpg';
+    $data = array('@context' => 'https://schema.org', '@graph' => array(
+        array('@type' => 'Organization', '@id' => 'https://mupanic.com.ar/#org', 'name' => 'MU PANIC', 'url' => 'https://mupanic.com.ar/',
+            'logo' => 'https://mupanic.com.ar/templates/mupanic/img/brand/mu-panic-crystal-bronze-matte-v2.webp', 'sameAs' => array('https://discord.gg/fP4Mxcsee')),
+        array('@type' => 'WebSite', '@id' => 'https://mupanic.com.ar/#web', 'name' => 'MU PANIC', 'url' => 'https://mupanic.com.ar/', 'inLanguage' => 'es-AR', 'publisher' => array('@id' => 'https://mupanic.com.ar/#org')),
+        array('@type' => 'VideoGame', 'name' => 'MU PANIC', 'alternateName' => 'MU Online Season 6 Argentina', 'url' => 'https://mupanic.com.ar/',
+            'description' => 'Servidor argentino de MU Online Season 6 con reset dinámico, Furia, mascotas evolutivas, Mercado de Vessara y minijuegos.',
+            'image' => $img, 'genre' => array('MMORPG', 'Rol', 'Acción'), 'gamePlatform' => 'PC', 'operatingSystem' => 'Windows',
+            'applicationCategory' => 'Game', 'inLanguage' => 'es', 'isAccessibleForFree' => true, 'publisher' => array('@id' => 'https://mupanic.com.ar/#org')),
+    ));
+    return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG);
+}
+
 function mupanicServerValue($key, $fallback = '—') {
     $value = config($key, true);
     return check_value($value) ? $value : $fallback;

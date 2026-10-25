@@ -148,8 +148,11 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#0b1113"/>
-    <title><?php echo $isHome ? 'MU PANIC · Season 6 · Argentina' : htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])).' · MU PANIC'; ?></title>
-    <meta name="description" content="MU PANIC: guerra Nexo contra Caos, mascotas evolutivas, Mercado Vessara, ocho minijuegos y un cliente renovado. Esto es MU PANIC."/>
+    <?php list($seoTitle, $seoDescription, $seoRobots) = mupanicPageSeo($_REQUEST['page'] ?? '', $_REQUEST['subpage'] ?? '', $isHome); ?>
+    <title><?php echo htmlspecialchars($seoTitle); ?></title>
+    <meta name="description" content="<?php echo htmlspecialchars($seoDescription); ?>"/>
+    <meta name="robots" content="<?php echo $seoRobots; ?>"/>
+    <?php if($isHome) { ?><script type="application/ld+json"><?php echo mupanicStructuredData(); ?></script><?php } ?>
     <meta name="keywords" content="MU PANIC, MU Online, MU Online Argentina, servidor de MU, Season 6, Argentina"/>
     <link rel="canonical" href="<?php echo htmlspecialchars('https://mupanic.com.ar'.(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/')); ?>"/>
     <meta property="og:type" content="website"/>
@@ -171,9 +174,9 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php $sharePreviewImg='https://mupanic.com.ar/templates/mupanic/img/share/mupanic-share-v1.jpg'; ?>
     <meta property="og:site_name" content="MU PANIC"/>
     <meta property="og:locale" content="es_AR"/>
-    <meta property="og:title" content="MU PANIC · Season 6"/>
-    <meta property="og:description" content="Sistemas propios. Una experiencia distinta. Descubrí MU PANIC."/>
-    <meta property="og:url" content="https://mupanic.com.ar/"/>
+    <meta property="og:title" content="<?php echo htmlspecialchars($isHome ? 'MU PANIC · MU Online Season 6 Argentina' : $seoTitle); ?>"/>
+    <meta property="og:description" content="<?php echo htmlspecialchars($seoDescription); ?>"/>
+    <meta property="og:url" content="<?php echo htmlspecialchars('https://mupanic.com.ar'.(parse_url((string)($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?: '/')); ?>"/>
     <meta property="og:image" content="<?php echo $sharePreviewImg; ?>"/>
     <meta property="og:image:secure_url" content="<?php echo $sharePreviewImg; ?>"/>
     <meta property="og:image:type" content="image/jpeg"/>
