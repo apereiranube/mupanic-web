@@ -29,7 +29,9 @@ $homeJoin = function($kind) use ($homeArt) {
             </picture>
             <svg class="ph-sword-energy" viewBox="0 0 1672 941" aria-hidden="true" focusable="false">
                 <defs>
-                    <filter id="ph-sword-soft" filterUnits="userSpaceOnUse" x="500" y="420" width="520" height="370" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="5"/></filter>
+                    <filter id="ph-sword-soft" filterUnits="userSpaceOnUse" x="500" y="420" width="520" height="370" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="7"/></filter>
+                    <filter id="ph-sword-edge" filterUnits="userSpaceOnUse" x="490" y="400" width="550" height="410" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="3.5"/></filter>
+                    <filter id="ph-sword-spark-soft" x="-120%" y="-120%" width="340%" height="340%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation=".65"/></filter>
                     <path id="ph-sword-aura-upper" d="M 953 458 C 923 468 917 491 883 496 L 869 520 L 842 522 L 822 545 L 792 550 L 765 578 L 736 584 L 706 612 L 678 621 L 651 651 L 620 665 L 596 694 L 550 747 L 587 723 L 621 690 L 654 673 L 687 644 L 719 628 L 748 606 L 779 590 L 809 567 L 840 551 L 869 529 L 899 513 L 930 487 Z"/>
                     <path id="ph-sword-aura-lower" d="M 962 489 L 935 507 L 908 528 L 876 543 L 851 568 L 817 579 L 792 605 L 757 616 L 732 643 L 697 656 L 670 684 L 635 697 L 607 725 L 550 747 L 605 738 L 643 717 L 674 704 L 705 677 L 742 664 L 765 639 L 800 629 L 826 601 L 860 591 L 887 565 L 921 550 L 947 522 Z"/>
                 </defs>
@@ -37,35 +39,35 @@ $homeJoin = function($kind) use ($homeArt) {
                     <use href="#ph-sword-aura-upper" class="ph-sword-aura ph-sword-aura-upper"/>
                     <use href="#ph-sword-aura-lower" class="ph-sword-aura ph-sword-aura-lower"/>
                 </g>
-                <g class="ph-sword-ribbons">
+                <g class="ph-sword-ribbons" filter="url(#ph-sword-edge)">
                     <use href="#ph-sword-aura-upper" class="ph-sword-aura ph-sword-aura-upper"/>
                     <use href="#ph-sword-aura-lower" class="ph-sword-aura ph-sword-aura-lower"/>
                 </g>
                 <g class="ph-sword-sparks">
-                    <circle cx="916.0" cy="475.0" r="3.20" style="--dx:-34px;--dy:-34px;--delay:-0.000s"/>
-                    <circle cx="940.0" cy="505.0" r="3.85" style="--dx:22px;--dy:-41px;--delay:-0.137s"/>
-                    <circle cx="885.6" cy="495.4" r="4.50" style="--dx:-50px;--dy:-48px;--delay:-0.274s"/>
-                    <circle cx="909.6" cy="525.4" r="5.15" style="--dx:38px;--dy:-55px;--delay:-0.411s"/>
-                    <circle cx="855.3" cy="515.7" r="3.20" style="--dx:-34px;--dy:-62px;--delay:-0.548s"/>
-                    <circle cx="879.3" cy="545.7" r="3.85" style="--dx:22px;--dy:-34px;--delay:-0.685s"/>
-                    <circle cx="824.9" cy="536.1" r="4.50" style="--dx:-50px;--dy:-41px;--delay:-0.822s"/>
-                    <circle cx="848.9" cy="566.1" r="5.15" style="--dx:38px;--dy:-48px;--delay:-0.959s"/>
-                    <circle cx="794.5" cy="556.5" r="3.20" style="--dx:-34px;--dy:-55px;--delay:-1.096s"/>
-                    <circle cx="818.5" cy="586.5" r="3.85" style="--dx:22px;--dy:-62px;--delay:-1.233s"/>
-                    <circle cx="764.2" cy="576.8" r="4.50" style="--dx:-50px;--dy:-34px;--delay:-1.370s"/>
-                    <circle cx="788.2" cy="606.8" r="5.15" style="--dx:38px;--dy:-41px;--delay:-1.507s"/>
-                    <circle cx="733.8" cy="597.2" r="3.20" style="--dx:-34px;--dy:-48px;--delay:-1.644s"/>
-                    <circle cx="757.8" cy="627.2" r="3.85" style="--dx:22px;--dy:-55px;--delay:-1.781s"/>
-                    <circle cx="703.5" cy="617.5" r="4.50" style="--dx:-50px;--dy:-62px;--delay:-1.918s"/>
-                    <circle cx="727.5" cy="647.5" r="5.15" style="--dx:38px;--dy:-34px;--delay:-2.055s"/>
-                    <circle cx="673.1" cy="637.9" r="3.20" style="--dx:-34px;--dy:-41px;--delay:-2.192s"/>
-                    <circle cx="697.1" cy="667.9" r="3.85" style="--dx:22px;--dy:-48px;--delay:-2.329s"/>
-                    <circle cx="642.7" cy="658.3" r="4.50" style="--dx:-50px;--dy:-55px;--delay:-2.466s"/>
-                    <circle cx="666.7" cy="688.3" r="5.15" style="--dx:38px;--dy:-62px;--delay:-2.603s"/>
-                    <circle cx="612.4" cy="678.6" r="3.20" style="--dx:-34px;--dy:-34px;--delay:-2.740s"/>
-                    <circle cx="636.4" cy="708.6" r="3.85" style="--dx:22px;--dy:-41px;--delay:-2.877s"/>
-                    <circle cx="582.0" cy="699.0" r="4.50" style="--dx:-50px;--dy:-48px;--delay:-3.014s"/>
-                    <circle cx="606.0" cy="729.0" r="5.15" style="--dx:38px;--dy:-55px;--delay:-3.151s"/>
+                    <path d="M 912.6 477.7 Q 915.3 474.3 919.4 472.3 Q 916.7 475.7 912.6 477.7 Z" style="--dx:-34px;--dy:-34px;--delay:-0.000s"/>
+                    <path d="M 935.9 508.3 Q 939.1 504.1 944.1 501.7 Q 940.9 505.9 935.9 508.3 Z" style="--dx:22px;--dy:-41px;--delay:-0.137s"/>
+                    <path d="M 880.8 499.2 Q 884.5 494.3 890.4 491.6 Q 886.7 496.5 880.8 499.2 Z" style="--dx:-50px;--dy:-48px;--delay:-0.274s"/>
+                    <path d="M 904.1 529.8 Q 908.9 524.7 915.1 521.0 Q 910.3 526.1 904.1 529.8 Z" style="--dx:38px;--dy:-55px;--delay:-0.411s"/>
+                    <path d="M 851.9 518.4 Q 854.4 514.8 858.7 513.0 Q 856.2 516.6 851.9 518.4 Z" style="--dx:-34px;--dy:-62px;--delay:-0.548s"/>
+                    <path d="M 875.2 549.0 Q 878.2 544.6 883.4 542.4 Q 880.4 546.8 875.2 549.0 Z" style="--dx:22px;--dy:-34px;--delay:-0.685s"/>
+                    <path d="M 820.1 539.9 Q 824.2 535.4 829.7 532.3 Q 825.6 536.8 820.1 539.9 Z" style="--dx:-50px;--dy:-41px;--delay:-0.822s"/>
+                    <path d="M 843.4 570.5 Q 848.0 565.2 854.4 561.7 Q 849.8 567.0 843.4 570.5 Z" style="--dx:38px;--dy:-48px;--delay:-0.959s"/>
+                    <path d="M 791.1 559.2 Q 793.4 555.4 797.9 553.8 Q 795.6 557.6 791.1 559.2 Z" style="--dx:-34px;--dy:-55px;--delay:-1.096s"/>
+                    <path d="M 814.4 589.8 Q 817.8 585.8 822.6 583.2 Q 819.2 587.2 814.4 589.8 Z" style="--dx:22px;--dy:-62px;--delay:-1.233s"/>
+                    <path d="M 759.4 580.6 Q 763.3 575.9 769.0 573.0 Q 765.1 577.7 759.4 580.6 Z" style="--dx:-50px;--dy:-34px;--delay:-1.370s"/>
+                    <path d="M 782.7 611.2 Q 787.1 605.7 793.7 602.4 Q 789.3 607.9 782.7 611.2 Z" style="--dx:38px;--dy:-41px;--delay:-1.507s"/>
+                    <path d="M 730.4 599.9 Q 733.1 596.5 737.2 594.5 Q 734.5 597.9 730.4 599.9 Z" style="--dx:-34px;--dy:-48px;--delay:-1.644s"/>
+                    <path d="M 753.7 630.5 Q 756.9 626.3 761.9 623.9 Q 758.7 628.1 753.7 630.5 Z" style="--dx:22px;--dy:-55px;--delay:-1.781s"/>
+                    <path d="M 698.7 621.3 Q 702.4 616.4 708.3 613.7 Q 704.6 618.6 698.7 621.3 Z" style="--dx:-50px;--dy:-62px;--delay:-1.918s"/>
+                    <path d="M 722.0 651.9 Q 726.8 646.8 733.0 643.1 Q 728.2 648.2 722.0 651.9 Z" style="--dx:38px;--dy:-34px;--delay:-2.055s"/>
+                    <path d="M 669.7 640.6 Q 672.2 637.0 676.5 635.2 Q 674.0 638.8 669.7 640.6 Z" style="--dx:-34px;--dy:-41px;--delay:-2.192s"/>
+                    <path d="M 693.0 671.2 Q 696.0 666.8 701.2 664.6 Q 698.2 669.0 693.0 671.2 Z" style="--dx:22px;--dy:-48px;--delay:-2.329s"/>
+                    <path d="M 637.9 662.1 Q 642.0 657.6 647.5 654.5 Q 643.4 659.0 637.9 662.1 Z" style="--dx:-50px;--dy:-55px;--delay:-2.466s"/>
+                    <path d="M 661.2 692.7 Q 665.8 687.4 672.2 683.9 Q 667.6 689.2 661.2 692.7 Z" style="--dx:38px;--dy:-62px;--delay:-2.603s"/>
+                    <path d="M 609.0 681.3 Q 611.3 677.5 615.8 675.9 Q 613.5 679.7 609.0 681.3 Z" style="--dx:-34px;--dy:-34px;--delay:-2.740s"/>
+                    <path d="M 632.3 711.9 Q 635.7 707.9 640.5 705.3 Q 637.1 709.3 632.3 711.9 Z" style="--dx:22px;--dy:-41px;--delay:-2.877s"/>
+                    <path d="M 577.2 702.8 Q 581.1 698.1 586.8 695.2 Q 582.9 699.9 577.2 702.8 Z" style="--dx:-50px;--dy:-48px;--delay:-3.014s"/>
+                    <path d="M 600.5 733.4 Q 604.9 727.9 611.5 724.6 Q 607.1 730.1 600.5 733.4 Z" style="--dx:38px;--dy:-55px;--delay:-3.151s"/>
                 </g>
             </svg>
         </div>
