@@ -27,7 +27,7 @@ const html=execFileSync(process.env.PHP_BIN||'php',[path.join(__dirname,'fixture
   await page.goto('https://atlas.test/info/#drops');await page.locator('[data-drop-category=joyeria]').click();
   assert.equal(await page.locator('[data-drop-card]:visible').count(),4);
   await page.locator('[data-drop-card="-1-219"]').click();const pool=page.locator('[data-drop-item="-1-219"]');
-  await pool.getByText('Ver objetos y opciones de esta selección ↗').first().click();const reward=page.locator('#recompensa-219');await reward.waitFor({state:'visible'});
+  await pool.getByText('Ver objetos y opciones de esta selección ↗︎').first().click();const reward=page.locator('#recompensa-219');await reward.waitFor({state:'visible'});
   assert.ok((await reward.textContent()).includes('No necesitás conseguir ni abrir una caja'));
   assert.ok((await reward.textContent()).includes('1 opción'));
   await page.goto('https://atlas.test/info/#buscar');await page.locator('[data-atlas-query]').fill('Kris');await page.locator('[data-atlas-type]').selectOption('object');await page.locator('[data-atlas-map]').selectOption('0');

@@ -47,7 +47,7 @@ $homeJoin = function($kind) use ($homeArt) {
             <p class="ph-eyebrow">SEASON 6 · DESARROLLO PROPIO</p>
             <h1 id="home-title">Esto es<br>MU PANIC.</h1>
             <p class="ph-lead">Sistemas propios.<br>Una experiencia distinta.</p>
-            <div class="ph-actions"><a class="ph-button ph-button-artwork ph-play-primary" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-account-v16.webp" alt="" aria-hidden="true" width="2172" height="724" decoding="async"><span class="ph-play-action-label"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?></span><span class="ph-play-action-icon" aria-hidden="true">↗</span></a><a class="ph-button ph-button-outline ph-button-artwork ph-play-download" href="<?php echo __BASE_URL__; ?>downloads/"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-download-v16.webp" alt="" aria-hidden="true" width="2172" height="724" decoding="async"><span class="ph-play-action-icon" aria-hidden="true">↓</span><span class="ph-play-action-label">DESCARGAR</span></a></div>
+            <div class="ph-actions"><a class="ph-button ph-button-artwork ph-play-primary" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-account-v16.webp" alt="" aria-hidden="true" width="2172" height="724" decoding="async"><span class="ph-play-action-label"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?></span><span class="ph-play-action-icon" aria-hidden="true">↗︎</span></a><a class="ph-button ph-button-outline ph-button-artwork ph-play-download" href="<?php echo __BASE_URL__; ?>downloads/"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-download-v16.webp" alt="" aria-hidden="true" width="2172" height="724" decoding="async"><span class="ph-play-action-icon" aria-hidden="true">↓</span><span class="ph-play-action-label">DESCARGAR</span></a></div>
         </div></div>
     </section>
 
@@ -61,7 +61,7 @@ $homeJoin = function($kind) use ($homeArt) {
             <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>MASTER EXP</dt><dd data-home-rate="master"><?php echo $homeEscape($serverMasterExp); ?></dd></div>
             <div class="ph-rate"><span class="ph-stat-illustration" aria-hidden="true"></span><dt>DROP GENERAL</dt><dd data-home-rate="drop"><?php echo $homeEscape($serverDrop); ?></dd></div>
         </dl>
-        <div class="ph-status-note"><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗</span></a></div>
+        <div class="ph-status-note"><a href="<?php echo __BASE_URL__; ?>info/#rates">RATES Y CONDICIONES <span aria-hidden="true">↗︎</span></a></div>
     </section>
 
     <section class="ph-furia" id="furia" aria-labelledby="home-furia-title" data-furia-showcase>
@@ -101,7 +101,7 @@ $homeJoin = function($kind) use ($homeArt) {
             <p class="ph-eyebrow">LA FRACTURA</p>
             <h2 id="home-fractura-title">Dos bandos.<br>Una guerra propia.</h2>
             <p>Nexo o Caos. Tu bando, tus batallas,<br>tu lugar en la historia.</p>
-            <a class="ph-link" href="<?php echo __BASE_URL__; ?>fractura/">Conocé la Fractura <span aria-hidden="true">↗</span></a>
+            <a class="ph-link" href="<?php echo __BASE_URL__; ?>fractura/">Conocé la Fractura <span aria-hidden="true">↗︎</span></a>
         </div></div>
     </section>
 
@@ -112,7 +112,7 @@ $homeJoin = function($kind) use ($homeArt) {
             <p class="ph-eyebrow">TRES MASCOTAS EVOLUTIVAS Y UN COMPAÑERO ÚNICO</p>
             <h2 id="home-companions-title">No avanzás solo.</h2>
             <p class="ph-companion-names">Elyndra · Aurion · Vaerion · Grum</p>
-            <a class="ph-link" href="<?php echo __BASE_URL__; ?>info/#vinculos">Conocé tus compañeros <span aria-hidden="true">↗</span></a>
+            <a class="ph-link" href="<?php echo __BASE_URL__; ?>info/#vinculos">Conocé tus compañeros <span aria-hidden="true">↗︎</span></a>
         </div></div>
     </section>
 

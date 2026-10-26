@@ -134,7 +134,7 @@
         }
         if(scoreIndex>=0){const cell=row.cells[scoreIndex];cell.classList.add('rankings-score-cell');const value=cell.textContent.trim();cell.textContent='';cell.append(make('strong','rankings-score-value',value));}
         const original=nameIndex>=0?row.cells[nameIndex].querySelector('a'):null;
-        if(original){const cell=document.createElement('td');cell.className='rankings-profile-cell';cell.dataset.label='Perfil';const link=original.cloneNode(false);link.className='rankings-profile-link';link.textContent='Ver perfil ↗';link.setAttribute('aria-label','Ver perfil de '+original.textContent.trim());cell.append(link);row.append(cell);}
+        if(original){const cell=document.createElement('td');cell.className='rankings-profile-cell';cell.dataset.label='Perfil';const link=original.cloneNode(false);link.className='rankings-profile-link';link.textContent='Ver perfil ↗︎';link.setAttribute('aria-label','Ver perfil de '+original.textContent.trim());cell.append(link);row.append(cell);}
     });
     if(rows.length && rows.every(row=>row.querySelector('.rankings-profile-cell'))){const th=make('th','rankings-profile-column','Perfil');th.scope='col';header.append(th);}
     table.classList.add('rankings-designed-table');

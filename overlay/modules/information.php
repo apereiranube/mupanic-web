@@ -60,7 +60,7 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
       <h1><span class="glint">Un MU para<br>quedarse.</span></h1>
       <p class="lead">Rates pensados para durar, siete clases con un rol claro y un PvP que se gana peleando. Esto es lo que te espera adentro.</p>
       <div class="actions">
-        <a class="btn" href="<?php echo $srvBase; ?>register/">Crear cuenta <span>↗</span></a>
+        <a class="btn" href="<?php echo $srvBase; ?>register/">Crear cuenta <span>↗︎</span></a>
         <a class="btn ghost" href="#eventos">Ver los eventos de hoy <span>↓</span></a>
       </div>
     </div></div></div>
@@ -85,7 +85,7 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
           <p class="eyebrow">Reset dinámico</p>
           <h2 id="num-t">Cada reset te deja más fuerte.</h2>
           <p class="note">Los puntos que recibís crecen a medida que avanzás. Llegar más lejos siempre vale la pena.</p>
-          <a class="link" href="<?php echo $srvBase; ?>info/#rates" style="margin-top:18px">Ver los rates completos <span>↗</span></a>
+          <a class="link" href="<?php echo $srvBase; ?>info/#rates" style="margin-top:18px">Ver los rates completos <span>↗︎</span></a>
         </div>
         <div class="ladder-r">
         <ol aria-label="Puntos por reset según la etapa" data-anim id="ladderOl">
@@ -129,7 +129,7 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
       </div>
       <div class="foot">
         <p>Y cuando la barra se llena, cada clase despierta su propia Furia en PvP.</p>
-        <a class="link" href="<?php echo $srvBase; ?>info/">Conocé cada clase en el Atlas <span>↗</span></a>
+        <a class="link" href="<?php echo $srvBase; ?>info/">Conocé cada clase en el Atlas <span>↗︎</span></a>
       </div>
     </div>
   </section>
@@ -363,7 +363,7 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
       </div>
       <div class="foot">
         <p>Doppelganger, Imperial Guardian, Kanturu y Raklion se juegan cuando cumplís las condiciones de acceso.</p>
-        <a class="link" href="<?php echo $srvBase; ?>info/#eventos">Ver premios y requisitos en el Atlas <span>↗</span></a>
+        <a class="link" href="<?php echo $srvBase; ?>info/#eventos">Ver premios y requisitos en el Atlas <span>↗︎</span></a>
       </div>
     </div>
   </section>
@@ -443,7 +443,7 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
       </div>
       <div class="vfoot">
         <p>El VIP se consigue con Eryns, desde la Tienda del Hub F11.</p>
-        <a class="link" href="<?php echo $srvBase; ?>info/#rates">Ver todas las tasas en el Atlas <span>↗</span></a>
+        <a class="link" href="<?php echo $srvBase; ?>info/#rates">Ver todas las tasas en el Atlas <span>↗︎</span></a>
       </div>
     </div>
   </section>
@@ -475,9 +475,9 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
       <p class="eyebrow">Tu lugar ya está esperando</p>
       <h2 id="end-t">Elegí tu clase. El resto se gana.</h2>
       <div class="actions">
-        <a class="btn" href="<?php echo $srvBase; ?>register/">Crear cuenta <span>↗</span></a>
+        <a class="btn" href="<?php echo $srvBase; ?>register/">Crear cuenta <span>↗︎</span></a>
         <a class="btn ghost" href="<?php echo $srvBase; ?>downloads/">Descargar <span>↓</span></a>
-        <a class="btn ghost" href="https://discord.gg/fP4Mxcsee">Entrar al Discord <span>↗</span></a>
+        <a class="btn ghost" href="https://discord.gg/fP4Mxcsee">Entrar al Discord <span>↗︎</span></a>
       </div>
     </div></div></div>
   </section>

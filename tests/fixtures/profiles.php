@@ -18,7 +18,7 @@ $mode=getenv('PROFILE_FIXTURE') ?: 'online';
             <a class="nav-main-link" href="/info/"><span>Atlas</span></a>
             <a class="nav-main-link" href="/rankings/"><span>Rankings</span></a>
             <a class="nav-main-link" href="/downloads/"><span>Descargas</span></a>
-            <a class="nav-discord" href="https://discord.com/" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗</b></a>
+            <a class="nav-discord" href="https://discord.com/" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗︎</b></a>
             <a class="mobile-account" href="/login/">Ingresar</a>
         </nav>
 

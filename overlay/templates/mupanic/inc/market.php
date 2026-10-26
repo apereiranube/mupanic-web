@@ -30,7 +30,7 @@ function panicMarketScene($scenes,$key,$tone='l') {
    <h1 id="vessara-title">Mercado de <em>Vessara</em></h1>
    <p class="vessara-lead">Comerciá con jugadores en Zen y Eryns.</p>
    <p class="vessara-intro-description">Reliquias, equipamiento y tesoros cambian de manos bajo el sello de Vessara. Jugadores que impulsan un mismo mundo.</p>
-   <div class="vessara-hero-actions"><a class="vessara-cta" href="<?php echo __BASE_URL__; ?>register/">Quiero ser parte <span aria-hidden="true">↗</span></a><a class="vessara-link" href="#publicaciones">Ver objetos en venta <span aria-hidden="true">↓</span></a></div>
+   <div class="vessara-hero-actions"><a class="vessara-cta" href="<?php echo __BASE_URL__; ?>register/">Quiero ser parte <span aria-hidden="true">↗︎</span></a><a class="vessara-link" href="#publicaciones">Ver objetos en venta <span aria-hidden="true">↓</span></a></div>
   </div>
  </div>
 </section>
@@ -42,7 +42,7 @@ function panicMarketScene($scenes,$key,$tone='l') {
  </div>
  <div class="vs-wrap">
   <div class="vessara-stats vs-rv" aria-label="Actividad del mercado">
-   <article class="vessara-stat-trades"><i class="vs-scan" aria-hidden="true"></i><div class="vessara-live-label" data-market-live-label><i aria-hidden="true"></i><span>MERCADO EN VIVO</span></div><span class="vs-k">Ventas de hoy</span><strong data-market-metric="today"><?php echo panicMarketNumber($metrics['today']??''); ?></strong><small class="vessara-card-connection" data-market-connection>Conectando con el mercado</small><div class="vessara-today-footer"><i aria-hidden="true">↗</i><span data-market-comparison>ACTIVIDAD DEL DÍA</span></div></article>
+   <article class="vessara-stat-trades"><i class="vs-scan" aria-hidden="true"></i><div class="vessara-live-label" data-market-live-label><i aria-hidden="true"></i><span>MERCADO EN VIVO</span></div><span class="vs-k">Ventas de hoy</span><strong data-market-metric="today"><?php echo panicMarketNumber($metrics['today']??''); ?></strong><small class="vessara-card-connection" data-market-connection>Conectando con el mercado</small><div class="vessara-today-footer"><i aria-hidden="true">↗︎</i><span data-market-comparison>ACTIVIDAD DEL DÍA</span></div></article>
    <article class="vessara-stat-zen"><i class="vs-scan" aria-hidden="true"></i><img class="vs-coin" src="<?php echo panicMarketEscape($art.'vessara-zen-coins-v2.webp'); ?>" alt="" aria-hidden="true" width="256" height="256" loading="lazy"><span class="vs-k"><i aria-hidden="true">●</i> Volumen total en Zen</span><strong data-market-metric="zen"><?php echo panicMarketNumber($metrics['zen']??''); ?></strong><small>Hoy <b data-market-metric="zenToday"><?php echo panicMarketNumber($metrics['zenToday']??''); ?></b> Zen</small><svg class="vessara-spark" viewBox="0 0 280 55" preserveAspectRatio="none" aria-hidden="true" data-market-spark="zen"></svg></article>
    <article class="vessara-stat-eryns"><i class="vs-scan" aria-hidden="true"></i><img class="vs-coin" src="<?php echo panicMarketEscape($art.'eryns-vessara-v1.webp'); ?>" alt="" aria-hidden="true" width="160" height="160" loading="lazy"><span class="vs-k"><i aria-hidden="true">◆</i> Volumen total en Eryns</span><strong data-market-metric="eryns"><?php echo panicMarketNumber($metrics['eryns']??''); ?></strong><small>Hoy <b data-market-metric="erynsToday"><?php echo panicMarketNumber($metrics['erynsToday']??''); ?></b> Eryns</small><svg class="vessara-spark" viewBox="0 0 280 55" preserveAspectRatio="none" aria-hidden="true" data-market-spark="eryns"></svg></article>
   </div>
@@ -57,7 +57,7 @@ function panicMarketScene($scenes,$key,$tone='l') {
  <div class="vs-wrap vessara-listings" id="publicaciones" aria-labelledby="vessara-listings-title">
   <div class="vessara-listings-heading vs-rv">
    <div><p class="vs-ey">La vidriera de Loren Market</p><h2 id="vessara-listings-title">Objetos en venta</h2></div>
-   <div class="vs-showcount"><span class="vs-live-dot" aria-hidden="true"></span><b data-listings-count-big>—</b><small>objetos en venta ahora</small><a class="vessara-listings-entry" href="<?php echo __BASE_URL__; ?>downloads/">Entrar a comerciar ↗</a></div>
+   <div class="vs-showcount"><span class="vs-live-dot" aria-hidden="true"></span><b data-listings-count-big>—</b><small>objetos en venta ahora</small><a class="vessara-listings-entry" href="<?php echo __BASE_URL__; ?>downloads/">Entrar a comerciar ↗︎</a></div>
   </div>
   <div class="vessara-promoted" data-listings-featured-wrap hidden>
    <div class="vessara-promoted-heading"><h3>Destacados</h3></div>
@@ -145,7 +145,7 @@ function panicMarketScene($scenes,$key,$tone='l') {
   </div>
   <div class="vessara-guarantee-join vs-rv">
    <p>Encontrá a Vessara en Loren Market.</p>
-   <div class="vessara-hero-actions"><a class="vessara-cta" href="<?php echo __BASE_URL__; ?>register/">Crear mi cuenta <span aria-hidden="true">↗</span></a><a class="vessara-link" href="<?php echo __BASE_URL__; ?>downloads/">Descargar cliente <span aria-hidden="true">↓</span></a></div>
+   <div class="vessara-hero-actions"><a class="vessara-cta" href="<?php echo __BASE_URL__; ?>register/">Crear mi cuenta <span aria-hidden="true">↗︎</span></a><a class="vessara-link" href="<?php echo __BASE_URL__; ?>downloads/">Descargar cliente <span aria-hidden="true">↓</span></a></div>
   </div>
  </div>
 </section>

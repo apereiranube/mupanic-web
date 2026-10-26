@@ -36,7 +36,7 @@
         if (frame !== null) { cancelAnimationFrame(frame); frame = null; }
         root.classList.toggle('effects-paused', paused || document.hidden);
         effects.setAttribute('aria-pressed', String(paused));
-        effects.textContent = paused ? 'Reanudar escena ▶' : 'Pausar escena Ⅱ';
+        effects.textContent = paused ? 'Reanudar escena ▶︎' : 'Pausar escena Ⅱ';
         if (ctx && !paused && !reduced.matches && !document.hidden) { lastFrame = performance.now(); frame = requestAnimationFrame(draw); }
     }
     effects.hidden = false;

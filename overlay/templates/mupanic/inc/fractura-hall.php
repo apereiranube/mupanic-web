@@ -39,5 +39,5 @@ $latestFamily=$latest?(int)$latest['winnerFamily']:0;
     <?php if($honors) { ?><div class="fh-pedestals"><?php foreach($honors as $honor) { $family=$honor['family']; ?><article class="fh-pedestal fh-pedestal-<?php echo $family; ?>"><div class="fh-laurel" aria-hidden="true"><?php echo panicFracturaHallCrest($family,80); ?></div><span><?php echo $family===1?'LAUREADO DEL NEXO':'LAUREADO DE CAOS'; ?></span><h4><?php echo panicFracturaHallEscape($honor['name']); ?></h4><small>Hasta <?php echo panicFracturaHallDate($honor['untilUnix'],'d.m · H:i'); ?> ARG</small><div class="fh-pedestal-base" aria-hidden="true"></div></article><?php } ?></div>
     <?php } else { ?><div class="fh-silent-names"><span aria-hidden="true">✧</span><p><?php echo $honors===null?'Los nombres laureados no están disponibles en este momento.':'Los pedestales esperan nuevos nombres.'; ?></p></div><?php } ?>
   </div>
-  <a class="fh-atlas-link" href="<?php echo __BASE_URL__; ?>info/#fractura">Conocé las reglas de la conquista en el Atlas <span aria-hidden="true">↗</span></a>
+  <a class="fh-atlas-link" href="<?php echo __BASE_URL__; ?>info/#fractura">Conocé las reglas de la conquista en el Atlas <span aria-hidden="true">↗︎</span></a>
 </section>

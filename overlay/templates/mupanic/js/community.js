@@ -56,7 +56,7 @@
                     const row = make('li'); const link = make('a');
                     link.href = `https://discord.com/channels/${guild}/${ch.id}`;
                     link.target = '_blank'; link.rel = 'noopener noreferrer';
-                    const icon = make('span', 'community-voice-icon', '↗'); icon.setAttribute('aria-hidden', 'true');
+                    const icon = make('span', 'community-voice-icon', '↗︎'); icon.setAttribute('aria-hidden', 'true');
                     link.append(icon, make('span', '', ch.name)); row.append(link); channelsList.append(row);
                 });
             if (!channelsList.children.length) channelsList.append(make('li', 'community-more', 'Los canales se pueden consultar dentro de Discord.'));

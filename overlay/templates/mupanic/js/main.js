@@ -197,10 +197,10 @@
     finderQuery.value = search.value; finderType.value = ''; finderMap.value = ''; finderLevel.value = ''; renderFinder(true);
     var matches = window.PanicAtlasSearch.filter(finderIndex,{query:search.value,type:'',map:'',level:''});
     results.hidden = false; searchStatus.textContent = matches.length + ' resultados en objetos, mobs y mapas';
-    var link = document.createElement('a'); link.href = '#buscar'; link.textContent = 'Ver resultados de «' + search.value + '» ↗';
+    var link = document.createElement('a'); link.href = '#buscar'; link.textContent = 'Ver resultados de «' + search.value + '» ↗︎';
     link.addEventListener('click',function () { if (location.hash === '#buscar') revealHash(); clearSearch(); }); results.appendChild(link);
     searchable.filter(function (item) { return item.text.includes(query); }).slice(0,3).forEach(function (item) {
-      var guideLink = document.createElement('a'); guideLink.href = item.hash; guideLink.textContent = item.title + ' · Guía ↗';
+      var guideLink = document.createElement('a'); guideLink.href = item.hash; guideLink.textContent = item.title + ' · Guía ↗︎';
       guideLink.addEventListener('click',function () { if (location.hash === item.hash) revealHash(); clearSearch(); }); results.appendChild(guideLink);
     });
   });
@@ -248,7 +248,7 @@
       if (preview && preview.srcset) preview.sizes = map.open ? '(max-width: 750px) 92vw, (max-width: 1400px) 68vw, 1140px' : '(max-width: 540px) 92vw, (max-width: 750px) 44vw, (max-width: 1400px) 34vw, 560px';
       if (map.open) map.querySelectorAll('.atlas-terrain img,[data-atlas-panel]:not([hidden]) img').forEach(function(img) { img.loading = 'eager'; });
       map.querySelector('.atlas-map-open-label>span').textContent = map.open ? 'Cerrar exploración' : 'Explorar mapa';
-      map.querySelector('.atlas-map-open-label>i').textContent = map.open ? '−' : '↗';
+      map.querySelector('.atlas-map-open-label>i').textContent = map.open ? '−' : '↗︎';
     });
     var close = map.querySelector('[data-map-close]');
     if (close) close.addEventListener('click', function() { map.open = false; var summary = map.querySelector('summary'); summary.focus({preventScroll:true}); summary.scrollIntoView({block:'nearest',behavior:'instant'}); });
@@ -264,7 +264,7 @@
   var finderMore = wiki.querySelector('[data-atlas-find-more]');
   var finderLimit = 12;
   function finderLink(route) {
-    var link = document.createElement('a'); link.href = route.hash; link.textContent = route.label + ' ↗';
+    var link = document.createElement('a'); link.href = route.hash; link.textContent = route.label + ' ↗︎';
     link.addEventListener('click', function () { if (location.hash === route.hash) revealHash(); });
     return link;
   }
@@ -483,7 +483,7 @@
   function renderSaved() {
     var list = wiki.querySelector('[data-saved-maps]'); list.replaceChildren();
     wiki.querySelector('.wiki-saved').hidden = saved.length === 0;
-    saved.forEach(function (id) { var map = data.maps.find(function (item) { return item.id === id; }); var link = document.createElement('a'); link.href = '#mapa-' + id; link.textContent = map.name + ' ↗'; list.appendChild(link); });
+    saved.forEach(function (id) { var map = data.maps.find(function (item) { return item.id === id; }); var link = document.createElement('a'); link.href = '#mapa-' + id; link.textContent = map.name + ' ↗︎'; list.appendChild(link); });
     wiki.querySelectorAll('[data-save-map]').forEach(function (button) { var active = saved.includes(Number(button.getAttribute('data-save-map'))); button.setAttribute('aria-pressed', String(active)); button.textContent = active ? 'Mapa guardado ✓' : 'Guardar mapa'; });
   }
   wiki.querySelectorAll('[data-save-map]').forEach(function (button) { button.addEventListener('click', function () { var id = Number(button.getAttribute('data-save-map')); saved = saved.includes(id) ? saved.filter(function (value) { return value !== id; }) : saved.concat(id); try { localStorage.setItem('panic-atlas-maps', JSON.stringify(saved)); } catch (e) {} renderSaved(); filterMaps(); if (button.closest('.wiki-map').hidden) wiki.querySelector('[data-map-scope="saved"]').focus(); }); });

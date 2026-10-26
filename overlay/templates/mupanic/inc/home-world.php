@@ -48,14 +48,14 @@ $hubFeatures = [
         <h3<?php echo $id==='eventos'?' id="home-events-title"':''; ?>><?php echo $id==='inicio'?'Tu aventura sigue acá.':$tab[2]; ?></h3>
         <?php if($id==='inicio') { ?><p>Un solo lugar para seguir jugando.</p><div class="ph-hub-actions"><button type="button" data-hub-go="hub-personaje">Tu personaje</button><button type="button" data-hub-go="hub-fractura">Nexo y Caos</button><button type="button" data-hub-go="hub-eventos">Próximos eventos</button><button type="button" data-hub-go="hub-mercado">Mercado de Vessara</button><button type="button" data-hub-go="hub-juegos">Minijuegos</button></div>
         <?php } elseif($id==='eventos') { ?>
-         <ol class="ph-event-list" data-home-events><?php foreach($homeEvents as $event) { ?><li><a href="<?php echo __BASE_URL__; ?>info/#eventos"><span><?php echo $homeEscape($event['nombre']); ?></span><time datetime="<?php echo $homeEscape($event['proximo']); ?>"><?php echo $homeEscape(panicHomeEventLabel($event['proximo'])); ?></time><b aria-hidden="true">↗</b></a></li><?php } ?></ol>
+         <ol class="ph-event-list" data-home-events><?php foreach($homeEvents as $event) { ?><li><a href="<?php echo __BASE_URL__; ?>info/#eventos"><span><?php echo $homeEscape($event['nombre']); ?></span><time datetime="<?php echo $homeEscape($event['proximo']); ?>"><?php echo $homeEscape(panicHomeEventLabel($event['proximo'])); ?></time><b aria-hidden="true">↗︎</b></a></li><?php } ?></ol>
          <?php if(!$homeEvents) { ?><p data-home-events-empty>Consultá la agenda del servidor.</p><?php } ?>
-        <?php } elseif($id==='fractura') { ?><p>Nexo y Caos. Dos bandos, una guerra propia.</p><div class="ph-hub-actions ph-hub-faction-actions"><button type="button" data-hub-detail="Aldren te espera para conocer el Nexo. La guerra se disputa en Vulcanus.">Nexo</button><button type="button" data-hub-detail="Varkor te espera para conocer el Caos. La guerra se disputa en Vulcanus.">Caos</button></div><a class="ph-hub-explore" href="<?php echo __BASE_URL__; ?>fractura/">Conocé la Fractura ↗</a>
+        <?php } elseif($id==='fractura') { ?><p>Nexo y Caos. Dos bandos, una guerra propia.</p><div class="ph-hub-actions ph-hub-faction-actions"><button type="button" data-hub-detail="Aldren te espera para conocer el Nexo. La guerra se disputa en Vulcanus.">Nexo</button><button type="button" data-hub-detail="Varkor te espera para conocer el Caos. La guerra se disputa en Vulcanus.">Caos</button></div><a class="ph-hub-explore" href="<?php echo __BASE_URL__; ?>fractura/">Conocé la Fractura ↗︎</a>
         <?php } elseif($id==='juegos') { ?><p>Hacé una pausa del leveo.</p><div class="ph-hub-actions ph-hub-games-actions"><?php foreach($homeGames as $game) { ?><button type="button" data-hub-detail="<?php echo $homeEscape($game[2]); ?>"><?php echo $game[1]; ?></button><?php } ?></div>
         <?php } else { ?>
          <p><?php echo $id==='personaje'?'Tu progreso y tus recompensas, a mano.':($id==='mercado'?'Comprá, publicá y cobrá en Zen o Eryns.':($id==='tienda'?'La moneda propia de MU PANIC, dentro del cliente.':'Encontrá tu próximo paso.')); ?></p>
          <div class="ph-hub-actions"><?php foreach($hubFeatures[$id] as $feature) { ?><button type="button" data-hub-detail="<?php echo $homeEscape($feature.' está disponible desde el Hub F11 dentro del juego.'); ?>"><?php echo $homeEscape($feature); ?></button><?php } ?></div>
-         <?php $targets=['mercado'=>['market/','Explorá el mercado'],'tienda'=>['usercp/recharge/','Conocé la tienda'],'ayuda'=>['info/','Abrí el Atlas']];if(isset($targets[$id])) { ?><a class="ph-hub-explore" href="<?php echo __BASE_URL__.$targets[$id][0]; ?>"><?php echo $targets[$id][1]; ?> ↗</a><?php } ?>
+         <?php $targets=['mercado'=>['market/','Explorá el mercado'],'tienda'=>['usercp/recharge/','Conocé la tienda'],'ayuda'=>['info/','Abrí el Atlas']];if(isset($targets[$id])) { ?><a class="ph-hub-explore" href="<?php echo __BASE_URL__.$targets[$id][0]; ?>"><?php echo $targets[$id][1]; ?> ↗︎</a><?php } ?>
         <?php } ?>
         <p class="ph-hub-detail" data-hub-detail-output aria-live="polite"></p>
        </div>
@@ -64,13 +64,13 @@ $hubFeatures = [
      </div>
     </div>
    </div>
-   <div class="ph-hub-toolbar"><p>Recorré el Hub.</p><button type="button" data-hub-enlarge>Exploralo de cerca <span aria-hidden="true">↗</span></button></div>
+   <div class="ph-hub-toolbar"><p>Recorré el Hub.</p><button type="button" data-hub-enlarge>Exploralo de cerca <span aria-hidden="true">↗︎</span></button></div>
   </div>
  </div>
 </section>
 <section class="ph-scene ph-market-world ph-journey-market" aria-labelledby="home-market-title">
  <?php $homeJourney(1,'Vessara en su puesto de equipo, bajo los toldos del mercado que continúan desde las arcadas del Hub'); ?>
- <div class="ph-scene-content ph-wrap"><div class="ph-copy"><p class="ph-eyebrow">EL MERCADO DE LOS JUGADORES</p><h2 id="home-market-title">Vessara.<br>Lo que encontrás<br>tiene valor.</h2><p>Buscá el equipo que te falta. Publicá lo que conseguís jugando. Comprá, vendé y cobrá tus ventas en <strong>Zen o Eryns</strong>.</p><p class="ph-market-access">Desde el Hub F11 o en Loren Market.</p><a class="ph-link" href="<?php echo __BASE_URL__; ?>market/">Explorá las publicaciones <span aria-hidden="true">↗</span></a></div></div>
+ <div class="ph-scene-content ph-wrap"><div class="ph-copy"><p class="ph-eyebrow">EL MERCADO DE LOS JUGADORES</p><h2 id="home-market-title">Vessara.<br>Lo que encontrás<br>tiene valor.</h2><p>Buscá el equipo que te falta. Publicá lo que conseguís jugando. Comprá, vendé y cobrá tus ventas en <strong>Zen o Eryns</strong>.</p><p class="ph-market-access">Desde el Hub F11 o en Loren Market.</p><a class="ph-link" href="<?php echo __BASE_URL__; ?>market/">Explorá las publicaciones <span aria-hidden="true">↗︎</span></a></div></div>
 </section>
 <section class="ph-games" id="minijuegos" aria-labelledby="home-games-title">
  <div class="ph-scene ph-games-scene ph-journey-games">
@@ -85,7 +85,7 @@ $hubFeatures = [
  <div class="ph-wrap ph-play-layout"><div class="ph-play-copy">
   <div class="ph-play-sigil" aria-hidden="true"><span></span></div>
   <p class="ph-eyebrow">MU PANIC TE ESPERA</p><h2 id="home-play-title">Tu historia<br><em>empieza acá.</em></h2><p>Elegí tu clase. Encontrá tu bando.<br>El primer paso lo das vos.</p>
-  <div class="ph-actions"><a class="ph-button ph-button-artwork ph-play-primary" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-account-v16.webp" alt="" aria-hidden="true" width="2172" height="724" loading="lazy" decoding="async"><span class="ph-play-action-label"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?></span><span class="ph-play-action-icon" aria-hidden="true">↗</span></a><a class="ph-button ph-button-outline ph-button-artwork ph-play-download" href="<?php echo __BASE_URL__; ?>downloads/"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-download-v16.webp" alt="" aria-hidden="true" width="2172" height="724" loading="lazy" decoding="async"><span class="ph-play-action-icon" aria-hidden="true">↓</span><span class="ph-play-action-label">DESCARGAR</span></a></div>
+  <div class="ph-actions"><a class="ph-button ph-button-artwork ph-play-primary" href="<?php echo __BASE_URL__.($isLogged ? 'usercp/' : 'register/'); ?>"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-account-v16.webp" alt="" aria-hidden="true" width="2172" height="724" loading="lazy" decoding="async"><span class="ph-play-action-label"><?php echo $isLogged ? 'MI CUENTA' : 'CREAR CUENTA'; ?></span><span class="ph-play-action-icon" aria-hidden="true">↗︎</span></a><a class="ph-button ph-button-outline ph-button-artwork ph-play-download" href="<?php echo __BASE_URL__; ?>downloads/"><img class="ph-play-button-art" src="<?php echo $homeArt; ?>play-button-download-v16.webp" alt="" aria-hidden="true" width="2172" height="724" loading="lazy" decoding="async"><span class="ph-play-action-icon" aria-hidden="true">↓</span><span class="ph-play-action-label">DESCARGAR</span></a></div>
   <p class="ph-play-caption">Creá tu cuenta · Descargá el cliente · Entrá a jugar</p>
  </div></div>
 </section>

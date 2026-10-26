@@ -77,7 +77,7 @@
       link.href = new URL('../info/#eventos', endpoint).href;
       var name = document.createElement('span'); name.textContent = event.nombre;
       var time = document.createElement('time'); time.dateTime = event.proximo; time.textContent = format.format(new Date(event.proximo)) + ' hs';
-      var arrow = document.createElement('b'); arrow.setAttribute('aria-hidden', 'true'); arrow.textContent = '↗';
+      var arrow = document.createElement('b'); arrow.setAttribute('aria-hidden', 'true'); arrow.textContent = '↗︎';
       link.append(name, time, arrow); row.append(link); fragment.append(row);
     });
     list.replaceChildren(fragment);
