@@ -173,7 +173,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php } ?>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/fractura/aldren-varkor-v2.webp" fetchpriority="high"><?php } ?>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v10.webp" fetchpriority="high"><?php } ?>
-    <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
+    <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market','socios'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <?php if(!$isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>home-launch.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/home-launch.css'),0,12); ?>" rel="stylesheet"><?php } ?>
@@ -187,10 +187,11 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='shopadmin') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge-admin-friendly.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge-admin-friendly.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <?php if($_REQUEST['page']==='market') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>market.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/market.css'),0,12); ?>"><?php } ?>
+    <?php if($_REQUEST['page']==='socios') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>socios.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/socios.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>fractura.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/fractura.css'),0,12); ?>"><?php } ?>
     <noscript><style>@media(max-width:1100px){.site-header{position:relative;height:auto}.site-header .nav-shell{height:auto;min-height:var(--site-header-height);flex-wrap:wrap;padding-block:12px}.site-header .main-nav{display:flex;position:static;flex-basis:100%;width:100%;order:3;max-height:none;flex-direction:row;flex-wrap:wrap;padding:8px 0 0;border:0;background:none}.site-header .main-nav a{min-height:38px;padding:8px}.site-header .main-nav .mobile-account{display:flex}.site-header .menu-toggle{display:none}.site-header .nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ''))))); ?>">
+<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ''))))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -207,6 +208,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'information' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>information/"<?php echo $_REQUEST['page'] === 'information' ? ' aria-current="page"' : ''; ?>><span>El servidor</span></a>
             <a class="nav-main-link<?php echo $_REQUEST['page']==='market' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>market/"<?php echo $_REQUEST['page']==='market' ? ' aria-current="page"' : ''; ?>><span>Mercado</span></a>
             <a class="nav-main-link<?php echo $_REQUEST['page']==='fractura' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>fractura/"<?php echo $_REQUEST['page']==='fractura' ? ' aria-current="page"' : ''; ?>><span>Fractura</span></a>
+            <a class="nav-main-link<?php echo $_REQUEST['page']==='socios' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>socios/"<?php echo $_REQUEST['page']==='socios' ? ' aria-current="page"' : ''; ?>><span>Socios</span></a>
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'info' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>info/"<?php echo $_REQUEST['page'] === 'info' ? ' aria-current="page"' : ''; ?>><span>Atlas</span></a>
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'rankings' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>rankings/"<?php echo $_REQUEST['page'] === 'rankings' ? ' aria-current="page"' : ''; ?>><span>Rankings</span></a>
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'downloads' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>downloads/"<?php echo $_REQUEST['page'] === 'downloads' ? ' aria-current="page"' : ''; ?>><span>Descargas</span></a>
@@ -235,7 +237,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <?php } else { ?>
 
-<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!in_array($_REQUEST['page'],['information','market','fractura'],true)) { ?>
+<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!in_array($_REQUEST['page'],['information','market','fractura','socios'],true)) { ?>
 <section class="inner-hero">
     <div class="shell inner-head">
         <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : (in_array($_REQUEST['page'],['usercp','register','login','forgotpassword','verifyemail'],true) ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
@@ -271,6 +273,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <div class="module-surface"><?php
                 if($_REQUEST['page'] === 'fractura') {
                     include(__DIR__.'/inc/fractura.php');
+                } elseif($_REQUEST['page'] === 'socios') {
+                    include(__DIR__.'/inc/socios.php');
                 } elseif($_REQUEST['page'] === 'market') {
                     include(__DIR__.'/inc/market.php');
                 } elseif($_REQUEST['page'] === 'information') {
@@ -320,6 +324,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 </footer>
 
 <?php if($_REQUEST['page']==='fractura') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>fractura.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/fractura.js'),0,12); ?>" defer></script><?php } ?>
+<?php if($_REQUEST['page']==='socios') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>socios.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/socios.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='information') { ?><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script><script src="<?php echo __PATH_TEMPLATE_JS__; ?>information.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/information.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market-listings.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market-listings.js'),0,12); ?>" defer></script><?php } ?>

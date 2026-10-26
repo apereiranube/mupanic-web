@@ -9,6 +9,7 @@ function mupanicPageTitle($page, $subpage = '') {
     $map = array(
         'information' => 'El servidor',
         'fractura' => 'La Fractura',
+        'socios' => 'Socios',
         'market' => 'El Sello de Vessara',
         'info' => 'Atlas',
         'downloads' => 'Descargas',
