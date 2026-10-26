@@ -57,6 +57,14 @@
 .ref-data-note{margin:18px 42px 30px;font-size:11px;color:#6f7a8e!important}
 @media(max-width:900px){.ref-hero{padding:32px 26px}.ref-cards,.ref-panel,.ref-alert{margin-left:26px;margin-right:26px}.ref-cards{padding-left:26px;padding-right:26px;margin:0}.ref-list,.ref-how ol{grid-template-columns:1fr}.ref-data-note{margin-left:26px}}
 @media(max-width:600px){.ref-share-btn{flex:1 1 100%;justify-content:center}.ref-hero{padding:26px 18px;background:linear-gradient(180deg,#050812f0 0%,#050812d0 60%,#050812f5 100%),url('../img/referidos/referidos-hero-v2-1200.webp') 78% center/cover #050812}.ref-link-row{flex-direction:column}.ref-cards{grid-template-columns:1fr;padding:18px 18px 0}.ref-panel,.ref-alert{margin:18px 18px 0;padding:18px}.ref-progress{grid-template-columns:1fr}.ref-form input{width:100%}.ref-form label{width:100%}.ref-data-note{margin:16px 18px 24px}}
+.ref-socios{border-color:#6fb4ff66;background:radial-gradient(ellipse at 100% 0,#2f6fe022,transparent 60%),#0d1422}
+.ref-socios a{color:#f8d78d}
+.ref-cards--inner{padding:0;margin:16px 0 6px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.ref-soc-list{display:grid;gap:8px;margin-top:14px}
+.ref-soc-row{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:10px 14px;background:#101927;border:1px solid #55627540}
+.ref-soc-row span{display:flex;flex-direction:column}.ref-soc-row strong{color:#f3eee4}.ref-soc-row small{font-size:11px;color:#8792a6}
+.ref-soc-row b{color:#9fd0ff;font-size:16px;white-space:nowrap}.ref-soc-row em{font-style:normal}
+@media(max-width:600px){.ref-soc-row{grid-template-columns:1fr auto}.ref-soc-row em{grid-column:1/-1;justify-self:start}}
 /* Admin */
 .ref-admin .ref-flag{display:inline-block;padding:2px 7px;margin:2px 2px 0 0;font-size:11px;border:1px solid #d5ad6280;color:#f2d9a6;background:#1a1408}
 .ref-admin .ref-flag--no{border-color:#d0645c80;color:#f2c2bd;background:#1d0d0c}

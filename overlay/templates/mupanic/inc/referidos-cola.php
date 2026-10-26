@@ -187,6 +187,16 @@ function panicReferidosMisInvitados($account) {
     $rows=panicReferidosDb()->query_fetch('SELECT TOP 100 Id, Personaje, Estado, Motivo, Resets, Dias, DiasInvita, PagaInvita, PagoInvitaAR, CONVERT(varchar(10),CreadoAR,103) AS Creado FROM [MuOnline43].[dbo].[vMUPanicRefVinculo] WHERE Invita = ? ORDER BY Id DESC',[$account]);
     return is_array($rows) ? $rows : [];
 }
+/** Socios: comisiones de una cuenta (5% en Eryns o, si es creador, 10% en pesos). Solo SELECT. */
+function panicSociosMias($account) {
+    $rows=panicReferidosDb()->query_fetch('SELECT TOP 60 Personaje, Tipo, Monto, Estado, CONVERT(varchar(10),RecargaAR,103) AS Fecha, CONVERT(char(7),RecargaAR,120) AS Mes FROM [MuOnline43].[dbo].[vMUPanicSocioMias] WHERE Socio = ? ORDER BY RecargaAR DESC',[$account]);
+    return is_array($rows) ? $rows : [];
+}
+/** Socios: ranking del mes en curso (invitados que llegaron a la meta). */
+function panicSociosRanking() {
+    $rows=panicReferidosDb()->query_fetch('SELECT TOP 10 Personaje, Activos, Invitados FROM [MuOnline43].[dbo].[vMUPanicSocioRanking] WHERE Activos > 0 ORDER BY Activos DESC, Invitados DESC');
+    return is_array($rows) ? $rows : [];
+}
 /** Para el inicio de Mi cuenta: hay un codigo por confirmar y la cuenta todavia no esta vinculada. */
 function panicReferidosHayPorConfirmar($account) {
     if(!panicReferidosCodigoPendiente() || !preg_match('/^[A-Za-z0-9_]{1,10}$/D',(string)$account)) return false;

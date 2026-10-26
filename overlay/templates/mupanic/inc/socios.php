@@ -16,6 +16,9 @@ $socHero = $socImg.'socios/socios-hero.webp';
 if(!is_file(__DIR__.'/../img/socios/socios-hero.webp')) $socHero = $socImg.'server/v3/srv-08-tesoro-5b82e4129d10.webp';
 $socVipPrecio = 25000; // Eryns por 30 días de VIP (CustomBuyVip.txt)
 function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
+require_once __DIR__.'/referidos-cola.php';
+$socRank=[];
+try { if(class_exists('Connection')) $socRank=panicSociosRanking(); } catch(Throwable $e) { $socRank=[]; }
 ?>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&family=Cinzel:wght@700;900&display=swap">
@@ -113,10 +116,19 @@ function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
   <!-- 5 · Ranking -->
   <section class="soc-section soc-rank" id="ranking">
     <header class="soc-head"><p class="soc-eyebrow">Ranking del mes</p><h2>Los socios que más mueven</h2><p>El primero de cada mes gana un premio exclusivo que se ve en el juego.</p></header>
+    <?php if(!$socRank) { ?>
     <div class="soc-rank-empty">
       <span class="soc-rank-crown" aria-hidden="true">♛</span>
-      <p><strong>El ranking arranca con el lanzamiento.</strong><br>Sacá tu link ahora y largá primero.</p>
+      <p><strong>Todavía nadie entró al ranking de este mes.</strong><br>Sacá tu link ahora y largá primero.</p>
     </div>
+    <?php } else { ?>
+    <ol class="soc-rank-list">
+      <?php foreach($socRank as $i=>$r) { ?>
+      <li class="<?php echo $i===0?'is-first':''; ?>"><span class="soc-rank-pos"><?php echo $i===0?'♛':($i+1); ?></span><strong><?php echo socE($r['Personaje'] ?: 'Socio'); ?></strong><b><?php echo (int)$r['Activos']; ?> <small><?php echo (int)$r['Activos']===1?'invitado activo':'invitados activos'; ?></small></b></li>
+      <?php } ?>
+    </ol>
+    <p class="soc-rank-note">Cuentan los invitados de este mes que ya llegaron al reset 2 y jugaron 3 días. Se actualiza cada minuto.</p>
+    <?php } ?>
   </section>
 
   <!-- 6 · Reglas -->
@@ -124,7 +136,7 @@ function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
     <header class="soc-head"><p class="soc-eyebrow">Reglas claras</p><h2>Juego limpio para todos</h2></header>
     <div class="soc-rules-grid">
       <div><h3>¿Sobre qué cobro?</h3><p>Sobre las recargas de Eryns aprobadas de cada invitado, durante los 3 meses siguientes a que crea su cuenta.</p></div>
-      <div><h3>¿Cuándo me llega?</h3><p>Socios: los Eryns se acreditan solos al aprobarse cada recarga. Creadores: se liquida una vez por mes, por transferencia.</p></div>
+      <div><h3>¿Cuándo me llega?</h3><p>Socios: los Eryns se acreditan solos al aprobarse cada recarga (si estás jugando, al salir del juego). Creadores: se liquida una vez por mes, por transferencia.</p></div>
       <div><h3>¿Hay límite?</h3><p>No hay tope de invitados para la comisión. Los días de VIP por invitado activo tienen un máximo de 5 por mes.</p></div>
       <div><h3>¿Qué no vale?</h3><p>Invitarte a vos mismo: las cuentas de la misma PC o la misma conexión no cuentan. Ante una trampa, la comisión se anula.</p></div>
     </div>

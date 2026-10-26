@@ -58,5 +58,31 @@ $raUrl=__BASE_URL__.'usercp/shopadmin/?ref=1';
 </tbody></table></div><?php } ?>
 </section>
 <p class="eco-note">Aprobar paga aunque no haya llegado a la meta o el anti trampa lo haya frenado. Anular cancela el referido antes de que se pague. El VIP se entrega con la cuenta desconectada.</p>
+<?php
+// Socios y creadores (solo lectura; altas y pagos se hacen con el instalador en el VPS)
+$soTot=null; $soCre=[];
+try {
+    $soDb=Connection::Database('MuOnline');
+    $soTot=$soDb->query_fetch('SELECT TOP 12 Mes, Tipo, Comisiones, Socios, Entregado, Pendiente FROM [MuOnline43].[dbo].[vMUPanicSocioTotalMes] ORDER BY Mes DESC, Tipo');
+    $soCre=$soDb->query_fetch('SELECT TOP 100 Socio, Mes, Invitados, Recargas, APagar, Pagado, Pct, Activo FROM [MuOnline43].[dbo].[vMUPanicSocioCreadoresMes] ORDER BY Mes DESC, APagar DESC');
+    if(!is_array($soTot)) $soTot=[]; if(!is_array($soCre)) $soCre=[];
+} catch(Throwable $e) { $soTot=null; }
+$soNum=function($n){ return number_format((int)$n,0,',','.'); };
+?>
+<section class="eco-panel" id="socios-admin"><h3>Socios y creadores</h3>
+<?php if($soTot===null) { ?><div class="eco-alert eco-alert--error" role="alert"><strong>No se pudieron leer las comisiones.</strong><span>Revisá que esté instalado Socios v1 en el VPS.</span></div>
+<?php } else { ?>
+<p class="eco-note">Socios: 5% en Eryns, se acredita solo. Creadores: 10% en pesos, se transfiere a mano y después se marca como pagado desde el VPS.</p>
+<?php if(!$soTot) { ?><p class="eco-empty">Todavía no hay comisiones.</p><?php } else { ?>
+<div class="eco-table-scroll"><table class="eco-table"><thead><tr><th>Mes</th><th>Tipo</th><th>Comisiones</th><th>Socios</th><th>Entregado</th><th>Pendiente</th></tr></thead><tbody>
+<?php foreach($soTot as $t) { $pz=$t['Tipo']==='PESOS'; ?><tr><td><?php echo $raEsc($t['Mes']); ?></td><td><?php echo $pz?'Pesos (creadores)':'Eryns (socios)'; ?></td><td><?php echo (int)$t['Comisiones']; ?></td><td><?php echo (int)$t['Socios']; ?></td><td><?php echo ($pz?'$':'').$soNum($t['Entregado']); ?></td><td><?php echo ($pz?'$':'').$soNum($t['Pendiente']); ?></td></tr><?php } ?>
+</tbody></table></div><?php } ?>
+<h3 style="margin-top:22px">A transferir a creadores</h3>
+<?php if(!$soCre) { ?><p class="eco-empty">No hay comisiones de creadores.</p><?php } else { ?>
+<div class="eco-table-scroll"><table class="eco-table"><thead><tr><th>Creador</th><th>Mes</th><th>Invitados</th><th>Recargas</th><th>A pagar</th><th>Pagado</th><th>%</th></tr></thead><tbody>
+<?php foreach($soCre as $c) { ?><tr><td><?php echo $raEsc($c['Socio']); ?><?php if(!(int)$c['Activo']) echo ' <small>(dado de baja)</small>'; ?></td><td><?php echo $raEsc($c['Mes']); ?></td><td><?php echo (int)$c['Invitados']; ?></td><td><?php echo (int)$c['Recargas']; ?></td><td><strong>$<?php echo $soNum($c['APagar']); ?></strong></td><td>$<?php echo $soNum($c['Pagado']); ?></td><td><?php echo (int)$c['Pct']; ?>%</td></tr><?php } ?>
+</tbody></table></div><?php } ?>
+<?php } ?>
+</section>
 <?php } ?>
 </section>

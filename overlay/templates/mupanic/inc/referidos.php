@@ -23,6 +23,14 @@ $refCode=null; $refInvited=null; $refList=[]; $refError=false; $refLast=null;
 try { $refCode=panicReferidosMiCodigo($refAccount); $refInvited=panicReferidosComoInvitado($refAccount); $refList=panicReferidosMisInvitados($refAccount); }
 catch(Throwable $e) { $refError=true; }
 try { $refLast=(new PanicReferidosCola())->lastLink($refAccount); } catch(Throwable $e) {}
+$socRows=[]; $socError=false;
+try { $socRows=panicSociosMias($refAccount); } catch(Throwable $e) { $socError=true; }
+$socMes=date('Y-m'); $socErynsMes=0; $socErynsTotal=0; $socErynsPend=0; $socPesosPagar=0; $socPesosPagado=0; $socCreador=false;
+foreach($socRows as $c) {
+    $m=(int)$c['Monto'];
+    if($c['Tipo']==='PESOS') { $socCreador=true; if($c['Estado']==='A_PAGAR') $socPesosPagar+=$m; if($c['Estado']==='PAGADA') $socPesosPagado+=$m; continue; }
+    $socErynsTotal+=$m; if($c['Mes']===$socMes) $socErynsMes+=$m; if($c['Estado']==='PENDIENTE') $socErynsPend+=$m;
+}
 $refPendingCode=panicReferidosCodigoPendiente();
 $refLink=$refCode?__BASE_URL__.'register/?ref='.$refCode:null;
 $refShareText=$refLink?'¡Vení a jugar MU PANIC conmigo! Es un MU Online Season 6 argentino. Si creás tu cuenta con mi link, arrancás con 3 días de VIP: '.$refLink:'';
@@ -61,7 +69,7 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación y tus 3 d
     <div class="ref-hero-copy">
       <span class="ref-overline">MU PANIC / REFERIDOS</span>
       <h2 id="ref-title">Invitá a tus amigos.<br><em>Ganá días de VIP.</em></h2>
-      <p>Tu amigo arranca con <strong>3 días de VIP</strong> apenas crea su cuenta. Cuando llegue al reset 2 y juegue 3 días, vos recibís <strong>7 días de VIP</strong>.</p>
+      <p>Tu amigo arranca con <strong>3 días de VIP</strong> apenas crea su cuenta. Cuando llegue al reset 2 y juegue 3 días, vos recibís <strong>7 días de VIP</strong>. Y cada vez que recargue, te llevás el <strong>5% en Eryns</strong>.</p>
       <?php if($refLink) { ?>
       <div class="ref-link" data-ref-copy>
         <span class="ref-overline">TU LINK DE INVITACIÓN</span>
@@ -85,6 +93,30 @@ $refResultados=['OK'=>['ok','¡Listo! Quedó confirmada tu invitación y tus 3 d
     <article><strong><?php echo $refDone; ?></strong><span>Cumplieron la meta</span></article>
     <article class="ref-card-gold"><strong><?php echo $refDays; ?></strong><span>Días de VIP ganados</span></article>
   </div>
+
+  <section class="ref-panel ref-socios">
+    <span class="ref-overline"><?php echo $socCreador?'SOCIOS · CREADOR':'SOCIOS · TU GANANCIA'; ?></span>
+    <h3><?php echo $socCreador?'Cobrás el 10% de las recargas de tus invitados':'Ganás el 5% de lo que recargan tus invitados'; ?></h3>
+    <p>Durante los 3 meses siguientes a que se suman con tu link. <?php echo $socCreador?'Se transfiere una vez por mes.':'Los Eryns se acreditan solos; si estás jugando, al salir del juego.'; ?> <a href="<?php echo panicAccountEscape(__BASE_URL__.'socios/'); ?>">Cómo funciona →</a></p>
+    <div class="ref-cards ref-cards--inner">
+      <?php if($socCreador) { ?>
+      <article class="ref-card-gold"><strong>$<?php echo number_format($socPesosPagar,0,',','.'); ?></strong><span>A cobrar</span></article>
+      <article><strong>$<?php echo number_format($socPesosPagado,0,',','.'); ?></strong><span>Ya cobrado</span></article>
+      <?php } ?>
+      <?php if(!$socCreador || $socErynsTotal>0) { ?>
+      <article class="<?php echo $socCreador?'':'ref-card-gold'; ?>"><strong><?php echo number_format($socErynsMes,0,',','.'); ?></strong><span>Eryns ganados este mes</span></article>
+      <article><strong><?php echo number_format($socErynsTotal,0,',','.'); ?></strong><span>Eryns ganados en total</span></article>
+      <?php if($socErynsPend>0) { ?><article><strong><?php echo number_format($socErynsPend,0,',','.'); ?></strong><span>Por acreditar (al salir del juego)</span></article><?php } ?>
+      <?php } ?>
+    </div>
+    <?php if($socError) { ?><p class="ref-note">No pudimos consultar tus comisiones ahora. Volvé a abrir la página en un rato.</p>
+    <?php } elseif(!$socRows) { ?><p class="ref-empty">Todavía no tenés comisiones. Cuando un amigo que invitaste recargue Eryns, aparece acá.</p>
+    <?php } else { ?><div class="ref-soc-list">
+      <?php foreach(array_slice($socRows,0,12) as $c) { $pesos=$c['Tipo']==='PESOS'; $st=['PENDIENTE'=>['camino','Por acreditar'],'ACREDITADA'=>['pagado','Acreditado'],'A_PAGAR'=>['cumplido','A cobrar'],'PAGADA'=>['pagado','Cobrado']][$c['Estado']] ?? ['camino',$c['Estado']]; ?>
+      <div class="ref-soc-row"><span><strong><?php echo panicAccountEscape($c['Personaje'] ?: 'Tu invitado'); ?></strong><small><?php echo panicAccountEscape($c['Fecha']); ?></small></span><b><?php echo $pesos?'$'.number_format((int)$c['Monto'],0,',','.'):'+'.number_format((int)$c['Monto'],0,',','.').' Eryns'; ?></b><em class="ref-state ref-state--<?php echo $st[0]; ?>"><?php echo $st[1]; ?></em></div>
+      <?php } ?>
+    </div><?php } ?>
+  </section>
 
   <?php if($refInvited) { [$tone,$label]=panicRefEstado($refInvited['Estado'],1); ?>
   <section class="ref-panel ref-invited">
