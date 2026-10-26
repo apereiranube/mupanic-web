@@ -22,10 +22,53 @@ $homeJoin = function($kind) use ($homeArt) {
 ?>
 <div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php?home=1'); ?>" data-home-version="connected-v10">
     <section class="ph-scene ph-hero" aria-labelledby="home-title">
-        <picture class="ph-art ph-combat-art">
+        <div class="ph-art ph-combat-art">
+            <picture>
             <source media="(max-width:760px)" srcset="<?php echo $homeArt; ?>hero-knight-v18-mobile.webp" width="1080" height="608">
             <img src="<?php echo $homeArt; ?>hero-knight-v18.webp" width="1672" height="941" alt="Magic Gladiator pelirrojo sin casco, con el set azul y violeta, alas de energía fucsia y espada violeta de MU PANIC, ante una fortaleza sobre terreno volcánico" fetchpriority="high">
-        </picture>
+            </picture>
+            <svg class="ph-sword-energy" viewBox="0 0 1672 941" aria-hidden="true" focusable="false">
+                <defs>
+                    <filter id="ph-sword-soft" filterUnits="userSpaceOnUse" x="500" y="420" width="520" height="370" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="5"/></filter>
+                    <path id="ph-sword-aura-upper" d="M 953 458 C 923 468 917 491 883 496 L 869 520 L 842 522 L 822 545 L 792 550 L 765 578 L 736 584 L 706 612 L 678 621 L 651 651 L 620 665 L 596 694 L 550 747 L 587 723 L 621 690 L 654 673 L 687 644 L 719 628 L 748 606 L 779 590 L 809 567 L 840 551 L 869 529 L 899 513 L 930 487 Z"/>
+                    <path id="ph-sword-aura-lower" d="M 962 489 L 935 507 L 908 528 L 876 543 L 851 568 L 817 579 L 792 605 L 757 616 L 732 643 L 697 656 L 670 684 L 635 697 L 607 725 L 550 747 L 605 738 L 643 717 L 674 704 L 705 677 L 742 664 L 765 639 L 800 629 L 826 601 L 860 591 L 887 565 L 921 550 L 947 522 Z"/>
+                </defs>
+                <g class="ph-sword-mist" filter="url(#ph-sword-soft)">
+                    <use href="#ph-sword-aura-upper" class="ph-sword-aura ph-sword-aura-upper"/>
+                    <use href="#ph-sword-aura-lower" class="ph-sword-aura ph-sword-aura-lower"/>
+                </g>
+                <g class="ph-sword-ribbons">
+                    <use href="#ph-sword-aura-upper" class="ph-sword-aura ph-sword-aura-upper"/>
+                    <use href="#ph-sword-aura-lower" class="ph-sword-aura ph-sword-aura-lower"/>
+                </g>
+                <g class="ph-sword-sparks">
+                    <circle cx="916.0" cy="475.0" r="3.20" style="--dx:-34px;--dy:-34px;--delay:-0.000s"/>
+                    <circle cx="940.0" cy="505.0" r="3.85" style="--dx:22px;--dy:-41px;--delay:-0.137s"/>
+                    <circle cx="885.6" cy="495.4" r="4.50" style="--dx:-50px;--dy:-48px;--delay:-0.274s"/>
+                    <circle cx="909.6" cy="525.4" r="5.15" style="--dx:38px;--dy:-55px;--delay:-0.411s"/>
+                    <circle cx="855.3" cy="515.7" r="3.20" style="--dx:-34px;--dy:-62px;--delay:-0.548s"/>
+                    <circle cx="879.3" cy="545.7" r="3.85" style="--dx:22px;--dy:-34px;--delay:-0.685s"/>
+                    <circle cx="824.9" cy="536.1" r="4.50" style="--dx:-50px;--dy:-41px;--delay:-0.822s"/>
+                    <circle cx="848.9" cy="566.1" r="5.15" style="--dx:38px;--dy:-48px;--delay:-0.959s"/>
+                    <circle cx="794.5" cy="556.5" r="3.20" style="--dx:-34px;--dy:-55px;--delay:-1.096s"/>
+                    <circle cx="818.5" cy="586.5" r="3.85" style="--dx:22px;--dy:-62px;--delay:-1.233s"/>
+                    <circle cx="764.2" cy="576.8" r="4.50" style="--dx:-50px;--dy:-34px;--delay:-1.370s"/>
+                    <circle cx="788.2" cy="606.8" r="5.15" style="--dx:38px;--dy:-41px;--delay:-1.507s"/>
+                    <circle cx="733.8" cy="597.2" r="3.20" style="--dx:-34px;--dy:-48px;--delay:-1.644s"/>
+                    <circle cx="757.8" cy="627.2" r="3.85" style="--dx:22px;--dy:-55px;--delay:-1.781s"/>
+                    <circle cx="703.5" cy="617.5" r="4.50" style="--dx:-50px;--dy:-62px;--delay:-1.918s"/>
+                    <circle cx="727.5" cy="647.5" r="5.15" style="--dx:38px;--dy:-34px;--delay:-2.055s"/>
+                    <circle cx="673.1" cy="637.9" r="3.20" style="--dx:-34px;--dy:-41px;--delay:-2.192s"/>
+                    <circle cx="697.1" cy="667.9" r="3.85" style="--dx:22px;--dy:-48px;--delay:-2.329s"/>
+                    <circle cx="642.7" cy="658.3" r="4.50" style="--dx:-50px;--dy:-55px;--delay:-2.466s"/>
+                    <circle cx="666.7" cy="688.3" r="5.15" style="--dx:38px;--dy:-62px;--delay:-2.603s"/>
+                    <circle cx="612.4" cy="678.6" r="3.20" style="--dx:-34px;--dy:-34px;--delay:-2.740s"/>
+                    <circle cx="636.4" cy="708.6" r="3.85" style="--dx:22px;--dy:-41px;--delay:-2.877s"/>
+                    <circle cx="582.0" cy="699.0" r="4.50" style="--dx:-50px;--dy:-48px;--delay:-3.014s"/>
+                    <circle cx="606.0" cy="729.0" r="5.15" style="--dx:38px;--dy:-55px;--delay:-3.151s"/>
+                </g>
+            </svg>
+        </div>
         <div class="ph-battle-sky" aria-hidden="true"><i></i><i></i></div>
         <?php
         // Aviso corrido sobre el video. Se apaga solo al pasar la fecha "hasta" de inc/aviso-home.json.
