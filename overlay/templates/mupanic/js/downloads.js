@@ -1,33 +1,76 @@
-// MU PANIC · Descargas: tutorial por pasos (pestañas accesibles con teclado).
+// MU PANIC · Descargas: instalación jugable (cofre → carpeta → launcher → Jugar).
 (function () {
-  var guide = document.querySelector('[data-dl-guide]');
-  if (!guide) return;
-  var tabs = Array.prototype.slice.call(guide.querySelectorAll('[role="tab"]'));
-  var panels = Array.prototype.slice.call(guide.querySelectorAll('[role="tabpanel"]'));
-  function show(i, focus) {
-    if (i < 0 || i >= tabs.length) return;
-    tabs.forEach(function (t, k) {
-      var on = k === i;
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-      t.tabIndex = on ? 0 : -1;
-      panels[k].hidden = !on;
+  var sim = document.querySelector('[data-dl-sim]');
+  if (!sim) return;
+  var q = function (s) { return sim.querySelector(s); };
+  var steps = Array.prototype.slice.call(sim.querySelectorAll('.dl-sim-steps li'));
+  var chest = q('[data-sim-chest]'), folder = q('[data-sim-folder]'), launcher = q('[data-sim-launcher]');
+  var mini = q('[data-sim-mini]'), bar = q('[data-sim-bar]'), state = q('[data-sim-state]');
+  var play = q('[data-sim-play]'), done = q('[data-sim-done]'), hint = q('[data-sim-hint]'), reset = q('[data-sim-reset]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timer = null;
+  var hints = [
+    'Hacé clic en el cofre para descomprimirlo.',
+    'Ahora abrí MU PANIC Launcher.',
+    'El launcher está revisando y bajando lo que falta…',
+    '¡Todo listo! Apretá Jugar.',
+    ''
+  ];
+
+  function setStep(n) {
+    sim.setAttribute('data-step', n);
+    steps.forEach(function (li, i) {
+      li.classList.toggle('is-current', i === n);
+      li.classList.toggle('is-done', i < n);
     });
-    if (focus) tabs[i].focus();
+    hint.textContent = hints[n] || '';
+    hint.hidden = !hints[n];
   }
-  tabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { show(i, false); });
-    t.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); show((i + 1) % tabs.length, true); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); show((i - 1 + tabs.length) % tabs.length, true); }
-    });
+
+  function start() {
+    clearInterval(timer);
+    chest.classList.remove('is-opened');
+    chest.disabled = false;
+    folder.hidden = true; mini.hidden = true; done.hidden = true;
+    bar.style.width = '0%';
+    state.textContent = 'Actualizando el juego';
+    play.disabled = true;
+    setStep(0);
+  }
+
+  chest.addEventListener('click', function () {
+    chest.classList.add('is-opened');
+    chest.disabled = true;
+    folder.hidden = false;
+    setStep(1);
+    launcher.focus({ preventScroll: true });
   });
-  guide.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-dl-go]');
-    if (!b) return;
-    var i = parseInt(b.getAttribute('data-dl-go'), 10);
-    show(i, false);
-    var top = guide.getBoundingClientRect().top + window.pageYOffset - 90;
-    if (guide.getBoundingClientRect().top < 0) window.scrollTo({ top: top, behavior: 'smooth' });
-    tabs[i].focus({ preventScroll: true });
+
+  launcher.addEventListener('click', function () {
+    mini.hidden = false;
+    setStep(2);
+    var pct = 0;
+    clearInterval(timer);
+    timer = setInterval(function () {
+      pct = Math.min(100, pct + (reduce ? 100 : 4 + Math.random() * 6));
+      bar.style.width = pct + '%';
+      if (pct >= 100) {
+        clearInterval(timer);
+        state.textContent = 'Todo listo para jugar';
+        play.disabled = false;
+        setStep(3);
+        play.focus({ preventScroll: true });
+      }
+    }, 90);
   });
+
+  play.addEventListener('click', function () {
+    done.hidden = false;
+    setStep(4);
+    var link = done.querySelector('a');
+    if (link) link.focus({ preventScroll: true });
+  });
+
+  reset.addEventListener('click', start);
+  start();
 })();

@@ -1,5 +1,5 @@
-/* MU PANIC · Descargas. Todo bajo #dl-page. La pieza central es el launcher real;
-   los botones copian su JUGAR (placa de cobre con esquinas cortadas). */
+/* MU PANIC · Descargas v2. Todo bajo #dl-page.
+   Pieza memorable: la instalación jugable. El resto, sobrio: cobre sobre piedra oscura. */
 body.is-downloads{background:#0b1113}
 .is-downloads .inner-content{padding:0;background:#0b1113}
 .is-downloads .inner-content>.shell{width:100%;max-width:none;padding:0}
@@ -7,105 +7,177 @@ body.is-downloads{background:#0b1113}
 .is-downloads .footer-modern{margin-top:0}
 
 #dl-page{
-  --deep:#0b1113;--panel:#121c1e;--panel-2:#172426;
-  --copper:#d7a57d;--copper-hi:#ecc7a3;--copper-lo:#9c6c47;
-  --cream:#eee9df;--muted:#a7b0b0;--line:rgba(215,165,125,.22);
+  --deep:#0b1113;--stone:#121b1d;--stone-2:#18252a;
+  --copper:#d7a57d;--copper-hi:#f0cfa8;--copper-lo:#a8774f;--ruby:#b8323a;
+  --cream:#eee9df;--soft:#cfd6d3;--muted:#9fa9a9;--line:rgba(215,165,125,.24);
   --display:'Barlow Condensed',Impact,sans-serif;--body:Manrope,Arial,sans-serif;
   color:var(--cream);font:400 16px/1.65 var(--body);-webkit-font-smoothing:antialiased;color-scheme:dark
 }
 #dl-page *{box-sizing:border-box}
 #dl-page [hidden]{display:none!important}
-#dl-page section{padding:0 clamp(16px,5vw,72px)}
-#dl-page h1,#dl-page h2,#dl-page h3{font-family:var(--display);font-weight:600;letter-spacing:.01em;margin:0;color:var(--cream)}
-#dl-page h2{font-size:clamp(30px,3.4vw,44px);line-height:1.05}
+#dl-page h1,#dl-page h2,#dl-page h3{font-family:var(--display);font-weight:600;margin:0;color:var(--cream);letter-spacing:.005em}
+#dl-page h2{font-size:clamp(32px,3.6vw,48px);line-height:1.02}
 #dl-page a{color:var(--copper-hi)}
-#dl-page a:focus-visible,#dl-page button:focus-visible,#dl-page summary:focus-visible{outline:2px solid var(--copper-hi);outline-offset:3px}
-#dl-page code{font:600 .92em Consolas,monospace;color:var(--copper-hi);background:#ffffff0d;padding:1px 6px}
+#dl-page code{font:600 .9em Consolas,monospace;color:var(--copper-hi);background:#ffffff0f;padding:1px 6px;white-space:nowrap}
+#dl-page a:focus-visible,#dl-page button:focus-visible{outline:2px solid var(--copper-hi);outline-offset:3px}
+.dl-wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.dl-sub{color:var(--muted);margin:10px 0 0;max-width:62ch}
 
-/* Botón con la forma del JUGAR del launcher */
-#dl-page .dl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 26px;
-  font:600 19px/1 var(--display);letter-spacing:.06em;text-decoration:none;cursor:pointer;border:0;
-  color:var(--cream);background:#ffffff10;box-shadow:inset 0 0 0 1px var(--line);
-  clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);transition:background .2s,color .2s}
-#dl-page .dl-btn:hover{background:#ffffff1c}
-#dl-page .dl-btn.is-main{color:#1a1410;background:linear-gradient(180deg,var(--copper-hi),var(--copper) 55%,#b98560);box-shadow:none}
-#dl-page .dl-btn.is-main:hover{background:linear-gradient(180deg,#f6dcc0,var(--copper-hi) 60%,var(--copper))}
-#dl-page .dl-btn.is-disabled{cursor:default;color:var(--muted);background:#ffffff08}
+/* Botón: la placa de cobre del JUGAR del launcher */
+#dl-page .dl-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 30px;border:0;cursor:pointer;
+  font:600 20px/1 var(--display);letter-spacing:.07em;text-decoration:none;color:#1c140e;
+  background:linear-gradient(180deg,var(--copper-hi),var(--copper) 55%,var(--copper-lo));
+  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);transition:filter .2s,transform .2s}
+#dl-page .dl-btn:hover{filter:brightness(1.08)}
+#dl-page .dl-btn:active{transform:translateY(1px)}
+#dl-page .dl-btn[disabled]{cursor:default;color:#6f6a64;background:#2a3234;filter:none}
+#dl-page .dl-btn-big{min-height:64px;padding:16px 44px;font-size:26px}
+#dl-page .dl-link{background:none;border:0;color:var(--muted);font:600 15px var(--body);cursor:pointer;text-decoration:underline;margin-left:14px}
 
-/* Hero: texto a la izquierda, launcher real a la derecha */
-.dl-hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center;
-  padding-top:clamp(40px,6vw,88px)!important;padding-bottom:clamp(40px,6vw,80px)!important;
-  background:radial-gradient(ellipse 70% 80% at 85% 40%,#1c2b2e 0,transparent 70%),var(--deep)}
-.dl-hero h1{font-size:clamp(46px,5.6vw,84px);line-height:.95;max-width:11ch}
-.dl-lead{font-size:clamp(16px,1.3vw,19px);color:#cfd5d3;max-width:44ch;margin:22px 0 28px}
-.dl-meta{margin:18px 0 0;font-size:14px;color:var(--muted)}
-.dl-shot{margin:0;position:relative}
-.dl-shot img{display:block;width:100%;height:auto;border:1px solid var(--line);box-shadow:0 40px 90px #000c,0 0 0 1px #000}
-.dl-shot:before{content:"";position:absolute;inset:8% -4% -6% 10%;background:radial-gradient(closest-side,rgba(215,165,125,.18),transparent);z-index:-1}
+/* Hero: la puerta de Lorencia */
+.dl-hero{position:relative;min-height:min(86vh,760px);display:flex;align-items:center;overflow:hidden;isolation:isolate}
+.dl-hero-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 30%;z-index:-2}
+.dl-hero:after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(11,17,19,.94) 0,rgba(11,17,19,.78) 32%,rgba(11,17,19,.15) 62%,transparent 80%),linear-gradient(0deg,var(--deep) 0,transparent 30%)}
+.dl-hero-copy{width:100%;max-width:1180px;margin:0 auto;padding:clamp(48px,8vw,96px) clamp(16px,4vw,40px)}
+.dl-hero h1{font-size:clamp(50px,6.6vw,104px);line-height:.9;max-width:10.5ch;text-shadow:0 4px 30px #000a}
+.dl-lead{font-size:clamp(17px,1.4vw,20px);color:var(--soft);max-width:40ch;margin:22px 0 30px}
+.dl-meta{margin:16px 0 0;color:var(--muted);font-size:15px}
 
-/* Mirrors: tres placas con arte */
-.dl-mirrors{padding-top:clamp(48px,6vw,88px)!important;padding-bottom:clamp(40px,5vw,72px)!important;background:linear-gradient(180deg,#0e1618,var(--deep))}
-.dl-sub{color:var(--muted);margin:10px 0 0;max-width:60ch}
-.dl-mirror-list{list-style:none;margin:28px 0 18px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,22px)}
-.dl-mirror{position:relative;min-height:300px;display:flex;align-items:flex-end;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
-.dl-mirror img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 28%;transition:transform .6s ease}
-.dl-mirror:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,17,19,.05) 20%,rgba(11,17,19,.92) 78%)}
-.dl-mirror:hover img{transform:scale(1.04)}
-.dl-mirror.is-off img{filter:grayscale(.7) brightness(.7)}
-.dl-mirror-body{position:relative;z-index:1;padding:22px;width:100%}
-.dl-mirror h3{font-size:34px;line-height:1;margin-bottom:14px!important}
-.dl-mirror .dl-btn{width:100%}
+/* Mirrors */
+.dl-mirrors{padding:clamp(56px,7vw,96px) 0 clamp(48px,6vw,80px)}
+.dl-mirror-list{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.dl-mirror{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:92px;padding:20px 24px;text-decoration:none;
+  background:var(--stone);border:1px solid var(--line);border-left:3px solid var(--copper);transition:background .2s,border-color .2s}
+.dl-mirror:hover{background:var(--stone-2);border-color:var(--copper)}
+#dl-page .dl-mirror-name{font:600 30px/1 var(--display);color:var(--cream)}
+.dl-mirror-go{font:600 18px/1 var(--display);letter-spacing:.07em;color:var(--copper-hi)}
+.dl-mirror-go:after{content:"";display:inline-block;width:10px;height:10px;margin-left:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-1px) rotate(-45deg)}
+.dl-empty{margin-top:24px;color:var(--soft)}
 
-/* Tutorial por pasos */
-.dl-guide{padding-top:clamp(48px,6vw,88px)!important;padding-bottom:clamp(48px,6vw,88px)!important;background:var(--panel)}
-.dl-guide-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:26px 0 22px}
-.dl-guide-tabs button{display:flex;align-items:center;gap:12px;text-align:left;padding:14px 16px;border:0;cursor:pointer;
-  background:#ffffff08;color:var(--muted);font:600 15px/1.25 var(--body);border-bottom:2px solid transparent;transition:background .2s,color .2s}
-.dl-guide-tabs button span{flex:none;width:34px;height:34px;display:grid;place-items:center;font:600 22px/1 var(--display);color:var(--copper);border:1px solid var(--line)}
-.dl-guide-tabs button[aria-selected="true"]{background:var(--panel-2);color:var(--cream);border-bottom-color:var(--copper)}
-.dl-guide-tabs button[aria-selected="true"] span{background:var(--copper);color:#1a1410;border-color:var(--copper)}
-.dl-step{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(20px,3vw,48px);align-items:center}
-.dl-step img{display:block;width:100%;height:auto;border:1px solid var(--line);box-shadow:0 30px 70px #0009}
-.dl-step-count{margin:0 0 6px;font-size:14px;color:var(--copper)}
-.dl-step h3{font-size:clamp(28px,2.6vw,38px);line-height:1.05}
-.dl-step-text p{color:#cfd5d3;max-width:42ch}
-.dl-step-nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-@media(prefers-reduced-motion:no-preference){.dl-step:not([hidden]){animation:dlIn .35s ease}}
-@keyframes dlIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* Instalación jugable */
+.dl-install{padding:clamp(56px,7vw,100px) 0}
+.dl-sim{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(20px,3vw,40px);margin-top:30px;align-items:stretch}
+.dl-sim-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:paso}
+.dl-sim-steps li{counter-increment:paso;position:relative;padding:16px 18px 16px 64px;background:#ffffff06;border:1px solid transparent;color:var(--muted);transition:background .25s,border-color .25s,color .25s}
+.dl-sim-steps li:before{content:counter(paso);position:absolute;left:16px;top:14px;width:34px;height:34px;display:grid;place-items:center;
+  font:600 22px/1 var(--display);color:var(--copper);border:1px solid var(--line)}
+.dl-sim-steps b{display:block;font:600 22px/1.15 var(--display);color:var(--soft);margin-bottom:4px}
+.dl-sim-steps span{display:block;font-size:14.5px;line-height:1.55}
+.dl-sim-steps li.is-current{background:var(--stone-2);border-color:var(--line);color:var(--soft)}
+.dl-sim-steps li.is-current b{color:var(--cream)}
+.dl-sim-steps li.is-current:before{background:var(--copper);color:#1c140e;border-color:var(--copper)}
+.dl-sim-steps li.is-done:before{content:"";background:#2b3a32;border-color:#6fbf8f}
+.dl-sim-steps li.is-done:after{content:"";position:absolute;left:28px;top:22px;width:7px;height:13px;border-right:2px solid #8fe0ad;border-bottom:2px solid #8fe0ad;transform:rotate(45deg)}
 
-/* Requisitos y avisos de Windows */
-.dl-notes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);padding-top:clamp(48px,6vw,80px)!important;padding-bottom:clamp(32px,4vw,56px)!important}
-.dl-notes h2{font-size:clamp(26px,2.4vw,34px);margin-bottom:14px!important}
-.dl-notes dl{margin:0}
-.dl-notes dl div{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line)}
-.dl-notes dt{color:var(--copper);font-weight:700}
-.dl-notes dd{margin:0;color:#cfd5d3}
-.dl-notes p{color:#cfd5d3;margin:0 0 14px;max-width:52ch}
-.dl-notes b{color:var(--cream)}
+.dl-stage{position:relative;min-height:480px;background:#0d1416 center/cover no-repeat;border:1px solid var(--line);overflow:hidden;box-shadow:inset 0 0 120px #000c}
+.dl-stage-hint{position:absolute;left:50%;top:18px;transform:translateX(-50%);margin:0;padding:8px 16px;background:#0b1113d9;border:1px solid var(--line);
+  font-size:14.5px;color:var(--copper-hi);white-space:nowrap;z-index:5}
+.dl-chest{position:absolute;left:8%;top:50%;transform:translateY(-44%);width:clamp(150px,30%,230px);padding:0;border:0;background:none;cursor:pointer;color:var(--soft);text-align:center}
+.dl-chest img{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 24px #000c)}
+.dl-chest .is-open{display:none}
+.dl-chest.is-opened .is-closed{display:none}
+.dl-chest.is-opened .is-open{display:block}
+.dl-chest span{display:inline-block;margin-top:8px;font:600 13px Consolas,monospace;background:#0b1113cc;padding:4px 8px}
+.dl-chest:not(.is-opened):not([disabled]) img{animation:dlNudge 2.4s ease-in-out infinite}
+.dl-chest[disabled]{cursor:default}
+@keyframes dlNudge{0%,70%,100%{transform:none}78%{transform:rotate(-3deg)}86%{transform:rotate(3deg)}}
 
-/* Problemas frecuentes */
-.dl-faq{padding-bottom:clamp(56px,7vw,96px)!important;max-width:980px}
-.dl-faq h2{font-size:clamp(26px,2.4vw,34px);margin-bottom:12px!important}
-.dl-faq details{border-top:1px solid var(--line)}
-.dl-faq details:last-of-type{border-bottom:1px solid var(--line)}
-.dl-faq summary{cursor:pointer;list-style:none;padding:16px 36px 16px 0;position:relative;font-weight:600;color:var(--cream)}
-.dl-faq summary::-webkit-details-marker{display:none}
-.dl-faq summary:after{content:"+";position:absolute;right:6px;top:10px;font:400 26px/1 var(--display);color:var(--copper)}
-.dl-faq details[open] summary:after{content:"−"}
-.dl-faq details p{margin:0 0 18px;color:#cfd5d3;max-width:70ch}
-.dl-help{margin-top:22px;color:var(--muted)}
+.dl-folder{position:absolute;right:7%;top:16%;width:min(46%,320px);padding:16px 18px;background:#0e1618f0;border:1px solid var(--line);box-shadow:0 24px 50px #000b;animation:dlPop .35s ease}
+.dl-folder-path{margin:0 0 8px;font:600 15px Consolas,monospace;color:var(--copper-hi)}
+.dl-folder ul{list-style:none;margin:0;padding:0}
+.dl-folder li{padding:7px 0;border-top:1px solid #ffffff12;font-size:14.5px;color:var(--muted)}
+.dl-launcher-file{display:flex;align-items:center;gap:10px;width:100%;padding:6px 8px;margin:-2px -8px;border:1px solid var(--copper);background:#d7a57d1f;color:var(--cream);font:700 15px var(--body);cursor:pointer;text-align:left}
+.dl-launcher-file img{width:28px;height:28px}
+[data-step="1"] .dl-launcher-file{animation:dlGlow 1.4s ease-in-out infinite}
+@keyframes dlGlow{50%{background:#d7a57d40}}
+
+.dl-mini{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);width:min(78%,440px);padding:18px 20px 20px;background:#0b1113f5;border:1px solid var(--copper);box-shadow:0 30px 70px #000d;animation:dlPop .35s ease}
+.dl-mini-top{display:flex;align-items:center;gap:10px;font:600 18px var(--display);letter-spacing:.04em;color:var(--copper-hi);margin-bottom:12px}
+.dl-mini-top img{width:26px;height:26px}
+.dl-mini-state{margin:0 0 8px;font-size:14px;color:var(--soft)}
+.dl-mini-bar{height:8px;background:#ffffff14;margin-bottom:16px}
+.dl-mini-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--copper-lo),var(--copper-hi));transition:width .09s linear}
+.dl-mini .dl-btn{width:100%}
+
+.dl-done{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;
+  background:radial-gradient(ellipse at center,#1a1210,#0b1113);z-index:6;animation:dlPop .4s ease}
+.dl-done-title{font:600 clamp(34px,4vw,52px)/1 var(--display);color:var(--copper-hi);margin:0 0 12px}
+.dl-done p{max-width:44ch;color:var(--soft);margin:0 0 22px}
+@keyframes dlPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1}}
+.dl-mini{animation-name:dlPopC}
+@keyframes dlPopC{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* Referidos */
+.dl-ref{padding:clamp(56px,7vw,100px) 0}
+.dl-ref-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(24px,4vw,56px);align-items:center}
+.dl-ref picture img{display:block;width:100%;height:auto;border:1px solid var(--line)}
+.dl-ref-deal{margin:22px 0 26px}
+.dl-ref-deal div{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.dl-ref-deal dt{font:600 22px/1.2 var(--display);color:var(--copper)}
+.dl-ref-deal dd{margin:0;color:var(--soft)}
+.dl-ref-deal strong{color:var(--cream)}
+.dl-fine{margin:14px 0 0;font-size:14px;color:var(--muted)}
+
+/* Ayuda por síntoma */
+.dl-help{padding:clamp(56px,7vw,96px) 0}
+.dl-help-grid{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.dl-help-card{padding:22px 20px 20px;background:var(--deep);border:1px solid var(--line);border-top:3px solid var(--ruby)}
+.dl-help-card img{width:72px;height:72px;display:block;margin-bottom:14px}
+#dl-page .dl-help-card h3{font-size:24px;line-height:1.1;margin-bottom:12px}
+.dl-help-card ol{margin:0;padding-left:20px;color:var(--soft);font-size:14.5px}
+.dl-help-card li+li{margin-top:6px}
+.dl-help-more{margin:22px 0 0;color:var(--muted)}
+
+/* Cierre */
+.dl-end{position:relative;min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;isolation:isolate;padding:80px 16px}
+.dl-end-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.dl-end:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 70% at center,rgba(11,17,19,.86),rgba(11,17,19,.4) 70%),linear-gradient(180deg,var(--deep) 0,transparent 22%)}
+.dl-end h2{font-size:clamp(40px,5vw,72px)!important}
+.dl-reasons{list-style:none;margin:22px 0 32px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.dl-reasons a{display:inline-block;padding:9px 16px;border:1px solid var(--line);background:#0b1113b3;color:var(--soft);text-decoration:none;font-weight:600;font-size:15px}
+.dl-reasons a:hover{border-color:var(--copper);color:var(--cream)}
 
 @media(max-width:980px){
-  .dl-hero{grid-template-columns:1fr}
   .dl-mirror-list{grid-template-columns:1fr}
-  .dl-mirror{min-height:200px}
-  .dl-guide-tabs{grid-template-columns:1fr 1fr}
-  .dl-step{grid-template-columns:1fr}
-  .dl-notes{grid-template-columns:1fr}
+  .dl-sim{grid-template-columns:1fr}
+  .dl-sim-steps{order:2}
+  .dl-ref-grid{grid-template-columns:1fr}
+  .dl-help-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:520px){
-  .dl-guide-tabs button{font-size:13px;padding:10px}
-  .dl-guide-tabs button span{width:28px;height:28px;font-size:18px}
-  .dl-notes dl div{grid-template-columns:1fr;gap:2px}
-  #dl-page .dl-btn{width:100%}
+@media(max-width:560px){
+  .dl-hero{min-height:620px;align-items:flex-end}
+  .dl-hero-art{object-position:76% 50%}
+  .dl-hero:after{background:linear-gradient(0deg,rgba(11,17,19,.97) 0,rgba(11,17,19,.7) 50%,rgba(11,17,19,.2) 100%)}
+  #dl-page .dl-btn-big{width:100%}
+  .dl-stage{min-height:520px}
+  .dl-chest{left:50%;top:22%;transform:translateX(-50%);width:150px}
+  .dl-folder{right:auto;left:5%;top:auto;bottom:6%;width:90%}
+  .dl-mini{bottom:6%;width:90%}
+  .dl-stage-hint{white-space:normal;width:90%;text-align:center}
+  .dl-help-grid{grid-template-columns:1fr}
 }
+@media(prefers-reduced-motion:reduce){#dl-page *{animation:none!important;transition:none!important}}
+/* Con el launcher abierto, la carpeta y el cofre pasan a segundo plano */
+[data-step="2"] .dl-folder,[data-step="3"] .dl-folder{display:none}
+[data-step="2"] .dl-chest,[data-step="3"] .dl-chest{opacity:.35}
+[data-step="2"] .dl-chest span,[data-step="3"] .dl-chest span{visibility:hidden}
+
+/* Fondo continuo: una sola superficie de piedra con brillos de cobre que van bajando,
+   sin cortes de color entre secciones. Las secciones se separan con un filete. */
+#dl-page{background:
+  radial-gradient(60% 900px at 85% 1100px,rgba(215,165,125,.07),transparent 70%),
+  radial-gradient(55% 900px at 10% 2000px,rgba(184,50,58,.06),transparent 70%),
+  radial-gradient(60% 900px at 80% 2900px,rgba(215,165,125,.06),transparent 70%),
+  linear-gradient(180deg,#0b1113 0,#0b1113 700px,#0f181a 45%,#0b1113 100%)}
+.dl-install,.dl-ref,.dl-help{position:relative}
+.dl-install:before,.dl-ref:before,.dl-help:before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:min(1100px,calc(100% - 32px));height:9px;
+  background:linear-gradient(90deg,transparent,rgba(215,165,125,.38) 30%,rgba(215,165,125,.38) 70%,transparent) center/100% 1px no-repeat,
+  linear-gradient(45deg,transparent 40%,#d7a57d 40% 60%,transparent 60%) center/9px 9px no-repeat}
+/* Las dos imágenes grandes se funden con el fondo en vez de cortar en línea recta */
+.dl-hero-art{-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}
+.dl-end-art{-webkit-mask-image:linear-gradient(180deg,transparent,#000 35%);mask-image:linear-gradient(180deg,transparent,#000 35%)}
+.dl-hero:after{background:linear-gradient(90deg,rgba(11,17,19,.94) 0,rgba(11,17,19,.78) 32%,rgba(11,17,19,.15) 62%,transparent 80%)}
+.dl-end:after{background:radial-gradient(ellipse 60% 70% at center,rgba(11,17,19,.86),rgba(11,17,19,.4) 70%)}
+@media(max-width:560px){.dl-hero:after{background:linear-gradient(0deg,rgba(11,17,19,.97) 0,rgba(11,17,19,.7) 50%,rgba(11,17,19,.2) 100%)}}
