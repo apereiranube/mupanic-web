@@ -42,18 +42,30 @@ $homeJoin = function($kind) use ($homeArt) {
                     <use href="#ph-sword-aura-lower" class="ph-sword-aura ph-sword-aura-lower"/>
                 </g>
                 <g class="ph-sword-sparks">
-                    <circle cx="918" cy="485" r="2.5" style="--dx:-19px;--dy:-27px;--delay:-.3s"/>
-                    <circle cx="884" cy="510" r="2" style="--dx:-13px;--dy:-33px;--delay:-1.8s"/>
-                    <circle cx="843" cy="537" r="3" style="--dx:-24px;--dy:-28px;--delay:-.9s"/>
-                    <circle cx="799" cy="562" r="1.8" style="--dx:-20px;--dy:-36px;--delay:-2.7s"/>
-                    <circle cx="747" cy="600" r="2.4" style="--dx:-27px;--dy:-24px;--delay:-1.4s"/>
-                    <circle cx="697" cy="632" r="2.8" style="--dx:-17px;--dy:-32px;--delay:-3.2s"/>
-                    <circle cx="647" cy="666" r="2" style="--dx:-25px;--dy:-30px;--delay:-.6s"/>
-                    <circle cx="600" cy="706" r="2.5" style="--dx:-22px;--dy:-29px;--delay:-2.3s"/>
-                    <circle cx="891" cy="555" r="2.2" style="--dx:15px;--dy:-22px;--delay:-2.1s"/>
-                    <circle cx="815" cy="602" r="3" style="--dx:18px;--dy:-25px;--delay:-.1s"/>
-                    <circle cx="738" cy="656" r="2" style="--dx:14px;--dy:-28px;--delay:-3.5s"/>
-                    <circle cx="659" cy="705" r="2.6" style="--dx:17px;--dy:-22px;--delay:-1.1s"/>
+                    <circle cx="916.0" cy="475.0" r="3.20" style="--dx:-34px;--dy:-34px;--delay:-0.000s"/>
+                    <circle cx="940.0" cy="505.0" r="3.85" style="--dx:22px;--dy:-41px;--delay:-0.137s"/>
+                    <circle cx="885.6" cy="495.4" r="4.50" style="--dx:-50px;--dy:-48px;--delay:-0.274s"/>
+                    <circle cx="909.6" cy="525.4" r="5.15" style="--dx:38px;--dy:-55px;--delay:-0.411s"/>
+                    <circle cx="855.3" cy="515.7" r="3.20" style="--dx:-34px;--dy:-62px;--delay:-0.548s"/>
+                    <circle cx="879.3" cy="545.7" r="3.85" style="--dx:22px;--dy:-34px;--delay:-0.685s"/>
+                    <circle cx="824.9" cy="536.1" r="4.50" style="--dx:-50px;--dy:-41px;--delay:-0.822s"/>
+                    <circle cx="848.9" cy="566.1" r="5.15" style="--dx:38px;--dy:-48px;--delay:-0.959s"/>
+                    <circle cx="794.5" cy="556.5" r="3.20" style="--dx:-34px;--dy:-55px;--delay:-1.096s"/>
+                    <circle cx="818.5" cy="586.5" r="3.85" style="--dx:22px;--dy:-62px;--delay:-1.233s"/>
+                    <circle cx="764.2" cy="576.8" r="4.50" style="--dx:-50px;--dy:-34px;--delay:-1.370s"/>
+                    <circle cx="788.2" cy="606.8" r="5.15" style="--dx:38px;--dy:-41px;--delay:-1.507s"/>
+                    <circle cx="733.8" cy="597.2" r="3.20" style="--dx:-34px;--dy:-48px;--delay:-1.644s"/>
+                    <circle cx="757.8" cy="627.2" r="3.85" style="--dx:22px;--dy:-55px;--delay:-1.781s"/>
+                    <circle cx="703.5" cy="617.5" r="4.50" style="--dx:-50px;--dy:-62px;--delay:-1.918s"/>
+                    <circle cx="727.5" cy="647.5" r="5.15" style="--dx:38px;--dy:-34px;--delay:-2.055s"/>
+                    <circle cx="673.1" cy="637.9" r="3.20" style="--dx:-34px;--dy:-41px;--delay:-2.192s"/>
+                    <circle cx="697.1" cy="667.9" r="3.85" style="--dx:22px;--dy:-48px;--delay:-2.329s"/>
+                    <circle cx="642.7" cy="658.3" r="4.50" style="--dx:-50px;--dy:-55px;--delay:-2.466s"/>
+                    <circle cx="666.7" cy="688.3" r="5.15" style="--dx:38px;--dy:-62px;--delay:-2.603s"/>
+                    <circle cx="612.4" cy="678.6" r="3.20" style="--dx:-34px;--dy:-34px;--delay:-2.740s"/>
+                    <circle cx="636.4" cy="708.6" r="3.85" style="--dx:22px;--dy:-41px;--delay:-2.877s"/>
+                    <circle cx="582.0" cy="699.0" r="4.50" style="--dx:-50px;--dy:-48px;--delay:-3.014s"/>
+                    <circle cx="606.0" cy="729.0" r="5.15" style="--dx:38px;--dy:-55px;--delay:-3.151s"/>
                 </g>
             </svg>
         </div>
