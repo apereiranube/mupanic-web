@@ -891,3 +891,25 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 @media(prefers-reduced-motion:reduce){.panic-home .ph-button-artwork{transition:none}.panic-home .ph-button-artwork:hover{transform:none}}
 /* Ventana sin foco: todas las animaciones CSS quedan quietas (ver home-launch.js). */
 html.ph-idle .is-home-launch *,html.ph-idle .is-home-launch *::before,html.ph-idle .is-home-launch *::after{animation-play-state:paused!important}
+/* Aviso corrido sobre el video del inicio (inc/aviso-home.json) */
+.ph-hero .ph-aviso{position:absolute;left:0;right:0;top:86px;z-index:6;display:flex;align-items:stretch;overflow:hidden;text-decoration:none;
+ background:linear-gradient(90deg,rgba(40,8,10,.82),rgba(11,17,19,.78) 22%,rgba(11,17,19,.78) 80%,rgba(40,8,10,.6));
+ border-top:2px solid rgba(215,165,125,.7);border-bottom:2px solid rgba(215,165,125,.7);box-shadow:0 0 28px rgba(184,50,58,.35),inset 0 0 40px rgba(184,50,58,.18);
+ backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.ph-aviso-badge{position:relative;z-index:2;flex:none;display:flex;align-items:center;gap:12px;padding:0 30px 0 clamp(16px,3vw,40px);
+ font:700 22px/1 'Barlow Condensed',Impact,sans-serif;letter-spacing:.14em;color:#fff;background:#b8323a;
+ clip-path:polygon(0 0,100% 0,calc(100% - 18px) 100%,0 100%);box-shadow:0 0 24px #b8323a}
+.ph-aviso-badge i{width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 #fff9;animation:phAvisoPulse 1.4s ease-out infinite}
+.ph-aviso-track{display:flex;width:max-content;animation:phAviso 34s linear infinite}
+.ph-aviso:hover .ph-aviso-track,.ph-aviso:focus-visible .ph-aviso-track{animation-play-state:paused}
+.ph-aviso-run{display:flex;flex:none}
+.ph-aviso-item{display:inline-flex;align-items:center;padding:20px 0;font:700 30px/1 'Barlow Condensed',Impact,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#f6dcbc;white-space:nowrap;text-shadow:0 0 14px rgba(215,165,125,.45)}
+.ph-aviso-item:after{content:"";width:11px;height:11px;margin:0 42px;background:#e0444c;transform:rotate(45deg);box-shadow:0 0 12px #e0444c}
+.ph-aviso:focus-visible{outline:2px solid #f0cfa8;outline-offset:-4px}
+.ph-hero:has(.ph-aviso) .ph-scene-content{padding-top:200px}
+@keyframes phAviso{to{transform:translateX(-50%)}}
+@keyframes phAvisoPulse{70%{box-shadow:0 0 0 10px #fff0}100%{box-shadow:0 0 0 0 #fff0}}
+@media(max-width:1100px){.ph-hero .ph-aviso{top:76px}.ph-aviso-item{font-size:26px;padding:17px 0}}
+@media(max-width:760px){.ph-hero .ph-aviso{top:70px}.ph-hero:has(.ph-aviso) .ph-scene-content{padding-top:0}.ph-hero:has(.ph-aviso)>.ph-art{margin-top:110px}
+ .ph-aviso-item{font-size:21px;padding:14px 0}.ph-aviso-item:after{margin:0 26px;width:9px;height:9px}.ph-aviso-badge{font-size:16px;padding:0 20px 0 14px;gap:8px}}
+@media(prefers-reduced-motion:reduce){.ph-aviso-track,.ph-aviso-badge i{animation:none}}
