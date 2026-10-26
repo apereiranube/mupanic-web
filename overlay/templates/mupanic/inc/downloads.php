@@ -13,8 +13,8 @@ $dlReady = 0;
 foreach($dlMirrors as $m) { if(!empty($m['url']) && preg_match('#^https://#i', $m['url'])) $dlReady++; }
 $dlMeta = array_filter([$dl['version'] ?? '', $dl['tamano'] ?? '', !empty($dl['fecha']) ? 'actualizado el '.$dl['fecha'] : '']);
 $dlSteps = [
-    ['paso-1-descarga-v1.webp', 'Descargá el cliente', 'Elegí cualquiera de los tres mirrors: todos tienen el mismo archivo, <code>MU_PANIC_Cliente.zip</code>. Si uno anda lento, probá con otro.', 'Archivo MU_PANIC_Cliente.zip descargado'],
-    ['paso-2-descomprimir-v1.webp', 'Descomprimilo en una carpeta tuya', 'Clic derecho sobre el archivo y <em>Extraer todo</em>. Elegí una carpeta como <code>C:\MU PANIC</code> o el Escritorio. Evitá <em>Archivos de programa</em>: ahí Windows bloquea las actualizaciones.', 'Menú Extraer todo y la carpeta C:\MU PANIC con MU PANIC Launcher.exe resaltado'],
+    ['paso-1-descarga-v2.webp', 'Descargá el cliente', 'Elegí cualquiera de los tres mirrors: todos tienen el mismo archivo, <code>MU-PANIC-Cliente.zip</code>. Si uno anda lento, probá con otro.', 'Archivo MU-PANIC-Cliente.zip descargado'],
+    ['paso-2-descomprimir-v2.webp', 'Descomprimilo en una carpeta tuya', 'Clic derecho sobre el archivo y <em>Extraer todo</em>. Elegí una carpeta como <code>C:\MU PANIC</code> o el Escritorio. Evitá <em>Archivos de programa</em>: ahí Windows bloquea las actualizaciones.', 'Menú Extraer todo y la carpeta C:\MU PANIC con MU PANIC Launcher.exe resaltado'],
     ['paso-3-launcher-v1.webp', 'Abrí MU PANIC Launcher', 'Siempre desde el launcher, nunca desde Main.exe. Revisa cada archivo y baja lo que falte o haya cambiado. La primera vez puede pedirte permiso de administrador: es el control anti-trampas, aceptalo.', 'El launcher actualizando el juego, con la barra de progreso al 46%'],
     ['paso-4-jugar-v1.webp', 'Apretá Jugar', 'Cuando diga <em>Todo listo para jugar</em>, apretá Jugar y entrá con tu cuenta. Las próximas veces el launcher baja solo las novedades.', 'El launcher con el mensaje Todo listo para jugar y el botón Jugar'],
 ];
