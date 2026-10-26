@@ -138,3 +138,21 @@ body.is-socios .module-surface{padding:0;border:0;background:transparent;box-sha
   .soc-steps .soc-num{width:42px;height:42px;font-size:24px;margin:6px 0 0 4px;grid-row:span 2}
   .soc-steps h3{font-size:26px;margin-bottom:8px}
 }
+
+/* Portada con arte propio: personaje a la derecha, texto a la izquierda */
+.soc-hero{align-items:stretch;text-align:left}
+.soc-hero-copy{width:min(1160px,100%);max-width:none;margin:0 auto}
+.soc-hero-copy>*{max-width:560px}
+.soc-hero-art img{object-position:72% 40%}
+.soc-hero-art:after{background:linear-gradient(90deg,rgba(11,12,14,.9) 0%,rgba(11,12,14,.7) 32%,rgba(11,12,14,.1) 58%,rgba(11,12,14,0) 75%),linear-gradient(180deg,rgba(11,12,14,.7),rgba(11,12,14,0) 25%,rgba(11,12,14,0) 62%,#0b0c0e 98%)}
+.soc-lead{margin-left:0!important}
+.soc-actions{justify-content:flex-start}
+@media(max-width:900px){
+  .soc-hero{padding-top:110px}
+  .soc-hero-art{height:520px;bottom:auto}
+  .soc-hero-art img{object-position:62% 30%}
+  .soc-hero-art:after{background:linear-gradient(180deg,rgba(11,12,14,.35),rgba(11,12,14,.1) 35%,rgba(11,12,14,.85) 78%,#0b0c0e 100%)}
+  .soc-hero-copy{padding-top:300px}
+  .soc-hero-copy>*{max-width:none}
+}
+@media(max-width:560px){.soc-hero-art{height:460px}.soc-hero-copy{padding-top:250px}}
