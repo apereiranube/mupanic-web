@@ -25,7 +25,7 @@ $dlHelp = [
 <div id="dl-page">
 
     <section class="dl-hero" aria-labelledby="dl-title">
-        <img class="dl-hero-art" src="<?php echo $dlImg; ?>descarga-hero-v1.webp" alt="" fetchpriority="high">
+        <img class="dl-hero-art" src="<?php echo $dlImg; ?>descarga-hero-v1.webp" srcset="<?php echo $dlImg; ?>descarga-hero-v1-1000.webp 1000w, <?php echo $dlImg; ?>descarga-hero-v1.webp 1920w" sizes="100vw" alt="" fetchpriority="high">
         <div class="dl-hero-copy">
             <h1 id="dl-title">Las puertas de Lorencia están abiertas.</h1>
             <p class="dl-lead">MU Online Season 6, hecho en Argentina. Bajá el cliente, abrí el launcher y en minutos estás adentro.</p>
