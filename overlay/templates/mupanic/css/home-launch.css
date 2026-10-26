@@ -581,28 +581,13 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 }
 @media(max-width:360px){.ph-client-tour .ph-hub-panel,.ph-client-tour .ph-hub-panel[hidden]{grid-template-rows:245px auto}.ph-hub-visual{height:245px}.ph-hub-capture{max-height:220px}.ph-master-preview .ph-master-capture{width:min(100%,270px)}}
 
-/* V9: real RF/MG combat, same integrated art surface and static fallback. */
-.ph-combat-art{position:relative}
-.ph-combat-art img{filter:none}
-.ph-combat-video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .35s;pointer-events:none}
-.ph-combat-art.is-video-ready .ph-combat-video{opacity:1}
+/* V18: one static painting; no hero video download or decoding. */
+.ph-combat-art{position:relative;background:none}
+.ph-combat-art img{width:100%;margin:0;filter:none;mask-image:none;opacity:1}
 .ph-hero:has(.ph-combat-art) .ph-battle-sky{display:none}
-.ph-combat-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,5,8,.70),rgba(4,5,8,.36) 29%,transparent 56%);pointer-events:none}
+.ph-combat-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#070c1440,transparent 48%);pointer-events:none}
+@media(min-width:761px){.ph-hero:has(.ph-combat-art) .ph-copy{width:40%;max-width:570px}}
 @media(max-width:760px){.ph-combat-art:after{background:none}}
-@media(prefers-reduced-motion:reduce){.ph-combat-video{display:none;transition:none}}
-/* Reserve the left copy area without cropping either combatant. */
-@media(min-width:761px){
- .ph-combat-art{background:#06090d}
- .ph-combat-art img{width:82%;margin-left:18%;mask-image:linear-gradient(90deg,transparent,#000 13%)}
- .ph-combat-video{left:18%;width:82%;mask-image:linear-gradient(90deg,transparent,#000 13%)}
- .ph-hero:has(.ph-combat-art) .ph-copy{width:40%;max-width:570px}
-}
-/* V10: painted atmosphere replaces the empty black hero extension. */
-@media(min-width:761px){
- .ph-combat-art{background:#0b141e url('../img/home/hero-world-v10.webp') center/cover no-repeat}
- .ph-combat-art img,.ph-combat-video{mask-image:linear-gradient(90deg,transparent,#000 16%)}
- .ph-combat-art:after{background:linear-gradient(90deg,#070c14a8,transparent 47%)}
-}
 /* A continuous red energy track gives the Furia explanation a shared surface. */
 .ph-furia-bottom{position:relative;isolation:isolate;padding-bottom:34px}
 .ph-furia-bottom:before{content:'';position:absolute;inset:-24px -50px -10px;z-index:-1;background:radial-gradient(ellipse at 50% 60%,#16080de8 15%,#16080d9c 52%,transparent 76%);pointer-events:none}
