@@ -181,3 +181,9 @@ body.is-downloads{background:#0b1113}
 .dl-hero:after{background:linear-gradient(90deg,rgba(11,17,19,.94) 0,rgba(11,17,19,.78) 32%,rgba(11,17,19,.15) 62%,transparent 80%)}
 .dl-end:after{background:radial-gradient(ellipse 60% 70% at center,rgba(11,17,19,.86),rgba(11,17,19,.4) 70%)}
 @media(max-width:560px){.dl-hero:after{background:linear-gradient(0deg,rgba(11,17,19,.97) 0,rgba(11,17,19,.7) 50%,rgba(11,17,19,.2) 100%)}}
+/* El borde del escenario es translúcido: la imagen no tiene que asomar por debajo */
+.dl-stage{background-clip:padding-box;border-color:#3a2e26}
+/* Paso 4: el panel final tapa todo el escenario (sin bordes sueltos) */
+.dl-done{inset:-2px;background:radial-gradient(ellipse at center,#24160f,#0b1113 75%);animation-name:dlFade}
+@keyframes dlFade{from{opacity:0}to{opacity:1}}
+[data-step="4"] .dl-chest,[data-step="4"] .dl-folder,[data-step="4"] .dl-mini,[data-step="4"] .dl-stage-hint{visibility:hidden}
