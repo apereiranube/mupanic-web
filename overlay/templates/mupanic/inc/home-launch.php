@@ -39,6 +39,7 @@ $homeJoin = function($kind) use ($homeArt) {
                 echo '</span>';
             }; ?>
         <a class="ph-aviso" href="<?php echo $homeEscape(__BASE_URL__.ltrim((string)($homeAviso['link'] ?? 'downloads/'), '/')); ?>">
+            <span class="ph-aviso-badge"><i aria-hidden="true"></i>AHORA</span>
             <span class="ph-aviso-track"><?php $homeAvisoRun(false); $homeAvisoRun(true); ?></span>
         </a>
         <?php } ?>
