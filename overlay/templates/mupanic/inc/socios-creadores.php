@@ -30,7 +30,7 @@ function crE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 ?>
 <div class="soc-page soc-cre">
   <section class="soc-cre-hero">
-    <div class="soc-cre-art" aria-hidden="true"><img src="<?php echo crE($crImg.'socios/socios-hero.webp'); ?>" alt="" width="1672" height="941" decoding="async"></div>
+    <div class="soc-cre-art" aria-hidden="true"><img src="<?php echo crE($crImg.'socios/creadores-escenario.webp'); ?>" alt="" width="1672" height="941" decoding="async"></div>
     <div class="soc-wrap">
       <p class="soc-eyebrow"><a href="<?php echo crE(__BASE_URL__.'socios/'); ?>">Socios</a> · Creadores</p>
       <h1>Hacé contenido de MU PANIC.<br><em>Cobrá por tu comunidad.</em></h1>

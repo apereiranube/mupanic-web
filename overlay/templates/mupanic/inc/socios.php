@@ -13,8 +13,7 @@ $socLink = __BASE_URL__.($socLogged ? 'usercp/referidos/' : 'register/');
 $socLinkLabel = $socLogged ? 'Sacá tu link' : 'Creá tu cuenta y sacá tu link';
 $socCommunity = require __DIR__.'/community-config.php';
 $socDiscord = (string)($socCommunity['invite'] ?? 'https://discord.gg/fP4Mxcsee');
-$socHero = $socImg.'socios/socios-hero.webp';
-if(!is_file(__DIR__.'/../img/socios/socios-hero.webp')) $socHero = $socImg.'server/v3/srv-08-tesoro-5b82e4129d10.webp';
+$socHero = $socImg.'socios/socios-red.webp';
 $socVipPrecio = 25000; // Eryns por 30 días de VIP (CustomBuyVip.txt)
 function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 require_once __DIR__.'/referidos-cola.php';
@@ -25,7 +24,7 @@ try { if(class_exists('Connection')) $socRank=panicSociosRanking(); } catch(Thro
 
   <!-- 1 · Portada -->
   <section class="soc-hero">
-    <div class="soc-hero-art" aria-hidden="true"><img src="<?php echo socE($socHero); ?>" alt="" width="1920" height="880" decoding="async" fetchpriority="high"></div>
+    <div class="soc-hero-art" aria-hidden="true"><img src="<?php echo socE($socHero); ?>" alt="" width="1672" height="941" decoding="async" fetchpriority="high"></div>
     <div class="soc-hero-copy">
       <p class="soc-eyebrow">Programa de socios · MU PANIC</p>
       <h1>Jugá. Invitá.<br><em>Ganá.</em></h1>

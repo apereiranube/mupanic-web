@@ -34,7 +34,7 @@ body.is-socios .module-surface{padding:0;border:0;background:transparent;box-sha
 .soc-hero-art{position:absolute;z-index:-1;top:86px;bottom:0;right:0;width:min(78%,1500px);
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 94%,transparent 100%),linear-gradient(0deg,transparent 0,#000 22%,#000 92%,transparent 100%);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(90deg,transparent 0,#000 30%,#000 94%,transparent 100%),linear-gradient(0deg,transparent 0,#000 22%,#000 92%,transparent 100%);mask-composite:intersect}
-.soc-hero-art img{width:100%;height:100%;object-fit:cover;object-position:46% 12%;animation:soc-kb 26s ease-in-out infinite alternate;transform-origin:60% 30%}
+.soc-hero-art img{width:100%;height:100%;object-fit:cover;object-position:72% 45%;animation:soc-kb 26s ease-in-out infinite alternate;transform-origin:60% 30%}
 .soc-hero-copy{position:relative}
 .soc-hero-copy>*{max-width:520px}
 .soc-hero h1{max-width:none}
@@ -140,7 +140,7 @@ body.is-socios .module-surface{padding:0;border:0;background:transparent;box-sha
   .soc-hero{min-height:0;padding-top:0;justify-content:flex-start}
   .soc-hero-art{position:relative;width:100%;height:min(560px,120vw);
     -webkit-mask-image:linear-gradient(0deg,transparent 0,#000 30%);mask-image:linear-gradient(0deg,transparent 0,#000 30%)}
-  .soc-hero-art img{object-position:62% 14%}
+  .soc-hero-art img{object-position:68% 50%}
   .soc-hero-copy{margin-top:-120px}
   .soc-hero-copy>*{max-width:none}
 }
@@ -163,10 +163,10 @@ body.is-socios .module-surface{padding:0;border:0;background:transparent;box-sha
 
 /* Creadores: postulación */
 .soc-cre-hero{position:relative;isolation:isolate;max-width:1920px;margin-inline:auto;padding:150px 0 40px;overflow:hidden}
-.soc-cre-art{position:absolute;z-index:-1;top:86px;right:0;bottom:0;width:min(70%,1300px);opacity:.55;
+.soc-cre-art{position:absolute;z-index:-1;top:86px;right:0;bottom:0;width:min(74%,1400px);opacity:.9;
   -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 45%),linear-gradient(0deg,transparent 0,#000 40%);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(90deg,transparent 0,#000 45%),linear-gradient(0deg,transparent 0,#000 40%);mask-composite:intersect}
-.soc-cre-art img{width:100%;height:100%;object-fit:cover;object-position:46% 12%}
+.soc-cre-art img{width:100%;height:100%;object-fit:cover;object-position:70% 35%}
 .soc-cre-hero h1{font-size:clamp(44px,5.6vw,86px);max-width:900px}
 .soc-cre-hero .soc-lead{max-width:600px}
 .soc-cre-hero .soc-eyebrow a{color:inherit;text-decoration:none;border-bottom:1px solid #c6a57866}
