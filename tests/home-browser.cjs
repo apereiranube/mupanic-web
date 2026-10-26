@@ -152,14 +152,15 @@ async function routes(page,body=html){
    assert.ok(copy.x<(width-Math.min(1320,width-112))/2,'Hero copy must start left of its previous position');
   }
   for(const button of await page.locator('.ph-hero .ph-button-artwork,.ph-play-cta .ph-button-artwork').all()){
-   await button.locator('img').evaluate(im=>im.decode());
    const design=await button.evaluate(el=>{
-    const r=el.getBoundingClientRect(),image=el.querySelector('img'),a=image.getBoundingClientRect(),label=el.querySelector('.ph-play-action-label').getBoundingClientRect(),s=getComputedStyle(el);
-    return{ratio:r.width/r.height,width:r.width,height:r.height,artWidth:a.width,artHeight:a.height,naturalWidth:image.naturalWidth,fit:getComputedStyle(image).objectFit,background:s.backgroundImage,border:s.borderTopWidth,clip:s.clipPath,labelLeft:(label.left-r.left)/r.width,labelRight:(label.right-r.left)/r.width};
+    const r=el.getBoundingClientRect(),label=el.querySelector('.ph-play-action-label').getBoundingClientRect(),s=getComputedStyle(el);
+    return{width:r.width,height:r.height,left:r.left,right:r.right,labelLeft:label.left,labelRight:label.right,artDisplay:getComputedStyle(el.querySelector('img')).display,background:s.backgroundImage};
    });
-   assert.ok(Math.abs(design.ratio-3)<.02 && Math.abs(design.artWidth-design.width)<1 && Math.abs(design.artHeight-design.height)<1,'The full ornamental silhouette must keep its native ratio');
-   assert.equal(design.fit,'contain');assert.equal(design.background,'none');assert.equal(design.border,'0px');assert.equal(design.clip,'none');
-   assert.ok(design.naturalWidth>=2000 && design.labelLeft>.15 && design.labelRight<.85,'Native labels must stay on the blank central face');
+   assert.ok(design.height>=44 && design.height<=52,'Actions must remain compact touch targets at '+width);
+   assert.ok(design.left>=0 && design.right<=width && design.labelLeft>design.left && design.labelRight<design.right,'Action and label must fit the viewport');
+   assert.equal(design.artDisplay,'none');
+   assert.ok(design.background.startsWith('linear-gradient('));
+   if(width<=760)assert.ok(design.width<=170,'Mobile actions must not expand into full-width banners');
   }
   if(output && [1920,1440,390,320].includes(width)){
    await page.locator('.ph-play-cta').screenshot({path:path.join(output,'closing-buttons-'+width+'.png'),style:'.site-header,.skip-link{visibility:hidden!important}'});
