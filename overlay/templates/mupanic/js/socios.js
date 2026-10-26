@@ -24,16 +24,16 @@
     fill(inA); fill(inR);
     var base = amigos * recarga * MESES;
     if (tipo === 'socio') {
-      var eryns = base * 0.10;
+      var eryns = base * 0.05;
       var meses = eryns / vip;
       out('titulo').textContent = 'Ganás en 3 meses';
       out('total').textContent = fmt(eryns) + ' Eryns';
       out('equiv').textContent = meses >= 1
         ? 'Te alcanza para ' + (meses >= 10 ? fmt(meses) : meses.toLocaleString('es-AR', { maximumFractionDigits: 1 })) + ' meses de VIP, o para jugar, comprar en la tienda y comerciar en Vessara.'
-        : 'Para usar en la tienda, en los juegos o para comerciar en Vessara. Con ' + fmt(Math.ceil(vip / (recarga * MESES * 0.10))) + ' amigos así ya te pagás el VIP.';
+        : 'Para usar en la tienda, en los juegos o para comerciar en Vessara. Con ' + fmt(Math.ceil(vip / (recarga * MESES * 0.05))) + ' amigos así ya te pagás el VIP.';
       result.classList.remove('is-pesos');
     } else {
-      var pesos = base * 0.15;
+      var pesos = base * 0.10;
       out('titulo').textContent = 'Cobrás en 3 meses';
       out('total').textContent = '$' + fmt(pesos);
       out('equiv').textContent = 'Por transferencia, una vez por mes: unos $' + fmt(pesos / MESES) + ' por mes con ' + amigos + (amigos === 1 ? ' jugador' : ' jugadores') + ' de tu comunidad.';
