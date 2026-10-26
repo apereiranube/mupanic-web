@@ -891,3 +891,17 @@ html:has(body.is-home-launch){scroll-behavior:auto}
 @media(prefers-reduced-motion:reduce){.panic-home .ph-button-artwork{transition:none}.panic-home .ph-button-artwork:hover{transform:none}}
 /* Ventana sin foco: todas las animaciones CSS quedan quietas (ver home-launch.js). */
 html.ph-idle .is-home-launch *,html.ph-idle .is-home-launch *::before,html.ph-idle .is-home-launch *::after{animation-play-state:paused!important}
+/* Aviso corrido sobre el video del inicio (inc/aviso-home.json) */
+.ph-hero .ph-aviso{position:absolute;left:0;right:0;top:86px;z-index:6;display:block;overflow:hidden;text-decoration:none;
+ background:linear-gradient(90deg,rgba(11,17,19,.35),rgba(11,17,19,.72) 18%,rgba(11,17,19,.72) 82%,rgba(11,17,19,.35));
+ border-top:1px solid rgba(215,165,125,.45);border-bottom:1px solid rgba(215,165,125,.45);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.ph-aviso-track{display:flex;width:max-content;animation:phAviso 38s linear infinite}
+.ph-aviso:hover .ph-aviso-track,.ph-aviso:focus-visible .ph-aviso-track{animation-play-state:paused}
+.ph-aviso-run{display:flex;flex:none}
+.ph-aviso-item{display:inline-flex;align-items:center;padding:13px 0;font:600 19px/1 'Barlow Condensed',Impact,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#f0cfa8;white-space:nowrap}
+.ph-aviso-item:after{content:"";width:8px;height:8px;margin:0 34px;background:#b8323a;transform:rotate(45deg);box-shadow:0 0 10px #b8323a}
+.ph-aviso:focus-visible{outline:2px solid #f0cfa8;outline-offset:-4px}
+@keyframes phAviso{to{transform:translateX(-50%)}}
+@media(max-width:1100px){.ph-hero .ph-aviso{top:76px}}
+@media(max-width:760px){.ph-hero .ph-aviso{top:70px}.ph-aviso-item{font-size:15px;padding:10px 0}.ph-aviso-item:after{margin:0 22px}}
+@media(prefers-reduced-motion:reduce){.ph-aviso-track{animation:none}}

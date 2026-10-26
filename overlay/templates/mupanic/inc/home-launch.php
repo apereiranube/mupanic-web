@@ -27,6 +27,21 @@ $homeJoin = function($kind) use ($homeArt) {
             <video class="ph-combat-video" data-combat-video data-src="<?php echo $homeArt; ?>hero-rf-mg-v10.mp4" muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" aria-hidden="true"></video>
         </div>
         <div class="ph-battle-sky" aria-hidden="true"><i></i><i></i></div>
+        <?php
+        // Aviso corrido sobre el video. Se apaga solo al pasar la fecha "hasta" de inc/aviso-home.json.
+        $homeAviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
+        $homeAvisoMsgs = is_array($homeAviso['mensajes'] ?? null) ? array_values(array_filter(array_map('strval', $homeAviso['mensajes']), 'strlen')) : [];
+        $homeAvisoHasta = !empty($homeAviso['hasta']) ? strtotime($homeAviso['hasta']) : false;
+        if(!empty($homeAviso['activo']) && $homeAvisoMsgs && ($homeAvisoHasta === false || time() < $homeAvisoHasta)) {
+            $homeAvisoRun = function($hidden) use ($homeAvisoMsgs, $homeEscape) {
+                echo '<span class="ph-aviso-run"'.($hidden ? ' aria-hidden="true"' : '').'>';
+                for($rep = 0; $rep < 2; $rep++) foreach($homeAvisoMsgs as $m) echo '<span class="ph-aviso-item">'.$homeEscape($m).'</span>';
+                echo '</span>';
+            }; ?>
+        <a class="ph-aviso" href="<?php echo $homeEscape(__BASE_URL__.ltrim((string)($homeAviso['link'] ?? 'downloads/'), '/')); ?>">
+            <span class="ph-aviso-track"><?php $homeAvisoRun(false); $homeAvisoRun(true); ?></span>
+        </a>
+        <?php } ?>
         <div class="ph-scene-content ph-wrap"><div class="ph-copy">
             <p class="ph-eyebrow">SEASON 6 · DESARROLLO PROPIO</p>
             <h1 id="home-title">Esto es<br>MU PANIC.</h1>
