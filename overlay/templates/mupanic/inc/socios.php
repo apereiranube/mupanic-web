@@ -20,8 +20,6 @@ require_once __DIR__.'/referidos-cola.php';
 $socRank=[];
 try { if(class_exists('Connection')) $socRank=panicSociosRanking(); } catch(Throwable $e) { $socRank=[]; }
 ?>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&family=Cinzel:wght@700;900&display=swap">
 <div class="soc-page" data-vip="<?php echo (int)$socVipPrecio; ?>">
 
   <!-- 1 · Portada -->

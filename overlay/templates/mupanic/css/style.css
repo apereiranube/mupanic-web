@@ -181,3 +181,9 @@
 }
 @media(max-width:370px){.site-header .brand-crystal .brand-logo{width:110px;height:36.6667px}.site-header .nav-shell{gap:6px}.site-header .nav-cta{padding-inline:8px;font-size:10px}}
 @media(prefers-reduced-motion:reduce){.site-header a,.site-header a:after{transition:none}}
+/* Socios: destacado junto a Discord, con el azul de las gemas (Eryns) */
+.site-header .main-nav .nav-socios{color:#a9d4ff}
+.site-header .main-nav .nav-socios i{display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:2px;transform:rotate(45deg);background:linear-gradient(135deg,#e0f0ff,#4a8fe8 60%,#1b3e8e);box-shadow:0 0 7px #6fb4ffcc}
+.site-header .main-nav .nav-socios:hover,.site-header .main-nav .nav-socios.is-current{color:#dff0ff}
+.site-header .main-nav .nav-socios:after{background:#6fb4ff}
+@media(min-width:1101px) and (max-width:1350px){.site-header .main-nav .nav-socios i{display:none}}
