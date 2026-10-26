@@ -227,8 +227,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'info' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>info/"<?php echo $_REQUEST['page'] === 'info' ? ' aria-current="page"' : ''; ?>><span>Atlas</span></a>
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'rankings' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>rankings/"<?php echo $_REQUEST['page'] === 'rankings' ? ' aria-current="page"' : ''; ?>><span>Rankings</span></a>
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'downloads' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>downloads/"<?php echo $_REQUEST['page'] === 'downloads' ? ' aria-current="page"' : ''; ?>><span>Descargas</span></a>
-            <a class="nav-main-link nav-socios<?php echo $_REQUEST['page']==='socios' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>socios/"<?php echo $_REQUEST['page']==='socios' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Socios</span></a>
             <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗︎</b></a>
+            <a class="nav-main-link nav-socios<?php echo $_REQUEST['page']==='socios' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>socios/"<?php echo $_REQUEST['page']==='socios' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Socios</span></a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
