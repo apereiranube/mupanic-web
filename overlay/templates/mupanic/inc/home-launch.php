@@ -29,12 +29,31 @@ $homeJoin = function($kind) use ($homeArt) {
             </picture>
             <svg class="ph-sword-energy" viewBox="0 0 1672 941" aria-hidden="true" focusable="false">
                 <defs>
-                    <path id="ph-sword-trail" pathLength="100" d="M 944 480 Q 773 594 574 731"/>
+                    <filter id="ph-sword-soft" filterUnits="userSpaceOnUse" x="500" y="420" width="520" height="370" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="5"/></filter>
+                    <path id="ph-sword-aura-upper" d="M 953 458 C 923 468 917 491 883 496 L 869 520 L 842 522 L 822 545 L 792 550 L 765 578 L 736 584 L 706 612 L 678 621 L 651 651 L 620 665 L 596 694 L 550 747 L 587 723 L 621 690 L 654 673 L 687 644 L 719 628 L 748 606 L 779 590 L 809 567 L 840 551 L 869 529 L 899 513 L 930 487 Z"/>
+                    <path id="ph-sword-aura-lower" d="M 962 489 L 935 507 L 908 528 L 876 543 L 851 568 L 817 579 L 792 605 L 757 616 L 732 643 L 697 656 L 670 684 L 635 697 L 607 725 L 550 747 L 605 738 L 643 717 L 674 704 L 705 677 L 742 664 L 765 639 L 800 629 L 826 601 L 860 591 L 887 565 L 921 550 L 947 522 Z"/>
                 </defs>
-                <use href="#ph-sword-trail" class="ph-sword-halo"/>
-                <g class="ph-sword-current">
-                    <use href="#ph-sword-trail" class="ph-sword-flow ph-sword-flow-glow"/>
-                    <use href="#ph-sword-trail" class="ph-sword-flow ph-sword-flow-core"/>
+                <g class="ph-sword-mist" filter="url(#ph-sword-soft)">
+                    <use href="#ph-sword-aura-upper" class="ph-sword-aura ph-sword-aura-upper"/>
+                    <use href="#ph-sword-aura-lower" class="ph-sword-aura ph-sword-aura-lower"/>
+                </g>
+                <g class="ph-sword-ribbons">
+                    <use href="#ph-sword-aura-upper" class="ph-sword-aura ph-sword-aura-upper"/>
+                    <use href="#ph-sword-aura-lower" class="ph-sword-aura ph-sword-aura-lower"/>
+                </g>
+                <g class="ph-sword-sparks">
+                    <circle cx="918" cy="485" r="2.5" style="--dx:-19px;--dy:-27px;--delay:-.3s"/>
+                    <circle cx="884" cy="510" r="2" style="--dx:-13px;--dy:-33px;--delay:-1.8s"/>
+                    <circle cx="843" cy="537" r="3" style="--dx:-24px;--dy:-28px;--delay:-.9s"/>
+                    <circle cx="799" cy="562" r="1.8" style="--dx:-20px;--dy:-36px;--delay:-2.7s"/>
+                    <circle cx="747" cy="600" r="2.4" style="--dx:-27px;--dy:-24px;--delay:-1.4s"/>
+                    <circle cx="697" cy="632" r="2.8" style="--dx:-17px;--dy:-32px;--delay:-3.2s"/>
+                    <circle cx="647" cy="666" r="2" style="--dx:-25px;--dy:-30px;--delay:-.6s"/>
+                    <circle cx="600" cy="706" r="2.5" style="--dx:-22px;--dy:-29px;--delay:-2.3s"/>
+                    <circle cx="891" cy="555" r="2.2" style="--dx:15px;--dy:-22px;--delay:-2.1s"/>
+                    <circle cx="815" cy="602" r="3" style="--dx:18px;--dy:-25px;--delay:-.1s"/>
+                    <circle cx="738" cy="656" r="2" style="--dx:14px;--dy:-28px;--delay:-3.5s"/>
+                    <circle cx="659" cy="705" r="2.6" style="--dx:17px;--dy:-22px;--delay:-1.1s"/>
                 </g>
             </svg>
         </div>
