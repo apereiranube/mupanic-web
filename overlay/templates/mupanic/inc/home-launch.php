@@ -22,10 +22,22 @@ $homeJoin = function($kind) use ($homeArt) {
 ?>
 <div class="panic-home" data-panic-home data-launcher-url="<?php echo $homeEscape(__BASE_URL__.'api/launcher.php?home=1'); ?>" data-home-version="connected-v10">
     <section class="ph-scene ph-hero" aria-labelledby="home-title">
-        <picture class="ph-art ph-combat-art">
+        <div class="ph-art ph-combat-art">
+            <picture>
             <source media="(max-width:760px)" srcset="<?php echo $homeArt; ?>hero-knight-v18-mobile.webp" width="1080" height="608">
             <img src="<?php echo $homeArt; ?>hero-knight-v18.webp" width="1672" height="941" alt="Magic Gladiator pelirrojo sin casco, con el set azul y violeta, alas de energía fucsia y espada violeta de MU PANIC, ante una fortaleza sobre terreno volcánico" fetchpriority="high">
-        </picture>
+            </picture>
+            <svg class="ph-sword-energy" viewBox="0 0 1672 941" aria-hidden="true" focusable="false">
+                <defs>
+                    <path id="ph-sword-trail" pathLength="100" d="M 944 480 Q 773 594 574 731"/>
+                </defs>
+                <use href="#ph-sword-trail" class="ph-sword-halo"/>
+                <g class="ph-sword-current">
+                    <use href="#ph-sword-trail" class="ph-sword-flow ph-sword-flow-glow"/>
+                    <use href="#ph-sword-trail" class="ph-sword-flow ph-sword-flow-core"/>
+                </g>
+            </svg>
+        </div>
         <div class="ph-battle-sky" aria-hidden="true"><i></i><i></i></div>
         <?php
         // Aviso corrido sobre el video. Se apaga solo al pasar la fecha "hasta" de inc/aviso-home.json.

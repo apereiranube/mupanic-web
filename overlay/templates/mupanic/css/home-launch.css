@@ -898,3 +898,18 @@ html.ph-idle .is-home-launch *,html.ph-idle .is-home-launch *::before,html.ph-id
 @media(max-width:760px){.ph-hero .ph-aviso{top:70px}.ph-hero:has(.ph-aviso) .ph-scene-content{padding-top:0}.ph-hero:has(.ph-aviso)>.ph-art{margin-top:110px}
  .ph-aviso-item{font-size:21px;padding:14px 0}.ph-aviso-item:after{margin:0 26px;width:9px;height:9px}.ph-aviso-badge{font-size:16px;padding:0 20px 0 14px;gap:8px}}
 @media(prefers-reduced-motion:reduce){.ph-aviso-track,.ph-aviso-badge i{animation:none}}
+
+/* V19: local sword energy; image and characters stay completely still. */
+.ph-sword-energy{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen;overflow:hidden;z-index:1}
+.ph-sword-energy use{fill:none;stroke-linecap:round}
+.ph-sword-halo{stroke:#a831f4;stroke-width:18;opacity:.12;animation:ph-sword-breathe 3.6s ease-in-out infinite}
+.ph-sword-flow{stroke-dasharray:13 87;stroke-dashoffset:15;animation:ph-sword-travel 3.2s linear infinite}
+.ph-sword-flow-glow{stroke:#bd45ff;stroke-width:12;opacity:.38}
+.ph-sword-flow-core{stroke:#f4baff;stroke-width:2.4;opacity:.85}
+.ph-sword-current{animation:ph-sword-reveal 3.2s linear infinite}
+.ph-hero:not(.is-sky-live) .ph-sword-energy *{animation-play-state:paused}
+@keyframes ph-sword-travel{to{stroke-dashoffset:-100}}
+@keyframes ph-sword-breathe{0%,100%{opacity:.07}50%{opacity:.2}}
+@keyframes ph-sword-reveal{0%,100%{opacity:0}12%,82%{opacity:1}}
+@media(max-width:760px){.ph-sword-flow-core{stroke-width:3.5}}
+@media(prefers-reduced-motion:reduce){.ph-sword-energy{display:none}}
