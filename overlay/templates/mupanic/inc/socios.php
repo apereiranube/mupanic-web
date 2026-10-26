@@ -6,6 +6,7 @@
  * Página pública de venta del programa. El link propio vive en Mi cuenta → Referidos.
  */
 if(!defined('access') || !access) die();
+if(($_REQUEST['subpage'] ?? '')==='creadores') { include __DIR__.'/socios-creadores.php'; return; }
 $socImg = __PATH_TEMPLATE__.'img/';
 $socLogged = function_exists('isLoggedIn') && isLoggedIn();
 $socLink = __BASE_URL__.($socLogged ? 'usercp/referidos/' : 'register/');
@@ -31,7 +32,7 @@ try { if(class_exists('Connection')) $socRank=panicSociosRanking(); } catch(Thro
       <p class="soc-lead">Cada amigo que entra con tu link te deja el <strong>5% de todo lo que recargue</strong>, en Eryns, durante 3 meses. Sin tope de invitados.</p>
       <div class="soc-actions">
         <a class="soc-btn soc-btn-main" href="<?php echo socE($socLink); ?>"><?php echo socE($socLinkLabel); ?></a>
-        <a class="soc-btn soc-btn-ghost" href="#creadores">Soy streamer o creador →</a>
+        <a class="soc-btn soc-btn-ghost" href="<?php echo socE(__BASE_URL__.'socios/creadores/'); ?>">Soy streamer o creador →</a>
       </div>
     </div>
     <ul class="soc-strip" aria-label="El programa en números">
@@ -106,7 +107,7 @@ try { if(class_exists('Connection')) $socRank=panicSociosRanking(); } catch(Thro
           <li>Destacado en la web y en el Discord</li>
         </ul>
         <p class="soc-tier-req"><b>Requisito:</b> streams o videos de MU PANIC con el nombre del server en el título y tu link en la descripción.</p>
-        <a class="soc-btn soc-btn-pro" href="<?php echo socE($socDiscord); ?>" target="_blank" rel="noopener noreferrer">Postulate en Discord ↗</a>
+        <a class="soc-btn soc-btn-pro" href="<?php echo socE(__BASE_URL__.'socios/creadores/'); ?>">Postulate como creador →</a>
       </article>
     </div>
   </section>
