@@ -82,7 +82,7 @@ async function withBootstrap(page){await page.evaluate(css=>{const style=documen
     assert.equal(await page.locator('.main-nav').isVisible(),false);
     await page.locator('.menu-toggle').click();
     assert.equal(await page.locator('.menu-toggle').getAttribute('aria-expanded'),'true');
-    assert.equal(await page.locator('.main-nav a:visible').count(),9);
+    assert.equal(await page.locator('.main-nav a:visible').count(),10);
     await page.mouse.move(0,900);
     const opened=await metrics(page);
     if(openBaseline)assert.deepEqual(opened,openBaseline,'Open mobile menu must match every page');
