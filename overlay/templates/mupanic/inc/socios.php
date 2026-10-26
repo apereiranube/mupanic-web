@@ -1,8 +1,8 @@
 <?php
 /**
  * MU PANIC · Socios
- * Programa de socios: cada jugador cobra el 10% en Eryns de lo que recargan sus invitados
- * durante 3 meses; los creadores aprobados cobran el 15% en pesos, una vez por mes.
+ * Programa de socios: cada jugador cobra el 5% en Eryns de lo que recargan sus invitados
+ * durante 3 meses; los creadores aprobados cobran el 10% en pesos, una vez por mes.
  * Página pública de venta del programa. El link propio vive en Mi cuenta → Referidos.
  */
 if(!defined('access') || !access) die();
@@ -27,17 +27,17 @@ function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
     <div class="soc-hero-copy">
       <p class="soc-eyebrow">Programa de socios · MU PANIC</p>
       <h1>Jugá. Invitá.<br><em>Ganá.</em></h1>
-      <p class="soc-lead">Cada amigo que entra con tu link te deja el <strong>10% de todo lo que recargue</strong>, en Eryns, durante 3 meses. Sin tope de invitados.</p>
+      <p class="soc-lead">Cada amigo que entra con tu link te deja el <strong>5% de todo lo que recargue</strong>, en Eryns, durante 3 meses. Sin tope de invitados.</p>
       <div class="soc-actions">
         <a class="soc-btn soc-btn-main" href="<?php echo socE($socLink); ?>"><?php echo socE($socLinkLabel); ?></a>
         <a class="soc-btn soc-btn-ghost" href="#creadores">Soy streamer o creador →</a>
       </div>
     </div>
     <ul class="soc-strip" aria-label="El programa en números">
-      <li><b>10%</b><span>de cada recarga de tus invitados</span></li>
+      <li><b>5%</b><span>de cada recarga de tus invitados</span></li>
       <li><b>3 meses</b><span>cobrando por cada invitado</span></li>
       <li><b>+7 días</b><span>de VIP por cada invitado activo</span></li>
-      <li><b>15%</b><span>en plata para creadores</span></li>
+      <li><b>10%</b><span>en plata para creadores</span></li>
     </ul>
   </section>
 
@@ -47,7 +47,7 @@ function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
     <ol class="soc-steps">
       <li><span class="soc-num"><i>1</i></span><h3>Copiá tu link</h3><p>Está en <strong>Mi cuenta → Referidos</strong>. Compartilo en WhatsApp, Discord, grupos de Facebook o en tu stream.</p></li>
       <li><span class="soc-num"><i>2</i></span><h3>Tu amigo se suma</h3><p>Crea su cuenta con tu link y arranca con <strong>3 días de VIP de regalo</strong>. Queda vinculado a vos.</p></li>
-      <li><span class="soc-num"><i>3</i></span><h3>Vos cobrás</h3><p>Cada vez que recarga Eryns, el <strong>10% te llega a tu cuenta</strong>. Y cuando llega al reset 2, sumás <strong>7 días de VIP</strong>.</p></li>
+      <li><span class="soc-num"><i>3</i></span><h3>Vos cobrás</h3><p>Cada vez que recarga Eryns, el <strong>5% te llega a tu cuenta</strong>. Y cuando llega al reset 2, sumás <strong>7 días de VIP</strong>.</p></li>
     </ol>
   </section>
 
@@ -62,14 +62,14 @@ function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
           <label class="soc-range"><span>Lo que recarga cada uno por mes <output data-out="recarga">$5.000</output></span>
             <input type="range" min="1000" max="30000" step="500" value="5000" data-in="recarga"></label>
           <div class="soc-toggle" role="radiogroup" aria-label="Tipo de socio">
-            <button type="button" role="radio" aria-checked="true" data-tipo="socio" class="is-on">Socio · 10% en Eryns</button>
-            <button type="button" role="radio" aria-checked="false" data-tipo="creador">Creador · 15% en plata</button>
+            <button type="button" role="radio" aria-checked="true" data-tipo="socio" class="is-on">Socio · 5% en Eryns</button>
+            <button type="button" role="radio" aria-checked="false" data-tipo="creador">Creador · 10% en plata</button>
           </div>
         </div>
         <div class="soc-calc-result" aria-live="polite">
           <small data-out="titulo">Ganás en 3 meses</small>
-          <strong data-out="total">15.000 Eryns</strong>
-          <p data-out="equiv">Te alcanza para 0,6 meses de VIP, o para jugar, comprar en la tienda y comerciar en Vessara.</p>
+          <strong data-out="total">7.500 Eryns</strong>
+          <p data-out="equiv">Te alcanza para 0,3 meses de VIP, o para jugar, comprar en la tienda y comerciar en Vessara.</p>
           <span class="soc-calc-note">Estimación. Cobrás sobre lo que tus invitados recargan de verdad.</span>
         </div>
       </div>
@@ -83,10 +83,10 @@ function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
       <article class="soc-tier">
         <p class="soc-tier-tag">Para todos</p>
         <h3>Socio</h3>
-        <p class="soc-tier-big">10% <small>en Eryns</small></p>
+        <p class="soc-tier-big">5% <small>en Eryns</small></p>
         <ul>
           <li>Tu link propio desde el primer día</li>
-          <li>10% de cada recarga de tus invitados, durante 3 meses</li>
+          <li>5% de cada recarga de tus invitados, durante 3 meses</li>
           <li>7 días de VIP por cada invitado que llega al reset 2</li>
           <li>Tu amigo arranca con 3 días de VIP</li>
           <li>Ranking mensual de socios con premio</li>
@@ -96,9 +96,9 @@ function socE($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
       <article class="soc-tier soc-tier-pro">
         <p class="soc-tier-tag">Streamers · YouTubers · TikTokers</p>
         <h3>Creador</h3>
-        <p class="soc-tier-big">15% <small>en plata</small></p>
+        <p class="soc-tier-big">10% <small>en plata</small></p>
         <ul>
-          <li>15% de las recargas de tus invitados, por transferencia, una vez por mes</li>
+          <li>10% de las recargas de tus invitados, por transferencia, una vez por mes</li>
           <li>VIP para sortear en vivo entre tu chat</li>
           <li>Título exclusivo de creador dentro del juego</li>
           <li>Torneo de Arena con tu nombre, con apuestas del público</li>
