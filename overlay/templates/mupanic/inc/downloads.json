@@ -5,18 +5,15 @@
  "links": [
   {
    "nombre": "Mega",
-   "url": "https://mega.nz/file/b8ZxiJ5B#LmQx3RBBfp5GBOMYFlstGpOTFhfjfQ6KeVkJNYTp7dA",
-   "arte": "img/downloads/mirror-mega-v1.webp"
+   "url": "https://mega.nz/file/b8ZxiJ5B#LmQx3RBBfp5GBOMYFlstGpOTFhfjfQ6KeVkJNYTp7dA"
   },
   {
    "nombre": "MediaFire",
-   "url": "https://www.mediafire.com/file/4jn4eoiz6agoquc/MU-PANIC-Cliente.zip/file",
-   "arte": "img/downloads/mirror-mediafire-v1.webp"
+   "url": "https://www.mediafire.com/file/4jn4eoiz6agoquc/MU-PANIC-Cliente.zip/file"
   },
   {
    "nombre": "Google Drive",
-   "url": "https://drive.google.com/file/d/13t-ugi2fp4_IiYwoCToJ6LL2cDJ9qKwD/view?usp=sharing",
-   "arte": "img/downloads/mirror-drive-v1.webp"
+   "url": "https://drive.google.com/file/d/13t-ugi2fp4_IiYwoCToJ6LL2cDJ9qKwD/view?usp=sharing"
   }
  ]
 }
