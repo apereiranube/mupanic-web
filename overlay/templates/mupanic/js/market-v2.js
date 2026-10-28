@@ -10,6 +10,8 @@
   var el = function (tag, text, cls) { var n = document.createElement(tag); if (text !== null && text !== undefined) n.textContent = String(text); if (cls) n.className = cls; return n; };
   var title = function (s) { return s.item + (s.level ? ' +' + s.level : ''); };
   var money = function (s) { return fmt(s.price) + ' ' + (s.currency === 1 ? 'Eryns' : 'Zen'); };
+  var CUR = (window.MK_CUR || {});
+  function cash(node, s) { var src = s.currency === 1 ? CUR.eryns : CUR.zen; if (src) { var i = document.createElement('img'); i.src = src; i.alt = ''; i.className = 'mk-cur'; i.width = 20; i.height = 20; node.prepend(i); } return node; }
   var when = function (s) { try { return new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(s.soldAt)); } catch (e) { return ''; } };
 
   /* ---------- Ventas (market_data) ---------- */
@@ -42,7 +44,7 @@
       var g = el('div'); g.style.display = 'flex';
       sales.slice(0, 10).forEach(function (s) {
         var t = trend(s), n = el('span', null, 'mk-sale');
-        n.append(el('b', title(s)), el('em', money(s), s.currency === 1 ? 'eryns' : ''));
+        n.append(el('b', title(s)), cash(el('em', money(s), s.currency === 1 ? 'eryns' : ''), s));
         if (t) n.append(el('i', t.label, t.dir));
         g.appendChild(n);
       });
@@ -62,7 +64,7 @@
     shown.forEach(function (s) {
       var li = el('li', null, 'mk-row' + (s.currency === 1 ? ' eryns' : ''));
       var t = el('time', when(s)); t.dateTime = s.soldAt;
-      li.append(el('b', title(s)), el('span', s.buyer, 'who'), el('span', s.seller, 'who b'), el('span', money(s), 'pr'), t);
+      li.append(el('b', title(s)), el('span', s.buyer, 'who'), el('span', s.seller, 'who b'), cash(el('span', money(s), 'pr'), s), t);
       box.appendChild(li);
     });
     var empty = q('[data-mk-empty]'); empty.hidden = !!shown.length;
@@ -141,7 +143,7 @@
     if (promoted(it)) info.append(el('span', 'Destacado', 'mk-tip-promo'));
     info.append(nameNode('h3', it), el('p', 'Publicado por ' + (it.seller || '—')));
     intro.append(media(it), info); tip.append(intro);
-    var pr = el('div', null, 'mk-tip-price'); pr.append(el('span', 'Precio'), el('b', money(it), it.currency === 1 ? 'eryns' : '')); tip.append(pr);
+    var pr = el('div', null, 'mk-tip-price'); pr.append(el('span', 'Precio'), cash(el('b', money(it), it.currency === 1 ? 'eryns' : ''), it)); tip.append(pr);
     var o = it.details;
     if (!o) tip.append(el('p', 'Las opciones de este objeto se ven dentro del juego.', 'mk-tip-note'));
     else {
@@ -187,7 +189,7 @@
     var b = el('div', null, 'mk-card-body'), tags = el('div', null, 'mk-card-tags');
     tags.append(el('span', it.currency === 1 ? 'Eryns' : 'Zen', 'mk-card-cur' + (it.currency === 1 ? ' eryns' : '')));
     if (promoted(it)) tags.append(el('span', 'Destacado', 'mk-card-badge'));
-    b.append(tags, nameNode('h4', it), el('p', it.seller || '—', 'mk-card-seller'), el('strong', money(it), 'mk-card-price' + (it.currency === 1 ? ' eryns' : '')));
+    b.append(tags, nameNode('h4', it), el('p', it.seller || '—', 'mk-card-seller'), cash(el('strong', money(it), 'mk-card-price' + (it.currency === 1 ? ' eryns' : '')), it));
     c.append(media(it), b);
     if (promoted(it)) { var rib = el('span', null, 'mk-card-rib'); rib.setAttribute('aria-hidden', 'true'); rib.append(el('span', 'Destacado')); c.append(rib); }
     var t = 0;
@@ -215,7 +217,7 @@
     var list = q('[data-listings-featured]'); list.replaceChildren(); items.slice(0, 3).forEach(function (it) { list.append(card(it)); });
     var run = q('[data-mk-feat-run]');
     if (!items.length) { run.replaceChildren(el('span', 'Todavía no hay publicaciones destacadas.', 'mk-feat-none')); run.classList.add('is-static'); return; }
-    loop(run, function () { var g = el('div'); g.style.display = 'flex'; items.forEach(function (it) { var n = el('span', null, 'mk-feat-it'); n.append(el('b', title(it)), el('small', it.seller || ''), el('em', money(it), it.currency === 1 ? 'eryns' : '')); g.append(n); }); return g; }, 40);
+    loop(run, function () { var g = el('div'); g.style.display = 'flex'; items.forEach(function (it) { var n = el('span', null, 'mk-feat-it'); n.append(el('b', title(it)), el('small', it.seller || ''), cash(el('em', money(it), it.currency === 1 ? 'eryns' : ''), it)); g.append(n); }); return g; }, 40);
   }
   function renderListings() {
     hide();

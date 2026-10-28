@@ -38,8 +38,8 @@ $mkSteps = [
   <section class="mk-score" aria-label="El mercado hoy">
     <dl class="pui-wrap mk-stats">
       <div class="mk-stat mk-stat--lead"><dt>Ventas de hoy</dt><dd><b class="pui-num" data-mk-metric="today"><?php echo panicMarketNumber($metrics['today'] ?? ''); ?></b></dd></div>
-      <div class="mk-stat"><dt>Volumen en Zen</dt><dd><b class="pui-num mk-zen" data-mk-metric="zen"><?php echo panicMarketNumber($metrics['zen'] ?? ''); ?></b></dd></div>
-      <div class="mk-stat"><dt>Volumen en Eryns</dt><dd><b class="pui-num mk-eryns" data-mk-metric="eryns"><?php echo panicMarketNumber($metrics['eryns'] ?? ''); ?></b></dd></div>
+      <div class="mk-stat"><dt><img class="mk-cur" src="<?php echo __PATH_TEMPLATE__; ?>img/mercado/moneda-zen-f296546732d4.webp" alt="" width="18" height="18">Volumen en Zen</dt><dd><b class="pui-num mk-zen" data-mk-metric="zen"><?php echo panicMarketNumber($metrics['zen'] ?? ''); ?></b></dd></div>
+      <div class="mk-stat"><dt><img class="mk-cur" src="<?php echo __PATH_TEMPLATE__; ?>img/votar/votar-gema-64-4559844ddcec.webp" alt="" width="18" height="18">Volumen en Eryns</dt><dd><b class="pui-num mk-eryns" data-mk-metric="eryns"><?php echo panicMarketNumber($metrics['eryns'] ?? ''); ?></b></dd></div>
       <div class="mk-stat"><dt>Objetos en venta</dt><dd><b class="pui-num" data-mk-count>—</b></dd></div>
     </dl>
     <div class="pui-wrap mk-tape" aria-label="Últimas ventas">
@@ -171,4 +171,5 @@ $mkSteps = [
     </div>
   </section>
 </div>
+<script>window.MK_CUR={zen:<?php echo json_encode(__PATH_TEMPLATE__."img/mercado/moneda-zen-f296546732d4.webp"); ?>,eryns:<?php echo json_encode(__PATH_TEMPLATE__."img/votar/votar-gema-64-4559844ddcec.webp"); ?>};</script>
 <script type="application/json" id="vessara-initial"><?php echo json_encode($market, JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_UNESCAPED_UNICODE); ?></script>
