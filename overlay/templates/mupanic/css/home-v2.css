@@ -316,3 +316,6 @@ body.is-home{background:var(--pui-night)}
 .h2-hub:hover .h2-chips li:nth-child(2){transition-delay:.05s}.h2-hub:hover .h2-chips li:nth-child(3){transition-delay:.1s}.h2-hub:hover .h2-chips li:nth-child(4){transition-delay:.15s}.h2-hub:hover .h2-chips li:nth-child(5){transition-delay:.2s}.h2-hub:hover .h2-chips li:nth-child(6){transition-delay:.25s}.h2-hub:hover .h2-chips li:nth-child(7){transition-delay:.3s}.h2-hub:hover .h2-chips li:nth-child(8){transition-delay:.35s}
 .h2-hub-art img{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .h2-hub:hover .h2-hub-art img{transform:translateY(-10px) rotate(-1deg)}
+
+.h2-system:nth-child(6)>.h2-card-art{min-height:300px}
+.h2-system .h2-card-art img[src*=inicio-mg]{top:-4%;left:50%;width:auto;height:112%;max-width:none}

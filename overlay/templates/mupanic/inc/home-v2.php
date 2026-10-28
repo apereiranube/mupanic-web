@@ -8,7 +8,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/home-data.php';
 $h2e = function($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); };
 $h2img = __PATH_TEMPLATE__.'img/inicio/';
-$h2art = ['hub'=>'inicio-summoner-e2e8ada192ae.webp','mercado'=>'inicio-vessara-5034636897fd.webp','aldren'=>'inicio-aldren-62faf66e7ac1.webp','varkor'=>'inicio-varkor-ce55f6d3bb58.webp','vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
+$h2art = ['juegos'=>'inicio-mg-68edd6affa37.webp','hub'=>'inicio-summoner-e2e8ada192ae.webp','mercado'=>'inicio-vessara-5034636897fd.webp','aldren'=>'inicio-aldren-62faf66e7ac1.webp','varkor'=>'inicio-varkor-ce55f6d3bb58.webp','vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
 $h2events = panicHomeEvents();
 $h2play = __BASE_URL__.($isLogged ? 'downloads/' : 'register/');
 $h2aviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
