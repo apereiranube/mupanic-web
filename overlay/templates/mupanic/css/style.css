@@ -228,3 +228,11 @@
 .footer-links a{font-size:13px;color:#c9cfd4}
 .footer-links a:hover{color:#fff}
 .footer-bottom{border-top-color:#ece8e11a;font-size:11px;color:#8a949c}
+/* Logo nuevo: símbolo MP en gema + nombre en Anton */
+.brand-crystal{display:inline-flex!important;align-items:center;gap:10px!important;line-height:1}
+.brand-crystal .brand-mark{display:block;width:54px;height:auto;flex:none}
+.brand-crystal .brand-word{font:400 30px/1 Anton,Impact,sans-serif;letter-spacing:.02em;color:#ece8e1;white-space:nowrap}
+.footer-modern .brand-crystal .brand-mark{width:72px}
+.footer-modern .brand-crystal .brand-word{font-size:40px}
+@media(max-width:1350px){.site-header .brand-crystal .brand-mark{width:46px}.site-header .brand-crystal .brand-word{font-size:25px}}
+@media(max-width:760px){.site-header .brand-crystal .brand-mark{width:40px}.site-header .brand-crystal .brand-word{font-size:22px}}

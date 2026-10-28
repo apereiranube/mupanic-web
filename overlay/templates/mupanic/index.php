@@ -196,7 +196,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market','downloads','socios','votar'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <?php if(!$isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
-    <?php if($isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>home-launch.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/home-launch.css'),0,12); ?>" rel="stylesheet"><?php } ?>
+    <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>panic-ui.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/panic-ui.css'),0,12); ?>" rel="stylesheet">
+    <?php if($isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>home-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/home-v2.css'),0,12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'info') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas-vessara.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas-vessara.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>information.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/information.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'downloads') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>downloads.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/downloads.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
@@ -221,7 +222,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <header class="site-header">
     <div class="shell nav-shell">
         <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>">
-            <img class="brand-logo" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mu-panic-crystal-bronze-matte-v2.webp" alt="MU PANIC" width="960" height="320" decoding="async">
+            <img class="brand-mark" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mp-gema.svg" alt="" width="56" height="52" decoding="async"><span class="brand-word">MU PANIC</span>
         </a>
 
         <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
@@ -259,7 +260,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <main id="main-content">
 <?php if($isHome) { ?>
 
-<?php include __DIR__.'/inc/home-launch.php'; ?>
+<?php include __DIR__.'/inc/home-v2.php'; ?>
 
 <?php } else { ?>
 
@@ -336,7 +337,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <footer class="footer-modern">
     <div class="shell footer-main">
         <div>
-            <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>"><img class="brand-logo" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mu-panic-crystal-bronze-matte-v2.webp" alt="MU PANIC" width="960" height="320" decoding="async"></a>
+            <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>"><img class="brand-mark" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mp-gema.svg" alt="" width="56" height="52" decoding="async"><span class="brand-word">MU PANIC</span></a>
             <p><?php echo $isHome ? 'Sistemas propios. Una experiencia distinta.' : 'Tu historia en el continente de MU.'; ?></p>
         </div>
         <div class="footer-links">
@@ -363,7 +364,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($_REQUEST['page'] === 'profile') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>profiles.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/profiles.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] === 'recharge') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>recharge.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/recharge.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($_REQUEST['page'] === 'usercp') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>account.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/account.js'), 0, 12); ?>"></script><?php } ?>
-<?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>home-launch.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/home-launch.js'),0,12); ?>" defer></script><?php } ?>
+<?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>home-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/home-v2.js'),0,12); ?>" defer></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-ui.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-ui.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($isHome || $_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>mu-panic-brasas.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/mu-panic-brasas.js'),0,12); ?>" defer></script><?php } ?>
