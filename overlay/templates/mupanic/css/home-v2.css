@@ -479,3 +479,23 @@ body.is-home{background:var(--pui-night)}
 .h2-stats{z-index:3;background:#0b131b}.h2-cast-solo{opacity:calc(1 - var(--sc)*.35)}
 .h2-cast-solo{width:min(48vw,760px);bottom:-2%}
 @media(max-width:760px){.h2-cast-solo{width:min(104vw,520px);top:10px}}
+
+/* Portada "sale de la pantalla": el BK vive dentro de un cuadro y la espada rompe el borde y se viene al frente */
+.h2-pop{position:absolute;z-index:1;right:max(2%,calc(50% - 690px));top:50%;width:min(44vw,660px);aspect-ratio:1257/1503;transform:translateY(-50%);pointer-events:none}
+.h2-pop-frame{position:absolute;inset:12% 7% 34% 7%;background:linear-gradient(150deg,#29c8ff,#1170b8);box-shadow:0 0 0 10px var(--pui-bone),0 30px 60px #000a;overflow:hidden;animation:h2FrameIn .8s cubic-bezier(.2,.9,.1,1) both}
+.h2-pop-word{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);font:400 clamp(90px,9vw,170px)/.8 var(--pui-display);color:#0f1923;opacity:.16;white-space:nowrap}
+.h2-pop img{position:absolute;inset:0;width:100%;height:100%;max-width:none;transform-origin:50% 75%;transform:scale(calc(1 + var(--sc)*.5))}
+.h2-pop-in{clip-path:inset(12% 7% 34% 7%)}
+.h2-pop-out{clip-path:polygon(33% 52%,64% 52%,64% 100%,33% 100%);filter:drop-shadow(0 24px 28px #000c) drop-shadow(0 0 22px #29c8ff88);animation:h2Out 1.2s cubic-bezier(.2,.9,.1,1) .25s both}
+@keyframes h2FrameIn{0%{opacity:0;transform:scale(.85) skewY(-3deg)}100%{opacity:1;transform:none}}
+@keyframes h2Out{0%{opacity:0;transform:translateY(-14%) scale(.8)}60%{opacity:1;transform:translateY(2%) scale(1.06)}100%{transform:none}}
+.h2-hero--solo .h2-hero-block,.h2-hero--solo .h2-hero-cast{display:none}
+@media(max-width:1020px){.h2-pop{width:52vw;right:-2%}}
+@media(max-width:760px){.h2-pop{position:relative;top:auto;right:auto;transform:none;width:min(94vw,460px);margin:10px auto 0}.h2-hero--solo{flex-direction:column;align-items:stretch}.h2-hero--solo .h2-hero-copy{padding-top:0!important}}
+@media(prefers-reduced-motion:reduce){.h2-pop-frame,.h2-pop-out{animation:none}.h2-pop img{transform:none}}
+
+.h2-pop-out,.h2-pop-top{position:absolute;inset:0;filter:drop-shadow(0 22px 24px #000b)}
+.h2-pop-out{clip-path:none;animation:h2Out 1.2s cubic-bezier(.2,.9,.1,1) .25s both}
+.h2-pop-out img{clip-path:polygon(38% 50%,63% 50%,63% 78%,55% 100%,49% 100%,35% 78%)}
+.h2-pop-top img{clip-path:polygon(0 0,100% 0,100% 12.5%,0 12.5%)}
+.h2-pop-top{animation:h2Out 1.2s cubic-bezier(.2,.9,.1,1) .35s both}

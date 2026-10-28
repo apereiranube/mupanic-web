@@ -35,10 +35,12 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   <?php } ?>
 
   <section class="h2-hero h2-hero--solo" aria-labelledby="h2-title" data-parallax>
-    <div class="h2-hero-block" aria-hidden="true"><span class="h2-hero-word">MU PANIC</span></div>
     <span class="h2-hero-flash" aria-hidden="true"></span>
-    <div class="h2-hero-cast" aria-hidden="true">
-      <img class="h2-cast-solo" src="<?php echo $h2e($h2img.'inicio-bk-carga-01b160ca5b33.webp'); ?>" alt="" width="1257" height="1503" decoding="async" fetchpriority="high">
+    <div class="h2-pop" aria-hidden="true">
+      <span class="h2-pop-frame"><span class="h2-pop-word">MU PANIC</span></span>
+      <img class="h2-pop-in" src="<?php echo $h2e($h2img.'inicio-bk-carga-01b160ca5b33.webp'); ?>" alt="" width="1257" height="1503" decoding="async" fetchpriority="high">
+      <span class="h2-pop-top"><img src="<?php echo $h2e($h2img.'inicio-bk-carga-01b160ca5b33.webp'); ?>" alt="" width="1257" height="1503" decoding="async"></span>
+      <span class="h2-pop-out"><img src="<?php echo $h2e($h2img.'inicio-bk-carga-01b160ca5b33.webp'); ?>" alt="" width="1257" height="1503" decoding="async"></span>
     </div>
     <div class="pui-wrap h2-hero-copy">
       <p class="pui-kicker">Servidor argentino de MU Online</p>
