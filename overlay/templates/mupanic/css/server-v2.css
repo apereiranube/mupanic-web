@@ -813,3 +813,19 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 @media(max-width:700px){.sv-vp-emblem{top:2%;right:-30%;width:120vw}}
 @media(prefers-reduced-motion:reduce){.sv-vp[data-mode=vip] .sv-vp-emblem img{animation:none}}
 @media(max-width:700px){.sv-vp-emblem img{opacity:.1}@keyframes svEmb{from{transform:scale(.7) rotate(-8deg);opacity:0}to{transform:none;opacity:.1}}}
+
+/* Conexión: Los Eryns se ganan jugando → Destacá tu publicación */
+.sv-link{position:relative;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin:-70px 0 -70px;padding-left:calc(22% - 5px);z-index:2}
+.sv-link-ln{position:relative;width:10px;height:150px;background:linear-gradient(#6fb4ff,#ffc24a);clip-path:polygon(0 0,100% 0,100% 86%,50% 100%,0 86%)}
+.sv-link-ln:after{content:'';position:absolute;left:50%;bottom:-2px;width:34px;height:22px;transform:translateX(-50%);background:#ffc24a;clip-path:polygon(0 0,100% 0,50% 100%)}
+.sv-link-ln{overflow:visible;clip-path:none;width:10px}
+.sv-link-ln:before{content:'';position:absolute;inset:0 0 18px;background:repeating-linear-gradient(#0f192333 0 10px,transparent 10px 22px);animation:svFlow 1s linear infinite}
+@keyframes svFlow{to{background-position:0 22px}}
+.sv-link p{margin:0;font:400 clamp(26px,2.6vw,38px)/1 var(--pui-display);text-transform:uppercase;color:var(--pui-night)}
+.sv-link small{display:block;margin-bottom:8px;font:700 11px/1 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;color:#2a5e9e}
+@media(max-width:900px){.sv-link{margin:-40px 0 -40px;padding-left:12px}.sv-link-ln{height:110px}}
+@media(prefers-reduced-motion:reduce){.sv-link-ln:before{animation:none}}
+.sv-link-ln{width:14px;height:170px}
+.sv-link-ln:before{inset:0 0 20px;background:repeating-linear-gradient(transparent 0 14px,#ffffff59 14px 20px);background-size:100% 24px}
+@keyframes svFlow{to{background-position:0 24px}}
+.sv-link-ln:after{width:44px;height:28px;bottom:-12px}
