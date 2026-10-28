@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="92 145 1012 348" preserveAspectRatio="none">
+  <defs>
+    <clipPath id="left"><path d="M0 0H794L194 600H0Z"/></clipPath>
+    <clipPath id="right"><path d="M806 0H1200V600H206Z"/></clipPath>
+    <path id="block" d="M128 145H1066L1104 292 1002 332H938L800 466 837 332H451L339 428 367 332H175L92 284Z"/>
+  </defs>
+  <g fill="#29c8ff"><path d="M128 145H1066L1104 292 1002 332H938L800 466 837 332H451L339 428 367 332H175L92 284Z" clip-path="url(#left)"/><path d="M328 409 310 447 279 462Z"/></g>
+  <g fill="#e0244f"><path d="M128 145H1066L1104 292 1002 332H938L800 466 837 332H451L339 428 367 332H175L92 284Z" clip-path="url(#right)"/><path d="M811 436 778 481 749 493Z"/></g>
+</svg>
