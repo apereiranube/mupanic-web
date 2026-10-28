@@ -791,3 +791,4 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-vp-mode i{grid-area:1/1;padding:5px 10px;font:700 11px/1 var(--pui-body);font-style:normal;letter-spacing:.12em;text-transform:uppercase;background:#0f1923;color:#ece8e1;transition:opacity .3s}
 .sv-vp-mode .v{background:#e8b64c;color:#0b0b0f;opacity:0}
 .sv-vp[data-mode=vip] .sv-vp-mode .v{opacity:1}.sv-vp[data-mode=vip] .sv-vp-mode .f{opacity:0}
+.sv-evmore.off{visibility:hidden}

@@ -57,9 +57,13 @@
         var live = o.start <= now, k = o.e.n + '|' + o.t;
         return '<li class="g-' + o.e.g + (live ? ' live' : '') + (o.tom ? ' tomorrow' : '') + (k === pick ? ' pick' : '') + '" data-k="' + esc(k) + '"><time>' + o.t + '</time><span class="n">' + esc(o.e.n) + '<span class="g">' + GN[o.e.g] + (o.tom ? ' · mañana' : '') + '</span></span><span class="rel">' + (live ? 'En curso' : rel(o.start - now)) + '</span></li>';
       }).join('') : '<li class="empty">No hay eventos de esta categoría en las próximas 24 horas.</li>';
-      var mb = $('svEvMore'); mb.hidden = all.length <= 5; mb.textContent = more ? 'Ver menos' : 'Ver los ' + all.length + ' de las próximas 24 horas'; mb.setAttribute('aria-expanded', more);
+      var L = $('svEvList');
+      if (!more && rows.length >= 5 && !render._h) { L.style.minHeight = ''; render._h = L.offsetHeight; }
+      L.style.minHeight = (!more && render._h) ? render._h + 'px' : '';
+      var mb = $('svEvMore'); mb.classList.toggle('off', all.length <= 5); mb.textContent = more ? 'Ver menos' : 'Ver los ' + all.length + ' de las próximas 24 horas'; mb.setAttribute('aria-expanded', more);
     }
     $('svEvMore').addEventListener('click', function () { more = !more; render(); });
+    window.addEventListener('resize', function () { render._h = 0; });
     function ruler() {
       var now = nowArt(), h = '<div class="track"></div>';
       for (var i = 0; i <= 24; i += 3) h += '<span class="tick" style="left:' + (i / 24 * 100) + '%">' + pad(i) + '</span>';
