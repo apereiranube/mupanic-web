@@ -374,3 +374,4 @@ body.is-home{background:var(--pui-night)}
 @media(max-width:1020px){.h2-cta-throne{width:60vw;opacity:.35}}
 @media(max-width:760px){.h2-cta{flex-direction:column;align-items:stretch}.h2-cta-throne{position:relative;right:auto;bottom:auto;width:92%;margin:0 auto -10px;opacity:1;order:-1}}
 .h2-cta{min-height:820px}.h2-cta-throne{top:calc(var(--tear) + 10px);bottom:auto;right:max(-2%,calc(50% - 700px));width:min(44vw,640px)}@media(max-width:760px){.h2-cta-throne{top:auto}}
+.h2-hub-panel{padding:9% 5.5% 5% 5.5%}.h2-hub-panel:before{inset:12.8% 3.5% 4.4% 3.5%}@media(max-width:760px){.h2-hub-panel{padding:17% 7% 10%}.h2-hub-panel:before{inset:9% 4% 4% 4%}}
