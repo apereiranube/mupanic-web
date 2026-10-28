@@ -477,3 +477,5 @@ body.is-home{background:var(--pui-night)}
 @media(max-width:760px){.h2-cast-solo{transform:translateX(50%) scale(calc(1 + var(--sc)*.35));transform-origin:50% 40%}}
 @media(prefers-reduced-motion:reduce){.h2-cast-solo,.h2-hero--solo .h2-hero-block,.h2-hero-flash{animation:none}.h2-cast-solo{transform:none}}
 .h2-stats{z-index:3;background:#0b131b}.h2-cast-solo{opacity:calc(1 - var(--sc)*.35)}
+.h2-cast-solo{width:min(48vw,760px);bottom:-2%}
+@media(max-width:760px){.h2-cast-solo{width:min(104vw,520px);top:10px}}
