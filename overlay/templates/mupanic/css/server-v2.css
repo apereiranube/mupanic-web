@@ -798,3 +798,10 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-evlist:not(.is-more){min-height:calc(var(--row) * 5)}
 .sv-evlist li.empty{height:auto;padding:16px 4px}
 @media(max-width:700px){.sv-evlist{--row:92px}}
+/* Lista completa: panel a lo ancho debajo, en columnas, sin estirar la tarjeta */
+.sv-evall{grid-column:1/-1;padding:22px 24px;background:var(--pui-night-2);animation:svVpLine .3s ease-out}
+.sv-evall[hidden]{display:none}
+.sv-evall .k{margin:0 0 6px;font:700 11px/1 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;color:var(--pui-muted)}
+.sv-evlist--all{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));column-gap:28px;min-height:0!important}
+@media(max-width:700px){.sv-evall{padding:16px 14px}}
+.sv-evall{order:1}

@@ -52,13 +52,16 @@
         });
         if (af) { $('svAfName').textContent = af.e.n; $('svAfWhen').textContent = af.t + ' · ' + GN[af.e.g]; $('svAfRel').textContent = rel(af.start - now); $('svAfter').hidden = false; } else $('svAfter').hidden = true;
       }
-      var all = occ.filter(function (o) { return filter === 'all' || o.e.g === filter; }), rows = more ? all : all.slice(0, 5);
-      $('svEvList').innerHTML = rows.length ? rows.map(function (o) {
+      var all = occ.filter(function (o) { return filter === 'all' || o.e.g === filter; });
+      var pi = -1; all.forEach(function (o, i) { if (pi < 0 && o.e.n + '|' + o.t === pick) pi = i; });
+      var from = pi < 0 ? 0 : Math.max(0, Math.min(pi - 1, all.length - 5)), rows = all.slice(from, from + 5);
+      function li(o) {
         var live = o.start <= now, k = o.e.n + '|' + o.t;
         return '<li class="g-' + o.e.g + (live ? ' live' : '') + (o.tom ? ' tomorrow' : '') + (k === pick ? ' pick' : '') + '" data-k="' + esc(k) + '"><time>' + o.t + '</time><span class="n">' + esc(o.e.n) + '<span class="g">' + GN[o.e.g] + (o.tom ? ' · mañana' : '') + '</span></span><span class="rel">' + (live ? 'En curso' : rel(o.start - now)) + '</span></li>';
-      }).join('') : '<li class="empty">No hay eventos de esta categoría en las próximas 24 horas.</li>';
-      $('svEvList').classList.toggle('is-more', more);
-      var mb = $('svEvMore'); mb.classList.toggle('off', all.length <= 5); mb.textContent = more ? 'Ver menos' : 'Ver los ' + all.length + ' de las próximas 24 horas'; mb.setAttribute('aria-expanded', more);
+      }
+      $('svEvList').innerHTML = rows.length ? rows.map(li).join('') : '<li class="empty">No hay eventos de esta categoría en las próximas 24 horas.</li>';
+      var box = $('svEvAll'); box.hidden = !more; if (more) box.querySelector('ul').innerHTML = all.map(li).join('');
+      var mb = $('svEvMore'); mb.classList.toggle('off', all.length <= 5); mb.textContent = more ? 'Ocultar la lista completa' : 'Ver los ' + all.length + ' de las próximas 24 horas'; mb.setAttribute('aria-expanded', more);
     }
     $('svEvMore').addEventListener('click', function () { more = !more; render(); });
     function ruler() {
@@ -73,7 +76,7 @@
     }
     $('svRuler').addEventListener('click', function (ev) {
       var b = ev.target.closest('.ev'); if (!b) return;
-      pick = b.dataset.k; filter = 'all'; more = true;
+      pick = b.dataset.k; filter = 'all'; more = false;
       tabs.forEach(function (x) { var on = x.dataset.g === 'all'; x.setAttribute('aria-pressed', on); x.classList.toggle('is-active', on); });
       render();
       var li = $('svEvList').querySelector('.pick');

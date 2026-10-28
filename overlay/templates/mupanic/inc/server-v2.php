@@ -332,6 +332,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
           <ul class="sv-evlist" id="svEvList"></ul>
           <button type="button" class="sv-evmore" id="svEvMore" aria-expanded="false">Ver todos los del día</button>
         </div>
+        <div class="sv-evall" id="svEvAll" hidden><p class="k">Las próximas 24 horas</p><ul class="sv-evlist sv-evlist--all"></ul></div>
         <div class="sv-day">
           <div class="sv-ruler" id="svRuler" aria-hidden="true"></div>
           <div class="sv-ruler-legend"><span>Clásicos</span><span class="i">Invasiones</span><span class="c">Competencias</span><em>Tocá un evento para verlo en la lista</em></div>
