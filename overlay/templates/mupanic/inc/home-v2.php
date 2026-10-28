@@ -8,7 +8,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/home-data.php';
 $h2e = function($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); };
 $h2img = __PATH_TEMPLATE__.'img/inicio/';
-$h2art = ['bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
+$h2art = ['duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
 $h2events = panicHomeEvents();
 $h2play = __BASE_URL__.($isLogged ? 'downloads/' : 'register/');
 $h2aviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
@@ -37,8 +37,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   <section class="h2-hero" aria-labelledby="h2-title">
     <div class="h2-hero-block" aria-hidden="true"><span class="h2-hero-word">MU PANIC</span></div>
     <div class="h2-hero-cast" aria-hidden="true">
-      <img class="h2-cast-elfa" src="<?php echo $h2e($h2img.$h2art['elfa']); ?>" alt="" width="1106" height="1422" decoding="async">
-      <img class="h2-cast-bk" src="<?php echo $h2e($h2img.$h2art['bk']); ?>" alt="" width="1106" height="1422" decoding="async" fetchpriority="high">
+      <img class="h2-cast-duo" src="<?php echo $h2e($h2img.$h2art['duo']); ?>" alt="" width="1330" height="1182" decoding="async" fetchpriority="high">
     </div>
     <div class="pui-wrap h2-hero-copy">
       <p class="pui-kicker">Servidor argentino de MU Online</p>
@@ -70,8 +69,8 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   <section class="pui-band pui-band--bone h2-systems" aria-labelledby="h2-systems-title">
     <span class="pui-band-word" aria-hidden="true">PROPIO</span>
     <div class="pui-wrap">
-      <header class="h2-head"><p class="pui-kicker">Solo en MU PANIC</p><h2 class="pui-h2" id="h2-systems-title">Lo que no tiene<br>ningún otro MU</h2></header>
-      <div class="h2-system-grid">
+      <header class="h2-head"><span class="pui-hud"><i></i></span><p class="pui-kicker">Solo en MU PANIC</p><h2 class="pui-h2" id="h2-systems-title"><span class="pui-reveal">Lo que no tiene</span><br><span class="pui-reveal">ningún otro MU</span></h2></header>
+      <div class="h2-system-grid pui-rise">
         <?php foreach($h2systems as $s) { ?>
         <a class="h2-system" href="<?php echo $h2e($s[3]); ?>" style="--sys:<?php echo $h2e($s[5]); ?>">
           <span class="h2-art-slot" aria-hidden="true"><i><?php echo $h2e($s[1]); ?></i><small>Arte: <?php echo $h2e($s[4]); ?></small></span>
@@ -86,14 +85,14 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     <div class="pui-wrap h2-feature-grid">
       <div>
         <p class="pui-kicker">Sistema exclusivo</p>
-        <h2 class="pui-h2" id="h2-furia-title">Desatá<br>la Furia</h2>
-        <ol class="h2-steps">
+        <h2 class="pui-h2" id="h2-furia-title"><span class="pui-reveal">Desatá</span><br><span class="pui-reveal">la Furia</span></h2>
+        <ol class="h2-steps pui-rise">
           <li><span>01</span><div><b>Cargala</b><p>Contra monstruos y en PvP. La carga no se pierde.</p></div></li>
           <li><span>02</span><div><b>Desatala</b><p>Apretá <kbd>Shift</kbd>: más velocidad, más daño y tu poder de clase.</p></div></li>
           <li><span>03</span><div><b>No pares</b><p>Cada muerte suma tiempo. Encadená combos hasta la MASACRE.</p></div></li>
         </ol>
       </div>
-      <span class="h2-art-slot h2-art-tall" aria-hidden="true"><i>FURIA</i><small>Arte: Rage Fighter en modo furia · naranja</small></span>
+      <span class="h2-art-slot h2-art-tall pui-corners" aria-hidden="true"><i>FURIA</i><small>Arte: Rage Fighter en modo furia · naranja</small></span>
     </div>
   </section>
 
@@ -102,7 +101,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     <div class="h2-split-side h2-caos"><span>Caos</span></div>
     <div class="pui-wrap h2-split-copy">
       <p class="pui-kicker">La Fractura</p>
-      <h2 class="pui-h2" id="h2-fractura-title">Dos bandos.<br>Una guerra propia.</h2>
+      <h2 class="pui-h2" id="h2-fractura-title"><span class="pui-reveal">Dos bandos.</span><br><span class="pui-reveal">Una guerra propia.</span></h2>
       <p class="pui-lead">Nexo o Caos. Tu bando, tus batallas, tu lugar en el salón de la fama.</p>
       <a class="pui-btn" href="<?php echo $h2e(__BASE_URL__.'fractura/'); ?>">Conocé la Fractura</a>
     </div>
@@ -113,7 +112,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
       <span class="h2-art-slot h2-art-wide" aria-hidden="true"><i>COMPAÑEROS</i><small>Arte: Elyndra, Aurion, Vaerion y Grum · verde</small></span>
       <div>
         <p class="pui-kicker">Tres mascotas evolutivas y un compañero único</p>
-        <h2 class="pui-h2" id="h2-vinculos-title">No avanzás solo</h2>
+        <h2 class="pui-h2" id="h2-vinculos-title"><span class="pui-reveal">No avanzás solo</span></h2>
         <ul class="h2-names"><li>Elyndra</li><li>Aurion</li><li>Vaerion</li><li>Grum</li></ul>
         <a class="pui-btn pui-btn--dark" href="<?php echo $h2e(__BASE_URL__.'info/#vinculos'); ?>">Conocé a tus compañeros</a>
       </div>
@@ -124,7 +123,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     <div class="pui-wrap h2-feature-grid">
       <div>
         <p class="pui-kicker">Un cliente con identidad propia</p>
-        <h2 class="pui-h2" id="h2-hub-title">Todo MU PANIC,<br>a una tecla</h2>
+        <h2 class="pui-h2" id="h2-hub-title"><span class="pui-reveal">Todo MU PANIC,</span><br><span class="pui-reveal">a una tecla</span></h2>
         <p class="pui-lead">Abrí <kbd>F11</kbd> y tenés tu personaje, la Fractura, los eventos, el mercado, la tienda y ocho minijuegos.</p>
         <ul class="h2-chips"><?php foreach($h2games as $g) { ?><li><?php echo $h2e($g); ?></li><?php } ?></ul>
       </div>
@@ -137,7 +136,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
       <span class="h2-art-slot h2-art-tall" aria-hidden="true"><i>VESSARA</i><small>Arte: Vessara, reina mercader · dorado</small></span>
       <div>
         <p class="pui-kicker">El mercado de los jugadores</p>
-        <h2 class="pui-h2" id="h2-vessara-title">Lo que encontrás<br>tiene valor</h2>
+        <h2 class="pui-h2" id="h2-vessara-title"><span class="pui-reveal">Lo que encontrás</span><br><span class="pui-reveal">tiene valor</span></h2>
         <p class="pui-lead">Buscá el equipo que te falta, publicá lo que conseguís jugando y cobrá en Zen o Eryns.</p>
         <a class="pui-btn pui-btn--dark" href="<?php echo $h2e(__BASE_URL__.'market/'); ?>">Explorá el mercado</a>
       </div>
@@ -148,7 +147,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     <div class="pui-wrap h2-community-grid">
       <div>
         <p class="pui-kicker">Comunidad</p>
-        <h2 class="pui-h2" id="h2-community-title">Jugá acompañado</h2>
+        <h2 class="pui-h2" id="h2-community-title"><span class="pui-reveal">Jugá acompañado</span></h2>
         <p class="pui-lead">Buscá party, enterate de los eventos y pedí ayuda en nuestro Discord.</p>
       </div>
       <a class="pui-btn pui-btn--lg h2-discord" href="<?php echo $h2e($discordInvite); ?>" target="_blank" rel="noopener noreferrer">Entrar al Discord</a>

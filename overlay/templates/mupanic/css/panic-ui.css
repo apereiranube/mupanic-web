@@ -105,3 +105,25 @@
 .pui-wrap{width:min(1280px,100%);margin-inline:auto;padding-inline:max(24px,env(safe-area-inset-left,0px))}
 
 @media(prefers-reduced-motion:reduce){.pui-btn{transition:none}.pui-tag--live:before{animation:none}}
+
+/* Revelado al bajar: un bloque rojo barre el título y lo descubre (se activa con .is-in desde js/panic-ui.js) */
+.pui-reveal{position:relative;display:inline-block}
+.pui-reveal-js .pui-reveal{color:transparent}
+.pui-reveal-js .pui-reveal:after{content:'';position:absolute;inset:-2px -6px;background:var(--pui-red);transform:scaleX(0);transform-origin:left;pointer-events:none}
+.pui-reveal-js .pui-reveal.is-in{animation:puiRevealText 0s .42s forwards}
+.pui-reveal-js .pui-reveal.is-in:after{animation:puiRevealBar .9s cubic-bezier(.77,0,.18,1) forwards}
+@keyframes puiRevealText{to{color:inherit}}
+@keyframes puiRevealBar{0%{transform:scaleX(0);transform-origin:left}45%{transform:scaleX(1);transform-origin:left}55%{transform:scaleX(1);transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
+.pui-reveal-js .pui-rise{opacity:0;transform:translateY(24px);transition:opacity .7s ease .3s,transform .7s cubic-bezier(.2,.8,.2,1) .3s}
+.pui-reveal-js .pui-rise.is-in{opacity:1;transform:none}
+
+/* Líneas tipo HUD: línea fina con cuadradito y cruz, para esquinas de títulos y bordes de sección */
+.pui-hud{position:relative;display:flex;align-items:center;gap:10px;height:14px;margin:0 0 22px;color:currentColor;opacity:.55}
+.pui-hud:before{content:'';width:8px;height:8px;background:var(--pui-red);flex:none}
+.pui-hud:after{content:'';flex:1;height:1px;background:currentColor;max-width:340px}
+.pui-hud i{order:2;width:12px;height:12px;flex:none;background:linear-gradient(currentColor,currentColor) center/100% 1px no-repeat,linear-gradient(currentColor,currentColor) center/1px 100% no-repeat}
+.pui-corners{position:relative}
+.pui-corners:before,.pui-corners:after{content:'';position:absolute;width:22px;height:22px;border:2px solid var(--pui-red);pointer-events:none}
+.pui-corners:before{top:-10px;left:-10px;border-right:0;border-bottom:0}
+.pui-corners:after{bottom:-10px;right:-10px;border-left:0;border-top:0}
+@media(prefers-reduced-motion:reduce){.pui-reveal-js .pui-reveal{color:inherit}.pui-reveal-js .pui-reveal:after{display:none}.pui-reveal-js .pui-rise{opacity:1;transform:none}}

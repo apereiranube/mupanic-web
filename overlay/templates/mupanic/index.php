@@ -364,6 +364,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($_REQUEST['page'] === 'profile') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>profiles.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/profiles.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] === 'recharge') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>recharge.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/recharge.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($_REQUEST['page'] === 'usercp') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>account.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/account.js'), 0, 12); ?>"></script><?php } ?>
+<script src="<?php echo __PATH_TEMPLATE_JS__; ?>panic-ui.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/panic-ui.js'),0,12); ?>" defer></script>
 <?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>home-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/home-v2.js'),0,12); ?>" defer></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-ui.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-ui.js'), 0, 12); ?>"></script><?php } ?>
