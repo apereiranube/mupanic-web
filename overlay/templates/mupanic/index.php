@@ -199,7 +199,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>panic-ui.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/panic-ui.css'),0,12); ?>" rel="stylesheet">
     <?php if($isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>home-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/home-v2.css'),0,12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'info') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas-vessara.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas-vessara.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
-    <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>information.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/information.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>server-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/server-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'downloads') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>downloads.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/downloads.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
@@ -307,7 +307,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                 } elseif($_REQUEST['page'] === 'market') {
                     include(__DIR__.'/inc/market.php');
                 } elseif($_REQUEST['page'] === 'information') {
-                    include(__ROOT_DIR__.'modules/information.php');
+                    include(__DIR__.'/inc/server-v2.php');
                 } elseif($_REQUEST['page'] === 'info') {
                     include('inc/guide.php');
                 } elseif($_REQUEST['page'] === 'rankings') {
@@ -352,7 +352,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <?php if($_REQUEST['page']==='fractura') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>fractura.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/fractura.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='socios') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>socios.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/socios.js'),0,12); ?>" defer></script><?php } ?>
-<?php if($_REQUEST['page']==='information') { ?><script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script><script src="<?php echo __PATH_TEMPLATE_JS__; ?>information.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/information.js'),0,12); ?>" defer></script><?php } ?>
+<?php if($_REQUEST['page']==='information') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>server-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/server-v2.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market-listings.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market-listings.js'),0,12); ?>" defer></script><?php } ?>
 <?php if(!$isHome) { ?><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
