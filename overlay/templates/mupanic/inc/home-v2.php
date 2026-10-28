@@ -102,10 +102,10 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   <section class="h2-split pui-tear" aria-labelledby="h2-fractura-title">
     <div class="h2-split-side h2-nexo"><span>Nexo</span></div>
     <div class="h2-split-side h2-caos"><span>Caos</span></div>
-    <svg class="h2-crack" viewBox="0 0 120 800" preserveAspectRatio="none" aria-hidden="true"><path d="M70 0 L52 90 L78 150 L44 240 L70 300 L40 400 L66 470 L36 560 L60 640 L30 730 L46 800"/></svg>
-    <div class="h2-shards" aria-hidden="true"><?php for($k=0;$k<14;$k++) { ?><i style="--x:<?php echo ($k*37+9)%100; ?>%;--d:<?php echo -($k*0.83); ?>s;--t:<?php echo 7+($k%5); ?>s;--s:<?php echo 6+($k%4)*4; ?>px"></i><?php } ?></div>
     <img class="h2-split-char h2-split-aldren" src="<?php echo $h2e($h2img.$h2art['aldren']); ?>" alt="" aria-hidden="true" width="1202" height="1560" loading="lazy" decoding="async">
     <img class="h2-split-char h2-split-varkor" src="<?php echo $h2e($h2img.$h2art['varkor']); ?>" alt="" aria-hidden="true" width="1216" height="1560" loading="lazy" decoding="async">
+    <a class="h2-zone h2-zone-n" href="<?php echo $h2e(__BASE_URL__.'fractura/#nexo'); ?>"><span class="h2-zone-tag"><b>Nexo</b><em>Preservar</em><small>“Mientras permanezcamos unidos, el mundo resistirá.”</small></span><span class="pui-sr">Conocé el bando Nexo</span></a>
+    <a class="h2-zone h2-zone-c" href="<?php echo $h2e(__BASE_URL__.'fractura/#caos'); ?>"><span class="h2-zone-tag"><b>Caos</b><em>Liberar</em><small>“Toda ruptura es una puerta al poder.”</small></span><span class="pui-sr">Conocé el bando Caos</span></a>
     <div class="pui-wrap h2-split-copy">
       <p class="pui-kicker">La Fractura</p>
       <h2 class="pui-h2" id="h2-fractura-title"><span class="pui-reveal">Dos bandos.</span><br><span class="pui-reveal">Una guerra propia.</span></h2>

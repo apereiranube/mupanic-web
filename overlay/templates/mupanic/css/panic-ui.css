@@ -149,3 +149,4 @@
 .pui-slash--fine{aspect-ratio:2400/120;background-image:url('../img/ui/trazo-rojo-fino-81ea7590147f.webp')}
 .pui-reveal-js .pui-slash{clip-path:inset(0 100% 0 0);transition:clip-path .9s cubic-bezier(.77,0,.18,1)}
 .pui-reveal-js .pui-slash.is-in{clip-path:inset(0 0 0 0)}
+.pui-sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

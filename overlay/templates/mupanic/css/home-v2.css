@@ -232,19 +232,49 @@ body.is-home{background:var(--pui-night)}
 @media(max-width:1020px){.h2-split-char{height:70%;opacity:.55}.h2-split{min-height:620px}}
 @media(max-width:760px){.h2-split-char{height:48%;opacity:.9}.h2-split-aldren{left:-18%;top:0;bottom:auto}.h2-split-varkor{right:-18%;bottom:0}.h2-split-copy{margin-block:170px}}
 
-/* Fractura: tamaños parejos, grieta de energía al medio, fragmentos flotando y personajes que respiran */
+/* Fractura: tamaños parejos y bandos que reaccionan al mouse */
+@property --cut{syntax:'<percentage>';inherits:true;initial-value:50%}
+.h2-split{--cut:50%;transition:--cut .7s cubic-bezier(.77,0,.18,1)}
 .h2-split-aldren{height:100%;bottom:-3%}
 .h2-split-varkor{height:84%;bottom:0}
-.h2-split-char{animation:h2Breath 6s ease-in-out infinite}
-.h2-split-varkor{animation-delay:-3s}
-@keyframes h2Breath{50%{transform:translateY(-12px)}}
-.h2-crack{position:absolute;z-index:1;left:50%;top:0;width:120px;height:100%;transform:translateX(-50%);overflow:visible;pointer-events:none}
-.h2-crack path{fill:none;stroke:#fff;stroke-width:4;stroke-linejoin:miter;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 16px #c7a7ff) drop-shadow(0 0 30px #ff3f8e);animation:h2Crack 2.6s steps(1) infinite}
-@keyframes h2Crack{0%,100%{opacity:1}46%{opacity:.55}48%{opacity:1}72%{opacity:.75}}
-.h2-shards{position:absolute;z-index:1;inset:0;overflow:hidden;pointer-events:none}
-.h2-shards i{position:absolute;left:var(--x);bottom:-30px;width:var(--s);height:calc(var(--s)*1.8);background:#fff;clip-path:polygon(50% 0,100% 40%,60% 100%,0 60%);opacity:.0;animation:h2Shard var(--t) linear infinite;animation-delay:var(--d)}
-.h2-shards i:nth-child(odd){background:#8fe3ff}
-.h2-shards i:nth-child(3n){background:#ff4f9a}
-@keyframes h2Shard{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.85}85%{opacity:.6}100%{transform:translateY(-820px) rotate(320deg);opacity:0}}
-@media(max-width:760px){.h2-crack{top:50%;left:0;width:100%;height:60px;transform:translateY(-50%) rotate(90deg) scaleX(.12)}.h2-split-varkor{height:46%}.h2-split-aldren{height:50%}}
-@media(prefers-reduced-motion:reduce){.h2-split-char,.h2-crack path,.h2-shards i{animation:none}.h2-shards{display:none}}
+.h2-nexo,.h2-caos{left:0;right:0;transition:filter .5s}
+.h2-nexo{clip-path:polygon(0 0,calc(var(--cut) + 6%) 0,calc(var(--cut) - 6%) 100%,0 100%)}
+.h2-caos{clip-path:polygon(calc(var(--cut) + 6%) 0,100% 0,100% 100%,calc(var(--cut) - 6%) 100%)}
+.h2-split-side span{transition:opacity .5s,transform .7s cubic-bezier(.77,0,.18,1)}
+.h2-split-char{transition:transform .7s cubic-bezier(.77,0,.18,1),filter .5s}
+.h2-zone{position:absolute;z-index:1;top:0;bottom:0;width:50%;display:flex;align-items:flex-end;padding:0 0 calc(var(--tear) + 30px);color:#fff;text-decoration:none}
+.h2-zone-n{left:0;justify-content:flex-start;padding-left:max(24px,calc(50vw - 640px))}
+.h2-zone-c{right:0;justify-content:flex-end;padding-right:max(24px,calc(50vw - 640px));text-align:right}
+.h2-zone-tag{display:grid;gap:2px;opacity:0;transform:translateY(16px);transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1)}
+.h2-zone-tag b{font:400 clamp(48px,5vw,80px)/.9 var(--pui-display);text-transform:uppercase}
+.h2-zone-tag em{font:700 13px/1 var(--pui-body);font-style:normal;letter-spacing:.2em;text-transform:uppercase}
+.h2-zone-tag small{max-width:300px;font-size:14px;line-height:1.5;opacity:.9}
+.h2-zone:hover .h2-zone-tag,.h2-zone:focus-visible .h2-zone-tag{opacity:1;transform:none}
+.h2-zone:focus-visible{outline:3px solid #fff;outline-offset:-8px}
+/* Hover en Nexo: el cian invade, Aldren se agranda y Varkor se apaga */
+.h2-split:has(.h2-zone-n:hover),.h2-split:has(.h2-zone-n:focus-visible){--cut:72%}
+.h2-split:has(.h2-zone-n:hover) .h2-split-aldren,.h2-split:has(.h2-zone-n:focus-visible) .h2-split-aldren{transform:scale(1.08) translateX(4%)}
+.h2-split:has(.h2-zone-n:hover) .h2-split-varkor,.h2-split:has(.h2-zone-n:focus-visible) .h2-split-varkor{transform:translateX(18%) scale(.94);filter:grayscale(1) brightness(.45)}
+.h2-split:has(.h2-zone-n:hover) .h2-nexo span{transform:translateX(6%)}
+/* Hover en Caos: el carmesí invade, Varkor se agranda y Aldren se apaga */
+.h2-split:has(.h2-zone-c:hover),.h2-split:has(.h2-zone-c:focus-visible){--cut:28%}
+.h2-split:has(.h2-zone-c:hover) .h2-split-varkor,.h2-split:has(.h2-zone-c:focus-visible) .h2-split-varkor{transform:scale(1.1) translateX(-4%)}
+.h2-split:has(.h2-zone-c:hover) .h2-split-aldren,.h2-split:has(.h2-zone-c:focus-visible) .h2-split-aldren{transform:translateX(-18%) scale(.94);filter:grayscale(1) brightness(.45)}
+.h2-split:has(.h2-zone-c:hover) .h2-caos span{transform:translateX(-6%)}
+/* Mientras hay un bando elegido, el panel de texto se corre del medio */
+.h2-split-copy{transition:opacity .35s,transform .5s}
+.h2-split:has(.h2-zone:hover) .h2-split-copy{opacity:0;transform:scale(.96);pointer-events:none}
+@media(max-width:1020px){.h2-zone-tag small{display:none}}
+@media(max-width:760px){.h2-zone{display:none}.h2-split-varkor{height:46%}.h2-split-aldren{height:50%}}
+@media(prefers-reduced-motion:reduce){.h2-split,.h2-split-char,.h2-split-side span,.h2-zone-tag{transition:none}}
+.h2-zone-tag{position:absolute;top:50%;width:min(420px,34vw);color:#fff!important;text-shadow:0 4px 24px #0f192380;translate:0 -50%}
+.h2-zone-tag *{color:#fff!important}
+.h2-zone-n .h2-zone-tag{left:calc(50% + 2vw);text-align:left}
+.h2-zone-c .h2-zone-tag{right:calc(50% + 2vw);text-align:right;justify-items:end}
+.h2-zone-tag b{font-size:clamp(80px,9vw,150px)}
+.h2-zone-tag em{font-size:15px;letter-spacing:.3em}
+.h2-zone-tag small{font-size:16px;max-width:none}
+.h2-zone-tag:after{content:'Elegí este bando \2197';margin-top:14px;font:400 18px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;padding:10px 16px;background:#0f1923;justify-self:start}
+.h2-zone-c .h2-zone-tag:after{justify-self:end}
+.h2-zone-n .h2-zone-tag{left:86%}
+.h2-zone-c .h2-zone-tag{right:86%}
