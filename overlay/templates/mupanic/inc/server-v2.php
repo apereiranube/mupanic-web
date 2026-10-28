@@ -298,7 +298,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
     <div class="pui-wrap">
       <header class="sv-head">
         <div><p class="pui-kicker">Eventos en vivo</p><h2 class="pui-h2" id="sv-ev-t"><?php echo $svReveal(['El continente','no para']); ?></h2></div>
-        <p class="pui-lead">Horarios de Argentina. Se actualiza solo.</p>
+        <p class="pui-lead">Horarios de Argentina.</p>
       </header>
       <div class="sv-clock">
         <div class="sv-next" id="svNext" data-g="classic">
