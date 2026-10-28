@@ -873,3 +873,10 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-faq{background-image:url('../img/ui/hud-rojo-b-58bea953ccca.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
 .sv-vp[data-mode=vip]{background-image:url('../img/ui/hud-dorado-3507d9648fde.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
 @media(max-width:700px){.sv-hero,.sv-classes,.sv-furia,.sv-events,.sv-faq,.sv-vp[data-mode=vip]{background-size:1500px auto;background-position:center top}}
+
+/* Fondos HUD claros (GPT) en las bandas hueso: solo dentro de la parte lisa, sin tapar los bordes rasgados */
+.sv-reset:before,.sv-pvp:before,.sv-fair:before{content:"";position:absolute;z-index:-1;left:0;right:0;top:calc(var(--tear,0px) - 2px);bottom:calc(var(--tear,0px) - 2px);background:var(--hud) center/cover no-repeat;pointer-events:none}
+.sv-reset{--hud:url('../img/ui/hud-hueso-rojo-36bc78e689ac.svg')}
+.sv-pvp{--hud:url('../img/ui/hud-hueso-azul-d210f6c67353.svg')}
+.sv-fair{--hud:url('../img/ui/hud-hueso-verde-b-8ce6174f6d03.svg')}
+@media(max-width:700px){.sv-reset:before,.sv-pvp:before,.sv-fair:before{background-size:1500px auto;background-position:center top}}
