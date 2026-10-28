@@ -26,7 +26,7 @@ $mkSteps = [
     <div class="mk-hero-art" aria-hidden="true"><img src="<?php echo $mk($mkImg.'mercado/mercado-vessara-21aac8b393dc.webp'); ?>" alt="" width="853" height="1300" decoding="async" fetchpriority="high"></div>
     <div class="pui-wrap mk-hero-copy">
       <p class="pui-kicker">Loren Market</p>
-      <h1 class="pui-h1" id="mk-title">Mercado de<br>Vessara</h1>
+      <h1 class="pui-h1" id="mk-title">Mercado de<br>Vessara<span class="mk-hs" aria-hidden="true"><img class="mk-hs-mark" src="<?php echo $mk($mkImg.'mercado/mercado-lacre-37e39939fdc0.webp'); ?>" alt="" width="520" height="502"><img class="mk-hs-seal" src="<?php echo $mk($mkImg.'mercado/mercado-sello-7cb6746c9c13.webp'); ?>" alt="" width="524" height="700"></span></h1>
       <p class="pui-lead">Comprá y vendé con otros jugadores en Zen y Eryns. Vessara guarda cada objeto hasta que se vende y garantiza el trato.</p>
       <div class="mk-actions">
         <span class="pui-btn-wrap"><a class="pui-btn pui-btn--lg" href="#publicaciones">Ver objetos en venta</a></span>
@@ -110,7 +110,8 @@ $mkSteps = [
           <div class="mk-stage-views"><img src="<?php echo $mk($mkImg.'mercado/paso-todos-6c48dc8a90ad.webp'); ?>" alt="" width="240" height="240" loading="lazy"><b data-mk-views>0</b><small>jugadores la vieron</small></div>
           <span class="mk-seal-mark"></span>
           <span class="mk-seal"><img src="<?php echo $mk($mkImg.'mercado/mercado-sello-7cb6746c9c13.webp'); ?>" alt="" width="524" height="700" loading="lazy"></span>
-          <div class="mk-stage-pay"><div><small>Precio</small><b>1.000</b></div><div><small>Tributo 5%</small><b>−50</b></div><div class="net"><small>Cobrás</small><b><img src="<?php echo $mk($mkImg.'votar/votar-gema-64-4559844ddcec.webp'); ?>" alt="" width="20" height="20">950</b></div></div>
+          <div class="mk-stage-pay"><div><small>Precio</small><b data-roll="1000">1.000</b></div><div><small>Tributo 5%</small><b data-roll="50" data-pre="−">−50</b></div><div class="net"><small>Cobrás</small><b><img src="<?php echo $mk($mkImg.'votar/votar-gema-64-4559844ddcec.webp'); ?>" alt="" width="20" height="20"><span data-roll="950">950</span></b></div></div>
+          <button type="button" class="pui-btn pui-btn--sm mk-buy" data-mk-buy>Comprar</button>
           <p class="mk-stage-cap" data-mk-cap>Publicás tu Jewel of Chaos en Loren Market.</p>
         </div>
       </div>
@@ -155,11 +156,11 @@ $mkSteps = [
         <div><p class="pui-kicker">La garantía de Vessara</p><h2 class="pui-h2" id="mk-rules-t"><?php echo $mkReveal(['Bajo su sello,','ningún trato se rompe']); ?></h2></div>
         <p class="pui-lead">Vessara custodia tu objeto desde Loren Market hasta que se vende, y garantiza que las dos partes reciban lo acordado.</p>
       </header>
-      <dl class="mk-rule-grid">
-        <div class="mk-rule"><dt>Gratis</dt><dd><b>Publicar</b>Y si cambiás de idea, retirás tu objeto sin costo.</dd></div>
-        <div class="mk-rule"><dt>5%</dt><dd><b>Tributo al vender</b>Las publicaciones destacadas pagan 8% en total, y solo cuando se venden.</dd></div>
-        <div class="mk-rule"><dt>3<small>/</small>10</dt><dd><b>Publicaciones a la vez</b>3 con cuenta Free y 10 con VIP, entre Zen y Eryns.</dd></div>
-        <div class="mk-rule"><dt>7<small>días</small></dt><dd><b>En la vidriera</b>Cada publicación dura una semana.</dd></div>
+      <dl class="mk-rule-grid" data-mk-rules>
+        <div class="mk-rule"><span class="mk-rule-seal" aria-hidden="true"></span><dt>Gratis</dt><dd><b>Publicar</b>Y si cambiás de idea, retirás tu objeto sin costo.</dd></div>
+        <div class="mk-rule"><span class="mk-rule-seal" aria-hidden="true"></span><dt><span class="mk-n" data-n="5">5</span>%</dt><dd><b>Tributo al vender</b>Las publicaciones destacadas pagan <span class="mk-n" data-n="8">8</span>% en total, y solo cuando se venden.</dd></div>
+        <div class="mk-rule"><span class="mk-rule-seal" aria-hidden="true"></span><dt><span class="mk-n" data-n="3">3</span><small>/</small><span class="mk-n" data-n="10">10</span></dt><dd><b>Publicaciones a la vez</b>3 con cuenta Free y 10 con VIP, entre Zen y Eryns.</dd></div>
+        <div class="mk-rule"><span class="mk-rule-seal" aria-hidden="true"></span><dt><span class="mk-n" data-n="7">7</span><small>días</small></dt><dd><b>En la vidriera</b>Cada publicación dura una semana.</dd></div>
       </dl>
     </div>
   </section>

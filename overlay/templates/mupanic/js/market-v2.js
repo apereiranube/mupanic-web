@@ -82,7 +82,7 @@
   }
   setInterval(lastSale, 15000);
   addEventListener('resize', function () { qa('.mk-stat b').forEach(fitNum); });
-  function rows() {
+  function rows(enter) {
     var list = ((data && data.sales) || []).filter(function (s) { return cur === 'all' || String(s.currency) === cur; });
     var pages = Math.max(1, Math.ceil(list.length / 10)); lpage = Math.min(Math.max(1, lpage), pages);
     var shown = list.slice((lpage - 1) * 10, lpage * 10), box = q('[data-mk-rows]'); box.replaceChildren();
@@ -90,6 +90,7 @@
       var li = el('li', null, 'mk-row' + (s.currency === 1 ? ' eryns' : ''));
       var t = el('time', when(s)); t.dateTime = s.soldAt;
       li.append(el('b', title(s)), el('span', s.buyer, 'who'), el('span', s.seller, 'who b'), cash(el('span', money(s), 'pr'), s), t);
+      if (enter && !reduce) { li.classList.add('enter'); li.style.setProperty('--i', box.children.length); }
       box.appendChild(li);
     });
     var empty = q('[data-mk-empty]'); empty.hidden = !!shown.length;
@@ -116,14 +117,28 @@
       box.appendChild(b);
     });
   }
-  function renderSales() { metrics(); tape(); rows(); records(); week(); }
+  /* Sube un número desde 0 hasta su valor (solo dígitos; respeta el texto alrededor). */
+  function roll(b, dur) {
+    var txt = b.getAttribute('data-txt') || b.textContent; b.setAttribute('data-txt', txt);
+    var m = txt.match(/[\d.]+/); if (!m || reduce) { b.textContent = txt; return; }
+    var target = parseInt(m[0].replace(/\./g, ''), 10), pre = txt.slice(0, m.index), post = txt.slice(m.index + m[0].length), t0 = performance.now();
+    (function st(t) { var x = Math.min(1, (t - t0) / (dur || 1000)), e = 1 - Math.pow(1 - x, 3); b.textContent = pre + fmt(String(Math.round(target * e))) + post; if (x < 1) requestAnimationFrame(st); })(t0);
+  }
+  var logSeen = false;
+  function onLogSeen() {
+    if (logSeen) return; logSeen = true;
+    q('[data-mk-days]').classList.add('is-in');
+    qa('[data-mk-records] .mk-rec b').forEach(function (b) { roll(b, 1100); });
+  }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); onLogSeen(); } }, {threshold: .2}).observe(q('.mk-log-grid')); else logSeen = true;
+  function renderSales() { metrics(); tape(); rows(); records(); week(); if (logSeen) q('[data-mk-days]').classList.add('is-in'); }
   qa('[data-mk-cur]').forEach(function (b) { b.addEventListener('click', function () {
     cur = b.getAttribute('data-mk-cur'); lpage = 1;
     qa('[data-mk-cur]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); x.classList.toggle('is-active', x === b); });
-    rows();
+    rows(true);
   }); });
-  q('[data-mk-prev]').addEventListener('click', function () { lpage--; rows(); });
-  q('[data-mk-next]').addEventListener('click', function () { lpage++; rows(); });
+  q('[data-mk-prev]').addEventListener('click', function () { lpage--; rows(true); });
+  q('[data-mk-next]').addEventListener('click', function () { lpage++; rows(true); });
   function pollSales() {
     if (SAMPLE || document.hidden) return;
     fetch(root.getAttribute('data-market-url'), {headers: {Accept: 'application/json'}, cache: 'no-store'})
@@ -216,7 +231,7 @@
   document.addEventListener('pointerdown', function (e) { if (pinned && !tip.contains(e.target) && !e.target.closest('[data-mk-offer]') && !mobile()) hide(); });
   addEventListener('scroll', function () { if (shown && !pinned) hide(); }, {passive: true});
   function card(it) {
-    var c = el('article', null, 'mk-card' + (promoted(it) ? ' is-featured' : '') + (rarity(it) ? ' ' + rarity(it) : ''));
+    var c = el('article', null, 'mk-card ' + (it.currency === 1 ? 'eryns' : 'zen') + (promoted(it) ? ' is-featured' : '') + (rarity(it) ? ' ' + rarity(it) : ''));
     c.setAttribute('data-mk-offer', it.id); c.tabIndex = 0; c.setAttribute('role', 'button'); c.setAttribute('aria-expanded', 'false'); c.setAttribute('aria-controls', 'mk-tip');
     c.setAttribute('aria-label', 'Ver ficha de ' + title(it) + ' · ' + money(it));
     var b = el('div', null, 'mk-card-body'), tags = el('div', null, 'mk-card-tags');
@@ -224,6 +239,7 @@
     if (promoted(it)) tags.append(el('span', 'Destacado', 'mk-card-badge'));
     b.append(tags, nameNode('h4', it), el('p', it.seller || '—', 'mk-card-seller'), cash(el('strong', money(it), 'mk-card-price' + (it.currency === 1 ? ' eryns' : '')), it));
     c.append(media(it), b);
+    if (promoted(it)) { var sh = el('span', null, 'mk-sheen'); sh.setAttribute('aria-hidden', 'true'); c.append(sh); }
     if (promoted(it)) { var rib = el('span', null, 'mk-card-rib'); rib.setAttribute('aria-hidden', 'true'); rib.append(el('span', 'Destacado')); c.append(rib); }
     var t = 0;
     c.addEventListener('pointerenter', function (e) { if (e.pointerType === 'touch' || pinned) return; clearTimeout(t); t = setTimeout(function () { if (!pinned && c.matches(':hover')) show(it, c, false); }, 110); });
@@ -306,6 +322,7 @@
     var span = 5000, step = 0, auto = !reduce, visible = false, timer = 0;
     function show(i) {
       step = i; stage.setAttribute('data-step', i + 1); cap.textContent = caps[i];
+      if (i === 4) qa('[data-mk-stage] [data-roll]').forEach(function (b) { var v = +b.getAttribute('data-roll'), pre = b.getAttribute('data-pre') || '', t0 = performance.now(); if (reduce) { b.textContent = pre + fmt(String(v)); return; } (function st(t) { var x = Math.min(1, (t - t0) / 900); b.textContent = pre + fmt(String(Math.round(v * (1 - Math.pow(1 - x, 3))))); if (x < 1) requestAnimationFrame(st); })(t0); });
       var vw = q('[data-mk-views]'); if (vw) { clearInterval(vw._t); if (i === 2 && !reduce) { var n = 0; vw.textContent = '0'; vw._t = setInterval(function () { n = Math.min(128, n + 4); vw.textContent = n; if (n >= 128) clearInterval(vw._t); }, 30); } else vw.textContent = '128'; }
       items.forEach(function (li, k) {
         li.classList.toggle('on', k === i); li.classList.toggle('done', k < i);
@@ -315,8 +332,27 @@
     }
     function sync() { clearTimeout(timer); if (auto && visible && !document.hidden) { show(step); timer = setTimeout(function next() { show((step + 1) % items.length); timer = setTimeout(next, span); }, span); } }
     items.forEach(function (li, i) { li.querySelector('button').addEventListener('click', function () { auto = false; clearTimeout(timer); show(i); }); });
+    /* Jugable: Comprar recorre el cierre del trato; Volver a publicar lo reinicia. */
+    var buy = q('[data-mk-buy]'), seq = [], sold = false;
+    function clearSeq() { seq.forEach(clearTimeout); seq = []; }
+    buy.addEventListener('click', function () {
+      auto = false; clearTimeout(timer); clearSeq();
+      if (sold) { sold = false; buy.textContent = 'Comprar'; show(0); return; }
+      buy.disabled = true; show(2);
+      seq.push(setTimeout(function () { show(3); }, reduce ? 0 : 700));
+      seq.push(setTimeout(function () { show(4); }, reduce ? 0 : 1900));
+      seq.push(setTimeout(function () { sold = true; buy.disabled = false; buy.textContent = 'Volver a publicar'; }, reduce ? 0 : 2900));
+    });
+    items.forEach(function (li) { li.querySelector('button').addEventListener('click', function () { clearSeq(); sold = false; buy.disabled = false; buy.textContent = 'Comprar'; }); });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; sync(); }, {threshold: .35}).observe(stage);
     document.addEventListener('visibilitychange', sync);
     show(0);
+  })();
+
+  /* Garantía: los números suben y cada regla recibe su lacre. */
+  (function () {
+    var g = q('[data-mk-rules]'); if (!g) return;
+    function go() { g.classList.add('is-in'); if (reduce) return; qa('[data-mk-rules] .mk-n').forEach(function (n) { var v = +n.getAttribute('data-n'), t0 = performance.now(); (function st(t) { var x = Math.min(1, (t - t0) / 900); n.textContent = Math.round(v * (1 - Math.pow(1 - x, 3))); if (x < 1) requestAnimationFrame(st); })(t0); }); }
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); go(); } }, {threshold: .4}).observe(g); else go();
   })();
 })();
