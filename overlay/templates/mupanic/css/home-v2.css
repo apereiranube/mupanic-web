@@ -231,3 +231,20 @@ body.is-home{background:var(--pui-night)}
 .h2-system:hover .h2-card-duel img{transform:scale(1.04)}
 @media(max-width:1020px){.h2-split-char{height:70%;opacity:.55}.h2-split{min-height:620px}}
 @media(max-width:760px){.h2-split-char{height:48%;opacity:.9}.h2-split-aldren{left:-18%;top:0;bottom:auto}.h2-split-varkor{right:-18%;bottom:0}.h2-split-copy{margin-block:170px}}
+
+/* Fractura: tamaños parejos, grieta de energía al medio, fragmentos flotando y personajes que respiran */
+.h2-split-aldren{height:100%;bottom:-3%}
+.h2-split-varkor{height:84%;bottom:0}
+.h2-split-char{animation:h2Breath 6s ease-in-out infinite}
+.h2-split-varkor{animation-delay:-3s}
+@keyframes h2Breath{50%{transform:translateY(-12px)}}
+.h2-crack{position:absolute;z-index:1;left:50%;top:0;width:120px;height:100%;transform:translateX(-50%);overflow:visible;pointer-events:none}
+.h2-crack path{fill:none;stroke:#fff;stroke-width:4;stroke-linejoin:miter;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 16px #c7a7ff) drop-shadow(0 0 30px #ff3f8e);animation:h2Crack 2.6s steps(1) infinite}
+@keyframes h2Crack{0%,100%{opacity:1}46%{opacity:.55}48%{opacity:1}72%{opacity:.75}}
+.h2-shards{position:absolute;z-index:1;inset:0;overflow:hidden;pointer-events:none}
+.h2-shards i{position:absolute;left:var(--x);bottom:-30px;width:var(--s);height:calc(var(--s)*1.8);background:#fff;clip-path:polygon(50% 0,100% 40%,60% 100%,0 60%);opacity:.0;animation:h2Shard var(--t) linear infinite;animation-delay:var(--d)}
+.h2-shards i:nth-child(odd){background:#8fe3ff}
+.h2-shards i:nth-child(3n){background:#ff4f9a}
+@keyframes h2Shard{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.85}85%{opacity:.6}100%{transform:translateY(-820px) rotate(320deg);opacity:0}}
+@media(max-width:760px){.h2-crack{top:50%;left:0;width:100%;height:60px;transform:translateY(-50%) rotate(90deg) scaleX(.12)}.h2-split-varkor{height:46%}.h2-split-aldren{height:50%}}
+@media(prefers-reduced-motion:reduce){.h2-split-char,.h2-crack path,.h2-shards i{animation:none}.h2-shards{display:none}}
