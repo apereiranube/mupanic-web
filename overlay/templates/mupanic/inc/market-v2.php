@@ -37,10 +37,10 @@ $mkSteps = [
 
   <section class="mk-score" aria-label="El mercado hoy">
     <dl class="pui-wrap mk-stats">
-      <div class="mk-stat mk-stat--lead"><dt>Ventas de hoy</dt><dd><b class="pui-num" data-mk-metric="today"><?php echo panicMarketNumber($metrics['today'] ?? ''); ?></b></dd></div>
-      <div class="mk-stat"><dt><img class="mk-cur" src="<?php echo __PATH_TEMPLATE__; ?>img/mercado/moneda-zen-f296546732d4.webp" alt="" width="18" height="18">Volumen en Zen</dt><dd><b class="pui-num mk-zen" data-mk-metric="zen"><?php echo panicMarketNumber($metrics['zen'] ?? ''); ?></b></dd></div>
-      <div class="mk-stat"><dt><img class="mk-cur" src="<?php echo __PATH_TEMPLATE__; ?>img/votar/votar-gema-64-4559844ddcec.webp" alt="" width="18" height="18">Volumen en Eryns</dt><dd><b class="pui-num mk-eryns" data-mk-metric="eryns"><?php echo panicMarketNumber($metrics['eryns'] ?? ''); ?></b></dd></div>
-      <div class="mk-stat"><dt>Objetos en venta</dt><dd><b class="pui-num" data-mk-count>—</b></dd></div>
+      <div class="mk-stat mk-stat--lead"><dt>Ventas de hoy</dt><dd><b class="pui-num" data-mk-metric="today"><?php echo panicMarketNumber($metrics['today'] ?? ''); ?></b><small class="mk-last" data-mk-last>&nbsp;</small></dd></div>
+      <div class="mk-stat"><dt><img class="mk-cur" src="<?php echo __PATH_TEMPLATE__; ?>img/mercado/moneda-zen-f296546732d4.webp" alt="" width="18" height="18">Volumen en Zen</dt><dd><b class="pui-num mk-zen" data-mk-metric="zen"><?php echo panicMarketNumber($metrics['zen'] ?? ''); ?></b><small class="mk-delta" aria-hidden="true"></small></dd></div>
+      <div class="mk-stat"><dt><img class="mk-cur" src="<?php echo __PATH_TEMPLATE__; ?>img/votar/votar-gema-64-4559844ddcec.webp" alt="" width="18" height="18">Volumen en Eryns</dt><dd><b class="pui-num mk-eryns" data-mk-metric="eryns"><?php echo panicMarketNumber($metrics['eryns'] ?? ''); ?></b><small class="mk-delta" aria-hidden="true"></small></dd></div>
+      <div class="mk-stat"><dt>Objetos en venta</dt><dd><b class="pui-num" data-mk-count>—</b><small class="mk-delta" aria-hidden="true"></small></dd></div>
     </dl>
     <div class="pui-wrap mk-tape" aria-label="Últimas ventas">
       <span class="mk-tape-lbl">Últimas ventas</span>

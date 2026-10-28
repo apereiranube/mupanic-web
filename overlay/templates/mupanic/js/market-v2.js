@@ -56,8 +56,31 @@
   function fitNum(b) { b.style.fontSize = ''; var w = b.clientWidth; for (var i = 0; w && b.scrollWidth > w && i < 4; i++) b.style.fontSize = (parseFloat(getComputedStyle(b).fontSize) * w / b.scrollWidth * .97) + 'px'; }
   function metrics() {
     var m = (data && data.metrics) || {};
-    qa('[data-mk-metric]').forEach(function (b) { var v = m[b.getAttribute('data-mk-metric')]; b.textContent = /^\d+$/.test(String(v)) ? fmt(v) : '—'; if (b.closest('.mk-stat')) fitNum(b); });
+    qa('[data-mk-metric]').forEach(function (b) { var v = m[b.getAttribute('data-mk-metric')]; if (/^\d+$/.test(String(v))) countTo(b, +v); else { b.textContent = '—'; b._v = null; } });
+    lastSale();
   }
+  /* Números vivos: cuentan hasta el valor real y, cuando entra una venta, suben rodando con un "+N". Nunca se inventan cifras. */
+  function countTo(b, target) {
+    var from = typeof b._v === 'number' ? b._v : 0, first = typeof b._v !== 'number'; b._v = target;
+    var stat = b.closest('.mk-stat');
+    if (!first && target > from && stat) {
+      var k = b.getAttribute('data-mk-metric'), d = target - from, txt = '+' + fmt(String(d)) + (k === 'zen' ? ' Zen' : k === 'eryns' ? ' Eryns' : '');
+      var p = stat.querySelector('.mk-delta');
+      if (p) { p.textContent = txt; p.classList.remove('on'); void p.offsetWidth; p.classList.add('on'); clearTimeout(p._t); p._t = setTimeout(function () { p.classList.remove('on'); }, 4000); }
+      stat.classList.remove('is-bump'); void stat.offsetWidth; stat.classList.add('is-bump');
+    }
+    if (reduce || from === target) { b.textContent = fmt(String(target)); if (stat) fitNum(b); return; }
+    var t0 = performance.now(), dur = first ? 1400 : 900; cancelAnimationFrame(b._raf);
+    (function st(t) { var x = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - x, 3); b.textContent = fmt(String(Math.round(from + (target - from) * e))); if (stat && (x === 1 || first && x < .05)) fitNum(b); if (x < 1) b._raf = requestAnimationFrame(st); })(t0);
+  }
+  function lastSale() {
+    var n = q('[data-mk-last]'); if (!n) return;
+    var s = data && data.sales && data.sales[0], ms = s && Date.parse(s.soldAt);
+    if (!ms) { n.textContent = 'Todavía no hay ventas hoy'; return; }
+    var m = Math.max(0, Math.round((Date.now() - ms) / 60000));
+    n.textContent = 'Última venta ' + (m < 1 ? 'hace instantes' : m < 60 ? 'hace ' + m + ' min' : m < 1440 ? 'hace ' + Math.floor(m / 60) + ' h' : 'hace ' + Math.floor(m / 1440) + ' d');
+  }
+  setInterval(lastSale, 15000);
   addEventListener('resize', function () { qa('.mk-stat b').forEach(fitNum); });
   function rows() {
     var list = ((data && data.sales) || []).filter(function (s) { return cur === 'all' || String(s.currency) === cur; });
@@ -109,6 +132,12 @@
       .catch(function () {});
   }
   renderSales(); setInterval(pollSales, 15000);
+  /* Solo en la vista previa con datos de muestra: simula ventas nuevas para ver el marcador en movimiento. */
+  if (SAMPLE && data && data.sales && data.sales.length) setInterval(function () {
+    var b = data.sales[Math.floor(Math.random() * data.sales.length)], n = JSON.parse(JSON.stringify(b)); n.soldAt = new Date().toISOString();
+    var m = data.metrics || (data.metrics = {}); m.today = String((+m.today || 0) + 1); var k = n.currency === 1 ? 'eryns' : 'zen'; m[k] = String((+m[k] || 0) + (+n.price || 0));
+    data = Object.assign({}, data, {sales: [n].concat(data.sales).slice(0, 40), metrics: m}); renderSales();
+  }, 9000);
 
   /* ---------- Vidriera (market_listings) ---------- */
   var listings = null, page = 1, lcur = 'all', search = '', sort = 'recent', typing = 0, lseq = 0;
@@ -235,7 +264,7 @@
     if (!ok) { renderFeatured([]); pag.classList.add('off'); state.hidden = false; state.textContent = 'No se pudieron consultar las publicaciones. Probá de nuevo en un rato.'; q('[data-mk-count]').textContent = '—'; return; }
     var feat = listings.featured.filter(promoted); renderFeatured(feat);
     listings.items.filter(function (x) { return active(x) && !promoted(x); }).forEach(function (x) { grid.append(card(x)); });
-    q('[data-mk-count]').textContent = fmt(String((parseInt(listings.total, 10) || 0) + feat.length));
+    countTo(q('[data-mk-count]'), (parseInt(listings.total, 10) || 0) + feat.length);
     state.hidden = grid.children.length > 0;
     state.textContent = listings.total === '0' && lcur === 'all' && !search ? 'Todavía no hay publicaciones. Cuando los jugadores publiquen sus objetos, aparecen acá.' : 'No hay publicaciones con estos filtros.';
     pag.classList.toggle('off', listings.pages <= 1);

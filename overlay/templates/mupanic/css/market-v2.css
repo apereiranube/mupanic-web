@@ -507,3 +507,21 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 /* Menos aire entre la solapa "Mercado de Vessara" y "Destacados" */
 .mk-store .mk-featrow{padding-top:calc(30px * var(--s) + 10px)}
 .mk-store .mk-featrow-head{padding-left:calc(34px * var(--s) + 14px);margin-bottom:10px}
+
+/* Marcador vivo: "+N" al entrar una venta y golpe de color en la celda */
+.mk-stat{position:relative}
+.mk-last{display:block;height:16px;margin-top:6px;font:700 11px/16px var(--pui-body);letter-spacing:.06em;text-transform:uppercase;color:#3b2c0a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mk-pop{position:absolute;right:18px;top:14px;font:400 22px/1 var(--pui-display);color:#2f8a5b;pointer-events:none;animation:mkPop 1.6s ease-out forwards}
+.mk-stat--lead .mk-pop{color:#0f1923}
+@keyframes mkPop{0%{opacity:0;transform:translateY(10px)}15%{opacity:1;transform:none}70%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+.mk-stat.is-bump{animation:mkBump .7s ease-out}
+@keyframes mkBump{0%{background-color:#fff6d8}100%{}}
+.mk-stat--lead.is-bump{animation:none}
+.mk-stat--lead.is-bump dd b{animation:mkBumpN .5s ease-out}
+@keyframes mkBumpN{0%{transform:scale(1.12);transform-origin:left bottom}100%{transform:none}}
+@media(prefers-reduced-motion:reduce){.mk-pop,.mk-stat.is-bump,.mk-stat--lead.is-bump dd b{animation:none}.mk-pop{display:none}}
+.mk-pop{top:auto;bottom:18px;right:22px}
+.mk-pop{display:none}
+.mk-delta{display:block;height:16px;margin-top:6px;font:400 15px/16px var(--pui-display);letter-spacing:.03em;color:#2f8a5b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
+.mk-delta.on{opacity:1;transform:none}
+.mk-stat--lead.is-bump .mk-last{color:#0f1923}
