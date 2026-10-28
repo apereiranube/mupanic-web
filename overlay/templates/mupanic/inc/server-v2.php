@@ -206,29 +206,31 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
 
   <!-- Juego limpio -->
   <section class="pui-band pui-band--bone sv-fair" aria-labelledby="sv-fair-t">
-    <span class="pui-band-word" aria-hidden="true">LIMPIO</span>
     <div class="pui-wrap">
       <header class="sv-head"><div><p class="pui-kicker">Juego limpio</p><h2 class="pui-h2" id="sv-fair-t"><?php echo $svReveal(['Lo que tenés,','te lo ganaste']); ?></h2></div></header>
-      <ul class="sv-pledges pui-rise">
-        <li class="pui-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M14.5 3.5l6 6-9 9-4-4z"/><path d="M7.5 14.5L3 19l2 2 4.5-4.5"/></svg><h3 class="pui-h3">Tu personaje se arma jugando</h3><p>Equipo, joyas, alas y frutas salen del juego. Las frutas no se compran: se fabrican.</p></li>
-        <li class="pui-card pui-card--gem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M9 9.5c0-1 1.3-1.8 3-1.8s3 .8 3 1.8-1.3 1.6-3 2-3 1-3 2 1.3 1.8 3 1.8 3-.8 3-1.8"/></svg><h3 class="pui-h3">Los Eryns también se ganan</h3><p>Vendé tu drop en el Mercado de Vessara y cobrá en Eryns sin poner un peso.</p></li>
-        <li class="pui-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><h3 class="pui-h3">Un cliente protegido</h3><p>El launcher revisa tus archivos y detecta programas de trampa antes y durante la partida.</p></li>
-        <li class="pui-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16M5 20h14M6 8h12M6 8l-3 6h6zM18 8l-3 6h6z"/></svg><h3 class="pui-h3">Balance que se cuida</h3><p>Cada clase tiene su rol, y el equipo sigue de cerca cada pelea para que siga siendo pareja.</p></li>
-      </ul>
-      <div class="sv-fair-demos">
-        <div class="sv-demo">
-          <h3 class="pui-h3">Un cliente protegido</h3>
-          <p>Cada vez que apretás JUGAR, el launcher revisa tus archivos y busca programas de trampa. Y mientras jugás, lo sigue vigilando.</p>
+      <div class="sv-chaps">
+        <article class="sv-chap" style="--sys:#3fd394">
+          <div class="sv-chap-copy">
+            <p class="sv-chap-k">Antitrampa</p>
+            <h3 class="sv-chap-t">Un cliente protegido</h3>
+            <p>Cada vez que apretás Jugar, el launcher revisa tus archivos y busca programas de trampa. Y mientras jugás, lo sigue vigilando.</p>
+          </div>
+          <div class="sv-chap-demo">
           <div class="sv-guard" id="svGuard" role="img" aria-label="El launcher verifica los archivos, detecta un programa de trampa y bloquea JUGAR hasta que se cierra">
             <div class="sv-guard-top"><span class="sv-guard-pill" id="svGuardPill"><b>Guard</b> activo</span><span class="sv-guard-srv"><i></i>Servidor online</span></div>
             <div class="sv-guard-toast" id="svGuardToast"><b>Guard detuvo el inicio</b>Se detectó Cheat Engine. El juego no se abre mientras siga en uso.</div>
             <div class="sv-guard-status"><span class="t" id="svGuardT">Listo para jugar</span><div class="bar"><i id="svGuardBar"></i></div><span class="s" id="svGuardS">No hay actualizaciones nuevas.</span></div>
             <span class="pui-btn sv-guard-play" id="svGuardPlay">Jugar</span>
           </div>
-        </div>
-        <div class="sv-demo">
-          <h3 class="pui-h3">Los Eryns se ganan jugando</h3>
-          <p>Lo que cazás tiene valor. Publicalo en el Mercado de Vessara y cobrá en Eryns, aunque estés desconectado.</p>
+          </div>
+        </article>
+        <article class="sv-chap sv-chap--rev" style="--sys:#6fb4ff">
+          <div class="sv-chap-copy">
+            <p class="sv-chap-k">Sin poner un peso</p>
+            <h3 class="sv-chap-t">Los Eryns se ganan jugando</h3>
+            <p>Lo que cazás tiene valor. Publicalo en el Mercado de Vessara y cobrá en Eryns, aunque estés desconectado.</p>
+          </div>
+          <div class="sv-chap-demo">
           <div class="sv-loop" id="svLoop">
             <div class="sv-loop-line"><i id="svLoopLine"></i></div>
             <div class="sv-loop-nodes">
@@ -240,24 +242,32 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
             <p class="sv-loop-cap" id="svLoopCap">Cazás y cae una Jewel of Bless.</p>
             <div class="sv-loop-sum"><span>Ganado jugando</span><b class="pui-num" id="svLoopSum">0</b><span>Eryns</span></div>
           </div>
-        </div>
-      </div>
-      <div class="sv-feat" id="svFeat">
-        <div>
-          <h3 class="pui-h3">Destacá tu publicación</h3>
-          <p>Pagá el destacado y un miembro de la Cuadrilla Rota sale a ofrecer tu objeto por Loren Market, con su cartel. En la web, tu publicación sube a Destacados.</p>
-          <button type="button" class="pui-btn pui-btn--dark sv-feat-switch" id="svFeatSw" aria-pressed="false">Destacar publicación</button>
-        </div>
-        <span class="h2-art-slot" style="--sys:#ffc24a" aria-hidden="true"><i>LOREN</i><small>Arte: la Cuadrilla Rota en Loren Market · dorado</small></span>
-        <div class="sv-vitrina">
-          <div class="pui-tabs sv-vtabs" aria-hidden="true"><span class="pui-tab is-active">Destacados</span><span class="pui-tab">Todas</span><span class="pui-tab">Eryns</span><span class="pui-tab">Zen</span></div>
-          <div class="sv-vlist" id="svVlist">
-            <div class="sv-vrow" data-k="a"><span><b>Chromatic Staff +15</b><em>Juanita</em></span><span class="pr"><img src="<?php echo $sv($svGem); ?>" alt="" width="58" height="64">900</span></div>
-            <div class="sv-vrow" data-k="b"><span><b>Hurricane Boots +15</b><em>PANIC</em></span><span class="pr zen">1.000.000 Zen</span></div>
-            <div class="sv-vrow" data-k="me"><span><b>Hurricane Armor +15</b><em>Tu publicación</em></span><span class="pr"><img src="<?php echo $sv($svGem); ?>" alt="" width="58" height="64">1.200</span><span class="pui-tag pui-tag--red sv-badge">Destacado</span></div>
           </div>
-          <p class="sv-vnote" id="svVnote">Tu publicación espera en la vidriera, junto a las demás.</p>
-        </div>
+        </article>
+        <article class="sv-chap sv-feat" id="svFeat" style="--sys:#ffc24a">
+          <div class="sv-feat-art"><span class="h2-art-slot" style="--sys:#ffc24a" aria-hidden="true"><i>LOREN</i><small>Arte: la Cuadrilla Rota en Loren Market · dorado</small></span></div>
+          <div class="sv-chap-copy">
+            <p class="sv-chap-k">Mercado</p>
+            <h3 class="sv-chap-t">Destacá tu publicación</h3>
+            <p>Pagá el destacado y un miembro de la Cuadrilla Rota sale a ofrecer tu objeto por Loren Market, con su cartel. En la web, tu publicación sube a Destacados.</p>
+            <button type="button" class="pui-btn pui-btn--dark sv-feat-switch" id="svFeatSw" aria-pressed="false">Destacar publicación</button>
+          </div>
+          <div class="sv-feat-panel">
+          <div class="sv-vitrina">
+            <div class="pui-tabs sv-vtabs" aria-hidden="true"><span class="pui-tab is-active">Destacados</span><span class="pui-tab">Todas</span><span class="pui-tab">Eryns</span><span class="pui-tab">Zen</span></div>
+            <div class="sv-vlist" id="svVlist">
+              <div class="sv-vrow" data-k="a"><span><b>Chromatic Staff +15</b><em>Juanita</em></span><span class="pr"><img src="<?php echo $sv($svGem); ?>" alt="" width="58" height="64">900</span></div>
+              <div class="sv-vrow" data-k="b"><span><b>Hurricane Boots +15</b><em>PANIC</em></span><span class="pr zen">1.000.000 Zen</span></div>
+              <div class="sv-vrow" data-k="me"><span><b>Hurricane Armor +15</b><em>Tu publicación</em></span><span class="pr"><img src="<?php echo $sv($svGem); ?>" alt="" width="58" height="64">1.200</span><span class="pui-tag pui-tag--red sv-badge">Destacado</span></div>
+            </div>
+            <p class="sv-vnote" id="svVnote">Tu publicación espera en la vidriera, junto a las demás.</p>
+          </div>
+          </div>
+        </article>
+      </div>
+      <div class="sv-vows">
+        <div><b>Tu personaje se arma jugando</b><p>Equipo, joyas, alas y frutas salen del juego. Las frutas no se compran: se fabrican.</p></div>
+        <div><b>Balance que se cuida</b><p>Cada clase tiene su rol, y el equipo sigue de cerca cada pelea para que siga siendo pareja.</p></div>
       </div>
     </div>
   </section>

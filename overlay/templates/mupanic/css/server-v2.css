@@ -441,3 +441,51 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 }
 @media(max-width:420px){.sv-pick-rail{gap:3px}.sv-pick-tab b{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.sv-pick.js .sv-pick-pane.is-on .sv-pick-art img,.sv-pick.js .sv-pick-pane.is-on .sv-pick-art:before{animation:none}}
+
+/* Juego limpio: capítulos alternados, un color por tema */
+.sv-chaps{display:grid;gap:90px;margin-top:20px}
+.sv-chap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:center}
+.sv-chap--rev .sv-chap-copy{order:2}
+.sv-chap-copy{position:relative;isolation:isolate;padding-left:26px;border-left:8px solid var(--sys)}
+.sv-chap-word{position:absolute;z-index:-1;left:6px;top:-58px;font:400 clamp(90px,11vw,170px)/.8 var(--pui-display);color:transparent;-webkit-text-stroke:2px color-mix(in srgb,var(--sys) 55%,#0f1923);opacity:.5;white-space:nowrap;pointer-events:none}
+.sv-chap-k{margin:0 0 10px;display:inline-block;padding:5px 10px;background:var(--pui-night);color:var(--sys);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.sv-chap-t{margin:0 0 14px;font:400 clamp(40px,4.6vw,66px)/.92 var(--pui-display);text-transform:uppercase;color:var(--pui-night)}
+.sv-chap-copy>p:not(.sv-chap-k){margin:0;font-size:17px;line-height:1.6;color:var(--pui-bone-muted);max-width:46ch}
+.sv-chap-copy .pui-btn{margin-top:24px}
+.sv-chap-demo{position:relative;padding:26px;background:var(--pui-night);color:var(--pui-ink);border-top:4px solid var(--sys);box-shadow:16px 16px 0 var(--sys)}
+.sv-chap--rev .sv-chap-demo{box-shadow:-16px 16px 0 var(--sys)}
+.sv-chap-demo .sv-guard,.sv-chap-demo .sv-loop{margin-top:0}
+.sv-chap.sv-feat{margin-top:0}
+.sv-feat-demo{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:18px;align-items:stretch}
+.sv-feat-demo .h2-art-slot{min-height:300px}
+.sv-feat-demo .sv-vitrina{padding:0;background:none}
+.sv-vows{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:100px;padding-top:34px;border-top:4px solid var(--pui-night)}
+.sv-vows b{display:block;font:400 clamp(28px,3vw,40px)/1 var(--pui-display);text-transform:uppercase;color:var(--pui-night);margin-bottom:10px}
+.sv-vows p{margin:0;font-size:16px;line-height:1.6;color:var(--pui-bone-muted);max-width:44ch}
+@media(max-width:900px){
+  .sv-chaps{gap:70px}
+  .sv-chap,.sv-feat-demo,.sv-vows{grid-template-columns:1fr;gap:30px}
+  .sv-chap--rev .sv-chap-copy{order:0}
+  .sv-chap-demo,.sv-chap--rev .sv-chap-demo{box-shadow:10px 10px 0 var(--sys);padding:20px}
+  .sv-chap-word{top:-40px}
+  .sv-vows{margin-top:70px}
+}
+
+/* Ajustes capítulos + Mercado destacado en dorado */
+.sv-fair .sv-head{margin-bottom:70px}
+.sv-chap-copy{padding-left:28px}
+.sv-chap.sv-feat{grid-template-columns:minmax(0,.75fr) minmax(0,1fr) minmax(0,1.05fr);gap:36px;align-items:stretch;margin-top:20px;padding:44px;background:var(--sys);color:var(--pui-night);clip-path:polygon(0 0,100% 0,100% calc(100% - 34px),calc(100% - 34px) 100%,0 100%)}
+.sv-feat .sv-chap-copy{align-self:center;padding-left:0;border-left:0}
+.sv-feat .sv-chap-k{background:var(--pui-night);color:var(--sys)}
+.sv-feat .sv-chap-copy>p:not(.sv-chap-k){color:#3b2c0a}
+.sv-feat .sv-chap-copy .pui-btn{background:var(--pui-night);color:#fff}
+.sv-feat .sv-chap-copy .pui-btn[aria-pressed=true]{background:var(--pui-red)}
+.sv-feat-art{position:relative;min-height:340px}
+.sv-feat-art .h2-art-slot{position:absolute;inset:0;min-height:0;height:auto;--sys:#0f1923;background:#0f192322;border-color:#0f192355}
+.sv-feat-art .h2-art-slot i{color:#0f192344}
+.sv-feat-panel{align-self:center;padding:22px;background:var(--pui-night);color:var(--pui-ink);box-shadow:12px 12px 0 #0f192355}
+.sv-feat-panel .sv-vitrina{padding:0;background:none}
+@media(max-width:1100px){.sv-chap.sv-feat{grid-template-columns:1fr 1fr}.sv-feat .sv-chap-copy{grid-column:1/-1;order:-1}}
+@media(max-width:700px){.sv-chap.sv-feat{grid-template-columns:1fr;padding:26px 20px}.sv-feat-art{min-height:260px}}
+.sv-chap>*{min-width:0}
+@media(max-width:700px){.sv-chap-copy{padding-left:18px;border-left-width:6px}.sv-chap-t{font-size:clamp(34px,10vw,44px);overflow-wrap:break-word}.sv-chap-demo,.sv-chap--rev .sv-chap-demo{box-shadow:8px 8px 0 var(--sys);margin-right:8px}}
