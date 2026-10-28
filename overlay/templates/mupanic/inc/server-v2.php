@@ -45,7 +45,7 @@ $svClasses = [
   ['rf','Rage Fighter','Golpe a golpe','Combos cuerpo a cuerpo que no dan respiro. Ideal para quien pelea de frente.','Vampiro','Cada golpe le devuelve vida.','#ff7a1a'],
 ];
 $svImg = __PATH_TEMPLATE__.'img/';
-$svArt = ['su'=>'servidor/clase-su-16919ddd9d2a.webp','elfa'=>'servidor/clase-elfa-69f0d3f6df9b.webp','mg'=>'servidor/clase-mg-43bf82fd11fc.webp','sm'=>'servidor/clase-sm-af9b0534e970.webp','bk'=>'inicio/inicio-bk-carga-01b160ca5b33.webp','dl'=>'votar/votar-darklord-3cd38766111c.webp','rf'=>'inicio/inicio-furia-d7c277cb6fe1.webp'];
+$svArt = ['rf'=>'servidor/clase-rf-0aa5b77fc1b8.webp','su'=>'servidor/clase-su-16919ddd9d2a.webp','elfa'=>'servidor/clase-elfa-69f0d3f6df9b.webp','mg'=>'servidor/clase-mg-43bf82fd11fc.webp','sm'=>'servidor/clase-sm-af9b0534e970.webp','bk'=>'inicio/inicio-bk-carga-01b160ca5b33.webp','dl'=>'votar/votar-darklord-3cd38766111c.webp'];
 $svColorName = ['bk'=>'cian','sm'=>'violeta','elfa'=>'verde','mg'=>'magenta','dl'=>'rojo','su'=>'lila','rf'=>'naranja'];
 $svReveal = function($lines) { return implode('<br>', array_map(function($l){ return '<span class="pui-reveal">'.$l.'</span>'; }, $lines)); };
 ?>
@@ -197,7 +197,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
         </ol>
       </div>
       <div class="sv-furia-side">
-        <div class="sv-furia-art" aria-hidden="true"><span>FURIA</span><img src="<?php echo $sv($svImg.$svArt['rf']); ?>" alt="" width="1380" height="1570" loading="lazy" decoding="async"></div>
+        <div class="sv-furia-art" aria-hidden="true"><span>FURIA</span><img src="<?php echo $sv($svImg.'inicio/inicio-furia-d7c277cb6fe1.webp'); ?>" alt="" width="1380" height="1570" loading="lazy" decoding="async"></div>
         <ul class="sv-chips"><li>Velocidad de ataque +20%</li><li>Más velocidad al caminar</li><li>Daño extra a monstruos</li><li>Aura de Furia</li></ul>
         <ol class="sv-combo" aria-label="Niveles del combo"><li><b>5</b>Combo</li><li><b>12</b>Imparable</li><li><b>20</b>Masacre</li></ol>
       </div>
