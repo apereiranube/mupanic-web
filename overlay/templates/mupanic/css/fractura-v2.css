@@ -330,3 +330,13 @@ body.is-fractura .module-surface{padding:0;border:0;background:transparent;box-s
 @media(max-width:900px){.fr-lava{bottom:auto;height:clamp(260px,62vw,480px)}.fr-lava-f{width:calc(var(--w) * .7)}}
 @media(prefers-reduced-motion:reduce){.fr-lava-f{transform:rotate(var(--r))}.fr-lava-f.pop img{animation:none}}
 @media(max-width:900px){.fr-lava{overflow:hidden}}
+
+/* Lava v2: los fragmentos nacen en la grieta y suben despacio como brasas, sin interacción */
+.fr-lava{overflow:hidden}
+.fr-lava-f{pointer-events:none;transform:none;opacity:0;animation:frRise var(--d) linear var(--dl) infinite}
+.fr-lava-f img{filter:drop-shadow(0 6px 8px #0008)}
+.fr-lava-f.pop img{animation:none}
+@keyframes frRise{0%{opacity:0;transform:translate(0,0) rotate(var(--r)) scale(.6)}12%{opacity:1}70%{opacity:.9}100%{opacity:0;transform:translate(-40px,-520px) rotate(calc(var(--r) + 140deg)) scale(1)}}
+@media(max-width:900px){@keyframes frRise{0%{opacity:0;transform:translate(0,0) rotate(var(--r)) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(-20px,-260px) rotate(calc(var(--r) + 140deg)) scale(1)}}}
+@media(prefers-reduced-motion:reduce){.fr-lava{display:none}}
+.fr-lava-f{width:calc(var(--w) * 1.5)}@media(max-width:900px){.fr-lava-f{width:var(--w)}}

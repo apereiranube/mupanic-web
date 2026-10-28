@@ -171,9 +171,9 @@ $frOrders = [
   <section class="fr-band fr-vulcanus" id="vulcanus" aria-labelledby="fr-vul-t">
     <?php echo $frSlot('fr-vul-bg', 'fractura-vulcanus', 1600, 1000, 'Vulcanus: ruinas, puentes sobre ríos de lava, volcanes y la grieta de la Fractura'); ?>
     <div class="fr-lava" aria-hidden="true"><?php
-      // Fragmentos de lava (GPT): posición en % de la sección, tamaño en px, velocidad al bajar, giro.
-      $frLava = [[1,58,14,46,.9,-18],[2,72,62,70,1.3,12],[3,88,22,52,.7,30],[4,64,40,40,1.6,-8],[5,92,70,78,1.1,-14],[6,80,8,34,.8,20],[7,52,78,44,1.4,-26],[8,96,44,36,1.8,8],[9,68,86,56,.6,16],[10,84,52,40,1.2,-34],[11,48,30,30,1.7,10],[12,76,30,60,1,-6]];
-      foreach($frLava as $l) { $src = $frArt(sprintf('fractura-lava-%02d', $l[0])); if(!$src) continue; ?><span class="fr-lava-f" style="left:<?php echo $l[1]; ?>%;top:<?php echo $l[2]; ?>%;--w:<?php echo $l[3]; ?>px;--v:<?php echo $l[4]; ?>;--r:<?php echo $l[5]; ?>deg"><img src="<?php echo $fr($src); ?>" alt="" loading="lazy" decoding="async"></span><?php }
+      // Fragmentos de lava (GPT) que salen de la grieta: x/y de salida en %, tamaño px, duración, retraso, giro.
+      $frLava = [[1,80,96,30,11,0,-18],[4,86,92,26,9,-3.2,12],[2,77,99,36,13,-6.1,20],[6,90,95,22,10,-1.7,-10],[5,83,98,40,14,-8.4,8],[11,88,97,20,8,-4.6,-24],[8,79,94,24,12,-10.2,16],[3,85,99,30,10,-7.3,-6]];
+      foreach($frLava as $l) { $src = $frArt(sprintf('fractura-lava-%02d', $l[0])); if(!$src) continue; ?><span class="fr-lava-f" style="left:<?php echo $l[1]; ?>%;top:<?php echo $l[2]; ?>%;--w:<?php echo $l[3]; ?>px;--d:<?php echo $l[4]; ?>s;--dl:<?php echo $l[5]; ?>s;--r:<?php echo $l[6]; ?>deg"><img src="<?php echo $fr($src); ?>" alt="" loading="lazy" decoding="async"></span><?php }
     ?></div>
     <div class="pui-wrap fr-vul-wrap">
       <div class="fr-vul-copy">
