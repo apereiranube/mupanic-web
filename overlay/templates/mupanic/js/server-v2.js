@@ -389,3 +389,10 @@
   apply();
   if ('IntersectionObserver' in window && !reduce) new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); setTimeout(function () { if (!touched) { vip = true; apply(false); } }, 1800); } }, {threshold: .6}).observe(q('svVpFree').parentNode);
 })();
+
+/* Flecha Eryns → Mercado: se dibuja al llegar. */
+(function () {
+  var l = document.getElementById('svLink'); if (!l || !('IntersectionObserver' in window)) return;
+  l.classList.add('js-link');
+  new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { l.classList.add('is-in'); o.disconnect(); } }, {threshold: .5}).observe(l);
+})();

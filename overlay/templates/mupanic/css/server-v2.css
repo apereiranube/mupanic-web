@@ -829,3 +829,13 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-link-ln:before{inset:0 0 20px;background:repeating-linear-gradient(transparent 0 14px,#ffffff59 14px 20px);background-size:100% 24px}
 @keyframes svFlow{to{background-position:0 24px}}
 .sv-link-ln:after{width:44px;height:28px;bottom:-12px}
+
+/* Flecha de GPT entre Eryns y Mercado: se dibuja de arriba hacia abajo */
+.sv-link{padding-left:calc(22% - 44px);gap:18px;margin:-80px 0 -60px}
+.sv-link-ar{display:block;width:96px;height:224px;object-fit:contain;filter:drop-shadow(6px 8px 0 #0f192322)}
+.js-link .sv-link-ar{clip-path:inset(0 0 100% 0);transition:clip-path .8s cubic-bezier(.6,0,.2,1)}
+.js-link .sv-link p{opacity:0;transform:translateX(-14px);transition:opacity .4s .5s,transform .4s .5s}
+.js-link.is-in .sv-link-ar{clip-path:inset(0 0 -10% 0)}
+.js-link.is-in p{opacity:1;transform:none}
+@media(max-width:900px){.sv-link{padding-left:0;margin:-50px 0 -40px}.sv-link-ar{width:70px;height:164px}}
+@media(prefers-reduced-motion:reduce){.js-link .sv-link-ar,.js-link .sv-link p{transition:none;clip-path:none;opacity:1;transform:none}}
