@@ -148,8 +148,10 @@
 .site-header .main-nav .nav-main-link:hover:after{transform:scaleX(.55)}
 .site-header .main-nav .nav-main-link.is-current{color:#f5e7d7;background:none}
 .site-header .main-nav .nav-main-link.is-current:after{transform:scaleX(1)}
-.site-header .main-nav .nav-discord{gap:8px;margin-left:3px;padding-inline:12px;border-left:1px solid #d7a57d2e;color:#e7b58e}
-.site-header .main-nav .nav-discord b{font:500 15px/20px Manrope,Arial,sans-serif;color:#d7a57d}
+.site-header .main-nav .nav-discord{gap:8px;margin-left:3px;padding-inline:12px;border-left:1px solid #b9a2ff33;color:#c4b2ff}
+.site-header .main-nav .nav-discord b{font:500 15px/20px Manrope,Arial,sans-serif;color:#a48cf5}
+.site-header .main-nav .nav-discord:hover{color:#e2d8ff}
+.site-header .main-nav .nav-discord:after{background:#9b83f2}
 .site-header .main-nav .mobile-account{display:none}
 .site-header .nav-actions{display:flex;align-items:center;flex:0 0 auto;gap:16px;margin:0 0 0 auto;padding:0;border:0}
 .site-header .account-link{display:inline-flex;align-items:center;min-height:42px;padding:0;border:0;background:none;font-size:14px;line-height:20px;white-space:nowrap}
@@ -187,4 +189,9 @@
 .site-header .main-nav .nav-socios i{display:inline-block;width:6px;height:6px;margin-right:6px;vertical-align:2px;transform:rotate(45deg);background:linear-gradient(135deg,#e0f0ff,#4a8fe8 60%,#1b3e8e);box-shadow:0 0 7px #6fb4ffcc}
 .site-header .main-nav .nav-socios:hover,.site-header .main-nav .nav-socios.is-current{color:#dff0ff}
 .site-header .main-nav .nav-socios:after{background:#6fb4ff}
-@media(min-width:1101px) and (max-width:1350px){.site-header .main-nav .nav-socios i{display:none}}
+/* Votar: rojo brasa, con una flecha de voto */
+.site-header .main-nav .nav-votar{color:#ff9d8a}
+.site-header .main-nav .nav-votar i{display:inline-block;width:0;height:0;margin-right:6px;vertical-align:2px;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:7px solid #ff6a52;filter:drop-shadow(0 0 4px #ff5a3ccc)}
+.site-header .main-nav .nav-votar:hover,.site-header .main-nav .nav-votar.is-current{color:#ffd9cf}
+.site-header .main-nav .nav-votar:after{background:#ff6a52}
+@media(min-width:1101px) and (max-width:1350px){.site-header .main-nav .nav-socios i,.site-header .main-nav .nav-votar i{display:none}}

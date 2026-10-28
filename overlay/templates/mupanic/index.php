@@ -23,6 +23,11 @@ $legacyPurchaseRoute =
     ($_REQUEST['page'] === 'donation') ||
     ($_REQUEST['page'] === 'usercp' && in_array($_REQUEST['subpage'], ['buyzen','buycredits','donation'], true));
 
+// The legacy WebEngine vote module is replaced by the verified Votar page.
+if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage'] === 'vote') {
+    header('Location: '.__BASE_URL__.'votar/', true, 302);
+    exit;
+}
 if($legacyPurchaseRoute) {
     $target = isLoggedIn() ? __BASE_URL__.'usercp/recharge/' : __BASE_URL__.'login/';
     header('Location: '.$target, true, 302);
@@ -233,7 +238,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'downloads' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>downloads/"<?php echo $_REQUEST['page'] === 'downloads' ? ' aria-current="page"' : ''; ?>><span>Descargas</span></a>
             <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗︎</b></a>
             <a class="nav-main-link nav-socios<?php echo $_REQUEST['page']==='socios' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>socios/"<?php echo $_REQUEST['page']==='socios' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Socios</span></a>
-            <a class="nav-main-link nav-socios nav-votar<?php echo $_REQUEST['page']==='votar' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>votar/"<?php echo $_REQUEST['page']==='votar' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Votar</span></a>
+            <a class="nav-main-link nav-votar<?php echo $_REQUEST['page']==='votar' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>votar/"<?php echo $_REQUEST['page']==='votar' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Votar</span></a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
