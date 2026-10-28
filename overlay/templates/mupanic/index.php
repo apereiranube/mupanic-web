@@ -211,7 +211,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18541212818"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18541212818');</script>
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
-    <?php if($_REQUEST['page']==='market') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>market.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/market.css'),0,12); ?>"><?php } ?>
+    <?php if($_REQUEST['page']==='market') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>market-v2.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/market-v2.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='socios') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>socios.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/socios.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='votar') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>votar.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/votar.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>fractura.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/fractura.css'),0,12); ?>"><?php } ?>
@@ -305,7 +305,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                 } elseif($_REQUEST['page'] === 'votar') {
                     include(__DIR__.'/inc/votar.php');
                 } elseif($_REQUEST['page'] === 'market') {
-                    include(__DIR__.'/inc/market.php');
+                    include(__DIR__.'/inc/market-v2.php');
                 } elseif($_REQUEST['page'] === 'information') {
                     include(__DIR__.'/inc/server-v2.php');
                 } elseif($_REQUEST['page'] === 'info') {
@@ -353,8 +353,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($_REQUEST['page']==='fractura') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>fractura.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/fractura.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='socios') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>socios.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/socios.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='information') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>server-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/server-v2.js'),0,12); ?>" defer></script><?php } ?>
-<?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market.js'),0,12); ?>" defer></script><?php } ?>
-<?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market-listings.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market-listings.js'),0,12); ?>" defer></script><?php } ?>
+<?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market-v2.js'),0,12); ?>" defer></script><?php } ?>
 <?php if(!$isHome) { ?><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-search.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-search.js'), 0, 12); ?>"></script>
@@ -368,7 +367,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>home-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/home-v2.js'),0,12); ?>" defer></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-ui.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-ui.js'), 0, 12); ?>"></script><?php } ?>
-<?php if($isHome || $_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>mu-panic-brasas.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/mu-panic-brasas.js'),0,12); ?>" defer></script><?php } ?>
+<?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>mu-panic-brasas.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/mu-panic-brasas.js'),0,12); ?>" defer></script><?php } ?>
 </body>
 </html>
 

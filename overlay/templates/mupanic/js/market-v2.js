@@ -1,0 +1,282 @@
+/* MU PANIC · Mercado de Vessara (estilo nuevo): ventas, vidriera con ficha del objeto, destacados y pasos. */
+(function () {
+  'use strict';
+  var root = document.getElementById('mk-page'); if (!root) return;
+  var q = function (s) { return root.querySelector(s); };
+  var qa = function (s) { return [].slice.call(root.querySelectorAll(s)); };
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SAMPLE = window.MK_SAMPLE || null;
+  var fmt = function (v) { try { return new Intl.NumberFormat('es-AR').format(BigInt(v)); } catch (e) { return '—'; } };
+  var el = function (tag, text, cls) { var n = document.createElement(tag); if (text !== null && text !== undefined) n.textContent = String(text); if (cls) n.className = cls; return n; };
+  var title = function (s) { return s.item + (s.level ? ' +' + s.level : ''); };
+  var money = function (s) { return fmt(s.price) + ' ' + (s.currency === 1 ? 'Eryns' : 'Zen'); };
+  var when = function (s) { try { return new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(s.soldAt)); } catch (e) { return ''; } };
+
+  /* ---------- Ventas (market_data) ---------- */
+  var data = null, cur = 'all', more = false, tapeKey = '';
+  try { data = JSON.parse(document.getElementById('vessara-initial').textContent); } catch (e) {}
+  if (SAMPLE && SAMPLE.market) data = SAMPLE.market;
+
+  function trend(s) {
+    var list = (data && data.sales) || [], at = list.indexOf(s);
+    var prev = at < 0 ? null : list.slice(at + 1).filter(function (x) { return x.item === s.item && x.level === s.level && x.currency === s.currency; })[0];
+    if (!prev) return null;
+    var a = BigInt(s.price), b = BigInt(prev.price); if (b === 0n) return null;
+    var pct = Number((a - b) * 1000n / b) / 10;
+    return {dir: a > b ? 'up' : a < b ? 'down' : 'flat', label: (a > b ? '▲ ' : a < b ? '▼ ' : '= ') + (a === b ? '' : Math.abs(pct).toLocaleString('es-AR', {maximumFractionDigits: 1}) + '%')};
+  }
+  function loop(run, makeGroup, pxPerSec) {
+    run.replaceChildren(); run.classList.remove('is-static');
+    var g = makeGroup(); run.appendChild(g);
+    var win = run.parentNode, i = 0;
+    while (g.scrollWidth < win.clientWidth + 80 && i++ < 6) { [].slice.call(makeGroup().children).forEach(function (c) { c.setAttribute('aria-hidden', 'true'); g.appendChild(c); }); }
+    var dup = g.cloneNode(true); dup.setAttribute('aria-hidden', 'true'); run.appendChild(dup);
+    run.style.setProperty('--dur', Math.max(18, g.scrollWidth / pxPerSec) + 's');
+    if (reduce) run.classList.add('is-static');
+  }
+  function tape() {
+    var sales = (data && data.sales) || [], key = JSON.stringify(sales.slice(0, 10)); if (key === tapeKey) return; tapeKey = key;
+    var run = q('[data-mk-tape]');
+    if (!sales.length) { run.replaceChildren(el('span', data ? 'Todavía no hay ventas.' : 'El registro de ventas no está disponible.', 'mk-tape-empty')); run.classList.add('is-static'); return; }
+    loop(run, function () {
+      var g = el('div'); g.style.display = 'flex';
+      sales.slice(0, 10).forEach(function (s) {
+        var t = trend(s), n = el('span', null, 'mk-sale');
+        n.append(el('b', title(s)), el('em', money(s), s.currency === 1 ? 'eryns' : ''));
+        if (t) n.append(el('i', t.label, t.dir));
+        g.appendChild(n);
+      });
+      return g;
+    }, 45);
+  }
+  function fitNum(b) { b.style.fontSize = ''; var w = b.clientWidth; for (var i = 0; w && b.scrollWidth > w && i < 4; i++) b.style.fontSize = (parseFloat(getComputedStyle(b).fontSize) * w / b.scrollWidth * .97) + 'px'; }
+  function metrics() {
+    var m = (data && data.metrics) || {};
+    qa('[data-mk-metric]').forEach(function (b) { var v = m[b.getAttribute('data-mk-metric')]; b.textContent = /^\d+$/.test(String(v)) ? fmt(v) : '—'; if (b.closest('.mk-stat')) fitNum(b); });
+  }
+  addEventListener('resize', function () { qa('.mk-stat b').forEach(fitNum); });
+  function rows() {
+    var list = ((data && data.sales) || []).filter(function (s) { return cur === 'all' || String(s.currency) === cur; });
+    var shown = more ? list : list.slice(0, 10), box = q('[data-mk-rows]'); box.replaceChildren();
+    box.classList.toggle('is-more', more);
+    shown.forEach(function (s) {
+      var li = el('li', null, 'mk-row' + (s.currency === 1 ? ' eryns' : ''));
+      var t = el('time', when(s)); t.dateTime = s.soldAt;
+      li.append(el('b', title(s)), el('span', s.buyer, 'who'), el('span', s.seller, 'who b'), el('span', money(s), 'pr'), t);
+      box.appendChild(li);
+    });
+    var empty = q('[data-mk-empty]'); empty.hidden = !!shown.length;
+    empty.textContent = !data ? 'El registro del mercado no está disponible en este momento.' : (!(data.sales || []).length ? 'Todavía no hay tratos sellados.' : 'No hay ventas en esta moneda.');
+    var mb = q('[data-mk-more]'); mb.hidden = list.length <= 10; mb.textContent = more ? 'Ver menos' : 'Ver las últimas ' + list.length;
+  }
+  function records() {
+    var box = q('[data-mk-records]'), h = (data && data.highlights) || {}; box.replaceChildren();
+    function card(label, eryns, fill) { var c = el('article', null, 'mk-rec' + (eryns ? ' eryns' : '')); c.append(el('small', label)); if (fill) fill(c); else c.append(el('p', data ? 'Todavía libre hoy.' : 'Sin datos por ahora.')); box.appendChild(c); }
+    [1, 0].forEach(function (c) { var r = (h.records || []).filter(function (x) { return x.currency === c; })[0]; card('Mayor venta en ' + (c ? 'Eryns' : 'Zen'), c === 1, r && function (n) { n.append(el('strong', title(r)), el('b', money(r)), el('p', r.buyer + ' le compró a ' + r.seller)); }); });
+    var p = (h.popular || [])[0]; card('El más vendido', false, p && function (n) { n.append(el('strong', title(p)), el('b', fmt(p.trades) + (p.trades === '1' ? ' venta' : ' ventas'))); });
+    [1, 0].forEach(function (c) { var s = (h.sellers || []).filter(function (x) { return x.currency === c; })[0]; card('Mejor vendedor en ' + (c ? 'Eryns' : 'Zen'), c === 1, s && function (n) { n.append(el('strong', s.seller), el('b', fmt(s.volume) + ' ' + (c ? 'Eryns' : 'Zen')), el('p', fmt(s.trades) + (s.trades === '1' ? ' venta' : ' ventas'))); }); });
+  }
+  function week() {
+    var box = q('[data-mk-days]'), days = (data && data.days) || []; box.replaceChildren();
+    var max = days.reduce(function (a, d) { return Math.max(a, Number(d.trades) || 0); }, 0) || 1;
+    var names = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+    days.forEach(function (d, i) {
+      var n = Number(d.trades) || 0, b = el('div', null, 'mk-bar' + (i === days.length - 1 ? ' is-today' : ''));
+      var bar = el('i'); bar.style.setProperty('--h', Math.max(2, n / max * 100) + '%');
+      var dt = new Date(d.day + 'T12:00:00-03:00');
+      b.append(el('b', fmt(String(n))), bar, el('small', i === days.length - 1 ? 'Hoy' : names[dt.getDay()]));
+      box.appendChild(b);
+    });
+  }
+  function renderSales() { metrics(); tape(); rows(); records(); week(); }
+  qa('[data-mk-cur]').forEach(function (b) { b.addEventListener('click', function () {
+    cur = b.getAttribute('data-mk-cur'); more = false;
+    qa('[data-mk-cur]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); x.classList.toggle('is-active', x === b); });
+    rows();
+  }); });
+  q('[data-mk-more]').addEventListener('click', function () { more = !more; rows(); });
+  function pollSales() {
+    if (SAMPLE || document.hidden) return;
+    fetch(root.getAttribute('data-market-url'), {headers: {Accept: 'application/json'}, cache: 'no-store'})
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (v) { if (v && v.metrics && Array.isArray(v.sales)) { data = v; renderSales(); } })
+      .catch(function () {});
+  }
+  renderSales(); setInterval(pollSales, 15000);
+
+  /* ---------- Vidriera (market_listings) ---------- */
+  var listings = null, page = 1, lcur = 'all', search = '', sort = 'recent', typing = 0, lseq = 0;
+  var active = function (it) { return !it.expiresAt || new Date(it.expiresAt).getTime() > Date.now(); };
+  var promoted = function (it) { return it.featured === true && it.featuredUntil && new Date(it.featuredUntil).getTime() > Date.now() && active(it); };
+  var rarity = function (it) { var d = it.details || {}; return d.ancient ? 'is-ancient' : (Array.isArray(d.sockets) && d.sockets.length) ? 'is-socket' : (d.excellentCount > 0) ? 'is-excellent' : ''; };
+  function nameNode(tag, it) { var h = el(tag, it.item); if (Number(it.level) > 0) h.append(el('span', ' +' + it.level, 'lv')); return h; }
+  function sources(it) {
+    var list = [], i = Number(it.itemIndex);
+    if (it.photo && it.photo.url) list.push(it.photo.url);
+    if (Number.isInteger(i) && i >= 0 && i <= 8191) { var g = Math.floor(i / 512), s = i % 512; list.push('https://mureforge.com/item-images/' + g + '/' + s + '.webp', 'https://bless.gs/images/items/' + g + '-' + s + '.webp'); }
+    return list.filter(function (v, k, a) { return a.indexOf(v) === k; });
+  }
+  function media(it) {
+    var f = el('div', null, 'mk-card-media'), img = document.createElement('img'), urls = sources(it), k = 0;
+    img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+    function next() { if (k < urls.length) { img.src = urls[k++]; return; } img.remove(); f.append(el('span', 'Sin imagen', 'miss')); }
+    img.addEventListener('error', next);
+    img.addEventListener('load', function () {
+      img.style.setProperty('--nat-w', img.naturalWidth + 'px'); img.style.setProperty('--nat-h', img.naturalHeight + 'px');
+      if (img.naturalWidth < 128 && img.naturalHeight < 128) { img.classList.add('is-small-sprite'); img.style.setProperty('--sprite-width', Math.min(120, img.naturalWidth * 2) + 'px'); }
+    });
+    f.append(img); next(); return f;
+  }
+  /* Ficha del objeto */
+  var tip = el('div', null, 'mk-tip'); tip.id = 'mk-tip'; tip.hidden = true; tip.setAttribute('role', 'dialog'); tip.setAttribute('aria-label', 'Ficha del objeto');
+  var shade = el('div', null, 'mk-tip-shade'); shade.hidden = true;
+  document.body.append(tip, shade);
+  var shown = null, pinned = false;
+  var mobile = function () { return matchMedia('(max-width:720px), (pointer:coarse)').matches; };
+  function fill(it) {
+    tip.replaceChildren(); tip.classList.toggle('is-featured', promoted(it));
+    var top = el('div', null, 'mk-tip-top'); top.append(el('span', 'Ficha del objeto'));
+    var x = el('button', '✕', 'mk-tip-close'); x.type = 'button'; x.setAttribute('aria-label', 'Cerrar'); x.addEventListener('click', hide); top.append(x); tip.append(top);
+    var intro = el('div', null, 'mk-tip-intro'), info = el('div');
+    if (promoted(it)) info.append(el('span', 'Destacado', 'mk-tip-promo'));
+    info.append(nameNode('h3', it), el('p', 'Publicado por ' + (it.seller || '—')));
+    intro.append(media(it), info); tip.append(intro);
+    var pr = el('div', null, 'mk-tip-price'); pr.append(el('span', 'Precio'), el('b', money(it), it.currency === 1 ? 'eryns' : '')); tip.append(pr);
+    var o = it.details;
+    if (!o) tip.append(el('p', 'Las opciones de este objeto se ven dentro del juego.', 'mk-tip-note'));
+    else {
+      var std = [];
+      if (o.skill) std.push('Skill'); if (o.luck) std.push('Luck');
+      if (o.additional > 0) std.push('Opción adicional +' + o.additional);
+      if (typeof o.durability === 'number') std.push('Durabilidad ' + o.durability);
+      if (o.lot > 1) std.push('Lote de ' + o.lot + ' unidades');
+      function sec(t, items, cls) { var s = el('section', null, 'mk-tip-sec' + (cls ? ' ' + cls : '')); s.append(el('h4', t)); var ul = el('ul'); items.forEach(function (v) { ul.append(el('li', v)); }); s.append(ul); tip.append(s); }
+      sec('Atributos', std.length ? std : ['Sin atributos adicionales']);
+      if (o.excellentCount > 0 && Array.isArray(o.excellent)) sec('Excellent · ' + o.excellentCount + (o.excellentCount === 1 ? ' opción' : ' opciones'), o.excellent, 'is-excellent');
+      var rare = [];
+      if (o.ancient) rare.push(o.ancientType || 'Ancient · bonificación de set');
+      if (o.harmony) rare.push(o.harmonyText || 'Opción Harmony');
+      if (o.option380) rare.push('Opción 380');
+      if (Array.isArray(o.sockets)) o.sockets.forEach(function (s) { rare.push('Socket ' + s.slot + ': ' + (s.state === 'vacío' ? 'vacío' : 'gema insertada')); });
+      if (rare.length) sec('Opciones especiales', rare, 'is-rare');
+    }
+    tip.append(el('p', 'La compra se hace dentro del juego, hablando con Vessara.', 'mk-tip-foot'));
+  }
+  function place(a) {
+    if (mobile()) { tip.style.left = ''; tip.style.top = ''; return; }
+    var r = a.getBoundingClientRect(), n = tip.getBoundingClientRect(), m = 14;
+    var left = r.right + 14; if (left + n.width > innerWidth - m) left = r.left - n.width - 14; if (left < m) left = m;
+    var top = Math.max(m, Math.min(r.top, innerHeight - n.height - m));
+    tip.style.left = Math.round(left) + 'px'; tip.style.top = Math.round(top) + 'px';
+  }
+  function show(it, a, stick) {
+    if (shown === it && pinned) return;
+    shown = it; pinned = !!stick || mobile(); fill(it); tip.hidden = false; shade.hidden = !mobile();
+    a.setAttribute('aria-expanded', 'true'); place(a);
+    if (mobile()) tip.querySelector('.mk-tip-close').focus({preventScroll: true});
+  }
+  function hide() { shown = null; pinned = false; tip.hidden = true; shade.hidden = true; qa('[aria-expanded="true"][data-mk-offer]').forEach(function (n) { n.setAttribute('aria-expanded', 'false'); }); }
+  shade.addEventListener('click', hide);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !tip.hidden) hide(); });
+  document.addEventListener('pointerdown', function (e) { if (pinned && !tip.contains(e.target) && !e.target.closest('[data-mk-offer]') && !mobile()) hide(); });
+  addEventListener('scroll', function () { if (shown && !pinned) hide(); }, {passive: true});
+  function card(it) {
+    var c = el('article', null, 'mk-card' + (promoted(it) ? ' is-featured' : '') + (rarity(it) ? ' ' + rarity(it) : ''));
+    c.setAttribute('data-mk-offer', it.id); c.tabIndex = 0; c.setAttribute('role', 'button'); c.setAttribute('aria-expanded', 'false'); c.setAttribute('aria-controls', 'mk-tip');
+    c.setAttribute('aria-label', 'Ver ficha de ' + title(it) + ' · ' + money(it));
+    var b = el('div', null, 'mk-card-body'), tags = el('div', null, 'mk-card-tags');
+    tags.append(el('span', it.currency === 1 ? 'Eryns' : 'Zen', 'mk-card-cur' + (it.currency === 1 ? ' eryns' : '')));
+    if (promoted(it)) tags.append(el('span', 'Destacado', 'mk-card-badge'));
+    b.append(tags, nameNode('h4', it), el('p', it.seller || '—', 'mk-card-seller'), el('strong', money(it), 'mk-card-price' + (it.currency === 1 ? ' eryns' : '')));
+    c.append(media(it), b);
+    if (promoted(it)) { var rib = el('span', null, 'mk-card-rib'); rib.setAttribute('aria-hidden', 'true'); rib.append(el('span', 'Destacado')); c.append(rib); }
+    var t = 0;
+    c.addEventListener('pointerenter', function (e) { if (e.pointerType === 'touch' || pinned) return; clearTimeout(t); t = setTimeout(function () { if (!pinned && c.matches(':hover')) show(it, c, false); }, 110); });
+    c.addEventListener('pointerleave', function () { clearTimeout(t); if (!pinned && shown === it) hide(); });
+    c.addEventListener('click', function () { if (shown === it && pinned) hide(); else show(it, c, true); });
+    c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (shown === it && pinned) hide(); else show(it, c, true); } });
+    return c;
+  }
+
+  /* Pregonero de la Cuadrilla Rota: el cartel muestra cada destacado. */
+  var crier = q('.mk-crier'), crierImg = crier.querySelector('img'), sign = q('.mk-crier-sign'), sIt = q('[data-mk-sign-it]'), sPr = q('[data-mk-sign-pr]'), featList = [], fi = 0, featKey = '';
+  function fit() { var w = crierImg.clientWidth, h = crierImg.clientHeight; if (!w) return; sign.style.setProperty('--sw', (w * .855) + 'px'); sign.style.width = (w * .855) + 'px'; sign.style.height = (h * .146) + 'px'; sign.style.top = (crier.clientHeight - h + h * .027) + 'px'; sign.style.left = (crierImg.offsetLeft + w * .069 + w * .855 / 2) + 'px'; }
+  if (crierImg.complete) fit(); else crierImg.addEventListener('load', fit); addEventListener('resize', fit);
+  function signTo(it) {
+    var t = it ? title(it) : 'Destacá tu publicación', p = it ? money(it) : 'en Loren Market';
+    if (reduce) { sIt.textContent = t; sPr.textContent = p; return; }
+    sign.classList.remove('flip'); void sign.offsetWidth; sign.classList.add('flip');
+    setTimeout(function () { sIt.textContent = t; sPr.textContent = p; }, 250);
+  }
+  if (!reduce) setInterval(function () { if (featList.length > 1) { fi = (fi + 1) % featList.length; signTo(featList[fi]); } }, 2800);
+  function renderFeatured(items) {
+    var key = JSON.stringify(items.map(function (x) { return x.id; })); if (key === featKey) return; featKey = key;
+    featList = items; fi = 0; signTo(items[0] || null);
+    var list = q('[data-listings-featured]'); list.replaceChildren(); items.slice(0, 3).forEach(function (it) { list.append(card(it)); });
+    var run = q('[data-mk-feat-run]');
+    if (!items.length) { run.replaceChildren(el('span', 'Todavía no hay publicaciones destacadas.', 'mk-feat-none')); run.classList.add('is-static'); return; }
+    loop(run, function () { var g = el('div'); g.style.display = 'flex'; items.forEach(function (it) { var n = el('span', null, 'mk-feat-it'); n.append(el('b', title(it)), el('small', it.seller || ''), el('em', money(it), it.currency === 1 ? 'eryns' : '')); g.append(n); }); return g; }, 40);
+  }
+  function renderListings() {
+    hide();
+    var grid = q('[data-listings-grid]'), state = q('[data-listings-state]'), pag = q('[data-listings-pagination]');
+    grid.replaceChildren();
+    var ok = listings && listings.available === true && Array.isArray(listings.items) && Array.isArray(listings.featured);
+    if (!ok) { renderFeatured([]); pag.hidden = true; state.hidden = false; state.textContent = 'No se pudieron consultar las publicaciones. Probá de nuevo en un rato.'; q('[data-mk-count]').textContent = '—'; return; }
+    var feat = listings.featured.filter(promoted); renderFeatured(feat);
+    listings.items.filter(function (x) { return active(x) && !promoted(x); }).forEach(function (x) { grid.append(card(x)); });
+    q('[data-mk-count]').textContent = fmt(String((parseInt(listings.total, 10) || 0) + feat.length));
+    state.hidden = grid.children.length > 0;
+    state.textContent = listings.total === '0' && lcur === 'all' && !search ? 'Todavía no hay publicaciones. Cuando los jugadores publiquen sus objetos, aparecen acá.' : 'No hay publicaciones con estos filtros.';
+    pag.hidden = listings.pages <= 1;
+    q('[data-listings-page]').textContent = 'Página ' + listings.page + ' de ' + listings.pages;
+    q('[data-listings-prev]').disabled = listings.page <= 1;
+    q('[data-listings-next]').disabled = listings.page >= listings.pages;
+  }
+  function sampleListings() {
+    var all = SAMPLE.listings.items.filter(function (x) { return (lcur === 'all' || String(x.currency) === lcur) && (!search || (x.item + ' ' + x.seller).toLowerCase().indexOf(search.toLowerCase()) >= 0); });
+    if (sort !== 'recent') all.sort(function (a, b) { return sort === 'price-asc' ? Number(a.price) - Number(b.price) : Number(b.price) - Number(a.price); });
+    var pages = Math.max(1, Math.ceil(all.length / 10)); page = Math.min(page, pages);
+    return {schema: 1, available: true, page: page, pages: pages, total: String(all.length), items: all.slice((page - 1) * 10, page * 10), featured: SAMPLE.listings.featured};
+  }
+  function loadListings() {
+    if (SAMPLE && SAMPLE.listings) { listings = sampleListings(); renderListings(); return; }
+    if (document.hidden) return;
+    var n = ++lseq, url = new URL(root.getAttribute('data-market-listings-url'), location.href);
+    url.searchParams.set('listing_page', page); url.searchParams.set('currency', lcur); url.searchParams.set('search', search); url.searchParams.set('sort', sort);
+    fetch(url.toString(), {headers: {Accept: 'application/json'}, cache: 'no-store'})
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (v) { if (n !== lseq) return; listings = v; page = v.page || 1; renderListings(); })
+      .catch(function () { if (n !== lseq) return; listings = null; renderListings(); });
+  }
+  qa('[data-listings-currency]').forEach(function (b) { b.addEventListener('click', function () {
+    lcur = b.getAttribute('data-listings-currency'); page = 1;
+    qa('[data-listings-currency]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); x.classList.toggle('is-active', x === b); });
+    loadListings();
+  }); });
+  q('[data-listings-sort]').addEventListener('change', function (e) { sort = e.target.value; page = 1; loadListings(); });
+  q('[data-listings-search]').addEventListener('input', function (e) { clearTimeout(typing); var v = e.target.value.slice(0, 60); typing = setTimeout(function () { search = v; page = 1; loadListings(); }, 300); });
+  q('[data-listings-prev]').addEventListener('click', function () { if (page > 1) { page--; loadListings(); } });
+  q('[data-listings-next]').addEventListener('click', function () { if (listings && page < listings.pages) { page++; loadListings(); } });
+  loadListings(); setInterval(function () { if (!pinned) loadListings(); }, 30000);
+
+  /* ---------- Así se sella un trato ---------- */
+  (function () {
+    var stage = q('[data-mk-stage]'), items = qa('[data-mk-steps] > li'), cap = q('[data-mk-cap]');
+    var caps = ['Publicás tu Jewel of Chaos en Loren Market.', 'Vessara guarda el objeto bajo su sello.', 'La publicación aparece en el juego y en la web.', 'Alguien la compra: el sello cae y el trato queda hecho.', 'Cobrás 950 Eryns, aunque estés desconectado.'];
+    var span = 5000, step = 0, auto = !reduce, visible = false, timer = 0;
+    function show(i) {
+      step = i; stage.setAttribute('data-step', i + 1); cap.textContent = caps[i];
+      items.forEach(function (li, k) {
+        li.classList.toggle('on', k === i); li.classList.toggle('done', k < i);
+        var pg = li.querySelector('.pg'); pg.classList.remove('run');
+        if (k === i && auto && visible) { void pg.offsetWidth; pg.style.setProperty('--d', span + 'ms'); pg.classList.add('run'); }
+      });
+    }
+    function sync() { clearTimeout(timer); if (auto && visible && !document.hidden) { show(step); timer = setTimeout(function next() { show((step + 1) % items.length); timer = setTimeout(next, span); }, span); } }
+    items.forEach(function (li, i) { li.querySelector('button').addEventListener('click', function () { auto = false; clearTimeout(timer); show(i); }); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; sync(); }, {threshold: .35}).observe(stage);
+    document.addEventListener('visibilitychange', sync);
+    show(0);
+  })();
+})();
