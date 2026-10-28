@@ -847,3 +847,20 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-ar-top b{color:var(--sys);font:400 16px/1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase;margin-left:4px}
 .sv-ar-top a{color:var(--pui-ink);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .sv-ar-top a:hover{color:var(--sys)}
+
+/* Conexión Eryns → Mercado: línea de HUD con quiebre, estilo Valorant (reemplaza la flecha) */
+.sv-link-ar{display:none}
+.sv-link{padding-left:calc(22% - 20px)}
+.sv-link-ln2{display:block;width:90px;height:220px;overflow:visible}
+.sv-link-ln2 .l{fill:none;stroke:#0f1923;stroke-width:3;stroke-linejoin:miter}
+.sv-link-ln2 .r{fill:none;stroke:#ff4655;stroke-width:5}
+.sv-link-ln2 .h{fill:none;stroke:#ff4655;stroke-width:5;stroke-linejoin:miter}
+.sv-link-ln2 .a{fill:none;stroke:#0f1923;stroke-width:3}
+.sv-link-ln2 .d{fill:#ff4655}
+.sv-link-ln2 .t{stroke:#0f192366;stroke-width:2}
+.js-link .sv-link-ln2 .l{stroke-dasharray:260;stroke-dashoffset:260;transition:stroke-dashoffset .9s cubic-bezier(.6,0,.2,1)}
+.js-link .sv-link-ln2 .r,.js-link .sv-link-ln2 .h,.js-link .sv-link-ln2 .d{opacity:0;transition:opacity .25s .85s}
+.js-link.is-in .sv-link-ln2 .l{stroke-dashoffset:0}
+.js-link.is-in .sv-link-ln2 .r,.js-link.is-in .sv-link-ln2 .h,.js-link.is-in .sv-link-ln2 .d{opacity:1}
+@media(max-width:900px){.sv-link{padding-left:0}.sv-link-ln2{width:70px;height:170px}}
+@media(prefers-reduced-motion:reduce){.js-link .sv-link-ln2 *{transition:none;stroke-dashoffset:0;opacity:1}}
