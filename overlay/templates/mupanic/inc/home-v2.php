@@ -63,6 +63,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
         <div class="h2-stat"><dt>Drop</dt><dd><b class="pui-num" data-home-rate="drop"><?php echo $h2e($serverDrop); ?></b></dd></div>
         <div class="h2-stat"><dt>Resets máximos</dt><dd><b class="pui-num">20</b></dd></div>
         <div class="h2-stat"><dt>Clases</dt><dd><b class="pui-num">7</b></dd></div>
+        <div class="h2-stat"><dt>Minijuegos</dt><dd><b class="pui-num">8</b></dd></div>
       </dl>
       <div class="h2-live-events"><span class="pui-label">Próximos eventos</span>
         <ol class="h2-events" data-home-events><?php foreach($h2events as $ev) { ?><li><a href="<?php echo $h2e(__BASE_URL__.'info/#eventos'); ?>"><span><?php echo $h2e($ev['nombre']); ?></span><time datetime="<?php echo $h2e($ev['proximo']); ?>"><?php echo $h2e(panicHomeEventLabel($ev['proximo'])); ?></time></a></li><?php } ?></ol>
