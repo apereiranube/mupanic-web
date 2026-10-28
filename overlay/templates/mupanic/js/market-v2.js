@@ -15,7 +15,7 @@
   var when = function (s) { try { var p = {}; new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}).formatToParts(new Date(s.soldAt)).forEach(function (x) { p[x.type] = x.value; }); return p.day + '/' + p.month + ' ' + p.hour + ':' + p.minute; } catch (e) { return ''; } };
 
   /* ---------- Ventas (market_data) ---------- */
-  var data = null, cur = 'all', more = false, tapeKey = '';
+  var data = null, cur = 'all', lpage = 1, tapeKey = '';
   try { data = JSON.parse(document.getElementById('vessara-initial').textContent); } catch (e) {}
   if (SAMPLE && SAMPLE.market) data = SAMPLE.market;
 
@@ -59,8 +59,8 @@
   addEventListener('resize', function () { qa('.mk-stat b').forEach(fitNum); });
   function rows() {
     var list = ((data && data.sales) || []).filter(function (s) { return cur === 'all' || String(s.currency) === cur; });
-    var shown = more ? list : list.slice(0, 10), box = q('[data-mk-rows]'); box.replaceChildren();
-    box.classList.toggle('is-more', more);
+    var pages = Math.max(1, Math.ceil(list.length / 10)); lpage = Math.min(Math.max(1, lpage), pages);
+    var shown = list.slice((lpage - 1) * 10, lpage * 10), box = q('[data-mk-rows]'); box.replaceChildren();
     shown.forEach(function (s) {
       var li = el('li', null, 'mk-row' + (s.currency === 1 ? ' eryns' : ''));
       var t = el('time', when(s)); t.dateTime = s.soldAt;
@@ -69,7 +69,8 @@
     });
     var empty = q('[data-mk-empty]'); empty.hidden = !!shown.length;
     empty.textContent = !data ? 'El registro del mercado no está disponible en este momento.' : (!(data.sales || []).length ? 'Todavía no hay tratos sellados.' : 'No hay ventas en esta moneda.');
-    var mb = q('[data-mk-more]'); mb.hidden = list.length <= 10; mb.textContent = more ? 'Ver menos' : 'Ver las últimas ' + list.length;
+    q('[data-mk-pager]').classList.toggle('off', pages <= 1); q('[data-mk-page]').textContent = 'Página ' + lpage + ' de ' + pages;
+    q('[data-mk-prev]').disabled = lpage <= 1; q('[data-mk-next]').disabled = lpage >= pages;
   }
   function records() {
     var box = q('[data-mk-records]'), h = (data && data.highlights) || {}; box.replaceChildren();
@@ -92,11 +93,12 @@
   }
   function renderSales() { metrics(); tape(); rows(); records(); week(); }
   qa('[data-mk-cur]').forEach(function (b) { b.addEventListener('click', function () {
-    cur = b.getAttribute('data-mk-cur'); more = false;
+    cur = b.getAttribute('data-mk-cur'); lpage = 1;
     qa('[data-mk-cur]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); x.classList.toggle('is-active', x === b); });
     rows();
   }); });
-  q('[data-mk-more]').addEventListener('click', function () { more = !more; rows(); });
+  q('[data-mk-prev]').addEventListener('click', function () { lpage--; rows(); });
+  q('[data-mk-next]').addEventListener('click', function () { lpage++; rows(); });
   function pollSales() {
     if (SAMPLE || document.hidden) return;
     fetch(root.getAttribute('data-market-url'), {headers: {Accept: 'application/json'}, cache: 'no-store'})

@@ -130,7 +130,7 @@ $mkSteps = [
           <div class="mk-ledger-head" aria-hidden="true"><span>Objeto</span><span>Comprador</span><span>Vendedor</span><span>Precio</span><span>Fecha</span></div>
           <ol class="mk-ledger-rows" data-mk-rows></ol>
           <p class="mk-state" data-mk-empty hidden></p>
-          <button type="button" class="mk-more" data-mk-more>Ver las últimas 40</button>
+          <div class="mk-pages mk-log-pages" data-mk-pager><button type="button" class="pui-btn pui-btn--ghost pui-btn--sm" data-mk-prev>Anterior</button><span data-mk-page>Página 1 de 1</span><button type="button" class="pui-btn pui-btn--ghost pui-btn--sm" data-mk-next>Siguiente</button></div>
         </div>
         <aside class="mk-records" aria-labelledby="mk-rec-t">
           <h3 class="mk-sub" id="mk-rec-t">Récords de hoy</h3>
