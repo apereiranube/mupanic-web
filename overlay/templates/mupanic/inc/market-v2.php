@@ -58,7 +58,7 @@ $mkSteps = [
       <div class="mk-store">
         <span class="mk-store-tab">Mercado de Vessara</span>
       <div class="mk-featrow" data-listings-featured-wrap>
-        <div class="mk-featrow-head"><h3>Destacados</h3><p>Van primero en la web y se ofrecen a los gritos por Loren Market.</p></div>
+        <div class="mk-featrow-head"><h3>Destacados</h3></div>
         <div class="mk-marquee" data-listings-featured tabindex="0" role="region" aria-label="Publicaciones destacadas"><div class="mk-marquee-run" data-mk-feat-run></div></div>
         <p class="mk-feat-none" data-mk-feat-none hidden>Todavía no hay publicaciones destacadas.</p>
       </div>
