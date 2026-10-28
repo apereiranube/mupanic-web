@@ -94,6 +94,12 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
       </div>
       <div class="sv-sim pui-rise" id="svSim">
         <div class="sv-sim-top"><label for="svSimR" class="pui-label">Simulá tu recorrido</label><output id="svSimOut" for="svSimR">0<small> resets</small></output></div>
+        <div class="sv-towers" id="svTowers" aria-hidden="true">
+          <div class="sv-tower"><span class="sv-tower-img"><img src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-1-apagada-b80c3027714f.webp" alt="" width="240" height="819" loading="lazy"><img class="on" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-1-encendida-8eef909ca1b3.webp" alt="" width="240" height="819" loading="lazy"></span><b>200</b><small>1 a 4</small></div>
+          <div class="sv-tower"><span class="sv-tower-img"><img src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-2-apagada-f12dfcfd4f10.webp" alt="" width="240" height="819" loading="lazy"><img class="on" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-2-encendida-0be6bf55bff5.webp" alt="" width="240" height="819" loading="lazy"></span><b>250</b><small>5 a 9</small></div>
+          <div class="sv-tower"><span class="sv-tower-img"><img src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-3-apagada-af1117f964aa.webp" alt="" width="240" height="819" loading="lazy"><img class="on" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-3-encendida-7f5209103a51.webp" alt="" width="240" height="819" loading="lazy"></span><b>300</b><small>10 a 14</small></div>
+          <div class="sv-tower"><span class="sv-tower-img"><img src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-4-apagada-81f0ef18d4f1.webp" alt="" width="240" height="819" loading="lazy"><img class="on" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/torre-4-encendida-79e20366ea5a.webp" alt="" width="240" height="819" loading="lazy"></span><b>350</b><small>15 a 20</small></div>
+        </div>
         <input type="range" id="svSimR" min="0" max="20" step="1" value="0">
         <div class="sv-sim-ticks" aria-hidden="true"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
         <div class="sv-sim-res">

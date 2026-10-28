@@ -68,7 +68,7 @@
 
   /* Simulador de resets (200/250/300/350 puntos por etapa). */
   (function () {
-    var r = $('svSimR'), out = $('svSimOut'), pts = $('svSimPts'), nxt = $('svSimNext'), lis = [].slice.call($('svLadder').children), shown = 0, raf, auto = !reduce, played = false;
+    var r = $('svSimR'), out = $('svSimOut'), pts = $('svSimPts'), nxt = $('svSimNext'), lis = [].slice.call($('svLadder').children), tws = [].slice.call($('svTowers').children), shown = 0, raf, auto = !reduce, played = false;
     var LV = 1995, LV2 = 2793;
     function per(n) { return n <= 4 ? 200 : n <= 9 ? 250 : n <= 14 ? 300 : 350; }
     function total(n) { var t = 0; for (var i = 1; i <= n; i++) t += per(i); return t; }
@@ -76,7 +76,7 @@
     function upd() {
       var n = +r.value; r.style.setProperty('--p', (n / 20 * 100) + '%'); out.firstChild.nodeValue = n;
       var st = n === 0 ? -1 : (n <= 4 ? 0 : n <= 9 ? 1 : n <= 14 ? 2 : 3), nx = n >= 20 ? 3 : (n + 1 <= 4 ? 0 : n + 1 <= 9 ? 1 : n + 1 <= 14 ? 2 : 3);
-      lis.forEach(function (li, i) { li.classList.toggle('reached', i <= st); li.classList.toggle('now', i === nx); });
+      lis.forEach(function (li, i) { li.classList.toggle('reached', i <= st); li.classList.toggle('now', i === nx); }); tws.forEach(function (tw, i) { tw.classList.toggle('on', i <= st); tw.classList.toggle('now', i === nx && n < 20); });
       if (n >= 20) { nxt.textContent = 'Máximo'; nxt.classList.add('max'); } else { nxt.textContent = '+' + per(n + 1); nxt.classList.remove('max'); }
       $('svSimTot').textContent = fmt(total(n) + LV); $('svSimTot2').textContent = fmt(total(n) + LV2);
       if (reduce) { shown = total(n); pts.textContent = fmt(shown); } else animTo(total(n));

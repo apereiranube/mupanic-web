@@ -385,3 +385,19 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 @keyframes h2Charge{0%{opacity:0;transform:scale(.7) translateY(30px);filter:blur(6px)}100%{opacity:1;transform:none;filter:drop-shadow(0 30px 40px #000a)}}
 @media(max-width:760px){.sv-hero-art{width:auto;height:min(100vw,400px);top:70px;left:8px;right:8px}}
 @media(prefers-reduced-motion:reduce){.sv-hero-art img{animation:none}}
+
+/* Torres de reset: se encienden por etapa */
+.sv-towers{display:grid;grid-template-columns:repeat(4,1fr);align-items:end;gap:6px;height:250px;margin:0 0 22px;padding-bottom:14px;border-bottom:2px solid #ffffff14}
+.sv-tower{display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;text-align:center}
+.sv-tower-img{position:relative;flex:1;width:100%;min-height:0}
+.sv-tower-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;transition:opacity .45s,transform .45s}
+.sv-tower-img img.on{opacity:0;transform:translateY(6px)}
+.sv-tower.on .sv-tower-img img.on{opacity:1;transform:none}
+.sv-tower.on .sv-tower-img img:not(.on){opacity:0}
+.sv-tower b{font:400 22px/1 var(--pui-display);color:var(--pui-muted);margin-top:8px;transition:color .3s}
+.sv-tower small{font-size:11px;color:var(--pui-muted);opacity:.7}
+.sv-tower.on b{color:var(--pui-red)}
+.sv-tower.now b{color:#fff}
+.sv-tower.now .sv-tower-img img:not(.on){filter:drop-shadow(0 0 10px #ff465566)}
+@media(max-width:760px){.sv-towers{height:190px}.sv-tower b{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.sv-tower-img img{transition:none}}
