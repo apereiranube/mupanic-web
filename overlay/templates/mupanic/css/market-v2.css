@@ -411,3 +411,75 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 .mk-featsec{padding-bottom:70px}
 .mk-shop{margin-top:0}
 @media(max-width:700px){.mk-featsec{padding-bottom:50px}}
+
+/* ===== Ronda 2 ===== */
+/* Destacados dentro de la misma banda: panel rojo arriba de la vidriera */
+.mk-featrow{margin:0 0 40px;padding:22px 0 8px;background:#ff4655 url('../img/ui/hud-rojo-fondo-5b544edb4e28.svg') center/cover no-repeat;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%)}
+.mk-featrow-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;padding:0 24px}
+.mk-featrow-head h3{margin:0;font:400 30px/1 var(--pui-display);letter-spacing:.03em;text-transform:uppercase;color:#fff}
+.mk-featrow-head p{margin:0;font-size:14px;color:#ffe1e4}
+.mk-featrow .mk-marquee{padding:16px 0 18px}
+.mk-featrow .mk-marquee.is-scroll{padding-inline:24px}
+.mk-featrow .mk-feat-none{padding:16px 24px 18px}
+/* Tarjetas más chicas (comunes y destacadas) */
+.mk-card{border-width:14px;border-image-width:14px}
+.mk-card.is-featured:after{inset:-14px;border-width:48px 48px 14px 14px;border-image-width:48px 48px 14px 14px}
+.mk-card-rib{top:-14px;right:-14px;width:48px;height:48px}
+.mk-card-rib span{font-size:8px;transform:translate(calc(-50% + 10px),calc(-50% - 4px)) rotate(45deg)}
+.mk-card{grid-template-rows:104px auto}
+.mk-card-body{gap:4px;padding:8px 6px 6px}
+.mk-card h4{font-size:13px;min-height:2.6em}
+.mk-card-seller{font-size:11px}
+.mk-card-price{font-size:18px}
+.mk-card-cur,.mk-card-badge{font-size:9px}
+.mk-grid{grid-template-columns:repeat(5,minmax(0,212px));justify-content:center;gap:16px;--ch:252px;min-height:calc(var(--rows,2) * var(--ch) + (var(--rows,2) - 1) * 16px)}
+.mk-marquee-group{gap:16px;padding-right:16px}
+.mk-marquee-group .mk-card{width:212px;height:252px}
+@media(max-width:1100px){.mk-grid{grid-template-columns:repeat(4,minmax(0,212px))}}
+@media(max-width:700px){.mk-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;--rows:5}.mk-marquee-group .mk-card{width:176px}}
+@media(max-width:420px){.mk-grid{--rows:5;--ch:252px;min-height:calc(5 * 252px + 4 * 12px)}}
+
+/* Así se sella un trato: escenario con una imagen clara en cada paso */
+.mk-stage{height:440px}
+.mk-stage-item{display:none}
+.mk-stage-card{position:absolute;left:50%;top:34px;width:190px;height:258px;margin-left:-95px;display:grid;grid-template-rows:150px auto auto;gap:6px;align-content:start;padding:0;border:16px solid transparent;border-image:url('../img/mercado/mercado-marco-2d03bba6787b.svg') 60 / 16px stretch;background:var(--pui-night-2) padding-box;transition:filter .4s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.mk-stage-media{display:grid;place-items:center;background:#0b131b}
+.mk-stage-media img{width:118px;height:118px;object-fit:contain}
+.mk-stage-card b{padding:4px 6px 0;font:400 20px/1 var(--pui-display);text-transform:uppercase;color:#fff}
+.mk-stage-card .pr{display:flex;align-items:center;gap:6px;padding:0 6px;font:400 20px/1 var(--pui-display);color:var(--pui-gem)}
+.mk-stage-card .pr img,.mk-stage-pay img{width:18px;height:18px;object-fit:contain}
+.mk-stage[data-step="1"] .mk-stage-card{animation:mkCardIn .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes mkCardIn{from{transform:translateX(-170px) rotate(-6deg);opacity:0}to{transform:none;opacity:1}}
+.mk-stage-in,.mk-stage-views{position:absolute;top:60px;right:28px;width:150px;display:grid;justify-items:center;gap:4px;text-align:center;opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s}
+.mk-stage-in img,.mk-stage-views img{width:78px;height:78px;object-fit:contain}
+.mk-stage-in b,.mk-stage-views b{font:400 26px/1 var(--pui-display);color:var(--sys)}
+.mk-stage-in small,.mk-stage-views small{font-size:12px;color:var(--pui-muted)}
+.mk-stage[data-step="1"] .mk-stage-in,.mk-stage[data-step="3"] .mk-stage-views{opacity:1;transform:none}
+.mk-stage-lock{position:absolute;left:50%;top:96px;width:120px;height:120px;margin-left:-60px;opacity:0;transform:scale(1.4);transition:opacity .3s,transform .35s cubic-bezier(.2,.8,.2,1.4)}
+.mk-stage-lock img{width:100%;height:100%;object-fit:contain}
+.mk-stage[data-step="2"] .mk-stage-card{filter:brightness(.45) saturate(.6)}
+.mk-stage[data-step="2"] .mk-stage-lock{opacity:1;transform:none}
+.mk-stage[data-step="3"] .mk-stage-card{transform:scale(1.04)}
+.mk-seal-mark{left:50%;top:96px;bottom:auto;width:130px;height:130px;margin-left:-65px;transform:scale(.6)}
+.mk-seal{left:50%;top:0;bottom:auto;width:130px;height:174px;margin-left:-58px;transform:translateY(-460px) rotate(-14deg)}
+.mk-stage[data-step="4"] .mk-seal{transform:translateY(-14px) rotate(0)}
+.mk-stage[data-step="4"] .mk-seal-mark,.mk-stage[data-step="5"] .mk-seal-mark{opacity:1;transform:scale(1)}
+.mk-stage[data-step="5"] .mk-seal{transform:translateY(-460px) rotate(-14deg)}
+.mk-stage[data-step="4"] .mk-stage-card,.mk-stage[data-step="5"] .mk-stage-card{filter:brightness(.8)}
+.mk-stage-pay{bottom:64px}
+.mk-stage-pay b{display:flex;align-items:center;gap:6px}
+@media(max-width:700px){
+  .mk-stage{height:470px}
+  .mk-stage-card{top:24px;width:160px;height:228px;margin-left:-80px;grid-template-rows:122px auto auto}
+  .mk-stage-media img{width:96px;height:96px}
+  .mk-stage-card b,.mk-stage-card .pr{font-size:17px}
+  .mk-stage-in,.mk-stage-views{top:auto;bottom:150px;right:auto;left:50%;width:220px;margin-left:-110px;grid-template-columns:52px auto;justify-items:start;align-items:center;text-align:left;column-gap:10px}
+  .mk-stage-in img,.mk-stage-views img{width:52px;height:52px;grid-row:span 2}
+  .mk-stage-lock{top:70px;width:100px;height:100px;margin-left:-50px}
+  .mk-seal-mark{top:70px;width:110px;height:110px;margin-left:-55px}
+  .mk-seal{width:110px;height:147px;margin-left:-49px}
+  .mk-stage-pay{bottom:70px}
+}
+@media(prefers-reduced-motion:reduce){.mk-stage[data-step="1"] .mk-stage-card{animation:none}}
+@media(max-width:700px){.mk-grid{--ch:262px;min-height:calc(5 * 262px + 4 * 12px)}.mk-marquee-group .mk-card{height:262px}}
+@media(max-width:700px){.mk-card-price{white-space:nowrap;font-size:16px}.mk-card h4{font-size:12px}}

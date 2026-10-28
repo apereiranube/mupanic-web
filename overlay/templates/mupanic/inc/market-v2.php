@@ -48,25 +48,18 @@ $mkSteps = [
     </div>
   </section>
 
-  <!-- Destacados -->
-  <section class="mk-featsec" id="publicaciones" aria-labelledby="mk-feat-t" data-listings-featured-wrap>
-    <div class="pui-wrap">
-      <header class="mk-head">
-        <div><p class="pui-kicker">La vidriera de Loren Market</p><h2 class="pui-h2" id="mk-feat-t"><?php echo $mkReveal(['Destacados']); ?></h2></div>
-        <p class="pui-lead">Las publicaciones destacadas van primero en la web y se ofrecen a los gritos por Loren Market.</p>
-      </header>
-    </div>
-    <div class="mk-marquee" data-listings-featured tabindex="0" role="region" aria-label="Publicaciones destacadas"><div class="mk-marquee-run" data-mk-feat-run></div></div>
-    <p class="pui-wrap mk-feat-none" data-mk-feat-none hidden>Todavía no hay publicaciones destacadas.</p>
-  </section>
-
   <!-- Objetos en venta -->
-  <section class="pui-band pui-band--bone mk-shop" aria-labelledby="mk-shop-t">
+  <section class="pui-band pui-band--bone mk-shop" id="publicaciones" aria-labelledby="mk-shop-t">
     <div class="pui-wrap">
       <header class="mk-head">
-        <div><p class="pui-kicker">Publicaciones de jugadores</p><h2 class="pui-h2" id="mk-shop-t"><?php echo $mkReveal(['Objetos','en venta']); ?></h2></div>
+        <div><p class="pui-kicker">La vidriera de Loren Market</p><h2 class="pui-h2" id="mk-shop-t"><?php echo $mkReveal(['Objetos','en venta']); ?></h2></div>
         <p class="pui-lead">Lo que publican los jugadores en el juego aparece acá. Pasá el mouse o tocá una tarjeta para ver la ficha completa.</p>
       </header>
+      <div class="mk-featrow" data-listings-featured-wrap>
+        <div class="mk-featrow-head"><h3>Destacados</h3><p>Van primero en la web y se ofrecen a los gritos por Loren Market.</p></div>
+        <div class="mk-marquee" data-listings-featured tabindex="0" role="region" aria-label="Publicaciones destacadas"><div class="mk-marquee-run" data-mk-feat-run></div></div>
+        <p class="mk-feat-none" data-mk-feat-none hidden>Todavía no hay publicaciones destacadas.</p>
+      </div>
       <div class="mk-board">
         <div class="mk-controls">
           <div class="pui-tabs mk-tabs" role="group" aria-label="Moneda">
@@ -104,10 +97,17 @@ $mkSteps = [
           <?php } ?>
         </ol>
         <div class="mk-stage" data-mk-stage data-step="1" aria-hidden="true">
+          <div class="mk-stage-card">
+            <div class="mk-stage-media"><img src="<?php echo $mk($mkImg.'atlas/drops/jewel-chaos-809384516512.webp'); ?>" alt="" width="512" height="512" loading="lazy"></div>
+            <b>Jewel of Chaos</b>
+            <span class="pr"><img src="<?php echo $mk($mkImg.'votar/votar-gema-64-4559844ddcec.webp'); ?>" alt="" width="20" height="20">1.000 Eryns</span>
+          </div>
+          <span class="mk-stage-lock"><img src="<?php echo $mk($mkImg.'mercado/paso-guardado-bcca7e281ad1.webp'); ?>" alt="" width="240" height="240" loading="lazy"></span>
+          <div class="mk-stage-in"><img src="<?php echo $mk($mkImg.'mercado/paso-publicar-0dad5f0a3391.webp'); ?>" alt="" width="240" height="240" loading="lazy"><b>Loren Market</b><small>Publicado por 7 días</small></div>
+          <div class="mk-stage-views"><img src="<?php echo $mk($mkImg.'mercado/paso-todos-6c48dc8a90ad.webp'); ?>" alt="" width="240" height="240" loading="lazy"><b data-mk-views>0</b><small>jugadores la vieron</small></div>
           <span class="mk-seal-mark"></span>
           <span class="mk-seal"><img src="<?php echo $mk($mkImg.'mercado/mercado-sello-7cb6746c9c13.webp'); ?>" alt="" width="524" height="700" loading="lazy"></span>
-          <div class="mk-stage-item"><b>Jewel of Chaos</b><span>1.000 Eryns</span></div>
-          <div class="mk-stage-pay"><div><small>Precio</small><b>1.000</b></div><div><small>Tributo 5%</small><b>−50</b></div><div class="net"><small>Cobrás</small><b>950 Eryns</b></div></div>
+          <div class="mk-stage-pay"><div><small>Precio</small><b>1.000</b></div><div><small>Tributo 5%</small><b>−50</b></div><div class="net"><small>Cobrás</small><b><img src="<?php echo $mk($mkImg.'votar/votar-gema-64-4559844ddcec.webp'); ?>" alt="" width="20" height="20">950</b></div></div>
           <p class="mk-stage-cap" data-mk-cap>Publicás tu Jewel of Chaos en Loren Market.</p>
         </div>
       </div>
