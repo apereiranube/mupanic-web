@@ -376,3 +376,12 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv .pui-kicker{margin-bottom:24px}
 .sv .pui-kicker + .pui-h2,.sv .pui-kicker + .pui-h1{padding-top:.08em}
 .sv-notes .pui-card .pui-h3{color:#ece8e1}
+
+/* Portada: Magic Gladiator sobre bloque magenta */
+.sv-hero-block{background:linear-gradient(150deg,#ff3fa4,#a3166a)}
+.sv-hero-word{opacity:.14}
+.sv-hero-art{top:110px;bottom:20px;width:min(44vw,660px);right:max(0px,calc(50% - 690px))}
+.sv-hero-art img{width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 30px 40px #000a);animation:h2Charge 1.2s cubic-bezier(.2,.8,.2,1) both}
+@keyframes h2Charge{0%{opacity:0;transform:scale(.7) translateY(30px);filter:blur(6px)}100%{opacity:1;transform:none;filter:drop-shadow(0 30px 40px #000a)}}
+@media(max-width:760px){.sv-hero-art{width:auto;height:min(100vw,400px);top:70px;left:8px;right:8px}}
+@media(prefers-reduced-motion:reduce){.sv-hero-art img{animation:none}}

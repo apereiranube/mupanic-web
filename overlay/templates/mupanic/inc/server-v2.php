@@ -53,7 +53,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
 
   <section class="sv-hero" aria-labelledby="sv-title">
     <div class="sv-hero-block" aria-hidden="true"><span class="sv-hero-word">MU PANIC</span></div>
-    <div class="sv-hero-art"><span class="h2-art-slot" style="--sys:#ff3fa4" aria-hidden="true"><i>MG</i><small>Arte: Magic Gladiator · magenta</small></span></div>
+    <div class="sv-hero-art" aria-hidden="true"><img src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/servidor-mg-df4cbf0470bb.webp" alt="" width="1210" height="1307" decoding="async" fetchpriority="high"></div>
     <div class="pui-wrap sv-hero-copy">
       <p class="pui-kicker">El servidor</p>
       <h1 class="pui-h1" id="sv-title">Un MU para<br>quedarse</h1>
