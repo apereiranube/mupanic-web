@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600">
   <path fill="#0f1923" fill-rule="evenodd" d="M64 64H2246L2336 154V1536H154L64 1446ZM104 104V1429.431L170.569 1496H2296V170.569L2229.431 104Z"/>
   <path fill="none" stroke="#ece8e1" stroke-width="2" stroke-linejoin="miter" d="M105 105H2229.017L2295 170.983V1495H170.983L105 1429.017Z"/>
-    <g fill="none" stroke="#ece8e1" stroke-width="2" stroke-linecap="butt">
+    <g fill="none" stroke="#0f1923" stroke-width="3" stroke-linecap="butt">
     <path d="M48 150V48H150"/>
     <path d="M2250 48H2352V150"/>
     <path d="M48 1450V1552H150"/>
