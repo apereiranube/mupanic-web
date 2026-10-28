@@ -500,3 +500,7 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 @media(max-width:700px){.mk-store{--s:.24}.mk-store-tab{font-size:14px;width:150px;height:22px;padding-left:10px}.mk-store .mk-featrow{margin-top:0}}
 @media(max-width:420px){.mk-card-price{font-size:14px}.mk-grid{gap:10px}}
 .mk-pages span{white-space:nowrap}@media(max-width:420px){.mk-pages{gap:10px}.mk-pages .pui-btn--sm{padding:0 12px}}
+/* Destacados de marco a marco: la franja roja llega al borde interno del marco (izq. 104, der. 2296, arriba 104 del SVG) */
+.mk-store .mk-featrow{margin:calc(-50px * var(--s)) calc(-86px * var(--s)) 40px calc(-50px * var(--s));padding-top:calc(22px + 40px * var(--s));clip-path:polygon(0 0,calc(100% - 68px * var(--s)) 0,100% calc(68px * var(--s)),100% 100%,0 100%)}
+.mk-store .mk-featrow-head{padding-left:calc(24px + 50px * var(--s))}
+@media(max-width:700px){.mk-store .mk-featrow{margin-top:calc(-50px * var(--s))}}

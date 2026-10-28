@@ -33,7 +33,9 @@
     var win = run.parentNode, i = 0;
     while (g.scrollWidth < win.clientWidth + 80 && i++ < 6) { [].slice.call(makeGroup().children).forEach(function (c) { c.setAttribute('aria-hidden', 'true'); g.appendChild(c); }); }
     var dup = g.cloneNode(true); dup.setAttribute('aria-hidden', 'true'); run.appendChild(dup);
-    run.style.setProperty('--dur', Math.max(18, g.scrollWidth / pxPerSec) + 's');
+    function speed() { var w = g.getBoundingClientRect().width; if (w > 0) run.style.setProperty('--dur', Math.max(30, w / pxPerSec) + 's'); }
+    speed(); requestAnimationFrame(speed); setTimeout(speed, 600); if (document.fonts && document.fonts.ready) document.fonts.ready.then(speed);
+    if (!run._rs) { run._rs = 1; window.addEventListener('resize', function () { if (run._speed) run._speed(); }); } run._speed = speed;
     if (reduce) run.classList.add('is-static');
   }
   function tape() {
@@ -49,7 +51,7 @@
         g.appendChild(n);
       });
       return g;
-    }, 26);
+    }, 22);
   }
   function fitNum(b) { b.style.fontSize = ''; var w = b.clientWidth; for (var i = 0; w && b.scrollWidth > w && i < 4; i++) b.style.fontSize = (parseFloat(getComputedStyle(b).fontSize) * w / b.scrollWidth * .97) + 'px'; }
   function metrics() {
