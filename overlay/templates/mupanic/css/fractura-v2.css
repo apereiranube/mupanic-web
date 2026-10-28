@@ -340,3 +340,4 @@ body.is-fractura .module-surface{padding:0;border:0;background:transparent;box-s
 @media(max-width:900px){@keyframes frRise{0%{opacity:0;transform:translate(0,0) rotate(var(--r)) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(-20px,-260px) rotate(calc(var(--r) + 140deg)) scale(1)}}}
 @media(prefers-reduced-motion:reduce){.fr-lava{display:none}}
 .fr-lava-f{width:calc(var(--w) * 1.5)}@media(max-width:900px){.fr-lava-f{width:var(--w)}}
+.fr-lava{display:none!important}
