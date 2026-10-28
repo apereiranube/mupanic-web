@@ -319,3 +319,14 @@ body.is-fractura .module-surface{padding:0;border:0;background:transparent;box-s
 .fr-hero-split .fx-crack{position:absolute;left:50%;top:50%;height:var(--fr-len,100%);width:auto;aspect-ratio:266/1300;transform:translate(-50%,-50%) rotate(var(--fr-ang,0deg));transform-origin:50% 50%;z-index:1}
 .fr-hero-split .fx-crack>img{width:100%;height:100%;object-fit:fill}
 @keyframes frCrack{from{clip-path:inset(50% 0 50% 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* Fragmentos de lava sobre Vulcanus: suben al bajar por la página y saltan al pasar el mouse */
+.fr-lava{position:absolute;inset:0;z-index:0;pointer-events:none}
+.fr-lava-f{position:absolute;width:var(--w);transform:translate3d(0,var(--y,0px),0) rotate(calc(var(--r) + var(--y,0px) * .12deg));will-change:transform;pointer-events:auto}
+.fr-lava-f img{display:block;width:100%;height:auto;filter:drop-shadow(0 8px 10px #0009);transition:transform .25s cubic-bezier(.2,.8,.2,1.4)}
+.fr-lava-f.pop img{animation:frPop .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes frPop{0%{transform:none}25%{transform:translateY(-38px) rotate(160deg) scale(1.25)}60%{transform:translateY(-14px) rotate(320deg) scale(.9)}100%{transform:rotate(360deg)}}
+.fr-vul-wrap{position:relative;z-index:1}
+@media(max-width:900px){.fr-lava{bottom:auto;height:clamp(260px,62vw,480px)}.fr-lava-f{width:calc(var(--w) * .7)}}
+@media(prefers-reduced-motion:reduce){.fr-lava-f{transform:rotate(var(--r))}.fr-lava-f.pop img{animation:none}}
+@media(max-width:900px){.fr-lava{overflow:hidden}}

@@ -170,6 +170,11 @@ $frOrders = [
   <!-- Vulcanus -->
   <section class="fr-band fr-vulcanus" id="vulcanus" aria-labelledby="fr-vul-t">
     <?php echo $frSlot('fr-vul-bg', 'fractura-vulcanus', 1600, 1000, 'Vulcanus: ruinas, puentes sobre ríos de lava, volcanes y la grieta de la Fractura'); ?>
+    <div class="fr-lava" aria-hidden="true"><?php
+      // Fragmentos de lava (GPT): posición en % de la sección, tamaño en px, velocidad al bajar, giro.
+      $frLava = [[1,58,14,46,.9,-18],[2,72,62,70,1.3,12],[3,88,22,52,.7,30],[4,64,40,40,1.6,-8],[5,92,70,78,1.1,-14],[6,80,8,34,.8,20],[7,52,78,44,1.4,-26],[8,96,44,36,1.8,8],[9,68,86,56,.6,16],[10,84,52,40,1.2,-34],[11,48,30,30,1.7,10],[12,76,30,60,1,-6]];
+      foreach($frLava as $l) { $src = $frArt(sprintf('fractura-lava-%02d', $l[0])); if(!$src) continue; ?><span class="fr-lava-f" style="left:<?php echo $l[1]; ?>%;top:<?php echo $l[2]; ?>%;--w:<?php echo $l[3]; ?>px;--v:<?php echo $l[4]; ?>;--r:<?php echo $l[5]; ?>deg"><img src="<?php echo $fr($src); ?>" alt="" loading="lazy" decoding="async"></span><?php }
+    ?></div>
     <div class="pui-wrap fr-vul-wrap">
       <div class="fr-vul-copy">
         <p class="pui-kicker">El territorio en disputa</p>

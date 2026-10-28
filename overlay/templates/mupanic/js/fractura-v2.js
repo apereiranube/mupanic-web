@@ -153,3 +153,17 @@
     s.style.setProperty('--fr-len', (Math.sqrt(h * h + dx * dx) * 1.06).toFixed(0) + 'px'); }
   fit(); addEventListener('resize', fit); setTimeout(fit, 300);
 })();
+
+/* Lava de Vulcanus: cada fragmento sube a su velocidad mientras la sección pasa por la pantalla; al tocarlo, salta y gira. */
+(function () {
+  var sec = document.getElementById('vulcanus'), fs = sec ? [].slice.call(sec.querySelectorAll('.fr-lava-f')) : [];
+  if (!fs.length) return;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches, on = false, raf = 0;
+  function frame() { raf = 0; var r = sec.getBoundingClientRect(), p = (innerHeight - r.top) / (innerHeight + r.height); p = Math.max(0, Math.min(1, p));
+    fs.forEach(function (f) { f.style.setProperty('--y', (-(p - .5) * 260 * parseFloat(f.style.getPropertyValue('--v') || 1)).toFixed(1) + 'px'); }); }
+  if (!reduce) {
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { on = e[0].isIntersecting; if (on) frame(); }).observe(sec); else on = true;
+    addEventListener('scroll', function () { if (on && !raf) raf = requestAnimationFrame(frame); }, {passive: true}); frame();
+  }
+  fs.forEach(function (f) { f.addEventListener('pointerenter', function () { if (reduce || f.classList.contains('pop')) return; f.classList.add('pop'); setTimeout(function () { f.classList.remove('pop'); }, 950); }); });
+})();
