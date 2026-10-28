@@ -5,7 +5,7 @@
   if (!home) return;
   var endpoint;
   try { endpoint = new URL(home.getAttribute('data-launcher-url'), location.href); } catch (e) { return; }
-  if (endpoint.origin !== location.origin) return;
+  var sameOrigin = endpoint.origin === location.origin;
   var state = home.querySelector('[data-home-state]');
   var online = home.querySelector('[data-home-online]');
   var list = home.querySelector('[data-home-events]');
@@ -55,20 +55,45 @@
     if (empty) empty.hidden = events.length > 0;
     tick();
   }
-  function tick() {
-    var first = list.querySelector('li:first-child a');
-    if (!first) return;
-    var time = first.querySelector('time');
-    var left = Math.max(0, Math.ceil((Date.parse(time.dateTime) - Date.now()) / 1000));
-    var cd = first.querySelector('[data-event-countdown]');
-    if (!cd) { cd = document.createElement('strong'); cd.setAttribute('data-event-countdown', ''); first.append(cd); }
+  function fmtLeft(left) {
     var h = Math.floor(left / 3600), m = Math.floor(left % 3600 / 60), s = left % 60;
-    cd.textContent = h > 24 ? 'En ' + Math.floor(h / 24) + ' días' : 'En ' + [h, m, s].map(function (n) { return String(n).padStart(2, '0'); }).join(':');
+    if (h >= 24) return 'En ' + Math.floor(h / 24) + ' d ' + (h % 24) + ' h';
+    return 'En ' + [h, m, s].map(function (n) { return String(n).padStart(2, '0'); }).join(':');
+  }
+  function tick() {
+    // Cuenta regresiva en cada evento (y en sus copias de la cinta)
+    var run = home.querySelector('.h2-events-run');
+    [list].concat(run ? [run] : []).forEach(function (root) {
+      root.querySelectorAll('li a').forEach(function (a) {
+        var time = a.querySelector('time'); if (!time) return;
+        var left = Math.max(0, Math.ceil((Date.parse(time.dateTime) - Date.now()) / 1000));
+        var cd = a.querySelector('[data-event-countdown]');
+        if (!cd) { cd = document.createElement('strong'); cd.setAttribute('data-event-countdown', ''); a.append(cd); }
+        cd.textContent = left === 0 ? '¡Ahora!' : fmtLeft(left);
+      });
+    });
+    loopEvents();
+  }
+  // Cinta en movimiento: se duplica la lista para que corra sin cortes
+  function loopEvents() {
+    var wrap = list.parentNode, run = wrap.querySelector('.h2-events-run');
+    var sig = Array.prototype.map.call(list.querySelectorAll('li span'), function (x) { return x.textContent; }).join('|');
+    if (!list.children.length) { if (run) run.remove(); wrap.classList.remove('is-running'); return; }
+    if (!run || run.getAttribute('data-sig') !== sig) {
+      if (run) run.remove();
+      run = document.createElement('div'); run.className = 'h2-events-run'; run.setAttribute('aria-hidden', 'true'); run.setAttribute('data-sig', sig);
+      var track = document.createElement('div'); track.className = 'h2-events-track';
+      for (var k = 0; k < 4; k++) { var c = list.cloneNode(true); c.removeAttribute('data-home-events'); track.append(c); }
+      run.append(track); wrap.append(run); wrap.classList.add('is-running');
+    } else {
+      var cds = list.querySelectorAll('[data-event-countdown]');
+      run.querySelectorAll('ol').forEach(function (ol) { ol.querySelectorAll('[data-event-countdown]').forEach(function (cd, i) { if (cds[i]) cd.textContent = cds[i].textContent; }); });
+    }
   }
   tick();
   setInterval(function () { if (!document.hidden) tick(); }, 1000);
   async function refresh() {
-    if (busy) return;
+    if (busy || !sameOrigin) return;
     if (document.hidden || navigator.onLine === false) { schedule(); return; }
     busy = true;
     var ctl = new AbortController(), to = setTimeout(function () { ctl.abort(); }, 10000);

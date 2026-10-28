@@ -571,3 +571,18 @@ body.is-home{background:var(--pui-night)}
 @media(max-width:1020px){.h2-stat-grid{flex-wrap:wrap;margin-top:-30px}.h2-stat{flex:1 1 30%}.h2-stat--online{flex-basis:100%;clip-path:none}.h2-stat:last-child{clip-path:none;padding-right:26px}}
 @media(max-width:560px){.h2-stat{padding:14px 14px}.h2-stat dd b{font-size:32px}.h2-stat--online dd b{font-size:50px}}
 .h2-stat-grid>.h2-stat{padding:18px 22px}.h2-stat-grid>.h2-stat--online{padding-left:30px}.h2-stat-grid>.h2-stat:last-child{padding-right:44px}.h2-stats{border-block:0}@media(max-width:560px){.h2-stat-grid>.h2-stat{padding:12px 14px}.h2-stat-grid>.h2-stat:last-child{padding-right:14px}}
+
+/* Próximos eventos: cinta en movimiento con cuenta regresiva */
+.h2-stats .h2-live-events{flex-wrap:nowrap;overflow:hidden;gap:0}
+.h2-stats .h2-live-events>.pui-label{flex:none;padding-right:22px;position:relative;z-index:1;background:var(--pui-night)}
+.h2-live-events.is-running>.h2-events{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.h2-events-run{flex:1;min-width:0;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent)}
+.h2-events-track{display:flex;width:max-content;animation:h2Run 34s linear infinite}
+.h2-events-run:hover .h2-events-track{animation-play-state:paused}
+.h2-events-track ol{list-style:none;margin:0;padding:0 0 0 0;display:flex;gap:0}
+.h2-events-track li a,.h2-events li a{display:flex;align-items:baseline;gap:10px;padding:4px 34px 4px 0;white-space:nowrap;color:var(--pui-ink);text-decoration:none}
+.h2-events-track li a:after{content:'';width:6px;height:6px;margin-left:24px;background:var(--pui-red);transform:rotate(45deg) translateY(-2px);align-self:center}
+.h2-events time{display:none}
+.h2-events [data-event-countdown]{margin:0;font:400 17px/1 var(--pui-display);letter-spacing:.06em;color:var(--pui-red)}
+@media(prefers-reduced-motion:reduce){.h2-events-track{animation:none}}
+@media(max-width:760px){.h2-stats .h2-live-events{flex-direction:column;align-items:stretch;gap:8px}.h2-events-run{width:100%}}
