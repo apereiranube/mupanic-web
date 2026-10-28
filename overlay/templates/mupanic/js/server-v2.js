@@ -339,3 +339,29 @@
   if (cur && cur.dataset.furia) { var pre = new Image(); pre.src = cur.dataset.furia; }
   reset();
 })();
+
+/* Mercado: tira de destacados que se mueve + el pregonero va cambiando el cartel. */
+(function () {
+  var f = document.getElementById('svFeat'), run = document.getElementById('svTick'); if (!f || !run) return;
+  var sw = document.getElementById('svFeatSw'), crier = f.querySelector('.sv-crier'), img = crier.querySelector('img'), sign = f.querySelector('.sv-crier-sign'),
+      sIt = document.getElementById('svSignIt'), sPr = document.getElementById('svSignPr');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var base = [].slice.call(run.children);
+  base.forEach(function (n) { var c = n.cloneNode(true); run.appendChild(c); });
+  function speed() { run.style.setProperty('--dur', Math.max(20, run.scrollWidth / 2 / 45) + 's'); }
+  /* El cartel de la imagen ocupa x 6,9%–92,4% y y 2,7%–17,3% del dibujo. */
+  function fit() { var w = img.clientWidth, h = img.clientHeight; if (!w) return; sign.style.setProperty('--sw', (w * .855) + 'px'); sign.style.setProperty('--sh', (h * .146) + 'px'); sign.style.top = (crier.clientHeight - h + h * .027) + 'px'; sign.style.left = (img.offsetLeft + w * .069 + w * .855 / 2) + 'px'; }
+  img.complete ? fit() : img.addEventListener('load', fit); window.addEventListener('resize', fit);
+  var on = false, i = 0;
+  function items() { return base.filter(function (n) { return on || !n.classList.contains('me'); }); }
+  function show(n) { var t = n.querySelector('b').textContent, p = n.dataset.pr;
+    if (reduce) { sIt.textContent = t; sPr.textContent = p; return; }
+    sign.classList.remove('flip'); void sign.offsetWidth; sign.classList.add('flip');
+    setTimeout(function () { sIt.textContent = t; sPr.textContent = p; }, 250); }
+  function sync() { var v = sw.getAttribute('aria-pressed') === 'true'; if (v === on) return; on = v; f.classList.toggle('is-on', on);
+    [].slice.call(run.querySelectorAll('.me')).forEach(function (m) { m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash'); });
+    speed(); if (on) { i = 0; show(items()[0]); } }
+  new MutationObserver(sync).observe(sw, {attributes: true, attributeFilter: ['aria-pressed']});
+  sync(); speed();
+  if (!reduce) setInterval(function () { var l = items(); i = (i + 1) % l.length; show(l[i]); }, 2600);
+})();

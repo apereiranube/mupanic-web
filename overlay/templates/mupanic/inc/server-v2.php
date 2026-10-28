@@ -265,7 +265,8 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
           </div>
         </article>
         <article class="sv-chap sv-feat" id="svFeat" style="--sys:#ffc24a">
-          <div class="sv-feat-art"><span class="h2-art-slot" style="--sys:#ffc24a" aria-hidden="true"><i>LOREN</i><small>Arte: la Cuadrilla Rota en Loren Market · dorado</small></span></div>
+          <div class="sv-feat-art"><div class="sv-crier" aria-hidden="true"><img src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/cuadrilla-cartel-280ec564088b.webp" alt="" width="572" height="1000" loading="lazy"><div class="sv-crier-sign"><span class="it" id="svSignIt">Chromatic Staff +15</span><span class="pr" id="svSignPr">900 Eryns</span></div></div></div>
+          <div class="sv-tick" id="svTickBox" aria-hidden="true"><span class="sv-tick-lbl">Destacados</span><div class="sv-tick-win"><div class="sv-tick-run" id="svTick"><span class="sv-tick-it me" data-pr="1.200 Eryns"><b>Hurricane Armor +15</b><em>Tu publicación</em><i>1.200 Eryns</i></span><span class="sv-tick-it" data-pr="900 Eryns"><b>Chromatic Staff +15</b><em>Juanita</em><i>900 Eryns</i></span><span class="sv-tick-it" data-pr="1.000.000 Zen"><b>Hurricane Boots +15</b><em>PANIC</em><i class="zen">1.000.000 Zen</i></span><span class="sv-tick-it" data-pr="650 Eryns"><b>Dragon Helm +13</b><em>Kael</em><i>650 Eryns</i></span><span class="sv-tick-it" data-pr="2.500.000 Zen"><b>Jewel of Chaos x10</b><em>Nyx</em><i class="zen">2.500.000 Zen</i></span><span class="sv-tick-it" data-pr="1.100 Eryns"><b>Sword of Destruction +11</b><em>Torvak</em><i>1.100 Eryns</i></span></div></div></div>
           <div class="sv-chap-copy">
             <p class="sv-chap-k">Mercado</p>
             <h3 class="sv-chap-t">Destacá tu publicación</h3>

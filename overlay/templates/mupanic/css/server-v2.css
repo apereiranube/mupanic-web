@@ -596,3 +596,38 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 @media(max-width:900px){.sv-ar-stage{height:400px}.sv-ar-power{top:44px;bottom:auto;max-width:56%}.sv-ar-power b{font-size:20px}.sv-ar-hero{width:46%;height:66%}.sv-ar-mob{width:54%}}
 @keyframes svShift{from{box-shadow:0 0 0 #ff7a1a00}to{box-shadow:0 0 22px #ff7a1a;filter:brightness(1.12)}}
 @media(max-width:900px){.sv-ar-hp{top:34%}}
+
+/* Mercado: pregonero de la Cuadrilla Rota + tira de destacados */
+.sv-chap.sv-feat{grid-template-rows:auto auto}
+.sv-tick{grid-column:1/-1;order:-2;display:flex;align-items:stretch;margin:-44px -44px 6px;background:var(--pui-night);color:var(--pui-ink);overflow:hidden}
+.sv-tick-lbl{flex:none;display:flex;align-items:center;padding:0 16px;background:var(--pui-red);color:#fff;font:400 16px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%);padding-right:26px;z-index:1}
+.sv-tick-win{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent)}
+.sv-tick-run{display:flex;width:max-content;animation:svTick var(--dur,40s) linear infinite}
+.sv-tick:hover .sv-tick-run{animation-play-state:paused}
+@keyframes svTick{to{transform:translateX(-50%)}}
+.sv-tick-it{display:flex;align-items:baseline;gap:10px;padding:14px 22px;border-right:1px solid #ece8e11a;white-space:nowrap}
+.sv-tick-it b{font-size:14px;color:#fff}
+.sv-tick-it em{font-style:normal;font-size:12px;color:var(--pui-muted)}
+.sv-tick-it i{font:400 18px/1 var(--pui-display);font-style:normal;color:var(--pui-gem)}
+.sv-tick-it i.zen{color:var(--pui-zen)}
+.sv-tick-it.me{display:none;background:#ffc24a1f;box-shadow:inset 0 -3px 0 var(--sys)}
+.sv-tick-it.me em{color:var(--sys)}
+.sv-feat.is-on .sv-tick-it.me{display:flex}
+.sv-feat.is-on .sv-tick-it.me.flash{animation:svTickFlash .8s ease-out}
+@keyframes svTickFlash{0%{background:#ffc24a}100%{background:#ffc24a1f}}
+.sv-feat-art{min-height:380px}
+.sv-crier{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-end}
+.sv-crier img{display:block;height:100%;width:auto;max-width:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 18px 18px #0f192355)}
+.sv-crier{animation:svCrier .9s ease-in-out infinite alternate;transform-origin:50% 100%}
+@keyframes svCrier{from{transform:translateY(0) rotate(-1.2deg)}to{transform:translateY(-6px) rotate(1.2deg)}}
+.sv-crier-sign{position:absolute;left:50%;top:0;width:var(--sw,0);height:var(--sh,0);transform:translate(-50%,0);display:grid;place-content:center;justify-items:center;gap:4px;text-align:center;padding:0 6%;perspective:400px}
+.sv-crier-sign .it{font:400 clamp(15px,1.5vw,22px)/1 var(--pui-display);text-transform:uppercase;color:#fff3d6;text-shadow:0 2px 0 #00000080;letter-spacing:.02em}
+.sv-crier-sign .pr{font:400 clamp(13px,1.2vw,18px)/1 var(--pui-display);color:var(--sys)}
+.sv-crier-sign.flip{animation:svSignFlip .5s ease-in-out}
+@keyframes svSignFlip{0%{transform:translate(-50%,0) rotateX(0)}50%{transform:translate(-50%,0) rotateX(90deg)}100%{transform:translate(-50%,0) rotateX(0)}}
+@media(max-width:700px){.sv-tick{margin:-26px -20px 4px}.sv-feat-art{min-height:340px}}
+@media(prefers-reduced-motion:reduce){.sv-tick-run,.sv-crier,.sv-crier-sign.flip{animation:none}.sv-tick-win{overflow-x:auto}}
+.sv-crier-sign .it{white-space:nowrap;font-size:calc(var(--sw,200px)*.072)}
+.sv-crier-sign .pr{font-size:calc(var(--sw,200px)*.058)}
+.sv-vrow .pr{white-space:nowrap;flex:none}
+@media(max-width:700px){.sv-vrow b{font-size:13px;line-height:1.2}.sv-vrow .pr{font-size:15px}.sv-vtabs{overflow:hidden}}
