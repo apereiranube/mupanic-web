@@ -119,16 +119,24 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
         <div><p class="pui-kicker">Tu clase, tu rol</p><h2 class="pui-h2" id="sv-cls-t"><?php echo $svReveal(['Siete clases.','Ninguna sobra.']); ?></h2></div>
         <p class="pui-lead">El balance está pensado para party contra party y guerras de guild. Cada clase gana cuando cumple su rol, y ninguna barre sola.</p>
       </header>
-      <div class="sv-roster pui-rise">
-        <?php foreach($svClasses as $c) { ?>
-        <article class="sv-class" style="--sys:<?php echo $sv($c[6]); ?>">
-          <?php if(isset($svArt[$c[0]])) { ?><span class="sv-class-art" aria-hidden="true"><span class="sv-class-word"><?php echo $sv($c[1]); ?></span><img src="<?php echo $sv($svImg.$svArt[$c[0]]); ?>" alt="" loading="lazy" decoding="async"></span>
-          <?php } else { ?><span class="h2-art-slot sv-class-art" aria-hidden="true"><i><?php echo $sv(strtoupper($c[0])); ?></i><small>Arte: <?php echo $sv($c[1].' · '.$svColorName[$c[0]]); ?></small></span><?php } ?>
-          <div class="sv-class-body">
+      <div class="sv-pick pui-rise" id="svPick" style="--sys:<?php echo $sv($svClasses[0][6]); ?>">
+        <div class="sv-pick-rail" role="tablist" aria-label="Clases">
+          <?php foreach($svClasses as $i => $c) { ?>
+          <button type="button" class="sv-pick-tab" role="tab" id="svPickTab-<?php echo $c[0]; ?>" aria-controls="svPickPane-<?php echo $c[0]; ?>" aria-selected="<?php echo $i ? 'false' : 'true'; ?>" tabindex="<?php echo $i ? '-1' : '0'; ?>" style="--sys:<?php echo $sv($c[6]); ?>"><b><?php echo $sv(strtoupper($c[0] === 'elfa' ? 'Elfa' : $c[0])); ?></b><span><?php echo $sv($c[1]); ?></span></button>
+          <?php } ?>
+        </div>
+        <?php foreach($svClasses as $i => $c) { ?>
+        <article class="sv-pick-pane<?php echo $i ? '' : ' is-on'; ?>" role="tabpanel" id="svPickPane-<?php echo $c[0]; ?>" aria-labelledby="svPickTab-<?php echo $c[0]; ?>" data-sys="<?php echo $sv($c[6]); ?>">
+          <div class="sv-pick-art" aria-hidden="true">
+            <span class="sv-pick-word"><?php echo $sv($c[1]); ?></span>
+            <?php if(isset($svArt[$c[0]])) { ?><img src="<?php echo $sv($svImg.$svArt[$c[0]]); ?>" alt="" loading="lazy" decoding="async">
+            <?php } else { ?><span class="h2-art-slot"><i><?php echo $sv(strtoupper($c[0])); ?></i><small>Arte: <?php echo $sv($c[1].' · '.$svColorName[$c[0]]); ?></small></span><?php } ?>
+          </div>
+          <div class="sv-pick-body">
             <span class="pui-tag" style="background:color-mix(in srgb,var(--sys) 22%,transparent);color:var(--sys)"><?php echo $sv($c[2]); ?></span>
-            <h3 class="pui-h3"><?php echo $sv($c[1]); ?></h3>
+            <h3 class="sv-pick-name"><?php echo $sv($c[1]); ?></h3>
             <p><?php echo $sv($c[3]); ?></p>
-            <p class="sv-class-furia"><b>Furia · <?php echo $sv($c[4]); ?></b><?php echo $sv($c[5]); ?></p>
+            <div class="sv-pick-furia"><small>Su Furia en PvP</small><b><?php echo $sv($c[4]); ?></b><p><?php echo $sv($c[5]); ?></p></div>
           </div>
         </article>
         <?php } ?>

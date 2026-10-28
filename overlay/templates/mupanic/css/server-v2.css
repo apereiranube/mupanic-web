@@ -401,3 +401,43 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-tower.now .sv-tower-img img:not(.on){filter:drop-shadow(0 0 10px #ff465566)}
 @media(max-width:760px){.sv-towers{height:190px}.sv-tower b{font-size:18px}}
 @media(prefers-reduced-motion:reduce){.sv-tower-img img{transition:none}}
+
+/* Clases: selector tipo agentes */
+.sv-pick{position:relative;margin-top:10px}
+.sv-pick-rail{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-bottom:6px}
+.sv-pick-tab{position:relative;display:grid;gap:4px;padding:14px 14px 16px;text-align:left;background:var(--pui-night-2);border:0;border-bottom:3px solid transparent;color:var(--pui-muted);cursor:pointer;font:inherit;transition:background .2s,color .2s,border-color .2s}
+.sv-pick-tab b{font:400 24px/1 var(--pui-display);letter-spacing:.02em;color:var(--pui-bone)}
+.sv-pick-tab span{font-size:12px;line-height:1.2}
+.sv-pick-tab:hover{background:color-mix(in srgb,var(--sys) 14%,var(--pui-night-2));border-bottom-color:color-mix(in srgb,var(--sys) 50%,transparent)}
+.sv-pick-tab[aria-selected=true]{background:var(--sys);border-bottom-color:var(--sys);color:#0f1923}
+.sv-pick-tab[aria-selected=true] b{color:#0f1923}
+.sv-pick-tab:focus-visible{outline:2px solid var(--pui-bone);outline-offset:2px}
+.sv-pick-pane{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);min-height:560px;background:var(--pui-night-2);clip-path:polygon(0 0,100% 0,100% calc(100% - 26px),calc(100% - 26px) 100%,0 100%)}
+.sv-pick.js .sv-pick-pane{display:none}
+.sv-pick.js .sv-pick-pane.is-on{display:grid}
+.sv-pick-pane+.sv-pick-pane{margin-top:6px}.sv-pick.js .sv-pick-pane+.sv-pick-pane{margin-top:0}
+.sv-pick-art{position:relative;overflow:hidden;isolation:isolate}
+.sv-pick-art:before{content:'';position:absolute;z-index:-1;inset:0 22% 0 0;background:var(--sys);clip-path:polygon(0 0,100% 0,78% 100%,0 100%)}
+.sv-pick-word{position:absolute;z-index:-1;left:18px;bottom:-8px;font:400 clamp(70px,9vw,130px)/.8 var(--pui-display);text-transform:uppercase;color:#0f1923;opacity:.16;white-space:nowrap}
+.sv-pick-art img{position:absolute;inset:24px 0 0;width:100%;height:calc(100% - 24px);object-fit:contain;object-position:center bottom;filter:drop-shadow(0 24px 30px #000a)}
+.sv-pick-art .h2-art-slot{position:absolute;inset:40px 12% 40px 6%;min-height:0;height:auto}
+.sv-pick-body{display:grid;gap:16px;align-content:center;padding:48px 48px 56px 28px}
+.sv-pick-body .pui-tag{justify-self:start}
+.sv-pick-name{margin:0;font:400 clamp(44px,5vw,76px)/.9 var(--pui-display);text-transform:uppercase;color:var(--pui-bone)}
+.sv-pick-body>p{margin:0;font-size:17px;line-height:1.6;color:var(--pui-muted);max-width:44ch}
+.sv-pick-furia{margin-top:8px;padding:18px 20px;border-left:4px solid var(--sys);background:#0f1923}
+.sv-pick-furia small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--pui-muted)}
+.sv-pick-furia b{display:block;margin:4px 0 6px;font:400 30px/1 var(--pui-display);text-transform:uppercase;color:var(--sys)}
+.sv-pick-furia p{margin:0;font-size:15px;line-height:1.5;color:var(--pui-bone)}
+.sv-pick.js .sv-pick-pane.is-on .sv-pick-art img,.sv-pick.js .sv-pick-pane.is-on .sv-pick-art:before{animation:svPickIn .45s cubic-bezier(.2,.8,.2,1) both}
+.sv-pick.js .sv-pick-pane.is-on .sv-pick-art:before{animation-name:svPickBlock}
+@keyframes svPickIn{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+@keyframes svPickBlock{from{clip-path:polygon(0 0,0 0,0 100%,0 100%)}to{clip-path:polygon(0 0,100% 0,78% 100%,0 100%)}}
+@media(max-width:900px){
+  .sv-pick-tab{padding:10px 4px 12px;text-align:center}.sv-pick-tab span{display:none}.sv-pick-tab b{font-size:17px}
+  .sv-pick-pane{grid-template-columns:1fr;min-height:0}
+  .sv-pick-art{height:min(100vw,440px)}
+  .sv-pick-body{padding:26px 22px 34px}
+}
+@media(max-width:420px){.sv-pick-rail{gap:3px}.sv-pick-tab b{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.sv-pick.js .sv-pick-pane.is-on .sv-pick-art img,.sv-pick.js .sv-pick-pane.is-on .sv-pick-art:before{animation:none}}

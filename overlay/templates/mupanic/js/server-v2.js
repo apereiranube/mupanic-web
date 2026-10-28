@@ -227,3 +227,24 @@
     })(last);
   })();
 })();
+
+/* Clases: selector tipo agentes (7 pestañas + ficha grande). */
+(function () {
+  var box = document.getElementById('svPick'); if (!box) return;
+  var tabs = [].slice.call(box.querySelectorAll('.sv-pick-tab')), panes = [].slice.call(box.querySelectorAll('.sv-pick-pane'));
+  box.classList.add('js');
+  function show(i, focus) {
+    tabs.forEach(function (t, k) { var on = k === i; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; });
+    panes.forEach(function (p, k) { p.classList.toggle('is-on', k === i); });
+    box.style.setProperty('--sys', panes[i].getAttribute('data-sys'));
+    if (focus) tabs[i].focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i); });
+    t.addEventListener('keydown', function (e) {
+      var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (e.key === 'Home') { e.preventDefault(); show(0, true); } else if (e.key === 'End') { e.preventDefault(); show(tabs.length - 1, true); }
+      else if (k) { e.preventDefault(); show((i + k + tabs.length) % tabs.length, true); }
+    });
+  });
+})();
