@@ -236,3 +236,13 @@
 .footer-modern .brand-crystal .brand-word{font-size:40px}
 @media(max-width:1350px){.site-header .brand-crystal .brand-mark{width:46px}.site-header .brand-crystal .brand-word{font-size:25px}}
 @media(max-width:760px){.site-header .brand-crystal .brand-mark{width:40px}.site-header .brand-crystal .brand-word{font-size:22px}}
+/* Sección actual: mancha de pintura de GPT detrás del texto, que se sale por debajo de la barra */
+@media(min-width:1101px){
+.site-header .main-nav .nav-main-link>span,.site-header .main-nav .nav-main-link>i{position:relative;z-index:1}
+.site-header .main-nav .nav-main-link.is-current{color:#fff;padding-inline:16px}
+.site-header .main-nav .nav-main-link.is-current:after{display:none}
+.site-header .main-nav .nav-main-link.is-current:before{content:'';position:absolute;z-index:0;left:-12px;right:-12px;top:-12px;height:100px;background:url('../img/ui/nav-pintura-7bcd664eddce.webp') center top/100% 100% no-repeat;pointer-events:none;animation:navPaint .55s cubic-bezier(.6,0,.2,1) both}
+.site-header .main-nav .nav-main-link.is-current>span{text-shadow:0 1px 0 #0f192340}
+@keyframes navPaint{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+}
+@media(prefers-reduced-motion:reduce){.site-header .main-nav .nav-main-link.is-current:before{animation:none}}
