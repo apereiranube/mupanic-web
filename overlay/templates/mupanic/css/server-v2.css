@@ -864,3 +864,12 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .js-link.is-in .sv-link-ln2 .r,.js-link.is-in .sv-link-ln2 .h,.js-link.is-in .sv-link-ln2 .d{opacity:1}
 @media(max-width:900px){.sv-link{padding-left:0}.sv-link-ln2{width:70px;height:170px}}
 @media(prefers-reduced-motion:reduce){.js-link .sv-link-ln2 *{transition:none;stroke-dashoffset:0;opacity:1}}
+
+/* Fondos HUD estilo Valorant (GPT) en las secciones oscuras, con el acento de cada una */
+.sv-hero{background-image:url('../img/ui/hud-magenta-b-a98891401a38.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
+.sv-classes{background-image:url('../img/ui/hud-rojo-24ef7db1f64d.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
+.sv-furia{background-image:url('../img/ui/hud-naranja-b-0902cda3c684.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
+.sv-events{background-image:url('../img/ui/hud-azul-133a352616ef.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
+.sv-faq{background-image:url('../img/ui/hud-rojo-b-58bea953ccca.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
+.sv-vp[data-mode=vip]{background-image:url('../img/ui/hud-dorado-3507d9648fde.svg');background-repeat:no-repeat;background-size:cover;background-position:center}
+@media(max-width:700px){.sv-hero,.sv-classes,.sv-furia,.sv-events,.sv-faq,.sv-vp[data-mode=vip]{background-size:1500px auto;background-position:center top}}
