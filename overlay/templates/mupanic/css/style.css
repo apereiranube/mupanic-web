@@ -195,3 +195,36 @@
 .site-header .main-nav .nav-votar:hover,.site-header .main-nav .nav-votar.is-current{color:#ffd9cf}
 .site-header .main-nav .nav-votar:after{background:#ff6a52}
 @media(min-width:1101px) and (max-width:1350px){.site-header .main-nav .nav-socios i,.site-header .main-nav .nav-votar i{display:none}}
+
+/* ===== Estilo nuevo (tipo Valorant) — barra de arriba y pie, compartidos por todas las páginas ===== */
+@font-face{font-family:Anton;src:url('../fonts/anton-400.woff2') format('woff2');font-weight:400;font-display:swap}
+.site-header{background:#0f1923;border-bottom:1px solid #ece8e11f;box-shadow:0 10px 30px #0006}
+.site-header:after{content:'';position:absolute;left:0;bottom:-1px;width:min(220px,30vw);height:3px;background:#ff4655;clip-path:polygon(0 0,100% 0,calc(100% - 6px) 100%,0 100%);pointer-events:none}
+.site-header a,.site-header button{color:#ece8e1cc}
+.site-header .main-nav a{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.site-header .main-nav a:hover,.site-header .main-nav a:focus{color:#fff}
+.site-header .main-nav .nav-main-link:after{left:10px;right:10px;bottom:-1px;height:3px;background:#ff4655;transform:scaleX(0) skewX(-20deg)}
+.site-header .main-nav .nav-main-link:hover:after{transform:scaleX(.5) skewX(-20deg)}
+.site-header .main-nav .nav-main-link.is-current{color:#fff}
+.site-header .main-nav .nav-main-link.is-current:after{transform:scaleX(1) skewX(-20deg)}
+.site-header .nav-shell a:focus-visible,.site-header .nav-shell button:focus-visible{outline-color:#ff4655}
+.site-header .main-nav .nav-discord{border-left-color:#ece8e126}
+.site-header .main-nav .nav-votar{color:#ff7d88}
+.site-header .main-nav .nav-votar i{border-bottom-color:#ff4655;filter:drop-shadow(0 0 4px #ff4655cc)}
+.site-header .main-nav .nav-votar:hover,.site-header .main-nav .nav-votar.is-current{color:#ffd6da}
+.site-header .main-nav .nav-votar:after{background:#ff4655}
+.site-header .account-link{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#ece8e1cc}
+.site-header .account-link:hover{color:#fff}
+.site-header .nav-cta{border:0;background:#ff4655;color:#fff;font-weight:800;letter-spacing:.1em;padding:10px 20px;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);transition:background .15s,transform .15s}
+.site-header .nav-cta:hover,.site-header .nav-cta:focus{background:#ff5f6c;color:#fff;transform:translateY(-1px)}
+@media(max-width:1100px){
+ .site-header .main-nav{background:#0f1923;border-bottom:3px solid #ff4655}
+ .site-header .main-nav .mobile-account{border-top-color:#ece8e11f}
+}
+.footer-modern{position:relative;overflow:hidden;isolation:isolate;background:#0b131b;border-top:3px solid #ff4655;color:#ece8e1}
+.footer-modern:before{content:'MU PANIC';position:absolute;z-index:-1;right:-1vw;bottom:-.18em;font:400 clamp(120px,19vw,320px)/1 Anton,Impact,sans-serif;color:#ece8e1;opacity:.035;white-space:nowrap;pointer-events:none}
+.footer-main>div>p{font-size:13px;color:#a8b0b8}
+.footer-links small{font:700 11px/1.4 Manrope,Arial,sans-serif;letter-spacing:.14em;color:#ff4655}
+.footer-links a{font-size:13px;color:#c9cfd4}
+.footer-links a:hover{color:#fff}
+.footer-bottom{border-top-color:#ece8e11a;font-size:11px;color:#8a949c}
