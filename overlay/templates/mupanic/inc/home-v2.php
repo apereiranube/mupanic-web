@@ -56,6 +56,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   </section>
 
   <section class="h2-live" aria-label="El servidor ahora" data-server-state="unknown">
+    <span class="pui-slash pui-slash--fine h2-live-slash" aria-hidden="true"></span>
     <div class="pui-wrap h2-live-grid">
       <div class="h2-live-item"><span class="pui-label">Servidor</span><b class="h2-state" data-home-state>Sin verificar</b></div>
       <div class="h2-live-item"><span class="pui-label">Jugadores online</span><b class="pui-num h2-online" data-home-online>—</b></div>
@@ -96,7 +97,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     </div>
   </section>
 
-  <section class="h2-split" aria-labelledby="h2-fractura-title">
+  <section class="h2-split pui-tear" aria-labelledby="h2-fractura-title">
     <div class="h2-split-side h2-nexo"><span>Nexo</span></div>
     <div class="h2-split-side h2-caos"><span>Caos</span></div>
     <div class="pui-wrap h2-split-copy">
@@ -154,7 +155,8 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     </div>
   </section>
 
-  <section class="h2-cta" aria-labelledby="h2-cta-title">
+  <section class="h2-cta pui-tear pui-tear--bottom" aria-labelledby="h2-cta-title">
+    <span class="pui-slash h2-cta-slash" aria-hidden="true"></span>
     <span class="h2-cta-word" aria-hidden="true">JUGÁ</span>
     <div class="pui-wrap">
       <h2 class="pui-h1" id="h2-cta-title">Tu historia<br>empieza hoy</h2>
