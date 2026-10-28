@@ -173,6 +173,39 @@ final class PanicVotarStore {
         });
     }
 
+    /**
+     * Página pública: números del mes, ranking del mes, últimos votos y total de la cuenta.
+     * Mes según la hora de Argentina (UTC-3).
+     */
+    public function publicStats($account,$now,$rankLimit=10,$feedLimit=8) {
+        return $this->locked(function($d) use ($account,$now,$rankLimit,$feedLimit) {
+            $month=gmdate('Y-m',$now-3*3600);
+            $votesMonth=0; $coinsAll=0; $accountsMonth=[]; $counts=[]; $names=[]; $mine=0; $feed=[];
+            foreach($d['premios'] as $p) {
+                $coins=(int)($p['coins'] ?? 0); $coinsAll+=$coins;
+                $key=strtolower($p['account']);
+                if($account!=='' && $key===strtolower($account)) $mine+=$coins;
+                if(gmdate('Y-m',(int)$p['created']-3*3600)===$month) {
+                    $votesMonth++; $accountsMonth[$key]=true;
+                    $counts[$key]=($counts[$key] ?? 0)+1; $names[$key]=$p['account'];
+                    $last[$key]=max($last[$key] ?? 0,(int)$p['created']);
+                }
+                $feed[]=['account'=>$p['account'],'coins'=>$coins,'created'=>(int)$p['created']];
+            }
+            usort($feed,function($a,$b){ return $b['created']<=>$a['created']; });
+            $order=array_keys($counts);
+            usort($order,function($a,$b) use ($counts,$last){ return [$counts[$b],$last[$a] ?? 0]<=>[$counts[$a],$last[$b] ?? 0]; });
+            $ranking=[]; $me=null;
+            foreach($order as $i=>$key) {
+                $row=['pos'=>$i+1,'account'=>$names[$key],'votes'=>$counts[$key]];
+                if($i<$rankLimit) $ranking[]=$row;
+                if($account!=='' && $key===strtolower($account)) $me=$row;
+            }
+            return ['votes_month'=>$votesMonth,'coins_all'=>$coinsAll,'voters_month'=>count($accountsMonth),
+                'ranking'=>$ranking,'me'=>$me,'mine_total'=>$mine,'feed'=>array_slice($feed,0,$feedLimit)];
+        });
+    }
+
     /** Panel admin: totales y últimos premios. */
     public function summary($limit=150) {
         return $this->locked(function($d) use ($limit) {
