@@ -1,0 +1,107 @@
+/* MU PANIC · Componentes del estilo nuevo (tipo Valorant). Prefijo pui-. Se usa en todas las páginas. */
+@font-face{font-family:Anton;src:url('../fonts/anton-400.woff2') format('woff2');font-weight:400;font-display:swap}
+:root{
+  --pui-night:#0f1923;--pui-night-2:#16222e;--pui-night-3:#1f2c38;--pui-ink:#ece8e1;--pui-muted:#a8b0b8;--pui-line:#ece8e126;
+  --pui-red:#ff4655;--pui-red-2:#d93a48;--pui-bone:#ece8e1;--pui-bone-ink:#0f1923;--pui-bone-muted:#4c5762;
+  --pui-gem:#6fb4ff;--pui-gem-2:#9fd0ff;--pui-zen:#ffc24a;--pui-ok:#3fd394;--pui-warn:#ffb547;
+  --pui-display:Anton,Impact,'Arial Narrow',sans-serif;--pui-body:Manrope,Arial,sans-serif;
+  --pui-cut:12px;
+}
+.pui{font:400 15px/1.7 var(--pui-body);color:var(--pui-ink);-webkit-font-smoothing:antialiased}
+.pui *,.pui *:before,.pui *:after{box-sizing:border-box}
+
+/* Tipografía */
+.pui-h1,.pui-h2,.pui-h3{font-family:var(--pui-display);font-weight:400;text-transform:uppercase;line-height:.9;letter-spacing:.005em;margin:0;color:inherit;text-wrap:balance}
+.pui-h1{font-size:clamp(56px,8vw,128px)}
+.pui-h2{font-size:clamp(40px,5.2vw,80px)}
+.pui-h3{font-size:clamp(24px,2.4vw,34px);line-height:1}
+.pui-kicker{display:inline-flex;align-items:center;gap:10px;margin:0 0 16px;font:700 12px/1 var(--pui-body);letter-spacing:.16em;text-transform:uppercase;color:var(--pui-red)}
+.pui-kicker:before{content:'';width:26px;height:2px;background:currentColor}
+.pui-lead{font-size:17px;line-height:1.7;color:var(--pui-muted);max-width:60ch;margin:0}
+.pui-num{font-family:var(--pui-display);font-weight:400;letter-spacing:.02em}
+
+/* Botones: bloque con punta cortada y marco fino desplazado (como Valorant) */
+.pui-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 28px;border:0;background:var(--pui-red);color:#fff;font:400 18px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer;clip-path:polygon(0 0,100% 0,100% calc(100% - var(--pui-cut)),calc(100% - var(--pui-cut)) 100%,0 100%);transition:background .15s,transform .15s,color .15s}
+.pui-btn:hover{background:#ff5f6c;transform:translateY(-2px)}
+.pui-btn:active{transform:none}
+.pui-btn-wrap{display:inline-block;padding:5px;border:1px solid #ece8e155;clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%)}
+.pui-btn--ghost{background:transparent;color:var(--pui-ink);box-shadow:inset 0 0 0 2px #ece8e1aa}
+.pui-btn--ghost:hover{background:var(--pui-ink);color:var(--pui-night)}
+.pui-btn--gem{background:linear-gradient(135deg,#3d8fe8,#1f4f8f);color:#fff}
+.pui-btn--gem:hover{background:linear-gradient(135deg,#5aa4f5,#2a63ad)}
+.pui-btn--dark{background:var(--pui-night);color:var(--pui-ink)}
+.pui-btn--dark:hover{background:#1c2b38}
+.pui-btn--sm{min-height:40px;padding:0 18px;font-size:15px}
+.pui-btn--lg{min-height:62px;padding:0 40px;font-size:24px}
+.pui-btn[disabled],.pui-btn.is-disabled{background:#3a4652;color:#8a949c;cursor:not-allowed;transform:none}
+.pui-btn:focus-visible{outline:2px solid var(--pui-gem);outline-offset:4px}
+.pui-link{color:var(--pui-red);font-weight:700;text-decoration:none;border-bottom:2px solid transparent}
+.pui-link:hover{border-color:currentColor}
+
+/* Formularios */
+.pui-field{display:grid;gap:8px;margin-bottom:18px}
+.pui-label{font:700 12px/1 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;color:var(--pui-muted)}
+.pui-input{width:100%;min-height:52px;padding:0 18px;border:0;border-bottom:2px solid #ece8e140;background:var(--pui-night-3);color:var(--pui-ink);font:600 16px/1 var(--pui-body);outline:none;transition:border-color .15s,background .15s}
+.pui-input::placeholder{color:#6f7a84}
+.pui-input:focus{border-color:var(--pui-red);background:#243341}
+.pui-input.is-error{border-color:var(--pui-red);background:#2a1820}
+.pui-hint{font-size:13px;color:var(--pui-muted)}
+.pui-hint.is-error{color:#ff8a94}
+.pui-check{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--pui-muted);cursor:pointer}
+.pui-check input{appearance:none;flex:none;width:20px;height:20px;margin:2px 0 0;border:2px solid #ece8e180;background:transparent;cursor:pointer}
+.pui-check input:checked{background:var(--pui-red);border-color:var(--pui-red);box-shadow:inset 0 0 0 3px var(--pui-night)}
+
+/* Tarjetas y paneles */
+.pui-card{position:relative;padding:28px;background:var(--pui-night-2);border-left:4px solid var(--pui-red);clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%)}
+.pui-card--gem{border-left-color:var(--pui-gem)}
+.pui-card--zen{border-left-color:var(--pui-zen)}
+.pui-card--bone{background:var(--pui-bone);color:var(--pui-bone-ink)}
+.pui-card--bone p{color:var(--pui-bone-muted)}
+.pui-card-tag{position:absolute;top:0;right:0;padding:6px 14px;background:var(--pui-red);color:#fff;font:400 14px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase}
+
+/* Etiquetas */
+.pui-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;font:700 11px/1 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;background:#ece8e11a;color:var(--pui-ink)}
+.pui-tag--red{background:var(--pui-red);color:#fff}
+.pui-tag--gem{background:#6fb4ff26;color:var(--pui-gem-2)}
+.pui-tag--zen{background:#ffc24a26;color:var(--pui-zen)}
+.pui-tag--ok{background:#3fd39426;color:var(--pui-ok)}
+.pui-tag--live:before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor;animation:puiBlink 1.6s infinite}
+@keyframes puiBlink{50%{opacity:.25}}
+
+/* Pestañas */
+.pui-tabs{display:flex;gap:4px;border-bottom:1px solid var(--pui-line);overflow-x:auto}
+.pui-tab{position:relative;padding:14px 20px;border:0;background:none;color:var(--pui-muted);font:400 20px/1 var(--pui-display);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap}
+.pui-tab:hover{color:var(--pui-ink)}
+.pui-tab.is-active{color:var(--pui-ink)}
+.pui-tab.is-active:after{content:'';position:absolute;left:12px;right:12px;bottom:-1px;height:4px;background:var(--pui-red);transform:skewX(-20deg)}
+
+/* Tablas (rankings) */
+.pui-table{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:15px}
+.pui-table th{padding:0 16px 6px;font:700 11px/1 var(--pui-body);letter-spacing:.14em;text-transform:uppercase;color:var(--pui-muted);text-align:left}
+.pui-table td{padding:14px 16px;background:var(--pui-night-2)}
+.pui-table tr td:first-child{width:64px;background:var(--pui-night-3);font:400 22px/1 var(--pui-display);text-align:center}
+.pui-table tr.is-top td:first-child{background:var(--pui-red);color:#fff}
+.pui-table tr.is-me td{box-shadow:inset 0 2px 0 var(--pui-red),inset 0 -2px 0 var(--pui-red)}
+.pui-table .pui-name{font:400 20px/1 var(--pui-display);letter-spacing:.03em;text-transform:uppercase}
+.pui-table .pui-right{text-align:right}
+
+/* Avisos */
+.pui-alert{display:flex;gap:14px;align-items:flex-start;padding:16px 20px;border-left:4px solid var(--pui-red);background:#2a1820;color:#ffd9dd;font-size:15px}
+.pui-alert--ok{border-color:var(--pui-ok);background:#11291f;color:#c9f5df}
+.pui-alert--info{border-color:var(--pui-gem);background:#10223a;color:#dff0ff}
+.pui-alert b{display:block;font:400 18px/1.1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase}
+
+/* Cifras */
+.pui-stat{position:relative;padding-left:22px}
+.pui-stat:before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--pui-red);transform:skewX(-14deg)}
+.pui-stat dt{font:700 11px/1.4 var(--pui-body);letter-spacing:.14em;text-transform:uppercase;color:var(--pui-muted)}
+.pui-stat dd{margin:4px 0 0;font:400 56px/1 var(--pui-display)}
+
+/* Bandas de sección */
+.pui-band{position:relative;isolation:isolate;overflow:hidden;padding:110px 0}
+.pui-band--bone{background:var(--pui-bone);color:var(--pui-bone-ink);clip-path:polygon(0 44px,100% 0,100% calc(100% - 44px),0 100%)}
+.pui-band--bone .pui-lead{color:var(--pui-bone-muted)}
+.pui-band-word{position:absolute;z-index:-1;right:-1vw;top:50%;transform:translateY(-50%);font:400 clamp(220px,32vw,560px)/.8 var(--pui-display);color:currentColor;opacity:.045;white-space:nowrap;pointer-events:none}
+.pui-wrap{width:min(1280px,100%);margin-inline:auto;padding-inline:max(24px,env(safe-area-inset-left,0px))}
+
+@media(prefers-reduced-motion:reduce){.pui-btn{transition:none}.pui-tag--live:before{animation:none}}
