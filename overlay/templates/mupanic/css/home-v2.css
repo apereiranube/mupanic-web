@@ -361,3 +361,7 @@ body.is-home{background:var(--pui-night)}
 .h2-hub-panes section[hidden]{display:none}
 .h2-hub.is-open .h2-hub-char{transform:translate(-46%,-50%) scale(.74);filter:brightness(.55)}
 @media(max-width:760px){.h2-hub .h2-hub-char,.h2-hub.is-open .h2-hub-char{transform:none;filter:none;width:80%}.h2-hub-stage{gap:0}.h2-hub-panel{min-height:0;margin-top:-30px}}
+
+/* Ventana del Hub: el marco va como imagen directa y con fondo sólido detrás del texto */
+.h2-hub-panel{background-position:center;background-size:100% 100%;background-repeat:no-repeat;isolation:isolate}
+.h2-hub-panel:before{content:'';position:absolute;z-index:-1;inset:6% 2.6% 5% 2.6%;background:#0f1923f2}

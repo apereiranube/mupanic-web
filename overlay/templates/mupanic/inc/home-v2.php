@@ -140,7 +140,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
       </div>
       <div class="h2-hub-stage">
         <img class="h2-hub-char" src="<?php echo $h2e($h2img.$h2art['hub']); ?>" alt="" aria-hidden="true" width="1025" height="1149" loading="lazy" decoding="async">
-        <div class="h2-hub-panel" id="h2-hub-panel" style="--frame:url('<?php echo $h2e($h2img.'marco-hub-f88286e62cfd.webp'); ?>')" aria-label="Así se ve el Hub F11">
+        <div class="h2-hub-panel" id="h2-hub-panel" style="background-image:url('<?php echo $h2e($h2img.'marco-hub-f88286e62cfd.webp'); ?>')" aria-label="Así se ve el Hub F11">
           <div class="h2-hub-tabs" role="tablist">
             <?php foreach(['personaje'=>'Personaje','fractura'=>'Fractura','eventos'=>'Eventos','mercado'=>'Mercado','tienda'=>'Tienda','juegos'=>'Juegos'] as $tid=>$tl) { ?><button type="button" role="tab" id="hubtab-<?php echo $tid; ?>" aria-controls="hubpane-<?php echo $tid; ?>" aria-selected="<?php echo $tid==='eventos'?'true':'false'; ?>" data-hub-tab="<?php echo $tid; ?>"><?php echo $tl; ?></button><?php } ?>
           </div>
