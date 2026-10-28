@@ -121,7 +121,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
   </section>
 
   <!-- Clases -->
-  <section class="sv-classes" aria-labelledby="sv-cls-t">
+  <section class="sv-classes" id="clases" aria-labelledby="sv-cls-t">
     <div class="pui-wrap">
       <header class="sv-head">
         <div><p class="pui-kicker">Tu clase, tu rol</p><h2 class="pui-h2" id="sv-cls-t"><?php echo $svReveal(['Siete clases.','Ninguna sobra.']); ?></h2></div>
@@ -205,9 +205,10 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
           <li><span>06</span><div><b>Tu clase, tu poder</b><p>Cada clase despierta un poder propio, contra jugadores y contra monstruos. Vale en todo el continente: arenas, eventos y Castle Siege.</p></div></li>
         </ol>
         <div class="sv-arena" id="svArena">
-          <div class="sv-ar-cls" role="group" aria-label="Elegí tu clase">
-            <?php foreach($svClasses as $c) { ?><button type="button" aria-pressed="<?php echo $c[0]==='rf' ? 'true' : 'false'; ?>" data-name="<?php echo $sv($c[1]); ?>" data-power="<?php echo $sv($c[4]); ?>" data-desc="<?php echo $sv($c[5]); ?>" data-img="<?php echo isset($svArt[$c[0]]) ? $sv($svImg.$svArt[$c[0]]) : ''; ?>"<?php if($c[0]==='rf') { ?> data-furia="<?php echo __PATH_TEMPLATE__; ?>img/servidor/furia-rf-6c08837ca727.webp"<?php } ?>><?php echo $sv($c[0]==='elfa' ? 'Elfa' : strtoupper($c[0])); ?></button><?php } ?>
+          <div class="sv-ar-cls" hidden>
+            <?php foreach($svClasses as $c) { if($c[0] !== 'rf') continue; ?><button type="button" aria-pressed="true" data-name="<?php echo $sv($c[1]); ?>" data-power="<?php echo $sv($c[4]); ?>" data-desc="<?php echo $sv($c[5]); ?>" data-img="<?php echo $sv($svImg.$svArt['rf']); ?>" data-furia="<?php echo __PATH_TEMPLATE__; ?>img/servidor/furia-rf-6c08837ca727.webp"></button><?php } ?>
           </div>
+          <div class="sv-ar-top"><span>Probando con <b>Rage Fighter</b></span><a href="#clases">Ver el poder de cada clase ↑</a></div>
           <div class="sv-ar-stage" id="svArStage">
             <div class="sv-ar-hero" aria-hidden="true"><img id="svArHero" src="<?php echo $sv($svImg.$svArt['rf']); ?>" alt=""></div>
             <button type="button" class="sv-ar-mob" id="svArMob" aria-label="Golpear al Golem">

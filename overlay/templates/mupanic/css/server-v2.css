@@ -840,3 +840,10 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 @media(max-width:900px){.sv-link{padding-left:0;margin:-50px 0 -40px}.sv-link-ar{width:70px;height:164px}}
 @media(prefers-reduced-motion:reduce){.js-link .sv-link-ar,.js-link .sv-link p{transition:none;clip-path:none;opacity:1;transform:none}}
 .sv-link-ar{filter:none}
+
+/* Furia: solo la Rage Fighter; los poderes de cada clase están en la sección de clases */
+.sv-ar-cls[hidden]{display:none}
+.sv-ar-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;font-size:13px;color:var(--pui-muted)}
+.sv-ar-top b{color:var(--sys);font:400 16px/1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase;margin-left:4px}
+.sv-ar-top a{color:var(--pui-ink);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.sv-ar-top a:hover{color:var(--sys)}
