@@ -144,3 +144,17 @@ body.is-home{background:var(--pui-night)}
 .h2-vessara{z-index:2}
 .h2-vessara+.h2-community{margin-top:calc(-1 * clamp(56px,9.2vw,200px));padding-top:calc(clamp(56px,9.2vw,200px) + 50px)}
 .h2-community{position:relative;z-index:1}
+
+/* Arte real en las tarjetas de sistemas */
+.h2-card-art{position:relative;display:block;height:220px;overflow:hidden;background:color-mix(in srgb,var(--sys) 22%,#0f1923)}
+.h2-card-art:before{content:'';position:absolute;inset:0;background:radial-gradient(70% 90% at 50% 100%,color-mix(in srgb,var(--sys) 55%,transparent),transparent 70%)}
+.h2-card-art img{position:absolute;left:50%;top:-34%;width:112%;max-width:none;transform:translateX(-50%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.h2-system:hover .h2-card-art img{transform:translateX(-50%) scale(1.06)}
+/* Arte grande en las secciones destacadas */
+.h2-feature-art{position:relative;display:grid;place-items:center;min-height:520px}
+.h2-feature-art img{position:relative;z-index:1;width:min(100%,640px);height:auto}
+.h2-feature-word{position:absolute;z-index:0;left:50%;top:50%;transform:translate(-50%,-50%);font:400 clamp(160px,20vw,340px)/.8 var(--pui-display);color:transparent;-webkit-text-stroke:2px var(--sys);opacity:.35;white-space:nowrap;pointer-events:none}
+.h2-furia{overflow:hidden}
+.h2-furia-art img{margin:-40px 0 -80px}
+@media(max-width:760px){.h2-feature-art{min-height:0}.h2-furia-art img{margin:0 0 -40px;width:96%}}
+@media(prefers-reduced-motion:reduce){.h2-card-art img{transition:none}}

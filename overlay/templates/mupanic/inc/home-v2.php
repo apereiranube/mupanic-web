@@ -8,7 +8,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/home-data.php';
 $h2e = function($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); };
 $h2img = __PATH_TEMPLATE__.'img/inicio/';
-$h2art = ['duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
+$h2art = ['furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
 $h2events = panicHomeEvents();
 $h2play = __BASE_URL__.($isLogged ? 'downloads/' : 'register/');
 $h2aviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
@@ -74,7 +74,8 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
       <div class="h2-system-grid pui-rise">
         <?php foreach($h2systems as $s) { ?>
         <a class="h2-system" href="<?php echo $h2e($s[3]); ?>" style="--sys:<?php echo $h2e($s[5]); ?>">
-          <span class="h2-art-slot" aria-hidden="true"><i><?php echo $h2e($s[1]); ?></i><small>Arte: <?php echo $h2e($s[4]); ?></small></span>
+          <?php if(isset($h2art[$s[0]])) { ?><span class="h2-card-art" aria-hidden="true"><img src="<?php echo $h2e($h2img.$h2art[$s[0]]); ?>" alt="" loading="lazy" decoding="async"></span>
+          <?php } else { ?><span class="h2-art-slot" aria-hidden="true"><i><?php echo $h2e($s[1]); ?></i><small>Arte: <?php echo $h2e($s[4]); ?></small></span><?php } ?>
           <span class="h2-system-body"><b class="pui-h3"><?php echo $h2e($s[1]); ?></b><span><?php echo $h2e($s[2]); ?></span></span>
         </a>
         <?php } ?>
@@ -93,7 +94,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
           <li><span>03</span><div><b>No pares</b><p>Cada muerte suma tiempo. Encadená combos hasta la MASACRE.</p></div></li>
         </ol>
       </div>
-      <span class="h2-art-slot h2-art-tall pui-corners" aria-hidden="true"><i>FURIA</i><small>Arte: Rage Fighter en modo furia · naranja</small></span>
+      <div class="h2-feature-art h2-furia-art" aria-hidden="true"><span class="h2-feature-word">FURIA</span><img src="<?php echo $h2e($h2img.$h2art['furia']); ?>" alt="" width="1380" height="1570" loading="lazy" decoding="async"></div>
     </div>
   </section>
 
