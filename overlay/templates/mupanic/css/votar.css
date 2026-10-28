@@ -1,44 +1,53 @@
-/* MU PANIC · Votar. Misma familia que Socios: Georgia en títulos, Manrope, cobre sobre carbón; el azul de los Eryns es el protagonista. */
-body.is-votar{background:#0b0c0e;color:#eee6d8}
-body.is-votar .inner-content{background:#0b0c0e;padding:0}
+/* MU PANIC · Votar. Estilo nuevo: shooter competitivo (azul noche, rojo, blanco hueso), sin lo medieval. */
+@font-face{font-family:Anton;src:url('../fonts/anton-400.woff2') format('woff2');font-weight:400;font-display:swap}
+body.is-votar{background:#0f1923;color:#ece8e1}
+body.is-votar .inner-content{background:#0f1923;padding:0}
 body.is-votar .inner-content>.shell{width:100%;max-width:none;padding:0}
-body.is-votar .module-surface{padding:0;border:0;background:transparent;box-shadow:none;color:#eee6d8;overflow:visible}
+body.is-votar .module-surface{padding:0;border:0;background:transparent;box-shadow:none;color:#ece8e1;overflow:visible}
 
-.vot-page{--bg:#0b0c0e;--bg-2:#121417;--ink:#eee6d8;--muted:#b6b3ad;--bronze:#c6a578;--bronze-hi:#e3c79e;--gem:#9fd0ff;--gem-2:#6fb4ff;--line:#c6a57836;
-  --serif:Georgia,'Times New Roman',serif;--body:Manrope,Arial,sans-serif;--num:'Barlow Condensed',Manrope,Arial,sans-serif;
+.vot-page{--bg:#0f1923;--bg-2:#16222e;--ink:#ece8e1;--muted:#a8b0b8;--red:#ff4655;--red-2:#c9303f;--gem:#9fd0ff;--gem-2:#6fb4ff;--line:#ece8e126;
+  --bronze:#ff4655;--bronze-hi:#ece8e1;
+  --display:Anton,Impact,'Arial Narrow',sans-serif;--serif:var(--display);--body:Manrope,Arial,sans-serif;--num:Anton,'Barlow Condensed',sans-serif;
   position:relative;background:var(--bg);color:var(--ink);font:400 15px/1.7 var(--body);-webkit-font-smoothing:antialiased;color-scheme:dark;padding-bottom:96px;overflow-x:clip}
 .vot-page *{box-sizing:border-box}
 .vot-page img{display:block;max-width:100%}
-.vot-page h1,.vot-page h2,.vot-page h3{font-family:var(--serif);font-weight:500;color:var(--ink);margin:0;text-wrap:balance}
+.vot-page h1,.vot-page h2,.vot-page h3{font-family:var(--display);font-weight:400;color:var(--ink);margin:0;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
 .vot-page p{margin:0;color:var(--muted)}
-.vot-page strong{color:#efe2cc;font-weight:600}
+.vot-page strong{color:var(--ink);font-weight:600}
 
-/* Portada: el arte de GPT a pantalla completa, texto a la izquierda */
-.vot-hero{position:relative;min-height:min(86vh,760px);display:flex;align-items:center;isolation:isolate;border-bottom:1px solid var(--line)}
-.vot-hero-art{position:absolute;inset:0;z-index:-2}
-.vot-hero-art img{width:100%;height:100%;object-fit:cover;object-position:right center}
-.vot-hero:after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0b0c0e 0%,#0b0c0ee6 32%,#0b0c0e33 62%,transparent 80%),linear-gradient(0deg,#0b0c0e 0%,transparent 26%)}
-.vot-hero-pulse{position:absolute;z-index:-1;right:10%;top:22%;width:min(34vw,520px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#6fb4ff55 0%,#6fb4ff00 62%);opacity:0;pointer-events:none}
+/* Portada: Dark Lord recortado sobre fondo azul noche con la palabra gigante detrás */
+.vot-hero{position:relative;min-height:min(92vh,820px);display:flex;align-items:center;isolation:isolate;overflow:hidden;background:radial-gradient(60% 80% at 72% 45%,#24131c 0%,transparent 70%),linear-gradient(180deg,#0f1923,#0c141c)}
+.vot-hero-bg{position:absolute;inset:0;z-index:-3;pointer-events:none}
+.vot-hero-word{position:absolute;right:-2vw;top:50%;transform:translateY(-52%);font:400 clamp(220px,34vw,560px)/.8 var(--display);letter-spacing:-.01em;color:#ece8e1;opacity:.045;white-space:nowrap}
+.vot-glyph{position:absolute;width:26px;height:26px;opacity:.16;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23ece8e1'%3E%3Cpath d='M20 2 38 20 20 38 2 20Z'/%3E%3Cpath d='M20 9v22M9 20h22'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+.vot-glyph.g1{left:44%;top:18%}.vot-glyph.g2{right:6%;top:12%;width:18px;height:18px}.vot-glyph.g3{left:52%;bottom:16%;width:20px;height:20px}
+.vot-hero-char{position:absolute;z-index:-1;right:max(0px,calc(50% - 640px));bottom:-4%;height:108%;aspect-ratio:1122/1402}
+.vot-hero-char img{width:100%;height:100%;object-fit:contain;object-position:bottom right;filter:drop-shadow(0 30px 60px #000a)}
+.vot-hero:after{content:'';position:absolute;inset:auto 0 0;height:120px;z-index:0;background:linear-gradient(0deg,#0f1923,transparent);pointer-events:none}
+.vot-hero-pulse{position:absolute;z-index:-2;right:16%;top:24%;width:min(36vw,560px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ff465555 0%,#ff465500 62%);opacity:0;pointer-events:none}
 .vot-hero.is-pulse .vot-hero-pulse{animation:votPulse 1.4s ease-out}
 @keyframes votPulse{0%{opacity:0;transform:scale(.7)}25%{opacity:1}100%{opacity:0;transform:scale(1.35)}}
-.vot-hero-copy{width:min(1180px,100%);margin-inline:auto;padding:150px max(24px,env(safe-area-inset-left,0px)) 72px}
-.vot-eyebrow{font:600 11px/1.4 var(--body)!important;letter-spacing:.16em;text-transform:uppercase;color:#ff9d8a!important;margin-bottom:18px!important}
-.vot-page h1{font-size:clamp(48px,6.6vw,104px);letter-spacing:-.05em;line-height:.98;max-width:12ch}
-.vot-h1-gem{color:var(--gem);text-shadow:0 0 34px #6fb4ff66}
-.vot-lead{max-width:560px;margin-top:24px!important;font-size:17px;line-height:1.75}
+.vot-hero-copy{position:relative;z-index:1;width:min(1280px,100%);margin-inline:auto;padding:140px max(24px,env(safe-area-inset-left,0px)) 90px}
+.vot-kicker{display:inline-flex;align-items:center;gap:10px;font:600 13px/1 var(--body)!important;letter-spacing:.14em;text-transform:uppercase;color:var(--red)!important;margin-bottom:30px!important}
+.vot-kicker:before{content:'';width:28px;height:2px;background:var(--red)}
+.vot-page h1{font-size:clamp(60px,8.4vw,132px);line-height:.88;max-width:none;white-space:nowrap}
+.vot-prize{display:inline-flex;align-items:center;gap:12px;margin-top:26px!important;padding:10px 22px 10px 14px;background:var(--red);color:#fff!important;font:600 17px/1.2 var(--body);clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+.vot-prize img{width:34px;height:34px;filter:drop-shadow(0 0 6px #fff8)}
+.vot-prize b{font:400 26px/1 var(--display);letter-spacing:.02em}
+.vot-lead{max-width:470px;margin-top:22px!important;font-size:17px;line-height:1.7;color:#c9cfd4!important}
 
-.vot-me{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
-.vot-me>div{display:flex;align-items:center;gap:12px;padding:12px 18px;border:1px solid var(--line);background:#0b0c0ecc;backdrop-filter:blur(4px)}
+.vot-me{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.vot-me>div{display:flex;align-items:center;gap:12px;padding:12px 18px;border:1px solid var(--line);background:#0f1923d9;backdrop-filter:blur(6px)}
 .vot-me span{font-size:13px;color:var(--muted)}
-.vot-me b{font:600 18px/1 var(--num);letter-spacing:.02em;color:var(--ink)}
+.vot-me b{font:400 20px/1 var(--display);letter-spacing:.03em;color:var(--ink)}
 .vot-me-earned{border-color:#6fb4ff66!important;transition:box-shadow .3s}
 .vot-me-earned img{width:32px;height:32px}
-.vot-me-earned b{font-size:30px;color:var(--gem);min-width:2ch}
+.vot-me-earned b{font-size:32px;color:var(--gem);min-width:2ch}
 .vot-me-earned em{font-style:normal;font-size:13px;color:#cfe7ff}
 .vot-me-earned.is-pulse{box-shadow:0 0 0 1px #9fd0ff,0 0 34px #6fb4ff88}
-.vot-copy{padding:4px 10px;border:1px solid #6fb4ff66;background:transparent;color:#cfe7ff;font:600 12px/1.4 var(--body);cursor:pointer}
-.vot-copy:hover{background:#6fb4ff22}
-.vot-login{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:34px}
+.vot-copy{padding:4px 10px;border:1px solid #ece8e155;background:transparent;color:var(--ink);font:600 12px/1.4 var(--body);cursor:pointer}
+.vot-copy:hover{background:#ece8e11a}
+.vot-login{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:30px}
 .vot-login p{flex:1 1 100%;font-size:14px}
 
 /* Votos en vivo */
@@ -155,9 +164,11 @@ body.is-votar .module-surface{padding:0;border:0;background:transparent;box-shad
   .vot-history li{grid-template-columns:1fr;gap:4px}
 }
 @media(max-width:760px){
-  .vot-hero{min-height:auto}
-  .vot-hero:after{background:linear-gradient(0deg,#0b0c0e 18%,#0b0c0ecc 55%,#0b0c0e66 100%)}
-  .vot-hero-copy{padding-top:120px}
+  .vot-page h1{white-space:normal;font-size:clamp(54px,17vw,88px)}
+  .vot-hero{min-height:auto;align-items:flex-end}
+  .vot-hero-char{right:50%;transform:translateX(50%);top:40px;bottom:auto;height:auto;width:min(118vw,560px);-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 92%);mask-image:linear-gradient(180deg,#000 62%,transparent 92%)}
+  .vot-hero-copy{padding-top:min(110vw,540px);padding-bottom:56px}
+  .vot-hero-word{right:auto;left:50%;top:150px;transform:translateX(-50%);font-size:52vw}
   .vot-hero-pulse{right:-10%;top:10%;width:80vw}
   .vot-site{flex-direction:column;align-items:flex-start}
   .vot-rune{flex:none;width:124px;height:128px}

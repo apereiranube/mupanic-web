@@ -91,29 +91,31 @@ $votStats=['votes_month'=>0,'coins_all'=>0,'voters_month'=>0,'ranking'=>[],'me'=
 if($votStore) { try { $votStats=$votStore->publicStats($votAccount,$votNow); } catch(Throwable $e) {} }
 $votNames=panicVotarCharacterNames(array_merge(array_column($votStats['ranking'],'account'),array_column($votStats['feed'],'account')));
 $votImg=__PATH_TEMPLATE__.'img/votar/';
-$votArt=['hero'=>'votar-hero-1905aa577d6e.webp','heroMobile'=>'votar-hero-mobile-b2af94f7a546.webp','runeOff'=>'votar-runa-apagada-4718567a55be.webp','runeOn'=>'votar-runa-encendida-fca7a59d15ad.webp','gem'=>'eryns-gema-f0215b9908c0.webp','gemSmall'=>'eryns-gema-64-eaac67236425.webp'];
+$votArt=['hero'=>'votar-darklord-d402a36cc4b3.webp','heroMobile'=>'votar-darklord-m-c121c9ccf867.webp','runeOff'=>'votar-runa-apagada-4718567a55be.webp','runeOn'=>'votar-runa-encendida-fca7a59d15ad.webp','gem'=>'eryns-gema-f0215b9908c0.webp','gemSmall'=>'eryns-gema-64-eaac67236425.webp'];
 $votMineBefore=(int)$votStats['mine_total']-(int)($votClaimed['coins'] ?? 0);
 $fmt=function($n){ return number_format((int)$n,0,',','.'); };
 ?>
 <div class="vot-page" data-now="<?php echo (int)$votNow; ?>"<?php if($votClaimed) { ?> data-claimed="<?php echo (int)$votClaimed['coins']; ?>" data-claimed-site="<?php echo votE($votClaimed['site']); ?>"<?php } ?> data-gem="<?php echo votE($votImg.$votArt['gemSmall']); ?>">
 
   <section class="vot-hero">
-    <picture class="vot-hero-art" aria-hidden="true">
+    <div class="vot-hero-bg" aria-hidden="true"><span class="vot-hero-word">VOTÁ</span><i class="vot-glyph g1"></i><i class="vot-glyph g2"></i><i class="vot-glyph g3"></i></div>
+    <picture class="vot-hero-char" aria-hidden="true">
       <source media="(max-width:760px)" srcset="<?php echo votE($votImg.$votArt['heroMobile']); ?>">
-      <img src="<?php echo votE($votImg.$votArt['hero']); ?>" alt="" width="1852" height="849" decoding="async" fetchpriority="high">
+      <img src="<?php echo votE($votImg.$votArt['hero']); ?>" alt="" width="1122" height="1402" decoding="async" fetchpriority="high">
     </picture>
     <span class="vot-hero-pulse" aria-hidden="true"></span>
     <div class="vot-hero-copy">
-      <p class="vot-eyebrow">Votar</p>
-      <h1>Votá por MU PANIC.<br><span class="vot-h1-gem"><?php echo $votRewardsOn ? 'Ganá '.$fmt($votReward).' Eryns.' : 'Ayudanos a crecer.'; ?></span></h1>
-      <p class="vot-lead">Votar en las listas de servidores nos ayuda a que más jugadores conozcan MU PANIC.<?php if($votRewardsOn) { ?> Por cada voto confirmado te damos <strong><?php echo $fmt($votReward); ?> Eryns</strong>, y podés votar de nuevo cada 12 horas.<?php } ?></p>
+      <p class="vot-kicker">Top de servidores</p>
+      <h1>Votá por<br>MU PANIC</h1>
+      <?php if($votRewardsOn) { ?><p class="vot-prize"><img src="<?php echo votE($votImg.$votArt['gemSmall']); ?>" alt="" width="34" height="34"><span>Ganá <b><?php echo $fmt($votReward); ?> Eryns</b> por cada voto</span></p><?php } ?>
+      <p class="vot-lead">Cada voto nos sube en los rankings de servidores de MU y trae jugadores nuevos.<?php if($votRewardsOn) { ?> Podés votar de nuevo cada 12 horas.<?php } ?></p>
       <?php if($votLogged) { ?>
       <div class="vot-me">
         <div class="vot-me-account"><span>Tu cuenta</span><b><?php echo votE($votAccount); ?></b><button type="button" class="vot-copy" data-copy="<?php echo votE($votAccount); ?>">Copiar</button></div>
         <?php if($votRewardsOn) { ?><div class="vot-me-earned" id="vot-earned"><img src="<?php echo votE($votImg.$votArt['gemSmall']); ?>" alt="" width="32" height="32"><span>Ganaste votando</span><b data-earned="<?php echo (int)$votStats['mine_total']; ?>" data-from="<?php echo max(0,$votMineBefore); ?>"><?php echo $fmt($votClaimed?$votMineBefore:$votStats['mine_total']); ?></b><em>Eryns</em></div><?php } ?>
       </div>
       <?php } else { ?>
-      <div class="vot-login"><p>Ingresá con tu cuenta antes de votar para cobrar el premio.</p><a class="vot-btn" href="<?php echo votE(__BASE_URL__.'login/'); ?>">Ingresar</a><a class="vot-btn vot-btn--ghost" href="<?php echo votE(__BASE_URL__.'register/'); ?>">Crear cuenta gratis</a></div>
+      <div class="vot-login"><p>Ingresá con tu cuenta antes de votar para cobrar el premio.</p><a class="vot-btn" href="<?php echo votE(__BASE_URL__.'login/'); ?>"><span>Ingresar</span></a><a class="vot-btn vot-btn--ghost" href="<?php echo votE(__BASE_URL__.'register/'); ?>"><span>Crear cuenta gratis</span></a></div>
       <?php } ?>
     </div>
   </section>
