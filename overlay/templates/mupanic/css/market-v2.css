@@ -489,3 +489,14 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 .mk-gridwrap .mk-state,.mk-ledger{position:relative}
 .mk-ledger [data-mk-empty]{position:absolute;left:0;right:0;top:40px;text-align:center}
 @media(max-width:900px){.mk-ledger-rows,.mk-ledger-rows.is-more{min-height:calc(10 * 62px + 9 * 4px)}}
+
+/* Vidriera dentro de un marco de pantalla de tienda (GPT, 9-slice); el borde de afuera cuelga sobre el margen */
+.mk-store{--s:.5;position:relative;margin-inline:calc(-64px * var(--s));border-style:solid;border-color:transparent;
+  border-width:calc(154px * var(--s)) calc(190px * var(--s)) calc(160px * var(--s)) calc(154px * var(--s));
+  border-image:url('../img/mercado/mercado-marco-tienda-hueso-75b0a90806fd.svg') 154 190 160 154 / calc(154px * var(--s)) calc(190px * var(--s)) calc(160px * var(--s)) calc(154px * var(--s)) stretch}
+.mk-store-tab{position:absolute;z-index:3;left:calc(-154px * var(--s) + 64px * var(--s));top:calc(-154px * var(--s) + 64px * var(--s));width:calc(520px * var(--s));height:calc(70px * var(--s));display:flex;align-items:center;padding-left:calc(34px * var(--s));background:url('../img/mercado/mercado-solapa-f898c438dec4.svg') 0 0/100% 100% no-repeat;font:400 calc(40px * var(--s))/1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase;color:var(--pui-night);white-space:nowrap}
+.mk-store .mk-featrow{margin-top:calc(-30px * var(--s))}
+@media(max-width:1100px){.mk-store{--s:.42}}
+@media(max-width:700px){.mk-store{--s:.24}.mk-store-tab{font-size:14px;width:150px;height:22px;padding-left:10px}.mk-store .mk-featrow{margin-top:0}}
+@media(max-width:420px){.mk-card-price{font-size:14px}.mk-grid{gap:10px}}
+.mk-pages span{white-space:nowrap}@media(max-width:420px){.mk-pages{gap:10px}.mk-pages .pui-btn--sm{padding:0 12px}}

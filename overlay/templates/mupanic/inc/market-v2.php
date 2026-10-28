@@ -55,6 +55,8 @@ $mkSteps = [
         <div><p class="pui-kicker">La vidriera de Loren Market</p><h2 class="pui-h2" id="mk-shop-t"><?php echo $mkReveal(['Objetos','en venta']); ?></h2></div>
         <p class="pui-lead">Lo que publican los jugadores en el juego aparece acá. Pasá el mouse o tocá una tarjeta para ver la ficha completa.</p>
       </header>
+      <div class="mk-store">
+        <span class="mk-store-tab">Mercado de Vessara</span>
       <div class="mk-featrow" data-listings-featured-wrap>
         <div class="mk-featrow-head"><h3>Destacados</h3><p>Van primero en la web y se ofrecen a los gritos por Loren Market.</p></div>
         <div class="mk-marquee" data-listings-featured tabindex="0" role="region" aria-label="Publicaciones destacadas"><div class="mk-marquee-run" data-mk-feat-run></div></div>
@@ -79,6 +81,7 @@ $mkSteps = [
           <span data-listings-page>Página 1</span>
           <button type="button" class="pui-btn pui-btn--dark pui-btn--sm" data-listings-next>Siguiente</button>
         </div>
+      </div>
       </div>
     </div>
   </section>
