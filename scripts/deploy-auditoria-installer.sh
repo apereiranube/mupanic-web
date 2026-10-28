@@ -20,23 +20,15 @@ chmod 600 "$DEST/separar-main.php"
 cp "$SOURCE_ROOT/tools/main/promover-beta.php" "$DEST/promover-beta.php"
 chmod 600 "$DEST/promover-beta.php"
 # La auditoria cerrada permite solo sus herramientas protegidas por Basic Auth.
-php -r '
-$path = $argv[1];
-$new = "RewriteRule ^(?!(?:index|preparar-auditoria|separar-main|promover-beta)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]";
-$olds = [
-  "RewriteRule ^(?!(?:index|preparar-auditoria)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]",
-  "RewriteRule ^(?!(?:index|preparar-auditoria|separar-main)\\.php$).*\\.php(?:/.*)?$ - [F,L,NC]",
-];
-$before = file_get_contents($path);
-if ($before === false) { fwrite(STDERR, "No se pudo leer la proteccion de auditoria.\n"); exit(1); }
-$after = str_replace($olds, $new, $before);
-if ($after !== $before) {
-    $temporary = tempnam(dirname($path), ".audit-rules-");
-    if ($temporary === false) exit(1);
-    if (file_put_contents($temporary, $after) !== strlen($after) ||
-        !chmod($temporary, fileperms($path) & 0777) || !rename($temporary, $path)) {
-        @unlink($temporary); exit(1);
-    }
-}
-' "$DEST/.htaccess"
+HT="$DEST/.htaccess"
+NEW_RULE='RewriteRule ^(?!(?:index|preparar-auditoria|separar-main|promover-beta)\.php$).*\.php(?:/.*)?$ - [F,L,NC]'
+OLD_RULE_1='RewriteRule ^(?!(?:index|preparar-auditoria)\.php$).*\.php(?:/.*)?$ - [F,L,NC]'
+OLD_RULE_2='RewriteRule ^(?!(?:index|preparar-auditoria|separar-main)\.php$).*\.php(?:/.*)?$ - [F,L,NC]'
+# Sin "php" de linea de comandos: en el hosting nuevo ese comando es el PHP CGI de la web.
+if grep -qxF -e "$OLD_RULE_1" -e "$OLD_RULE_2" "$HT"; then
+  TMP_RULES="$(mktemp "$DEST/.audit-rules-XXXXXX")"
+  awk -v n="$NEW_RULE" -v o1="$OLD_RULE_1" -v o2="$OLD_RULE_2" '{ if ($0 == o1 || $0 == o2) print n; else print }' "$HT" > "$TMP_RULES"
+  chmod --reference="$HT" "$TMP_RULES"
+  mv -f "$TMP_RULES" "$HT"
+fi
 echo '[Auditoria] Instalador preparado. La proteccion del directorio se conserva.'
