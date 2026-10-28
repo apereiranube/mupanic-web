@@ -104,14 +104,15 @@ $mkSteps = [
             <div class="mk-stage-media"><img src="<?php echo $mk($mkImg.'atlas/drops/jewel-chaos-809384516512.webp'); ?>" alt="" width="512" height="512" loading="lazy"></div>
             <b>Jewel of Chaos</b>
             <span class="pr"><img src="<?php echo $mk($mkImg.'votar/votar-gema-64-4559844ddcec.webp'); ?>" alt="" width="20" height="20">1.000 Eryns</span>
+            <span class="mk-card-lacre"></span>
+            <span class="mk-card-seal"><img src="<?php echo $mk($mkImg.'mercado/mercado-sello-7cb6746c9c13.webp'); ?>" alt="" width="524" height="700" loading="lazy"></span>
           </div>
           <span class="mk-stage-lock"><img src="<?php echo $mk($mkImg.'mercado/paso-guardado-bcca7e281ad1.webp'); ?>" alt="" width="240" height="240" loading="lazy"></span>
           <div class="mk-stage-in"><img src="<?php echo $mk($mkImg.'mercado/paso-publicar-0dad5f0a3391.webp'); ?>" alt="" width="240" height="240" loading="lazy"><b>Loren Market</b><small>Publicado por 7 días</small></div>
+          <div class="mk-stage-buyer"><img src="<?php echo $mk($mkImg.'mercado/paso-sellado-0364948c6517.webp'); ?>" alt="" width="240" height="240" loading="lazy"><b>Kaelor</b><small>lo compró por 1.000 Eryns</small></div>
           <div class="mk-stage-views"><img src="<?php echo $mk($mkImg.'mercado/paso-todos-6c48dc8a90ad.webp'); ?>" alt="" width="240" height="240" loading="lazy"><b data-mk-views>0</b><small>jugadores la vieron</small></div>
-          <span class="mk-seal-mark"></span>
-          <span class="mk-seal"><img src="<?php echo $mk($mkImg.'mercado/mercado-sello-7cb6746c9c13.webp'); ?>" alt="" width="524" height="700" loading="lazy"></span>
           <div class="mk-stage-pay"><div><small>Precio</small><b data-roll="1000">1.000</b></div><div><small>Tributo 5%</small><b data-roll="50" data-pre="−">−50</b></div><div class="net"><small>Cobrás</small><b><img src="<?php echo $mk($mkImg.'votar/votar-gema-64-4559844ddcec.webp'); ?>" alt="" width="20" height="20"><span data-roll="950">950</span></b></div></div>
-          <button type="button" class="pui-btn pui-btn--sm mk-buy" data-mk-buy>Comprar</button>
+          <button type="button" class="pui-btn pui-btn--sm mk-buy" data-mk-buy>Publicar</button>
           <p class="mk-stage-cap" data-mk-cap>Publicás tu Jewel of Chaos en Loren Market.</p>
         </div>
       </div>

@@ -318,7 +318,7 @@
   /* ---------- Así se sella un trato ---------- */
   (function () {
     var stage = q('[data-mk-stage]'), items = qa('[data-mk-steps] > li'), cap = q('[data-mk-cap]');
-    var caps = ['Publicás tu Jewel of Chaos en Loren Market.', 'Vessara guarda el objeto bajo su sello.', 'La publicación aparece en el juego y en la web.', 'Alguien la compra: el sello cae y el trato queda hecho.', 'Cobrás 950 Eryns, aunque estés desconectado.'];
+    var caps = ['Publicás tu Jewel of Chaos en Loren Market.', 'Vessara guarda el objeto bajo su sello.', 'La publicación aparece en el juego y en la web.', 'Kaelor la compra: el sello cae y el trato queda hecho.', 'Cobrás 950 Eryns, aunque estés desconectado.'];
     var span = 5000, step = 0, auto = !reduce, visible = false, timer = 0;
     function show(i) {
       step = i; stage.setAttribute('data-step', i + 1); cap.textContent = caps[i];
@@ -332,18 +332,17 @@
     }
     function sync() { clearTimeout(timer); if (auto && visible && !document.hidden) { show(step); timer = setTimeout(function next() { show((step + 1) % items.length); timer = setTimeout(next, span); }, span); } }
     items.forEach(function (li, i) { li.querySelector('button').addEventListener('click', function () { auto = false; clearTimeout(timer); show(i); }); });
-    /* Jugable: Comprar recorre el cierre del trato; Volver a publicar lo reinicia. */
+    /* Jugable desde el lado del vendedor: Publicar recorre los 5 pasos; Publicar otro lo repite. */
     var buy = q('[data-mk-buy]'), seq = [], sold = false;
     function clearSeq() { seq.forEach(clearTimeout); seq = []; }
     buy.addEventListener('click', function () {
-      auto = false; clearTimeout(timer); clearSeq();
-      if (sold) { sold = false; buy.textContent = 'Comprar'; show(0); return; }
-      buy.disabled = true; show(2);
-      seq.push(setTimeout(function () { show(3); }, reduce ? 0 : 700));
-      seq.push(setTimeout(function () { show(4); }, reduce ? 0 : 1900));
-      seq.push(setTimeout(function () { sold = true; buy.disabled = false; buy.textContent = 'Volver a publicar'; }, reduce ? 0 : 2900));
+      auto = false; clearTimeout(timer); clearSeq(); sold = false;
+      buy.disabled = true; show(0);
+      var at = reduce ? [0, 0, 0, 0, 0] : [0, 1300, 2600, 4100, 5700];
+      [1, 2, 3, 4].forEach(function (k) { seq.push(setTimeout(function () { show(k); }, at[k])); });
+      seq.push(setTimeout(function () { sold = true; buy.disabled = false; buy.textContent = 'Publicar otro'; }, reduce ? 0 : 6700));
     });
-    items.forEach(function (li) { li.querySelector('button').addEventListener('click', function () { clearSeq(); sold = false; buy.disabled = false; buy.textContent = 'Comprar'; }); });
+    items.forEach(function (li) { li.querySelector('button').addEventListener('click', function () { clearSeq(); sold = false; buy.disabled = false; buy.textContent = 'Publicar'; }); });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; sync(); }, {threshold: .35}).observe(stage);
     document.addEventListener('visibilitychange', sync);
     show(0);

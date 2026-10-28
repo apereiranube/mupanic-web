@@ -583,3 +583,33 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 #mk-title.mk-hit{animation:mkTitleHit .32s ease-out}
 @keyframes mkTitleHit{0%{transform:translateY(0)}30%{transform:translateY(6px)}60%{transform:translateY(-2px)}100%{transform:none}}
 @media(prefers-reduced-motion:reduce){#mk-title.mk-hit{animation:none}}
+
+/* Paso 4: el sello cae en la esquina de abajo a la derecha de la tarjeta y deja un lacre chico */
+.mk-seal,.mk-seal-mark{display:none}
+.mk-stage-card{overflow:visible}
+.mk-card-lacre{position:absolute;z-index:3;right:-30px;bottom:-30px;width:62px;height:60px;background:url('../img/mercado/mercado-lacre-37e39939fdc0.webp') center/contain no-repeat;opacity:0;transform:scale(1.5) rotate(-12deg);pointer-events:none}
+.mk-card-seal{position:absolute;z-index:4;right:-58px;bottom:-12px;width:114px;height:152px;opacity:0;pointer-events:none}
+.mk-card-seal img{width:100%;height:100%;object-fit:contain}
+.mk-stage[data-step="4"] .mk-card-seal{animation:mkCardSeal 1.3s cubic-bezier(.55,0,.35,1) both}
+@keyframes mkCardSeal{0%{opacity:1;transform:translateY(-520px) rotate(-16deg)}34%{opacity:1;transform:translateY(0) rotate(0)}55%{opacity:1;transform:translateY(0) rotate(0)}85%{opacity:1;transform:translateY(-110px) rotate(8deg)}100%{opacity:0;transform:translateY(-160px) rotate(10deg)}}
+.mk-stage[data-step="4"] .mk-card-lacre{animation:mkCardLacre .3s cubic-bezier(.2,.8,.2,1.4) .44s both}
+.mk-stage[data-step="5"] .mk-card-lacre{opacity:1;transform:rotate(-12deg)}
+@keyframes mkCardLacre{to{opacity:1;transform:rotate(-12deg)}}
+.mk-stage[data-step="4"] .mk-stage-card{filter:none}
+.mk-stage[data-step="5"] .mk-stage-card{filter:brightness(.72)}
+.mk-stage[data-step="5"] .mk-card-lacre{filter:brightness(1.38)}
+.mk-stage-buyer{position:absolute;top:60px;right:28px;width:150px;display:grid;justify-items:center;gap:4px;text-align:center;opacity:0;transform:translateY(10px);transition:opacity .35s .5s,transform .35s .5s}
+.mk-stage-buyer img{width:78px;height:78px;object-fit:contain}
+.mk-stage-buyer b{font:400 26px/1 var(--pui-display);color:#fff}
+.mk-stage-buyer small{font-size:12px;color:var(--pui-muted)}
+.mk-stage[data-step="4"] .mk-stage-buyer,.mk-stage[data-step="5"] .mk-stage-buyer{opacity:1;transform:none}
+@media(max-width:700px){
+  .mk-card-lacre{right:-24px;bottom:-24px;width:54px;height:52px}
+  .mk-card-seal{right:-48px;bottom:-8px;width:96px;height:128px}
+  .mk-stage-buyer{top:auto;bottom:200px;right:auto;left:50%;width:220px;margin-left:-110px;grid-template-columns:52px auto;justify-items:start;align-items:center;text-align:left;column-gap:10px}
+  .mk-stage-buyer img{width:52px;height:52px;grid-row:span 2}
+  .mk-stage[data-step="5"] .mk-stage-buyer{opacity:0}
+}
+@media(prefers-reduced-motion:reduce){.mk-stage[data-step="4"] .mk-card-seal{animation:none;opacity:0}.mk-stage[data-step="4"] .mk-card-lacre{animation:none;opacity:1;transform:rotate(-12deg)}}
+@media(max-width:700px){.mk-card-lacre{right:-30px;bottom:-30px;width:50px;height:48px}.mk-card-seal{right:-52px}}
+@media(max-width:700px){.mk-card-lacre{right:-34px;bottom:-34px;width:46px;height:44px}}
