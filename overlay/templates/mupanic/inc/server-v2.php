@@ -45,7 +45,7 @@ $svClasses = [
   ['rf','Rage Fighter','Golpe a golpe','Combos cuerpo a cuerpo que no dan respiro. Ideal para quien pelea de frente.','Vampiro','Cada golpe le devuelve vida.','#ff7a1a'],
 ];
 $svImg = __PATH_TEMPLATE__.'img/';
-$svArt = ['bk'=>'servidor/clase-bk-c45b8f3ccc32.webp','rf'=>'servidor/clase-rf-0aa5b77fc1b8.webp','su'=>'servidor/clase-su-16919ddd9d2a.webp','elfa'=>'servidor/clase-elfa-69f0d3f6df9b.webp','mg'=>'servidor/clase-mg-43bf82fd11fc.webp','sm'=>'servidor/clase-sm-af9b0534e970.webp','dl'=>'votar/votar-darklord-3cd38766111c.webp'];
+$svArt = ['dl'=>'servidor/clase-dl-d94afd89361e.webp','bk'=>'servidor/clase-bk-c45b8f3ccc32.webp','rf'=>'servidor/clase-rf-0aa5b77fc1b8.webp','su'=>'servidor/clase-su-16919ddd9d2a.webp','elfa'=>'servidor/clase-elfa-69f0d3f6df9b.webp','mg'=>'servidor/clase-mg-43bf82fd11fc.webp','sm'=>'servidor/clase-sm-af9b0534e970.webp'];
 $svColorName = ['bk'=>'cian','sm'=>'violeta','elfa'=>'verde','mg'=>'magenta','dl'=>'rojo','su'=>'lila','rf'=>'naranja'];
 $svReveal = function($lines) { return implode('<br>', array_map(function($l){ return '<span class="pui-reveal">'.$l.'</span>'; }, $lines)); };
 ?>
