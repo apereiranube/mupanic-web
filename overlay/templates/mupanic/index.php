@@ -201,6 +201,9 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='vip') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>vip.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/vip.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp' && in_array($_REQUEST['subpage'],['recharge','shopadmin'],true)) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='shopadmin') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge-admin-friendly.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge-admin-friendly.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <!-- Google tag (gtag.js) - Google Ads MU PANIC -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18541212818"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18541212818');</script>
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <?php if($_REQUEST['page']==='market') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>market.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/market.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='socios') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>socios.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/socios.css'),0,12); ?>"><?php } ?>
@@ -304,7 +307,12 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                 } elseif($_REQUEST['page'] === 'register') {
                     ob_start();
                     $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
-                    echo panicReferidosCampoRegistro(ob_get_clean());
+                    $registerMarkup = ob_get_clean();
+                    echo panicReferidosCampoRegistro($registerMarkup);
+                    // Google Ads: conversion "Cuenta creada" only after a successful sign-up POST
+                    if(isset($_POST['webengineRegister_submit']) && strpos($registerMarkup, 'alert-success') !== false) {
+                        echo "<script>gtag('event','conversion',{'send_to':'AW-18541212818/uTqaCOjRjawdEJLpkYlF'});</script>";
+                    }
                 } else {
                     $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
                 }
