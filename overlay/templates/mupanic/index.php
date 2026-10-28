@@ -191,9 +191,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:image" content="<?php echo $sharePreviewImg; ?>"/>
     <?php } ?>
-    <?php if($_REQUEST['page']==='fractura') { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/fractura/aldren-varkor-v2.webp" fetchpriority="high"><?php } ?>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v10.webp" fetchpriority="high"><?php } ?>
-    <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market','downloads','socios','votar'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
+    <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <?php if(!$isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>panic-ui.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/panic-ui.css'),0,12); ?>" rel="stylesheet">
@@ -214,7 +213,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page']==='market') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>market-v2.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/market-v2.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='socios') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>socios.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/socios.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='votar') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>votar.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/votar.css'),0,12); ?>"><?php } ?>
-    <?php if($_REQUEST['page']==='fractura') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>fractura.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/fractura.css'),0,12); ?>"><?php } ?>
+    <?php if($_REQUEST['page']==='fractura') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>fractura-v2.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/fractura-v2.css'),0,12); ?>"><?php } ?>
     <noscript><style>@media(max-width:1100px){.site-header{position:relative;height:auto}.site-header .nav-shell{height:auto;min-height:var(--site-header-height);flex-wrap:wrap;padding-block:12px}.site-header .main-nav{display:flex;position:static;flex-basis:100%;width:100%;order:3;max-height:none;flex-direction:row;flex-wrap:wrap;padding:8px 0 0;border:0;background:none}.site-header .main-nav a{min-height:38px;padding:8px}.site-header .main-nav .mobile-account{display:flex}.site-header .menu-toggle{display:none}.site-header .nav-actions{margin-left:auto}}</style></noscript>
 </head>
 <body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $_REQUEST['page']==='votar' ? 'is-votar ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ($_REQUEST['page'] === 'downloads' ? ' is-downloads' : '')))))); ?>">
@@ -299,7 +298,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
         <?php } else { ?>
             <div class="module-surface"><?php
                 if($_REQUEST['page'] === 'fractura') {
-                    include(__DIR__.'/inc/fractura.php');
+                    include(__DIR__.'/inc/fractura-v2.php');
                 } elseif($_REQUEST['page'] === 'socios') {
                     include(__DIR__.'/inc/socios.php');
                 } elseif($_REQUEST['page'] === 'votar') {
@@ -350,7 +349,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <div class="shell footer-bottom"><span>© <?php echo date('Y'); ?> MU PANIC</span><span>MU Online y sus marcas pertenecen a sus respectivos titulares.</span></div>
 </footer>
 
-<?php if($_REQUEST['page']==='fractura') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>fractura.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/fractura.js'),0,12); ?>" defer></script><?php } ?>
+<?php if($_REQUEST['page']==='fractura') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>fractura-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/fractura-v2.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='socios') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>socios.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/socios.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='information') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>server-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/server-v2.js'),0,12); ?>" defer></script><?php } ?>
 <?php if($_REQUEST['page']==='market') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>market-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/market-v2.js'),0,12); ?>" defer></script><?php } ?>
