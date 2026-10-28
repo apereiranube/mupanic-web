@@ -8,7 +8,8 @@
  * Arte: todavía no hay. Cada lugar para arte es un .fr-slot vacío con su tamaño reservado.
  * Cuando llegue, se copia a img/fractura-v2/<nombre>-<hash de 12>.webp (o .png/.svg) y aparece solo:
  *   Ya están: fractura-aldren 1021x1300 · fractura-varkor 990x1300 · fractura-grieta 266x1300 · fractura-boss 1139x1300.
- *   Faltan: fractura-vulcanus 1600x1000 · fractura-emblema-nexo / fractura-emblema-caos 1024x1024
+ *   fractura-vulcanus 1600x1000 (fondo de la sección Vulcanus).
+ *   Faltan: fractura-emblema-nexo / fractura-emblema-caos 1024x1024
  *   · fractura-insignia-nexo / fractura-insignia-caos 512x512 (historial del Salón de la Fama).
  */
 if(!defined('access') || !access) die();
@@ -169,7 +170,8 @@ $frOrders = [
 
   <!-- Vulcanus -->
   <section class="fr-band fr-vulcanus" id="vulcanus" aria-labelledby="fr-vul-t">
-    <div class="pui-wrap fr-split">
+    <?php echo $frSlot('fr-vul-bg', 'fractura-vulcanus', 1600, 1000, 'Vulcanus: ruinas, puentes sobre ríos de lava, volcanes y la grieta de la Fractura'); ?>
+    <div class="pui-wrap fr-vul-wrap">
       <div class="fr-vul-copy">
         <p class="pui-kicker">El territorio en disputa</p>
         <h2 class="pui-h2" id="fr-vul-t"><?php echo $frReveal(['Vulcanus']); ?></h2>
@@ -181,7 +183,6 @@ $frOrders = [
           <li><b>Un boss diario</b><span>22:30 · hasta 30 minutos.</span></li>
         </ul>
       </div>
-      <?php echo $frSlot('fr-vul-art', 'fractura-vulcanus', 1600, 1000, 'Vulcanus: ruinas atravesadas por ríos de lava'); ?>
     </div>
   </section>
 
