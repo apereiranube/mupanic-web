@@ -14,12 +14,11 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 .mk-state[hidden]{display:none}
 
 /* Fondos HUD (GPT) con acento dorado */
-.mk-hero,.mk-shop,.mk-log{background-repeat:no-repeat;background-size:cover;background-position:center}
+.mk-hero,.mk-log{background-repeat:no-repeat;background-size:cover;background-position:center}
 .mk-hero{background-image:url('../img/ui/hud-dorado-b-8766c35fa668.svg')}
-.mk-shop{background-image:url('../img/ui/hud-dorado-a-a4522ab3122c.svg')}
 .mk-log{background-image:url('../img/ui/hud-dorado-b-8766c35fa668.svg')}
-.mk-deal:before,.mk-rules:before{content:"";position:absolute;z-index:-1;left:0;right:0;top:calc(var(--tear,0px) - 2px);bottom:calc(var(--tear,0px) - 2px);background:var(--hud) center/cover no-repeat;pointer-events:none}
-.mk-deal{--hud:url('../img/ui/hud-hueso-dorado-a-2cd0dfb532a5.svg')}
+.mk-deal:before,.mk-rules:before,.mk-shop:before{content:"";position:absolute;z-index:-1;left:0;right:0;top:calc(var(--tear,0px) - 2px);bottom:calc(var(--tear,0px) - 2px);background:var(--hud) center/cover no-repeat;pointer-events:none}
+.mk-deal{--hud:url('../img/ui/hud-hueso-dorado-b-2fe0878bc2cc.svg')}
 .mk-rules{--hud:url('../img/ui/hud-hueso-dorado-b-2fe0878bc2cc.svg')}
 
 /* Portada */
@@ -61,7 +60,6 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 .mk-tape-empty{color:var(--pui-muted);font-size:14px}
 
 /* Vidriera */
-.mk-shop{padding:110px 0 120px}
 .mk-feat{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:20px 40px;align-items:stretch;padding:0 44px 40px;background:var(--sys);color:var(--pui-night);clip-path:polygon(0 0,100% 0,100% calc(100% - 34px),calc(100% - 34px) 100%,0 100%)}
 .mk-feat-tape{grid-column:1/-1;display:flex;align-items:stretch;margin:0 -44px 10px;background:var(--pui-night);color:var(--pui-ink);overflow:hidden;min-height:52px}
 .mk-feat-lbl{flex:none;display:flex;align-items:center;padding:0 26px 0 16px;background:var(--pui-red);color:#fff;font:400 16px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%);z-index:1}
@@ -280,7 +278,7 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
   .mk-ledger-rows{min-height:calc(10 * 62px + 9 * 4px)}
 }
 @media(max-width:700px){
-  .mk-shop,.mk-log{padding:80px 0}
+  .mk-log{padding:80px 0}
   .mk-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .mk-feat-list{grid-template-columns:1fr 1fr}
   .mk-controls{gap:12px}
@@ -294,7 +292,7 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
   .mk-rule-grid{grid-template-columns:1fr}
   .mk-rule,.mk-rule+.mk-rule{padding:22px 0 10px;border-left:0;border-top:1px solid #0f19231f}
   .mk-close{padding:90px 0 100px}
-  .mk-hero,.mk-shop,.mk-log{background-size:1500px auto;background-position:center top}
+  .mk-hero,.mk-log{background-size:1500px auto;background-position:center top}
   .mk-deal:before,.mk-rules:before{background-size:1500px auto;background-position:center top}
   .mk-tape{flex-direction:column;align-items:stretch;gap:8px}
 }
@@ -324,3 +322,92 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 /* Íconos de moneda (Zen de GPT, Eryns = gema de Votar) */
 .mk-cur{display:inline-block;width:1em;height:1em;object-fit:contain;vertical-align:-.12em;margin-right:.3em;flex:none}
 .mk-stat dt .mk-cur{width:16px;height:16px;margin-right:6px;vertical-align:-3px}
+
+/* ===== Ajustes 28/10 (devolución de Agustín) ===== */
+/* Destacados: franja roja con las tarjetas destacadas en movimiento */
+.mk-featsec{position:relative;isolation:isolate;overflow:hidden;padding:100px 0 110px;background:#ff4655 url('../img/ui/hud-rojo-fondo-5b544edb4e28.svg') center/cover no-repeat;color:#fff}
+.mk-featsec .pui-kicker{color:#0f1923}
+.mk-featsec .pui-h2{color:#fff}
+.mk-featsec .pui-lead{color:#ffe1e4}
+.mk-featsec .pui-reveal:after{background:#0f1923}
+.mk-marquee{position:relative;overflow:hidden;padding:20px 0 24px;outline:0}
+.mk-marquee[hidden]{display:none}
+.mk-marquee-run{display:flex;width:max-content}
+.mk-marquee-run.is-moving{animation:mkMarq var(--dur,40s) linear infinite}
+.mk-marquee:hover .mk-marquee-run,.mk-marquee:focus-within .mk-marquee-run{animation-play-state:paused}
+@keyframes mkMarq{to{transform:translateX(calc(-1 * var(--travel,0px)))}}
+.mk-marquee-group{display:flex;gap:22px;padding-right:22px}
+.mk-marquee-group .mk-card{width:236px;flex:none}
+.mk-marquee.is-scroll{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-inline:max(24px,calc(50% - 616px))}
+.mk-marquee.is-scroll::-webkit-scrollbar{display:none}
+.mk-marquee.is-scroll .mk-card{scroll-snap-align:start}
+.mk-feat-none{color:#fff;font-size:16px;padding-block:10px}
+.mk-feat-none[hidden]{display:none}
+
+/* Vidriera sobre banda hueso: las tarjetas oscuras resaltan */
+.mk-shop{--hud:url('../img/ui/hud-hueso-dorado-b-2fe0878bc2cc.svg')}
+.mk-shop .pui-lead{color:var(--pui-bone-muted)}
+.mk-tabs{overflow:visible;flex-wrap:nowrap}
+.mk-shop .pui-tab{color:#5b6670}
+.mk-shop .pui-tab:hover,.mk-shop .pui-tab.is-active{color:var(--pui-night)}
+.mk-shop .pui-input{background:#fff;color:var(--pui-night);border-bottom-color:#0f192340}
+.mk-shop .pui-input::placeholder{color:#7b848c}
+.mk-shop .mk-pages{color:var(--pui-bone-muted)}
+.mk-shop .mk-state{color:var(--pui-bone-muted)}
+.mk-pages.off{visibility:hidden}
+/* La grilla reserva siempre el alto de una página completa (10): nada se mueve con menos resultados */
+.mk-grid .mk-card{height:var(--ch,300px)}
+.mk-grid{grid-auto-rows:var(--ch,300px);min-height:calc(var(--rows,2) * var(--ch,300px) + (var(--rows,2) - 1) * 14px)}
+.mk-gridwrap{position:relative}
+.mk-gridwrap .mk-state{position:absolute;left:0;right:0;top:0;padding:30px 0;text-align:center}
+@media(max-width:1100px){.mk-grid{--rows:3}}
+@media(max-width:700px){.mk-grid{--rows:5}}
+@media(max-width:420px){.mk-grid{--rows:1;min-height:var(--ch,300px)}}
+
+/* Pasos: sello y lacre centrados en el escenario */
+.mk-seal-mark{top:auto;bottom:118px;width:150px;height:150px;margin-left:0}
+.mk-seal{top:auto;bottom:178px;width:140px;height:187px;margin-left:-10px}
+@media(max-width:700px){.mk-seal-mark{bottom:120px;width:130px;height:130px}.mk-seal{bottom:170px;width:120px;height:160px}}
+@media(prefers-reduced-motion:reduce){.mk-marquee-run.is-moving{animation:none}}
+@media(max-width:420px){.mk-grid{--ch:312px}}
+.mk-grid{--ch:320px}
+@media(max-width:420px){.mk-grid{--ch:340px}}
+.mk .pui-band--bone .pui-kicker{color:#8a5f0c;margin-bottom:26px}
+.mk .mk-featsec .pui-kicker{margin-bottom:26px}
+.mk .mk-head .pui-kicker{margin-bottom:26px}
+/* Ritmo entre secciones más compacto (como El servidor) */
+.mk .pui-tabs{overflow:visible;scrollbar-width:none}
+.mk .pui-tabs::-webkit-scrollbar{display:none}
+.mk-featsec{padding:90px 0 80px}
+.mk-deal{position:relative;isolation:isolate;padding:70px 0 90px;background:var(--pui-night) url('../img/ui/hud-dorado-a-a4522ab3122c.svg') center/cover no-repeat}
+.mk-deal:before{display:none}
+.mk-deal .pui-lead{color:var(--pui-muted)}
+.mk-steps button{background:#ece8e10a;color:var(--pui-ink)}
+.mk-step-n{color:#ece8e14d}
+.mk-steps li.on button{background:var(--pui-night-2);box-shadow:inset 4px 0 0 var(--sys)}
+.mk-steps li.done .mk-step-n{color:#ece8e199}
+.mk-stage{background:#0b131b}
+.mk-log{padding:40px 0 70px;background-color:var(--pui-night)}
+.mk-close{padding:100px 0 110px}
+@media(max-width:700px){.mk-featsec{padding:70px 0 60px}.mk-deal{padding:50px 0 60px;background-size:1500px auto;background-position:center top}.mk-log{padding:30px 0 50px}.mk-close{padding:80px 0 90px}}
+/* Registro: el precio nunca se corta; la fecha corta; el nombre toma el espacio libre */
+.mk-ledger-head,.mk-row{grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr) minmax(0,.8fr) max-content 78px}
+.mk-row .pr{overflow:visible;text-overflow:clip}
+.mk-row time{text-align:right}
+.mk-ledger-head span:nth-child(5){text-align:right}
+@media(max-width:900px){.mk-row{grid-template-columns:minmax(0,1fr) max-content}}
+.mk-seal{transform:translate(-50%,-460px) rotate(-14deg)}
+.mk-featsec+.mk-shop{margin-top:-2px}
+/* Los bordes rasgados de las bandas hueso apoyan directo sobre el rojo (sin franja azul en el medio) */
+.mk{--mk-tear:clamp(56px,9.2vw,200px)}
+.mk-featsec{padding-bottom:calc(80px + var(--mk-tear))}
+.mk-shop{z-index:1;margin-top:calc(-1 * var(--mk-tear))}
+.mk-rules{z-index:1}
+.mk-close{margin-top:calc(-1 * var(--mk-tear));padding-top:calc(90px + var(--mk-tear))}
+.mk-deal{padding-top:30px}
+.mk-log{padding-bottom:20px}
+@media(max-width:700px){.mk-featsec{padding-bottom:calc(60px + var(--mk-tear))}.mk-close{padding-top:calc(70px + var(--mk-tear))}.mk-deal{padding-top:20px}}
+/* El borde rasgado de arriba de la banda hueso ya trae el azul: la franja roja termina normal */
+.mk-featsec{padding-bottom:70px}
+.mk-shop{margin-top:0}
+@media(max-width:700px){.mk-featsec{padding-bottom:50px}}

@@ -48,25 +48,25 @@ $mkSteps = [
     </div>
   </section>
 
-  <!-- Objetos en venta -->
-  <section class="mk-shop" id="publicaciones" aria-labelledby="mk-shop-t">
+  <!-- Destacados -->
+  <section class="mk-featsec" id="publicaciones" aria-labelledby="mk-feat-t" data-listings-featured-wrap>
     <div class="pui-wrap">
       <header class="mk-head">
-        <div><p class="pui-kicker">La vidriera de Loren Market</p><h2 class="pui-h2" id="mk-shop-t"><?php echo $mkReveal(['Objetos','en venta']); ?></h2></div>
+        <div><p class="pui-kicker">La vidriera de Loren Market</p><h2 class="pui-h2" id="mk-feat-t"><?php echo $mkReveal(['Destacados']); ?></h2></div>
+        <p class="pui-lead">Las publicaciones destacadas van primero en la web y se ofrecen a los gritos por Loren Market.</p>
+      </header>
+    </div>
+    <div class="mk-marquee" data-listings-featured tabindex="0" role="region" aria-label="Publicaciones destacadas"><div class="mk-marquee-run" data-mk-feat-run></div></div>
+    <p class="pui-wrap mk-feat-none" data-mk-feat-none hidden>Todavía no hay publicaciones destacadas.</p>
+  </section>
+
+  <!-- Objetos en venta -->
+  <section class="pui-band pui-band--bone mk-shop" aria-labelledby="mk-shop-t">
+    <div class="pui-wrap">
+      <header class="mk-head">
+        <div><p class="pui-kicker">Publicaciones de jugadores</p><h2 class="pui-h2" id="mk-shop-t"><?php echo $mkReveal(['Objetos','en venta']); ?></h2></div>
         <p class="pui-lead">Lo que publican los jugadores en el juego aparece acá. Pasá el mouse o tocá una tarjeta para ver la ficha completa.</p>
       </header>
-
-      <div class="mk-feat" data-listings-featured-wrap>
-        <div class="mk-feat-tape"><span class="mk-feat-lbl">Destacados</span><div class="mk-feat-win"><div class="mk-feat-run" data-mk-feat-run></div></div></div>
-        <div class="mk-feat-art"><div class="mk-crier" aria-hidden="true"><img src="<?php echo $mk($mkImg.'servidor/cuadrilla-cartel-280ec564088b.webp'); ?>" alt="" width="572" height="1000" loading="lazy"><div class="mk-crier-sign"><span class="it" data-mk-sign-it>Destacá tu publicación</span><span class="pr" data-mk-sign-pr>en Loren Market</span></div></div></div>
-        <div class="mk-feat-copy">
-          <p class="mk-feat-k">Cuadrilla Rota</p>
-          <h3 class="mk-feat-t">Los destacados se gritan en Loren</h3>
-          <p>Un miembro de la Cuadrilla Rota sale a ofrecer cada publicación destacada por la plaza, con su cartel. En la web van primero.</p>
-          <div class="mk-feat-list" data-listings-featured></div>
-        </div>
-      </div>
-
       <div class="mk-board">
         <div class="mk-controls">
           <div class="pui-tabs mk-tabs" role="group" aria-label="Moneda">
@@ -77,19 +77,21 @@ $mkSteps = [
           <label class="mk-search"><span class="pui-sr">Buscar objeto o vendedor</span><input class="pui-input" type="search" maxlength="60" data-listings-search placeholder="Buscar objeto o vendedor"></label>
           <label class="mk-sort"><span class="pui-sr">Orden</span><select class="pui-input" data-listings-sort><option value="recent">Más recientes</option><option value="price-asc">Menor precio</option><option value="price-desc">Mayor precio</option></select></label>
         </div>
-        <div class="mk-grid" data-listings-grid></div>
-        <p class="mk-state" data-listings-state role="status">Consultando las publicaciones del juego…</p>
-        <div class="mk-pages" data-listings-pagination hidden>
-          <button type="button" class="pui-btn pui-btn--ghost pui-btn--sm" data-listings-prev>Anterior</button>
+        <div class="mk-gridwrap">
+          <div class="mk-grid" data-listings-grid></div>
+          <p class="mk-state" data-listings-state role="status">Consultando las publicaciones del juego…</p>
+        </div>
+        <div class="mk-pages" data-listings-pagination>
+          <button type="button" class="pui-btn pui-btn--dark pui-btn--sm" data-listings-prev>Anterior</button>
           <span data-listings-page>Página 1</span>
-          <button type="button" class="pui-btn pui-btn--ghost pui-btn--sm" data-listings-next>Siguiente</button>
+          <button type="button" class="pui-btn pui-btn--dark pui-btn--sm" data-listings-next>Siguiente</button>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Así se sella un trato -->
-  <section class="pui-band pui-band--bone mk-deal" id="trato" aria-labelledby="mk-deal-t">
+  <section class="mk-deal" id="trato" aria-labelledby="mk-deal-t">
     <div class="pui-wrap">
       <header class="mk-head">
         <div><p class="pui-kicker">Paso a paso</p><h2 class="pui-h2" id="mk-deal-t"><?php echo $mkReveal(['Así se sella','un trato']); ?></h2></div>
@@ -113,7 +115,7 @@ $mkSteps = [
   </section>
 
   <!-- Registro del mercado -->
-  <section class="mk-log pui-tear" id="tratos" aria-labelledby="mk-log-t">
+  <section class="mk-log" id="tratos" aria-labelledby="mk-log-t">
     <div class="pui-wrap">
       <header class="mk-head">
         <div><p class="pui-kicker">El registro del mercado</p><h2 class="pui-h2" id="mk-log-t"><?php echo $mkReveal(['Últimas','ventas']); ?></h2></div>

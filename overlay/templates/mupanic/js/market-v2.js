@@ -12,7 +12,7 @@
   var money = function (s) { return fmt(s.price) + ' ' + (s.currency === 1 ? 'Eryns' : 'Zen'); };
   var CUR = (window.MK_CUR || {});
   function cash(node, s) { var src = s.currency === 1 ? CUR.eryns : CUR.zen; if (src) { var i = document.createElement('img'); i.src = src; i.alt = ''; i.className = 'mk-cur'; i.width = 20; i.height = 20; node.prepend(i); } return node; }
-  var when = function (s) { try { return new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}).format(new Date(s.soldAt)); } catch (e) { return ''; } };
+  var when = function (s) { try { var p = {}; new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23'}).formatToParts(new Date(s.soldAt)).forEach(function (x) { p[x.type] = x.value; }); return p.day + '/' + p.month + ' ' + p.hour + ':' + p.minute; } catch (e) { return ''; } };
 
   /* ---------- Ventas (market_data) ---------- */
   var data = null, cur = 'all', more = false, tapeKey = '';
@@ -200,37 +200,41 @@
     return c;
   }
 
-  /* Pregonero de la Cuadrilla Rota: el cartel muestra cada destacado. */
-  var crier = q('.mk-crier'), crierImg = crier.querySelector('img'), sign = q('.mk-crier-sign'), sIt = q('[data-mk-sign-it]'), sPr = q('[data-mk-sign-pr]'), featList = [], fi = 0, featKey = '';
-  function fit() { var w = crierImg.clientWidth, h = crierImg.clientHeight; if (!w) return; sign.style.setProperty('--sw', (w * .855) + 'px'); sign.style.width = (w * .855) + 'px'; sign.style.height = (h * .146) + 'px'; sign.style.top = (crier.clientHeight - h + h * .027) + 'px'; sign.style.left = (crierImg.offsetLeft + w * .069 + w * .855 / 2) + 'px'; }
-  if (crierImg.complete) fit(); else crierImg.addEventListener('load', fit); addEventListener('resize', fit);
-  function signTo(it) {
-    var t = it ? title(it) : 'Destacá tu publicación', p = it ? money(it) : 'en Loren Market';
-    if (reduce) { sIt.textContent = t; sPr.textContent = p; return; }
-    sign.classList.remove('flip'); void sign.offsetWidth; sign.classList.add('flip');
-    setTimeout(function () { sIt.textContent = t; sPr.textContent = p; }, 250);
+  /* Destacados: tarjetas en una cinta que se mueve sola (pausa al pasar el mouse; en pantallas táctiles se desliza con el dedo). */
+  var featKey = '', marq = q('[data-listings-featured]'), mrun = q('[data-mk-feat-run]'), featItems = [], featW = 0;
+  var touch = matchMedia('(pointer:coarse)').matches;
+  function buildMarquee() {
+    mrun.replaceChildren(); mrun.classList.remove('is-moving');
+    if (!featItems.length) return;
+    var g = el('div', null, 'mk-marquee-group'); featItems.forEach(function (it) { g.append(card(it)); }); mrun.append(g);
+    if (reduce || touch) { marq.classList.add('is-scroll'); return; }
+    marq.classList.remove('is-scroll');
+    var i = 0; while (g.scrollWidth < marq.clientWidth + 260 && i++ < 8) featItems.forEach(function (it) { var c = card(it); c.tabIndex = -1; c.setAttribute('aria-hidden', 'true'); g.append(c); });
+    var d = g.cloneNode(false); d.setAttribute('aria-hidden', 'true');
+    [].slice.call(g.children).forEach(function (x, k) { var it = featItems[k % featItems.length], c = card(it); c.tabIndex = -1; c.setAttribute('aria-hidden', 'true'); d.append(c); });
+    mrun.append(d);
+    mrun.style.setProperty('--travel', g.getBoundingClientRect().width + 'px');
+    mrun.style.setProperty('--dur', Math.max(20, g.getBoundingClientRect().width / 45) + 's');
+    mrun.classList.add('is-moving'); featW = marq.clientWidth;
   }
-  if (!reduce) setInterval(function () { if (featList.length > 1) { fi = (fi + 1) % featList.length; signTo(featList[fi]); } }, 2800);
+  addEventListener('resize', function () { if (featItems.length && Math.abs(marq.clientWidth - featW) > 8) buildMarquee(); });
   function renderFeatured(items) {
-    var key = JSON.stringify(items.map(function (x) { return x.id; })); if (key === featKey) return; featKey = key;
-    featList = items; fi = 0; signTo(items[0] || null);
-    var list = q('[data-listings-featured]'); list.replaceChildren(); items.slice(0, 3).forEach(function (it) { list.append(card(it)); });
-    var run = q('[data-mk-feat-run]');
-    if (!items.length) { run.replaceChildren(el('span', 'Todavía no hay publicaciones destacadas.', 'mk-feat-none')); run.classList.add('is-static'); return; }
-    loop(run, function () { var g = el('div'); g.style.display = 'flex'; items.forEach(function (it) { var n = el('span', null, 'mk-feat-it'); n.append(el('b', title(it)), el('small', it.seller || ''), cash(el('em', money(it), it.currency === 1 ? 'eryns' : ''), it)); g.append(n); }); return g; }, 40);
+    var key = JSON.stringify(items.map(function (x) { return x.id + x.price; })); if (key === featKey) return; featKey = key;
+    featItems = items; q('[data-mk-feat-none]').hidden = items.length > 0; marq.hidden = !items.length;
+    buildMarquee();
   }
   function renderListings() {
     hide();
     var grid = q('[data-listings-grid]'), state = q('[data-listings-state]'), pag = q('[data-listings-pagination]');
     grid.replaceChildren();
     var ok = listings && listings.available === true && Array.isArray(listings.items) && Array.isArray(listings.featured);
-    if (!ok) { renderFeatured([]); pag.hidden = true; state.hidden = false; state.textContent = 'No se pudieron consultar las publicaciones. Probá de nuevo en un rato.'; q('[data-mk-count]').textContent = '—'; return; }
+    if (!ok) { renderFeatured([]); pag.classList.add('off'); state.hidden = false; state.textContent = 'No se pudieron consultar las publicaciones. Probá de nuevo en un rato.'; q('[data-mk-count]').textContent = '—'; return; }
     var feat = listings.featured.filter(promoted); renderFeatured(feat);
     listings.items.filter(function (x) { return active(x) && !promoted(x); }).forEach(function (x) { grid.append(card(x)); });
     q('[data-mk-count]').textContent = fmt(String((parseInt(listings.total, 10) || 0) + feat.length));
     state.hidden = grid.children.length > 0;
     state.textContent = listings.total === '0' && lcur === 'all' && !search ? 'Todavía no hay publicaciones. Cuando los jugadores publiquen sus objetos, aparecen acá.' : 'No hay publicaciones con estos filtros.';
-    pag.hidden = listings.pages <= 1;
+    pag.classList.toggle('off', listings.pages <= 1);
     q('[data-listings-page]').textContent = 'Página ' + listings.page + ' de ' + listings.pages;
     q('[data-listings-prev]').disabled = listings.page <= 1;
     q('[data-listings-next]').disabled = listings.page >= listings.pages;
