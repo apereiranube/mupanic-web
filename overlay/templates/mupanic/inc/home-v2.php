@@ -8,7 +8,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/home-data.php';
 $h2e = function($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); };
 $h2img = __PATH_TEMPLATE__.'img/inicio/';
-$h2art = ['mercado'=>'inicio-vessara-5034636897fd.webp','aldren'=>'inicio-aldren-62faf66e7ac1.webp','varkor'=>'inicio-varkor-ce55f6d3bb58.webp','vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
+$h2art = ['hub'=>'inicio-summoner-e2e8ada192ae.webp','mercado'=>'inicio-vessara-5034636897fd.webp','aldren'=>'inicio-aldren-62faf66e7ac1.webp','varkor'=>'inicio-varkor-ce55f6d3bb58.webp','vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
 $h2events = panicHomeEvents();
 $h2play = __BASE_URL__.($isLogged ? 'downloads/' : 'register/');
 $h2aviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
@@ -134,7 +134,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
         <p class="pui-lead">Abrí <kbd>F11</kbd> y tenés tu personaje, la Fractura, los eventos, el mercado, la tienda y ocho minijuegos.</p>
         <ul class="h2-chips"><?php foreach($h2games as $g) { ?><li><?php echo $h2e($g); ?></li><?php } ?></ul>
       </div>
-      <span class="h2-art-slot h2-art-tall" aria-hidden="true"><i>F11</i><small>Arte: Summoner con paneles del Hub · violeta</small></span>
+      <div class="h2-feature-art h2-hub-art" aria-hidden="true"><span class="h2-feature-word">F11</span><img src="<?php echo $h2e($h2img.$h2art['hub']); ?>" alt="" width="1025" height="1149" loading="lazy" decoding="async"></div>
     </div>
   </section>
 

@@ -307,3 +307,12 @@ body.is-home{background:var(--pui-night)}
 .h2-vessara-art .h2-feature-word,.h2-vessara:hover .h2-vessara-art .h2-feature-word{left:-10%;right:-10%;top:10%;bottom:10%;width:auto;display:grid;place-items:center;overflow:hidden;transform:none;font-size:clamp(110px,11vw,190px);opacity:.92;clip-path:polygon(50% 50%,50% 50%,50% 50%,50% 50%);transition:clip-path .7s cubic-bezier(.77,0,.18,1)}
 .h2-vessara:hover .h2-vessara-art .h2-feature-word{clip-path:polygon(10% 0,100% 0,90% 100%,0 100%)}
 .h2-vessara-art .h2-feature-word,.h2-vessara:hover .h2-vessara-art .h2-feature-word{display:none}
+
+.h2-hub-art img{width:min(100%,600px);margin:-30px 0 -50px}
+.h2-system .h2-card-art img[src*=summoner]{top:-14%;width:120%}
+/* Hub: al pasar el mouse los minijuegos se encienden uno por uno, como un menú */
+.h2-chips li{transition:background .2s,color .2s,transform .2s}
+.h2-hub:hover .h2-chips li{background:#9b6bff;color:#0f1923;transform:translateY(-2px)}
+.h2-hub:hover .h2-chips li:nth-child(2){transition-delay:.05s}.h2-hub:hover .h2-chips li:nth-child(3){transition-delay:.1s}.h2-hub:hover .h2-chips li:nth-child(4){transition-delay:.15s}.h2-hub:hover .h2-chips li:nth-child(5){transition-delay:.2s}.h2-hub:hover .h2-chips li:nth-child(6){transition-delay:.25s}.h2-hub:hover .h2-chips li:nth-child(7){transition-delay:.3s}.h2-hub:hover .h2-chips li:nth-child(8){transition-delay:.35s}
+.h2-hub-art img{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.h2-hub:hover .h2-hub-art img{transform:translateY(-10px) rotate(-1deg)}
