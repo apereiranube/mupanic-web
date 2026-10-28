@@ -14,7 +14,7 @@
     });
   });
 
-  /* Anillo: se llena hasta que se puede votar de nuevo */
+  /* Barra: se llena hasta que se puede votar de nuevo */
   var sites = Array.prototype.slice.call(page.querySelectorAll('.vot-site[data-next]'));
   var start = Date.now();
   var serverNow = parseInt(page.getAttribute('data-now'), 10) || Math.floor(start / 1000);
@@ -23,19 +23,19 @@
     sites.forEach(function (card) {
       var next = parseInt(card.getAttribute('data-next'), 10) || 0;
       var period = parseInt(card.getAttribute('data-period'), 10) || 43200;
-      var fill = card.querySelector('.vot-ring-fill');
-      if (!next) { if (fill) fill.style.strokeDashoffset = '0'; return; }
+      var fill = card.querySelector('.vot-bar-fill');
+      if (!next) { if (fill) fill.style.width = '100%'; return; }
       var left = next - now;
       if (left <= 0) {
         card.setAttribute('data-next', '0');
         card.classList.remove('is-wait'); card.classList.add('is-ready', 'just-ready');
         var state = card.querySelector('.vot-state');
-        if (state) state.innerHTML = '<span class="vot-ready">Disponible</span> · ya podés votar de nuevo';
+        if (state) state.innerHTML = '<span class="vot-ready">Disponible</span> · ya podés votar';
         var btn = card.querySelector('.vot-btn--claim'); if (btn) btn.disabled = false;
-        if (fill) fill.style.strokeDashoffset = '0';
+        if (fill) fill.style.width = '100%';
         return;
       }
-      if (fill) fill.style.strokeDashoffset = String(Math.max(0, Math.min(100, (left / period) * 100)));
+      if (fill) fill.style.width = Math.max(0, Math.min(100, 100 - (left / period) * 100)) + '%';
       var c = card.querySelector('[data-count]');
       if (c) {
         var s = Math.ceil(left), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60;
@@ -107,8 +107,8 @@
       (function (i) {
         var g = document.createElement('img');
         g.src = gemSrc; g.alt = ''; g.className = 'vot-flygem';
-        var size = 18 + Math.random() * 16;
-        g.style.width = g.style.height = size + 'px';
+        var size = 20 + Math.random() * 18;
+        g.style.width = size + 'px'; g.style.height = 'auto';
         g.style.left = (sx - size / 2) + 'px'; g.style.top = (sy - size / 2) + 'px';
         document.body.appendChild(g);
         var ang = Math.random() * Math.PI * 2, burst = 60 + Math.random() * 90;

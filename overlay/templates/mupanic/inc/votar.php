@@ -91,14 +91,14 @@ $votStats=['votes_month'=>0,'coins_all'=>0,'voters_month'=>0,'ranking'=>[],'me'=
 if($votStore) { try { $votStats=$votStore->publicStats($votAccount,$votNow); } catch(Throwable $e) {} }
 $votNames=panicVotarCharacterNames(array_merge(array_column($votStats['ranking'],'account'),array_column($votStats['feed'],'account')));
 $votImg=__PATH_TEMPLATE__.'img/votar/';
-$votArt=['hero'=>'votar-darklord-d402a36cc4b3.webp','heroMobile'=>'votar-darklord-m-c121c9ccf867.webp','runeOff'=>'votar-runa-apagada-4718567a55be.webp','runeOn'=>'votar-runa-encendida-fca7a59d15ad.webp','gem'=>'eryns-gema-f0215b9908c0.webp','gemSmall'=>'eryns-gema-64-eaac67236425.webp'];
+$votArt=['hero'=>'votar-darklord-3cd38766111c.webp','heroMobile'=>'votar-darklord-m-c121c9ccf867.webp','bg'=>'votar-fondo-f30ac25662e2.webp','emblem'=>'votar-emblema-top-4ebcd84af4b5.webp','podium'=>'votar-podio-4d8adde295c4.webp','gold'=>'votar-rango-oro-11585d11064a.webp','silver'=>'votar-rango-plata-c17777fad770.webp','bronze'=>'votar-rango-bronce-991fffb83f81.webp','gem'=>'votar-gema-b551bbad6c0d.webp','gemSmall'=>'votar-gema-64-4559844ddcec.webp'];
 $votMineBefore=(int)$votStats['mine_total']-(int)($votClaimed['coins'] ?? 0);
 $fmt=function($n){ return number_format((int)$n,0,',','.'); };
 ?>
 <div class="vot-page" data-now="<?php echo (int)$votNow; ?>"<?php if($votClaimed) { ?> data-claimed="<?php echo (int)$votClaimed['coins']; ?>" data-claimed-site="<?php echo votE($votClaimed['site']); ?>"<?php } ?> data-gem="<?php echo votE($votImg.$votArt['gemSmall']); ?>">
 
   <section class="vot-hero">
-    <div class="vot-hero-bg" aria-hidden="true"><span class="vot-hero-word">VOTÁ</span><i class="vot-glyph g1"></i><i class="vot-glyph g2"></i><i class="vot-glyph g3"></i></div>
+    <div class="vot-hero-bg" aria-hidden="true" style="background-image:url('<?php echo votE($votImg.$votArt['bg']); ?>')"><span class="vot-hero-word">VOTÁ</span><i class="vot-glyph g1"></i><i class="vot-glyph g2"></i><i class="vot-glyph g3"></i></div>
     <picture class="vot-hero-char" aria-hidden="true">
       <source media="(max-width:760px)" srcset="<?php echo votE($votImg.$votArt['heroMobile']); ?>">
       <img src="<?php echo votE($votImg.$votArt['hero']); ?>" alt="" width="1122" height="1402" decoding="async" fetchpriority="high">
@@ -122,98 +122,107 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
 
   <?php if($votStats['feed']) { ?>
   <div class="vot-feed" aria-label="Últimos votos">
-    <div class="vot-feed-track">
+    <span class="vot-feed-tag">En vivo</span>
+    <div class="vot-feed-run"><div class="vot-feed-track">
       <?php for($loop=0;$loop<2;$loop++) foreach($votStats['feed'] as $f) { ?>
-      <span class="vot-feed-item"<?php if($loop) echo ' aria-hidden="true"'; ?>><img src="<?php echo votE($votImg.$votArt['gemSmall']); ?>" alt="" width="18" height="18"><b><?php echo votE(panicVotarPublicName($f['account'],$votNames)); ?></b> votó <?php echo votE(panicVotarHace($f['created'],$votNow)); ?> · +<?php echo $fmt($f['coins']); ?> Eryns</span>
+      <span class="vot-feed-item"<?php if($loop) echo ' aria-hidden="true"'; ?>><img src="<?php echo votE($votImg.$votArt['gemSmall']); ?>" alt="" width="18" height="20"><b><?php echo votE(panicVotarPublicName($f['account'],$votNames)); ?></b> votó <?php echo votE(panicVotarHace($f['created'],$votNow)); ?> <em>+<?php echo $fmt($f['coins']); ?> Eryns</em></span>
       <?php } ?>
-    </div>
+    </div></div>
   </div>
   <?php } ?>
 
-  <div class="vot-wrap">
-    <?php if($votMsg) { ?><div class="vot-alert vot-alert--<?php echo votE($votTone); ?>" role="status"><?php echo votE($votMsg); ?></div><?php } ?>
+  <dl class="vot-stats">
+    <div><dt>Votos este mes</dt><dd><?php echo $fmt($votStats['votes_month']); ?></dd></div>
+    <div><dt>Jugadores que votaron</dt><dd><?php echo $fmt($votStats['voters_month']); ?></dd></div>
+    <div class="is-gem"><dt>Eryns entregados por votar</dt><dd><img src="<?php echo votE($votImg.$votArt['gemSmall']); ?>" alt="" width="36" height="40"><?php echo $fmt($votStats['coins_all']); ?></dd></div>
+  </dl>
 
-    <dl class="vot-stats">
-      <div><dt>Votos este mes</dt><dd><?php echo $fmt($votStats['votes_month']); ?></dd></div>
-      <div><dt>Jugadores que votaron este mes</dt><dd><?php echo $fmt($votStats['voters_month']); ?></dd></div>
-      <div><dt>Eryns entregados por votar</dt><dd><?php echo $fmt($votStats['coins_all']); ?></dd></div>
-    </dl>
-
-    <section class="vot-section" aria-labelledby="vot-lists-title">
-      <header class="vot-section-head"><h2 id="vot-lists-title">Listas de votación</h2><p>Votá en cada lista y reclamá tu premio.</p></header>
+  <section class="vot-band vot-band--light" aria-labelledby="vot-lists-title">
+    <span class="vot-band-word" aria-hidden="true">TOP</span>
+    <div class="vot-wrap">
+      <?php if($votMsg) { ?><div class="vot-alert vot-alert--<?php echo votE($votTone); ?>" role="status"><?php echo votE($votMsg); ?></div><?php } ?>
+      <header class="vot-head"><h2 id="vot-lists-title">Listas de votación</h2><p>Votá en cada lista y volvé acá a reclamar tus Eryns.</p></header>
       <div class="vot-sites">
         <?php foreach($votSites as $id=>$site) {
             $siteOn=$votRewardsOn && !empty($site['enabled']) && !empty($site['has_token']);
             $next=(int)($votMine['next'][$id] ?? 0); $wait=$votLogged && $siteOn && $next>$votNow;
             $period=(int)$site['hours']*3600;
+            $pct=$wait?max(0,min(100,100-($next-$votNow)/$period*100)):100;
         ?>
         <article class="vot-site<?php echo $wait?' is-wait':' is-ready'; ?>" data-site="<?php echo votE($id); ?>" data-next="<?php echo $wait?$next:0; ?>" data-period="<?php echo $period; ?>">
-          <div class="vot-rune" aria-hidden="true">
-            <img class="vot-rune-off" src="<?php echo votE($votImg.$votArt['runeOff']); ?>" alt="" width="546" height="560" loading="lazy">
-            <img class="vot-rune-on" src="<?php echo votE($votImg.$votArt['runeOn']); ?>" alt="" width="546" height="560" loading="lazy">
-            <svg class="vot-ring" viewBox="0 0 120 120"><circle class="vot-ring-bg" cx="60" cy="60" r="54"/><circle class="vot-ring-fill" cx="60" cy="60" r="54" pathLength="100"/></svg>
-          </div>
-          <div class="vot-site-body">
+          <img class="vot-site-emblem" src="<?php echo votE($votImg.$votArt['emblem']); ?>" alt="" width="400" height="415" loading="lazy">
+          <div class="vot-site-info">
             <h3><?php echo votE($site['name']); ?></h3>
-            <p class="vot-state"><?php if($wait) { ?>Podés volver a votar en <b class="vot-count" data-count><?php echo votE(gmdate('H:i:s',$next-$votNow)); ?></b><?php } else { ?><span class="vot-ready">Disponible</span> · <?php echo $siteOn ? '+'.$fmt($votReward).' Eryns por voto' : 'Votá para ayudar al server'; ?><?php } ?></p>
-            <div class="vot-actions">
-              <a class="vot-btn" href="<?php echo votE($site['vote_url']); ?>" target="_blank" rel="noopener">Votar<span aria-hidden="true"> ↗</span></a>
-              <?php if($votLogged && $siteOn) { ?>
-              <form method="post" action="<?php echo votE(__BASE_URL__.'votar/'); ?>">
-                <input type="hidden" name="votar_csrf" value="<?php echo votE($_SESSION['votar_csrf']); ?>">
-                <input type="hidden" name="votar_action" value="reclamar">
-                <input type="hidden" name="votar_site" value="<?php echo votE($id); ?>">
-                <button class="vot-btn vot-btn--claim" type="submit" <?php if($wait) echo 'disabled'; ?>>Reclamar <?php echo $fmt($votReward); ?> Eryns</button>
-              </form>
-              <?php } ?>
-            </div>
+            <p class="vot-site-sub">Top de servidores de MU Online · un voto cada <?php echo (int)$site['hours']; ?> horas</p>
+            <p class="vot-state"><?php if($wait) { ?>Próximo voto en <b class="vot-count" data-count><?php echo votE(gmdate('H:i:s',$next-$votNow)); ?></b><?php } else { ?><span class="vot-ready">Disponible</span> · ya podés votar<?php } ?></p>
+            <div class="vot-bar" aria-hidden="true"><i class="vot-bar-fill" style="width:<?php echo round($pct,2); ?>%"></i></div>
+          </div>
+          <?php if($siteOn) { ?><div class="vot-site-prize"><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="160" height="177" loading="lazy"><b>+<?php echo $fmt($votReward); ?></b><span>Eryns por voto</span></div><?php } ?>
+          <div class="vot-actions">
+            <a class="vot-btn vot-btn--red" href="<?php echo votE($site['vote_url']); ?>" target="_blank" rel="noopener">Votar<span class="vot-sr"> (se abre en otra pestaña)</span></a>
+            <?php if($votLogged && $siteOn) { ?>
+            <form method="post" action="<?php echo votE(__BASE_URL__.'votar/'); ?>">
+              <input type="hidden" name="votar_csrf" value="<?php echo votE($_SESSION['votar_csrf']); ?>">
+              <input type="hidden" name="votar_action" value="reclamar">
+              <input type="hidden" name="votar_site" value="<?php echo votE($id); ?>">
+              <button class="vot-btn vot-btn--blue vot-btn--claim" type="submit" <?php if($wait) echo 'disabled'; ?>>Reclamar</button>
+            </form>
+            <?php } ?>
           </div>
         </article>
         <?php } ?>
-        <article class="vot-site is-soon" aria-label="Próximamente más listas">
-          <div class="vot-rune" aria-hidden="true"><img class="vot-rune-off" src="<?php echo votE($votImg.$votArt['runeOff']); ?>" alt="" width="546" height="560" loading="lazy"></div>
-          <div class="vot-site-body"><h3>Próximamente</h3><p class="vot-state">Vamos a sumar más listas para que ganes más Eryns por día.</p></div>
-        </article>
+        <div class="vot-soon">Pronto sumamos más listas para que ganes más Eryns por día.</div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="vot-section" aria-labelledby="vot-rank-title">
-      <header class="vot-section-head"><h2 id="vot-rank-title">Ranking de votantes del mes</h2><p>El ranking se reinicia el 1° de cada mes.</p></header>
+  <section class="vot-band vot-band--rank" aria-labelledby="vot-rank-title">
+    <span class="vot-band-word" aria-hidden="true">#1</span>
+    <div class="vot-wrap">
+      <header class="vot-head"><h2 id="vot-rank-title">Ranking del mes</h2><p>Los que más votan este mes. Se reinicia el 1° de cada mes.</p></header>
       <?php if(!$votStats['ranking']) { ?>
         <p class="vot-empty">Todavía nadie votó este mes. ¡Podés ser el primero del ranking!</p>
-      <?php } else { $top=array_slice($votStats['ranking'],0,3); $rest=array_slice($votStats['ranking'],3); ?>
-      <ol class="vot-podium">
-        <?php foreach($top as $r) { ?>
-        <li class="vot-podium-<?php echo (int)$r['pos']; ?>"><span class="vot-podium-pos"><?php echo (int)$r['pos']; ?></span><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="96" height="94" loading="lazy"><b><?php echo votE(panicVotarPublicName($r['account'],$votNames)); ?></b><span><?php echo $fmt($r['votes']).((int)$r['votes']===1?' voto':' votos'); ?></span></li>
-        <?php } ?>
-      </ol>
-      <?php if($rest) { ?><ol class="vot-ranklist" start="4"><?php foreach($rest as $r) { ?><li><span><?php echo (int)$r['pos']; ?></span><b><?php echo votE(panicVotarPublicName($r['account'],$votNames)); ?></b><em><?php echo $fmt($r['votes']).((int)$r['votes']===1?' voto':' votos'); ?></em></li><?php } ?></ol><?php } ?>
-      <?php if($votLogged) { ?><p class="vot-myrank"><?php echo $votStats['me'] ? 'Vos estás en el puesto <b>'.(int)$votStats['me']['pos'].'</b> con <b>'.$fmt($votStats['me']['votes']).'</b> '.((int)$votStats['me']['votes']===1?'voto':'votos').' este mes.' : 'Todavía no votaste este mes.'; ?></p><?php } ?>
+      <?php } else { $rest=array_slice($votStats['ranking'],3); $medal=[1=>'gold',2=>'silver',3=>'bronze']; ?>
+      <div class="vot-podium">
+        <ol class="vot-podium-stage" style="background-image:url('<?php echo votE($votImg.$votArt['podium']); ?>')">
+          <?php for($pos=1;$pos<=3;$pos++) { $r=$votStats['ranking'][$pos-1] ?? null; $isMe=$r && $votLogged && strtolower($r['account'])===strtolower($votAccount); ?>
+          <li class="vot-pod vot-pod-<?php echo $pos; ?><?php echo $r?'':' is-empty'; ?><?php echo $isMe?' is-me':''; ?>">
+            <img src="<?php echo votE($votImg.$votArt[$medal[$pos]]); ?>" alt="" width="400" height="350" loading="lazy">
+            <div class="vot-pod-tag"><b><?php echo $r?votE(panicVotarPublicName($r['account'],$votNames)):'Libre'; ?></b><span><?php echo $pos; ?>° · <?php echo $r?$fmt($r['votes']).((int)$r['votes']===1?' voto':' votos'):'sin votos'; ?></span></div>
+          </li>
+          <?php } ?>
+        </ol>
+      </div>
+      <?php if($rest) { ?><ol class="vot-ranklist" start="4"><?php foreach($rest as $r) { $isMe=$votLogged && strtolower($r['account'])===strtolower($votAccount); ?><li<?php echo $isMe?' class="is-me"':''; ?>><span><?php echo (int)$r['pos']; ?></span><b><?php echo votE(panicVotarPublicName($r['account'],$votNames)); ?><?php if($isMe) { ?> <i>Vos</i><?php } ?></b><em><?php echo $fmt($r['votes']).((int)$r['votes']===1?' voto':' votos'); ?></em></li><?php } ?></ol><?php } ?>
+      <?php if($votLogged) { ?><p class="vot-myrank"><?php echo $votStats['me'] ? 'Estás en el puesto <b>'.(int)$votStats['me']['pos'].'</b> con <b>'.$fmt($votStats['me']['votes']).'</b> '.((int)$votStats['me']['votes']===1?'voto':'votos').' este mes.' : 'Todavía no votaste este mes.'; ?></p><?php } ?>
       <?php } ?>
-    </section>
+    </div>
+  </section>
 
-    <section class="vot-section" aria-labelledby="vot-how-title">
-      <header class="vot-section-head"><h2 id="vot-how-title">Cómo funciona</h2></header>
+  <section class="vot-band vot-band--light vot-band--steps" aria-labelledby="vot-how-title">
+    <div class="vot-wrap">
+      <header class="vot-head"><h2 id="vot-how-title">Cómo funciona</h2></header>
       <ol class="vot-steps">
-        <li><span>1</span><div><strong>Tocá Votar</strong><p>Se abre la lista en otra pestaña.</p></div></li>
-        <li><span>2</span><div><strong>Escribí tu cuenta y votá</strong><p>Usá el nombre de tu cuenta, no el del personaje.</p></div></li>
-        <li><span>3</span><div><strong>Volvé y tocá Reclamar</strong><p>Revisamos tu voto y te damos los Eryns.</p></div></li>
+        <li><span>01</span><strong>Tocá Votar</strong><p>Se abre la lista en otra pestaña.</p></li>
+        <li><span>02</span><strong>Escribí tu cuenta y votá</strong><p>Usá el nombre de tu cuenta, no el del personaje.</p></li>
+        <li><span>03</span><strong>Volvé y tocá Reclamar</strong><p>Revisamos tu voto y te damos los Eryns.</p></li>
       </ol>
-    </section>
+    </div>
+  </section>
 
-    <?php if($votLogged && !empty($votMine['premios'])) { ?>
-    <section class="vot-section vot-history" aria-labelledby="vot-history-title">
-      <header class="vot-section-head"><h2 id="vot-history-title">Tus premios</h2></header>
-      <ul>
+  <section class="vot-band vot-band--end">
+    <div class="vot-wrap">
+      <?php if($votLogged && !empty($votMine['premios'])) { ?>
+      <header class="vot-head"><h2 id="vot-history-title">Tus premios</h2></header>
+      <ul class="vot-history" aria-labelledby="vot-history-title">
         <?php foreach($votMine['premios'] as $p) { $done=($p['state'] ?? '')==='done'; ?>
         <li><span><?php echo votE(date('d/m H:i',(int)$p['created'])); ?> · <?php echo votE($votSites[$p['site']]['name'] ?? $p['site']); ?></span><strong>+<?php echo $fmt($p['coins']); ?> Eryns</strong><em class="<?php echo $done?'is-done':'is-pending'; ?>"><?php echo $done?'Acreditados':'Se acreditan al desconectarte'; ?></em></li>
         <?php } ?>
       </ul>
-    </section>
-    <?php } ?>
-
-    <p class="vot-note">Cada voto se cobra una sola vez: la lista lo confirma antes de darte los Eryns. Las listas cuentan un voto cada 12 horas por conexión, así que votar con varias cuentas desde la misma conexión no suma.</p>
-  </div>
-  <div class="vot-toast" role="status" aria-live="polite" hidden><img src="<?php echo votE($votImg.$votArt['gemSmall']); ?>" alt="" width="40" height="40"><div><b>¡Voto confirmado! +<span data-toast-coins>0</span> Eryns</b><span>Se acreditan en tu cuenta cuando te desconectes del juego.</span></div></div>
+      <?php } ?>
+      <p class="vot-note">Cada voto se cobra una sola vez: la lista lo confirma antes de darte los Eryns. Las listas cuentan un voto cada 12 horas por conexión, así que votar con varias cuentas desde la misma conexión no suma.</p>
+    </div>
+  </section>
+  <div class="vot-toast" role="status" aria-live="polite" hidden><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="44" height="49"><div><b>¡Voto confirmado! +<span data-toast-coins>0</span> Eryns</b><span>Se acreditan en tu cuenta cuando te desconectes del juego.</span></div></div>
 </div>
 <script src="<?php echo votE(__PATH_TEMPLATE__.'js/votar.js?v='.substr(hash_file('sha256',__DIR__.'/../js/votar.js'),0,12)); ?>" defer></script>
