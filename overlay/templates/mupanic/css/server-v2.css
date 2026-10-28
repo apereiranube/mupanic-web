@@ -602,9 +602,9 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-tick{grid-column:1/-1;order:-2;display:flex;align-items:stretch;margin:-44px -44px 6px;background:var(--pui-night);color:var(--pui-ink);overflow:hidden}
 .sv-tick-lbl{flex:none;display:flex;align-items:center;padding:0 16px;background:var(--pui-red);color:#fff;font:400 16px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%);padding-right:26px;z-index:1}
 .sv-tick-win{flex:1;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent)}
-.sv-tick-run{display:flex;width:max-content;animation:svTick var(--dur,40s) linear infinite}
+.sv-tick-run{display:flex;width:max-content;animation:svTickRun var(--dur,40s) linear infinite}
 .sv-tick:hover .sv-tick-run{animation-play-state:paused}
-@keyframes svTick{to{transform:translateX(-50%)}}
+@keyframes svTickRun{to{transform:translateX(-50%)}}
 .sv-tick-it{display:flex;align-items:baseline;gap:10px;padding:14px 22px;border-right:1px solid #ece8e11a;white-space:nowrap}
 .sv-tick-it b{font-size:14px;color:#fff}
 .sv-tick-it em{font-style:normal;font-size:12px;color:var(--pui-muted)}
@@ -631,3 +631,61 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-crier-sign .pr{font-size:calc(var(--sw,200px)*.058)}
 .sv-vrow .pr{white-space:nowrap;flex:none}
 @media(max-width:700px){.sv-vrow b{font-size:13px;line-height:1.2}.sv-vrow .pr{font-size:15px}.sv-vtabs{overflow:hidden}}
+
+/* Eventos: tarjeta por tipo, "después sigue", lista sin scroll y línea de 24 h */
+.sv-clock{align-items:stretch}
+.sv-next{--a:#ff4655;--b:#a81f35;--ink:#fff;--sub:#ffe1e4;display:flex;flex-direction:column;isolation:isolate;overflow:hidden;background:linear-gradient(135deg,var(--a),var(--b));color:var(--ink);min-height:440px}
+.sv-next[data-g=invasion]{--a:#6fb4ff;--b:#2a5e9e;--ink:#fff;--sub:#e3efff}
+.sv-next[data-g=custom]{--a:#ffc24a;--b:#c4861a;--ink:#0f1923;--sub:#3b2c0a}
+.sv-next h3,.sv-next .sv-count b{color:var(--ink)}
+.sv-next-when,.sv-count small{color:var(--sub)!important}
+.sv-next-art{position:absolute;z-index:-1;inset:0;background:center right/cover no-repeat;opacity:0;transition:opacity .4s}
+.sv-next.has-art .sv-next-art{opacity:1}
+.sv-next.has-art:before{content:'';position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,var(--b) 0%,color-mix(in srgb,var(--b) 80%,transparent) 40%,transparent 75%)}
+.sv-next.swap{animation:svSwap .6s cubic-bezier(.7,0,.2,1)}
+@keyframes svSwap{0%{clip-path:polygon(0 0,0 0,0 100%,0 100%)}100%{clip-path:polygon(0 0,140% 0,100% 100%,0 100%)}}
+.sv-after{display:grid;grid-template-columns:1fr auto;align-items:end;gap:4px 14px;margin-top:auto;padding:14px 16px;background:#0f1923d9;color:#fff;border-left:4px solid #fff}
+.sv-after[hidden]{display:none}
+.sv-after small{grid-column:1/-1;font:700 11px/1 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;color:var(--pui-muted)}
+.sv-after b{display:block;font:400 26px/1 var(--pui-display);text-transform:uppercase}
+.sv-after span{display:block;margin-top:4px;font-size:13px;color:var(--pui-muted)}
+.sv-after em{font:700 12px/1 var(--pui-body);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:var(--pui-zen);white-space:nowrap}
+.sv-count{margin-bottom:26px}
+.sv-agenda .pui-tabs{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;overflow:visible}
+.sv-evlist{max-height:none;overflow:visible}
+.sv-evlist li{position:relative;padding-left:14px;transition:background .3s}
+.sv-evlist li:before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:4px;background:#ff4655}
+.sv-evlist li.g-invasion:before{background:#6fb4ff}.sv-evlist li.g-custom:before{background:#ffc24a}
+.sv-evlist li.pick{background:#ece8e114;animation:svPick 1s ease-in-out 2}
+@keyframes svPick{50%{background:#ece8e12e}}
+.sv-evmore{width:100%;margin-top:12px;padding:12px;border:1px solid var(--pui-line);background:none;color:var(--pui-ink);font:400 16px/1 var(--pui-display);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.sv-evmore:hover{border-color:var(--pui-red);color:#fff}
+.sv-evmore[hidden]{display:none}
+.sv-day{padding:34px 24px 16px}
+.sv-ruler{height:74px}
+.sv-ruler .track{top:14px;height:30px;background:repeating-linear-gradient(90deg,#ece8e10d 0 calc(100%/24 - 1px),#ece8e11f calc(100%/24 - 1px) calc(100%/24))}
+.sv-ruler .tick{top:52px}
+.sv-ruler .ev{top:14px;height:30px;padding:0;border:0;background:#ff4655;transform:none;cursor:pointer;transition:transform .15s,filter .15s}
+.sv-ruler .ev.g-invasion{background:#6fb4ff}.sv-ruler .ev.g-custom{background:#ffc24a}
+.sv-ruler .ev.done{opacity:.25}
+.sv-ruler .ev.soon{box-shadow:0 0 12px currentColor;height:30px;top:14px}
+.sv-ruler .ev.live{box-shadow:0 0 0 2px #fff;z-index:2}
+.sv-ruler .ev:hover,.sv-ruler .ev:focus-visible{transform:scaleY(1.25);filter:brightness(1.2);z-index:3;outline:none}
+.sv-ruler .ev .tip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) scaleY(.8);padding:6px 9px;background:#ece8e1;color:#0f1923;font:600 12px/1.2 var(--pui-body);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s}
+.sv-ruler .ev .tip b{font-weight:800}
+.sv-ruler .ev:hover .tip,.sv-ruler .ev:focus-visible .tip{opacity:1}
+.sv-ruler .now{top:4px;height:50px;width:3px;z-index:4;transition:left 1s linear;pointer-events:none}
+.sv-ruler .now:after{top:-18px}
+.sv-ruler-legend{flex-wrap:wrap;margin-top:6px}
+.sv-ruler-legend span:before{background:#ff4655}.sv-ruler-legend .i:before{background:#6fb4ff}.sv-ruler-legend .c:before{background:#ffc24a}
+.sv-ruler-legend em{margin-left:auto;font-style:normal}
+@media(max-width:700px){
+  .sv-next{min-height:0}
+  .sv-agenda .pui-tabs{grid-template-columns:repeat(4,1fr)}
+  .sv-agenda .pui-tab{font-size:13px;padding:10px 4px;text-align:center}
+  .sv-ruler-legend em{display:none}
+  .sv-day{overflow-x:auto}.sv-ruler{min-width:640px}
+}
+@media(prefers-reduced-motion:reduce){.sv-next.swap,.sv-evlist li.pick{animation:none}.sv-ruler .now{transition:none}}
+.sv-next>.pui-tag{align-self:flex-start}
+@media(max-width:420px){.sv-agenda .pui-tab{font-size:12px;padding:10px 2px}}

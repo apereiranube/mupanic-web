@@ -301,8 +301,8 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
         <p class="pui-lead">Horarios de Argentina. Se actualiza solo.</p>
       </header>
       <div class="sv-clock">
-        <div class="sv-next" aria-live="polite">
-          <span class="pui-tag" id="svNxState"><i></i><span>Próximo evento</span></span>
+        <div class="sv-next" id="svNext" data-g="classic">
+          <span class="pui-tag" id="svNxState" aria-live="polite"><i></i><span>Próximo evento</span></span>
           <h3 class="pui-h2" id="svNxName">—</h3>
           <p class="sv-next-when" id="svNxWhen"></p>
           <div class="sv-count" aria-label="Cuenta regresiva">
@@ -310,6 +310,8 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
             <div><b class="pui-num" id="svCm">00</b><small>minutos</small></div><span>:</span>
             <div><b class="pui-num" id="svCs">00</b><small>segundos</small></div>
           </div>
+          <div class="sv-after" id="svAfter"><small>Después sigue</small><div><b id="svAfName">—</b><span id="svAfWhen"></span></div><em id="svAfRel"></em></div>
+          <span class="sv-next-art" id="svNxArt" aria-hidden="true"></span>
         </div>
         <div class="sv-agenda">
           <div class="pui-tabs" role="group" aria-label="Filtrar eventos">
@@ -319,10 +321,11 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
             <button type="button" class="pui-tab" data-g="custom" aria-pressed="false">Competencias</button>
           </div>
           <ul class="sv-evlist" id="svEvList"></ul>
+          <button type="button" class="sv-evmore" id="svEvMore" aria-expanded="false">Ver todos los del día</button>
         </div>
         <div class="sv-day">
           <div class="sv-ruler" id="svRuler" aria-hidden="true"></div>
-          <div class="sv-ruler-legend"><span>Clásicos</span><span class="i">Invasiones</span><span class="c">Competencias</span></div>
+          <div class="sv-ruler-legend"><span>Clásicos</span><span class="i">Invasiones</span><span class="c">Competencias</span><em>Tocá un evento para verlo en la lista</em></div>
         </div>
       </div>
       <div class="sv-foot"><p>Doppelganger, Imperial Guardian, Kanturu y Raklion se juegan cuando cumplís las condiciones de acceso.</p><a class="pui-link" href="<?php echo $sv($svBase.'info/#eventos'); ?>">Ver premios y requisitos en el Atlas ↗︎</a></div>

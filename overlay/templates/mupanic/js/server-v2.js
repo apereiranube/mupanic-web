@@ -30,40 +30,62 @@
       }); });
       return out.sort(function (a, b) { return a.start - b.start; });
     }
+    var more = false, curKey = '', pick = '';
+    function hm(m) { m = ((m % 1440) + 1440) % 1440; return pad(Math.floor(m / 60)) + ':' + pad(Math.floor(m % 60)); }
     function render() {
-      var now = nowArt(), occ = occurrences(now), nx = occ[0];
+      var now = nowArt(), occ = occurrences(now), nx = occ[0], af = occ[1];
       if (nx) {
         var live = nx.start <= now, target = live ? nx.end : nx.start, left = Math.max(0, (target - now) * 60);
+        var card = $('svNext'), key = nx.e.n + nx.start;
+        if (key !== curKey) {
+          if (curKey && !reduce) { card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap'); }
+          curKey = key; card.dataset.g = nx.e.g; card.dataset.ev = nx.e.n;
+          var art = $('svNxArt'), src = (window.SV_EVART || {})[nx.e.n] || (window.SV_EVART || {})['*'] || '';
+          art.style.backgroundImage = src ? 'url("' + src + '")' : ''; card.classList.toggle('has-art', !!src);
+        }
         var st = $('svNxState'); st.classList.toggle('live', live); st.lastElementChild.textContent = live ? 'En curso ahora' : 'Próximo evento';
         $('svNxName').textContent = nx.e.n;
-        $('svNxWhen').textContent = (live ? 'Termina a las ' + pad(Math.floor(nx.end % 1440 / 60)) + ':' + pad(nx.end % 60) : 'Empieza a las ' + nx.t) + ' · ' + GN[nx.e.g] + ' · dura ' + nx.e.d + ' min';
+        $('svNxWhen').textContent = (live ? 'Termina a las ' + hm(nx.end) : 'Empieza a las ' + nx.t) + ' · ' + GN[nx.e.g] + ' · dura ' + nx.e.d + ' min';
         [['svCh', Math.floor(left / 3600)], ['svCm', Math.floor(left % 3600 / 60)], ['svCs', Math.floor(left % 60)]].forEach(function (x) {
           var el = $(x[0]), v = pad(x[1]);
           if (el.textContent !== v) { el.textContent = v; if (!reduce) { el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); } }
         });
+        if (af) { $('svAfName').textContent = af.e.n; $('svAfWhen').textContent = af.t + ' · ' + GN[af.e.g]; $('svAfRel').textContent = rel(af.start - now); $('svAfter').hidden = false; } else $('svAfter').hidden = true;
       }
-      var rows = occ.filter(function (o) { return filter === 'all' || o.e.g === filter; }).slice(0, 10);
+      var all = occ.filter(function (o) { return filter === 'all' || o.e.g === filter; }), rows = more ? all : all.slice(0, 5);
       $('svEvList').innerHTML = rows.length ? rows.map(function (o) {
-        var live = o.start <= now;
-        return '<li class="' + (live ? 'live' : '') + (o.tom ? ' tomorrow' : '') + '"><time>' + o.t + '</time><span class="n">' + esc(o.e.n) + '<span class="g">' + GN[o.e.g] + (o.tom ? ' · mañana' : '') + '</span></span><span class="rel">' + (live ? 'En curso' : rel(o.start - now)) + '</span></li>';
+        var live = o.start <= now, k = o.e.n + '|' + o.t;
+        return '<li class="g-' + o.e.g + (live ? ' live' : '') + (o.tom ? ' tomorrow' : '') + (k === pick ? ' pick' : '') + '" data-k="' + esc(k) + '"><time>' + o.t + '</time><span class="n">' + esc(o.e.n) + '<span class="g">' + GN[o.e.g] + (o.tom ? ' · mañana' : '') + '</span></span><span class="rel">' + (live ? 'En curso' : rel(o.start - now)) + '</span></li>';
       }).join('') : '<li class="empty">No hay eventos de esta categoría en las próximas 24 horas.</li>';
+      var mb = $('svEvMore'); mb.hidden = all.length <= 5; mb.textContent = more ? 'Ver menos' : 'Ver los ' + all.length + ' de las próximas 24 horas'; mb.setAttribute('aria-expanded', more);
     }
+    $('svEvMore').addEventListener('click', function () { more = !more; render(); });
     function ruler() {
       var now = nowArt(), h = '<div class="track"></div>';
       for (var i = 0; i <= 24; i += 3) h += '<span class="tick" style="left:' + (i / 24 * 100) + '%">' + pad(i) + '</span>';
-      EVENTS.forEach(function (e) { e.t.forEach(function (t) { var m = toMin(t);
-        h += '<span class="ev ' + (e.g === 'invasion' ? 'inv' : e.g === 'custom' ? 'cus' : '') + (m + e.d < now ? ' done' : '') + (m > now && m - now <= 60 ? ' soon' : '') + '" style="left:' + (m / 1440 * 100) + '%"></span>';
+      EVENTS.forEach(function (e) { e.t.forEach(function (t) { var m = toMin(t), k = e.n + '|' + t;
+        h += '<button type="button" class="ev g-' + e.g + (m + e.d < now ? ' done' : '') + (m <= now && m + e.d > now ? ' live' : '') + (m > now && m - now <= 60 ? ' soon' : '') + '" style="left:' + (m / 1440 * 100) + '%;width:max(6px,' + (e.d / 1440 * 100) + '%)" data-k="' + esc(k) + '" data-g="' + e.g + '" aria-label="' + esc(e.n + ' a las ' + t) + '"><span class="tip"><b>' + t + '</b> ' + esc(e.n) + '</span></button>';
       }); });
       h += '<span class="now" style="left:' + (now / 1440 * 100) + '%"></span>';
       $('svRuler').innerHTML = h;
+      var day = $('svRuler').parentNode; if (day.scrollWidth > day.clientWidth && !ruler._done) { ruler._done = true; day.scrollLeft = Math.max(0, $('svRuler').offsetWidth * now / 1440 - day.clientWidth / 3); }
     }
+    $('svRuler').addEventListener('click', function (ev) {
+      var b = ev.target.closest('.ev'); if (!b) return;
+      pick = b.dataset.k; filter = 'all'; more = true;
+      tabs.forEach(function (x) { var on = x.dataset.g === 'all'; x.setAttribute('aria-pressed', on); x.classList.toggle('is-active', on); });
+      render();
+      var li = $('svEvList').querySelector('.pick');
+      if (li) { var r = li.getBoundingClientRect(); if (r.top < 80 || r.bottom > innerHeight) li.scrollIntoView({block: 'center', behavior: reduce ? 'auto' : 'smooth'}); }
+      clearTimeout(ruler._t); ruler._t = setTimeout(function () { pick = ''; render(); }, 4000);
+    });
     var tabs = [].slice.call(ROOT.querySelectorAll('.sv-agenda [data-g]'));
     tabs.forEach(function (b) { b.addEventListener('click', function () {
-      filter = b.dataset.g;
+      filter = b.dataset.g; more = false;
       tabs.forEach(function (x) { x.setAttribute('aria-pressed', x === b); x.classList.toggle('is-active', x === b); });
       render();
     }); });
-    render(); ruler(); setInterval(render, 1000); setInterval(ruler, 60000);
+    render(); ruler(); setInterval(render, 1000); setInterval(ruler, 20000);
   })();
 
   /* Simulador de resets (200/250/300/350 puntos por etapa). */
