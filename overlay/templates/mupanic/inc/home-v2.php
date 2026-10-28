@@ -185,6 +185,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   <section class="h2-cta pui-tear pui-tear--bottom" aria-labelledby="h2-cta-title">
     <span class="pui-slash h2-cta-slash" aria-hidden="true"></span>
     <span class="h2-cta-word" aria-hidden="true">JUGÁ</span>
+    <img class="h2-cta-throne" src="<?php echo $h2e($h2img.'inicio-trono-0497b9791781.webp'); ?>" alt="" aria-hidden="true" width="1310" height="1327" loading="lazy" decoding="async">
     <div class="pui-wrap">
       <h2 class="pui-h1" id="h2-cta-title">Tu historia<br>empieza hoy</h2>
       <ol class="h2-cta-steps"><li><span>01</span>Creá tu cuenta</li><li><span>02</span>Descargá el juego</li><li><span>03</span>Entrá a jugar</li></ol>

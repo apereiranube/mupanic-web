@@ -365,3 +365,12 @@ body.is-home{background:var(--pui-night)}
 /* Ventana del Hub: el marco va como imagen directa y con fondo sólido detrás del texto */
 .h2-hub-panel{background-position:center;background-size:100% 100%;background-repeat:no-repeat;isolation:isolate}
 .h2-hub-panel:before{content:'';position:absolute;z-index:-1;inset:6% 2.6% 5% 2.6%;background:#0f1923f2}
+
+/* Cierre: el trono de armas de MU, vacío, esperando a quien lo conquiste */
+.h2-cta{min-height:720px;display:flex;align-items:center;background:radial-gradient(60% 80% at 78% 60%,#ff6b77 0%,#ff4655 45%,#c9303f 100%)}
+.h2-cta-throne{position:absolute;z-index:0;right:max(-4%,calc(50% - 720px));bottom:calc(var(--tear) - 30px);width:min(52vw,780px);height:auto;filter:drop-shadow(0 30px 40px #0f192388);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.h2-cta:hover .h2-cta-throne{transform:translateY(-8px) scale(1.02)}
+.h2-cta .pui-wrap{position:relative;z-index:1}
+@media(max-width:1020px){.h2-cta-throne{width:60vw;opacity:.35}}
+@media(max-width:760px){.h2-cta{flex-direction:column;align-items:stretch}.h2-cta-throne{position:relative;right:auto;bottom:auto;width:92%;margin:0 auto -10px;opacity:1;order:-1}}
+.h2-cta{min-height:820px}.h2-cta-throne{top:calc(var(--tear) + 10px);bottom:auto;right:max(-2%,calc(50% - 700px));width:min(44vw,640px)}@media(max-width:760px){.h2-cta-throne{top:auto}}
