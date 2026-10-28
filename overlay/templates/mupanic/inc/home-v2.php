@@ -140,7 +140,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
 
   <section class="pui-band pui-band--bone h2-feature h2-vessara" aria-labelledby="h2-vessara-title" style="--sys:#ffc24a">
     <div class="pui-wrap h2-feature-grid h2-feature-grid--rev">
-      <div class="h2-feature-art h2-vessara-art" aria-hidden="true"><span class="h2-feature-word">VESSARA</span><img src="<?php echo $h2e($h2img.$h2art['mercado']); ?>" alt="" width="1089" height="1411" loading="lazy" decoding="async"></div>
+      <div class="h2-feature-art h2-vessara-art" aria-hidden="true" style="--vimg:url('<?php echo $h2e($h2img.$h2art['mercado']); ?>')"><span class="h2-feature-word">VESSARA</span><span class="h2-vessara-sheen"></span><img src="<?php echo $h2e($h2img.$h2art['mercado']); ?>" alt="" width="1089" height="1411" loading="lazy" decoding="async"></div>
       <div>
         <p class="pui-kicker">El mercado de los jugadores</p>
         <h2 class="pui-h2" id="h2-vessara-title"><span class="pui-reveal">Lo que encontrás</span><br><span class="pui-reveal">tiene valor</span></h2>

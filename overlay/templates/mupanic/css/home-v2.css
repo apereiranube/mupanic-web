@@ -289,3 +289,21 @@ body.is-home{background:var(--pui-night)}
 .h2-zone-tag em{margin-top:6px}
 .h2-zone-n .h2-zone-tag{left:96%}
 .h2-zone-c .h2-zone-tag{right:96%}
+
+/* Vessara: al pasar el mouse un bloque dorado se abre detrás de ella como un cofre, la palabra aparece y un brillo de oro la recorre */
+.h2-vessara-art{isolation:isolate}
+.h2-vessara-art:before{content:'';position:absolute;z-index:-1;left:4%;right:4%;top:6%;bottom:6%;background:#ffc24a;clip-path:polygon(50% 50%,50% 50%,50% 50%,50% 50%);transition:clip-path .7s cubic-bezier(.77,0,.18,1)}
+.h2-vessara:hover .h2-vessara-art:before{clip-path:polygon(10% 0,100% 0,90% 100%,0 100%)}
+.h2-vessara-art .h2-feature-word{z-index:0;color:#0f1923;-webkit-text-stroke:0;opacity:0;letter-spacing:.02em;transform:translate(-50%,-50%) scale(.85);transition:opacity .4s .25s,transform .7s cubic-bezier(.2,.8,.2,1) .2s}
+.h2-vessara:hover .h2-vessara-art .h2-feature-word{opacity:.9;transform:translate(-50%,-50%) scale(1)}
+.h2-vessara-sheen{position:absolute;z-index:2;left:50%;top:50%;width:min(100%,520px);aspect-ratio:1089/1411;transform:translate(-50%,-50%);-webkit-mask:var(--vimg) center/contain no-repeat;mask:var(--vimg) center/contain no-repeat;background:linear-gradient(115deg,transparent 35%,#fffbe6 47%,#ffe08a 50%,transparent 60%) -160% 0/260% 100% no-repeat;mix-blend-mode:screen;pointer-events:none;opacity:0}
+.h2-vessara:hover .h2-vessara-sheen{animation:h2Sheen 1.1s cubic-bezier(.4,0,.2,1) .45s}
+@keyframes h2Sheen{0%{opacity:1;background-position:-160% 0}100%{opacity:1;background-position:160% 0}}
+.h2-vessara-art img{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.h2-vessara:hover .h2-vessara-art img{transform:translateY(-10px) scale(1.03)}
+@media(prefers-reduced-motion:reduce){.h2-vessara-sheen{display:none}.h2-vessara-art:before,.h2-vessara-art .h2-feature-word,.h2-vessara-art img{transition:none}}
+.h2-vessara-art:before{left:-10%;right:-10%;top:10%;bottom:10%;background:linear-gradient(135deg,#ffcf5c,#d9921c)}
+.h2-vessara-art .h2-feature-word{font-size:clamp(130px,15vw,250px);color:#0f1923}
+.h2-vessara-art .h2-feature-word,.h2-vessara:hover .h2-vessara-art .h2-feature-word{left:-10%;right:-10%;top:10%;bottom:10%;width:auto;display:grid;place-items:center;overflow:hidden;transform:none;font-size:clamp(110px,11vw,190px);opacity:.92;clip-path:polygon(50% 50%,50% 50%,50% 50%,50% 50%);transition:clip-path .7s cubic-bezier(.77,0,.18,1)}
+.h2-vessara:hover .h2-vessara-art .h2-feature-word{clip-path:polygon(10% 0,100% 0,90% 100%,0 100%)}
+.h2-vessara-art .h2-feature-word,.h2-vessara:hover .h2-vessara-art .h2-feature-word{display:none}
