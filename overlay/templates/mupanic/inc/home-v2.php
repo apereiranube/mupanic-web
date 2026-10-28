@@ -38,7 +38,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     <span class="h2-hero-flash" aria-hidden="true"></span>
     <div class="h2-charge" aria-hidden="true">
       <span class="h2-charge-block"><span>MU PANIC</span></span>
-      <span class="h2-charge-lines"></span>
+      <img class="h2-charge-burst" src="<?php echo $h2e($h2img.'inicio-estallido-8ed46770e46b.webp'); ?>" alt="" width="900" height="900" decoding="async">
       <img class="h2-charge-bk" src="<?php echo $h2e($h2img.'inicio-bk-carga-01b160ca5b33.webp'); ?>" alt="" width="1257" height="1503" decoding="async" fetchpriority="high">
     </div>
     <div class="pui-wrap h2-hero-copy">
