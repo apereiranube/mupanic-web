@@ -34,10 +34,10 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   </a>
   <?php } ?>
 
-  <section class="h2-hero" aria-labelledby="h2-title">
+  <section class="h2-hero h2-hero--solo" aria-labelledby="h2-title" data-parallax>
     <div class="h2-hero-block" aria-hidden="true"><span class="h2-hero-word">MU PANIC</span></div>
     <div class="h2-hero-cast" aria-hidden="true">
-      <img class="h2-cast-duo" src="<?php echo $h2e($h2img.$h2art['duo']); ?>" alt="" width="1330" height="1182" decoding="async" fetchpriority="high">
+      <img class="h2-cast-solo" src="<?php echo $h2e($h2img.$h2art['bk']); ?>" alt="" width="1106" height="1422" decoding="async" fetchpriority="high">
     </div>
     <div class="pui-wrap h2-hero-copy">
       <p class="pui-kicker">Servidor argentino de MU Online</p>
@@ -47,20 +47,21 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
         <span class="pui-btn-wrap"><a class="pui-btn pui-btn--lg" href="<?php echo $h2e($h2play); ?>">Jugá gratis</a></span>
         <a class="pui-btn pui-btn--ghost" href="<?php echo $h2e(__BASE_URL__.'information/'); ?>">Conocé el servidor</a>
       </div>
-      <dl class="h2-rates">
-        <div class="pui-stat"><dt>Experiencia</dt><dd data-home-rate="experience"><?php echo $h2e($serverExp); ?></dd></div>
-        <div class="pui-stat"><dt>Master</dt><dd data-home-rate="master"><?php echo $h2e($serverMasterExp); ?></dd></div>
-        <div class="pui-stat"><dt>Drop</dt><dd data-home-rate="drop"><?php echo $h2e($serverDrop); ?></dd></div>
-      </dl>
     </div>
   </section>
 
-  <section class="h2-live" aria-label="El servidor ahora" data-server-state="unknown">
+  <section class="h2-live h2-stats" aria-label="El servidor en números" data-server-state="unknown">
     <span class="pui-slash pui-slash--fine h2-live-slash" aria-hidden="true"></span>
-    <div class="pui-wrap h2-live-grid">
-      <div class="h2-live-item"><span class="pui-label">Servidor</span><b class="h2-state" data-home-state>Sin verificar</b></div>
-      <div class="h2-live-item"><span class="pui-label">Jugadores online</span><b class="pui-num h2-online" data-home-online>—</b></div>
-      <div class="h2-live-item h2-live-events"><span class="pui-label">Próximos eventos</span>
+    <div class="pui-wrap">
+      <dl class="h2-stat-grid">
+        <div class="h2-stat h2-stat--online"><dt>Jugadores online</dt><dd><b class="pui-num" data-home-online>—</b><span class="h2-state" data-home-state>Sin verificar</span></dd></div>
+        <div class="h2-stat"><dt>Experiencia</dt><dd><b class="pui-num" data-home-rate="experience"><?php echo $h2e($serverExp); ?></b></dd></div>
+        <div class="h2-stat"><dt>Master</dt><dd><b class="pui-num" data-home-rate="master"><?php echo $h2e($serverMasterExp); ?></b></dd></div>
+        <div class="h2-stat"><dt>Drop</dt><dd><b class="pui-num" data-home-rate="drop"><?php echo $h2e($serverDrop); ?></b></dd></div>
+        <div class="h2-stat"><dt>Resets máximos</dt><dd><b class="pui-num">20</b></dd></div>
+        <div class="h2-stat"><dt>Clases</dt><dd><b class="pui-num">7</b></dd></div>
+      </dl>
+      <div class="h2-live-events"><span class="pui-label">Próximos eventos</span>
         <ol class="h2-events" data-home-events><?php foreach($h2events as $ev) { ?><li><a href="<?php echo $h2e(__BASE_URL__.'info/#eventos'); ?>"><span><?php echo $h2e($ev['nombre']); ?></span><time datetime="<?php echo $h2e($ev['proximo']); ?>"><?php echo $h2e(panicHomeEventLabel($ev['proximo'])); ?></time></a></li><?php } ?></ol>
         <?php if(!$h2events) { ?><p class="h2-events-empty" data-home-events-empty>Consultá el calendario de eventos.</p><?php } ?>
       </div>
