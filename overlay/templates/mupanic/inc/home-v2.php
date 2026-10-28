@@ -36,6 +36,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
 
   <section class="h2-hero h2-hero--solo" aria-labelledby="h2-title" data-parallax>
     <div class="h2-hero-block" aria-hidden="true"><span class="h2-hero-word">MU PANIC</span></div>
+    <span class="h2-hero-flash" aria-hidden="true"></span>
     <div class="h2-hero-cast" aria-hidden="true">
       <img class="h2-cast-solo" src="<?php echo $h2e($h2img.$h2art['bk']); ?>" alt="" width="1106" height="1422" decoding="async" fetchpriority="high">
     </div>

@@ -465,3 +465,15 @@ body.is-home{background:var(--pui-night)}
 @media(max-width:560px){.h2-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .h2-stat-grid{column-gap:12px}.h2-stat dd b{font-size:clamp(40px,4.4vw,72px)}.h2-stat{padding-right:12px}@media(max-width:560px){.h2-stat-grid{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:4px}.h2-stat{padding:4px 4px 4px 16px}.h2-stat dt{font-size:10px;letter-spacing:.08em}.h2-stat dd b{font-size:36px}.h2-stat--online dd b{font-size:72px}}
 .h2-stat-grid{grid-template-columns:repeat(6,minmax(0,1fr));column-gap:0}.h2-stat--online{grid-column:span 1}.h2-stat{padding:6px 10px 6px 24px}.h2-stat dd b,.h2-stat--online dd b{font-size:clamp(40px,4.2vw,70px)}.h2-stat--online dd{flex-direction:column;align-items:flex-start;gap:4px}.h2-stat--online .h2-state{font-size:14px}@media(max-width:1020px){.h2-stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.h2-stat--online{grid-column:auto}}
+/* BK que se viene al frente: entra desde el fondo con un golpe de zoom y al bajar se acerca y se sale del cuadro */
+.h2-hero--solo{--sc:0}
+.h2-cast-solo{transform-origin:55% 60%;transform:translate(calc(var(--mx)*22px),calc(var(--my)*14px)) scale(calc(1.04 + var(--sc)*.55));transition:none;animation:h2Charge 1.1s cubic-bezier(.2,.9,.1,1) both}
+@keyframes h2Charge{0%{opacity:0;transform:scale(.55) translateY(40px);filter:blur(8px) brightness(.4)}55%{opacity:1;filter:blur(0) brightness(1.15)}72%{transform:scale(1.14)}100%{transform:scale(1.04)}}
+.h2-hero--solo .h2-hero-block{animation:h2BlockHit 1.1s cubic-bezier(.2,.9,.1,1) both}
+@keyframes h2BlockHit{0%{opacity:0;transform:scale(.8)}60%{opacity:1;transform:scale(1)}70%{transform:scale(.97) translate(6px,-4px)}100%{transform:none}}
+.h2-hero--solo .h2-hero-copy{position:relative;z-index:3}
+.h2-hero-flash{position:absolute;z-index:2;inset:0;background:radial-gradient(40% 50% at 72% 50%,#bff1ff,#29c8ff00 70%);opacity:0;pointer-events:none;animation:h2Flash .9s ease-out .45s}
+@keyframes h2Flash{0%{opacity:.9}100%{opacity:0}}
+@media(max-width:760px){.h2-cast-solo{transform:translateX(50%) scale(calc(1 + var(--sc)*.35));transform-origin:50% 40%}}
+@media(prefers-reduced-motion:reduce){.h2-cast-solo,.h2-hero--solo .h2-hero-block,.h2-hero-flash{animation:none}.h2-cast-solo{transform:none}}
+.h2-stats{z-index:3;background:#0b131b}.h2-cast-solo{opacity:calc(1 - var(--sc)*.35)}

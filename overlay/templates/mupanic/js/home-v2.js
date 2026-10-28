@@ -195,3 +195,13 @@
   });
   hero.addEventListener('mouseleave', function () { hero.style.setProperty('--mx', 0); hero.style.setProperty('--my', 0); });
 })();
+/* Al bajar, el BK se acerca a la cámara (crece y se sale del cuadro) */
+(function () {
+  var hero = document.querySelector('[data-parallax]');
+  if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var img = hero.querySelector('.h2-cast-solo'), ticking = false;
+  if (img) img.addEventListener('animationend', function () { img.style.animation = 'none'; });
+  function upd() { ticking = false; var r = hero.getBoundingClientRect(); var k = Math.max(0, Math.min(1, -r.top / (r.height * .8))); hero.style.setProperty('--sc', k.toFixed(3)); }
+  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, {passive: true});
+  upd();
+})();
