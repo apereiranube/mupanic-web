@@ -489,3 +489,7 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 @media(max-width:700px){.sv-chap.sv-feat{grid-template-columns:1fr;padding:26px 20px}.sv-feat-art{min-height:260px}}
 .sv-chap>*{min-width:0}
 @media(max-width:700px){.sv-chap-copy{padding-left:18px;border-left-width:6px}.sv-chap-t{font-size:clamp(34px,10vw,44px);overflow-wrap:break-word}.sv-chap-demo,.sv-chap--rev .sv-chap-demo{box-shadow:8px 8px 0 var(--sys);margin-right:8px}}
+/* PvP: el paso abierto siempre ocupa lo mismo, así nada salta al cambiar */
+.sv-steps li.on .t{min-height:calc(14px*1.55*2)}
+@media(max-width:1100px){.sv-steps li.on .t{min-height:calc(14px*1.55*3)}}
+.sv-pvp .sv-demo-grid{align-items:start}
