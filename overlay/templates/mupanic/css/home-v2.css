@@ -527,3 +527,17 @@ body.is-home{background:var(--pui-night)}
 @media(max-width:760px){.h2-charge{position:relative;top:auto;right:auto;transform:none;width:min(94vw,470px);margin:6px auto 0}}
 @media(prefers-reduced-motion:reduce){.h2-charge-bk,.h2-charge-lines,.h2-charge-block{animation:none}}
 .h2-charge-lines{display:none}
+/* Stats compactos: una sola fila */
+.h2-stats{padding-block:28px 24px}
+.h2-stat-grid{grid-template-columns:1.5fr repeat(6,minmax(0,1fr));grid-auto-rows:minmax(104px,auto);gap:10px}
+.h2-stat{padding:10px 8px;border-width:22px 20px 18px 20px;border-image-width:22px 20px 18px 20px}
+.h2-stat dt{margin:-8px 0 0;font-size:10px;letter-spacing:.1em}
+.h2-stat dd{margin-top:2px}
+.h2-stat dd b{font-size:clamp(30px,2.8vw,46px)}
+.h2-stat--online{grid-row:auto}
+.h2-stat--online dd{flex-direction:row;align-items:baseline;gap:10px}
+.h2-stat--online dd b{font-size:clamp(40px,3.6vw,58px)}
+.h2-stat--online .h2-state{font-size:13px}
+.h2-stats .h2-live-events{margin-top:16px;padding-top:14px}
+@media(max-width:1020px){.h2-stat-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.h2-stat--online{grid-column:span 2}}
+@media(max-width:560px){.h2-stat-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;grid-auto-rows:minmax(92px,auto)}.h2-stat--online{grid-column:1/-1}.h2-stat dd b{font-size:30px}.h2-stat--online dd b{font-size:48px}}
