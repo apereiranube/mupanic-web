@@ -273,7 +273,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
           </div>
         </article>
         <div class="sv-link" id="svLink">
-          <img class="sv-link-ar" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/flecha-54eb36894f81.svg" alt="" width="600" height="1400" aria-hidden="true">
+          <img class="sv-link-ar" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/flecha-1c5efe40a762.webp" alt="" width="288" height="672" aria-hidden="true">
           <p><small>Y para vender antes</small>Llevá tu publicación al frente del Mercado</p>
         </div>
         <article class="sv-chap sv-feat" id="svFeat" style="--sys:#ffc24a">

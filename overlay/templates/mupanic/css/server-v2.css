@@ -839,3 +839,4 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .js-link.is-in p{opacity:1;transform:none}
 @media(max-width:900px){.sv-link{padding-left:0;margin:-50px 0 -40px}.sv-link-ar{width:70px;height:164px}}
 @media(prefers-reduced-motion:reduce){.js-link .sv-link-ar,.js-link .sv-link p{transition:none;clip-path:none;opacity:1;transform:none}}
+.sv-link-ar{filter:none}
