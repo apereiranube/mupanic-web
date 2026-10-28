@@ -344,7 +344,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
 
   <!-- Free vs VIP -->
   <section class="sv-vp" id="vip" data-mode="free" aria-labelledby="sv-vip-t">
-    <span class="sv-vp-emblem" aria-hidden="true"><b>VIP</b></span>
+    <span class="sv-vp-emblem" aria-hidden="true"><img src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/vip-emblema-f191cb4c26f5.webp" alt="" width="900" height="872" loading="lazy"></span>
     <div class="pui-wrap">
       <header class="sv-head">
         <div><p class="pui-kicker">Membresía</p><h2 class="pui-h2" id="sv-vip-t"><?php echo $svReveal(['Free o VIP']); ?></h2></div>

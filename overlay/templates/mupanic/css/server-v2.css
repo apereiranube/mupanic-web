@@ -805,3 +805,11 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-evlist--all{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));column-gap:28px;min-height:0!important}
 @media(max-width:700px){.sv-evall{padding:16px 14px}}
 .sv-evall{order:1}
+/* Emblema VIP de fondo */
+.sv-vp-emblem{top:4%;right:-6%;width:min(56vw,820px)}
+.sv-vp-emblem img{opacity:.16;filter:saturate(1.1)}
+.sv-vp[data-mode=vip] .sv-vp-emblem img{animation:svEmb 1s cubic-bezier(.2,.8,.2,1.2) both}
+@keyframes svEmb{from{transform:scale(.7) rotate(-8deg);opacity:0}to{transform:none;opacity:.16}}
+@media(max-width:700px){.sv-vp-emblem{top:2%;right:-30%;width:120vw}}
+@media(prefers-reduced-motion:reduce){.sv-vp[data-mode=vip] .sv-vp-emblem img{animation:none}}
+@media(max-width:700px){.sv-vp-emblem img{opacity:.1}@keyframes svEmb{from{transform:scale(.7) rotate(-8deg);opacity:0}to{transform:none;opacity:.1}}}
