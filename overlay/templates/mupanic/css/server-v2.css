@@ -792,3 +792,9 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 .sv-vp-mode .v{background:#e8b64c;color:#0b0b0f;opacity:0}
 .sv-vp[data-mode=vip] .sv-vp-mode .v{opacity:1}.sv-vp[data-mode=vip] .sv-vp-mode .f{opacity:0}
 .sv-evmore.off{visibility:hidden}
+/* Agenda: filas de alto fijo y lugar reservado para 5, así no salta al filtrar */
+.sv-evlist{--row:70px}
+.sv-evlist li{box-sizing:border-box;height:var(--row);padding-top:0;padding-bottom:0;overflow:hidden}
+.sv-evlist:not(.is-more){min-height:calc(var(--row) * 5)}
+.sv-evlist li.empty{height:auto;padding:16px 4px}
+@media(max-width:700px){.sv-evlist{--row:92px}}
