@@ -212,3 +212,22 @@ body.is-home{background:var(--pui-night)}
   .h2-system:nth-child(n){grid-column:auto}
   .h2-system:nth-child(1)>.h2-card-art{min-height:260px}
 }
+
+/* Fractura: Aldren (Nexo) contra Varkor (Caos) */
+.h2-split{min-height:760px}
+.h2-split-char{position:absolute;z-index:0;bottom:-2%;height:96%;width:auto;max-width:none;pointer-events:none}
+.h2-split-aldren{left:max(-4%,calc(50% - 760px))}
+.h2-split-varkor{right:max(-4%,calc(50% - 760px))}
+.h2-split-copy{z-index:2;max-width:560px;padding:34px 30px;background:#0f1923e6;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%)}
+.h2-split-copy .pui-h2{text-shadow:none}
+.h2-card-duel{background:none}
+.h2-card-duel:before{display:none}
+.h2-card-duel .h2-duel-n,.h2-card-duel .h2-duel-c{position:absolute;inset:0;display:block}
+.h2-card-duel .h2-duel-n{background:linear-gradient(135deg,#29c8ff,#1677b8);clip-path:polygon(0 0,58% 0,42% 100%,0 100%)}
+.h2-card-duel .h2-duel-c{background:linear-gradient(135deg,#b3123f,#5a1a8a);clip-path:polygon(58% 0,100% 0,100% 100%,42% 100%)}
+.h2-system .h2-card-duel img{top:4%;width:auto;height:150%;transform:none}
+.h2-system .h2-card-duel .h2-duel-a{left:-2%}
+.h2-system .h2-card-duel .h2-duel-v{left:auto;right:-2%}
+.h2-system:hover .h2-card-duel img{transform:scale(1.04)}
+@media(max-width:1020px){.h2-split-char{height:70%;opacity:.55}.h2-split{min-height:620px}}
+@media(max-width:760px){.h2-split-char{height:48%;opacity:.9}.h2-split-aldren{left:-18%;top:0;bottom:auto}.h2-split-varkor{right:-18%;bottom:0}.h2-split-copy{margin-block:170px}}

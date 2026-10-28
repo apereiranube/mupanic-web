@@ -8,7 +8,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/home-data.php';
 $h2e = function($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); };
 $h2img = __PATH_TEMPLATE__.'img/inicio/';
-$h2art = ['vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
+$h2art = ['aldren'=>'inicio-aldren-62faf66e7ac1.webp','varkor'=>'inicio-varkor-ce55f6d3bb58.webp','vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
 $h2events = panicHomeEvents();
 $h2play = __BASE_URL__.($isLogged ? 'downloads/' : 'register/');
 $h2aviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
@@ -74,7 +74,8 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
       <div class="h2-system-grid pui-rise">
         <?php foreach($h2systems as $s) { ?>
         <a class="h2-system" href="<?php echo $h2e($s[3]); ?>" style="--sys:<?php echo $h2e($s[5]); ?>">
-          <?php if(isset($h2art[$s[0]])) { ?><span class="h2-card-art" aria-hidden="true"><img src="<?php echo $h2e($h2img.$h2art[$s[0]]); ?>" alt="" loading="lazy" decoding="async"></span>
+          <?php if($s[0]==='fractura') { ?><span class="h2-card-art h2-card-duel" aria-hidden="true"><i class="h2-duel-n"></i><i class="h2-duel-c"></i><img class="h2-duel-a" src="<?php echo $h2e($h2img.$h2art['aldren']); ?>" alt="" loading="lazy" decoding="async"><img class="h2-duel-v" src="<?php echo $h2e($h2img.$h2art['varkor']); ?>" alt="" loading="lazy" decoding="async"></span>
+          <?php } elseif(isset($h2art[$s[0]])) { ?><span class="h2-card-art" aria-hidden="true"><img src="<?php echo $h2e($h2img.$h2art[$s[0]]); ?>" alt="" loading="lazy" decoding="async"></span>
           <?php } else { ?><span class="h2-art-slot" aria-hidden="true"><i><?php echo $h2e($s[1]); ?></i><small>Arte: <?php echo $h2e($s[4]); ?></small></span><?php } ?>
           <span class="h2-system-body"><b class="pui-h3"><?php echo $h2e($s[1]); ?></b><span><?php echo $h2e($s[2]); ?></span></span>
         </a>
@@ -101,6 +102,8 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
   <section class="h2-split pui-tear" aria-labelledby="h2-fractura-title">
     <div class="h2-split-side h2-nexo"><span>Nexo</span></div>
     <div class="h2-split-side h2-caos"><span>Caos</span></div>
+    <img class="h2-split-char h2-split-aldren" src="<?php echo $h2e($h2img.$h2art['aldren']); ?>" alt="" aria-hidden="true" width="1202" height="1560" loading="lazy" decoding="async">
+    <img class="h2-split-char h2-split-varkor" src="<?php echo $h2e($h2img.$h2art['varkor']); ?>" alt="" aria-hidden="true" width="1216" height="1560" loading="lazy" decoding="async">
     <div class="pui-wrap h2-split-copy">
       <p class="pui-kicker">La Fractura</p>
       <h2 class="pui-h2" id="h2-fractura-title"><span class="pui-reveal">Dos bandos.</span><br><span class="pui-reveal">Una guerra propia.</span></h2>
