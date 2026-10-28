@@ -169,7 +169,10 @@ $frOrders = [
 
   <!-- Vulcanus -->
   <section class="fr-band fr-vulcanus" id="vulcanus" aria-labelledby="fr-vul-t">
-    <?php echo $frSlot('fr-vul-bg', 'fractura-vulcanus', 1600, 1000, 'Vulcanus: ruinas, puentes sobre ríos de lava, volcanes y la grieta de la Fractura'); ?>
+    <?php $frVul = $frSlot('fr-vul-bg', 'fractura-vulcanus', 1600, 1000, 'Vulcanus: ruinas, puentes sobre ríos de lava, volcanes y la grieta de la Fractura');
+      $frFlow = $frArt('fractura-vulcanus-lava'); // la lava del mismo dibujo, recortada: fluye encima
+      if($frFlow) $frVul = preg_replace('~</div>$~', '<img class="fr-vul-flow" src="'.$fr($frFlow).'" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>', $frVul);
+      echo $frVul; ?>
     <div class="fr-lava" aria-hidden="true"><?php
       // Fragmentos de lava (GPT) que salen de la grieta: x/y de salida en %, tamaño px, duración, retraso, giro.
       $frLava = [[1,80,96,30,11,0,-18],[4,86,92,26,9,-3.2,12],[2,77,99,36,13,-6.1,20],[6,90,95,22,10,-1.7,-10],[5,83,98,40,14,-8.4,8],[11,88,97,20,8,-4.6,-24],[8,79,94,24,12,-10.2,16],[3,85,99,30,10,-7.3,-6]];

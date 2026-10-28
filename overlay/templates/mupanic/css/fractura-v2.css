@@ -341,3 +341,14 @@ body.is-fractura .module-surface{padding:0;border:0;background:transparent;box-s
 @media(prefers-reduced-motion:reduce){.fr-lava{display:none}}
 .fr-lava-f{width:calc(var(--w) * 1.5)}@media(max-width:900px){.fr-lava-f{width:var(--w)}}
 .fr-lava{display:none!important}
+
+/* Río de lava que fluye: la lava del propio dibujo, más brillante, pasa en corrientes hacia adelante (de los volcanes hacia abajo a la izquierda) */
+@property --fr-flow{syntax:'<length>';inherits:false;initial-value:0px}
+.fr-vul-bg>img.fr-vul-flow{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;mix-blend-mode:screen;opacity:.75;pointer-events:none;
+  -webkit-mask-image:repeating-linear-gradient(215deg,#0000 var(--fr-flow),#000 calc(var(--fr-flow) + 50px),#0000 calc(var(--fr-flow) + 110px),#0000 calc(var(--fr-flow) + 180px));
+  mask-image:repeating-linear-gradient(215deg,#0000 var(--fr-flow),#000 calc(var(--fr-flow) + 50px),#0000 calc(var(--fr-flow) + 110px),#0000 calc(var(--fr-flow) + 180px));
+  animation:frFlow 4.5s linear infinite,frGlow 3.2s ease-in-out infinite alternate}
+@keyframes frFlow{to{--fr-flow:180px}}
+@keyframes frGlow{from{opacity:.45}to{opacity:.85}}
+@media(max-width:900px){.fr-vul-bg>img.fr-vul-flow{object-position:84% 70%}}
+@media(prefers-reduced-motion:reduce){.fr-vul-bg>img.fr-vul-flow{display:none}}
