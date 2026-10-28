@@ -240,7 +240,7 @@ final class PanicVotarStore {
     public function acknowledge($results) {
         if(!is_array($results) || count($results)>20) throw new InvalidArgumentException('Invalid results');
         return $this->locked(function($d) use ($results) {
-            $n=0;
+            $n=0; $ids=[];
             foreach($results as $r) {
                 $id=$r['id'] ?? '';
                 if(!is_string($id) || !preg_match('/^V[a-f0-9]{32}$/D',$id) || !isset($d['premios'][$id])) continue;
@@ -249,9 +249,9 @@ final class PanicVotarStore {
                 $before=$r['before_coin'] ?? null; $after=$r['after_coin'] ?? null;
                 if(!is_int($before) || !is_int($after) || $before<0 || $after>2147483647 || $after-$before!==(int)$p['coins']) continue;
                 if($p['state']==='pending') { $p['state']='done'; $p['done']=time(); $p['before_coin']=$before; $p['after_coin']=$after; $d['premios'][$id]=$p; }
-                $n++;
+                $n++; $ids[]=$id;
             }
-            return ['__save'=>$d,'__return'=>['acknowledged'=>$n]];
+            return ['__save'=>$d,'__return'=>['acknowledged'=>$n,'ids'=>$ids]];
         });
     }
 }
