@@ -87,15 +87,23 @@ final class PanicVotarStore {
                 $token=is_string($s['token'] ?? null)?$s['token']:'';
                 $sites[$id]=$site+['enabled'=>!empty($s['enabled']),'has_token'=>$token!=='','token_tail'=>$token!==''?substr($token,-4):''];
             }
-            return ['enabled'=>!empty($c['enabled']),'reward'=>(int)$c['reward'],'sites'=>$sites,'updated_at'=>$c['updated_at'],'last_api'=>$c['last_api']];
+            return ['enabled'=>!empty($c['enabled']),'reward'=>(int)$c['reward'],'sites'=>$sites,'updated_at'=>$c['updated_at'],'sites_updated_at'=>$c['sites_updated_at'] ?? null,'last_api'=>$c['last_api']];
         });
     }
 
-    /** Guardado desde el panel admin. Un token vacío conserva el actual. */
-    public function saveConfig($enabled,$reward,array $sites,$admin) {
+    /** Panel Votos: premio por voto y encendido general. */
+    public function saveReward($enabled,$reward,$admin) {
         if(!is_int($reward) || $reward<1 || $reward>1000) throw new InvalidArgumentException('El premio tiene que estar entre 1 y 1.000 Eryns.');
-        return $this->locked(function($d) use ($enabled,$reward,$sites,$admin) {
+        return $this->locked(function($d) use ($enabled,$reward,$admin) {
             $d['config']['enabled']=(bool)$enabled; $d['config']['reward']=$reward;
+            $d['config']['updated_at']=gmdate('c'); $d['config']['updated_by']=$admin;
+            return ['__save'=>$d,'__return'=>true];
+        });
+    }
+
+    /** Panel Configuración: listas de votación. Un token vacío conserva el actual. */
+    public function saveSites(array $sites,$admin) {
+        return $this->locked(function($d) use ($sites,$admin) {
             foreach(panicVotarSites() as $id=>$site) {
                 $in=is_array($sites[$id] ?? null)?$sites[$id]:[];
                 $cur=is_array($d['config']['sites'][$id] ?? null)?$d['config']['sites'][$id]:[];
@@ -103,7 +111,7 @@ final class PanicVotarStore {
                 if($token!=='' && !preg_match('/^[A-Za-z0-9._\-]{16,256}$/D',$token)) throw new InvalidArgumentException('El token de '.$site['name'].' tiene un formato inválido.');
                 $d['config']['sites'][$id]=['enabled'=>!empty($in['enabled']),'token'=>$token!==''?$token:(string)($cur['token'] ?? '')];
             }
-            $d['config']['updated_at']=gmdate('c'); $d['config']['updated_by']=$admin;
+            $d['config']['sites_updated_at']=gmdate('c'); $d['config']['updated_by']=$admin;
             return ['__save'=>$d,'__return'=>true];
         });
     }

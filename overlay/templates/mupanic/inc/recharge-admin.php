@@ -13,7 +13,7 @@ elseif(!isset($_GET['vista']) && isset($_GET['bancos']))$adminSection='transfere
 elseif(!isset($_GET['vista']) && (isset($_GET['buscar']) || isset($_GET['estado']) || isset($_GET['pagina'])))$adminSection='compras';
 if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && !isset($_GET['eco']) && !isset($_GET['ref'])) {
     $action=$_POST['admin_action'] ?? '';
-    if(in_array($action,['catalogue','storefront','bank_config'],true))$adminSection='configuracion';
+    if(in_array($action,['catalogue','storefront','bank_config','votar_sitios'],true))$adminSection='configuracion';
     elseif(in_array($action,['bank_approve','bank_reject'],true))$adminSection='transferencias';
     elseif($action==='check')$adminSection='compras';
 }
