@@ -184,12 +184,3 @@
     new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible && state === 'idle') charge(); }, {threshold: .4}).observe(f);
   } else { visible = true; charge(); }
 })();
-/* Al bajar, el BK se acerca a la cámara (crece y se sale del cuadro) */
-(function () {
-  var hero = document.querySelector('[data-parallax]');
-  if (!hero || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var ticking = false;
-  function upd() { ticking = false; var r = hero.getBoundingClientRect(); var k = Math.max(0, Math.min(1, -r.top / (r.height * .8))); hero.style.setProperty('--sc', k.toFixed(3)); }
-  addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, {passive: true});
-  upd();
-})();
