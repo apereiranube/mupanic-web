@@ -356,3 +356,20 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); go(); } }, {threshold: .4}).observe(g); else go();
   })();
 })();
+
+/* Portada: el sello cae sobre "Vessara" cuando la página ya cargó; pasar el mouse por el lacre lo repite. */
+(function () {
+  var hs = document.querySelector('.mk-hs'), h = document.getElementById('mk-title'); if (!hs || !h) return;
+  var seal = hs.querySelector('.mk-hs-seal'), mark = hs.querySelector('.mk-hs-mark');
+  function play() {
+    [seal, mark].forEach(function (i) { i.style.animation = 'none'; void i.offsetWidth; i.style.animation = ''; });
+    hs.classList.add('go');
+    clearTimeout(play._t); play._t = setTimeout(function () { h.classList.remove('mk-hit'); void h.offsetWidth; h.classList.add('mk-hit'); }, 1250);
+  }
+  function start() { setTimeout(play, 500); }
+  var imgs = [seal, mark].filter(function (i) { return !i.complete; }), n = imgs.length;
+  var go = function () { if (document.readyState === 'complete' && !n) start(); };
+  imgs.forEach(function (i) { i.addEventListener('load', function () { n--; go(); }); i.addEventListener('error', function () { n--; go(); }); });
+  if (document.readyState === 'complete') go(); else addEventListener('load', go);
+  var last = 0; mark.addEventListener('pointerenter', function () { var t = Date.now(); if (t - last > 2600) { last = t; play(); } });
+})();

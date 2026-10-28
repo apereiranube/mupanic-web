@@ -575,3 +575,11 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 .mk-rule dt .mk-n{min-width:.6em}
 @media(prefers-reduced-motion:reduce){.mk-rule-seal{opacity:1;transform:rotate(-12deg)}.mk-rule-grid.is-in .mk-rule-seal{animation:none}}
 .mk-n,.mk-rule dt .mk-n{min-width:0;display:inline}
+/* Sello de portada: arranca cuando la página ya cargó (no se pierde mientras carga), más grande, golpe en el título y se repite al pasar el mouse por el lacre */
+.mk-hs-mark,.mk-hs-seal{animation-play-state:paused}
+.mk-hs.go .mk-hs-mark,.mk-hs.go .mk-hs-seal{animation-play-state:running}
+.mk-hs-seal{width:1em;left:.06em;bottom:-.06em;z-index:2;filter:drop-shadow(0 18px 18px #0009)}
+.mk-hs-mark{width:.9em;pointer-events:auto;cursor:pointer}
+#mk-title.mk-hit{animation:mkTitleHit .32s ease-out}
+@keyframes mkTitleHit{0%{transform:translateY(0)}30%{transform:translateY(6px)}60%{transform:translateY(-2px)}100%{transform:none}}
+@media(prefers-reduced-motion:reduce){#mk-title.mk-hit{animation:none}}
