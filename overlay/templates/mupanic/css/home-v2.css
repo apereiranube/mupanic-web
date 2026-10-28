@@ -433,3 +433,4 @@ body.is-home{background:var(--pui-night)}
 .h2-system-grid .h2-system:nth-child(1)>.h2-card-art{flex:1 1 auto;height:auto;min-height:420px}
 .h2-system-grid .h2-system:nth-child(2){--art-h:300px}
 .h2-system-grid .h2-card-duel img.h2-duel-a[src]{left:4%;right:auto}.h2-system-grid .h2-card-duel img.h2-duel-v[src]{left:auto;right:4%}
+.h2-system:after{top:-36px;bottom:-36px}.h2-system-grid{margin-top:20px}
