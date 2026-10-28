@@ -47,6 +47,14 @@ $svClasses = [
 $svImg = __PATH_TEMPLATE__.'img/';
 $svArt = ['dl'=>'servidor/clase-dl-d94afd89361e.webp','bk'=>'servidor/clase-bk-c45b8f3ccc32.webp','rf'=>'servidor/clase-rf-0aa5b77fc1b8.webp','su'=>'servidor/clase-su-16919ddd9d2a.webp','elfa'=>'servidor/clase-elfa-69f0d3f6df9b.webp','mg'=>'servidor/clase-mg-43bf82fd11fc.webp','sm'=>'servidor/clase-sm-af9b0534e970.webp'];
 $svColorName = ['bk'=>'cian','sm'=>'violeta','elfa'=>'verde','mg'=>'magenta','dl'=>'rojo','su'=>'lila','rf'=>'naranja'];
+// Arte de cada evento: img/servidor/evento-<nombre-en-minusculas-con-guiones>-<hash>.webp; "evento-generico-*" para el resto.
+$svEvArt = [];
+$svSlug = function($s) { return trim(preg_replace('/[^a-z0-9]+/', '-', strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', (string)$s))), '-'); };
+$svEvFiles = glob(__DIR__.'/../img/servidor/evento-*.webp') ?: [];
+foreach($svEvFiles as $f) { if(preg_match('/^evento-(.+)-[0-9a-f]{12}\.webp$/', basename($f), $m)) $svEvArt[$m[1]] = __PATH_TEMPLATE__.'img/servidor/'.basename($f); }
+$svEvArtByName = [];
+foreach($svEvents as $e) { $k = $svSlug($e['n']); if(isset($svEvArt[$k])) $svEvArtByName[$e['n']] = $svEvArt[$k]; }
+if(isset($svEvArt['generico'])) $svEvArtByName['*'] = $svEvArt['generico'];
 $svReveal = function($lines) { return implode('<br>', array_map(function($l){ return '<span class="pui-reveal">'.$l.'</span>'; }, $lines)); };
 ?>
 <div class="sv pui" id="sv-page">
@@ -293,6 +301,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
     </div>
   </section>
 
+  <script>window.SV_EVART = <?php echo json_encode($svEvArtByName, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP); ?>;</script>
   <!-- Eventos en vivo -->
   <section class="sv-events pui-tear" id="eventos" aria-labelledby="sv-ev-t">
     <div class="pui-wrap">
@@ -333,26 +342,48 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
   </section>
 
   <!-- Free vs VIP -->
-  <section class="pui-band pui-band--bone sv-vip" id="vip" aria-labelledby="sv-vip-t">
-    <span class="pui-band-word" aria-hidden="true">VIP</span>
+  <section class="sv-vp" id="vip" data-mode="free" aria-labelledby="sv-vip-t">
+    <span class="sv-vp-emblem" aria-hidden="true"><b>VIP</b></span>
     <div class="pui-wrap">
       <header class="sv-head">
         <div><p class="pui-kicker">Membresía</p><h2 class="pui-h2" id="sv-vip-t"><?php echo $svReveal(['Free o VIP']); ?></h2></div>
-        <p class="pui-lead">Todo MU PANIC se juega en Free. El VIP te ahorra tiempo, te deja avanzar más rápido y suma comodidades. Probá el cambio.</p>
+        <p class="pui-lead">Todo MU PANIC se juega en Free. El VIP te ahorra tiempo, te deja avanzar más rápido y suma comodidades.</p>
       </header>
-      <div class="sv-vtoggle" role="group" aria-label="Elegí el tipo de cuenta">
-        <button type="button" class="pui-btn pui-btn--dark" id="svVFree" aria-pressed="true">Cuenta Free</button>
-        <button type="button" class="pui-btn pui-btn--ghost" id="svVVip" aria-pressed="false">VIP MU PANIC</button>
+      <div class="sv-vp-switch" role="group" aria-label="Elegí el tipo de cuenta">
+        <button type="button" id="svVpFree" aria-pressed="true">Cuenta Free</button>
+        <button type="button" id="svVpVip" aria-pressed="false">VIP MU PANIC</button>
+        <i aria-hidden="true"></i>
       </div>
-      <div class="sv-vgrid pui-rise">
-        <div class="sv-vcard"><span class="sv-vk">Experiencia</span><div class="sv-vv"><span id="svVExp">15x</span><small id="svVExpS">ritmo base</small></div><div class="sv-vexp"><i id="svVExpBar"></i></div><div class="sv-vrow2"><span>Nivel <b id="svVLvl">312</b></span><span id="svVExpT">Subís a tu ritmo.</span></div></div>
-        <div class="sv-vcard"><span class="sv-vk">Drop general</span><div class="sv-vv"><span id="svVDrop">25%</span><small id="svVDropS">drop base</small></div><div class="sv-vdrop"><span class="sv-mob" id="svVMob">☠</span><div class="sv-floor" id="svVFloor"></div></div><div class="sv-vrow2"><span>Joyas al suelo <b id="svVJw">0</b></span></div></div>
-        <div class="sv-vcard"><span class="sv-vk">Publicaciones en Vessara</span><div class="sv-vv"><span id="svVSlotsN">3</span><small>a la venta al mismo tiempo</small></div><div class="sv-vslots" id="svVSlots"></div><p id="svVSlotsT">Tres objetos en la vidriera a la vez.</p></div>
-        <div class="sv-vcard"><span class="pui-tag pui-tag--red sv-vlock">Solo VIP</span><span class="sv-vk">Helper offline</span><div class="sv-voff" id="svVOff"></div><p id="svVOffT">Cuando te desconectás, tu personaje se queda quieto.</p></div>
-        <div class="sv-vcard"><span class="pui-tag pui-tag--red sv-vlock">Solo VIP</span><span class="sv-vk">Banco de joyas automático</span><div class="sv-vbank"><div class="sv-vbox"><div class="sv-inv" id="svVInv"></div>Inventario</div><div class="sv-lane" id="svVLane"><span>Depositás a mano</span></div><div class="sv-vbox"><b class="pui-num" id="svVBank">0</b>Banco</div></div><p id="svVBankT">Las joyas ocupan tu inventario hasta que las guardás vos.</p></div>
-        <div class="sv-vcard"><span class="sv-vk">Tienda</span><div class="sv-vv"><span id="svVDisc">0%</span><small>de descuento en todo</small></div><div class="sv-vprice"><img src="<?php echo $sv($svGem); ?>" alt="" width="58" height="64"><s>1.000</s><b id="svVPrice">1.000</b></div><p id="svVDiscT">Pagás el precio de lista.</p></div>
-        <div class="sv-vcard"><span class="pui-tag pui-tag--red sv-vlock">Solo VIP</span><span class="sv-vk">Baúl extra</span><div class="sv-vchests"><span></span><span></span><span class="vipc"></span></div><p id="svVChestT">Usás los baúles de tu cuenta.</p></div>
-        <div class="sv-vcard"><span class="pui-tag pui-tag--red sv-vlock">Solo VIP</span><span class="sv-vk">AutoPost</span><div class="sv-vchat" id="svVChat"></div><p id="svVChatT">Tus anuncios en el chat los escribís cada vez.</p></div>
+      <div class="sv-vp-score" aria-live="polite">
+        <div><b id="svVpExp">15x</b><small>Experiencia</small></div>
+        <div><b id="svVpDrop">25%</b><small>Drop general</small></div>
+        <div><b id="svVpSlotsN">3</b><small>Publicaciones en Vessara</small></div>
+        <div><b id="svVpEx">0</b><small>Beneficios exclusivos</small></div>
+      </div>
+      <div class="sv-vp-rows">
+        <article class="sv-vp-row">
+          <div class="sv-vp-copy"><h3>Avanzás más rápido</h3><p>Más experiencia por cada monstruo y más objetos al suelo.</p></div>
+          <div class="sv-vp-demo sv-vp-fast">
+            <div class="sv-vp-meter"><span class="k">Experiencia</span><b id="svVpExpBig">15x</b><em id="svVpExpNote">Ritmo base</em><div class="sv-vp-bar"><i></i></div></div>
+            <div class="sv-vp-meter"><span class="k">Drop general</span><b id="svVpDropBig">25%</b><em id="svVpDropNote">Drop base</em><div class="sv-vp-bar d"><i></i></div></div>
+          </div>
+        </article>
+        <article class="sv-vp-row">
+          <div class="sv-vp-copy"><h3>Vendés más</h3><p>Más objetos en la vidriera de Vessara al mismo tiempo, y tus anuncios se publican solos en el chat.</p></div>
+          <div class="sv-vp-demo sv-vp-sell">
+            <div><span class="k">Vidriera de Vessara</span><div class="sv-vp-slots" id="svVpSlots"></div><p><b id="svVpSlotsBig">3</b> objetos a la venta a la vez</p></div>
+            <div><span class="k">AutoPost</span><div class="sv-vp-chat" id="svVpChat"></div></div>
+          </div>
+        </article>
+        <article class="sv-vp-row">
+          <div class="sv-vp-copy"><h3>Jugás más cómodo</h3><p>Cuatro beneficios que solo tiene el VIP.</p></div>
+          <ul class="sv-vp-demo sv-vp-perks">
+            <li class="sv-vp-perk"><div class="sv-vp-perk-ic"><svg class="lk" viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M7.5 11V8a4.5 4.5 0 019 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="5" y="11" width="14" height="10" rx="1.5" fill="currentColor"/></svg></div><b>Helper offline</b><p class="f">Cuando te desconectás, tu personaje se queda quieto.</p><p class="v">Te desconectás y tu personaje sigue cazando con el MU Helper.</p></li>
+            <li class="sv-vp-perk"><div class="sv-vp-perk-ic"><svg class="lk" viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M7.5 11V8a4.5 4.5 0 019 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="5" y="11" width="14" height="10" rx="1.5" fill="currentColor"/></svg></div><b>Banco de joyas</b><p class="f">Las joyas ocupan tu inventario hasta que las guardás.</p><p class="v">Las joyas que juntás van solas al banco.</p></li>
+            <li class="sv-vp-perk"><div class="sv-vp-perk-ic"><svg class="lk" viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M7.5 11V8a4.5 4.5 0 019 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="5" y="11" width="14" height="10" rx="1.5" fill="currentColor"/></svg></div><b>Baúl extra</b><p class="f">Usás los baúles de tu cuenta.</p><p class="v">Un baúl más para tu cuenta. Si el VIP vence, lo guardado sigue ahí.</p></li>
+            <li class="sv-vp-perk"><div class="sv-vp-perk-ic"><svg class="lk" viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M7.5 11V8a4.5 4.5 0 019 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="5" y="11" width="14" height="10" rx="1.5" fill="currentColor"/></svg></div><b>10% en la Tienda</b><p class="f">Pagás el precio de lista.</p><p class="v">Todo lo de la Tienda te sale 10% menos: 1.000 → 900 Eryns.</p></li>
+          </ul>
+        </article>
       </div>
       <div class="sv-foot"><p>El VIP se consigue con Eryns, desde la Tienda del Hub F11.</p><a class="pui-link" href="<?php echo $sv($svBase.'info/#rates'); ?>">Ver todas las tasas en el Atlas ↗︎</a></div>
     </div>

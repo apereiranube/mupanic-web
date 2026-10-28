@@ -199,55 +199,6 @@
     var phase = 0; if (!reduce) setInterval(function () { if (!auto || !vis) return; phase = (phase + 1) % 5; if (phase === 1) set(true); else if (phase === 0) set(false); }, 3200);
   })();
 
-  /* Free vs VIP. */
-  (function () {
-    var sec = $('vip'), bF = $('svVFree'), bV = $('svVVip'), vip = false, auto = !reduce, vis = false;
-    var JW = ['#6fb4ff', '#ffc24a', '#ff4655', '#3fd394'];
-    var slots = $('svVSlots'); for (var i = 0; i < 10; i++) slots.appendChild(document.createElement('span'));
-    var slotS = [].slice.call(slots.children);
-    var inv = $('svVInv'); JW.forEach(function (c) { var j = document.createElement('i'); j.style.setProperty('--c', c); inv.appendChild(j); });
-    function txt(id, t) { $(id).textContent = t; }
-    function chatLine(t, c) { var ch = $('svVChat'), sp = document.createElement('span'); if (c) sp.className = c; sp.textContent = t; ch.appendChild(sp); while (ch.children.length > 3) ch.firstChild.remove(); }
-    function chatReset() { $('svVChat').innerHTML = ''; chatLine('Vos: /autopost'); if (vip) chatLine('[Sistema] Publicación automática activada.'); else chatLine('[Sistema] Solo las cuentas VIP pueden usar este comando.', 'no'); }
-    var offT = [];
-    function offLog() { offT.forEach(clearTimeout); offT = []; var lg = $('svVOff');
-      if (!vip) { lg.innerHTML = '<span class="in">Desconectado</span><span class="in">Sin actividad</span>'; return; }
-      var Lg = ['Desconectado · Helper activo', 'Cazando en tu spot…', '+ experiencia', '+ Jewel of Bless'];
-      lg.innerHTML = Lg.map(function (t, k) { return '<span' + (k > 1 ? ' class="gold"' : '') + '>' + t + '</span>'; }).join('');
-      [].slice.call(lg.children).forEach(function (s, k) { offT.push(setTimeout(function () { s.classList.add('in'); }, reduce ? 0 : 200 + k * 450)); });
-    }
-    function apply() { sec.classList.toggle('is-vip', vip); bF.setAttribute('aria-pressed', !vip); bV.setAttribute('aria-pressed', vip);
-      bF.className = 'pui-btn ' + (vip ? 'pui-btn--ghost' : 'pui-btn--dark'); bV.className = 'pui-btn ' + (vip ? 'pui-btn--dark' : 'pui-btn--ghost');
-      txt('svVExp', vip ? '20x' : '15x'); txt('svVExpS', vip ? '+33% más rápido' : 'ritmo base'); txt('svVExpT', vip ? 'Cada nivel llega antes.' : 'Subís a tu ritmo.');
-      txt('svVDrop', vip ? '30%' : '25%'); txt('svVDropS', vip ? '+20% más drops' : 'drop base');
-      txt('svVSlotsN', vip ? '10' : '3'); txt('svVSlotsT', vip ? 'Diez objetos vendiéndose a la vez, aunque no estés.' : 'Tres objetos en la vidriera a la vez.');
-      slotS.forEach(function (s, k) { var on = k < (vip ? 10 : 3); setTimeout(function () { s.className = on ? 'on' : 'lock'; }, on && !reduce ? k * 60 : 0); });
-      txt('svVOffT', vip ? 'Te desconectás y tu personaje sigue cazando con el MU Helper.' : 'Cuando te desconectás, tu personaje se queda quieto.');
-      txt('svVBankT', vip ? 'Las joyas que juntás van solas al banco. Tu inventario queda libre.' : 'Las joyas ocupan tu inventario hasta que las guardás vos.');
-      txt('svVDisc', vip ? '10%' : '0%'); txt('svVPrice', vip ? '900' : '1.000'); txt('svVDiscT', vip ? 'Todo lo de la Tienda te sale un 10% menos.' : 'Pagás el precio de lista.');
-      txt('svVChestT', vip ? 'Un baúl reservado para tu cuenta. Si el VIP vence, lo que guardaste sigue ahí para retirarlo.' : 'Usás los baúles de tu cuenta.');
-      txt('svVChatT', vip ? '/autopost publica tu anuncio solo, cada 10 minutos, mientras jugás.' : 'Tus anuncios en el chat los escribís cada vez.');
-      chatReset(); offLog(); }
-    function choose(v) { auto = false; vip = v; apply(); }
-    bF.addEventListener('click', function () { choose(false); }); bV.addEventListener('click', function () { choose(true); });
-    apply();
-    if (reduce) { $('svVExpBar').style.width = '60%'; return; }
-    watch(sec, function (v) { vis = v; }, .2);
-    var CH = ['Kael: alguien para Kalima?', 'Nyx: vendo Jewel of Soul', 'Brann: party BC 22:40', 'Lira: gg'];
-    var exp = 0, lvl = 312, last = performance.now(), dropAcc = 0, jw = 0, bankAcc = 0, bank = 0, logAcc = 0, chatAcc = 0, chatN = 0, autoT = 0;
-    (function loop(t) { requestAnimationFrame(loop); var dt = Math.min(.05, (t - last) / 1000); last = t; if (!vis) return;
-      exp += dt * (vip ? 20 : 15) * 1.6; if (exp >= 100) { exp -= 100; lvl++; $('svVLvl').textContent = lvl; }
-      $('svVExpBar').style.width = exp + '%';
-      dropAcc += dt * (vip ? 30 : 25) / 25;
-      if (dropAcc >= 1.15) { dropAcc = 0; var m = $('svVMob'); m.classList.remove('hit'); void m.offsetWidth; m.classList.add('hit');
-        var fl = $('svVFloor'), j = document.createElement('i'); j.className = 'jw'; j.style.setProperty('--c', JW[jw % 4]); j.style.left = (6 + (jw * 23) % 84) + '%'; fl.appendChild(j); if (fl.children.length > 7) fl.firstChild.remove(); jw++; $('svVJw').textContent = jw; }
-      if (vip) { bankAcc += dt; if (bankAcc > 1.1) { bankAcc = 0; var f = document.createElement('i'); f.className = 'fly'; f.style.setProperty('--c', JW[bank % 4]); $('svVLane').appendChild(f);
-        (function (n) { setTimeout(function () { n.remove(); bank++; $('svVBank').textContent = bank; }, 900); })(f); } }
-      logAcc += dt; if (vip && logAcc > 4.5) { logAcc = 0; offLog(); }
-      chatAcc += dt; if (chatAcc > 1.4) { chatAcc = 0; chatN++; if (vip && chatN % 3 === 0) chatLine('[AutoPost] Vos: Vendo Hurricane Armor +15 · 1.200 Eryns', 'ap'); else chatLine(CH[chatN % CH.length]); }
-      if (auto) { autoT += dt; if (autoT > 6) { autoT = 0; vip = !vip; apply(); } }
-    })(last);
-  })();
 })();
 
 /* Clases: selector tipo agentes (7 pestañas + ficha grande). */
@@ -386,4 +337,51 @@
   new MutationObserver(sync).observe(sw, {attributes: true, attributeFilter: ['aria-pressed']});
   sync(); speed();
   if (!reduce) setInterval(function () { var l = items(); i = (i + 1) % l.length; show(l[i]); }, 2600);
+})();
+
+/* Free o VIP: la sección cambia de modo; números que ruedan, vidriera, AutoPost y candados que se rompen. */
+(function () {
+  var S = document.getElementById('vip'); if (!S || !S.classList.contains('sv-vp')) return;
+  var q = function (id) { return document.getElementById(id); };
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var vip = false, touched = false, timers = [];
+  var V = {exp: [15, 20], drop: [25, 30], slots: [3, 10], ex: [0, 4]};
+  function later(ms, f) { timers.push(setTimeout(f, reduce ? 0 : ms)); }
+  function roll(el, from, to, suf) {
+    if (reduce) { el.textContent = to + suf; return; }
+    var t0 = performance.now(), d = 600;
+    (function st(t) { var k = Math.min(1, (t - t0) / d), v = Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3))); el.textContent = v + suf; if (k < 1) requestAnimationFrame(st); })(t0);
+  }
+  var slots = q('svVpSlots'); for (var i = 0; i < 10; i++) slots.appendChild(document.createElement('span'));
+  var slotS = [].slice.call(slots.children), locks = [].slice.call(S.querySelectorAll('.sv-vp-perk')), chat = q('svVpChat'), chatT;
+  var POSTS = ['Nyx: vendo Jewel of Soul x10 · 120 Eryns', 'Brann: armo party para Blood Castle 19:00', 'Kael: compro Wings of Storm, mandá oferta', 'Nyx: vendo Jewel of Soul x10 · 120 Eryns'];
+  function line(t, c) { var sp = document.createElement('span'); if (c) sp.className = c; sp.textContent = t; chat.appendChild(sp); while (chat.children.length > 4) chat.firstChild.remove(); }
+  function chatRun() {
+    clearInterval(chatT); chat.innerHTML = ''; line('Vos: /autopost');
+    if (!vip) { line('[Sistema] Solo las cuentas VIP pueden usar este comando.', 'no'); return; }
+    line('[Sistema] Publicación automática activada.', 'ok'); var k = 0;
+    if (!reduce) chatT = setInterval(function () { line(POSTS[k++ % POSTS.length], 'post'); }, 2200);
+  }
+  function apply(prev) {
+    timers.forEach(clearTimeout); timers = [];
+    S.dataset.mode = vip ? 'vip' : 'free';
+    q('svVpFree').setAttribute('aria-pressed', !vip); q('svVpVip').setAttribute('aria-pressed', vip);
+    if (!reduce && prev !== undefined) { S.classList.remove('wipe'); void S.offsetWidth; S.classList.add('wipe'); }
+    var a = vip ? 1 : 0, b = vip ? 0 : 1;
+    roll(q('svVpExp'), V.exp[b], V.exp[a], 'x'); roll(q('svVpDrop'), V.drop[b], V.drop[a], '%');
+    roll(q('svVpSlotsN'), V.slots[b], V.slots[a], ''); roll(q('svVpEx'), V.ex[b], V.ex[a], '');
+    q('svVpExpBig').textContent = vip ? '20x' : '15x'; q('svVpDropBig').textContent = vip ? '30%' : '25%';
+    q('svVpExpNote').textContent = vip ? '+33% de experiencia' : 'Ritmo base';
+    q('svVpDropNote').textContent = vip ? '+20% de drop' : 'Drop base';
+    q('svVpSlotsBig').textContent = vip ? '10' : '3';
+    S.style.setProperty('--exp-d', vip ? '2.2s' : '3s');
+    slotS.forEach(function (s, k) { var on = k < (vip ? 10 : 3); s.className = ''; if (on) later(k * 70, function () { s.className = 'on'; }); else s.className = 'lock'; });
+    locks.forEach(function (p, k) { p.classList.remove('open', 'break'); if (vip) { later(350 + k * 380, function () { p.classList.add('break'); }); later(650 + k * 380, function () { p.classList.add('open'); }); } });
+    chatRun();
+  }
+  function choose(v) { touched = true; if (v === vip) return; vip = v; apply(!v); }
+  q('svVpFree').addEventListener('click', function () { choose(false); });
+  q('svVpVip').addEventListener('click', function () { choose(true); });
+  apply();
+  if ('IntersectionObserver' in window && !reduce) new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { o.disconnect(); setTimeout(function () { if (!touched) { vip = true; apply(false); } }, 1800); } }, {threshold: .6}).observe(q('svVpFree').parentNode);
 })();
