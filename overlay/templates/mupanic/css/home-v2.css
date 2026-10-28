@@ -163,9 +163,9 @@ body.is-home{background:var(--pui-night)}
 .h2-system-body{position:relative;overflow:hidden;transition:color .25s}
 .h2-system-body:before{content:'';position:absolute;z-index:-1;inset:-4px -30% -4px -30%;background:var(--sys);transform:translateX(-110%) skewX(-24deg);transition:transform .45s cubic-bezier(.77,0,.18,1)}
 .h2-system-body .pui-h3,.h2-system-body span{position:relative;transition:color .25s .1s}
-.h2-system:after{content:'';position:absolute;z-index:3;top:-10%;left:-30%;width:18%;height:120%;background:linear-gradient(90deg,transparent,#fff 45%,#fff 55%,transparent);opacity:.0;transform:skewX(-24deg);pointer-events:none}
+.h2-system:after{content:'';position:absolute;z-index:3;top:-10%;left:-30%;width:9%;height:120%;background:var(--sys);opacity:0;transform:skewX(-24deg);pointer-events:none}
 .h2-system:hover:after,.h2-system:focus-visible:after{animation:h2Slash .55s cubic-bezier(.4,0,.2,1)}
-@keyframes h2Slash{0%{left:-30%;opacity:.9}100%{left:120%;opacity:.9}}
+@keyframes h2Slash{0%{left:-30%;opacity:1}100%{left:120%;opacity:1}}
 .h2-system:hover .h2-system-body:before,.h2-system:focus-visible .h2-system-body:before{transform:translateX(0) skewX(-24deg)}
 .h2-system:hover .h2-system-body .pui-h3,.h2-system:focus-visible .h2-system-body .pui-h3{color:#0f1923}
 .h2-system:hover .h2-system-body span,.h2-system:focus-visible .h2-system-body span{color:#0f1923cc}
