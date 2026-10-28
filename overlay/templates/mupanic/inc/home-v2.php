@@ -8,7 +8,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/home-data.php';
 $h2e = function($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); };
 $h2img = __PATH_TEMPLATE__.'img/inicio/';
-$h2art = ['aldren'=>'inicio-aldren-62faf66e7ac1.webp','varkor'=>'inicio-varkor-ce55f6d3bb58.webp','vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
+$h2art = ['mercado'=>'inicio-vessara-5034636897fd.webp','aldren'=>'inicio-aldren-62faf66e7ac1.webp','varkor'=>'inicio-varkor-ce55f6d3bb58.webp','vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
 $h2events = panicHomeEvents();
 $h2play = __BASE_URL__.($isLogged ? 'downloads/' : 'register/');
 $h2aviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
@@ -140,7 +140,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
 
   <section class="pui-band pui-band--bone h2-feature h2-vessara" aria-labelledby="h2-vessara-title" style="--sys:#ffc24a">
     <div class="pui-wrap h2-feature-grid h2-feature-grid--rev">
-      <span class="h2-art-slot h2-art-tall" aria-hidden="true"><i>VESSARA</i><small>Arte: Vessara, reina mercader · dorado</small></span>
+      <div class="h2-feature-art h2-vessara-art" aria-hidden="true"><span class="h2-feature-word">VESSARA</span><img src="<?php echo $h2e($h2img.$h2art['mercado']); ?>" alt="" width="1089" height="1411" loading="lazy" decoding="async"></div>
       <div>
         <p class="pui-kicker">El mercado de los jugadores</p>
         <h2 class="pui-h2" id="h2-vessara-title"><span class="pui-reveal">Lo que encontrás</span><br><span class="pui-reveal">tiene valor</span></h2>

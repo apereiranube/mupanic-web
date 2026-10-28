@@ -278,3 +278,7 @@ body.is-home{background:var(--pui-night)}
 .h2-zone-c .h2-zone-tag:after{justify-self:end}
 .h2-zone-n .h2-zone-tag{left:86%}
 .h2-zone-c .h2-zone-tag{right:86%}
+
+.h2-vessara-art img{width:min(100%,520px);margin:-40px 0}
+.h2-vessara-art .h2-feature-word{font-size:clamp(100px,11vw,190px)}
+.h2-system .h2-card-art img[src*=vessara]{top:-6%;width:96%}
