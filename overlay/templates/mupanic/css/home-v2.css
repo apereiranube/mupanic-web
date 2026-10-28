@@ -413,3 +413,23 @@ body.is-home{background:var(--pui-night)}
 .h2-furia.is-masacre .h2-combo em{background:#e11d48;color:#fff}
 .h2-furia.is-masacre .h2-furia-art img{filter:drop-shadow(0 0 40px #e11d48) saturate(1.5) hue-rotate(-12deg)}
 @media(prefers-reduced-motion:reduce){.h2-furia.is-shake .pui-wrap,.h2-furia-burst,.h2-fkey:not([disabled]),.h2-furia.is-full .h2-fbar-track{animation:none}}
+/* Tarjetas: cada arte entra completo (sin recortes) y la grilla usa alturas fijas por fila */
+.h2-system-grid{grid-auto-rows:auto}
+.h2-system-grid .h2-system>.h2-card-art{flex:none;min-height:0;height:var(--art-h,260px)}
+.h2-system-grid .h2-card-art img[src]{position:absolute;left:50%;top:50%;width:92%;height:92%;max-width:none;object-fit:contain;transform:translate(-50%,-50%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.h2-system-grid .h2-system:hover .h2-card-art img[src]{transform:translate(-50%,-50%) scale(1.06)}
+.h2-system-grid .h2-system:nth-child(1){--art-h:560px}
+.h2-system-grid .h2-system:nth-child(2){--art-h:250px}
+.h2-system-grid .h2-system:nth-child(3),.h2-system-grid .h2-system:nth-child(4){--art-h:250px}
+.h2-system-grid .h2-system:nth-child(5),.h2-system-grid .h2-system:nth-child(6){--art-h:320px}
+.h2-system-grid .h2-system:nth-child(1) .h2-system-body{flex:1}
+.h2-system-grid .h2-card-duel img[src]{top:auto;bottom:0;width:48%;height:96%;transform:none;object-position:bottom}
+.h2-system-grid .h2-card-duel .h2-duel-a{left:4%}
+.h2-system-grid .h2-card-duel .h2-duel-v{left:auto;right:4%}
+.h2-system-grid .h2-system:hover .h2-card-duel img[src]{transform:scale(1.04)}
+@media(max-width:1020px){.h2-system-grid .h2-system:nth-child(1){--art-h:420px}}
+@media(max-width:760px){.h2-system-grid .h2-system:nth-child(n){--art-h:280px}}
+.h2-system-grid .h2-system:nth-child(1) .h2-system-body{flex:none}
+.h2-system-grid .h2-system:nth-child(1)>.h2-card-art{flex:1 1 auto;height:auto;min-height:420px}
+.h2-system-grid .h2-system:nth-child(2){--art-h:300px}
+.h2-system-grid .h2-card-duel img.h2-duel-a[src]{left:4%;right:auto}.h2-system-grid .h2-card-duel img.h2-duel-v[src]{left:auto;right:4%}
