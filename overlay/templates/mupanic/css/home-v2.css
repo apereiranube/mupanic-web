@@ -319,3 +319,45 @@ body.is-home{background:var(--pui-night)}
 
 .h2-system:nth-child(6)>.h2-card-art{min-height:300px}
 .h2-system .h2-card-art img[src*=inicio-mg]{top:-4%;left:50%;width:auto;height:112%;max-width:none}
+
+/* Hub F11: la tecla abre la ventana del Hub */
+.h2-hub{overflow:hidden}
+.h2-hub-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.h2-key{position:relative;display:grid;justify-items:start;gap:6px;margin-top:30px;padding:0;border:0;background:none;cursor:pointer;color:#fff}
+.h2-key img{width:170px;height:auto;filter:drop-shadow(0 0 0 #9b6bff);transition:filter .3s}
+.h2-key-down{position:absolute;left:0;top:30px;opacity:0}
+.h2-key-up{animation:h2KeyIdle 2.4s ease-in-out infinite}
+@keyframes h2KeyIdle{50%{transform:translateY(-6px);filter:drop-shadow(0 10px 22px #9b6bff99)}}
+.h2-key:hover .h2-key-up{filter:drop-shadow(0 10px 26px #9b6bffcc)}
+.h2-key.is-pressing .h2-key-up{opacity:0;animation:none}
+.h2-key.is-pressing .h2-key-down{opacity:1}
+.h2-key-label{font:400 20px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;color:#cdb8ff}
+.h2-key:focus-visible{outline:3px solid #9b6bff;outline-offset:6px}
+.h2-hub-stage{position:relative;min-height:600px}
+.h2-hub-char{position:absolute;right:0;top:50%;width:min(100%,600px);height:auto;transform:translateY(-50%);transition:transform .7s cubic-bezier(.77,0,.18,1),filter .5s}
+.h2-hub.is-open .h2-hub-char{transform:translate(-42%,-50%) scale(.78);filter:brightness(.8)}
+.h2-hub-panel{position:absolute;right:-2%;top:50%;width:min(100%,640px);aspect-ratio:1200/647;transform:translateY(-50%);background:var(--frame) center/100% 100% no-repeat;padding:7.5% 5% 6% 5%;display:grid;grid-template-rows:auto 1fr;gap:4%;clip-path:polygon(0 0,0 0,0 100%,0 100%);transition:clip-path .55s cubic-bezier(.77,0,.18,1);filter:drop-shadow(0 30px 50px #000a)}
+.h2-hub.is-open .h2-hub-panel{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);transition-delay:.25s}
+.h2-hub-tabs{display:flex;flex-wrap:wrap;gap:4px}
+.h2-hub-tabs button{padding:7px 11px;border:0;background:#ffffff10;color:#cfd5dc;font:400 15px/1 var(--pui-display);letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.h2-hub-tabs button:hover{background:#9b6bff40;color:#fff}
+.h2-hub-tabs button[aria-selected=true]{background:#9b6bff;color:#0f1923}
+.h2-hub-panes{min-height:0;overflow:auto;color:#ece8e1}
+.h2-hub-panes section{display:grid;gap:10px;align-content:start;animation:h2Pane .35s ease}
+@keyframes h2Pane{from{opacity:0;transform:translateX(12px)}}
+.h2-hub-panes b{font:400 clamp(20px,2vw,28px)/1 var(--pui-display);text-transform:uppercase;letter-spacing:.03em}
+.h2-hub-panes p{margin:0;font-size:14px;color:#b9c1c9}
+.h2-hub-panes a{justify-self:start;color:#cdb8ff;font-weight:700;text-decoration:none}
+.h2-hub-panes ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.h2-hub-panes ul li{padding:6px 10px;background:#9b6bff26;color:#e0d4ff;font:700 11px/1 var(--pui-body);letter-spacing:.1em;text-transform:uppercase}
+.h2-hub-events{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.h2-hub-events li{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:8px 10px;background:#ffffff0a;border-left:3px solid #9b6bff}
+.h2-hub-events span{font-weight:700}
+.h2-hub-events time{font-size:12px;color:#a8b0b8}
+.h2-hub-events strong{margin-left:auto;font:400 15px/1 var(--pui-display);letter-spacing:.06em;color:#cdb8ff}
+@media(max-width:1020px){.h2-hub-grid{grid-template-columns:1fr}.h2-hub-stage{min-height:520px}}
+@media(max-width:760px){.h2-hub-stage{min-height:auto;display:grid;gap:16px}.h2-hub-char,.h2-hub-panel{position:relative;top:auto;right:auto;transform:none;width:100%}.h2-hub.is-open .h2-hub-char{transform:none}.h2-hub-char{max-width:380px;justify-self:center}.h2-hub-panel{aspect-ratio:auto;min-height:330px;padding:16% 7% 10%}}
+@media(prefers-reduced-motion:reduce){.h2-key-up{animation:none}.h2-hub-char,.h2-hub-panel{transition:none}}
+.h2-hub-panes section[hidden]{display:none}
+.h2-hub.is-open .h2-hub-char{transform:translate(-46%,-50%) scale(.74);filter:brightness(.55)}
+@media(max-width:760px){.h2-hub .h2-hub-char,.h2-hub.is-open .h2-hub-char{transform:none;filter:none;width:80%}.h2-hub-stage{gap:0}.h2-hub-panel{min-height:0;margin-top:-30px}}

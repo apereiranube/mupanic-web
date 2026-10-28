@@ -126,15 +126,36 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     </div>
   </section>
 
-  <section class="h2-feature h2-hub" id="hub" aria-labelledby="h2-hub-title" style="--sys:#9b6bff">
-    <div class="pui-wrap h2-feature-grid">
+  <section class="h2-feature h2-hub" id="hub" aria-labelledby="h2-hub-title" style="--sys:#9b6bff" data-hub>
+    <div class="pui-wrap h2-feature-grid h2-hub-grid">
       <div>
         <p class="pui-kicker">Un cliente con identidad propia</p>
         <h2 class="pui-h2" id="h2-hub-title"><span class="pui-reveal">Todo MU PANIC,</span><br><span class="pui-reveal">a una tecla</span></h2>
-        <p class="pui-lead">Abrí <kbd>F11</kbd> y tenés tu personaje, la Fractura, los eventos, el mercado, la tienda y ocho minijuegos.</p>
-        <ul class="h2-chips"><?php foreach($h2games as $g) { ?><li><?php echo $h2e($g); ?></li><?php } ?></ul>
+        <p class="pui-lead">Adentro del juego apretás <kbd>F11</kbd> y tenés tu personaje, la Fractura, los eventos, el mercado, la tienda y ocho minijuegos. Probalo acá.</p>
+        <button type="button" class="h2-key" data-hub-key aria-expanded="false" aria-controls="h2-hub-panel">
+          <img class="h2-key-up" src="<?php echo $h2e($h2img.'tecla-f11-96f5f12bc468.webp'); ?>" alt="" width="360" height="343">
+          <img class="h2-key-down" src="<?php echo $h2e($h2img.'tecla-f11-apretada-f394aac09ebd.webp'); ?>" alt="" width="360" height="297">
+          <span class="h2-key-label">Apretá F11</span>
+        </button>
       </div>
-      <div class="h2-feature-art h2-hub-art" aria-hidden="true"><span class="h2-feature-word">F11</span><img src="<?php echo $h2e($h2img.$h2art['hub']); ?>" alt="" width="1025" height="1149" loading="lazy" decoding="async"></div>
+      <div class="h2-hub-stage">
+        <img class="h2-hub-char" src="<?php echo $h2e($h2img.$h2art['hub']); ?>" alt="" aria-hidden="true" width="1025" height="1149" loading="lazy" decoding="async">
+        <div class="h2-hub-panel" id="h2-hub-panel" style="--frame:url('<?php echo $h2e($h2img.'marco-hub-f88286e62cfd.webp'); ?>')" aria-label="Así se ve el Hub F11">
+          <div class="h2-hub-tabs" role="tablist">
+            <?php foreach(['personaje'=>'Personaje','fractura'=>'Fractura','eventos'=>'Eventos','mercado'=>'Mercado','tienda'=>'Tienda','juegos'=>'Juegos'] as $tid=>$tl) { ?><button type="button" role="tab" id="hubtab-<?php echo $tid; ?>" aria-controls="hubpane-<?php echo $tid; ?>" aria-selected="<?php echo $tid==='eventos'?'true':'false'; ?>" data-hub-tab="<?php echo $tid; ?>"><?php echo $tl; ?></button><?php } ?>
+          </div>
+          <div class="h2-hub-panes">
+            <section role="tabpanel" id="hubpane-personaje" aria-labelledby="hubtab-personaje" hidden><b>Todo lo que hacés te hace avanzar</b><p>Tu progreso, logros, recompensa diaria, banco de joyas y tu cuenta VIP, en un solo lugar.</p><ul><li>Pase de batalla</li><li>Logros</li><li>Recompensa diaria</li><li>Banco de joyas</li></ul></section>
+            <section role="tabpanel" id="hubpane-fractura" aria-labelledby="hubtab-fractura" hidden><b>Elegí tu bando. Hacé historia.</b><p>Nexo y Caos se disputan el continente. Seguí el estado de la guerra y entrá a la Fractura desde el Hub.</p><a href="<?php echo $h2e(__BASE_URL__.'fractura/'); ?>">Ver la Fractura ↗</a></section>
+            <section role="tabpanel" id="hubpane-eventos" aria-labelledby="hubtab-eventos"><b>Siempre hay una próxima batalla</b>
+              <ol class="h2-hub-events" data-hub-events><?php foreach($h2events as $ev) { ?><li><span><?php echo $h2e($ev['nombre']); ?></span><time datetime="<?php echo $h2e($ev['proximo']); ?>"><?php echo $h2e(panicHomeEventLabel($ev['proximo'])); ?></time></li><?php } ?></ol>
+              <?php if(!$h2events) { ?><p>Consultá la agenda en el Atlas.</p><?php } ?></section>
+            <section role="tabpanel" id="hubpane-mercado" aria-labelledby="hubtab-mercado" hidden><b>Comprá. Publicá. Cobrá.</b><p>Buscá el equipo que te falta, publicá lo que conseguís y cobrá tus ventas en Zen o Eryns.</p><a href="<?php echo $h2e(__BASE_URL__.'market/'); ?>">Abrir el mercado ↗</a></section>
+            <section role="tabpanel" id="hubpane-tienda" aria-labelledby="hubtab-tienda" hidden><b>Eryns, la moneda de MU PANIC</b><p>Desde la tienda del Hub comprás con Eryns y activás tu VIP sin salir del juego.</p><a href="<?php echo $h2e(__BASE_URL__.'usercp/recharge/'); ?>">Conocé la tienda ↗</a></section>
+            <section role="tabpanel" id="hubpane-juegos" aria-labelledby="hubtab-juegos" hidden><b>Otra partida dentro de tu partida</b><ul class="h2-hub-games"><?php foreach($h2games as $g) { ?><li><?php echo $h2e($g); ?></li><?php } ?></ul></section>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
