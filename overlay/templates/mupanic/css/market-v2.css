@@ -504,3 +504,6 @@ body.is-market .module-surface{padding:0;border:0;background:transparent;box-sha
 .mk-store .mk-featrow{margin:calc(-50px * var(--s)) calc(-86px * var(--s)) 40px calc(-50px * var(--s));padding-top:calc(22px + 40px * var(--s));clip-path:polygon(0 0,calc(100% - 68px * var(--s)) 0,100% calc(68px * var(--s)),100% 100%,0 100%)}
 .mk-store .mk-featrow-head{padding-left:calc(24px + 50px * var(--s))}
 @media(max-width:700px){.mk-store .mk-featrow{margin-top:calc(-50px * var(--s))}}
+/* Menos aire entre la solapa "Mercado de Vessara" y "Destacados" */
+.mk-store .mk-featrow{padding-top:calc(30px * var(--s) + 10px)}
+.mk-store .mk-featrow-head{padding-left:calc(34px * var(--s) + 14px);margin-bottom:10px}
