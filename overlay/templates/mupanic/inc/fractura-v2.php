@@ -281,7 +281,7 @@ $frOrders = [
       <ol class="fr-matches" data-fr-pager data-size="6">
         <?php foreach($history as $h) { $w = (int)$h['winnerFamily']; $wk = $w === 1 ? 'nexo' : ($w === 2 ? 'caos' : 'tie'); ?>
         <li class="fr-match fr-match--<?php echo $wk; ?>" data-fr-item>
-          <?php echo $w ? $frSlot('fr-match-badge', 'fractura-insignia-'.$wk, 512, 512) : '<div class="fr-slot fr-match-badge fr-match-badge--tie" aria-hidden="true"></div>'; ?>
+          <?php echo $w ? $frSlot('fr-match-badge', 'fractura-insignia-'.$wk, 512, 512) : $frSlot('fr-match-badge fr-match-badge--tie', 'fractura-insignia-empate', 512, 512); ?>
           <div class="fr-match-res"><b><?php echo $w === 1 ? 'Victoria de Nexo' : ($w === 2 ? 'Victoria de Caos' : 'Empate'); ?></b><span>Semana del <?php echo $fr($frDate(strtotime($h['weekStart'].' 12:00:00 UTC'), 'd/m')); ?> · cerró el <?php echo $fr($frDate($h['closeUnix'], 'd/m/Y')); ?></span></div>
           <div class="fr-match-score"><span class="fr-match-pts fr-match-pts--nexo<?php echo $w === 1 ? ' is-win' : ''; ?>"><small>Nexo</small><b class="pui-num"><?php echo panicFracturaNumber($h['nexoPoints']); ?></b></span><i aria-hidden="true">—</i><span class="fr-match-pts fr-match-pts--caos<?php echo $w === 2 ? ' is-win' : ''; ?>"><b class="pui-num"><?php echo panicFracturaNumber($h['caosPoints']); ?></b><small>Caos</small></span></div>
         </li>
