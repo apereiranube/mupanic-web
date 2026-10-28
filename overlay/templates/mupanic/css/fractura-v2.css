@@ -314,3 +314,8 @@ body.is-fractura .module-surface{padding:0;border:0;background:transparent;box-s
 }
 @media(max-width:420px){.fr-live{grid-template-columns:1fr 1fr;gap:16px 12px}.fr-live-it{padding-left:12px}}
 @media(prefers-reduced-motion:reduce){.fr-hero-fig>img,.fx-crack>img{animation:none}.fr-beam-track,.fr-beam-nexo,.fr-agent{transition:none}}
+
+/* La grieta sigue la línea diagonal que divide Nexo y Caos (ángulo y largo los calcula fractura-v2.js) */
+.fr-hero-split .fx-crack{position:absolute;left:50%;top:50%;height:var(--fr-len,100%);width:auto;aspect-ratio:266/1300;transform:translate(-50%,-50%) rotate(var(--fr-ang,0deg));transform-origin:50% 50%;z-index:1}
+.fr-hero-split .fx-crack>img{width:100%;height:100%;object-fit:fill}
+@keyframes frCrack{from{clip-path:inset(50% 0 50% 0)}to{clip-path:inset(0 0 0 0)}}

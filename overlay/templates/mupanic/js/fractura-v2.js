@@ -144,3 +144,12 @@
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(setup, 120); });
   });
 })();
+
+/* Grieta de la portada: se alinea con la diagonal (de 53,6% arriba a 46,6% abajo). */
+(function () {
+  var s = document.querySelector('.fr-hero > .fr-hero-split'); if (!s) return;
+  function fit() { var w = s.clientWidth, h = s.clientHeight, dx = .07 * w; if (!h) return;
+    s.style.setProperty('--fr-ang', (Math.atan2(dx, h) * 180 / Math.PI).toFixed(2) + 'deg');
+    s.style.setProperty('--fr-len', (Math.sqrt(h * h + dx * dx) * 1.06).toFixed(0) + 'px'); }
+  fit(); addEventListener('resize', fit); setTimeout(fit, 300);
+})();

@@ -71,10 +71,9 @@ $frOrders = [
 
   <!-- Portada -->
   <section class="fr-hero" aria-labelledby="fr-title">
-    <div class="fr-hero-split" aria-hidden="true"><i class="fr-hero-nexo"></i><i class="fr-hero-caos"></i></div>
+    <div class="fr-hero-split" aria-hidden="true"><i class="fr-hero-nexo"></i><i class="fr-hero-caos"></i><?php echo $frSlot('fx-crack', 'fractura-grieta', 266, 1300); ?></div>
     <div class="fr-hero-stage">
       <?php echo $frSlot('fr-hero-fig fr-hero-fig--aldren', 'fractura-aldren', 1021, 1300, 'Aldren, Guardián de Nexo', true); ?>
-      <?php echo $frSlot('fx-crack', 'fractura-grieta', 266, 1300); ?>
       <?php echo $frSlot('fr-hero-fig fr-hero-fig--varkor', 'fractura-varkor', 990, 1300, 'Varkor, Heraldo de Caos', true); ?>
     </div>
     <div class="fr-hero-copy">
