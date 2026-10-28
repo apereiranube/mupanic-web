@@ -362,21 +362,21 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
       </div>
       <div class="sv-vp-rows">
         <article class="sv-vp-row">
-          <div class="sv-vp-copy"><h3>Avanzás más rápido</h3><p>Más experiencia por cada monstruo y más objetos al suelo.</p></div>
+          <div class="sv-vp-copy"><span class="sv-vp-mode" aria-hidden="true"><i class="f">En Free</i><i class="v">Con VIP</i></span><div class="sv-vp-sw"><div class="f"><h3>Experiencia y drop</h3><p>En Free jugás con las tasas base: 15x de experiencia y 25% de drop.</p></div><div class="v"><h3>Avanzás más rápido</h3><p>Con VIP: +33% de experiencia por cada monstruo y +20% de objetos al suelo.</p></div></div></div>
           <div class="sv-vp-demo sv-vp-fast">
             <div class="sv-vp-meter"><span class="k">Experiencia</span><b id="svVpExpBig">15x</b><em id="svVpExpNote">Ritmo base</em><div class="sv-vp-bar"><i></i></div></div>
             <div class="sv-vp-meter"><span class="k">Drop general</span><b id="svVpDropBig">25%</b><em id="svVpDropNote">Drop base</em><div class="sv-vp-bar d"><i></i></div></div>
           </div>
         </article>
         <article class="sv-vp-row">
-          <div class="sv-vp-copy"><h3>Vendés más</h3><p>Más objetos en la vidriera de Vessara al mismo tiempo, y tus anuncios se publican solos en el chat.</p></div>
+          <div class="sv-vp-copy"><span class="sv-vp-mode" aria-hidden="true"><i class="f">En Free</i><i class="v">Con VIP</i></span><div class="sv-vp-sw"><div class="f"><h3>Tu vidriera</h3><p>En Free tenés 3 objetos a la venta en Vessara, y los anuncios del chat los escribís vos.</p></div><div class="v"><h3>Vendés más</h3><p>Con VIP: 10 objetos a la venta al mismo tiempo, y tus anuncios se publican solos.</p></div></div></div>
           <div class="sv-vp-demo sv-vp-sell">
             <div><span class="k">Vidriera de Vessara</span><div class="sv-vp-slots" id="svVpSlots"></div><p><b id="svVpSlotsBig">3</b> objetos a la venta a la vez</p></div>
             <div><span class="k">AutoPost</span><div class="sv-vp-chat" id="svVpChat"></div></div>
           </div>
         </article>
         <article class="sv-vp-row">
-          <div class="sv-vp-copy"><h3>Jugás más cómodo</h3><p>Cuatro beneficios que solo tiene el VIP.</p></div>
+          <div class="sv-vp-copy"><span class="sv-vp-mode" aria-hidden="true"><i class="f">En Free</i><i class="v">Con VIP</i></span><div class="sv-vp-sw"><div class="f"><h3>Bloqueado en Free</h3><p>Estos cuatro beneficios se desbloquean con el VIP.</p></div><div class="v"><h3>Jugás más cómodo</h3><p>Con VIP se desbloquean los cuatro.</p></div></div></div>
           <ul class="sv-vp-demo sv-vp-perks">
             <li class="sv-vp-perk"><div class="sv-vp-perk-ic"><svg class="lk" viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M7.5 11V8a4.5 4.5 0 019 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="5" y="11" width="14" height="10" rx="1.5" fill="currentColor"/></svg></div><b>Helper offline</b><p class="f">Cuando te desconectás, tu personaje se queda quieto.</p><p class="v">Te desconectás y tu personaje sigue cazando con el MU Helper.</p></li>
             <li class="sv-vp-perk"><div class="sv-vp-perk-ic"><svg class="lk" viewBox="0 0 24 24" aria-hidden="true"><path class="sh" d="M7.5 11V8a4.5 4.5 0 019 0v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="5" y="11" width="14" height="10" rx="1.5" fill="currentColor"/></svg></div><b>Banco de joyas</b><p class="f">Las joyas ocupan tu inventario hasta que las guardás.</p><p class="v">Las joyas que juntás van solas al banco.</p></li>

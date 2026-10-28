@@ -781,3 +781,13 @@ body.is-server-info .module-surface{padding:0;border:0;background:transparent;bo
 /* Tarjeta de evento con arte: el texto siempre se lee */
 .sv-next.has-art h3,.sv-next.has-art .sv-count b,.sv-next.has-art .sv-next-when{text-shadow:0 2px 12px #000c,0 1px 2px #000}
 @media(max-width:700px){.sv-next.has-art:before{background:linear-gradient(180deg,color-mix(in srgb,var(--b) 70%,#0f1923) 0%,color-mix(in srgb,var(--b) 55%,transparent) 55%,transparent 100%)}}
+
+/* Cada bloque dice lo que pasa en el modo elegido (Free o VIP) sin cambiar de alto */
+.sv-vp-sw{display:grid}
+.sv-vp-sw>div{grid-area:1/1;transition:opacity .35s,transform .35s}
+.sv-vp-sw .v,.sv-vp[data-mode=vip] .sv-vp-sw .f{opacity:0;transform:translateY(8px);visibility:hidden}
+.sv-vp[data-mode=vip] .sv-vp-sw .v{opacity:1;transform:none;visibility:visible}
+.sv-vp-mode{display:inline-grid;margin-bottom:12px}
+.sv-vp-mode i{grid-area:1/1;padding:5px 10px;font:700 11px/1 var(--pui-body);font-style:normal;letter-spacing:.12em;text-transform:uppercase;background:#0f1923;color:#ece8e1;transition:opacity .3s}
+.sv-vp-mode .v{background:#e8b64c;color:#0b0b0f;opacity:0}
+.sv-vp[data-mode=vip] .sv-vp-mode .v{opacity:1}.sv-vp[data-mode=vip] .sv-vp-mode .f{opacity:0}
