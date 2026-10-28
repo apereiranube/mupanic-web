@@ -182,24 +182,44 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
 
   <!-- Furia -->
   <section class="sv-furia" id="furia" aria-labelledby="sv-fur-t" style="--sys:#ff7a1a">
-    <div class="pui-wrap sv-split">
-      <div>
-        <p class="pui-kicker">Sistema exclusivo</p>
-        <h2 class="pui-h2" id="sv-fur-t"><?php echo $svReveal(['Así se juega','la Furia']); ?></h2>
-        <p class="pui-lead">La barra que se llena peleando y explota con <kbd>Shift</kbd>. De la primera carga a la Masacre.</p>
-        <ol class="sv-fsteps pui-rise">
-          <li><span>01</span><div><b>Cargala peleando</b><p>Cada golpe que das llena la barra, contra monstruos y contra jugadores. En PvP carga más rápido, y la carga no se pierde.</p></div></li>
+    <div class="pui-wrap">
+      <header class="sv-head">
+        <div><p class="pui-kicker">Sistema exclusivo</p><h2 class="pui-h2" id="sv-fur-t"><?php echo $svReveal(['Probá','la Furia']); ?></h2></div>
+        <p class="pui-lead">Pegale al Golem hasta llenar la barra, desatala con <kbd>Shift</kbd> y encadená muertes antes de que se vacíe.</p>
+      </header>
+      <div class="sv-fgame">
+        <ol class="sv-fsteps" id="svFSteps">
+          <li class="on"><span>01</span><div><b>Cargala peleando</b><p>Cada golpe que das llena la barra, contra monstruos y contra jugadores. En PvP carga más rápido, y la carga no se pierde.</p></div></li>
           <li><span>02</span><div><b>Furia lista</b><p>Con la barra llena, la calavera despierta. Soltá Shift cuando quieras: la Furia te espera.</p></div></li>
           <li><span>03</span><div><b>Desatala</b><p>Tu personaje se enciende: más velocidad de ataque, más velocidad al caminar, aura de Furia y daño extra a monstruos.</p></div></li>
           <li><span>04</span><div><b>No pares</b><p>La barra se consume mientras dura. Cada enemigo que cae te devuelve segundos, hasta un máximo.</p></div></li>
           <li><span>05</span><div><b>Encadená el combo</b><p>Cada muerte suma al contador. A las 5 es COMBO, a las 12 IMPARABLE y a las 20, MASACRE.</p></div></li>
           <li><span>06</span><div><b>Tu clase, tu poder</b><p>Cada clase despierta un poder propio, contra jugadores y contra monstruos. Vale en todo el continente: arenas, eventos y Castle Siege.</p></div></li>
         </ol>
-      </div>
-      <div class="sv-furia-side">
-        <div class="sv-furia-art" aria-hidden="true"><span>FURIA</span><img src="<?php echo $sv($svImg.'inicio/inicio-furia-d7c277cb6fe1.webp'); ?>" alt="" width="1380" height="1570" loading="lazy" decoding="async"></div>
-        <ul class="sv-chips"><li>Velocidad de ataque +20%</li><li>Más velocidad al caminar</li><li>Daño extra a monstruos</li><li>Aura de Furia</li></ul>
-        <ol class="sv-combo" aria-label="Niveles del combo"><li><b>5</b>Combo</li><li><b>12</b>Imparable</li><li><b>20</b>Masacre</li></ol>
+        <div class="sv-arena" id="svArena">
+          <div class="sv-ar-cls" role="group" aria-label="Elegí tu clase">
+            <?php foreach($svClasses as $c) { ?><button type="button" aria-pressed="<?php echo $c[0]==='rf' ? 'true' : 'false'; ?>" data-name="<?php echo $sv($c[1]); ?>" data-power="<?php echo $sv($c[4]); ?>" data-desc="<?php echo $sv($c[5]); ?>" data-img="<?php echo isset($svArt[$c[0]]) ? $sv($svImg.$svArt[$c[0]]) : ''; ?>"<?php if($c[0]==='rf') { ?> data-furia="<?php echo __PATH_TEMPLATE__; ?>img/servidor/furia-rf-6c08837ca727.webp"<?php } ?>><?php echo $sv($c[0]==='elfa' ? 'Elfa' : strtoupper($c[0])); ?></button><?php } ?>
+          </div>
+          <div class="sv-ar-stage" id="svArStage">
+            <div class="sv-ar-hero" aria-hidden="true"><img id="svArHero" src="<?php echo $sv($svImg.$svArt['rf']); ?>" alt=""></div>
+            <button type="button" class="sv-ar-mob" id="svArMob" aria-label="Golpear al Golem">
+              <img class="n" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/golem-normal-e06b8013d45b.webp" alt="" width="820" height="680" loading="lazy">
+              <img class="h" src="<?php echo __PATH_TEMPLATE__; ?>img/servidor/golem-golpe-9ed49a2f3f75.webp" alt="" width="820" height="680" loading="lazy">
+              <span class="sv-ar-hp"><i id="svArHp"></i></span>
+            </button>
+            <div class="sv-ar-pops" id="svArPops" aria-hidden="true"></div>
+            <div class="sv-ar-buff" id="svArBuff" aria-hidden="true">Velocidad de ataque +20%</div>
+            <div class="sv-ar-power" id="svArPower" aria-hidden="true"><b>Vampiro</b><span>Cada golpe le devuelve vida.</span></div>
+            <div class="sv-ar-combo" id="svArCombo" aria-live="polite"><b>x0</b><span></span></div>
+            <p class="sv-ar-hint" id="svArHint">Hacé clic en el Golem para pegarle</p>
+            <div class="sv-ar-end" id="svArEnd" hidden><small>Tu mejor racha</small><b id="svArEndN">x0</b><span id="svArEndL"></span><button type="button" class="pui-btn" id="svArAgain">Jugar de nuevo</button></div>
+          </div>
+          <div class="sv-ar-hud">
+            <svg class="sv-ar-skull" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C6.9 2 3 5.7 3 10.5c0 2.6 1.2 4.6 3 5.9V20a1 1 0 001 1h2v-2h2v2h2v-2h2v2h2a1 1 0 001-1v-3.6c1.8-1.3 3-3.3 3-5.9C21 5.7 17.1 2 12 2zm-3.5 12a2.3 2.3 0 110-4.6 2.3 2.3 0 010 4.6zm7 0a2.3 2.3 0 110-4.6 2.3 2.3 0 010 4.6z"/></svg>
+            <div class="sv-ar-bar"><i id="svArFill"></i><span id="svArTxt">Furia 0%</span></div>
+            <button type="button" class="sv-ar-shift" id="svArShift" disabled>Shift</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>

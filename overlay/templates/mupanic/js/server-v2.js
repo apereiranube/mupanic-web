@@ -248,3 +248,94 @@
     });
   });
 })();
+
+/* Furia: mini combate. Cargá pegándole al Golem, desatá con Shift y encadená muertes. */
+(function () {
+  var A = document.getElementById('svArena'); if (!A) return;
+  var q = function (id) { return document.getElementById(id); };
+  var stage = q('svArStage'), mob = q('svArMob'), hp = q('svArHp'), pops = q('svArPops'), fill = q('svArFill'), txt = q('svArTxt'),
+      shift = q('svArShift'), combo = q('svArCombo'), hint = q('svArHint'), end = q('svArEnd'), hero = q('svArHero'),
+      power = q('svArPower'), cur = A.querySelector('.sv-ar-cls [aria-pressed=true]'), steps = [].slice.call(q('svFSteps').children);
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var CHARGE_HITS = 8, HP_CHARGE = 4, HP_FURIA = 2, T0 = 8, TMAX = 12, BONUS = 2;
+  var state, charge, life, maxLife, time, n, best, lastT, raf, inView = false, dying = false;
+  var LV = [[20, 'Masacre'], [12, 'Imparable'], [5, 'Combo']];
+  function lvl(k) { for (var i = 0; i < LV.length; i++) if (k >= LV[i][0]) return LV[i][1]; return ''; }
+  function step(i) { steps.forEach(function (li, k) { li.classList.toggle('on', k === i); li.classList.toggle('done', k < i); }); }
+  function look() { var f = state === 'furia' && cur && cur.dataset.furia; A.classList.toggle('has-fart', !!f); var src = f ? cur.dataset.furia : (cur && cur.dataset.img); if (src && hero.getAttribute('src') !== src) hero.src = src; }
+  function setState(s) { state = s; A.classList.toggle('is-ready', s === 'ready'); A.classList.toggle('is-furia', s === 'furia'); A.classList.toggle('is-end', s === 'end'); shift.disabled = s !== 'ready'; look(); }
+  function bar(p, label) { fill.style.width = Math.max(0, Math.min(100, p)) + '%'; txt.textContent = label; }
+  function setLife(v) { life = v; hp.style.width = (life / maxLife * 100) + '%'; }
+  function pop(cls, text) {
+    var e = document.createElement('span'); e.className = 'sv-ar-pop ' + cls; e.textContent = text;
+    e.style.left = (54 + Math.random() * 30) + '%'; e.style.top = (22 + Math.random() * 30) + '%';
+    pops.appendChild(e); setTimeout(function () { e.remove(); }, 800);
+  }
+  function shake() { if (reduce) return; stage.classList.remove('shake'); void stage.offsetWidth; stage.classList.add('shake'); }
+  function reset() {
+    cancelAnimationFrame(raf); charge = 0; n = 0; dying = false; maxLife = HP_CHARGE; setLife(maxLife);
+    mob.classList.remove('dead'); end.hidden = true; hint.classList.remove('off'); hint.textContent = 'Hacé clic en el Golem para pegarle';
+    combo.querySelector('b').textContent = 'x0'; combo.querySelector('span').textContent = '';
+    setState('charge'); bar(0, 'Furia 0%'); step(0);
+  }
+  function kill() {
+    dying = true; mob.classList.add('dead');
+    if (state === 'furia') {
+      n++; best = Math.max(best, n);
+      time = Math.min(TMAX, time + BONUS); pop('time', '+' + BONUS + 's');
+      var b = combo.querySelector('b'), sp = combo.querySelector('span'), l = lvl(n);
+      b.textContent = 'x' + n; combo.classList.remove('bump'); void combo.offsetWidth; combo.classList.add('bump');
+      if (l && sp.textContent !== l) { sp.textContent = l; combo.classList.remove('lv'); void combo.offsetWidth; combo.classList.add('lv'); shake(); }
+      step(n >= 12 ? 5 : n >= 5 ? 4 : 3);
+    }
+    setTimeout(function () {
+      if (state === 'end') return;
+      maxLife = state === 'furia' ? HP_FURIA : HP_CHARGE; setLife(maxLife);
+      mob.classList.remove('dead'); mob.classList.remove('spawn'); void mob.offsetWidth; mob.classList.add('spawn'); dying = false;
+    }, 300);
+  }
+  function hit() {
+    if (dying || state === 'end') return;
+    if (state !== 'ready') hint.classList.add('off');
+    mob.classList.remove('hit'); void mob.offsetWidth; mob.classList.add('hit');
+    clearTimeout(mob._t); mob._t = setTimeout(function () { mob.classList.remove('hit'); }, 140);
+    var crit = state === 'furia' && Math.random() < .45, dmg = Math.round((crit ? 3200 : 1400) + Math.random() * 900);
+    pop(crit ? 'crit' : '', (crit ? '¡' : '') + dmg.toLocaleString('es-AR') + (crit ? '!' : ''));
+    if (state === 'charge') {
+      charge = Math.min(CHARGE_HITS, charge + 1); bar(charge / CHARGE_HITS * 100, 'Furia ' + Math.round(charge / CHARGE_HITS * 100) + '%');
+      if (charge >= CHARGE_HITS) { setState('ready'); bar(100, 'Furia lista'); step(1); hint.textContent = 'Apretá Shift'; hint.classList.remove('off'); }
+    }
+    setLife(life - 1); if (life <= 0) kill();
+  }
+  function unleash() {
+    if (state !== 'ready') return;
+    setState('furia'); time = T0; n = 0; best = 0; lastT = performance.now(); step(2); hint.classList.add('off'); shake();
+    maxLife = HP_FURIA; setLife(Math.min(life, maxLife));
+    (function tick(t) {
+      var dt = (t - lastT) / 1000; lastT = t; time -= dt;
+      bar(time / TMAX * 100, 'Furia ' + Math.max(0, time).toFixed(1) + 's');
+      if (time <= 0) return finish();
+      raf = requestAnimationFrame(tick);
+    })(lastT);
+  }
+  function finish() {
+    setState('end'); bar(0, 'Furia 0%');
+    q('svArEndN').textContent = 'x' + best; q('svArEndL').textContent = lvl(best) || 'Seguí practicando';
+    end.hidden = false; q('svArAgain').focus({preventScroll: true});
+  }
+  mob.addEventListener('pointerdown', function (e) { e.preventDefault(); hit(); });
+  mob.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); hit(); } });
+  shift.addEventListener('click', unleash);
+  q('svArAgain').addEventListener('click', reset);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Shift' && inView && state === 'ready') unleash(); });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }, {threshold: .3}).observe(A); else inView = true;
+  [].slice.call(A.querySelectorAll('.sv-ar-cls button')).forEach(function (b, i, all) {
+    b.addEventListener('click', function () {
+      all.forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      cur = b; look();
+      power.querySelector('b').textContent = b.dataset.power; power.querySelector('span').textContent = b.dataset.desc;
+    });
+  });
+  if (cur && cur.dataset.furia) { var pre = new Image(); pre.src = cur.dataset.furia; }
+  reset();
+})();
