@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600">
+  <path fill="#0f1923" fill-rule="evenodd" d="M64 64H2246L2336 154V1536H154L64 1446ZM104 104V1429.431L170.569 1496H2296V170.569L2229.431 104Z"/>
+  <path fill="none" stroke="#ece8e1" stroke-width="2" stroke-linejoin="miter" d="M105 105H2229.017L2295 170.983V1495H170.983L105 1429.017Z"/>
+  <path fill="#ffc24a" d="M64 64H584L544 134H64Z"/>
+  <g fill="none" stroke="#ece8e1" stroke-width="2" stroke-linecap="butt">
+    <path d="M48 150V48H150"/>
+    <path d="M2250 48H2352V150"/>
+    <path d="M48 1450V1552H150"/>
+    <path d="M2250 1552H2352V1450"/>
+    <path d="M40 700V900M40 700H48M40 720H46M40 740H48M40 760H46M40 780H48M40 800H52M40 820H48M40 840H46M40 860H48M40 880H46M40 900H48"/>
+  </g>
+  <g fill="#ffc24a">
+    <path d="M2217 82 2256 121 2252 125 2213 86Z"/>
+    <path d="M85 1442 124 1481 120 1485 81 1446Z"/>
+    <rect x="604" y="78" width="8" height="8"/>
+    <rect x="2368" y="175" width="8" height="8"/>
+    <rect x="167" y="1568" width="8" height="8"/>
+  </g>
+</svg>
