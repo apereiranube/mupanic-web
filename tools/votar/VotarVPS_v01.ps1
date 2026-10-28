@@ -9,8 +9,8 @@ $SyncRoot = 'C:\MuServer43\RechargeSync'
 $WorkerDest = Join-Path $SyncRoot 'vote_worker.ps1'
 $TaskName = 'MU PANIC Vote Worker'
 $Expected = @{
-    'payload\vote_worker.ps1' = '__HASH_WORKER__'
-    'payload\votos.sql'       = '__HASH_SQL__'
+    'payload\vote_worker.ps1' = '1A52A0B57F08E1E714F4ADC57825CD427AB797CDA611B22375924DCDC65298A8'
+    'payload\votos.sql'       = '34EEEB73D4F0A15C6DFE72AEB6E280368EBA435FFF9CC3FF8FC45E010D9A7F36'
 }
 $dl = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path
 $Report = Join-Path $dl ('VotarVPS_v01-' + $Accion + '-' + (Get-Date -Format 'yyyyMMdd-HHmmss') + '.txt')
