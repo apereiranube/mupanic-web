@@ -84,18 +84,20 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
     </div>
   </section>
 
-  <section class="h2-feature h2-furia" id="furia" aria-labelledby="h2-furia-title" style="--sys:#ff7a1a">
+  <section class="h2-feature h2-furia" id="furia" aria-labelledby="h2-furia-title" style="--sys:#ff7a1a" data-furia>
     <div class="pui-wrap h2-feature-grid">
       <div>
         <p class="pui-kicker">Sistema exclusivo</p>
         <h2 class="pui-h2" id="h2-furia-title"><span class="pui-reveal">Desatá</span><br><span class="pui-reveal">la Furia</span></h2>
         <ol class="h2-steps pui-rise">
-          <li><span>01</span><div><b>Cargala</b><p>Contra monstruos y en PvP. La carga no se pierde.</p></div></li>
-          <li><span>02</span><div><b>Desatala</b><p>Apretá <kbd>Shift</kbd>: más velocidad, más daño y tu poder de clase.</p></div></li>
-          <li><span>03</span><div><b>No pares</b><p>Cada muerte suma tiempo. Encadená combos hasta la MASACRE.</p></div></li>
+          <li data-fstep="1"><span>01</span><div><b>Cargala</b><p>Contra monstruos y en PvP. La carga no se pierde.</p></div></li>
+          <li data-fstep="2"><span>02</span><div><b>Desatala</b><p>Apretá <kbd>Shift</kbd>: más velocidad, más daño y tu poder de clase.</p></div></li>
+          <li data-fstep="3"><span>03</span><div><b>No pares</b><p>Cada muerte suma tiempo. Encadená combos hasta la MASACRE.</p></div></li>
         </ol>
+        <div class="h2-fbar" aria-hidden="true"><span class="h2-fbar-label">Furia</span><span class="h2-fbar-track"><i data-fbar></i></span><b data-fpct>0%</b></div>
+        <button type="button" class="h2-fkey" data-fkey disabled><kbd>Shift</kbd><span data-fkey-text>Cargando…</span></button>
       </div>
-      <div class="h2-feature-art h2-furia-art" aria-hidden="true"><span class="h2-feature-word">FURIA</span><img src="<?php echo $h2e($h2img.$h2art['furia']); ?>" alt="" width="1380" height="1570" loading="lazy" decoding="async"></div>
+      <div class="h2-feature-art h2-furia-art" aria-hidden="true"><span class="h2-furia-burst"></span><span class="h2-combo" data-combo><b data-combo-n>x0</b><em data-combo-l>Combo</em></span><span class="h2-feature-word">FURIA</span><img src="<?php echo $h2e($h2img.$h2art['furia']); ?>" alt="" width="1380" height="1570" loading="lazy" decoding="async"></div>
     </div>
   </section>
 

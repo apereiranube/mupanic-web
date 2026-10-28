@@ -138,3 +138,49 @@
     io.observe(hub);
   } else press(true);
 })();
+/* Furia: carga → Shift → combos hasta MASACRE → se vacía y vuelve a cargar */
+(function () {
+  var f = document.querySelector('[data-furia]'); if (!f) return;
+  var bar = f.querySelector('[data-fbar]'), pct = f.querySelector('[data-fpct]'), key = f.querySelector('[data-fkey]'), keyText = f.querySelector('[data-fkey-text]');
+  var combo = f.querySelector('[data-combo]'), cn = f.querySelector('[data-combo-n]'), cl = f.querySelector('[data-combo-l]');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var state = 'idle', val = 0, raf = 0, visible = false, timers = [];
+  function setBar(v) { val = Math.max(0, Math.min(100, v)); bar.style.width = val + '%'; pct.textContent = Math.round(val) + '%'; }
+  function phase(n) { f.setAttribute('data-fphase', n); }
+  function charge() {
+    state = 'charging'; phase(1); f.classList.remove('is-full', 'is-furia', 'is-masacre');
+    key.disabled = true; keyText.textContent = 'Cargando…';
+    var t0 = performance.now(), from = val, dur = reduce ? 1 : 2600;
+    cancelAnimationFrame(raf);
+    (function step(t) { var k = Math.min(1, (t - t0) / dur); setBar(from + (100 - from) * k); if (k < 1) raf = requestAnimationFrame(step); else ready(); })(t0);
+  }
+  function ready() { state = 'ready'; phase(2); f.classList.add('is-full'); key.disabled = false; keyText.textContent = 'Furia lista: apretá'; }
+  function unleash() {
+    if (state !== 'ready') return;
+    state = 'furia'; phase(3); f.classList.remove('is-full'); f.classList.add('is-furia');
+    if (!reduce) { f.classList.add('is-shake'); timers.push(setTimeout(function () { f.classList.remove('is-shake'); }, 460)); }
+    key.disabled = true; keyText.textContent = '¡Desatada!';
+    var n = 0, total = 20;
+    function hit() {
+      n++; cn.textContent = 'x' + n;
+      cl.textContent = n >= 20 ? 'Masacre' : n >= 10 ? 'Imparable' : 'Combo';
+      if (n >= 20) f.classList.add('is-masacre');
+      combo.classList.remove('is-bump'); void combo.offsetWidth; combo.classList.add('is-bump');
+      setBar(100 - n * 2.5);
+      if (n < total) timers.push(setTimeout(hit, reduce ? 0 : (n < 10 ? 170 : 120)));
+      else timers.push(setTimeout(drain, 1600));
+    }
+    timers.push(setTimeout(hit, 250));
+  }
+  function drain() {
+    state = 'drain'; var t0 = performance.now(), from = val, dur = reduce ? 1 : 1400;
+    (function step(t) { var k = Math.min(1, (t - t0) / dur); setBar(from * (1 - k)); if (k < 1) raf = requestAnimationFrame(step); else { f.classList.remove('is-furia', 'is-masacre'); cn.textContent = 'x0'; timers.push(setTimeout(function () { if (visible) charge(); else { state = 'idle'; } }, 900)); } })(t0);
+  }
+  key.addEventListener('click', unleash);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Shift' && visible && state === 'ready' && !e.repeat) { var tag = (document.activeElement || {}).tagName; if (tag !== 'INPUT' && tag !== 'TEXTAREA') unleash(); }
+  });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible && state === 'idle') charge(); }, {threshold: .4}).observe(f);
+  } else { visible = true; charge(); }
+})();
