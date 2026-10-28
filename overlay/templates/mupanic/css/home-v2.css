@@ -553,3 +553,21 @@ body.is-home{background:var(--pui-night)}
 .h2-charge-burst{z-index:2;top:80%;width:90%;mix-blend-mode:screen;animation:h2BurstSlow 7s ease-out 1.4s infinite}
 @keyframes h2BurstSlow{0%{opacity:0;transform:translate(-50%,-50%) scale(.5) rotate(0)}25%{opacity:.75}100%{opacity:0;transform:translate(-50%,-50%) scale(1.35) rotate(18deg)}}
 .h2-charge-burst{display:none}
+/* Stats v3: una sola barra tipo marcador (sin marcos repetidos). Online en un bloque rojo cortado, el resto sobre una franja blanco hueso */
+.h2-stats{padding-block:0 28px;background:var(--pui-night)}
+.h2-stat-grid{display:flex;align-items:stretch;gap:0;margin-top:-46px;position:relative;z-index:4;filter:drop-shadow(0 20px 30px #0008)}
+.h2-stat{border:0;border-image:none;padding:20px 26px;background:var(--pui-bone);color:var(--pui-night);flex:1 1 0;min-width:0;transition:none}
+.h2-stat:hover{transform:none}
+.h2-stat+.h2-stat{box-shadow:inset 1px 0 0 #0f192322}
+.h2-stat dt{margin:0;color:#4c5762;font-size:11px;letter-spacing:.12em}
+.h2-stat dd b{color:var(--pui-night);font-size:clamp(34px,3.4vw,56px)}
+.h2-stat:last-child{clip-path:polygon(0 0,100% 0,calc(100% - 26px) 100%,0 100%);padding-right:44px}
+.h2-stat--online{flex:1.6 1 0;background:var(--pui-red);color:#fff;clip-path:polygon(0 0,100% 0,100% 100%,26px 100%,0 calc(100% - 26px));padding-left:30px}
+.h2-stat--online dt{color:#ffffffcc}
+.h2-stat--online dd b{color:#fff;text-shadow:none;font-size:clamp(46px,4.6vw,76px)}
+.h2-stat--online .h2-state{color:#fff!important}
+.h2-stat--online .h2-state:before{background:#fff!important;box-shadow:none!important}
+.h2-stats .h2-live-events{border-top:0;margin-top:22px;padding-top:0}
+@media(max-width:1020px){.h2-stat-grid{flex-wrap:wrap;margin-top:-30px}.h2-stat{flex:1 1 30%}.h2-stat--online{flex-basis:100%;clip-path:none}.h2-stat:last-child{clip-path:none;padding-right:26px}}
+@media(max-width:560px){.h2-stat{padding:14px 14px}.h2-stat dd b{font-size:32px}.h2-stat--online dd b{font-size:50px}}
+.h2-stat-grid>.h2-stat{padding:18px 22px}.h2-stat-grid>.h2-stat--online{padding-left:30px}.h2-stat-grid>.h2-stat:last-child{padding-right:44px}.h2-stats{border-block:0}@media(max-width:560px){.h2-stat-grid>.h2-stat{padding:12px 14px}.h2-stat-grid>.h2-stat:last-child{padding-right:14px}}
