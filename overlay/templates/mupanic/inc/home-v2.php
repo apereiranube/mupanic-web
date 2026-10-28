@@ -8,7 +8,7 @@ if(!defined('access') || !access) die();
 require_once __DIR__.'/home-data.php';
 $h2e = function($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); };
 $h2img = __PATH_TEMPLATE__.'img/inicio/';
-$h2art = ['furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
+$h2art = ['vinculos'=>'inicio-companeros-392f49fb39b5.webp','furia'=>'inicio-furia-d7c277cb6fe1.webp','duo'=>'inicio-duo-81503589e13d.webp','bk'=>'inicio-bk-7627b8a7503e.webp','elfa'=>'inicio-elfa-1378c4409a7b.webp'];
 $h2events = panicHomeEvents();
 $h2play = __BASE_URL__.($isLogged ? 'downloads/' : 'register/');
 $h2aviso = json_decode((string)@file_get_contents(__DIR__.'/aviso-home.json'), true);
@@ -111,7 +111,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
 
   <section class="pui-band pui-band--bone h2-feature h2-vinculos" aria-labelledby="h2-vinculos-title" style="--sys:#36e07f">
     <div class="pui-wrap h2-feature-grid h2-feature-grid--rev">
-      <span class="h2-art-slot h2-art-wide" aria-hidden="true"><i>COMPAÑEROS</i><small>Arte: Elyndra, Aurion, Vaerion y Grum · verde</small></span>
+      <div class="h2-feature-art h2-vinculos-art" aria-hidden="true"><span class="h2-feature-word">VÍNCULOS</span><img src="<?php echo $h2e($h2img.$h2art['vinculos']); ?>" alt="" width="1699" height="1312" loading="lazy" decoding="async"></div>
       <div>
         <p class="pui-kicker">Tres mascotas evolutivas y un compañero único</p>
         <h2 class="pui-h2" id="h2-vinculos-title"><span class="pui-reveal">No avanzás solo</span></h2>

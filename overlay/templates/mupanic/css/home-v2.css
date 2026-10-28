@@ -160,12 +160,12 @@ body.is-home{background:var(--pui-night)}
 @media(prefers-reduced-motion:reduce){.h2-card-art img{transition:none}}
 /* Tarjetas: al pasar el mouse, un tajo grueso y plano del color del sistema corta la tarjeta y sobresale de sus bordes */
 .h2-system{position:relative;isolation:isolate;clip-path:none;overflow:visible}
-.h2-system>.h2-card-art,.h2-system>.h2-art-slot{position:relative;z-index:1}
+.h2-system>.h2-card-art,.h2-system>.h2-art-slot{position:relative;z-index:2}
 .h2-system-body{position:relative;z-index:3;background:none;clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%);transition:color .2s}
 .h2-system:before{content:'';position:absolute;z-index:0;inset:0;background:var(--pui-night);clip-path:polygon(0 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%)}
 .h2-system-body .pui-h3,.h2-system-body span{position:relative;transition:color .15s .12s}
-.h2-system:after{content:'';position:absolute;z-index:2;top:-9%;bottom:-9%;left:62%;width:22%;background:var(--sys);transform:skewX(-22deg) scaleY(0);transform-origin:50% 0;box-shadow:-14px 0 0 -4px #0f1923,-22px 0 0 -6px var(--sys);pointer-events:none;transition:transform .32s cubic-bezier(.7,0,.2,1.3)}
-.h2-system:hover:after,.h2-system:focus-visible:after{transform:skewX(-22deg) scaleY(1)}
+.h2-system:after{content:'';position:absolute;z-index:1;top:-12%;bottom:-12%;left:var(--sl-x,62%);width:var(--sl-w,22%);background:var(--sys);transform:skewX(var(--sl-k,-22deg)) scaleY(0);transform-origin:var(--sl-o,50% 0);box-shadow:-14px 0 0 -4px #0f1923,-22px 0 0 -6px var(--sys);pointer-events:none;transition:transform .32s cubic-bezier(.7,0,.2,1.3)}
+.h2-system:hover:after,.h2-system:focus-visible:after{transform:skewX(var(--sl-k,-22deg)) scaleY(1)}
 .h2-system-body:before{content:'';position:absolute;z-index:-1;inset:0;background:var(--sys);clip-path:polygon(0 0,0 0,0 100%,0 100%);transition:clip-path .38s cubic-bezier(.77,0,.18,1) .08s}
 .h2-system:hover .h2-system-body:before,.h2-system:focus-visible .h2-system-body:before{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
 .h2-system:hover .h2-system-body .pui-h3,.h2-system:focus-visible .h2-system-body .pui-h3{color:#0f1923}
@@ -175,3 +175,16 @@ body.is-home{background:var(--pui-night)}
 .h2-system:hover{transform:translateY(-6px) rotate(-.6deg)}
 .h2-system:focus-visible{outline:3px solid var(--sys);outline-offset:4px}
 @media(prefers-reduced-motion:reduce){.h2-system:after,.h2-system-body:before{transition:none}.h2-system:hover{transform:none}}
+
+.h2-vinculos-art img{width:min(100%,720px)}
+.h2-system .h2-card-art img[src*=companeros]{top:-8%;width:104%}
+
+/* Cada tarjeta corta en otra dirección (el tajo queda detrás del arte y asoma por los bordes) */
+.h2-system:nth-child(1){--sl-x:64%;--sl-k:-24deg;--sl-o:50% 0}
+.h2-system:nth-child(2){--sl-x:8%;--sl-k:26deg;--sl-o:50% 100%}
+.h2-system:nth-child(3){--sl-x:40%;--sl-k:-34deg;--sl-w:16%;--sl-o:50% 0}
+.h2-system:nth-child(4){--sl-x:70%;--sl-k:18deg;--sl-o:50% 100%}
+.h2-system:nth-child(5){--sl-x:18%;--sl-k:-14deg;--sl-w:26%;--sl-o:50% 0}
+.h2-system:nth-child(6){--sl-x:52%;--sl-k:32deg;--sl-w:18%;--sl-o:50% 100%}
+.h2-system:hover .h2-card-art,.h2-system:hover .h2-art-slot{box-shadow:0 0 0 0 transparent}
+.h2-vinculos-art .h2-feature-word{font-size:clamp(90px,10vw,170px)}
