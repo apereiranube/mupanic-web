@@ -17,7 +17,7 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && !isset($_GET['eco']) && !isset
     elseif(in_array($action,['bank_approve','bank_reject'],true))$adminSection='transferencias';
     elseif($action==='check')$adminSection='compras';
 }
-$adminViews=['inicio'=>'Inicio','transferencias'=>'Transferencias por aprobar','compras'=>'Compras','economia'=>'Economía','referidos'=>'Referidos','configuracion'=>'Configuración'];
+$adminViews=['inicio'=>'Inicio','transferencias'=>'Transferencias por aprobar','compras'=>'Compras','economia'=>'Economía','referidos'=>'Referidos','votos'=>'Votos','configuracion'=>'Configuración'];
 if(!isset($adminViews[$adminSection]))$adminSection='inicio';
 ?>
 <?php if(!isset($_GET['vista']) && !isset($_GET['eco']) && !isset($_GET['ref']) && ($_SERVER['REQUEST_METHOD'] ?? 'GET')==='GET') { ?><script>
@@ -30,6 +30,7 @@ if(/^#shop-(?:bank|catalogue|mounts|vip|delivery|vip-diagnostic)$/.test(location
 <?php
 if($adminSection==='economia') { require __DIR__.'/admin-economy/entry.php'; return; }
 if($adminSection==='referidos') { require __DIR__.'/referidos-admin.php'; return; }
+if($adminSection==='votos') { require __DIR__.'/votar-admin.php'; return; }
 if($adminSection==='transferencias') { require __DIR__.'/recharge-bank-review.php'; return; }
 if($adminSection==='configuracion') { require __DIR__.'/recharge-admin-settings.php'; return; }
 require __DIR__.'/recharge-admin-overview.php';

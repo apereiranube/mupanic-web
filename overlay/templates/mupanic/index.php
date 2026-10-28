@@ -188,7 +188,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php } ?>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/fractura/aldren-varkor-v2.webp" fetchpriority="high"><?php } ?>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v10.webp" fetchpriority="high"><?php } ?>
-    <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market','downloads','socios'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
+    <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market','downloads','socios','votar'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <?php if(!$isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>home-launch.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/home-launch.css'),0,12); ?>" rel="stylesheet"><?php } ?>
@@ -207,10 +207,11 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <script>var baseUrl = '<?php echo __BASE_URL__; ?>';</script>
     <?php if($_REQUEST['page']==='market') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>market.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/market.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='socios') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>socios.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/socios.css'),0,12); ?>"><?php } ?>
+    <?php if($_REQUEST['page']==='votar') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>votar.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/votar.css'),0,12); ?>"><?php } ?>
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>fractura.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/fractura.css'),0,12); ?>"><?php } ?>
     <noscript><style>@media(max-width:1100px){.site-header{position:relative;height:auto}.site-header .nav-shell{height:auto;min-height:var(--site-header-height);flex-wrap:wrap;padding-block:12px}.site-header .main-nav{display:flex;position:static;flex-basis:100%;width:100%;order:3;max-height:none;flex-direction:row;flex-wrap:wrap;padding:8px 0 0;border:0;background:none}.site-header .main-nav a{min-height:38px;padding:8px}.site-header .main-nav .mobile-account{display:flex}.site-header .menu-toggle{display:none}.site-header .nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ($_REQUEST['page'] === 'downloads' ? ' is-downloads' : '')))))); ?>">
+<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $_REQUEST['page']==='votar' ? 'is-votar ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ($_REQUEST['page'] === 'downloads' ? ' is-downloads' : '')))))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -232,6 +233,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a class="nav-main-link<?php echo $_REQUEST['page'] === 'downloads' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>downloads/"<?php echo $_REQUEST['page'] === 'downloads' ? ' aria-current="page"' : ''; ?>><span>Descargas</span></a>
             <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗︎</b></a>
             <a class="nav-main-link nav-socios<?php echo $_REQUEST['page']==='socios' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>socios/"<?php echo $_REQUEST['page']==='socios' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Socios</span></a>
+            <a class="nav-main-link nav-socios nav-votar<?php echo $_REQUEST['page']==='votar' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>votar/"<?php echo $_REQUEST['page']==='votar' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Votar</span></a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
@@ -256,7 +258,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <?php } else { ?>
 
-<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!in_array($_REQUEST['page'],['information','market','fractura','downloads','socios'],true)) { ?>
+<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true)) { ?>
 <section class="inner-hero">
     <div class="shell inner-head">
         <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : (in_array($_REQUEST['page'],['usercp','register','login','forgotpassword','verifyemail'],true) ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
@@ -294,6 +296,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                     include(__DIR__.'/inc/fractura.php');
                 } elseif($_REQUEST['page'] === 'socios') {
                     include(__DIR__.'/inc/socios.php');
+                } elseif($_REQUEST['page'] === 'votar') {
+                    include(__DIR__.'/inc/votar.php');
                 } elseif($_REQUEST['page'] === 'market') {
                     include(__DIR__.'/inc/market.php');
                 } elseif($_REQUEST['page'] === 'information') {
