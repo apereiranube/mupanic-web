@@ -249,15 +249,15 @@
 
 /* Cada sección con su forma y su color (GPT) */
 @media(min-width:1101px){
-.site-header .main-nav .nav-p-atlas.is-current:before{background-image:url('../img/ui/nav-atlas-77df6f5f872e.svg')}
-.site-header .main-nav .nav-p-descargas.is-current:before{background-image:url('../img/ui/nav-descargas-5c79ddc6d4ea.svg')}
-.site-header .main-nav .nav-p-fractura.is-current:before{background-image:url('../img/ui/nav-fractura-cfafd79e1efe.svg')}
-.site-header .main-nav .nav-p-inicio.is-current:before{background-image:url('../img/ui/nav-inicio-4da9dba73645.svg')}
-.site-header .main-nav .nav-p-mercado.is-current:before{background-image:url('../img/ui/nav-mercado-9e97cfa12399.svg')}
-.site-header .main-nav .nav-p-rankings.is-current:before{background-image:url('../img/ui/nav-rankings-9d50187e1d8b.svg')}
-.site-header .main-nav .nav-p-servidor.is-current:before{background-image:url('../img/ui/nav-servidor-287d7904e6bd.svg')}
-.site-header .main-nav .nav-p-socios.is-current:before{background-image:url('../img/ui/nav-socios-4c10feee8397.svg')}
-.site-header .main-nav .nav-p-votar.is-current:before{background-image:url('../img/ui/nav-votar-35fc9f1b0666.svg')}
+.site-header .main-nav .nav-p-atlas.is-current:before{background-image:url('../img/ui/nav6-atlas-3d45d56ed29d.svg')}
+.site-header .main-nav .nav-p-descargas.is-current:before{background-image:url('../img/ui/nav6-descargas-4087047f6891.svg')}
+.site-header .main-nav .nav-p-fractura.is-current:before{background-image:url('../img/ui/nav6-fractura-19124d4654f0.svg')}
+.site-header .main-nav .nav-p-inicio.is-current:before{background-image:url('../img/ui/nav6-inicio-bd9a5d6313bc.svg')}
+.site-header .main-nav .nav-p-mercado.is-current:before{background-image:url('../img/ui/nav6-mercado-32f80fe83059.svg')}
+.site-header .main-nav .nav-p-rankings.is-current:before{background-image:url('../img/ui/nav6-rankings-2f496865f7d2.svg')}
+.site-header .main-nav .nav-p-servidor.is-current:before{background-image:url('../img/ui/nav6-servidor-568435ad42c9.svg')}
+.site-header .main-nav .nav-p-socios.is-current:before{background-image:url('../img/ui/nav6-socios-df37f2e0f145.svg')}
+.site-header .main-nav .nav-p-votar.is-current:before{background-image:url('../img/ui/nav6-votar-07a0e0aec8d7.svg')}
 .site-header .main-nav .nav-p-inicio.is-current,.site-header .main-nav .nav-p-mercado.is-current,.site-header .main-nav .nav-p-atlas.is-current,.site-header .main-nav .nav-p-socios.is-current{color:#0f1923}
 }
 @media(min-width:1101px){.site-header .main-nav .nav-votar.is-current i{border-bottom-color:#fff;filter:none}.site-header .main-nav .nav-p-fractura.is-current>span{text-shadow:0 1px 3px #0f1923aa}}
