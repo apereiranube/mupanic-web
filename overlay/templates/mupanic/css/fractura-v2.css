@@ -357,7 +357,7 @@ body.is-fractura .module-surface{padding:0;border:0;background:transparent;box-s
 /* Capa de patrón: se dibuja sólo si existe el archivo (fractura-fondo-*). */
 .fr-pattern{position:absolute;inset:0;z-index:-1;background-position:center;background-size:cover;background-repeat:no-repeat;pointer-events:none}
 .fr-hero-split i[style]{background-size:cover;background-position:center}
-.fr-hall>.fr-pattern{background-position:center top;opacity:.55}
+.fr-hall>.fr-pattern{background-position:center top;opacity:.3}
 
 /* Bordes quebrados (fractura-borde): reemplazan el corte diagonal de las bandas hueso. */
 .fr-edge{position:absolute;left:0;right:0;z-index:3;height:calc(100vw * 200 / 2560);background-size:100% 100%;background-repeat:no-repeat;pointer-events:none}
