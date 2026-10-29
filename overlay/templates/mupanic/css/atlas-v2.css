@@ -1287,3 +1287,8 @@ body.is-wiki .atl .tl-card-media img[src*="atlas-v2/recetas/"]{object-fit:contai
 body.is-wiki .atl .atlas-drop-card-top .atlas-drop-art,body.is-wiki .atl .atlas-drop-card-top .atlas-drop-art.atlas-drop-art--jewel{width:64px!important;height:64px!important;flex:0 0 64px!important;overflow:hidden}
 body.is-wiki .atl .atlas-drop-card-top .atlas-drop-art img{max-width:52px!important;max-height:52px!important;width:auto;height:auto;object-fit:contain}
 body.is-wiki .atl .atlas-drop-card-top{align-items:center}
+/* Arte nuevo (GPT) en Mejoras y Tipos de equipo */
+body.is-wiki .atl .eq-mark.is-item img,body.is-wiki .atl .mj-card-img img,body.is-wiki .atl .mj-stage-img{object-fit:contain}
+body.is-wiki .atl .eq-step-art img[src*="atlas-v2/equipo/"]{width:56px;height:56px;object-fit:contain}
+body.is-wiki .atl .eq-rate.has-img{position:relative;padding-right:84px}
+body.is-wiki .atl .eq-rate-img{position:absolute;right:10px;top:10px;width:68px;height:68px;object-fit:contain}
