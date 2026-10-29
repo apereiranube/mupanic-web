@@ -880,3 +880,10 @@ body.is-wiki .atl #fractura :is(.afx-band--bone,.afx-note--dark) kbd{background:
 body.is-wiki .atl #fractura .afx-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 @media(max-width:760px){body.is-wiki .atl #fractura .afx-stats--3 .afx-tile>strong{font-size:28px}body.is-wiki .atl #fractura .afx-stats--3 .afx-tile--loot>strong{font-size:48px}}
 @media(max-width:1180px){body.is-wiki .atl #fractura .afx-boss.has-art{grid-template-columns:1fr}body.is-wiki .atl #fractura .afx-boss-art{order:-1;min-height:240px;height:240px}}
+/* Fractura (Atlas): corte limpio en diagonal sin la grieta suelta; personajes enteros */
+body.is-wiki .atl #fractura .af-v3-nexo{inset:0;clip-path:polygon(0 0,54% 0,46% 100%,0 100%)}
+body.is-wiki .atl #fractura .af-v3-caos{inset:0;clip-path:polygon(54% 0,100% 0,100% 100%,46% 100%)}
+body.is-wiki .atl #fractura .af-v3-grieta{display:none}
+body.is-wiki .atl #fractura .af-v3-fig{height:108%;bottom:-10%;filter:drop-shadow(0 14px 22px #0f1923b3)}
+body.is-wiki .atl #fractura .af-v3-fig--aldren{left:7%;filter:drop-shadow(0 0 2px #0f1923) drop-shadow(0 14px 22px #0f1923b3)}
+@media(max-width:760px){body.is-wiki .atl #fractura .af-v3-fig{height:96%;bottom:-6%}}
