@@ -150,7 +150,7 @@
   "zen": 50000,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/editorial/blood-castle.webp",
+  "art": "img/atlas-v2/recetas/blood-castle-bfa95c36e5ac.webp",
   "materials": [
    {
     "name": "Scroll of Archangel +1",
@@ -1537,7 +1537,7 @@
   "zen": null,
   "zenText": "Según la opción",
   "zenNote": "Depende del nivel de la opción Harmony.",
-  "art": "",
+  "art": "img/atlas-v2/recetas/harmony-restaurar-19dcb1491f39.webp",
   "materials": [
    {
     "name": "Ítem con opción Harmony",
