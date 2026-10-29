@@ -277,9 +277,9 @@ html:has(body.is-account){scrollbar-gutter:stable}
 .cta-tool .panel-addstats .character-name{margin:0 0 12px;font:400 34px/1 var(--pui-display);letter-spacing:.02em;text-transform:uppercase;color:var(--bone)}
 .cta-tool .panel-addstats .form-horizontal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;max-width:none}
 .cta-tool .panel-addstats .form-group{margin:0}
-.cta-tool .panel-addstats .form-group:first-child{grid-column:1/-1;justify-self:start;display:block;padding:8px 14px 7px;background:#6fb4ff26;color:var(--e2);font-weight:700;font-size:14px}
-.cta-tool .panel-addstats .form-group:first-child .control-label{display:none}
-.cta-tool .panel-addstats .form-group:first-child b,.cta-tool .panel-addstats .form-group:first-child strong{font:400 20px/1 var(--pui-display);color:var(--bone)}
+.cta-tool .panel-addstats .form-group:first-of-type{grid-column:1/-1;justify-self:start;display:block;padding:8px 14px 7px;background:#6fb4ff26;color:var(--e2);font-weight:700;font-size:14px}
+.cta-tool .panel-addstats .form-group:first-of-type .control-label{display:none}
+.cta-tool .panel-addstats .form-group:first-of-type b,.cta-tool .panel-addstats .form-group:first-of-type strong{font:400 20px/1 var(--pui-display);color:var(--bone)}
 .cta-tool .panel-addstats .form-group:last-child{grid-column:1/-1;margin-top:4px}
 .cta-tool .panel-addstats .form-group:last-child [class*="col-"]{text-align:left}
 .cta-tool .panel-addstats .form-control{background:var(--n2)}
