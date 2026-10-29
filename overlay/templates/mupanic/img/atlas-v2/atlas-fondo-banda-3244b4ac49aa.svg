@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600">
+  <rect width="2400" height="1600" fill="#0f1923"/>
+  <g fill="#15212c">
+    <polygon points="-260,430 430,-260 790,-260 -260,790"/>
+    <polygon points="1600,1860 2660,800 2660,1150 1950,1860"/>
+    <path d="M0 1110H180L520 1450V1600H0Z"/>
+    <path fill-rule="evenodd" d="M2190-170H2490L2640-20V245L2340 620 2040 245V-20ZM2340 5 2240 105 2340 205 2440 105Z"/>
+  </g>
+  <polygon fill="#c6f432" points="0,805 0,925 84,841 84,721"/>
+</svg>
