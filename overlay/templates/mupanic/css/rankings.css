@@ -261,3 +261,4 @@ tr[data-rank-position="1"] .rankings-place-medal b,tr[data-rank-position="2"] .r
 .rk-band.has-bg{background-repeat:no-repeat;background-position:center top;background-size:cover}
 .rk-stage.has-bg{background-color:var(--pui-bone)}
 .rk-board.has-bg{background-color:var(--pui-night)}
+.rk-board.has-bg{background-size:100% auto;background-repeat:repeat-y}
