@@ -46,7 +46,9 @@ for(const entry of catalog.entries.filter(x=>x.stage))assert.ok(entry.story.leng
    await page.locator(`#vinculo-${slug}>summary`).click();
    assert.equal(await toggle.evaluate(el=>getComputedStyle(el,'::after').display),'none','Opened card shows a straight minus');
    assert.ok((await page.locator(`#vinculo-${slug} .vinculo-story`).textContent()).includes(entry.story[2]));
-   await page.locator(`#vinculo-${slug}>summary`).click();
+   // El rediseño abre la ficha como hoja a pantalla completa: se cierra con su botón "Cerrar".
+   await page.locator(`#vinculo-${slug} .atl-sheet-close`).click();
+   assert.equal(await page.locator(`#vinculo-${slug}`).evaluate(el=>el.open),false,'Sheet closes');
   }
   assert.equal(await page.locator('[data-vinculo]').count(),14);
   await page.evaluate(async()=>Promise.all(Array.from(document.querySelectorAll('#vinculos img')).map(image=>new Promise((resolve,reject)=>{const probe=new Image();probe.onload=resolve;probe.onerror=()=>reject(new Error('Invalid image: '+image.src));probe.src=image.src;}))));
