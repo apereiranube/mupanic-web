@@ -11,6 +11,20 @@ if(!function_exists('panicTallerRate')) {
         if($rate === -1) return array('text' => 'Variable', 'pct' => (int)($recipe['rateCap'] ?? 0), 'variable' => true);
         return array('text' => $rate.'%', 'pct' => max(0, min(100, (int)$rate)), 'variable' => false);
     }
+    function panicTallerRangeText($wiki, $recipe, $account) {
+        if(empty($recipe['levels'])) return panicWikiEscape(panicTallerRate($wiki, $recipe, null, $account)['text']);
+        $groups = array();
+        foreach($recipe['levels'] as $level) {
+            $t = panicTallerRate($wiki, $recipe, $level, $account)['text'];
+            $n = count($groups);
+            if($n && $groups[$n-1]['t'] === $t) $groups[$n-1]['to'] = $level['label'];
+            else $groups[] = array('t' => $t, 'from' => $level['label'], 'to' => $level['label']);
+        }
+        if(count($groups) === 1) return '<b>'.panicWikiEscape($groups[0]['t']).'</b>';
+        $out = array();
+        foreach($groups as $g) $out[] = '<span class="tl-rate-range"><small>'.panicWikiEscape(($recipe['levelLabel'] ?? '').' '.($g['from'] === $g['to'] ? $g['from'] : $g['from'].'–'.$g['to'])).'</small> <b>'.panicWikiEscape($g['t']).'</b></span>';
+        return implode(' ', $out);
+    }
     function panicTallerCardRate($wiki, $recipe, $account) {
         if(empty($recipe['levels'])) return panicTallerRate($wiki, $recipe, null, $account)['text'];
         $values = array();
@@ -49,7 +63,7 @@ $tallerGroups = array('Entradas' => 'Entradas de eventos', 'Alas' => 'Alas', 'Eq
             <?php } ?>
         </div></div>
         <?php } ?>
-        <details class="recipe-reference tl-reference"><summary>Ver todas las tasas juntas</summary><div class="wiki-table-scroll"><table><thead><tr><th>Receta</th><?php foreach($wiki['accounts'] as $account) { ?><th><?php echo panicWikiEscape($account['name']); ?></th><?php } ?></tr></thead><tbody><?php foreach($recipes as $recipe) { $rows = $recipe['levels'] ?: array(null); foreach($rows as $level) { ?><tr><td><a href="#crear-<?php echo $recipe['id']; ?>"><?php echo panicWikiEscape($recipe['name']); ?></a><?php if($level) { ?> · <?php echo panicWikiEscape($recipe['levelLabel'].' '.$level['label']); ?><?php } ?></td><?php foreach($wiki['accounts'] as $accountLevel => $account) { ?><td><?php echo panicWikiEscape(panicTallerRate($wiki, $recipe, $level, $accountLevel)['text']); ?></td><?php } ?></tr><?php } } ?></tbody></table></div></details>
+        <details class="recipe-reference tl-reference"><summary>Ver todas las tasas juntas</summary><div class="wiki-table-scroll"><table class="tl-rates"><thead><tr><th>Receta</th><?php foreach($wiki['accounts'] as $account) { ?><th><?php echo panicWikiEscape($account['name']); ?></th><?php } ?></tr></thead><tbody><?php foreach($recipes as $recipe) { ?><tr><td><a href="#crear-<?php echo $recipe['id']; ?>"><?php echo panicWikiEscape($recipe['name']); ?></a></td><?php foreach($wiki['accounts'] as $accountLevel => $account) { ?><td><?php echo panicTallerRangeText($wiki, $recipe, $accountLevel); ?></td><?php } ?></tr><?php } ?></tbody></table></div></details>
     </div>
     <div class="recipe-articles tl-articles"><?php foreach($recipes as $recipe) { $first = $recipe['levels'][0] ?? null; $rate = panicTallerRate($wiki, $recipe, $first, 0); $hasChar = false; foreach($recipe['levels'] as $level) if(!empty($level['charLevel'])) $hasChar = true; $label = $tallerGroups[$recipe['group']] ?? $recipe['group']; ?>
         <article class="recipe-article tl-recipe" id="crear-<?php echo $recipe['id']; ?>" data-recipe-id="<?php echo $recipe['id']; ?>" tabindex="-1">

@@ -1026,3 +1026,8 @@ body.is-wiki .atl .tl-all table{margin-top:12px}
   body.is-wiki .atl .tl-cols{grid-template-columns:1fr}
   body.is-wiki .atl .tl-check,body.is-wiki .atl .tl-how{padding:18px 16px}
 }
+/* Taller: tabla de todas las tasas, una fila por receta */
+body.is-wiki .atl .tl-rates td{vertical-align:middle}
+body.is-wiki .atl .tl-rates td b{font:400 18px/1 var(--pui-display);color:#c6f03a}
+body.is-wiki .atl .tl-rate-range{display:inline-flex;align-items:baseline;gap:4px;margin:2px 10px 2px 0;white-space:nowrap}
+body.is-wiki .atl .tl-rate-range small{font-size:11px;color:#ece8e1aa}
