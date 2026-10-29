@@ -262,10 +262,22 @@
 }
 @media(min-width:1101px){.site-header .main-nav .nav-votar.is-current i{border-bottom-color:#fff;filter:none}.site-header .main-nav .nav-p-fractura.is-current>span{text-shadow:0 1px 3px #0f1923aa}}
 
-/* Discord, Socios y Votar: un cuadrado fijo de su color en vez de flecha/punto */
-.site-header .main-nav .nav-discord b{display:none}
-.site-header .main-nav .nav-discord:before{content:'';display:inline-block;width:8px;height:8px;margin-right:2px;background:#9b83f2;flex:none}
-.site-header .main-nav .nav-socios i,.site-header .main-nav .nav-votar i{width:8px;height:8px;margin-right:8px;vertical-align:1px;transform:none;border:0;filter:none;box-shadow:none}
-.site-header .main-nav .nav-socios i{background:#6fb4ff}
-.site-header .main-nav .nav-votar i{background:#ff4655}
-@media(min-width:1101px) and (max-width:1350px){.site-header .main-nav .nav-discord:before{display:none}}
+/* Discord, Socios y Votar: cada uno en un bloque fijo de su color */
+@media(min-width:1101px){
+.site-header .main-nav .nav-discord b,.site-header .main-nav .nav-socios i,.site-header .main-nav .nav-votar i{display:none}
+.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{align-self:center;min-height:34px;height:34px;padding:0 14px!important;margin:0 3px;border:0;color:#ece8e1!important;transition:filter .15s,transform .15s}
+.site-header .main-nav .nav-discord{background:#7458e8!important;margin-left:10px}
+.site-header .main-nav .nav-socios{background:#2f7fe0!important}
+.site-header .main-nav .nav-votar{background:#e8364a!important}
+.site-header .main-nav .nav-discord:hover,.site-header .main-nav .nav-socios:hover,.site-header .main-nav .nav-votar:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.site-header .main-nav .nav-discord:after,.site-header .main-nav .nav-socios:after,.site-header .main-nav .nav-votar:after,.site-header .main-nav .nav-socios.is-current:before,.site-header .main-nav .nav-votar.is-current:before{display:none}
+.site-header .main-nav .nav-socios.is-current,.site-header .main-nav .nav-votar.is-current{box-shadow:inset 0 -3px 0 #0f192366}
+}
+@media(min-width:1101px) and (max-width:1380px){
+.site-header .main-nav a{font-size:12px;letter-spacing:.03em;padding-inline:6px}
+.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{padding:0 9px!important;margin:0 2px}
+.site-header .main-nav .nav-discord{margin-left:6px}
+.site-header .nav-cta{padding:10px 12px;letter-spacing:.05em}
+.site-header .nav-shell{gap:10px}
+}
+@media(min-width:1101px) and (max-width:1250px){.site-header .brand-crystal .brand-word{display:none}}
