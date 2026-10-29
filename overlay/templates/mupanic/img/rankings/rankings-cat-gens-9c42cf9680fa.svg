@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 60 280 280" fill="none" stroke="#ece8e1" stroke-width="14" stroke-linecap="butt" stroke-linejoin="miter"><line x1="96" y1="88" x2="96" y2="312"/>
+    <line x1="304" y1="88" x2="304" y2="312"/>
+    <path d="M96 110H176L190 154 176 198H96M304 110H224L210 154 224 198H304"/>
+    <path d="M96 246 152 302M304 246 248 302"/></svg>
