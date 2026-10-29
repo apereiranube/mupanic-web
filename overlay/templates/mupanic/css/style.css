@@ -296,3 +296,5 @@
 @media(min-width:1101px){.site-header .main-nav .nav-main-link.is-current:before{top:-12px;height:53px;left:0;right:0;background-image:none;clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);animation:navBlockIn .35s cubic-bezier(.6,0,.2,1) both}}
 @keyframes navBlockIn{from{transform:scaleY(0);transform-origin:top}to{transform:none;transform-origin:top}}
 @media(prefers-reduced-motion:reduce){.site-header .main-nav .nav-main-link.is-current:before{animation:none}}
+.brand-crystal .brand-ala{width:37px;height:34px}
+@media(max-width:370px){.site-header .brand-crystal .brand-ala{width:33px;height:30px}}
