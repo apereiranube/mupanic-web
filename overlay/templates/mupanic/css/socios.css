@@ -177,7 +177,6 @@ body.is-socios{background:var(--pui-night)}
 .soc-rank-empty .soc-rank-mes.has-art{background:transparent}
 .soc-rank-empty p{color:var(--pui-muted);font-size:16px;line-height:1.6}
 .soc-rank-empty p strong{display:block;margin-bottom:4px;color:var(--pui-ink);font:400 30px/1 var(--pui-display);text-transform:uppercase}
-.soc-rank-empty .pui-btn{background:var(--g);color:var(--pui-night)}
 .soc-js [data-soc-rank]>li{opacity:0;transform:translateX(-48px);transition:opacity .45s ease calc(var(--i) * 80ms),transform .6s cubic-bezier(.2,.8,.2,1) calc(var(--i) * 80ms)}
 .soc-js [data-soc-rank].is-in>li{opacity:1;transform:none}
 .soc-js [data-soc-rank] .soc-rank-mes{opacity:0}
@@ -256,7 +255,6 @@ body.is-socios{background:var(--pui-night)}
  .soc-step{padding:26px 22px 30px}
  .soc-step-ico{width:84px;height:84px;font-size:48px}
  .soc-step-ico img{width:64px;height:64px}
- .soc-calc-grid{grid-template-columns:minmax(0,1fr)}
  .soc-tier.has-art :is(.soc-tier-tag,h3,.soc-tier-big){padding-right:120px}
  .soc-tier-emb{width:110px;height:110px}
  .soc-end .pui-h2{max-width:58vw}
@@ -272,7 +270,7 @@ body.is-socios{background:var(--pui-night)}
  .soc-steps{grid-template-columns:minmax(0,1fr)}
  .soc-step{display:grid;grid-template-columns:84px minmax(0,1fr);gap:0 22px}
  .soc-step-ico{grid-row:span 3;margin:0}
- .soc-tier-grid,.soc-rules-grid{grid-template-columns:minmax(0,1fr)}
+ .soc-tier-grid,.soc-rules-grid,.soc-calc-grid{grid-template-columns:minmax(0,1fr)}
  .soc-rules-grid li:nth-child(n){background:var(--acc);color:var(--pui-night)}
  .soc-rules-grid li:nth-child(even){background:var(--pui-bone);color:var(--pui-bone-ink)}
  .soc-rank-empty{grid-template-columns:120px minmax(0,1fr)}
@@ -365,3 +363,15 @@ body.is-socios{background:var(--pui-night)}
 @media(max-width:760px){.soc .pui-btn{min-height:56px;padding:10px 18px;font-size:18px;line-height:1.05;text-align:center}}
 /* Creadores: la portada cierra en diagonal (no hay franja de cifras debajo) */
 .soc-cre-hero{clip-path:polygon(0 0,100% 0,100% calc(100% - var(--cut)),0 100%)}
+.soc-rank-list li.is-first{grid-template-columns:96px minmax(0,1fr) auto}
+@media(max-width:760px){.soc-rank-list li.is-first{grid-template-columns:80px minmax(0,1fr) auto}}
+/* Creadores: la escena (objetos azul noche) va siempre sobre el bloque magenta */
+.soc-cre-hero .soc-hero-block{inset:0 0 0 40%;clip-path:polygon(24% 0,100% 0,100% 100%,0 100%)}
+.soc-cre-escena{right:max(0px,calc((100% - 1600px) / 2));bottom:calc(var(--cut) + 6px);width:min(56vw,calc(var(--fw,2400) * 1px),920px);aspect-ratio:var(--fw,2400)/var(--fh,1200)}
+@media(max-width:1100px){.soc-cre-hero .soc-hero-block{inset:0 0 0 46%}.soc-cre-escena{width:min(54vw,calc(var(--fw,2400) * 1px));right:0}.soc-cre-hero .soc-lead{max-width:44vw}}
+@media(max-width:760px){
+ .soc-cre-hero .soc-hero-art{height:min(64vw,330px)}
+ .soc-cre-hero .soc-hero-block{inset:0;clip-path:polygon(0 14%,100% 0,100% 100%,0 100%)}
+ .soc-cre-hero .soc-lead{max-width:none}
+ .soc-cre-escena{left:4%;right:4%;width:auto;bottom:calc(var(--cut) + 2px)}
+}

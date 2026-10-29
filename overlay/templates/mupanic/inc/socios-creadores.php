@@ -9,6 +9,7 @@ require_once __DIR__.'/creadores-cola.php';
 require_once __DIR__.'/socios-art.php';
 $crEscena = panicSociosArt('socios-creadores-escena');
 $crBanda = panicSociosArt('socios-fondo-banda');
+$crEscenaSize = panicSociosArtSize('socios-creadores-escena', 2400, 1200);
 $crCommunity = require __DIR__.'/community-config.php';
 $crDiscord = (string)($crCommunity['invite'] ?? 'https://discord.gg/fP4Mxcsee');
 $crLogged = function_exists('isLoggedIn') && isLoggedIn();
@@ -46,7 +47,7 @@ $crBg = function($src) { return $src ? ' style="background-image:url(\''.crE($sr
   <section class="soc-hero soc-cre-hero<?php echo $crEscena ? ' has-art' : ''; ?>" aria-labelledby="cre-title">
     <div class="soc-hero-art" aria-hidden="true">
       <div class="soc-hero-block"></div>
-      <?php if($crEscena) { ?><div class="soc-cre-escena" data-soc-fig><img src="<?php echo crE($crEscena); ?>" alt="" width="2400" height="1200" decoding="async" fetchpriority="high"></div><?php } ?>
+      <?php if($crEscena) { ?><div class="soc-cre-escena" data-soc-fig style="--fw:<?php echo $crEscenaSize[0]; ?>;--fh:<?php echo $crEscenaSize[1]; ?>"><img src="<?php echo crE($crEscena); ?>" alt="" width="<?php echo $crEscenaSize[0]; ?>" height="<?php echo $crEscenaSize[1]; ?>" decoding="async" fetchpriority="high"></div><?php } ?>
     </div>
     <div class="pui-wrap soc-hero-copy">
       <p class="pui-kicker"><a href="<?php echo crE(__BASE_URL__.'socios/'); ?>">Socios</a> · Creadores</p>

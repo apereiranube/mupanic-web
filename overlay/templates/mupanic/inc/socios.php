@@ -191,7 +191,7 @@ $socReglas = [
       <div class="soc-rank-empty" data-soc-rank>
         <span class="soc-rank-mes<?php echo $socArt['mes'] ? ' has-art' : ''; ?>" aria-hidden="true"><?php if($socArt['mes']) { ?><img src="<?php echo socE($socArt['mes']); ?>" alt="" loading="lazy" decoding="async"><?php } else { ?>1<?php } ?></span>
         <p><strong>Todavía nadie entró al ranking de este mes.</strong><br>Sacá tu link ahora y largá primero.</p>
-        <a class="pui-btn pui-btn--dark soc-punch" href="<?php echo socE($socLink); ?>"><?php echo socE($socLinkLabel); ?></a>
+        <a class="pui-btn soc-btn soc-punch" href="<?php echo socE($socLink); ?>"><?php echo socE($socLinkLabel); ?></a>
       </div>
       <?php } else { ?>
       <ol class="soc-rank-list" data-soc-rank>
