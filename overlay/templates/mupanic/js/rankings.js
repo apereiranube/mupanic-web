@@ -19,6 +19,17 @@
             requestAnimationFrame(() => { ticking = false; const y = Math.min(scrollY, 600); fondo.style.transform = 'translate3d(0,' + (y * .18).toFixed(1) + 'px,0)'; });
         }, {passive: true});
     }
+    /* ---------- Portada: el Soul Master sigue un poco al mouse (solo con mouse) ---------- */
+    const hero = document.querySelector('.rk-hero'), fig = document.querySelector('.rk-hero-fig.has-art');
+    if (hero && fig && !reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        let raf = 0, tx = 0, ty = 0;
+        hero.addEventListener('mousemove', e => {
+            const r = hero.getBoundingClientRect();
+            tx = ((e.clientX - r.left) / r.width - .5) * 2; ty = ((e.clientY - r.top) / r.height - .5) * 2;
+            if (!raf) raf = requestAnimationFrame(() => { raf = 0; fig.style.setProperty('--mx', (tx * 14).toFixed(1) + 'px'); fig.style.setProperty('--my', (ty * 8).toFixed(1) + 'px'); fig.style.setProperty('--rot', (tx * 1.2).toFixed(2) + 'deg'); });
+        });
+        hero.addEventListener('mouseleave', () => { fig.style.setProperty('--mx', '0px'); fig.style.setProperty('--my', '0px'); fig.style.setProperty('--rot', '0deg'); });
+    }
     // Profiles open in the same tab, so the browser's Back action also works.
     surface.querySelectorAll('a').forEach(link => {
         const url = new URL(link.href, location.href);

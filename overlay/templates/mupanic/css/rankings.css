@@ -233,3 +233,26 @@ tr[data-rank-position="1"] .rankings-place-medal b,tr[data-rank-position="2"] .r
  .rk-sweep{display:none}
  .rk-tab-bar,.is-rankings .rankings_menu a,.rankings-search input,.rankings-class-button{transition:none}
 }
+
+/* Efectos extra: portada que sigue al mouse, insignias que caen como sello, hover de tarjetas, filas y pestañas */
+.rk-hero-fig{transform:translate3d(var(--mx,0px),var(--my,0px),0) rotate(var(--rot,0deg));transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.rk-anim .rk-podium.is-up .rk-ins{animation:rkStamp .7s cubic-bezier(.3,1.5,.5,1) calc(var(--d) + .6s) both}
+@keyframes rkStamp{0%{opacity:0;transform:scale(1.9) rotate(-10deg)}55%{opacity:1}100%{opacity:1;transform:none}}
+.rk-anim .rk-podium.is-up .rk-col--1 .rk-base{animation:rkThud .45s ease-out 1.35s}
+@keyframes rkThud{30%{transform:translateY(5px)}60%{transform:translateY(-2px)}}
+.rk-ins img{transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.rk-leader:hover .rk-ins img{transform:translateY(-6px) rotate(-7deg) scale(1.08)}
+.rk-leader{transition:border-top-width .25s}
+.rk-leader:hover{border-top-width:8px}
+.is-rankings .rankings-table tr[data-rank-position] td:first-child{transition:box-shadow .2s,background .15s}
+.is-rankings .rankings-table tr[data-rank-position]:hover td:first-child{box-shadow:inset 5px 0 var(--rk-v)}
+.rankings-identity-emblem{transition:background .2s,color .2s}
+.is-rankings .rankings-table tr[data-rank-position]:hover .rankings-identity-emblem{background:var(--rk-v);color:var(--pui-night)}
+.rankings-score-value{display:inline-block;transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.is-rankings .rankings-table tr[data-rank-position]:hover .rankings-score-value{transform:scale(1.14)}
+.rk-tab-ico{transition:transform .25s cubic-bezier(.3,1.5,.5,1)}
+.is-rankings .rankings_menu a:hover .rk-tab-ico{transform:translateY(-4px)}
+@media(prefers-reduced-motion:reduce){
+ .rk-hero-fig,.rk-ins img,.rk-tab-ico,.rankings-score-value{transition:none;transform:none}
+ .rk-anim .rk-podium.is-up .rk-ins,.rk-anim .rk-podium.is-up .rk-col--1 .rk-base{animation:none}
+}
