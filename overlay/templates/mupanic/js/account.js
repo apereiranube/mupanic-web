@@ -5,8 +5,8 @@
     if(nav) {
         const menu=nav.querySelector('nav'),head=nav.querySelector('.account-nav-head');
         if(menu && head) { menu.id='account-navigation';nav.dataset.enhanced='true';
-            const toggle=document.createElement('button');toggle.type='button';toggle.className='account-nav-toggle';toggle.textContent='Opciones de mi cuenta +';toggle.setAttribute('aria-controls',menu.id);toggle.setAttribute('aria-expanded','false');head.append(toggle);
-            toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-menu-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'Cerrar opciones −':'Opciones de mi cuenta +';});
+            const toggle=document.createElement('button');toggle.type='button';toggle.className='account-nav-toggle';toggle.textContent='Menú +';toggle.setAttribute('aria-controls',menu.id);toggle.setAttribute('aria-expanded','false');head.append(toggle);
+            toggle.addEventListener('click',()=>{const open=nav.classList.toggle('is-menu-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'Cerrar −':'Menú +';});
         }
     }
     const script=document.currentScript;
@@ -56,4 +56,52 @@
     });
     surface.querySelectorAll('input[type=password]').forEach(input=>{input.autocomplete=/current/.test(input.name)?'current-password':'new-password';});
     const email=surface.querySelector('[name="webengineEmail_newemail"]');if(email){email.autocomplete='email';const button=email.form && email.form.querySelector('[name="webengineEmail_submit"]');if(button)button.textContent='Guardar correo';}
+})();
+
+/* Mi cuenta (estilo nuevo): barra azul que se desliza entre las filas de la lista, números que cuentan al aparecer
+   y sellos (emblema VIP) que caen al verse. Todo solo con transform/opacidad; nada cambia de alto. */
+(() => {
+    'use strict';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const nav = document.querySelector('.cta-nav nav');
+    if (nav) {
+        const active = nav.querySelector('.cta-nav-row[aria-current=page]');
+        if (active) {
+            const bar = document.createElement('i'); bar.className = 'cta-nav-bar'; bar.setAttribute('aria-hidden', 'true');
+            nav.prepend(bar); nav.closest('.cta-nav').dataset.bar = '1';
+            const place = (row, instant) => {
+                const top = row.getBoundingClientRect().top - nav.getBoundingClientRect().top;
+                if (instant) bar.style.transition = 'none';
+                bar.style.height = row.offsetHeight + 'px'; bar.style.setProperty('--bar-y', top + 'px');
+                if (instant) { void bar.offsetWidth; bar.style.transition = ''; }
+            };
+            // Entra desde arriba hasta la fila actual
+            place(nav.querySelector('.cta-nav-row'), true);
+            requestAnimationFrame(() => requestAnimationFrame(() => place(active, reduce)));
+            nav.querySelectorAll('.cta-nav-row').forEach(row => {
+                row.addEventListener('pointerenter', () => place(row, reduce));
+                row.addEventListener('focus', () => place(row, reduce));
+            });
+            nav.addEventListener('pointerleave', () => place(active, reduce));
+            nav.addEventListener('focusout', event => { if (!nav.contains(event.relatedTarget)) place(active, reduce); });
+            window.addEventListener('resize', () => place(active, true));
+        }
+    }
+    const format = new Intl.NumberFormat('es-AR', {maximumFractionDigits: 0});
+    const counters = Array.from(document.querySelectorAll('.cta [data-count]'));
+    const stamps = Array.from(document.querySelectorAll('.cta [data-stamp]'));
+    if (reduce || !('IntersectionObserver' in window)) return;
+    const count = el => {
+        const target = Number(el.dataset.count); if (!Number.isFinite(target) || target <= 0) return;
+        const start = performance.now(), duration = 900;
+        const step = now => { const t = Math.min(1, (now - start) / duration); el.textContent = format.format(Math.round(target * (1 - Math.pow(1 - t, 3)))); if (t < 1) requestAnimationFrame(step); };
+        el.textContent = '0'; requestAnimationFrame(step);
+    };
+    stamps.forEach(el => el.classList.add('cta-stamp-pre'));
+    const io = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (!entry.isIntersecting) return; io.unobserve(entry.target);
+        if (entry.target.hasAttribute('data-count')) count(entry.target);
+        if (entry.target.hasAttribute('data-stamp')) { entry.target.classList.remove('cta-stamp-pre'); entry.target.classList.add('cta-stamp'); }
+    }), {threshold: .4});
+    counters.concat(stamps).forEach(el => io.observe(el));
 })();

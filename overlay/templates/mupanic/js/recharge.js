@@ -35,6 +35,18 @@
     if (explanation) explanation.textContent = bank ? 'Verás la cuenta bancaria. Adjuntá el comprobante en Discord. La acreditación puede demorar hasta 48 horas y requiere la confirmación del ingreso.' : 'Continuás en Ualá para completar el pago.';
   }
   methods.forEach(input => input.addEventListener('change', updateCart));
+  // Cantidad del resumen: sube contando hasta el total nuevo (el texto final es siempre el exacto).
+  let countFrame = 0;
+  function countCoins(counter, target) {
+    const from = Number(counter.dataset.value || 0);
+    counter.dataset.value = String(target);
+    const paint = value => { const unit = document.createElement('small'); unit.textContent = 'Eryns'; counter.replaceChildren(document.createTextNode(format.format(value) + ' '), unit); };
+    cancelAnimationFrame(countFrame);
+    if (from === target || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !counter.isConnected) { paint(target); return; }
+    const start = performance.now(), duration = 520;
+    const step = now => { const t = Math.min(1, (now - start) / duration), eased = 1 - Math.pow(1 - t, 3); paint(Math.round(from + (target - from) * eased)); if (t < 1) countFrame = requestAnimationFrame(step); };
+    countFrame = requestAnimationFrame(step);
+  }
   function updateCart() {
     paymentMethod();
     let total = 0, received = 0, bonus = 0, base = 0, valid = true;
@@ -71,10 +83,7 @@
     });
     shop.querySelector('[data-cart-lines]').replaceChildren(rows);
     const counter = shop.querySelector('[data-total-coins]');
-    const unit = document.createElement('small'); unit.textContent = 'Eryns';
-    const changed = counter.textContent !== coins(received);
-    counter.replaceChildren(document.createTextNode(format.format(received) + ' '), unit);
-    if (changed && counter.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) counter.animate([{transform:'translateY(4px)',opacity:.5},{transform:'translateY(0)',opacity:1}],{duration:250});
+    countCoins(counter, received);
     const bonusRow = shop.querySelector('[data-bonus-row]');
     if (bonusRow) { bonusRow.hidden = bonus === 0; bonusRow.querySelector('[data-bonus-rate]').textContent = '+' + new Intl.NumberFormat('es-AR',{maximumFractionDigits:1}).format(base ? bonus / base * 100 : 0) + '%'; }
     const breakdown = shop.querySelector('[data-bonus-breakdown]');
@@ -267,4 +276,20 @@
     setTimeout(checkHistory, 20000);
   }
   if (needsUpdate()) setTimeout(checkHistory, 20000);
+  // Portada: la Summoner flota y sigue un poco al mouse; el fondo azul se mueve al revés.
+  const hero = shop.querySelector('[data-tnd-hero]');
+  if (hero && !reducedMotion.matches && finePointer.matches) {
+    const fig = hero.querySelector('[data-tnd-fig]'), back = hero.querySelector('[data-tnd-parallax]');
+    let heroFrame = 0;
+    hero.addEventListener('pointermove', event => {
+      cancelAnimationFrame(heroFrame);
+      heroFrame = requestAnimationFrame(() => {
+        const rect = hero.getBoundingClientRect();
+        const dx = (event.clientX - rect.left) / rect.width - .5, dy = (event.clientY - rect.top) / rect.height - .5;
+        if (fig) { fig.style.setProperty('--mx', (dx * 26).toFixed(1) + 'px'); fig.style.setProperty('--my', (dy * 16).toFixed(1) + 'px'); }
+        if (back) back.style.transform = 'translate3d(' + (dx * -18).toFixed(1) + 'px,' + (dy * -12).toFixed(1) + 'px,0)';
+      });
+    });
+    hero.addEventListener('pointerleave', () => { cancelAnimationFrame(heroFrame); if (fig) { fig.style.setProperty('--mx', '0px'); fig.style.setProperty('--my', '0px'); } if (back) back.style.transform = ''; });
+  }
 })();

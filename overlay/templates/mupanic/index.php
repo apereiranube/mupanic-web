@@ -206,7 +206,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>account.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/account.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='vip') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>vip.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/vip.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
-    <?php if($_REQUEST['page'] === 'usercp' && in_array($_REQUEST['subpage'],['recharge','shopadmin'],true)) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='recharge') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>tienda.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/tienda.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='shopadmin') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp' && $_REQUEST['subpage']==='shopadmin') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>recharge-admin-friendly.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/recharge-admin-friendly.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <!-- Google tag (gtag.js) - Google Ads MU PANIC -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18541212818"></script>
@@ -265,7 +266,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <?php } else { ?>
 
-<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!$isAuthPage && !in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true)) { ?>
+<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!$isAuthPage && !in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true) && !($_REQUEST['page'] === 'usercp' && $isLogged)) { ?>
 <section class="inner-hero">
     <div class="shell inner-head">
         <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : (in_array($_REQUEST['page'],['usercp','register','login','forgotpassword','verifyemail'],true) ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
@@ -277,14 +278,16 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <section class="inner-content">
     <div class="shell">
         <?php if($_REQUEST['page'] == 'usercp' && $isLogged) { ?>
-            <div class="account-layout">
-                <aside class="account-nav"><div class="account-nav-head"><small>MU PANIC</small><strong>Mi cuenta</strong></div><nav aria-label="Opciones de mi cuenta"><?php templateBuildUsercp(); ?></nav></aside>
-                <div class="module-surface"><?php
+            <?php require_once __DIR__.'/inc/tienda-art.php'; $ctaSub=(string)$_REQUEST['subpage']; $ctaBand=panicTiendaArt('tienda-fondo-banda'); ?>
+            <div class="account-layout cta<?php echo $ctaSub==='shopadmin' ? ' cta--admin' : ' pui'; ?> cta-p-<?php echo $ctaSub==='' ? 'home' : (preg_match('/^[a-z]{1,20}$/D',$ctaSub) ? $ctaSub : 'tool'); ?><?php echo $ctaBand ? ' has-banda' : ''; ?>"<?php if($ctaBand) { ?> style="--cta-banda:url('<?php echo panicAccountEscape($ctaBand); ?>')"<?php } ?>>
+                <aside class="account-nav cta-nav"><div class="account-nav-head cta-nav-head"><small>MU PANIC</small><strong>Mi cuenta</strong><span class="cta-nav-user"><?php echo panicAccountEscape((string)($_SESSION['username'] ?? '')); ?></span></div><nav aria-label="Opciones de mi cuenta"><?php templateBuildUsercp(); ?></nav></aside>
+                <div class="module-surface cta-main"><?php
                     if($_REQUEST['subpage'] === '') { panicAccountHome(); }
                     else {
                         $accountTool=panicAccountTools()[$_REQUEST['subpage']] ?? null;
-                        if($accountTool && !in_array($_REQUEST['subpage'],['recharge','shopadmin','vip','referidos'],true)) echo '<header class="account-module-head"><span class="account-module-icon">'.panicAccountIcon($accountTool['icon']).'</span><div><h2>'.panicAccountEscape($accountTool['title']).'</h2><p>'.panicAccountEscape($accountTool['copy']).'</p></div></header>';
-                        echo '<div class="account-module" data-account-module="'.panicAccountEscape($_REQUEST['subpage']).'">';
+                        $accountPage=in_array($_REQUEST['subpage'],['recharge','shopadmin','vip','referidos'],true);
+                        if($accountTool && !$accountPage) echo '<header class="account-module-head cta-module-head"><span class="account-module-icon">'.panicAccountIcon($accountTool['icon'],$accountTool['title']).'</span><div><p class="cta-kicker">'.panicAccountEscape($accountTool['group']).'</p><h2>'.panicAccountEscape($accountTool['title']).'</h2><p>'.panicAccountEscape($accountTool['copy']).'</p></div></header>';
+                        echo '<div class="account-module'.($accountPage ? '' : ' cta-card cta-tool').'" data-account-module="'.panicAccountEscape($_REQUEST['subpage']).'">';
                         if($_REQUEST['subpage'] === 'recharge') { include __DIR__.'/inc/recharge.php'; }
                         elseif($_REQUEST['subpage'] === 'vip') { include __DIR__.'/inc/vip.php'; }
                         elseif($_REQUEST['subpage'] === 'referidos') { include __DIR__.'/inc/referidos.php'; }
