@@ -120,7 +120,7 @@ $frOrders = [
         <?php } } ?>
       </div>
       <div class="fr-beam" data-fr-beam aria-hidden="true">
-        <div class="fr-beam-track<?php echo !$week || $total == 0 ? ' is-empty' : ''; ?>" data-fr-track><span class="fr-beam-nexo" data-fr-bar style="width:<?php echo $nexoShare; ?>%"></span><i class="fr-beam-mid"></i><?php if($frCrackSrc) { ?><span class="fr-beam-crack" data-fr-crack style="left:<?php echo $nexoShare; ?>%"><img src="<?php echo $fr($frCrackSrc); ?>" alt="" width="266" height="1300" loading="lazy" decoding="async"></span><?php } ?></div>
+        <div class="fr-beam-track<?php echo !$week || $total == 0 ? ' is-empty' : ''; ?>" data-fr-track><span class="fr-beam-nexo" data-fr-bar style="width:<?php echo $nexoShare; ?>%"></span><?php if(!$frCrackSrc) { ?><i class="fr-beam-mid"></i><?php } ?><?php if($frCrackSrc) { ?><span class="fr-beam-crack" data-fr-crack style="left:<?php echo $nexoShare; ?>%"><img src="<?php echo $fr($frCrackSrc); ?>" alt="" width="266" height="1300" loading="lazy" decoding="async"></span><?php } ?></div>
       </div>
       <p class="fr-board-foot"><span>Boss oficial + PvP válido en Vulcanus</span><span class="fr-board-status" data-fr-status role="status"><?php echo !$week ? 'Los puntos no están disponibles en este momento.' : ''; ?></span></p>
     </div>
