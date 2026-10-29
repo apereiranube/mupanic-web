@@ -298,3 +298,13 @@
 @media(prefers-reduced-motion:reduce){.site-header .main-nav .nav-main-link.is-current:before{animation:none}}
 .brand-crystal .brand-ala{width:37px;height:34px}
 @media(max-width:370px){.site-header .brand-crystal .brand-ala{width:33px;height:30px}}
+/* Discord, Socios y Votar: bloques pegados que ocupan todo el alto de la barra */
+@media(min-width:1101px){
+.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{align-self:flex-start;height:85px;min-height:85px;margin:-21px 0 -22px!important;padding:0 16px!important}
+.site-header .main-nav .nav-discord{margin-left:10px!important}
+.site-header .main-nav .nav-socios{background:#36e07f!important;color:#0f1923!important}
+.site-header .main-nav .nav-votar{background:#ffc24a!important;color:#0f1923!important}
+.site-header .main-nav .nav-discord:hover,.site-header .main-nav .nav-socios:hover,.site-header .main-nav .nav-votar:hover{transform:none;filter:brightness(1.1)}
+.site-header .main-nav .nav-socios.is-current,.site-header .main-nav .nav-votar.is-current,.site-header .main-nav .nav-discord.is-current{box-shadow:inset 0 -4px 0 #0f1923}
+}
+@media(min-width:1101px) and (max-width:1460px){.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{padding:0 11px!important}.site-header .main-nav .nav-discord{margin-left:6px!important}}
