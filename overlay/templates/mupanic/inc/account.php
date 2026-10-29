@@ -71,6 +71,8 @@ function panicAccountHome() {
     panicAccountDashboard();
 }
 function panicAccountFormMarkup($markup, $module) {
+    // Solo presentación: las etiquetas van sin los dos puntos finales (como en Ingresar).
+    $markup=preg_replace('#(<label\b[^>]*class="[^"]*control-label[^"]*"[^>]*>[^<]*?)\s*:\s*</label>#u', '$1</label>', $markup);
     if(!in_array($module, ['reset','resetstats','clearpk','clearskilltree','unstick','vote'], true)) return $markup;
     // Legacy modules put forms around table rows, which browsers discard.
     // Emit the same forms outside the table and associate their controls by ID.

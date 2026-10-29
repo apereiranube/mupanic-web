@@ -412,3 +412,6 @@
  .tnd-hero.has-fig .tnd-hero-block{height:calc(min(100vw - 32px,560px) * .786 + 40px);clip-path:polygon(0 0,100% 0,100% 100%,0 88%)}
  .tnd-top a{font-size:13px;white-space:nowrap}
 }
+.tnd-hero-title{line-height:.9}
+@media(max-width:900px){.tnd-hero:not(.has-fig) .tnd-hero-block{height:110px}.tnd-hero:not(.has-fig) .tnd-hero-copy{padding-top:130px}}
+@media(max-width:760px){.tnd-mobile button{font-size:14px;white-space:nowrap;padding:0 12px}}

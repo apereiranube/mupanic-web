@@ -253,3 +253,10 @@ html:has(body.is-account){scrollbar-gutter:stable}
 .cta-tool .account-table-scroll{overflow:visible}
 @media(prefers-reduced-motion:reduce){.cta-stamp-pre{opacity:1;transform:none}}
 .cta .cta-nav{top:auto;left:auto;align-self:stretch;height:auto;max-height:none;margin:0;padding:0;overflow:visible;box-shadow:none;border-radius:0}
+.cta a.cta-stat,.cta a.cta-tile{color:var(--bone)}
+.cta a.cta-stat--eryns,.cta a.cta-tile--shop,.cta a.cta-tile--ref{color:var(--n)}
+/* Títulos en Anton: le gana a la regla vieja .module-surface h1-h4 de style.css */
+.cta .module-surface h1,.cta .module-surface h2,.cta .module-surface h3,.cta .module-surface h4{font-family:var(--pui-display);color:inherit}
+.cta-hero-title{line-height:.9}
+@media(max-width:900px){.cta-hero-block{inset:0 0 auto 58%;height:170px}}
+.cta-tool [style*="margin-top"]{margin-top:0!important}
