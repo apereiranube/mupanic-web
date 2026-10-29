@@ -228,7 +228,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <header class="site-header">
     <div class="shell nav-shell">
         <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>">
-            <img class="brand-full" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-logo-8f3aa0da2c15.svg" alt="MU PANIC" width="1963" height="315" decoding="async"><img class="brand-ala" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-ala-6eedf365865c.svg" alt="" width="874" height="814" decoding="async">
+            <img class="brand-full" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-logo-f0a955c5b5f8.svg" alt="MU PANIC" width="1950" height="320" decoding="async"><img class="brand-ala" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-ala-6eedf365865c.svg" alt="" width="874" height="814" decoding="async">
         </a>
 
         <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-navigation">
@@ -347,7 +347,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <footer class="footer-modern">
     <div class="shell footer-main">
         <div>
-            <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>"><img class="brand-full" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-logo-8f3aa0da2c15.svg" alt="MU PANIC" width="1963" height="315" decoding="async"><img class="brand-ala" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-ala-6eedf365865c.svg" alt="" width="874" height="814" decoding="async"></a>
+            <a class="brand brand-crystal" href="<?php echo __BASE_URL__; ?>"><img class="brand-full" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-logo-f0a955c5b5f8.svg" alt="MU PANIC" width="1950" height="320" decoding="async"><img class="brand-ala" src="<?php echo __PATH_TEMPLATE__; ?>img/brand/mupanic-ala-6eedf365865c.svg" alt="" width="874" height="814" decoding="async"></a>
             <p><?php echo $isHome ? 'Sistemas propios. Una experiencia distinta.' : 'Tu historia en el continente de MU.'; ?></p>
         </div>
         <div class="footer-links">
