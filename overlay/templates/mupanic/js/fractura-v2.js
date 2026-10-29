@@ -10,6 +10,16 @@
   var nf = new Intl.NumberFormat('es-AR');
   var fmt = function (v) { try { return nf.format(BigInt(v)); } catch (e) { return '—'; } };
   var digits = function (s) { return String(s || '').replace(/[^0-9]/g, ''); };
+  var motion = !reduce && 'IntersectionObserver' in window;
+  if (motion) root.classList.add('fr-anim'); // sin esto, todo se ve quieto y completo
+  function once(els, threshold, fn) {
+    els = els.filter(Boolean); if (!els.length) return;
+    if (!motion) { els.forEach(function (el) { fn(el, 0); }); return; }
+    var o = new IntersectionObserver(function (es) {
+      var k = 0; es.forEach(function (e) { if (e.isIntersecting) { o.unobserve(e.target); fn(e.target, k++); } });
+    }, {threshold: threshold});
+    els.forEach(function (el) { o.observe(el); });
+  }
 
   /* ---------- Marcador ---------- */
   var valid = function (d) {
@@ -55,6 +65,7 @@
     if (shareN) shareN.textContent = total ? nf.format(share) + '%' : '—';
     if (shareC) shareC.textContent = total ? nf.format(Math.round((100 - share) * 10) / 10) + '%' : '—';
     if (beamSeen) beam(share, total);
+    split(share, total);
     var lead = !d.enabled ? 'Competencia semanal pausada' : d.isClosed ? (nexo === caos ? 'Semana cerrada en empate' : nexo > caos ? 'Nexo ganó la semana' : 'Caos ganó la semana')
       : total === 0n ? 'La semana está por disputarse' : nexo === caos ? 'Nexo y Caos están igualados' : nexo > caos ? 'Nexo lleva la delantera' : 'Caos lleva la delantera';
     var leadEl = q('[data-fr-lead]'); if (leadEl) leadEl.textContent = lead;
@@ -67,12 +78,20 @@
   }
 
   // La balanza: el color de cada bando ocupa su parte y la barra se inclina hacia el que va al frente (3° con 15 puntos de ventaja o más).
-  var track = q('[data-fr-track]'), bar = q('[data-fr-bar]'), beamSeen = false;
+  var track = q('[data-fr-track]'), bar = q('[data-fr-bar]'), crack = q('[data-fr-crack]'), beamSeen = false;
   function beam(share, total) {
     if (!track || !bar) return;
     track.classList.toggle('is-empty', !total);
-    bar.style.width = share + '%';
+    bar.style.width = share + '%'; if (crack) crack.style.left = share + '%';
     track.style.setProperty('--tilt', (-Math.max(-15, Math.min(15, share - 50)) / 15 * 3).toFixed(2) + 'deg');
+  }
+
+  // Portada: la línea entre Nexo y Caos se corre según la semana (50% ± 15 de ventaja → centro 50% ± 8%). Sin datos, 50%.
+  var splitEl = document.querySelector('[data-fr-split]');
+  function split(share, total) {
+    if (!splitEl) return;
+    var m = total ? 50 + Math.max(-15, Math.min(15, share - 50)) / 15 * 8 : 50;
+    splitEl.style.setProperty('--fr-mid', m.toFixed(2));
   }
 
   // Estado inicial: lo que ya vino del servidor (o la muestra de la vista previa).
@@ -84,7 +103,7 @@
   }
   if (initial) {
     nums.forEach(function (el) { el._pending = valueFor(el, initial); if (!reduce) el.textContent = '0'; });
-    if (!reduce && bar) { bar.style.width = '50%'; track.style.setProperty('--tilt', '0deg'); }
+    if (!reduce && bar) { bar.style.width = '50%'; if (crack) crack.style.left = '50%'; track.style.setProperty('--tilt', '0deg'); }
   }
   function shareOf(d) { var n = BigInt(d.factions[1].points), c = BigInt(d.factions[2].points), t = n + c; return [t ? Number((n * 1000n + t / 2n) / t) / 10 : 50, t]; }
   function onSeen(el) {
@@ -105,6 +124,7 @@
     nums.forEach(function (el) { io.observe(el); }); if (track) io.observe(track);
   } else { nums.forEach(onSeen); onBeam(); }
   if (SAMPLE && initial) render(initial, true);
+  else if (initial) { var s0 = shareOf(initial); if (motion) requestAnimationFrame(function () { requestAnimationFrame(function () { split(s0[0], s0[1]); }); }); else split(s0[0], s0[1]); }
 
   // Consulta cada minuto mientras la pestaña está visible (mismo endpoint que la página anterior).
   var busy = false, timer = null;
@@ -122,6 +142,24 @@
   document.addEventListener('visibilitychange', function () { schedule(); if (!document.hidden) refresh(); });
   schedule();
 
+  /* ---------- Boss: la barra de vida se llena una vez ---------- */
+  once([q('[data-fr-hp]')], .5, function (el) { el.classList.add('is-in'); });
+
+  /* ---------- Historia: las tres partes aparecen una tras otra ---------- */
+  once(qa('[data-fr-beat]'), .25, function (el, k) { setTimeout(function () { el.classList.add('is-in'); }, k * 220); });
+
+  /* ---------- Salón: las filas entran de a una y la insignia se estampa (al verse y al cambiar de página) ---------- */
+  qa('[data-fr-rows]').forEach(function (list) {
+    list._enter = function () {
+      if (!motion) return;
+      var vis = [].slice.call(list.querySelectorAll('[data-fr-item]')).filter(function (it) { return !it.hidden; });
+      vis.forEach(function (it, i) { it.classList.remove('is-enter'); it.style.setProperty('--i', i); });
+      void list.offsetWidth;
+      vis.forEach(function (it) { it.classList.add('is-enter'); });
+    };
+    once([list], .2, function () { list._enter(); });
+  });
+
   /* ---------- Paginación del Salón (alto fijo: nunca cambia al pasar de página) ---------- */
   var small = window.matchMedia ? matchMedia('(max-width:760px)') : {matches: false};
   qa('[data-fr-pager]').forEach(function (list) {
@@ -138,8 +176,8 @@
       if (!nav.parentNode) list.after(nav);
       var p = Math.min(page, pages - 1); list.style.minHeight = ''; show(0); list.style.minHeight = list.offsetHeight + 'px'; show(p);
     }
-    prev.addEventListener('click', function () { if (page > 0) show(page - 1); });
-    next.addEventListener('click', function () { if (page < pages - 1) show(page + 1); });
+    prev.addEventListener('click', function () { if (page > 0) { show(page - 1); if (list._enter) list._enter(); } });
+    next.addEventListener('click', function () { if (page < pages - 1) { show(page + 1); if (list._enter) list._enter(); } });
     setup();
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(setup, 120); });
   });

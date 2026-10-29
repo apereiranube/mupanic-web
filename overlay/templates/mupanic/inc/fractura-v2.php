@@ -5,12 +5,13 @@
  * inc/fractura-ranks.php (laureados vigentes) y fractura-guide.json (premios de respaldo).
  * El marcador se refresca con el endpoint fractura/?fractura_week=1 desde js/fractura-v2.js.
  *
- * Arte: todavía no hay. Cada lugar para arte es un .fr-slot vacío con su tamaño reservado.
- * Cuando llegue, se copia a img/fractura-v2/<nombre>-<hash de 12>.webp (o .png/.svg) y aparece solo:
- *   Ya están: fractura-aldren 1021x1300 · fractura-varkor 990x1300 · fractura-grieta 266x1300 · fractura-boss 1139x1300.
- *   fractura-vulcanus 1600x1000 (fondo de la sección Vulcanus).
- *   Faltan: fractura-emblema-nexo / fractura-emblema-caos 1024x1024
- *   · fractura-insignia-nexo / fractura-insignia-caos 512x512 (historial del Salón de la Fama).
+ * Arte: img/fractura-v2/<nombre>-<hash de 12>.webp (o .png/.svg). Se detecta solo: si el archivo no está,
+ * el lugar (.fr-slot) queda vacío con su tamaño reservado y los fondos/bordes usan el color plano y el corte diagonal.
+ *   Figuras y escenas: fractura-aldren · fractura-varkor · fractura-grieta · fractura-boss · fractura-vulcanus (+ -lava)
+ *   · fractura-emblema-nexo/-caos · fractura-insignia-nexo/-caos/-empate · fractura-historia-1/2/3 (1200x800).
+ *   Fondos de línea: fractura-fondo-nexo / -caos (2400x1600: mitades de la portada y tarjetas de bando)
+ *   · fractura-fondo-hueso (2400x1600: banda de puntos) · fractura-fondo-boss (1600x1000) · fractura-fondo-salon (2400x1200).
+ *   Borde: fractura-borde (2560x200, forma azul noche arriba, transparente abajo): reemplaza los cortes diagonales.
  */
 if(!defined('access') || !access) die();
 require_once __DIR__.'/fractura-data.php';
@@ -34,6 +35,14 @@ $frSlot = function($cls, $name, $w, $h, $alt = '', $eager = false) use ($frArt, 
     $img = $src ? '<img src="'.$fr($src).'" alt="'.$fr($alt).'" width="'.$w.'" height="'.$h.'" decoding="async"'.($eager ? ' fetchpriority="high"' : ' loading="lazy"').'>' : '';
     return '<div class="fr-slot '.$cls.($src ? ' has-art' : '').'" data-art="'.$fr($name).' '.$w.'x'.$h.'"'.($alt === '' ? ' aria-hidden="true"' : '').'>'.$img.'</div>';
 };
+
+// Fondos de línea: capa .fr-pattern con la imagen (solo si existe).
+$frBgUrl = function($name) use ($frArt, $fr) { $src = $frArt($name); return $src ? "background-image:url('".$fr($src)."')" : null; };
+$frPattern = function($name, $cls = '') use ($frBgUrl) { $st = $frBgUrl($name); return $st ? '<div class="fr-pattern '.$cls.'" aria-hidden="true" style="'.$st.'"></div>' : ''; };
+// Borde quebrado entre secciones: arriba y abajo de cada banda hueso. Sin archivo, queda el corte diagonal.
+$frEdgeUrl = $frBgUrl('fractura-borde');
+$frEdges = $frEdgeUrl ? '<i class="fr-edge fr-edge--top" aria-hidden="true" style="'.$frEdgeUrl.'"></i><i class="fr-edge fr-edge--bottom" aria-hidden="true" style="'.$frEdgeUrl.'"></i>' : '';
+$frCrackSrc = $frArt('fractura-grieta');
 
 // Semana en curso e historial (null = no disponible; nunca se inventa un marcador).
 $contest = panicFracturaWeekRead();
@@ -67,11 +76,11 @@ $frOrders = [
   2 => ['key'=>'caos','name'=>'Caos','leader'=>'Varkor','title'=>'Heraldo de Caos','word'=>'Liberar','quote'=>'Toda ruptura es una puerta al poder.','creed'=>'Romper los límites del poder.','copy'=>'Varkor vio una puerta donde otros vieron una herida. Sus seguidores buscan atravesar el límite, dominar lo que despierta y levantar una nueva era sobre las cenizas.','promise'=>'Si creés que el poder se conquista, tu lugar está en Caos.'],
 ];
 ?>
-<div class="fr pui <?php echo $frLeadCls; ?>" id="fr-page" data-fractura-url="<?php echo $fr($frBase.'fractura/?fractura_week=1'); ?>">
+<div class="fr pui <?php echo $frLeadCls.($frEdges ? ' has-edge' : ''); ?>" id="fr-page" data-fr-nexo-share="<?php echo $nexoShare; ?>" data-fractura-url="<?php echo $fr($frBase.'fractura/?fractura_week=1'); ?>">
 
   <!-- Portada -->
   <section class="fr-hero" aria-labelledby="fr-title">
-    <div class="fr-hero-split" aria-hidden="true"><i class="fr-hero-nexo"></i><i class="fr-hero-caos"></i><?php echo $frSlot('fx-crack', 'fractura-grieta', 266, 1300); ?></div>
+    <div class="fr-hero-split" aria-hidden="true" data-fr-split><i class="fr-hero-nexo"<?php $st = $frBgUrl('fractura-fondo-nexo'); if($st) echo ' style="'.$st.'"'; ?>></i><i class="fr-hero-caos"<?php $st = $frBgUrl('fractura-fondo-caos'); if($st) echo ' style="'.$st.'"'; ?>></i><?php echo $frSlot('fx-crack', 'fractura-grieta', 266, 1300); ?></div>
     <div class="fr-hero-stage">
       <?php echo $frSlot('fr-hero-fig fr-hero-fig--aldren', 'fractura-aldren', 1021, 1300, 'Aldren, Guardián de Nexo', true); ?>
       <?php echo $frSlot('fr-hero-fig fr-hero-fig--varkor', 'fractura-varkor', 990, 1300, 'Varkor, Heraldo de Caos', true); ?>
@@ -111,7 +120,7 @@ $frOrders = [
         <?php } } ?>
       </div>
       <div class="fr-beam" data-fr-beam aria-hidden="true">
-        <div class="fr-beam-track<?php echo !$week || $total == 0 ? ' is-empty' : ''; ?>" data-fr-track><span class="fr-beam-nexo" data-fr-bar style="width:<?php echo $nexoShare; ?>%"></span><i class="fr-beam-mid"></i></div>
+        <div class="fr-beam-track<?php echo !$week || $total == 0 ? ' is-empty' : ''; ?>" data-fr-track><span class="fr-beam-nexo" data-fr-bar style="width:<?php echo $nexoShare; ?>%"></span><i class="fr-beam-mid"></i><?php if($frCrackSrc) { ?><span class="fr-beam-crack" data-fr-crack style="left:<?php echo $nexoShare; ?>%"><img src="<?php echo $fr($frCrackSrc); ?>" alt="" width="266" height="1300" loading="lazy" decoding="async"></span><?php } ?></div>
       </div>
       <p class="fr-board-foot"><span>Boss oficial + PvP válido en Vulcanus</span><span class="fr-board-status" data-fr-status role="status"><?php echo !$week ? 'Los puntos no están disponibles en este momento.' : ''; ?></span></p>
     </div>
@@ -119,6 +128,7 @@ $frOrders = [
 
   <!-- Cómo se suman puntos -->
   <section class="fr-band fr-band--bone fr-points" aria-labelledby="fr-points-t">
+    <?php echo $frEdges.$frPattern('fractura-fondo-hueso'); ?>
     <div class="pui-wrap">
       <header class="fr-head">
         <div><p class="pui-kicker">La competencia de esta semana</p><h2 class="pui-h2" id="fr-points-t"><?php echo $frReveal(['Cada punto inclina','la balanza']); ?></h2></div>
@@ -195,9 +205,13 @@ $frOrders = [
 
   <!-- Señor de la Fractura -->
   <section class="fr-band fr-boss" id="boss-fractura" aria-labelledby="fr-boss-t">
+    <?php echo $frPattern('fractura-fondo-boss'); ?>
     <div class="fr-boss-block" aria-hidden="true"></div>
     <div class="pui-wrap fr-boss-grid">
-      <?php echo $frSlot('fr-boss-art', 'fractura-boss', 1139, 1300, 'Señor de la Fractura'); ?>
+      <div class="fr-boss-fig">
+        <div class="fr-hp" data-fr-hp aria-hidden="true"><span class="fr-hp-name">Señor de la Fractura</span><span class="fr-hp-bar"><i class="fr-hp-fill"></i></span></div>
+        <?php echo $frSlot('fr-boss-art', 'fractura-boss', 1139, 1300, 'Señor de la Fractura'); ?>
+      </div>
       <article class="fr-enemy pui-rise">
         <header class="fr-enemy-top"><span>Jefe de Vulcanus</span><span>Amenaza máxima</span></header>
         <div class="fr-enemy-body">
@@ -218,15 +232,23 @@ $frOrders = [
 
   <!-- La historia -->
   <section class="fr-band fr-band--bone fr-story" id="historia-fractura" aria-labelledby="fr-story-t">
+    <?php echo $frEdges.$frPattern('fractura-fondo-hueso'); ?>
     <div class="pui-wrap">
       <header class="fr-head">
         <div><p class="pui-kicker">Una herida. Dos respuestas.</p><h2 class="pui-h2" id="fr-story-t"><?php echo $frReveal(['La historia']); ?></h2></div>
         <p class="pui-lead">Vessara permanece neutral. Vulcanus, no.</p>
       </header>
       <ol class="fr-beats">
-        <li class="fr-beat pui-rise"><span class="fr-beat-n">01</span><h3>El mundo se quebró</h3><p>Los Ocho respondieron a la Fractura y su huella sigue abierta. Cuando el fuego volvió a recorrer Vulcanus, dos voluntades reconocieron el mismo poder.</p></li>
-        <li class="fr-beat fr-beat--nexo pui-rise"><span class="fr-beat-n">02</span><h3>Aldren eligió preservar</h3><p>Reunió a quienes juraron mantener unido el continente. Así nació Nexo.</p></li>
-        <li class="fr-beat fr-beat--caos pui-rise"><span class="fr-beat-n">03</span><h3>Varkor eligió liberar</h3><p>Llamó a quienes estaban dispuestos a romper sus límites. Así nació Caos.</p></li>
+        <?php foreach([
+          ['', 'El mundo se quebró', 'Los Ocho respondieron a la Fractura y su huella sigue abierta. Cuando el fuego volvió a recorrer Vulcanus, dos voluntades reconocieron el mismo poder.'],
+          ['nexo', 'Aldren eligió preservar', 'Reunió a quienes juraron mantener unido el continente. Así nació Nexo.'],
+          ['caos', 'Varkor eligió liberar', 'Llamó a quienes estaban dispuestos a romper sus límites. Así nació Caos.'],
+        ] as $i => $b) { ?>
+        <li class="fr-beat<?php echo $b[0] ? ' fr-beat--'.$b[0] : ''; ?>" data-fr-beat>
+          <?php echo $frSlot('fr-beat-art', 'fractura-historia-'.($i + 1), 1200, 800); ?>
+          <div class="fr-beat-body"><span class="fr-beat-n">0<?php echo $i + 1; ?></span><h3><?php echo $b[1]; ?></h3><p><?php echo $b[2]; ?></p></div>
+        </li>
+        <?php } ?>
       </ol>
     </div>
   </section>
@@ -241,7 +263,11 @@ $frOrders = [
       <div class="fr-agents">
         <?php foreach([1, 2] as $id) { $o = $frOrders[$id]; ?>
         <article class="fr-agent fr-agent--<?php echo $o['key']; ?>" id="<?php echo $o['key']; ?>">
-          <?php echo $frSlot('fr-agent-emblem', 'fractura-emblema-'.$o['key'], 1024, 1024); ?>
+          <?php echo $frPattern('fractura-fondo-'.$o['key'], 'fr-agent-pattern'); ?>
+          <div class="fr-agent-media">
+            <?php $fig = $frArt($id === 1 ? 'fractura-aldren' : 'fractura-varkor'); if($fig) { ?><span class="fr-agent-peek" aria-hidden="true"><img src="<?php echo $fr($fig); ?>" alt="" width="<?php echo $id === 1 ? 1021 : 990; ?>" height="1300" loading="lazy" decoding="async"></span><?php } ?>
+            <?php echo $frSlot('fr-agent-emblem', 'fractura-emblema-'.$o['key'], 1024, 1024); ?>
+          </div>
           <div class="fr-agent-copy">
             <span class="fr-agent-tag"><?php echo $o['leader']; ?> · <?php echo $o['title']; ?></span>
             <h3 class="fr-agent-name"><?php echo $o['name']; ?></h3>
@@ -260,6 +286,7 @@ $frOrders = [
 
   <!-- Cómo unirte -->
   <section class="fr-band fr-band--bone fr-join" id="unirse-fractura" aria-labelledby="fr-join-t">
+    <?php echo $frEdges.$frPattern('fractura-fondo-hueso'); ?>
     <div class="pui-wrap">
       <header class="fr-head">
         <div><p class="pui-kicker">El juramento se hace en el juego</p><h2 class="pui-h2" id="fr-join-t"><?php echo $frReveal(['Cómo unirte']); ?></h2></div>
@@ -274,6 +301,7 @@ $frOrders = [
 
   <!-- Salón de la Fama -->
   <section class="fr-band fr-hall" id="salon-de-la-fama" aria-labelledby="fr-hall-t">
+    <?php echo $frPattern('fractura-fondo-salon'); ?>
     <div class="pui-wrap">
       <header class="fr-head">
         <div><p class="pui-kicker">Las victorias dejan huella</p><h2 class="pui-h2" id="fr-hall-t"><?php echo $frReveal(['Salón de la Fama']); ?></h2></div>
@@ -281,7 +309,7 @@ $frOrders = [
       </header>
       <h3 class="fr-sub">Semanas cerradas</h3>
       <?php if($history) { ?>
-      <ol class="fr-matches" data-fr-pager data-size="6">
+      <ol class="fr-matches" data-fr-pager data-fr-rows data-size="6">
         <?php foreach($history as $h) { $w = (int)$h['winnerFamily']; $wk = $w === 1 ? 'nexo' : ($w === 2 ? 'caos' : 'tie'); ?>
         <li class="fr-match fr-match--<?php echo $wk; ?>" data-fr-item>
           <?php echo $w ? $frSlot('fr-match-badge', 'fractura-insignia-'.$wk, 512, 512) : $frSlot('fr-match-badge fr-match-badge--tie', 'fractura-insignia-empate', 512, 512); ?>
@@ -309,7 +337,7 @@ $frOrders = [
 
   <!-- Cierre -->
   <section class="fr-cta" aria-labelledby="fr-cta-t">
-    <div class="fr-hero-split" aria-hidden="true"><i class="fr-hero-nexo"></i><i class="fr-hero-caos"></i></div>
+    <div class="fr-hero-split" aria-hidden="true"><i class="fr-hero-nexo"<?php $st = $frBgUrl('fractura-fondo-nexo'); if($st) echo ' style="'.$st.'"'; ?>></i><i class="fr-hero-caos"<?php $st = $frBgUrl('fractura-fondo-caos'); if($st) echo ' style="'.$st.'"'; ?>></i></div>
     <div class="pui-wrap fr-cta-in">
       <h2 class="pui-h2" id="fr-cta-t">Tu bando te espera</h2>
       <div class="fr-actions">
