@@ -599,3 +599,113 @@ body.is-wiki .atl .atl-tile:not(.atl-tile--big) .atlas-purpose{display:none!impo
   .atl-hero-copy{padding-top:28px}
 }
 @media(max-width:600px){.atl-hero-facts{gap:14px;letter-spacing:.06em;font-size:9px}.atl-hero-facts strong{font-size:22px;margin-right:4px;vertical-align:-3px}}
+
+/* ───── Arte v3 de los sistemas (Vessara, Fractura, Vínculos, Furia): arte transparente del sitio sobre bloques planos ───── */
+body.is-wiki .atl #vinculos{--atl:#36e07f;--atl-3:#7bf0ad;--ac:#36e07f}
+body.is-wiki .atl #furia{--atl-org:#ff7a1a}
+.atl :is(.v3-slab,.af-v3-nexo,.af-v3-caos,.afu-v3-slab,.vn-v3-slab){position:absolute;display:block;pointer-events:none}
+.atl :is(.v3-word,.af-v3-word,.vn-v3-word,.afu-v3-word){position:absolute;z-index:0;font:400 clamp(90px,11vw,170px)/.8 var(--pui-display);letter-spacing:.01em;white-space:nowrap;pointer-events:none;user-select:none}
+/* Vessara */
+body.is-wiki .atl #vessara .v-guide-hero-image.is-v3{height:400px;min-height:0;max-height:none;background:var(--atl-n1)!important}
+body.is-wiki .atl #vessara .v-guide-hero-image.is-v3:after{display:none}
+body.is-wiki .atl #vessara .is-v3 .v3-slab{inset:0 0 0 38%;background:var(--atl-gold)!important;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
+body.is-wiki .atl #vessara .is-v3 .v3-word{right:24px;top:24px;color:var(--atl-ink);opacity:.13}
+body.is-wiki .atl #vessara .v-guide-hero-image.is-v3+.v-guide-hero-copy{margin-top:0;padding-top:30px}
+body.is-wiki .atl #vessara .v-guide-foot a{background:var(--atl-gold)!important;color:var(--atl-ink)!important;font:400 15px/1 var(--pui-display);letter-spacing:.07em;text-transform:uppercase}
+body.is-wiki .atl #vessara .v-guide-hero-image.is-v3 img{position:absolute;min-height:0;max-height:none;object-fit:contain;filter:drop-shadow(0 18px 26px #0009)}
+body.is-wiki .atl #vessara .v-guide-hero-image.is-v3 .v3-fig{right:9%;bottom:-24%;width:auto;height:128%;z-index:2}
+body.is-wiki .atl #vessara .v-guide-hero-image.is-v3 .v3-stamp{left:40%;bottom:22px;width:auto;height:46%;z-index:1;transform:rotate(-12deg)}
+body.is-wiki .atl #vessara .v-guide-hero-image.is-v3 .v-guide-corner{z-index:3;background:var(--atl-ink)!important;color:var(--atl-gold)!important}
+body.is-wiki .atl #vessara .v-guide-keyline img{width:40px;height:40px;object-fit:contain}
+body.is-wiki .atl #vessara .v-guide-crew-art.is-v3{position:relative;height:360px;overflow:hidden;border:0!important;background:var(--atl-n2)!important}
+body.is-wiki .atl #vessara .v-guide-crew-art.is-v3 .v3-slab{inset:0 0 0 56%;background:var(--atl-gold)!important;clip-path:polygon(22% 0,100% 0,100% 100%,0 100%)}
+body.is-wiki .atl #vessara .v-guide-crew-art.is-v3 .v3-word{left:28px;opacity:1;top:50%;transform:translateY(-50%);font-size:clamp(70px,8vw,128px);line-height:.85;color:var(--atl-n4)}
+body.is-wiki .atl #vessara .v-guide-crew-art.is-v3 .v3-fig{position:absolute;right:12%;top:12px;z-index:1;width:auto;height:calc(100% + 60px);filter:drop-shadow(0 18px 26px #0009)}
+body.is-wiki .atl #vessara .v-guide-step.has-art{position:relative;width:56px;height:56px;border:0!important;background:var(--atl-n3)!important;overflow:visible}
+body.is-wiki .atl #vessara .v-guide-step.has-art img{position:absolute;inset:4px;width:48px;height:48px;object-fit:contain}
+body.is-wiki .atl #vessara .v-guide-step.has-art b{position:absolute;right:-8px;bottom:-8px;padding:3px 5px;font:400 14px/1 var(--pui-display);background:var(--atl-gold)!important;color:var(--atl-ink)}
+body.is-wiki .atl #vessara .v-guide-currencies span{display:inline-flex;align-items:center;gap:8px}
+body.is-wiki .atl #vessara .v-guide-currencies img{width:24px;height:24px;object-fit:contain}
+body.is-wiki .atl #vessara .v-guide-foot.is-v3{border:0!important;background:var(--atl-n2)!important}
+body.is-wiki .atl #vessara .v3-foot-art{position:relative;margin:0;min-height:300px;overflow:hidden;background:var(--atl-n1)!important}
+body.is-wiki .atl #vessara .v3-foot-art .v3-slab{inset:0 18% 0 0;background:var(--atl-gold)!important;clip-path:polygon(0 0,100% 0,78% 100%,0 100%)}
+body.is-wiki .atl #vessara .v3-foot-art .v3-fig{position:absolute;left:50%;top:18px;width:auto;height:calc(100% + 40px);transform:translateX(-50%);filter:drop-shadow(0 18px 26px #0009)}
+/* Fractura */
+body.is-wiki .atl #fractura .af-guide-hero.is-v3{display:grid;align-items:stretch;min-height:0;background:var(--atl-n2)!important}
+body.is-wiki .atl #fractura .af-guide-hero.is-v3:after{display:none}
+body.is-wiki .atl #fractura .af-guide-hero.is-v3 :is(h2,p){color:var(--pui-ink)!important}
+body.is-wiki .atl #fractura .af-guide-hero.is-v3 p{color:var(--pui-muted)!important}
+body.is-wiki .atl #fractura .af-guide-hero.is-v3 .eyebrow{color:#29c8ff!important}
+.af-v3-stage{position:relative;width:100%;max-width:none!important;padding:0!important;height:400px;overflow:hidden;isolation:isolate}
+body.is-wiki .atl #fractura .af-v3-nexo{inset:0 46% 0 0;background:#29c8ff!important;clip-path:polygon(0 0,100% 0,88% 100%,0 100%)}
+body.is-wiki .atl #fractura .af-v3-caos{inset:0 0 0 46%;background:#e0244f!important;clip-path:polygon(12% 0,100% 0,100% 100%,0 100%)}
+body.is-wiki .atl #fractura .af-v3-word{top:22px;color:var(--atl-ink);opacity:.16}
+.af-v3-word--nexo{left:22px}.af-v3-word--caos{right:22px}
+.af-v3-grieta{position:absolute;z-index:1;left:50%;top:-4%;height:108%;width:auto;transform:translateX(-50%)}
+.af-v3-fig{position:absolute;z-index:2;bottom:-18%;height:122%;width:auto;filter:drop-shadow(0 18px 26px #000a)}
+.af-v3-fig--aldren{left:6%}.af-v3-fig--varkor{right:6%}
+body.is-wiki .atl #fractura .af-guide-hero.is-v3>div:not(.af-v3-stage){position:relative;z-index:3;padding:30px 35px 34px;max-width:none}
+body.is-wiki .atl #fractura .af-orders img{width:64px;height:64px;object-fit:contain}
+body.is-wiki .atl #fractura .af-orders .af-order--nexo{border-left:6px solid #29c8ff!important}
+body.is-wiki .atl #fractura .af-orders .af-order--caos{border-left:6px solid #e0244f!important}
+/* Vínculos */
+body.is-wiki .atl .vinculos-hero-art--group{display:block;min-height:490px;overflow:hidden;background:var(--atl)!important}
+body.is-wiki .atl .vinculos-hero-art--group .vn-v3-word{left:50%;top:20px;transform:translateX(-50%);color:var(--atl-ink);opacity:.14}
+body.is-wiki .atl .vinculos-hero-art--group img.vn-v3-group{position:absolute;z-index:1;left:4%;right:0;top:18px;bottom:auto;width:96%;height:calc(100% - 110px);max-width:none;object-fit:contain;object-position:center bottom;animation:none;transform:none;filter:drop-shadow(0 16px 24px #0008)}
+body.is-wiki .atl .vinculos-hero-art--group .vinculos-hero-creature{z-index:2;left:0;right:0;bottom:0;width:100%;padding:16px 20px;border:0!important;text-align:center;background:var(--atl-ink)!important}
+body.is-wiki .atl .vinculos-chapter>img.is-v3{right:-8px;top:10px;width:74%;height:145px;object-fit:contain}
+body.is-wiki .atl .vinculos-legend-art.vn-v3-beasts{position:relative;height:360px;padding:18px 24px 0;overflow:hidden;background:var(--atl-n3)!important}
+body.is-wiki .atl .vn-v3-beasts .vn-v3-slab{inset:0 0 34% 0;background:var(--atl)!important;clip-path:polygon(0 0,100% 0,100% 62%,0 100%)}
+body.is-wiki .atl .vn-v3-beasts img.vn-v3-beast{position:relative;z-index:1;width:33.333%;height:100%;object-fit:contain;object-position:center bottom}
+body.is-wiki .atl .atl-feature-art.is-v3{background:#36e07f!important}
+body.is-wiki .atl .atl-feature-art.is-v3 img{inset:14px 8% 0 0;width:92%;height:calc(100% - 14px);object-fit:contain;object-position:center bottom;filter:drop-shadow(0 12px 18px #0007)}
+/* Furia */
+body.is-wiki .atl .atlas-furia-hero.is-v3{display:block}
+.afu-v3-stage{position:relative;height:400px;overflow:hidden;isolation:isolate;background:var(--atl-n1)}
+body.is-wiki .atl .afu-v3-stage{background:var(--atl-n1)!important}
+body.is-wiki .atl .afu-v3-slab{inset:0 0 0 30%;background:var(--atl-org)!important;clip-path:polygon(16% 0,100% 0,100% 100%,0 100%)}
+body.is-wiki .atl .afu-v3-word{right:24px;top:20px;font-size:clamp(110px,13vw,200px);color:var(--atl-ink);opacity:.14}
+body.is-wiki .atl .atlas-furia-hero.is-v3{background:var(--atl-n2)!important}
+body.is-wiki .atl .atlas-furia-hero.is-v3 .eyebrow{color:var(--atl-org)!important}
+body.is-wiki .atl .atlas-furia-hero.is-v3 h2 em{color:var(--atl-org)!important}
+body.is-wiki .atl .atlas-furia-hero.is-v3 p{color:var(--pui-muted)!important}
+body.is-wiki .atl .atlas-furia-hero.is-v3 kbd{background:var(--atl-org);color:var(--atl-ink)}
+body.is-wiki .atl .atlas-furia-hero.is-v3 img{aspect-ratio:auto;object-fit:contain;filter:drop-shadow(0 18px 26px #000a)}
+body.is-wiki .atl .atlas-furia-hero.is-v3 .afu-v3-fig{position:absolute;z-index:2;left:30%;bottom:-12%;width:auto;height:112%}
+.afu-v3-golem{position:absolute;z-index:1;right:4%;bottom:18px;width:36%;aspect-ratio:820/680}
+body.is-wiki .atl .atlas-furia-hero.is-v3 .afu-v3-golem img{position:absolute;inset:0;width:100%;height:100%;transition:opacity .12s}
+.afu-v3-golem .h{opacity:0}
+.afu-v3-stage:hover .afu-v3-golem .h{opacity:1}.afu-v3-stage:hover .afu-v3-golem .n{opacity:0}
+body.is-wiki .atl .atlas-furia-combos figure.is-v3{display:flex;flex-direction:column;align-items:center;justify-content:center;height:120px;padding:12px;background:var(--atl-n2)!important;border:0!important;border-top:4px solid var(--atl-org)!important}
+.afu-v3-tier{display:block;font:400 clamp(26px,3vw,44px)/1 var(--pui-display);letter-spacing:.03em;color:var(--atl-org);white-space:nowrap}
+body.is-wiki .atl .atlas-furia-combos figure.is-v3 strong{color:var(--atl-org)!important}
+@media(prefers-reduced-motion:reduce){body.is-wiki .atl .atlas-furia-hero.is-v3 .afu-v3-golem img{transition:none}}
+@media(max-width:900px){
+  body.is-wiki .atl #vessara .v-guide-hero-image.is-v3,.af-v3-stage,.afu-v3-stage{height:340px}
+}
+@media(max-width:600px){
+  body.is-wiki .atl #vessara .v-guide-hero-image.is-v3,.af-v3-stage,.afu-v3-stage{height:300px}
+  body.is-wiki .atl #vessara .is-v3 .v3-slab{left:26%}
+  body.is-wiki .atl #vessara .v-guide-hero-image.is-v3 .v3-fig{right:2%;height:122%;bottom:-22%}
+  body.is-wiki .atl #vessara .v-guide-hero-image.is-v3 .v3-stamp{left:6%;bottom:16px;height:36%}
+  body.is-wiki .atl #vessara .is-v3 .v3-word{font-size:64px;right:12px;top:52px}
+  body.is-wiki .atl #vessara .v-guide-crew-art.is-v3{height:300px}
+  body.is-wiki .atl #vessara .v-guide-crew-art.is-v3 .v3-slab{left:38%}
+  body.is-wiki .atl #vessara .v-guide-crew-art.is-v3 .v3-word{font-size:40px;left:16px}
+  body.is-wiki .atl .vinculos-chapter>img.is-v3{top:8px;right:-6px;width:46%;height:112px}
+  body.is-wiki .atl #vessara .v-guide-crew-art.is-v3 .v3-fig{right:4%}
+  body.is-wiki .atl #vessara .v3-foot-art{min-height:260px;height:260px}
+  .af-v3-fig{height:96%;bottom:-6%}.af-v3-fig--aldren{left:-6%}.af-v3-fig--varkor{right:-6%}
+  body.is-wiki .atl #fractura .af-v3-word{font-size:56px;top:14px}
+  body.is-wiki .atl #fractura .af-guide-hero.is-v3>div:not(.af-v3-stage){padding:22px 20px 26px}
+  body.is-wiki .atl .vinculos-hero-art--group{min-height:330px}
+  body.is-wiki .atl .vinculos-hero-art--group img.vn-v3-group{height:calc(100% - 100px);left:2%;width:96%}
+  body.is-wiki .atl .vinculos-hero-art--group .vn-v3-word{font-size:80px}
+  body.is-wiki .atl .vinculos-legend-art.vn-v3-beasts{height:240px;padding:12px 8px 0}
+  body.is-wiki .atl .afu-v3-slab{left:12%}
+  body.is-wiki .atl .afu-v3-word{font-size:72px;right:12px;top:14px}
+  body.is-wiki .atl .atlas-furia-hero.is-v3 .afu-v3-fig{left:2%;height:96%;bottom:-4%}
+  .afu-v3-golem{width:54%;right:-4%;bottom:10px}
+  body.is-wiki .atl .atlas-furia-combos figure.is-v3{height:96px;padding:8px 4px}
+  .afu-v3-tier{font-size:clamp(18px,5.4vw,26px)}
+}

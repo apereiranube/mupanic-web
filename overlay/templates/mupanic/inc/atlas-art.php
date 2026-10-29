@@ -22,6 +22,21 @@ if(!function_exists('panicAtlasArt')) {
         }
         return null;
     }
+    // Arte nuevo que ya existe en otras páginas (img/<carpeta>/<nombre>-<hash12>.ext): ruta o null.
+    function panicAtlasSiteArt($dir, $name) {
+        static $cache = [];
+        if(!isset($cache[$dir])) { $d = __DIR__.'/../img/'.$dir.'/'; $cache[$dir] = is_dir($d) ? (scandir($d) ?: []) : []; }
+        foreach($cache[$dir] as $f) {
+            if(preg_match('/^'.preg_quote($name, '/').'-[0-9a-f]{12}\.(webp|png|svg)$/D', $f)) return (defined('__PATH_TEMPLATE__') ? __PATH_TEMPLATE__ : '').'img/'.$dir.'/'.$f;
+        }
+        return null;
+    }
+    // Arte nuevo o, si falta el archivo, la imagen anterior (ruta relativa a la plantilla).
+    function panicAtlasPick($dir, $name, $fallback) {
+        $art = panicAtlasSiteArt($dir, $name);
+        return $art ? $art : (defined('__PATH_TEMPLATE__') ? __PATH_TEMPLATE__ : '').$fallback;
+    }
+    function panicAtlasE($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
     // Ícono de navegación: máscara teñible si hay arte; si no, la inicial en Anton.
     function panicAtlasIcon($key, $letter) {
         $art = panicAtlasArt('atlas-icono-'.$key);

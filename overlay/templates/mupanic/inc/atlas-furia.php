@@ -1,5 +1,10 @@
 <?php if(!defined('access') || !access) die();
 $furiaArt = __PATH_TEMPLATE__.'img/home/';
+// Arte nuevo (el mismo del minijuego de /servidor/): Rage Fighter en Furia y el gólem. Si falta, queda la escena anterior.
+$furiaRf = panicAtlasSiteArt('servidor', 'furia-rf');
+$furiaGolem = panicAtlasSiteArt('servidor', 'golem-normal');
+$furiaGolemHit = panicAtlasSiteArt('servidor', 'golem-golpe');
+$furiaV3 = $furiaRf && $furiaGolem;
 $furiaClasses = [
     ['Dark Wizard', '+25% de daño excelente y maná infinito mientras dura.'],
     ['Dark Knight', '+100% de resistencia al stun y +20% de ignorar defensa.'],
@@ -11,8 +16,9 @@ $furiaClasses = [
 ];
 ?>
 <section id="furia" class="wiki-section atlas-furia" aria-labelledby="atlas-furia-title" data-wiki-search>
-    <div class="atlas-furia-hero">
-        <picture><source media="(max-width:600px)" srcset="<?php echo $furiaArt; ?>furia-world-v3-mobile.webp" width="960" height="1008"><img src="<?php echo $furiaArt; ?>furia-world-v3-960.webp" alt="La energía roja de la Furia quiebra el suelo de un escenario de MU PANIC" width="960" height="400" loading="lazy" decoding="async"></picture>
+    <div class="atlas-furia-hero<?php echo $furiaV3 ? ' is-v3' : ''; ?>">
+        <?php if($furiaV3) { ?><div class="afu-v3-stage" role="img" aria-label="Un Rage Fighter en Furia golpea a un gólem de piedra"><i class="afu-v3-slab" aria-hidden="true"></i><span class="afu-v3-word" aria-hidden="true">FURIA</span><span class="afu-v3-golem" aria-hidden="true"><img class="n" src="<?php echo panicAtlasE($furiaGolem); ?>" alt="" width="820" height="680" loading="lazy" decoding="async"><?php if($furiaGolemHit) { ?><img class="h" src="<?php echo panicAtlasE($furiaGolemHit); ?>" alt="" width="820" height="680" loading="lazy" decoding="async"><?php } ?></span><img class="afu-v3-fig" src="<?php echo panicAtlasE($furiaRf); ?>" alt="" width="831" height="1000" loading="lazy" decoding="async"></div>
+        <?php } else { ?><picture><source media="(max-width:600px)" srcset="<?php echo $furiaArt; ?>furia-world-v3-mobile.webp" width="960" height="1008"><img src="<?php echo $furiaArt; ?>furia-world-v3-960.webp" alt="La energía roja de la Furia quiebra el suelo de un escenario de MU PANIC" width="960" height="400" loading="lazy" decoding="async"></picture><?php } ?>
         <div>
             <span class="eyebrow">ATLAS / SISTEMA EXCLUSIVO</span>
             <h2 id="atlas-furia-title">La <em>Furia.</em></h2>
@@ -43,9 +49,9 @@ $furiaClasses = [
     <h3>3. No pares.</h3>
     <p>La Furia dura 15 segundos. Cada monstruo que matás le suma 1 segundo, y cada golpe a un jugador también suma 1 segundo (como mucho uno por segundo). Nunca pasa de 40 segundos desde que la activaste.</p>
     <div class="atlas-furia-combos">
-        <figure><img src="<?php echo $furiaArt; ?>furia-ui-combo-v3.webp" alt="COMBO" width="1024" height="256" loading="lazy" decoding="async"><figcaption><strong>5</strong> muertes</figcaption></figure>
-        <figure><img src="<?php echo $furiaArt; ?>furia-ui-imparable-v3.webp" alt="IMPARABLE" width="1024" height="256" loading="lazy" decoding="async"><figcaption><strong>12</strong> muertes</figcaption></figure>
-        <figure><img src="<?php echo $furiaArt; ?>furia-ui-masacre-v3.webp" alt="MASACRE" width="1024" height="256" loading="lazy" decoding="async"><figcaption><strong>20</strong> muertes</figcaption></figure>
+        <figure<?php echo $furiaV3 ? ' class="is-v3"' : ''; ?>><?php if($furiaV3) { ?><b class="afu-v3-tier">COMBO</b><?php } else { ?><img src="<?php echo $furiaArt; ?>furia-ui-combo-v3.webp" alt="COMBO" width="1024" height="256" loading="lazy" decoding="async"><?php } ?><figcaption><strong>5</strong> muertes</figcaption></figure>
+        <figure<?php echo $furiaV3 ? ' class="is-v3"' : ''; ?>><?php if($furiaV3) { ?><b class="afu-v3-tier">IMPARABLE</b><?php } else { ?><img src="<?php echo $furiaArt; ?>furia-ui-imparable-v3.webp" alt="IMPARABLE" width="1024" height="256" loading="lazy" decoding="async"><?php } ?><figcaption><strong>12</strong> muertes</figcaption></figure>
+        <figure<?php echo $furiaV3 ? ' class="is-v3"' : ''; ?>><?php if($furiaV3) { ?><b class="afu-v3-tier">MASACRE</b><?php } else { ?><img src="<?php echo $furiaArt; ?>furia-ui-masacre-v3.webp" alt="MASACRE" width="1024" height="256" loading="lazy" decoding="async"><?php } ?><figcaption><strong>20</strong> muertes</figcaption></figure>
     </div>
     <p>El contador de la pantalla suma los monstruos y jugadores que matás durante la Furia y el daño extra que hiciste.</p>
 

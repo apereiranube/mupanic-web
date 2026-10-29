@@ -1,15 +1,27 @@
-<?php if(!defined('access') || !access) die(); ?>
+<?php if(!defined('access') || !access) die();
+// Arte nuevo (estilo actual del sitio, ya usado en Mercado/Servidor/Votar); la imagen anterior queda como respaldo.
+$vgFig = panicAtlasSiteArt('mercado', 'mercado-vessara');
+$vgStamp = panicAtlasSiteArt('mercado', 'mercado-sello');
+$vgCrier = panicAtlasSiteArt('servidor', 'cuadrilla-cartel');
+$vgFoot = panicAtlasSiteArt('inicio', 'inicio-vessara');
+$vgSeal = panicAtlasPick('mercado', 'mercado-lacre', 'img/market/vessara-seal-v2.svg');
+$vgZen = panicAtlasSiteArt('mercado', 'moneda-zen');
+$vgGem = panicAtlasSiteArt('votar', 'votar-gema-64');
+$vgStepArt = ['paso-todos','paso-sellado','paso-publicar','paso-guardado','paso-cobrar'];
+$vgStep = function($n) use ($vgStepArt) { $a = panicAtlasSiteArt('mercado', $vgStepArt[$n-1]); return $a ? '<span class="v-guide-step has-art"><img src="'.panicAtlasE($a).'" alt="" width="240" height="240" loading="lazy" decoding="async"><b>0'.$n.'</b></span>' : '<span class="v-guide-step">0'.$n.'</span>'; };
+?>
 <section id="vessara" class="wiki-section atlas-vessara-guide" aria-labelledby="atlas-vessara-title" data-wiki-search>
     <div class="v-guide-hero">
-        <div class="v-guide-hero-image">
-            <img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-trade-v3.webp" alt="Vessara presenta el sello que protege los intercambios de MU PANIC" width="1280" height="720" loading="lazy">
+        <div class="v-guide-hero-image<?php echo $vgFig ? ' is-v3' : ''; ?>">
+            <?php if($vgFig) { ?><i class="v3-slab" aria-hidden="true"></i><span class="v3-word" aria-hidden="true">VESSARA</span><?php if($vgStamp) { ?><img class="v3-stamp" src="<?php echo panicAtlasE($vgStamp); ?>" alt="" width="524" height="700" loading="lazy" decoding="async"><?php } ?><img class="v3-fig" src="<?php echo panicAtlasE($vgFig); ?>" alt="Vessara presenta el sello que protege los intercambios de MU PANIC" width="853" height="1300" loading="lazy" decoding="async">
+            <?php } else { ?><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-trade-v3.webp" alt="Vessara presenta el sello que protege los intercambios de MU PANIC" width="1280" height="720" loading="lazy"><?php } ?>
             <span class="v-guide-corner">LOREN MARKET · 114,143</span>
         </div>
         <div class="v-guide-hero-copy">
             <span class="eyebrow">ATLAS / SISTEMAS DEL CONTINENTE</span>
             <h2 id="atlas-vessara-title">Mercado de <em>Vessara.</em></h2>
             <p>Diez vendedores recorren la plaza de Loren Market con ofertas destacadas. Bajo el sello de Vessara, los jugadores publican y compran equipos, mascotas y lotes de joyas utilizando <strong>Zen</strong> o <strong>Eryns</strong>, la moneda propia de MU PANIC.</p>
-            <div class="v-guide-keyline"><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-seal-v2.svg" width="40" height="40" alt=""><span>F11 para consultar. Vessara, en Loren Market, para realizar operaciones.</span></div>
+            <div class="v-guide-keyline"><img src="<?php echo panicAtlasE($vgSeal); ?>" width="40" height="40" alt=""><span>F11 para consultar. Vessara, en Loren Market, para realizar operaciones.</span></div>
         </div>
     </div>
 
@@ -25,7 +37,8 @@
         <div><p>Después de la Fractura, intercambiar objetos entre desconocidos significaba confiar primero y esperar después. Vessara estableció una forma distinta de comerciar: resguardar los objetos ofrecidos y reconocer los acuerdos bajo su sello.</p><p>Hoy, el <strong>Sello de Vessara</strong> identifica los tratos completados por el sistema. No convierte una publicación en una venta: el trato se considera sellado cuando la compra y su entrega quedan confirmadas.</p><p class="v-guide-quote">«Bajo mi sello, ningún trato se rompe.»</p></div>
     </div>
 
-    <figure class="v-guide-crew-art"><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/cuadrilla-rota-v1.webp" alt="Los diez cazadores esqueléticos de la Cuadrilla Rota, con sombreros, dagas y los instrumentos de sus antiguos oficios" width="1536" height="1024" loading="lazy"></figure>
+    <?php if($vgCrier) { ?><figure class="v-guide-crew-art is-v3"><i class="v3-slab" aria-hidden="true"></i><span class="v3-word" aria-hidden="true">CUADRILLA<br>ROTA</span><img class="v3-fig" src="<?php echo panicAtlasE($vgCrier); ?>" alt="Un pregonero esquelético de la Cuadrilla Rota levanta el cartel del mercado de Vessara" width="572" height="1000" loading="lazy" decoding="async"></figure>
+    <?php } else { ?><figure class="v-guide-crew-art"><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/cuadrilla-rota-v1.webp" alt="Los diez cazadores esqueléticos de la Cuadrilla Rota, con sombreros, dagas y los instrumentos de sus antiguos oficios" width="1536" height="1024" loading="lazy"></figure><?php } ?>
     <div class="v-guide-intro">
         <div><span class="eyebrow">LOS DIEZ DE LA CUADRILLA ROTA</span><h3>Una deuda sin final.</h3></div>
         <div><p>Después de la Fractura, diez cazadores saqueaban las ruinas que nadie se atrevía a pisar. Vessara les ofreció vender sus tesoros bajo su sello, a precio justo y sin traiciones. Se volvieron ricos, hasta que Morvan los convenció de vaciar su bóveda.</p><p>No llegaron a tocar una moneda. Al amanecer solo quedaban <strong>sus huesos, sus sombreros y sus dagas</strong>. Vessara no los mató: les cobró. Ahora pregonan los tesoros de otros hasta saldar una deuda que nadie sabe cuánto vale.</p><p class="v-guide-quote">«Quien rompe un trato con Vessara, lo paga con servicio.»</p></div>
@@ -63,18 +76,18 @@
 
     <div class="v-guide-section-heading"><span class="eyebrow">GUÍA DE USO</span><h3>Cómo comerciar.</h3><p>El mercado está disponible para jugadores Free y VIP. No necesitás ser VIP para comprar o vender.</p></div>
     <ol class="v-guide-steps">
-        <li><span class="v-guide-step">01</span><div><h4>Consultá las ofertas</h4><p>Abrí el <strong>Hub con F11</strong> e ingresá a <strong>Mercado de Vessara</strong> para explorar el catálogo. Utilizá la búsqueda y los filtros para localizar objetos y precios.</p></div></li>
-        <li><span class="v-guide-step">02</span><div><h4>Visitá a Vessara</h4><p>Encontrala en <strong>Loren Market (114,143)</strong>. Publicar, comprar, cancelar publicaciones y cobrar ventas son operaciones que se realizan con ella dentro del juego.</p></div></li>
-        <li><span class="v-guide-step">03</span><div><h4>Publicá un objeto</h4><p>Elegí el objeto que querés vender, definí un precio y seleccioná <strong>Zen</strong> o <strong>Eryns</strong>. Revisá los datos antes de confirmar. El objeto —o las cinco joyas del lote— queda bajo custodia del mercado mientras la publicación esté activa, conservando su identidad y opciones. <strong>Publicar es gratis.</strong></p></div></li>
-        <li><span class="v-guide-step">04</span><div><h4>Comprá o cancelá</h4><p>Para comprar, seleccioná la oferta y confirmá el precio indicado. Revisá la moneda y dejá espacio en tu inventario; un lote de joyas requiere cinco espacios libres. Si una publicación tuya sigue activa, podés cancelarla y recuperar el objeto o el lote completo <strong>sin pagar comisión</strong>.</p></div></li>
-        <li><span class="v-guide-step">05</span><div><h4>Cobrá tus ventas</h4><p>Cuando se completa una venta, regresá a Vessara para <strong>cobrar lo obtenido</strong>. La comisión —5% normal o 8% total en una venta destacada— se descuenta del importe que recibe el vendedor. Podés revisar tus publicaciones y el historial del mercado.</p></div></li>
+        <li><?php echo $vgStep(1); ?><div><h4>Consultá las ofertas</h4><p>Abrí el <strong>Hub con F11</strong> e ingresá a <strong>Mercado de Vessara</strong> para explorar el catálogo. Utilizá la búsqueda y los filtros para localizar objetos y precios.</p></div></li>
+        <li><?php echo $vgStep(2); ?><div><h4>Visitá a Vessara</h4><p>Encontrala en <strong>Loren Market (114,143)</strong>. Publicar, comprar, cancelar publicaciones y cobrar ventas son operaciones que se realizan con ella dentro del juego.</p></div></li>
+        <li><?php echo $vgStep(3); ?><div><h4>Publicá un objeto</h4><p>Elegí el objeto que querés vender, definí un precio y seleccioná <strong>Zen</strong> o <strong>Eryns</strong>. Revisá los datos antes de confirmar. El objeto —o las cinco joyas del lote— queda bajo custodia del mercado mientras la publicación esté activa, conservando su identidad y opciones. <strong>Publicar es gratis.</strong></p></div></li>
+        <li><?php echo $vgStep(4); ?><div><h4>Comprá o cancelá</h4><p>Para comprar, seleccioná la oferta y confirmá el precio indicado. Revisá la moneda y dejá espacio en tu inventario; un lote de joyas requiere cinco espacios libres. Si una publicación tuya sigue activa, podés cancelarla y recuperar el objeto o el lote completo <strong>sin pagar comisión</strong>.</p></div></li>
+        <li><?php echo $vgStep(5); ?><div><h4>Cobrá tus ventas</h4><p>Cuando se completa una venta, regresá a Vessara para <strong>cobrar lo obtenido</strong>. La comisión —5% normal o 8% total en una venta destacada— se descuenta del importe que recibe el vendedor. Podés revisar tus publicaciones y el historial del mercado.</p></div></li>
     </ol>
 
     <div class="v-guide-columns">
         <article class="v-guide-box">
             <span class="eyebrow">ZEN O ERYNS</span><h3>Una moneda por oferta.</h3>
             <p>Cada publicación tiene un precio expresado en una sola moneda. <strong>Zen</strong> y <strong>Eryns</strong> son mercados de valor distintos: no se convierten automáticamente uno en otro al comprar.</p>
-            <div class="v-guide-currencies"><span><i aria-hidden="true">●</i> Zen</span><span><i aria-hidden="true">◆</i> Eryns</span></div>
+            <div class="v-guide-currencies"><span><?php if($vgZen) { ?><img src="<?php echo panicAtlasE($vgZen); ?>" alt="" width="24" height="24" loading="lazy"><?php } else { ?><i aria-hidden="true">●</i><?php } ?> Zen</span><span><?php if($vgGem) { ?><img src="<?php echo panicAtlasE($vgGem); ?>" alt="" width="22" height="24" loading="lazy"><?php } else { ?><i aria-hidden="true">◆</i><?php } ?> Eryns</span></div>
             <p class="v-guide-small">Los límites de publicaciones se comparten entre ambas monedas. No son 3 o 10 por cada moneda.</p>
         </article>
         <article class="v-guide-box v-guide-tribute">
@@ -99,8 +112,9 @@
         <details><summary>¿Qué pasa si se desconecta el juego?</summary><p>Las publicaciones y operaciones confirmadas se conservan en el registro del mercado. Al volver a entrar, consultá tu estado con Vessara antes de repetir cualquier acción.</p></details>
     </div>
 
-    <div class="v-guide-foot">
-        <img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-guarantee-v1.webp" alt="Vessara custodia un acuerdo bajo su sello" loading="lazy" width="1672" height="941">
+    <div class="v-guide-foot<?php echo $vgFoot ? ' is-v3' : ''; ?>">
+        <?php if($vgFoot) { ?><figure class="v3-foot-art"><i class="v3-slab" aria-hidden="true"></i><img class="v3-fig" src="<?php echo panicAtlasE($vgFoot); ?>" alt="Vessara custodia un acuerdo bajo su sello" loading="lazy" decoding="async" width="1089" height="1411"></figure>
+        <?php } else { ?><img src="<?php echo __PATH_TEMPLATE__; ?>img/market/vessara-guarantee-v1.webp" alt="Vessara custodia un acuerdo bajo su sello" loading="lazy" width="1672" height="941"><?php } ?>
         <div><span class="eyebrow">EL PULSO DE LOREN MARKET</span><h3>Los tesoros cambian de manos. El mercado no se detiene.</h3><p>Entrá al <strong>Mercado de Vessara en vivo</strong> y seguí los últimos tratos sellados, los objetos que encontraron nuevo dueño y el movimiento de <strong>Zen y Eryns</strong>. Cada venta deja su huella bajo el sello de Vessara.</p><a href="<?php echo __BASE_URL__; ?>market/">Ver el mercado en vivo <span aria-hidden="true">→</span></a></div>
     </div>
 </section>
