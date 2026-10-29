@@ -192,7 +192,8 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta name="twitter:image" content="<?php echo $sharePreviewImg; ?>"/>
     <?php } ?>
     <?php if($isHome) { ?><link rel="preload" as="image" href="<?php echo __PATH_TEMPLATE__; ?>img/home/hero-rf-mg-v10.webp" fetchpriority="high"><?php } ?>
-    <?php if(!$isHome && !in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
+    <?php $isAuthPage = in_array($_REQUEST['page'],['register','login','forgotpassword','verifyemail'],true); ?>
+    <?php if(!$isHome && !$isAuthPage && !in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true)) { ?><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>style.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/style.css'), 0, 12); ?>" rel="stylesheet">
     <?php if(!$isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>panic-ui.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/panic-ui.css'),0,12); ?>" rel="stylesheet">
@@ -200,6 +201,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page'] === 'info') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas-vessara.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas-vessara.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>server-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/server-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'downloads') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>downloads.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/downloads.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($isAuthPage) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>auth-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/auth-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>account.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/account.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
@@ -216,7 +218,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>fractura-v2.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/fractura-v2.css'),0,12); ?>"><?php } ?>
     <noscript><style>@media(max-width:1100px){.site-header{position:relative;height:auto}.site-header .nav-shell{height:auto;min-height:var(--site-header-height);flex-wrap:wrap;padding-block:12px}.site-header .main-nav{display:flex;position:static;flex-basis:100%;width:100%;order:3;max-height:none;flex-direction:row;flex-wrap:wrap;padding:8px 0 0;border:0;background:none}.site-header .main-nav a{min-height:38px;padding:8px}.site-header .main-nav .mobile-account{display:flex}.site-header .menu-toggle{display:none}.site-header .nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $_REQUEST['page']==='votar' ? 'is-votar ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ($_REQUEST['page'] === 'downloads' ? ' is-downloads' : '')))))); ?>">
+<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $_REQUEST['page']==='votar' ? 'is-votar ' : ''; ?><?php echo $isAuthPage ? 'is-auth ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ($_REQUEST['page'] === 'downloads' ? ' is-downloads' : '')))))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -263,7 +265,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 
 <?php } else { ?>
 
-<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true)) { ?>
+<?php if($_REQUEST['page'] === 'rankings') { include(__DIR__.'/inc/rankings-hero.php'); } elseif($_REQUEST['page'] === 'info') { include(__DIR__.'/inc/atlas-hero.php'); } elseif(!$isAuthPage && !in_array($_REQUEST['page'],['information','market','fractura','downloads','socios','votar'],true)) { ?>
 <section class="inner-hero">
     <div class="shell inner-head">
         <div><span class="eyebrow"><?php echo $_REQUEST['page'] === 'profile' ? ($_REQUEST['subpage'] === 'guild' ? 'GUILD / MU PANIC' : 'PERSONAJE / MU PANIC') : (in_array($_REQUEST['page'],['usercp','register','login','forgotpassword','verifyemail'],true) ? 'TU CUENTA / MU PANIC' : htmlspecialchars(strtoupper($_REQUEST['page']))); ?></span><h1><?php echo htmlspecialchars(mupanicPageTitle($_REQUEST['page'], $_REQUEST['subpage'])); ?></h1></div>
@@ -297,6 +299,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             </div>
         <?php } else { ?>
             <div class="module-surface"><?php
+                if($isAuthPage) { require_once __DIR__.'/inc/auth-v2.php'; panicAuthOpen($_REQUEST['page']); ob_start('panicAuthMarkup'); }
                 if($_REQUEST['page'] === 'fractura') {
                     include(__DIR__.'/inc/fractura-v2.php');
                 } elseif($_REQUEST['page'] === 'socios') {
@@ -325,6 +328,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
                 } else {
                     $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
                 }
+                if($isAuthPage) { ob_end_flush(); panicAuthClose($_REQUEST['page']); }
                 ?></div>
         <?php } ?>
     </div>
