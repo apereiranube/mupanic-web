@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600">
+  <rect width="2400" height="1600" fill="#0f1923"/>
+  <g fill="#15212c">
+    <polygon points="-240,0 100,0 650,550 480,720"/>
+    <polygon points="1740,-180 2100,-180 2580,300 2400,480"/>
+    <path d="M0 1170H190L410 1390V1480L530 1600H0Z"/>
+    <polygon points="2350,650 2670,1070 2350,1490 2030,1070"/>
+  </g>
+  <polygon fill="#36e07f" points="0,860 0,940 144,1084 184,1044"/>
+</svg>
