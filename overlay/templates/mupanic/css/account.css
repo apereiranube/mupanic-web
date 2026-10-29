@@ -260,3 +260,70 @@ html:has(body.is-account){scrollbar-gutter:stable}
 .cta-hero-title{line-height:.9}
 @media(max-width:900px){.cta-hero-block{inset:0 0 auto 58%;height:170px}}
 .cta-tool [style*="margin-top"]{margin-top:0!important}
+
+/* Herramientas de personajes (WebEngine): filas azul noche como Rankings, nombre en Anton, avatar con corte */
+.cta-tool .table>tbody>tr>td{transition:background .15s}
+.cta-tool .table>tbody>tr:not(.account-table-header):hover>td{background:#1b2a37}
+.cta-tool .general-table-ui>tbody>tr>td:first-child{width:76px;padding:8px 10px;background:var(--n3)}
+.cta-tool .table td img,.cta-tool .table .account-class-avatar{display:block;width:56px;height:56px;max-width:none;object-fit:cover;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+.cta-tool .general-table-ui>tbody>tr>td:nth-child(2){font:400 24px/1 var(--pui-display);letter-spacing:.03em;text-transform:uppercase}
+.cta-tool .general-table-ui>tbody>tr>td:last-child{text-align:right}
+.cta-tool .table .account-table-header th:last-child{text-align:right}
+.cta-tool .module-requirements{margin-top:18px}
+/* Asignar puntos: cada personaje es una tarjeta con sus campos en dos columnas */
+.cta-tool .panel-addstats{position:relative;margin:0 0 12px;background:var(--n);clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%)}
+.cta-tool .panel-addstats>.panel-body{display:grid;grid-template-columns:112px minmax(0,1fr);gap:22px;padding:22px}
+.cta-tool .panel-addstats .character-avatar img{display:block;width:112px;height:112px;max-width:none;object-fit:cover;clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%)}
+.cta-tool .panel-addstats .character-name{margin:0 0 12px;font:400 34px/1 var(--pui-display);letter-spacing:.02em;text-transform:uppercase;color:var(--bone)}
+.cta-tool .panel-addstats .form-horizontal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;max-width:none}
+.cta-tool .panel-addstats .form-group{margin:0}
+.cta-tool .panel-addstats .form-group:first-child{grid-column:1/-1;justify-self:start;display:block;padding:8px 14px 7px;background:#6fb4ff26;color:var(--e2);font-weight:700;font-size:14px}
+.cta-tool .panel-addstats .form-group:first-child .control-label{display:none}
+.cta-tool .panel-addstats .form-group:first-child b,.cta-tool .panel-addstats .form-group:first-child strong{font:400 20px/1 var(--pui-display);color:var(--bone)}
+.cta-tool .panel-addstats .form-group:last-child{grid-column:1/-1;margin-top:4px}
+.cta-tool .panel-addstats .form-group:last-child [class*="col-"]{text-align:left}
+.cta-tool .panel-addstats .form-control{background:var(--n2)}
+@media(max-width:760px){
+ .cta-tool .table tr{display:grid!important;grid-template-columns:64px minmax(0,1fr);gap:0 12px;padding:10px;background:var(--n)}
+ .cta-tool .table>tbody>tr>td{display:flex!important;flex-direction:column;align-items:flex-start;gap:2px;width:auto!important;padding:6px 0!important;background:transparent!important;text-align:left!important}
+ .cta-tool .table>tbody>tr>td:first-child{grid-row:span 2;padding:0!important}
+ .cta-tool .table>tbody>tr>td:first-child:before,.cta-tool .table>tbody>tr>td:nth-child(2):before{display:none}
+ .cta-tool .table>tbody>tr>td:nth-child(2){align-self:end}
+ .cta-tool .table>tbody>tr>td:nth-child(n+3):not(:last-child){grid-column:auto;flex-direction:row;justify-content:space-between;grid-column:2}
+ .cta-tool .table>tbody>tr>td:last-child{grid-column:1/-1;padding-top:10px!important}
+ .cta-tool .table>tbody>tr>td:last-child:before{display:none}
+ .cta-tool .table>tbody>tr>td:last-child .btn,.cta-tool .table>tbody>tr>td:last-child form{width:100%}
+ .cta-tool .panel-addstats>.panel-body{grid-template-columns:72px minmax(0,1fr);gap:14px;padding:16px}
+ .cta-tool .panel-addstats .character-avatar img{width:72px;height:72px}
+ .cta-tool .panel-addstats .character-name{font-size:26px}
+ .cta-tool .panel-addstats .panel-body>.col-xs-9{display:contents}
+ .cta-tool .panel-addstats .character-name{align-self:center;margin:0}
+ .cta-tool .panel-addstats .col-xs-9>.col-sm-10{grid-column:1/-1}
+ .cta-tool .panel-addstats .form-horizontal{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 10px}
+}
+
+.cta-tool .form-horizontal:before,.cta-tool .form-horizontal:after,.cta-tool .panel-body:before,.cta-tool .panel-body:after,.cta-tool .row:before,.cta-tool .row:after,.cta-tool .form-group:before,.cta-tool .form-group:after{content:none;display:none}
+/* Datos de mi cuenta */
+.cta-tool .myaccount-table>tbody>tr>td:first-child{width:34%;color:var(--mut);font:800 11px/1.3 var(--pui-body);letter-spacing:.12em;text-transform:uppercase}
+.cta-tool .myaccount-table>tbody>tr>td:last-child{font-weight:700;overflow-wrap:anywhere}
+.cta-tool .myaccount-table .btn-xs{min-height:34px;padding:0 12px;font-size:14px;margin-left:12px}
+.cta-tool .label{display:inline-block;padding:5px 10px;font:800 11px/1.2 var(--pui-body);letter-spacing:.1em;text-transform:uppercase}
+.cta-tool .label-success{background:#3fd39426;color:var(--ok)}
+.cta-tool .label-danger{background:#ff465526;color:#ff8a94}
+.cta-tool .label-default{background:#ece8e114;color:var(--bone)}
+.cta-tool .account-characters-grid{margin:0 0 18px}
+.cta-tool .account-character{display:grid;justify-items:start;gap:8px;text-align:left}
+.cta-tool .account-character .myaccount-character-name{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font:400 24px/1 var(--pui-display);text-transform:uppercase}
+.cta-tool .account-character .myaccount-character-name a{color:var(--bone);text-decoration:none}
+.cta-tool .account-character img{width:72px;height:72px;max-width:none;object-fit:cover;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+.cta-tool .myaccount-character-block-location{font-size:13px;color:var(--mut)}
+.cta-tool .myaccount-character-block-level{font:800 12px/1 var(--pui-body);letter-spacing:.1em;text-transform:uppercase;color:var(--e)}
+.cta-tool .account-characters-grid>[class*="col-"]{float:none;width:auto;padding:0}
+@media(max-width:760px){
+ .cta-tool .table tr.account-table-header{display:none!important}
+ .cta-tool .myaccount-table tr{grid-template-columns:minmax(0,1fr)!important}
+ .cta-tool .myaccount-table>tbody>tr>td{width:auto!important}
+ .cta-tool .myaccount-table>tbody>tr>td:first-child{grid-row:auto}
+ .cta-tool .myaccount-table>tbody>tr>td:last-child{grid-column:auto;padding-top:0!important}
+ .cta-tool .myaccount-table .btn-xs{width:auto!important;margin:8px 0 0}
+}

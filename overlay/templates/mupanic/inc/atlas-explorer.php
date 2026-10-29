@@ -3,7 +3,7 @@ $art = $atlasAssets['maps'][(string)$map['id']] ?? null;
 if(!isset($atlasDropThumbs)) { $atlasDropThumbs = json_decode((string)@file_get_contents(__DIR__.'/atlas-drop-items.json'), true) ?: []; }
 $dropThumb = function($drop) use($atlasDropThumbs) { $thumb = $atlasDropThumbs[$drop['id'].'-'.($drop['variant'] ?? 0)] ?? null; if(!$thumb) return '<span class="atlas-drop-thumb atlas-drop-thumb--empty" aria-hidden="true"></span>'; return '<span class="atlas-drop-thumb"><img loading="lazy" src="'.__BASE_URL__.'templates/mupanic/'.panicWikiEscape($thumb['file']).'" alt=""></span>'; };
 $dropLabel = function($name) { return preg_replace('/^(?:(?:REGIONAL|GLOBAL RARO) V[0-9.]+ INTEGRAL|PILAR1 RAKLION MIX) (?=Jewel of )/', '', $name); };
-$trapSymbol = '<svg class="atlas-mob-portrait atlas-trap-symbol" viewBox="0 0 96 96" role="img" aria-label="Símbolo de trampa; no es una captura del cliente"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M48 12v14m0 44v14M12 48h14m44 0h14"/><circle cx="48" cy="48" r="25"/><path d="M36 39h24v18H36zM40 31h16v8m-12 8h8m-17 18 8-8m10 0 8 8"/></g></svg>';
+$trapSymbol = '<span class="atlas-mob-portrait atlas-trap-symbol atl-letter" role="img" aria-label="Trampa">T</span>';
 $spotPanels = $map['spots'];
 $spotPanels[] = ['x'=>null, 'y'=>null, 'monsters'=>$map['monsters']];
 ?>

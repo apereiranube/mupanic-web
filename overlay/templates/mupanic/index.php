@@ -199,6 +199,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <link href="<?php echo __PATH_TEMPLATE_CSS__; ?>panic-ui.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/panic-ui.css'),0,12); ?>" rel="stylesheet">
     <?php if($isHome) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>home-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/home-v2.css'),0,12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'info') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas-vessara.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas-vessara.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($_REQUEST['page'] === 'info') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>atlas-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/atlas-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>server-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/server-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'downloads') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>downloads.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/downloads.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($isAuthPage) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>auth-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/auth-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
@@ -373,6 +374,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
 <?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>home-v2.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/home-v2.js'),0,12); ?>" defer></script><?php } ?>
 <script src="<?php echo __PATH_TEMPLATE_JS__; ?>main.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/main.js'), 0, 12); ?>"></script>
 <?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-ui.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-ui.js'), 0, 12); ?>"></script><?php } ?>
+<?php if($_REQUEST['page'] === 'info') { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>atlas-v2.js?v=<?php echo substr(hash_file('sha256', __DIR__.'/js/atlas-v2.js'), 0, 12); ?>"></script><?php } ?>
 <?php if($isHome) { ?><script src="<?php echo __PATH_TEMPLATE_JS__; ?>mu-panic-brasas.js?v=<?php echo substr(hash_file('sha256',__DIR__.'/js/mu-panic-brasas.js'),0,12); ?>" defer></script><?php } ?>
 </body>
 </html>

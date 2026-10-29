@@ -262,7 +262,8 @@
   var finderResults = wiki.querySelector('[data-atlas-find-results]');
   var finderStatus = wiki.querySelector('[data-atlas-find-status]');
   var finderMore = wiki.querySelector('[data-atlas-find-more]');
-  var finderLimit = 12;
+  // Los resultados se paginan en un área fija (atlas-v2.js): se arman todos y nunca crece la lista.
+  var finderLimit = 240;
   function finderLink(route) {
     var link = document.createElement('a'); link.href = route.hash; link.textContent = route.label + ' ↗︎';
     link.addEventListener('click', function () { if (location.hash === route.hash) revealHash(); });
@@ -290,7 +291,7 @@
     }
   }
   function renderFinder(reset) {
-    if (reset) finderLimit = 12;
+    if (reset) finderLimit = 240;
     var showLevel = finderType.value === 'mob' || finderType.value === 'boss';
     wiki.querySelector('[data-atlas-level-control]').hidden = !showLevel;
     if (!showLevel) finderLevel.value = '';
@@ -299,7 +300,7 @@
     var active = normalize(finderQuery.value) || finderType.value || finderMap.value !== '' || finderLevel.value !== '';
     if (!active) { finderStatus.textContent = 'Escribí un nombre o elegí qué querés explorar.'; finderMore.hidden = true; return; }
     var matches = window.PanicAtlasSearch.filter(finderIndex, {query:finderQuery.value, type:finderType.value, map:finderMap.value, level:finderLevel.value});
-    finderStatus.textContent = matches.length ? matches.length + ' resultados · mostrando ' + Math.min(matches.length, finderLimit) : 'No encontramos resultados. Probá otro nombre o quitá un filtro.';
+    finderStatus.textContent = matches.length ? matches.length + (matches.length === 1 ? ' resultado' : ' resultados') : 'No encontramos resultados. Probá otro nombre o quitá un filtro.';
     finderMore.hidden = matches.length <= finderLimit;
     matches.slice(0,finderLimit).forEach(function (entry) {
       var card = document.createElement('article'); card.className = 'atlas-find-card';
@@ -330,7 +331,7 @@
   }
   finderQuery.addEventListener('input', function () { renderFinder(true); });
   [finderType,finderMap,finderLevel].forEach(function (control) { control.addEventListener('change',function () { renderFinder(true); }); });
-  finderMore.addEventListener('click',function () { finderLimit += 12; renderFinder(false); });
+  finderMore.addEventListener('click',function () { finderLimit += 240; renderFinder(false); });
   wiki.querySelectorAll('[data-atlas-example]').forEach(function (button) { button.addEventListener('click',function () {
     finderQuery.value = button.getAttribute('data-atlas-example'); finderType.value = ''; finderMap.value = ''; finderLevel.value = ''; renderFinder(true);
   }); });
