@@ -1031,3 +1031,241 @@ body.is-wiki .atl .tl-rates td{vertical-align:middle}
 body.is-wiki .atl .tl-rates td b{font:400 18px/1 var(--pui-display);color:#c6f03a}
 body.is-wiki .atl .tl-rate-range{display:inline-flex;align-items:baseline;gap:4px;margin:2px 10px 2px 0;white-space:nowrap}
 body.is-wiki .atl .tl-rate-range small{font-size:11px;color:#ece8e1aa}
+/* ───── Mejorar mi equipo (#mejoras): resultado gigante, joyas como fichas, escalera fija de 15 pasos ───── */
+body.is-wiki .atl .mj-sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+body.is-wiki .atl .mj-head p{max-width:620px;margin:0 0 18px;font-size:17px;color:var(--pui-muted)}
+body.is-wiki .atl .mj-kinds{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 30px;padding:0;list-style:none}
+body.is-wiki .atl .mj-kinds li{display:flex;flex-direction:column;gap:4px;padding:16px 18px;background:var(--atl-n2)!important}
+body.is-wiki .atl .mj-kinds li:first-child{background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-kinds b{font:400 24px/1 var(--pui-display);text-transform:uppercase}
+body.is-wiki .atl .mj-kinds span{font-size:14px;line-height:1.35;color:var(--pui-muted)!important}
+body.is-wiki .atl .mj-kinds li:first-child span{color:var(--pui-bone-muted)!important}
+body.is-wiki .atl .upgrade-calculator.mj-calc{margin:0 0 44px;padding:26px;background:var(--atl-n2)!important}
+body.is-wiki .atl .mj-calc-title{margin:0 0 16px!important;font-size:clamp(28px,2.6vw,38px)!important}
+body.is-wiki .atl .mj-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;align-items:end;gap:10px;margin:0 0 6px}
+body.is-wiki .atl .mj-luck{grid-column:auto;display:flex;align-items:center;gap:10px;min-height:48px;margin:0;padding:0 18px;background:var(--atl-n3)!important;font:700 14px/1.2 var(--pui-body);color:var(--pui-ink)!important;cursor:pointer;white-space:nowrap}
+body.is-wiki .atl .mj-luck input{width:20px;height:20px;accent-color:var(--atl)}
+body.is-wiki .atl .mj-luck b{color:var(--atl)!important}
+body.is-wiki .atl .mj-luck:has(input:checked){background:var(--atl)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-luck:has(input:checked) b{color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:6px;margin:0 0 6px}
+body.is-wiki .atl .mj-odds{--risk:var(--atl);min-height:262px;padding:24px 26px;background:#0b131b!important}
+body.is-wiki .atl .mj-odds.is-mid{--risk:var(--pui-bone)}
+body.is-wiki .atl .mj-odds.is-risky{--risk:var(--pui-red)}
+body.is-wiki .atl .mj-odds>small,body.is-wiki .atl .mj-need>small{display:block;margin:0 0 6px;font:800 11px/1.2 var(--pui-body);letter-spacing:.14em;text-transform:uppercase;color:var(--pui-muted)!important}
+body.is-wiki .atl .mj-odds strong{display:block;font:400 clamp(72px,8vw,124px)/.95 var(--pui-display);letter-spacing:.01em;color:var(--risk)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.is-wiki .atl .mj-meter{display:block;height:18px;margin:14px 0 10px;background:var(--atl-n4)!important}
+body.is-wiki .atl .mj-meter i{display:block;height:100%;background:var(--risk)!important;transition:width .25s ease}
+body.is-wiki .atl .mj-risk{display:inline-block;padding:6px 10px;background:var(--risk)!important;color:var(--atl-ink)!important;font:400 16px/1 var(--pui-display);letter-spacing:.05em;text-transform:uppercase}
+body.is-wiki .atl .mj-odds.is-risky .mj-risk{color:var(--pui-bone)!important}
+body.is-wiki .atl .mj-odds p{min-height:2.9em;margin:10px 0 0;font-size:14px;line-height:1.45;color:var(--pui-muted)!important}
+body.is-wiki .atl .mj-need{padding:24px 26px;background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-need>small{color:var(--pui-bone-muted)!important}
+body.is-wiki .atl .mj-need-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:6px 0 12px;padding:0;list-style:none}
+body.is-wiki .atl .mj-need-item{display:flex;flex-direction:column;align-items:center;text-align:center;padding:14px 6px 12px;background:#dcd6cc!important;transition:opacity .2s}
+body.is-wiki .atl .mj-need-img img{display:block;width:64px;height:64px;object-fit:contain}
+body.is-wiki .atl .mj-need-item b{margin:8px 0 2px;font:400 46px/1 var(--pui-display);color:#c8303e!important}
+body.is-wiki .atl .mj-need-item span{font:700 13px/1.25 var(--pui-body);color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-need-item.is-zero{opacity:.4}
+body.is-wiki .atl .mj-need-item.is-zero b{color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-need>p{margin:0;font-size:13px;color:var(--pui-bone-muted)!important}
+/* Escalera: los 15 pasos siempre están; se ilumina tu tramo */
+body.is-wiki .atl .mj-ladder{display:grid;grid-template-columns:6fr 3fr;gap:6px;margin:0 0 6px}
+body.is-wiki .atl .mj-band{min-width:0;padding:16px;background:var(--atl-n3)!important}
+body.is-wiki .atl .mj-band.is-chaos{grid-column:1/-1}
+body.is-wiki .atl .mj-band-head{display:flex;align-items:center;gap:10px;margin:0 0 12px!important;font:inherit!important}
+body.is-wiki .atl .mj-band-img img{display:block;width:38px;height:38px;object-fit:contain}
+body.is-wiki .atl .mj-band-head b{display:block;font:400 22px/1 var(--pui-display);text-transform:uppercase;color:var(--pui-ink)}
+body.is-wiki .atl .mj-band-head small{display:block;margin-top:3px;font:700 11px/1.2 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;color:var(--pui-muted)!important}
+body.is-wiki .atl .mj-steps{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:4px;margin:0;padding:0;list-style:none}
+body.is-wiki .atl .mj-step{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0;padding:10px 10px 12px;background:var(--atl-n2)!important;color:var(--pui-muted)!important;transition:background .2s,color .2s}
+body.is-wiki .atl .mj-step-lv{font:400 28px/1 var(--pui-display);color:inherit}
+body.is-wiki .atl .mj-step-lv small{display:block;margin-bottom:2px;font:700 11px/1 var(--pui-body);letter-spacing:.04em;color:inherit;opacity:.8}
+body.is-wiki .atl .mj-step-rate{font:400 22px/1 var(--pui-display);color:inherit}
+body.is-wiki .atl .mj-step.is-on{background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-step.is-on .mj-step-rate{color:#4f6a0a!important}
+body.is-wiki .atl .mj-step.is-on.is-risky .mj-step-rate{color:#c8303e!important}
+body.is-wiki .atl .is-chaos .mj-step-lv{font-size:34px}
+body.is-wiki .atl .is-chaos .mj-step-rate{font-size:34px}
+body.is-wiki .atl .mj-step-ings{display:flex;flex-wrap:wrap;gap:2px 8px}
+body.is-wiki .atl .mj-step-ings>span{display:inline-flex;align-items:center;gap:1px;font:400 17px/1 var(--pui-display);color:inherit}
+body.is-wiki .atl .mj-step-ings img{width:24px;height:24px;object-fit:contain}
+body.is-wiki .atl .mj-step:not(.is-on) .mj-step-ings img{opacity:.5}
+/* Avisos cortos */
+body.is-wiki .atl .mj-alerts{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:6px;margin:0;padding:0;list-style:none}
+body.is-wiki .atl .mj-alerts li{display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:var(--atl-n3)!important}
+body.is-wiki .atl .mj-alerts b{font:400 19px/1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase;color:var(--atl)}
+body.is-wiki .atl .mj-alerts span{font-size:14px;line-height:1.45;color:var(--pui-ink)}
+body.is-wiki .atl .mj-alerts li.is-fail{background:var(--pui-red)!important}
+body.is-wiki .atl .mj-alerts li.is-fail :is(b,span){color:var(--pui-bone)!important}
+body.is-wiki .atl .mj-alerts li.is-fail span{font-weight:700}
+/* Las tres etapas */
+body.is-wiki .atl .mj-h3,body.is-wiki .atl .eq-h3{margin:0 0 16px!important;font-size:clamp(30px,3vw,42px)!important}
+body.is-wiki .atl .mj-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 14px;padding:0;list-style:none}
+body.is-wiki .atl .mj-stage{position:relative;display:flex;flex-direction:column;align-items:flex-start;min-height:330px;padding:24px;background:var(--atl-n2)!important}
+body.is-wiki .atl .mj-stage.is-bless{background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-stage.is-chaos{background:#0b131b!important}
+body.is-wiki .atl .mj-stage-num{position:absolute;right:20px;top:16px;font:400 54px/1 var(--pui-display);color:var(--atl)}
+body.is-wiki .atl .mj-stage.is-bless .mj-stage-num{color:#5f7a10}
+body.is-wiki .atl .mj-stage-img{width:84px;height:84px;object-fit:contain;margin:0 0 14px}
+body.is-wiki .atl .mj-stage-range{font:400 clamp(46px,4.6vw,66px)/.9 var(--pui-display);color:inherit}
+body.is-wiki .atl .mj-stage strong{margin:6px 0 14px;font:400 24px/1 var(--pui-display);letter-spacing:.03em;text-transform:uppercase;color:var(--atl)!important}
+body.is-wiki .atl .mj-stage.is-bless strong{color:#c8303e!important}
+body.is-wiki .atl .mj-stage-key{display:inline-flex;align-items:baseline;gap:8px;margin:0 0 12px;padding:8px 12px;background:var(--atl-ink)!important;color:var(--pui-ink)!important;font:700 13px/1.2 var(--pui-body)}
+body.is-wiki .atl .mj-stage:not(.is-bless) .mj-stage-key{background:var(--atl-n4)!important}
+body.is-wiki .atl .mj-stage-key b{font:400 26px/1 var(--pui-display);color:var(--atl)}
+body.is-wiki .atl .mj-stage p{margin:auto 0 0;font-size:15px;line-height:1.5;color:inherit}
+body.is-wiki .atl .mj-rates{margin:0 0 44px;padding:16px 20px}
+body.is-wiki .atl .mj-rates summary{cursor:pointer;font:400 20px/1.2 var(--pui-display);letter-spacing:.03em;text-transform:uppercase}
+body.is-wiki .atl .mj-rates p{margin:12px 0 0;font-size:14px}
+body.is-wiki .atl .mj-rates p b{color:var(--atl)}
+/* Life, Luck y Skill */
+body.is-wiki .atl .mj-extra{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+body.is-wiki .atl .mj-card{display:flex;flex-direction:column;gap:14px;padding:24px;background:var(--atl-n2)!important}
+body.is-wiki .atl .mj-card.is-life{background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .mj-card header{display:flex;align-items:center;gap:14px}
+body.is-wiki .atl .mj-card header>div{flex:1;min-width:0}
+body.is-wiki .atl .mj-card h3{margin:4px 0 0!important;font-size:clamp(28px,2.6vw,36px)!important;color:inherit!important}
+body.is-wiki .atl .mj-card.is-life .eyebrow{color:#c8303e!important}
+body.is-wiki .atl .mj-card-img img{display:block;width:64px;height:64px;object-fit:contain}
+body.is-wiki .atl .mj-card-rate{margin:0;text-align:right}
+body.is-wiki .atl .mj-card-rate b{display:block;font:400 54px/1 var(--pui-display);color:#4f6a0a}
+body.is-wiki .atl .mj-card-rate small{font:800 11px/1.2 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;color:var(--pui-bone-muted)!important}
+body.is-wiki .atl .mj-card-lead{margin:0;font-size:17px;line-height:1.45;color:inherit}
+body.is-wiki .atl .mj-chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+body.is-wiki .atl .mj-chips li{padding:8px 12px;background:var(--atl-ink)!important;color:var(--pui-bone)!important;font:700 13px/1.2 var(--pui-body)}
+body.is-wiki .atl .mj-chips li.is-no:before{content:'✕ ';color:var(--pui-red)}
+body.is-wiki .atl .mj-fail{margin:auto 0 0;padding:12px 14px;background:var(--pui-red)!important;color:var(--pui-bone)!important;font:700 14px/1.45 var(--pui-body)}
+body.is-wiki .atl .mj-fail b{margin-right:6px;font:400 17px/1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase;color:inherit}
+body.is-wiki .atl .mj-fail.is-note{background:var(--atl-n3)!important;color:var(--pui-ink)!important;font-weight:600}
+body.is-wiki .atl .mj-fail.is-note b{color:var(--pui-red)}
+body.is-wiki .atl .mj-props{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0;border:0!important;background:none!important}
+body.is-wiki .atl .mj-props>div{padding:14px 16px;background:var(--atl-n3)!important}
+body.is-wiki .atl .mj-props dt{margin:0 0 6px;font:400 30px/1 var(--pui-display);text-transform:uppercase;color:var(--atl)}
+body.is-wiki .atl .mj-props dd{margin:0;font-size:14px;line-height:1.45}
+body.is-wiki .atl .mj-props dd b{color:var(--atl)}
+/* ───── Tipos de equipo (#equipo): una tarjeta por tipo con su color ───── */
+body.is-wiki .atl .eq-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 24px}
+body.is-wiki .atl .eq-tabs a{min-height:44px!important;font:400 17px/1 var(--pui-display)!important;letter-spacing:.04em;text-transform:uppercase}
+body.is-wiki .atl .eq-card.equipment-article{--ac:var(--atl);margin:0 0 14px;padding:0 0 24px;border:0!important;background:var(--atl-n2)!important;scroll-margin-top:110px}
+body.is-wiki .atl .eq-card.is-anc{--ac:var(--pui-bone)}
+body.is-wiki .atl .eq-card.is-sock{--ac:var(--atl-blue)}
+body.is-wiki .atl .eq-card.is-harm{--ac:var(--pui-red)}
+body.is-wiki .atl .eq-head.equipment-heading{display:grid;grid-template-columns:132px minmax(0,1fr);align-items:stretch;gap:0;margin:0 0 20px;padding:0;background:#0b131b!important}
+body.is-wiki .atl .eq-mark{display:flex;align-items:center;justify-content:center;min-height:132px;background:var(--ac)!important;color:var(--atl-ink)}
+body.is-wiki .atl .eq-mark .atl-ico{width:68px;height:68px;font-size:52px;color:var(--atl-ink)}
+body.is-wiki .atl .eq-mark img{width:84px;height:84px;object-fit:contain;image-rendering:auto}
+body.is-wiki .atl .eq-head>div{align-self:center;padding:18px 24px}
+body.is-wiki .atl .eq-head .eyebrow{color:var(--ac)!important}
+body.is-wiki .atl .eq-head h3{margin:6px 0 4px!important;font-size:clamp(38px,4vw,58px)!important;line-height:.95!important}
+body.is-wiki .atl .eq-big{margin:0;font:700 clamp(18px,1.6vw,22px)/1.3 var(--pui-body);color:var(--pui-ink)}
+body.is-wiki .atl .eq-card>:not(header){margin-left:24px!important;margin-right:24px!important}
+body.is-wiki .atl .eq-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 6px}
+body.is-wiki .atl .eq-tiles.is-two{grid-template-columns:1fr}
+body.is-wiki .atl .eq-tile{padding:16px 18px;background:var(--atl-n3)!important}
+body.is-wiki .atl .eq-tile:first-child{background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .eq-tile small{display:block;margin:0 0 6px;font:800 11px/1.2 var(--pui-body);letter-spacing:.14em;text-transform:uppercase;color:var(--ac)!important}
+body.is-wiki .atl .eq-tile:first-child small{color:#c8303e!important}
+body.is-wiki .atl .eq-tile p{margin:0;font-size:15px;line-height:1.45;color:inherit}
+body.is-wiki .atl .eq-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0 0 6px}
+body.is-wiki .atl .eq-opts>div{padding:16px 18px;background:var(--atl-n3)!important}
+body.is-wiki .atl .eq-opts h4{margin:0 0 12px!important;font:400 22px/1 var(--pui-display)!important;text-transform:uppercase;color:var(--pui-ink)!important}
+body.is-wiki .atl .eq-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+body.is-wiki .atl .eq-tags li{display:inline-flex;align-items:baseline;gap:6px;padding:8px 12px;background:var(--atl-n1)!important;color:var(--pui-ink)!important;font:700 14px/1.2 var(--pui-body)}
+body.is-wiki .atl .eq-tags small{font-weight:600;font-size:12px;color:var(--pui-muted)!important}
+body.is-wiki .atl .eq-tip,body.is-wiki .atl .eq-warn{margin:6px 0 0;padding:12px 14px;background:var(--atl-n3)!important;font:600 14px/1.45 var(--pui-body);color:var(--pui-ink)}
+body.is-wiki .atl .eq-tip b,body.is-wiki .atl .eq-warn b{margin-right:6px;font:400 17px/1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase;color:var(--atl)}
+body.is-wiki .atl .eq-warn{background:var(--pui-red)!important;color:var(--pui-bone)!important;font-weight:700}
+body.is-wiki .atl .eq-warn b{color:var(--pui-bone)!important}
+body.is-wiki .atl .eq-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px!important}
+body.is-wiki .atl .eq-links a{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 18px;background:var(--ac)!important;color:var(--atl-ink)!important;font:400 17px/1 var(--pui-display);letter-spacing:.04em;text-transform:uppercase}
+body.is-wiki .atl .eq-card.is-harm .eq-links a{color:var(--pui-bone)!important}
+body.is-wiki .atl .eq-links a:hover{background:var(--atl)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .eq-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 6px;padding:0;list-style:none;counter-reset:eq}
+body.is-wiki .atl .eq-steps li{position:relative;display:flex;flex-direction:column;gap:8px;min-height:220px;padding:58px 16px 16px;background:var(--atl-n3)!important}
+body.is-wiki .atl .eq-steps li:before{counter-increment:eq;content:counter(eq);position:absolute;left:16px;top:14px;width:36px;height:36px;display:grid;place-items:center;background:var(--ac);color:var(--atl-ink);font:400 22px/1 var(--pui-display)}
+body.is-wiki .atl .eq-step-art{position:absolute;right:14px;top:10px;display:flex;gap:4px}
+body.is-wiki .atl .eq-step-art img{width:42px;height:42px;object-fit:contain}
+body.is-wiki .atl .eq-steps b{font:400 24px/1 var(--pui-display);text-transform:uppercase;color:var(--pui-ink)}
+body.is-wiki .atl .eq-steps p{margin:0;font-size:14px;line-height:1.45}
+body.is-wiki .atl .eq-rates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 6px}
+body.is-wiki .atl .eq-rate{display:flex;flex-direction:column;padding:16px 18px;background:var(--atl-n3)!important}
+body.is-wiki .atl .eq-rate:first-child{background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .eq-rate small{margin:0 0 8px;font:800 11px/1.2 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;color:var(--pui-muted)!important}
+body.is-wiki .atl .eq-rate:first-child small,body.is-wiki .atl .eq-rate:first-child span{color:var(--pui-bone-muted)!important}
+body.is-wiki .atl .eq-rate b{font:400 46px/1 var(--pui-display);color:var(--atl);white-space:nowrap}
+body.is-wiki .atl .eq-rate:first-child b{color:#4f6a0a}
+body.is-wiki .atl .eq-rate b i{font-style:normal;color:var(--pui-muted)}
+body.is-wiki .atl .eq-rate.is-text b{font-size:34px;color:var(--pui-ink)}
+body.is-wiki .atl .eq-rate span{margin:4px 0 12px;font:700 12px/1.3 var(--pui-body);color:var(--pui-muted)!important}
+body.is-wiki .atl .eq-rate p{margin:0;font-size:14px;line-height:1.45;color:inherit}
+body.is-wiki .atl .eq-facts{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+body.is-wiki .atl .eq-facts li{padding:8px 12px;background:var(--atl-n2)!important;font:700 13px/1.2 var(--pui-body)}
+body.is-wiki .atl .eq-facts li:first-child{background:var(--pui-bone)!important;color:var(--atl-ink)!important}
+body.is-wiki .atl .eq-maps td.is-off{color:var(--pui-muted)!important}
+body.is-wiki .atl .eq-maps td.is-on{font:400 19px/1 var(--pui-display);color:var(--atl)!important}
+body.is-wiki .atl .eq-sock{display:inline-block;padding:5px 10px;background:var(--atl-n3)!important;color:var(--pui-muted)!important;font:700 12px/1.2 var(--pui-body)}
+body.is-wiki .atl .eq-sock.is-on{background:var(--atl)!important;color:var(--atl-ink)!important}
+@media(max-width:1180px){
+  body.is-wiki .atl .mj-controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.is-wiki .atl .mj-luck{grid-column:1/-1}
+  body.is-wiki .atl .eq-steps,body.is-wiki .atl .eq-rates{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.is-wiki .atl .eq-steps li{min-height:180px}
+}
+@media(max-width:900px){
+  body.is-wiki .atl .mj-hero{grid-template-columns:1fr}
+  body.is-wiki .atl .mj-odds{min-height:250px}
+  body.is-wiki .atl .mj-ladder{grid-template-columns:1fr}
+  body.is-wiki .atl .mj-stages,body.is-wiki .atl .mj-extra,body.is-wiki .atl .mj-alerts{grid-template-columns:1fr}
+  body.is-wiki .atl .mj-stage{min-height:0}
+  body.is-wiki .atl .mj-stage p{margin-top:0}
+  body.is-wiki .atl .eq-tiles{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  body.is-wiki .atl .mj-kinds{grid-template-columns:1fr}
+  body.is-wiki .atl .upgrade-calculator.mj-calc{padding:16px}
+  body.is-wiki .atl .mj-controls{grid-template-columns:1fr 1fr;gap:8px}
+  body.is-wiki .atl .mj-odds,body.is-wiki .atl .mj-need{padding:18px 16px}
+  body.is-wiki .atl .mj-odds{min-height:236px}
+  body.is-wiki .atl .mj-odds strong{font-size:68px}
+  body.is-wiki .atl .mj-need-img img{width:48px;height:48px}
+  body.is-wiki .atl .mj-need-item b{font-size:36px}
+  body.is-wiki .atl .mj-band{padding:12px}
+  body.is-wiki .atl .mj-steps{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr))}
+  body.is-wiki .atl .is-bless .mj-steps{grid-template-columns:repeat(6,minmax(0,1fr))}
+  body.is-wiki .atl .is-bless .mj-step{padding:8px 4px 10px;align-items:center}
+  body.is-wiki .atl .is-bless .mj-step-lv small{display:none}
+  body.is-wiki .atl .mj-step-lv{font-size:24px}
+  body.is-wiki .atl .is-bless .mj-step-rate{font-size:15px}
+  body.is-wiki .atl .is-chaos .mj-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.is-wiki .atl .is-chaos .mj-step-lv,body.is-wiki .atl .is-chaos .mj-step-rate{font-size:30px}
+  body.is-wiki .atl .mj-step-ings img{width:20px;height:20px}
+  body.is-wiki .atl .mj-stage{padding:18px 16px}
+  body.is-wiki .atl .mj-stage-img{width:64px;height:64px}
+  body.is-wiki .atl .mj-card{padding:18px 16px}
+  body.is-wiki .atl .mj-props{grid-template-columns:1fr}
+  body.is-wiki .atl .eq-head.equipment-heading{grid-template-columns:84px minmax(0,1fr)}
+  body.is-wiki .atl .eq-mark{min-height:0}
+  body.is-wiki .atl .eq-mark .atl-ico{width:44px;height:44px}
+  body.is-wiki .atl .eq-mark img{width:56px;height:56px}
+  body.is-wiki .atl .eq-head>div{padding:14px 16px}
+  body.is-wiki .atl .eq-card>:not(header){margin-left:14px!important;margin-right:14px!important}
+  body.is-wiki .atl .eq-opts,body.is-wiki .atl .eq-steps,body.is-wiki .atl .eq-rates{grid-template-columns:1fr}
+  body.is-wiki .atl .eq-steps li{min-height:0}
+}
+body.is-wiki .atl .mj-head h2{font-size:clamp(44px,5vw,78px)!important;line-height:.9!important;margin:6px 0 18px!important}
+body.is-wiki .atl :is(.mj,.eq) p{max-width:none}
+body.is-wiki .atl .mj-props dd{color:var(--pui-ink)!important}
+@media(max-width:900px){
+  body.is-wiki .atl .mj-stage{padding-left:112px}
+  body.is-wiki .atl .mj-stage-img{position:absolute;left:22px;top:24px;width:68px;height:68px}
+}
+@media(max-width:640px){
+  body.is-wiki .atl .mj-stage{padding-left:92px}
+  body.is-wiki .atl .mj-stage-img{left:16px;top:20px;width:58px;height:58px}
+  body.is-wiki .atl .mj-stage-num{font-size:40px;right:16px}
+}
+body.is-wiki .atl .eq-card.is-harm .eq-mark{background:var(--pui-bone)!important}
+body.is-wiki .atl .eq-rate b{font-size:clamp(34px,3.4vw,46px)}
+body.is-wiki .atl .eq-rate b:has(i){font-size:clamp(28px,2.6vw,40px)}
+@media(max-width:640px){body.is-wiki .atl .mj-odds p{min-height:4.35em}}

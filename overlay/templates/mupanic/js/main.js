@@ -515,26 +515,34 @@
     var from = Number(wiki.querySelector('[data-upgrade-from]').value);
     var to = Number(wiki.querySelector('[data-upgrade-to]').value);
     var luck = wiki.querySelector('[data-upgrade-luck]').checked;
-    var rows = wiki.querySelector('[data-upgrade-steps]'); rows.replaceChildren();
-    var total = 1, bless = 0, soul = 0, chaos = 0;
+    var total = 1, need = {bless: 0, soul: 0, chaos: 0};
     var summary = wiki.querySelector('[data-upgrade-summary]');
     var probability = wiki.querySelector('[data-chain-rate]');
     var resources = wiki.querySelector('[data-upgrade-resources]');
-    if (to <= from) { probability.textContent = '—'; summary.textContent = 'Elegí un objetivo mayor que el nivel actual.'; resources.textContent = ''; return; }
-    for (var level = from + 1; level <= to; level++) {
-      var amount = level - 9;
-      var rate, where, materials;
-      if (level <= 6) { rate = 100; where = 'Inventario'; materials = '1 Bless'; bless++; }
-      else if (level <= 9) { rate = Math.min(100, data.crafting.jewels.SoulSuccessRate[account] + (luck ? data.crafting.jewels.AddLuckSuccessRate1[account] : 0)); where = 'Inventario'; materials = '1 Soul'; soul++; }
-      else { rate = Math.min(100, data.crafting.mixRates[type + amount][account] + (luck ? data.crafting.jewels.AddLuckSuccessRate2[account] : 0)); where = 'Chaos Goblin'; materials = '1 Chaos · ' + amount + ' Bless · ' + amount + ' Soul'; chaos++; bless += amount; soul += amount; }
+    var odds = wiki.querySelector('[data-mj-odds]'), meter = wiki.querySelector('[data-mj-meter]'), risk = wiki.querySelector('[data-mj-risk]');
+    // Every step slot is always on the page (fixed height); the chosen range only lights up.
+    wiki.querySelectorAll('[data-mj-step]').forEach(function (slot) {
+      var level = Number(slot.getAttribute('data-mj-step')), amount = level - 9, rate;
+      if (level <= 6) rate = 100;
+      else if (level <= 9) rate = Math.min(100, data.crafting.jewels.SoulSuccessRate[account] + (luck ? data.crafting.jewels.AddLuckSuccessRate1[account] : 0));
+      else rate = Math.min(100, data.crafting.mixRates[type + amount][account] + (luck ? data.crafting.jewels.AddLuckSuccessRate2[account] : 0));
+      var on = level > from && level <= to;
+      slot.querySelector('[data-mj-step-rate]').textContent = rate + '%';
+      slot.querySelector('[data-mj-step-state]').textContent = on ? 'En tu mejora.' : 'Fuera de tu mejora.';
+      slot.classList.toggle('is-on', on); slot.classList.toggle('is-risky', rate < 50);
+      if (!on) return;
       total *= rate / 100;
-      var row = document.createElement('tr');
-      ['+' + (level - 1) + ' → +' + level, where, materials, rate + '%'].forEach(function (value) { var cell = document.createElement('td'); cell.textContent = value; row.appendChild(cell); });
-      rows.appendChild(row);
-    }
-    probability.textContent = (total * 100).toLocaleString('es-AR', {maximumFractionDigits: 4}) + '%';
-    summary.textContent = 'Probabilidad calculada de completar de +' + from + ' a +' + to + ' sin fallar ningún paso. Cada intento sigue teniendo su propia tasa.';
-    resources.textContent = 'Materiales de una cadena sin fallos: ' + bless + ' Bless · ' + soul + ' Soul · ' + chaos + ' Chaos. No incluye equipo ni Zen; un fallo exige reconsiderar la ruta.';
+      if (level <= 6) need.bless++; else if (level <= 9) need.soul++; else { need.chaos++; need.bless += amount; need.soul += amount; }
+    });
+    var valid = to > from, pct = valid ? total * 100 : 0;
+    Object.keys(need).forEach(function (key) { wiki.querySelector('[data-mj-need="' + key + '"]').textContent = '×' + need[key]; wiki.querySelector('[data-mj-need-item="' + key + '"]').classList.toggle('is-zero', !need[key]); });
+    odds.classList.toggle('is-safe', valid && pct >= 60); odds.classList.toggle('is-mid', valid && pct >= 25 && pct < 60); odds.classList.toggle('is-risky', valid && pct < 25);
+    meter.style.width = Math.max(valid ? 1 : 0, Math.min(100, pct)) + '%';
+    if (!valid) { probability.textContent = '—'; risk.textContent = 'Sin cálculo'; summary.textContent = 'Elegí un objetivo mayor que el nivel actual.'; resources.textContent = ''; return; }
+    probability.textContent = pct.toLocaleString('es-AR', {maximumFractionDigits: 4}) + '%';
+    risk.textContent = pct >= 60 ? 'Chance alta' : pct >= 25 ? 'Chance media' : 'Riesgo alto';
+    summary.textContent = 'Probabilidad de completar de +' + from + ' a +' + to + ' sin fallar ningún paso. Cada intento tiene su propia tasa.';
+    resources.textContent = 'Materiales de una cadena sin fallos: ' + need.bless + ' Bless · ' + need.soul + ' Soul · ' + need.chaos + ' Chaos.';
   }
   wiki.querySelectorAll('[data-upgrade-calculator] select,[data-upgrade-luck]').forEach(function (control) { control.addEventListener('change', updateUpgradePlanner); });
   filterRecipes(); selectRecipe(null); recipeRates(); updateUpgradePlanner();
