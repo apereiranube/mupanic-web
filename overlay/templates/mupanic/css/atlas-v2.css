@@ -709,3 +709,8 @@ body.is-wiki .atl .atlas-furia-combos figure.is-v3 strong{color:var(--atl-org)!i
   body.is-wiki .atl .atlas-furia-combos figure.is-v3{height:96px;padding:8px 4px}
   .afu-v3-tier{font-size:clamp(18px,5.4vw,26px)}
 }
+/* Vínculos: más lugar para los compañeros (se veían chiquitos y apretados) */
+@media(min-width:761px){
+body.is-wiki .atl a.vinculos-home.atl-feature{grid-template-columns:380px minmax(0,1fr);min-height:250px}
+body.is-wiki .atl .vinculos-home .atl-feature-art.is-v3 img{inset:12px 15% 0 2%;width:83%;height:calc(100% - 12px);object-fit:contain;object-position:center bottom}
+}
