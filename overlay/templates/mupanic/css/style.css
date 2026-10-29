@@ -281,3 +281,11 @@
 .site-header .nav-shell{gap:10px}
 }
 @media(min-width:1101px) and (max-width:1250px){.site-header .brand-crystal .brand-word{display:none}}
+/* Logo final: MUPANIC con el ala (vector) */
+.brand-crystal .brand-full{display:block;width:auto;height:30px;flex:none}
+.brand-crystal .brand-ala{display:none;width:auto;height:34px;flex:none}
+.footer-modern .brand-crystal .brand-full{height:46px}
+@media(min-width:1101px) and (max-width:1250px){.site-header .brand-crystal .brand-full{display:none}.site-header .brand-crystal .brand-ala{display:block}}
+@media(max-width:1350px){.site-header .brand-crystal .brand-full{height:26px}}
+@media(max-width:760px){.site-header .brand-crystal .brand-full{height:22px}}
+@media(max-width:370px){.site-header .brand-crystal .brand-full{display:none}.site-header .brand-crystal .brand-ala{display:block;height:30px}}
