@@ -600,3 +600,22 @@ body.is-home{background:var(--pui-night)}
 .h2-vinculos{--hud:url('../img/ui/hud-hueso-verde-b-8ce6174f6d03.svg')}
 .h2-vessara{--hud:url('../img/ui/hud-hueso-dorado-a-2cd0dfb532a5.svg')}
 @media(max-width:700px){.h2-hero,.h2-live,.h2-stats,.h2-furia,.h2-hub,.h2-cta{background-size:1500px auto;background-position:center top}.h2-systems:before,.h2-vinculos:before,.h2-vessara:before{background-size:1500px auto;background-position:center top}}
+/* Jugadores online: verde lima (como el Atlas) y punto que late cuando el server está prendido */
+.h2-stat-grid>.h2-stat--online{background:#c6f03a;color:#0f1923}
+.h2-stat--online dt{color:#0f1923bb}
+.h2-stat--online dd b{color:#0f1923}
+.h2-stat--online .h2-state{color:#0f1923!important}
+.h2-stat--online .h2-state:before{position:relative;width:12px;height:12px;background:#0f1923!important;box-shadow:none!important;animation:none}
+.h2-stat--online .h2-state[data-state=online]:before{animation:h2Latido 1.2s ease-out infinite!important}
+@keyframes h2Latido{0%{box-shadow:0 0 0 0 #0f1923cc}70%{box-shadow:0 0 0 12px #0f192300}100%{box-shadow:0 0 0 0 #0f192300}}
+.h2-stat--online .h2-state[data-state=online]{animation:h2LatidoTxt 1.2s ease-in-out infinite}
+@keyframes h2LatidoTxt{0%,100%{opacity:1}50%{opacity:.55}}
+.h2-stat--online .h2-state[data-state=offline],.h2-stat--online .h2-state[data-state=mantenimiento]{color:#0f1923aa!important}
+@media(prefers-reduced-motion:reduce){.h2-stat--online .h2-state[data-state=online],.h2-stat--online .h2-state[data-state=online]:before{animation:none!important}}
+.h2-stat--online .h2-state{background:#0f1923;color:#c6f03a!important;padding:6px 12px 5px 10px;font-size:15px!important;line-height:1}
+.h2-stat--online .h2-state:before{background:#c6f03a!important;width:10px;height:10px}
+@keyframes h2Latido{0%{box-shadow:0 0 0 0 #c6f03aee}70%{box-shadow:0 0 0 9px #c6f03a00}100%{box-shadow:0 0 0 0 #c6f03a00}}
+@keyframes h2LatidoTxt{0%,100%{opacity:1}50%{opacity:.7}}
+.h2-stat--online .h2-state[data-state=offline],.h2-stat--online .h2-state[data-state=mantenimiento]{color:#ece8e1aa!important}
+.h2-stat--online .h2-state[data-state=offline]:before{background:#ff4655!important}
+.h2-stat--online .h2-state[data-state=mantenimiento]:before{background:#ffc24a!important}
