@@ -1269,3 +1269,15 @@ body.is-wiki .atl .eq-card.is-harm .eq-mark{background:var(--pui-bone)!important
 body.is-wiki .atl .eq-rate b{font-size:clamp(34px,3.4vw,46px)}
 body.is-wiki .atl .eq-rate b:has(i){font-size:clamp(28px,2.6vw,40px)}
 @media(max-width:640px){body.is-wiki .atl .mj-odds p{min-height:4.35em}}
+/* Tipos de equipo: dónde se consiguen, en tres tarjetas (sin tabla gigante) */
+body.is-wiki .atl .eq-where{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
+body.is-wiki .atl .eq-where-card{background:#ece8e1;color:#0f1923;padding:18px 20px}
+body.is-wiki .atl .eq-where-card small{display:block;font:700 11px/1.2 Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#5f7a10;margin-bottom:8px}
+body.is-wiki .atl .eq-where-card strong{display:block;font:400 54px/1 var(--pui-display);color:#0f1923}
+body.is-wiki .atl .eq-where-card p{margin:8px 0 0!important;font-size:14px;color:#0f1923bb!important}
+body.is-wiki .atl .eq-where-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+body.is-wiki .atl .eq-where-list li{display:flex;justify-content:space-between;gap:10px;align-items:baseline;background:#0f1923;color:#ece8e1;padding:8px 12px;font-size:14px}
+body.is-wiki .atl .eq-where-list a{color:#ece8e1!important;font-weight:700}
+body.is-wiki .atl .eq-where-list b{font:400 20px/1 var(--pui-display);color:#c6f03a}
+body.is-wiki .atl .eq-maps td{color:#ece8e1}
+@media(max-width:760px){body.is-wiki .atl .eq-where{grid-template-columns:1fr}}
