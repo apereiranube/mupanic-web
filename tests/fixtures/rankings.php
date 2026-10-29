@@ -1,11 +1,11 @@
 <?php
 // Fixture data is invented for UI validation and never used by the production CMS.
-define('access',true);
+define('access',true);define('__PATH_TEMPLATE__','/templates/mupanic/');
 $mode=getenv('RANKINGS_FIXTURE') ?: 'level';$guild=$mode==='guilds';$total=$mode==='killers'?1:45;
 $categories=['level'=>'Nivel','killers'=>'Asesinatos','guilds'=>'Guilds','master'=>'Nivel Master','resets'=>'Resets','grandresets'=>'Master Resets','bloodcastle'=>'Blood Castle','devilsquare'=>'Devil Square','duels'=>'Duelos'];
 $metrics=['level'=>['Level'],'killers'=>['Level','PK Level','PK Count'],'guilds'=>['Score'],'master'=>['Master Level'],'resets'=>['Resets','Nivel'],'grandresets'=>['Master Resets','Resets'],'bloodcastle'=>['Puntos'],'devilsquare'=>['Puntos'],'duels'=>['Victorias','Derrotas']];
 ?>
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ranking · fixture</title><link rel="stylesheet" href="/templates/mupanic/css/style.css"><link rel="stylesheet" href="/templates/mupanic/css/rankings.css"></head>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ranking · fixture</title><link rel="stylesheet" href="/templates/mupanic/css/style.css"><link rel="stylesheet" href="/templates/mupanic/css/atlas.css"><link rel="stylesheet" href="/templates/mupanic/css/panic-ui.css"><link rel="stylesheet" href="/templates/mupanic/css/rankings.css"></head>
 <body class="is-inner is-rankings"><header class="site-header"><div class="shell nav-shell"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 48"><path d="M3 38V9l17 15L37 9v29L20 47z M3 9V2l17 15L37 2v7 M20 24v23"/></svg></span><span class="brand-copy"><strong>MU PANIC</strong><small>EL CONTINENTE TE ESPERA</small></span></a><nav class="main-nav" aria-label="Principal"><a href="/information/">El servidor</a><a href="/info/">Atlas</a><a href="/rankings/" aria-current="page">Rankings</a></nav><div class="nav-actions"><a class="nav-cta" href="/register/">Crear cuenta</a></div></div></header>
 <main><?php include __DIR__.'/../../overlay/templates/mupanic/inc/rankings-hero.php'; ?>
 <section class="inner-content"><div class="shell"><div class="module-surface"><div class="rankings_menu"><?php foreach($categories as $key=>$label) { ?><a href="/rankings/<?php echo $key; ?>/"<?php echo $key===($mode==='empty'?'bloodcastle':$mode)?' class="active"':''; ?>><?php echo $label; ?></a><?php } ?></div>

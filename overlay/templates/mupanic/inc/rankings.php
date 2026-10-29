@@ -63,6 +63,8 @@ function panicRankingRead($category, $key) {
     }
 }
 
+require_once __DIR__.'/rankings-art.php';
+echo panicRankingArtScript();
 $panicCategories = panicRankingCategories();
 $panicRankingKey = (string)($_REQUEST['subpage'] ?? '');
 loadModuleConfigs('rankings');
@@ -98,6 +100,6 @@ if(!mconfig('active')) {
         echo '</table>';
     }
     if($panicSnapshot !== null) {
-        echo '<p class="rankings-update-time">'.(!empty($panicSnapshot['stale']) ? 'Mostrando la última consulta disponible. ' : '').'Última consulta: '.gmdate('d/m/Y H:i', $panicSnapshot['updated']-3*3600).' (Argentina). Se actualiza al consultar, cada 5 minutos.</p>';
+        echo '<p class="rankings-update-time">'.(!empty($panicSnapshot['stale']) ? 'Mostrando la última consulta disponible. ' : '').'Última consulta: '.gmdate('d/m/Y H:i', $panicSnapshot['updated']-3*3600).' (Argentina).</p>';
     }
 }
