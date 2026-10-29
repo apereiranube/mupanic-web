@@ -1283,3 +1283,7 @@ body.is-wiki .atl .eq-maps td{color:#ece8e1}
 @media(max-width:760px){body.is-wiki .atl .eq-where{grid-template-columns:1fr}}
 /* Taller: arte nuevo de GPT (objeto con fondo transparente) se muestra entero */
 body.is-wiki .atl .tl-card-media img[src*="atlas-v2/recetas/"]{object-fit:contain!important;padding:6px 10px;filter:drop-shadow(0 8px 12px #0009)}
+/* Objetos y drops: todas las imágenes del mismo tamaño dentro de su recuadro */
+body.is-wiki .atl .atlas-drop-card-top .atlas-drop-art,body.is-wiki .atl .atlas-drop-card-top .atlas-drop-art.atlas-drop-art--jewel{width:64px!important;height:64px!important;flex:0 0 64px!important;overflow:hidden}
+body.is-wiki .atl .atlas-drop-card-top .atlas-drop-art img{max-width:52px!important;max-height:52px!important;width:auto;height:auto;object-fit:contain}
+body.is-wiki .atl .atlas-drop-card-top{align-items:center}
