@@ -247,17 +247,18 @@
 }
 @media(prefers-reduced-motion:reduce){.site-header .main-nav .nav-main-link.is-current:before{animation:none}}
 
-/* Cada sección con su forma y su color (GPT) */
+/* Cada sección con su forma y su color (GPT): recorte irregular de lados rectos que se sale un poco de la barra */
 @media(min-width:1101px){
-.site-header .main-nav .nav-p-atlas.is-current:before{background-image:url('../img/ui/nav-atlas-77df6f5f872e.svg')}
-.site-header .main-nav .nav-p-descargas.is-current:before{background-image:url('../img/ui/nav-descargas-5c79ddc6d4ea.svg')}
-.site-header .main-nav .nav-p-fractura.is-current:before{background-image:url('../img/ui/nav-fractura-cfafd79e1efe.svg')}
-.site-header .main-nav .nav-p-inicio.is-current:before{background-image:url('../img/ui/nav-inicio-4da9dba73645.svg')}
-.site-header .main-nav .nav-p-mercado.is-current:before{background-image:url('../img/ui/nav-mercado-9e97cfa12399.svg')}
-.site-header .main-nav .nav-p-rankings.is-current:before{background-image:url('../img/ui/nav-rankings-9d50187e1d8b.svg')}
-.site-header .main-nav .nav-p-servidor.is-current:before{background-image:url('../img/ui/nav-servidor-287d7904e6bd.svg')}
-.site-header .main-nav .nav-p-socios.is-current:before{background-image:url('../img/ui/nav-socios-4c10feee8397.svg')}
-.site-header .main-nav .nav-p-votar.is-current:before{background-image:url('../img/ui/nav-votar-35fc9f1b0666.svg')}
+.site-header .main-nav .nav-main-link.is-current:before{left:-10px;right:-10px;top:calc(50% - 36px);height:72px;background-size:100% 100%}
+.site-header .main-nav .nav-p-inicio.is-current:before{background-image:url('../img/ui/nav2-inicio-2f5ae4c765a3.svg')}
+.site-header .main-nav .nav-p-servidor.is-current:before{background-image:url('../img/ui/nav2-servidor-47040f5ca9df.svg')}
+.site-header .main-nav .nav-p-mercado.is-current:before{background-image:url('../img/ui/nav2-mercado-232feff8f113.svg')}
+.site-header .main-nav .nav-p-fractura.is-current:before{background-image:url('../img/ui/nav2-fractura-eccbe601671b.svg')}
+.site-header .main-nav .nav-p-atlas.is-current:before{background-image:url('../img/ui/nav2-atlas-fdf66a8bb07c.svg')}
+.site-header .main-nav .nav-p-rankings.is-current:before{background-image:url('../img/ui/nav2-rankings-f1b72956f5d6.svg')}
+.site-header .main-nav .nav-p-descargas.is-current:before{background-image:url('../img/ui/nav2-descargas-6132a76396b6.svg')}
+.site-header .main-nav .nav-p-socios.is-current:before{background-image:url('../img/ui/nav2-socios-f6cd26681964.svg')}
+.site-header .main-nav .nav-p-votar.is-current:before{background-image:url('../img/ui/nav2-votar-22bfd1642e10.svg')}
 .site-header .main-nav .nav-p-inicio.is-current,.site-header .main-nav .nav-p-mercado.is-current,.site-header .main-nav .nav-p-atlas.is-current,.site-header .main-nav .nav-p-socios.is-current{color:#0f1923}
 }
 @media(min-width:1101px){.site-header .main-nav .nav-votar.is-current i{border-bottom-color:#fff;filter:none}.site-header .main-nav .nav-p-fractura.is-current>span{text-shadow:0 1px 3px #0f1923aa}}
