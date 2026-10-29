@@ -339,3 +339,13 @@
 .site-header .main-nav .nav-socios:hover:after,.site-header .main-nav .nav-votar:hover:after,.site-header .main-nav .nav-socios:focus-visible:after,.site-header .main-nav .nav-votar:focus-visible:after{opacity:1;transform:none}
 }
 @media(prefers-reduced-motion:reduce){.site-header .main-nav .nav-socios:after,.site-header .main-nav .nav-votar:after,.site-header .main-nav .nav-socios>span,.site-header .main-nav .nav-votar>span{transition:none}}
+/* Íconos nuevos (GPT) al pasar el mouse en Discord, Socios y Votar */
+@media(min-width:1101px) and (hover:hover){
+.site-header .main-nav .nav-discord>span{transition:opacity .18s,transform .22s cubic-bezier(.3,0,.2,1)}
+.site-header .main-nav .nav-discord:after{content:'';display:block!important;position:absolute;left:50%;top:50%;right:auto;bottom:auto;width:34px;height:34px;margin:-17px 0 0 -17px;background:center/contain no-repeat;opacity:0;transform:translateY(14px) scale(.8);transition:opacity .18s,transform .22s cubic-bezier(.3,0,.2,1);pointer-events:none}
+.site-header .main-nav .nav-discord:after{background-image:url('../img/ui/nav-icono-discord-29eb9fbe092f.png')}
+.site-header .main-nav .nav-socios:after{background-image:url('../img/ui/nav-icono-socios-250577ac6b03.png')}
+.site-header .main-nav .nav-votar:after{background-image:url('../img/ui/nav-icono-votar-a0209419e24e.png')}
+.site-header .main-nav .nav-discord:hover>span,.site-header .main-nav .nav-discord:focus-visible>span{opacity:0;transform:translateY(-14px)}
+.site-header .main-nav .nav-discord:hover:after,.site-header .main-nav .nav-discord:focus-visible:after{opacity:1;transform:none}
+}
