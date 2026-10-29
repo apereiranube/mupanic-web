@@ -619,3 +619,7 @@ body.is-home{background:var(--pui-night)}
 .h2-stat--online .h2-state[data-state=offline],.h2-stat--online .h2-state[data-state=mantenimiento]{color:#ece8e1aa!important}
 .h2-stat--online .h2-state[data-state=offline]:before{background:#ff4655!important}
 .h2-stat--online .h2-state[data-state=mantenimiento]:before{background:#ffc24a!important}
+/* Latido más simple: el texto queda quieto, solo el punto prende y apaga suave */
+.h2-stat--online .h2-state[data-state=online]{animation:none}
+.h2-stat--online .h2-state[data-state=online]:before{animation:h2Punto 1.6s ease-in-out infinite!important;box-shadow:0 0 8px #c6f03a!important}
+@keyframes h2Punto{0%,100%{opacity:1;box-shadow:0 0 8px #c6f03a}50%{opacity:.35;box-shadow:0 0 0 #c6f03a00}}
