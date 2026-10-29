@@ -1,61 +1,166 @@
-/* Public profiles: present the CMS values without changing account or game data. */
-.is-profile{background:#0b1012;color:#e6dfd3}
-.is-profile .inner-hero{padding:130px 0 25px;background:#0b1012;border-bottom:1px solid #c7945e30}
-.is-profile .inner-head{align-items:center;gap:24px}
-.is-profile .inner-head h1{font:500 clamp(30px,3vw,42px)/1.05 var(--display);margin:12px 0 0;color:#eee5d7}
-.is-profile .inner-content{padding:30px 0 70px;background:radial-gradient(ellipse at 80% 0,#a26c3420,transparent 50%)}
-.is-profile .module-surface{padding:0;border:0;background:transparent;box-shadow:none;overflow:visible;color:#e6dfd3}
-.is-profile .page-title{display:none}
-.is-profile .profile-back{display:inline-flex;align-items:center;min-height:44px;padding:10px 0;border:0;border-bottom:1px solid #ae7a5070;color:#dbaf86;font-size:13px;text-decoration:none;transition:color .2s,border-color .2s}
-.is-profile .profile-back:hover{color:#fff0dd;border-color:#e4ba91}
-.is-profile .profiles_player_card{position:relative;overflow:hidden;padding:28px 34px;border:1px solid #bb89554d;background:linear-gradient(90deg,#101719 28%,#101719b8 64%,#10171940),linear-gradient(0deg,#10171990,#10171960),url('../img/rankings-hall-3b70e4154080.webp') right 55%/cover;color:#fff7e8;box-shadow:0 20px 60px #0003}
-.profiles_player_card::before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(#d9ab7d,#745030)}
-.profiles_player_content{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:0 26px}
-.profile-identity-label{order:-2;flex:0 0 100%;font-size:10px;letter-spacing:.17em;color:#c59b72;margin-bottom:20px}
-.profile-crest{order:-1;display:grid;place-items:center;flex:0 0 84px;width:84px;height:94px;background:linear-gradient(140deg,#b57e4935,#101719);border:1px solid #c18e5c70;clip-path:polygon(0 0,100% 0,100% 78%,50% 100%,0 78%);color:#e3bc90}
-.profile-crest svg{width:45px;height:48px;filter:drop-shadow(0 0 10px #c28d5050)}
-.profiles_player_table{border-collapse:collapse;font-size:16px;line-height:1.5}
-.is-profile .profiles_player_table td{padding:0;border:0;background:none;text-align:left}
-.is-profile .profiles_player_table .cname,.is-profile .profile-name{font:500 clamp(42px,5vw,62px)/1.05 var(--display);margin:0 0 8px;overflow-wrap:anywhere;color:#fff1dc;letter-spacing:.01em}
-.is-profile .profiles_player_table .cclass{font-size:15px;color:#dfb384;letter-spacing:.02em}
-.profile-presence{display:inline-flex;align-items:center;gap:8px;margin-left:auto;align-self:center;padding:9px 13px;border:1px solid #c59b7240;background:#0c1319b0;font-size:12px;color:#c8c7be}
-.profile-presence::before{content:'';width:6px;height:6px;border-radius:50%;background:#98998e}
-.profile-presence.is-online{color:#b8d1ae;border-color:#9bbd7840}
-.profile-presence.is-online::before{background:#9cbe82;box-shadow:0 0 10px #9cbe8250}
-.profile-sections{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:22px;margin-top:24px}
-.profile-sections section{position:relative;padding:22px 26px;background:linear-gradient(140deg,#182022,#101719);border:1px solid #bb895535;min-width:0}
-.is-profile .profile-sections h2{font:500 29px/1.2 var(--display);color:#eee2cf;margin:0 0 6px}
-.profile-section-copy{color:#9da7a3;font-size:12px;line-height:1.6;margin:0 0 18px}
-.profile-progress{grid-column:1/-1}
-.profile-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:0}
-.profile-progress .profile-values{grid-template-columns:repeat(4,minmax(0,1fr))}
-.profile-value{padding:14px 18px;border-top:1px solid #b8885430;min-width:0}
-.profile-value dt{color:#a9b0a8;font-size:12px;font-weight:400;margin-bottom:8px}
-.profile-value dd{font:500 26px/1.25 var(--body);font-variant-numeric:tabular-nums;color:#f1e8d8;margin:0;overflow-wrap:anywhere}
-.profile-progress .profile-value{padding:8px 28px 5px;border-top:0;border-left:1px solid #bc8c5440}
-.profile-progress .profile-value:first-child{padding-left:0;border-left:0}
-.profile-progress .profile-value dt{color:#c4ad94;letter-spacing:.04em}
-.profile-progress dd{font:500 clamp(38px,4vw,48px)/1.1 var(--display);color:#e3b789}
-.profile-details .profile-value dd{font-size:19px}
-.is-profile .profile-value a{color:#e3b789;text-decoration:none;border-bottom:1px solid #b8885460;padding-bottom:3px}
-.is-profile .profile-value a:hover{color:#fff0dd;border-color:#e3b789}
-.profile-online dd{color:#b8d1ae}
-.profile-offline dd{color:#a9b0a8}
-.profile-actions{margin-top:24px}
-.is-profile a:focus-visible{outline:2px solid #e3b789;outline-offset:5px}
-/* Native table remains readable when enhancement is unavailable. */
-.is-profile .profiles_player_table_info{width:100%;margin-top:26px;background:#101719e8}
-.is-profile .profiles_player_table_info td{padding:12px 16px;border-bottom:1px solid #bb895535;color:#d9d4c9}
-.is-profile .profiles_player_table_info td:nth-child(2){font-weight:600;color:#e3b789}
-.profiles_guild_card{padding:28px;background:#131b1d;border:1px solid #bb895540;font-size:16px;margin-bottom:22px}
-.profiles_guild_card .guild_name{display:block;font:500 clamp(32px,5vw,52px)/1.2 var(--display);color:#e3b789;margin-bottom:18px;overflow-wrap:anywhere}
-.profiles_guild_card .guild_logo img{max-width:100%;image-rendering:pixelated}
-.is-profile .profiles_guild_card .table td{padding:14px;background:transparent;color:#e6dfd3;border-color:#bb895535;text-align:left;font-size:16px}
-.is-profile .profiles_guild_card a{color:#e3b789;text-decoration:underline;text-underline-offset:4px}
-.profiles_guild_card .guild_members{display:block;font:500 30px var(--display);color:#eee2cf;margin-bottom:22px}
-.profiles_guild_card .guild_members_list{display:flex;flex-wrap:wrap;gap:12px;margin:0}
-.profiles_guild_card .guild_members_list>div{width:auto;float:none;padding:12px 18px;background:#1b2425;border:1px solid #bb895535}
-@media(max-width:900px){.profile-sections{grid-template-columns:1fr 1fr}.profile-progress .profile-value{padding-left:18px;padding-right:12px}.is-profile .profiles_player_card{padding:28px}}
-@media(max-width:700px){.is-profile .inner-hero{padding:104px 0 20px}.is-profile .inner-head{display:flex;align-items:flex-start;flex-direction:column;gap:12px}.is-profile .inner-head>a{margin-top:0}.is-profile .inner-content{padding:20px 0 45px}.is-profile .profiles_player_card{padding:24px 20px}.profiles_player_content{gap:0 16px}.profile-crest{flex-basis:60px;width:60px;height:74px}.profile-crest svg{width:34px;height:40px}.profile-identity-table{max-width:calc(100% - 76px)}.is-profile .profile-name{font-size:clamp(30px,9vw,42px)}.profile-presence{margin:20px 0 0 76px}.profile-sections{grid-template-columns:1fr;gap:16px;margin-top:16px}.profile-sections section{padding:22px 20px}.profile-progress .profile-values{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 0}.profile-progress .profile-value{padding:0 14px}.profile-progress .profile-value:nth-child(odd){padding-left:0;border-left:0}.profile-progress .profile-value dd{font-size:42px}.profile-value{padding:16px 10px}.profile-value dd{font-size:23px}.profile-sections h2{font-size:27px}}
-@media(max-width:380px){.profile-details .profile-value dd{font-size:16px}}
-@media(prefers-reduced-motion:reduce){.is-profile .profile-back{transition:none}}
+/* MU PANIC · Perfiles públicos de personaje y de guild (estilo nuevo, pariente de Rankings).
+   El HTML lo arma inc/profile-view.php a partir de los módulos de WebEngine. Tokens de panic-ui.css.
+   Formas planas y grandes; nada cambia de alto al pasar el mouse; solo arte existente. */
+.is-profile{--pf-red:#ff4655;--pf-navy:#0f1923;--pf-bone:#ece8e1;--pf-lime:#c6f03a;background:var(--pf-navy);color:var(--pf-bone)}
+body.is-profile{background:var(--pf-navy)}
+.is-profile .inner-content{padding:0;background:var(--pf-navy)}
+.is-profile .inner-content>.shell{width:100%;max-width:none;margin:0;padding:0}
+.is-profile .module-surface{padding:0;border:0;background:none;box-shadow:none;overflow:visible;color:var(--pf-bone);font:400 15px/1.6 var(--pui-body)}
+.is-profile .pf{overflow:hidden}
+.is-profile .pf :is(h1,h2,h3,p,dl,dt,dd,ul,li){margin:0;padding:0}
+.is-profile .pf :is(h1,h2,h3){color:inherit;font-family:var(--pui-display);font-weight:400}
+.is-profile .pf ul{list-style:none}
+.is-profile .pf a{color:inherit;text-decoration:none}
+.is-profile .pf .pui-kicker:before{display:none}
+.is-profile .pf a:focus-visible{outline:3px solid var(--pui-gem);outline-offset:3px}
+
+/* Portada: nombre enorme a la izquierda, bloque rojo con el arte de la clase a la derecha */
+.pf-hero{position:relative;isolation:isolate;overflow:hidden;height:600px;padding-top:86px;background:var(--pf-navy)}
+.pf-hero-block{position:absolute;z-index:-2;inset:0 0 0 55%;background:var(--pf-red);clip-path:polygon(16% 0,100% 0,100% 100%,0 100%)}
+.pf-hero-fig{position:absolute;z-index:-1;top:104px;right:max(32px,calc((100% - 1280px) / 2 + 48px));width:min(520px,38vw);aspect-ratio:800/1100}
+.pf-hero-fig img{display:block;width:100%;height:100%;object-fit:contain;object-position:top center}
+.pf-hero-mark{position:absolute;z-index:-1;top:calc(50% + 43px);right:max(48px,calc((100% - 1280px) / 2 + 80px));transform:translateY(-50%);display:grid;place-items:center;width:min(340px,30vw);aspect-ratio:1;padding:28px;background:var(--pf-navy);clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),calc(100% - 28px) 100%,0 100%)}
+.pf-hero-mark img{display:block;width:100%;height:100%;image-rendering:pixelated;object-fit:contain}
+.pf-hero-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;height:100%}
+.pf-hero-copy>*{max-width:52%}
+.is-profile .pf-hero .pui-kicker{margin-bottom:18px}
+.is-profile .pf .pf-name{--len:8;max-width:100%;font:400 min(136px,10vw,calc(50vw / (var(--len) * .5)))/.9 var(--pui-display);padding-top:.06em;letter-spacing:.005em;text-transform:uppercase;color:var(--pf-bone);overflow-wrap:anywhere}
+.is-profile .pf .pf-name--empty{font-size:clamp(48px,6vw,96px)}
+.pf-sub{margin-top:14px!important;color:var(--pui-muted);font:400 clamp(22px,2vw,30px)/1 var(--pui-display);letter-spacing:.05em;text-transform:uppercase}
+.pf-hero--empty .pf-sub{font:500 16px/1.6 var(--pui-body);letter-spacing:0;text-transform:none;max-width:460px}
+.pf-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.pf-chip{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;background:var(--pui-night-3);white-space:nowrap}
+.pf-chip small{font:700 10px/1 var(--pui-body);letter-spacing:.16em;text-transform:uppercase;color:var(--pui-muted)}
+.pf-chip :is(a,b){font:400 19px/1 var(--pui-display);letter-spacing:.05em;text-transform:uppercase;color:var(--pf-bone)}
+.is-profile .pf .pf-chip a:hover{color:var(--pf-red)}
+.pf-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+
+/* Estado: píldora navy con punto lima que late (el texto queda fijo) */
+.pf-presence{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px 0 16px;background:var(--pf-navy);color:#8c96a0;font:400 17px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.pf-hero .pf-presence{background:#0a1118}
+.pf-presence i{flex:none;width:10px;height:10px;background:#6f7a84}
+.pf-presence.is-online{color:var(--pf-lime)}
+.pf-presence.is-online i{background:var(--pf-lime);animation:pfPulse 1.6s ease-in-out infinite}
+@keyframes pfPulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--pf-lime)}50%{opacity:.35;box-shadow:0 0 0 #c6f03a00}}
+
+/* Botón volver */
+.is-profile .pf .pf-back,.is-profile .pf .pf-back:hover,.is-profile .pf .pf-back:focus{color:#fff}
+.is-profile .pf .pf-back{transform:none}
+.is-profile .pf .pf-back:hover{background:#ff5f6c;transform:none}
+.pf-hero .pf-back{background:var(--pf-red)}
+
+/* Bandas */
+.pf-band{padding:88px 0}
+.pf-hero+.pf-band--night{padding-top:64px}
+.pf-band--night{background:var(--pf-navy);color:var(--pf-bone)}
+.pf-band--bone{background:var(--pf-bone);color:var(--pf-navy)}
+.pf-band--bone .pui-kicker{color:#d92f3f}
+.pf-head{margin-bottom:34px}
+.is-profile .pf .pf-head .pui-kicker{margin-bottom:14px}
+.pf-head .pui-kicker{display:block}
+.is-profile .pf .pf-head .pui-h2{font-size:clamp(42px,4.8vw,72px)}
+
+/* Fichas */
+.pf-tiles{display:grid;gap:8px}
+.pf-tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-width:0;padding:22px 24px 24px;background:var(--pf-navy);color:var(--pf-bone);clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%)}
+.is-profile .pf .pf-tile dt{font:700 12px/1.2 var(--pui-body);letter-spacing:.14em;text-transform:uppercase;opacity:.72}
+.is-profile .pf .pf-tile dd{font:400 44px/1 var(--pui-display);letter-spacing:.02em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.pf-tiles--progress{grid-template-columns:repeat(4,minmax(0,1fr))}
+.pf-tiles--progress .pf-tile{min-height:190px}
+.pf-tiles--progress:has(>:nth-child(3):last-child){grid-template-columns:repeat(3,minmax(0,1fr))}
+.pf-tiles--progress .pf-tile:nth-child(odd){background:var(--pf-bone);color:var(--pf-navy)}
+.pf-tiles--progress .pf-tile:nth-child(even){background:var(--pui-night-3)}
+.is-profile .pf .pf-tiles--progress dd{font-size:clamp(60px,6.6vw,104px);line-height:.9}
+.is-profile .pf .pf-tiles--progress .pf-tile--guild dd{font-size:clamp(34px,3.4vw,52px);line-height:1}
+.pf-split{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:56px}
+.pf-tiles--attr,.pf-tiles--detail{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pf-tiles--attr .pf-tile:last-child:nth-child(odd),.pf-tiles--detail .pf-tile:last-child:nth-child(odd){grid-column:1/-1}
+.pf-tiles--attr .pf-tile,.pf-tiles--detail .pf-tile{min-height:150px}
+.is-profile .pf .pf-tiles--attr dd{font-size:clamp(42px,4vw,58px)}
+.pf-bar{display:block;height:10px;background:#ece8e11f}
+.pf-bar i{display:block;height:100%;background:var(--pf-red)}
+.pf-tile--state .pf-presence{background:#0a1118;align-self:flex-start}
+.pf-tile--guild{background:var(--pf-red)!important;color:var(--pf-navy)!important}
+.is-profile .pf .pf-tile--guild dt{opacity:.8}
+.is-profile .pf .pf-tile--guild dd{font-size:clamp(34px,3.2vw,48px);text-transform:uppercase}
+.is-profile .pf .pf-tile--guild a{color:var(--pf-navy);text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
+.is-profile .pf .pf-tile--guild a:hover{color:#fff}
+.pf-none{opacity:.7}
+.pf-tile--guild:has(.pf-none){background:var(--pui-night-3)!important;color:var(--pf-bone)!important}
+.pf-tile--online{background:var(--pf-lime)!important;color:var(--pf-navy)!important}
+
+/* Miembros de la guild */
+.pf-members{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:8px}
+.is-profile .pf .pf-member{display:grid;grid-template-columns:84px minmax(0,1fr) auto;align-items:center;gap:18px;height:120px;padding:14px 20px 14px 14px;background:var(--pf-navy);color:var(--pf-bone);clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%);transition:background .15s}
+.is-profile .pf a.pf-member:hover{background:var(--pui-night-3);color:var(--pf-bone)}
+.is-profile .pf a.pf-member:hover .pf-member-name{color:var(--pf-red)}
+.pf-member-img{display:block;width:84px;height:84px;object-fit:cover;background:var(--pui-night-3)}
+.pf-member-copy{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0;max-width:100%}
+.pf-member-copy>*{max-width:100%}
+.pf-member-class{color:#cfd3d6}
+.pf-member-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:400 26px/1.15 var(--pui-display);letter-spacing:.03em;text-transform:uppercase;transition:color .15s}
+.pf-member-meta{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--pui-muted);font:600 13px/1.2 var(--pui-body)}
+.pf-member-side{display:flex;flex-direction:column;align-items:flex-end;align-self:start;gap:8px;padding-top:4px}
+.pf-member-copy .pf-dot{margin-top:2px}
+.pf-lead{padding:6px 10px 5px;background:var(--pf-red);color:#fff;font:400 14px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase}
+.pf-dot{display:inline-flex;align-items:center;gap:7px;color:#8c96a0;font:700 10px/1 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.pf-dot i{width:8px;height:8px;background:#6f7a84}
+.pf-dot.is-online{color:var(--pf-lime)}
+.pf-dot.is-online i{background:var(--pf-lime);animation:pfPulse 1.6s ease-in-out infinite}
+.pf-empty{padding:24px;background:var(--pf-navy);color:var(--pf-bone);font-weight:600}
+
+.pf-foot{padding:0 0 96px;background:var(--pf-bone)}
+
+@media(max-width:1100px){
+ .pf-hero{height:540px}
+ .pf-hero-block{inset:0 0 0 52%}
+ .pf-hero-fig{width:min(440px,42vw);right:24px}
+ .pf-split{gap:40px}
+ .pf-tiles--progress .pf-tile{min-height:160px}
+}
+@media(max-width:900px){
+ .pf-split{grid-template-columns:1fr;gap:64px}
+}
+/* Celular: primero el bloque rojo con el arte, abajo el nombre y los datos */
+@media(max-width:760px){
+ .pf-hero{display:flex;flex-direction:column;height:auto;padding:76px 0 52px}
+ .pf-hero-block{inset:76px 0 auto 0;height:300px;clip-path:polygon(0 0,100% 0,100% 84%,0 100%)}
+ .pf-hero-fig{position:relative;top:auto;right:auto;flex:none;width:100%;height:300px;aspect-ratio:auto;overflow:hidden;clip-path:polygon(0 0,100% 0,100% 84%,0 100%)}
+ .pf-hero-fig img{width:auto;height:420px;margin:14px auto 0}
+ .pf-hero-mark{position:relative;top:auto;right:auto;transform:none;flex:none;width:220px;margin:40px auto 40px;padding:20px}
+ .pf-hero--guild .pf-hero-block{height:300px}
+ .pf-hero--empty{padding-top:120px}
+ .pf-hero-copy{height:auto;padding-top:28px}
+ .pf-hero-copy>*{max-width:100%}
+ .is-profile .pf .pf-name{font-size:min(84px,calc((100vw - 48px) / (var(--len) * .5)))}
+ .pf-meta{margin-top:20px}
+ .pf-actions{margin-top:26px}
+ .pf-band{padding:60px 0}
+ .pf-head{margin-bottom:24px}
+ .pf-tiles--progress,.pf-tiles--progress:has(>:nth-child(3):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+ .pf-tiles--progress>.pf-tile:nth-child(3):last-child{grid-column:1/-1}
+ .pf-tiles--progress .pf-tile{min-height:132px;padding:18px}
+ .pf-tiles--progress .pf-tile:nth-child(4n+2),.pf-tiles--progress .pf-tile:nth-child(4n+3){background:var(--pf-bone);color:var(--pf-navy)}
+ .pf-tiles--progress .pf-tile:nth-child(4n+1),.pf-tiles--progress .pf-tile:nth-child(4n){background:var(--pui-night-3);color:var(--pf-bone)}
+ .is-profile .pf .pf-tiles--progress dd{font-size:clamp(48px,15vw,64px)}
+ .pf-tiles--attr .pf-tile,.pf-tiles--detail .pf-tile{min-height:120px;padding:18px}
+ .pf-tiles--detail{grid-template-columns:1fr}
+ .pf-tiles--detail .pf-tile{min-height:104px}
+ .is-profile .pf .pf-tile dd{font-size:36px}
+ .is-profile .pf .pf-tiles--attr dd{font-size:clamp(32px,9vw,42px)}
+ .is-profile .pf .pf-member{grid-template-columns:64px minmax(0,1fr) auto;gap:14px;height:112px;padding:14px 16px 14px 14px}
+ .pf-member-img{width:64px;height:64px}
+ .pf-member-name{font-size:22px}
+ .pf-member-meta{font-size:12px}
+ .pf-foot{padding-bottom:64px}
+ .pf-foot .pf-back{width:100%}
+}
+@media(max-width:380px){
+ .pf-chip{padding:0 14px}
+ .pf-tiles--attr,.pf-tiles--detail{gap:6px}
+ .pf-tile{padding:16px 14px}
+}
+@media(prefers-reduced-motion:reduce){
+ .pf-presence.is-online i,.pf-dot.is-online i{animation:none}
+ .pf-member,.pf-member-name{transition:none}
+}
