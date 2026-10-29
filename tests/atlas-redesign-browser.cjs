@@ -184,8 +184,24 @@ async function shot(page,name){if(output)await page.screenshot({path:path.join(o
   // All chapter links still resolve without manufacturing data or changing IDs.
   await page.goto('https://atlas.test/info/#taller');await page.locator('[data-recipe-search]').fill('Fenrir');assert.ok(await page.locator('[data-recipe-nav]:visible').count()>0);await noOverflow(page,'workshop');
   await page.locator('[data-recipe-search]').fill('');await page.locator('[data-recipe-account]').selectOption('1');
-  const recipeId=await page.locator('[data-recipe-id]:visible').first().getAttribute('data-recipe-id');
-  assert.equal(await page.locator('[data-recipe-id]:visible [data-recipe-rate]').first().textContent(),await page.evaluate(id=>{const d=JSON.parse(document.querySelector('#wiki-data').textContent),r=d.recipes.find(r=>r.id===id),v=d.crafting.mixRates[r.rateKey][1];return v===-1?'Variable':v+'%';},recipeId));
+  // Taller: every recipe takes its rate from the synced mixRates (Free/VIP), level buttons keep the panel height.
+  assert.equal(await page.locator('[data-recipe-id]:visible').count(),0,'Taller opens on the recipe cards');
+  for(const recipeId of ['arma-chaos','fruta','devil-square']){
+   await page.locator('[data-recipe-nav="'+recipeId+'"]').click();await page.waitForFunction(id=>location.hash==='#crear-'+id,recipeId);
+   assert.equal(await page.locator('[data-recipe-id]:visible').count(),1);
+   assert.equal(await page.locator('[data-recipe-id]:visible [data-recipe-rate]').textContent(),await page.evaluate(id=>{const d=JSON.parse(document.querySelector('#wiki-data').textContent),r=d.recipes.find(r=>r.id===id),k=r.levels.length?r.levels[0].rateKey:r.rateKey,v=d.crafting.mixRates[k][1];return v===-1?'Variable':v+'%';},recipeId));
+   await noOverflow(page,'recipe '+recipeId);
+   if(recipeId==='devil-square'){
+    const article=page.locator('#crear-devil-square'),height=await article.evaluate(el=>el.offsetHeight);
+    await article.locator('[data-tl-level="6"]').click();
+    assert.equal(await article.locator('[data-tl-level="6"]').getAttribute('aria-pressed'),'true');
+    assert.equal(await article.locator('[data-tl-result]').textContent(),'Invitation to Devil Square +7');
+    assert.equal(await article.locator('[data-recipe-rate]').textContent(),await page.evaluate(()=>{const v=JSON.parse(document.querySelector('#wiki-data').textContent).crafting.mixRates.DevilSquareMixRate7[1];return v===-1?'Variable':v+'%';}));
+    assert.equal(await article.evaluate(el=>el.offsetHeight),height,'Level buttons keep the recipe height');
+   }
+   await page.locator('#crear-'+recipeId+' .tl-back').click();await page.waitForFunction(()=>location.hash==='#taller');
+   assert.equal(await page.locator('[data-recipe-nav="arma-chaos"]').isVisible(),true);
+  }
   for(const chapter of ['primeros-pasos','rates','sistemas','mejoras','equipo']){
    await page.goto('https://atlas.test/info/#'+chapter);await page.evaluate(()=>document.fonts.ready);
    await page.locator('#'+chapter).evaluate(el=>el.scrollIntoView({block:'start',behavior:'instant'}));

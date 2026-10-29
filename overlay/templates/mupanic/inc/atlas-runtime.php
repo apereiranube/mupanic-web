@@ -22,6 +22,11 @@ function panicAtlasBalance() {
             } elseif(!$hunting && isset($candidate['sourceHash'], $fallback['sourceHash'], $fallback['eventBags']) && hash_equals($fallback['sourceHash'], $candidate['sourceHash'])) {
                 $candidate['eventBags'] = $fallback['eventBags'];
             }
+            // An exporter older than this overlay may not send every mix rate yet:
+            // fill only the missing keys; synced rates always win.
+            if(isset($fallback['crafting']['mixRates']) && is_array($candidate['crafting']['mixRates'] ?? null)) {
+                foreach($fallback['crafting']['mixRates'] as $rateKey=>$rateValues) if(!isset($candidate['crafting']['mixRates'][$rateKey])) $candidate['crafting']['mixRates'][$rateKey] = $rateValues;
+            }
             return $candidate;
         }
     }

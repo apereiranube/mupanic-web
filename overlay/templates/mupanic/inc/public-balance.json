@@ -16103,10 +16103,10 @@
         30
       ],
       "FruitMixRate": [
-        90,
-        90,
-        90,
-        90
+        60,
+        60,
+        60,
+        60
       ],
       "SocketItemCreateSeedMixRate": [
         100,
@@ -16401,14 +16401,122 @@
         35,
         35,
         35
-      ]
-    },
-    "jewels": {
-      "SoulSuccessRate": [
+      ],
+      "HornOfFenrirUpgradeMixRate": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "JewelOfHarmonyItemRestoreMixRate": [
         100,
         100,
         100,
         100
+      ],
+      "SocketItemDestroySeedMixRate": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "ShieldPotionMixRate1": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "ShieldPotionMixRate2": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "ShieldPotionMixRate3": [
+        30,
+        30,
+        30,
+        30
+      ],
+      "JewelOfHarmonyItemSmeltMixRate1": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "JewelOfHarmonyItemSmeltMixRate2": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "Item380MixRate1": [
+        50,
+        50,
+        50,
+        50
+      ],
+      "Item380MixRate2": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "LuckyItemRefineMixRate1": [
+        60,
+        60,
+        60,
+        60
+      ],
+      "LuckyItemRefineMixRate2": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "IllusionTempleMixRate1": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "IllusionTempleMixRate2": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "IllusionTempleMixRate3": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "IllusionTempleMixRate4": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "IllusionTempleMixRate5": [
+        70,
+        70,
+        70,
+        70
+      ],
+      "IllusionTempleMixRate6": [
+        70,
+        70,
+        70,
+        70
+      ]
+    },
+    "jewels": {
+      "SoulSuccessRate": [
+        50,
+        50,
+        50,
+        50
       ],
       "LifeSuccessRate": [
         50,

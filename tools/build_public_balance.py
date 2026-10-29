@@ -30,6 +30,10 @@ chaos = read('GameServer/Data/GameServerInfo - ChaosMix.dat')
 rate_keys = ['ChaosItemMixRate','Wing1MixRate','Wing2MixRate','FeatherOfCondorMixRate','Wing3MixRate','PetMixRate','PieceOfHornMixRate','BrokenHornMixRate','HornOfFenrirMixRate','FruitMixRate','SocketItemCreateSeedMixRate','SocketItemCreateSeedSphereMixRate','JewelOfHarmonyItemPurityMixRate','DinorantMixRate']
 rate_keys += ['DevilSquareMixRate'+str(i) for i in range(1,8)] + ['BloodCastleMixRate'+str(i) for i in range(1,9)]
 rate_keys += [prefix+str(i) for prefix in ['PlusItemLevelMixRate','PlusItemExcLevelMixRate','PlusItemSetLevelMixRate','PlusItemSocketLevelMixRate','PlusItemWingLevelMixRate'] for i in range(1,7)]
+# Every other rate the server reads from ChaosMix.dat (MuEmu S6), so the Taller follows rate changes automatically.
+rate_keys += ['HornOfFenrirUpgradeMixRate','JewelOfHarmonyItemRestoreMixRate','SocketItemDestroySeedMixRate']
+rate_keys += ['ShieldPotionMixRate'+str(i) for i in range(1,4)] + ['JewelOfHarmonyItemSmeltMixRate1','JewelOfHarmonyItemSmeltMixRate2','Item380MixRate1','Item380MixRate2','LuckyItemRefineMixRate1','LuckyItemRefineMixRate2']
+rate_keys += ['IllusionTempleMixRate'+str(i) for i in range(1,7)]
 crafting={'mixRates':{key:[setting(key+'_AL'+str(i),chaos) for i in range(4)] for key in rate_keys}, 'jewels':{key:[setting(key+'_AL'+str(i)) for i in range(4)] for key in ['SoulSuccessRate','LifeSuccessRate','HarmonySuccessRate','SmeltStoneSuccessRate1','SmeltStoneSuccessRate2','AddLuckSuccessRate1','AddLuckSuccessRate2']},'failLevelRemoval':setting('PlusItemFailRemoveLevelAmount',chaos)}
 # Use the same content fingerprint as sync_atlas.py, independent of ZIP timestamps.
 prefixes = ('Data/Monster/', 'Data/MonsterSetBase/', 'Data/Move/', 'Data/Item/', 'Data/EventItemBag/')

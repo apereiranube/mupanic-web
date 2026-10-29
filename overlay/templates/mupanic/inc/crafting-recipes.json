@@ -1,604 +1,2389 @@
 [
-  {
-    "id": "arma-chaos",
-    "name": "Arma Chaos",
-    "group": "Alas",
-    "rateKey": "ChaosItemMixRate",
-    "place": "Chaos Goblin · Noria · creación de arma Chaos",
-    "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Equipo +4 con opción adicional +4 o superior",
-        "quantity": 1,
-        "note": "La opción adicional es la de Life; Skill o Luck no la reemplazan.",
-        "query": "",
-        "recipe": ""
-      }
-    ],
-    "steps": [
-      "Separá un equipo compatible +4 o superior con opción adicional.",
-      "Elegí creación de arma Chaos y colocá los ingredientes.",
-      "Agregar equipo o joyas compatibles puede elevar la tasa; comprobá el porcentaje antes de combinar."
-    ],
-    "result": "Un arma Chaos aleatoria: Dragon Axe, Nature Bow o Lightning Staff.",
-    "note": "Es la base de la primera generación de alas. Si falla, se consumen los materiales de la mezcla.",
-    "zen": null
+ {
+  "id": "devil-square",
+  "name": "Invitación a Devil Square",
+  "group": "Entradas",
+  "summary": "Devil's Eye + Devil's Key del mismo nivel.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "DevilSquareMixRate1",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 100000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/editorial/devil-square.webp",
+  "materials": [
+   {
+    "name": "Devil's Eye +1",
+    "quantity": 1,
+    "image": "img/atlas/drops/7185-1cdcd4952cea.webp",
+    "query": "Devil's Eye",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Devil's Key +1",
+    "quantity": 1,
+    "image": "img/atlas/drops/7186-f81464312f11.webp",
+    "query": "Devil's Key",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Invitation to Devil Square +1",
+   "image": ""
   },
-  {
-    "id": "alas-1",
-    "name": "Alas de primera generación",
-    "group": "Alas",
-    "rateKey": "Wing1MixRate",
-    "place": "Chaos Goblin · Noria · combinación regular",
+  "steps": [
+   "Juntá un Devil's Eye y un Devil's Key del mismo nivel.",
+   "Ponelos en la Chaos Machine con un Chaos.",
+   "Usá la invitación de tu categoría en el NPC del evento."
+  ],
+  "note": "Si falla, perdés el ojo, la llave y el Chaos.",
+  "extra": "",
+  "event": "devil-square",
+  "levelLabel": "Nivel",
+  "levels": [
+   {
+    "label": "1",
+    "rateKey": "DevilSquareMixRate1",
+    "zen": 100000,
+    "charLevel": "15 a 130 · MG, DL y RF: 10 a 110",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Arma Chaos +4 con opción adicional +4 o superior",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": "arma-chaos"
-      }
+     "Devil's Eye +1",
+     "Devil's Key +1",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Creá el arma Chaos y preparala al nivel y opción requeridos.",
-      "Colocá el arma junto a un Chaos en combinación regular.",
-      "Mejorar el valor del equipo o agregar ingredientes compatibles ayuda a la tasa variable."
-    ],
-    "result": "Alas de primera generación; la clase resultante puede ser aleatoria.",
-    "note": "La tasa depende de los materiales. Si falla, perdés lo colocado en la máquina.",
-    "zen": null
-  },
-  {
-    "id": "alas-2",
-    "name": "Alas de segunda generación",
-    "group": "Alas",
-    "rateKey": "Wing2MixRate",
-    "place": "Chaos Goblin · Noria · combinación regular",
+    "result": "Invitation to Devil Square +1"
+   },
+   {
+    "label": "2",
+    "rateKey": "DevilSquareMixRate2",
+    "zen": 200000,
+    "charLevel": "131 a 180 · MG, DL y RF: 111 a 160",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Alas de primera generación",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": "alas-1"
-      },
-      {
-        "name": "Loch's Feather",
-        "quantity": 1,
-        "note": "",
-        "query": "Loch's Feather",
-        "recipe": ""
-      }
+     "Devil's Eye +2",
+     "Devil's Key +2",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Conseguí la pluma en Icarus con los monstruos elegibles.",
-      "Colocá alas de primera generación, pluma y Chaos.",
-      "Un equipo Excellent +4 o superior puede aportar valor a la mezcla; revisá la tasa mostrada."
-    ],
-    "result": "Alas de segunda generación de una clase aleatoria.",
-    "note": "Las alas usadas se consumen al crear las nuevas. La opción adicional, el nivel y los materiales influyen en el valor de la combinación.",
-    "zen": 5000000
-  },
-  {
-    "id": "capa-2",
-    "name": "Capa de Lord / Fighter",
-    "group": "Alas",
-    "rateKey": "Wing2MixRate",
-    "place": "Chaos Goblin · Noria · combinación regular",
+    "result": "Invitation to Devil Square +2"
+   },
+   {
+    "label": "3",
+    "rateKey": "DevilSquareMixRate3",
+    "zen": 400000,
+    "charLevel": "181 a 230 · MG, DL y RF: 161 a 210",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Alas de primera generación",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": "alas-1"
-      },
-      {
-        "name": "Monarch's Crest",
-        "quantity": 1,
-        "note": "",
-        "query": "Monarch's Crest",
-        "recipe": ""
-      }
+     "Devil's Eye +3",
+     "Devil's Key +3",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Conseguí Monarch’s Crest; es distinto de Loch’s Feather.",
-      "Usá Crest, alas de primera generación y Chaos.",
-      "Revisá la combinación de capa y el resultado permitido para tu clase."
-    ],
-    "result": "Capa de segunda generación según los resultados habilitados.",
-    "note": "El Crest reemplaza a la pluma; no pongas ambos. No garantiza que salga la capa de tu clase.",
-    "zen": 5000000
-  },
-  {
-    "id": "pluma-condor",
-    "name": "Pluma de Cóndor",
-    "group": "Alas",
-    "rateKey": "FeatherOfCondorMixRate",
-    "place": "Chaos Goblin · Noria · combinación regular",
+    "result": "Invitation to Devil Square +3"
+   },
+   {
+    "label": "4",
+    "rateKey": "DevilSquareMixRate4",
+    "zen": 700000,
+    "charLevel": "231 a 280 · MG, DL y RF: 211 a 260",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Creation",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Creation",
-        "recipe": ""
-      },
-      {
-        "name": "Pack de 10 Soul",
-        "quantity": 1,
-        "note": "Pack, no diez joyas sueltas.",
-        "query": "Jewel of Soul",
-        "recipe": ""
-      },
-      {
-        "name": "Alas o capa de segunda generación +9, opción +4 o superior",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": "alas-2"
-      },
-      {
-        "name": "Equipo Ancient +7, opción +4 o superior",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": ""
-      }
+     "Devil's Eye +4",
+     "Devil's Key +4",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Prepará las alas o capa +9 y el equipo Ancient +7 con opción adicional.",
-      "Empaquetá diez Soul; colocá el pack junto a Chaos y Creation.",
-      "Verificá que la máquina reconozca la receta y revisá la tasa."
-    ],
-    "result": "Condor Feather para la tercera generación.",
-    "note": "Las alas y el Ancient son ingredientes que se consumen. La tasa variable depende del equipo aportado.",
-    "zen": null
-  },
-  {
-    "id": "alas-3",
-    "name": "Alas de tercera generación",
-    "group": "Alas",
-    "rateKey": "Wing3MixRate",
-    "place": "Chaos Goblin · Noria · combinación regular",
+    "result": "Invitation to Devil Square +4"
+   },
+   {
+    "label": "5",
+    "rateKey": "DevilSquareMixRate5",
+    "zen": 1100000,
+    "charLevel": "281 a 330 · MG, DL y RF: 261 a 310",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Creation",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Creation",
-        "recipe": ""
-      },
-      {
-        "name": "Pack de 10 Soul",
-        "quantity": 1,
-        "note": "Pack, no diez joyas sueltas.",
-        "query": "Jewel of Soul",
-        "recipe": ""
-      },
-      {
-        "name": "Pack de 10 Bless",
-        "quantity": 1,
-        "note": "Pack, no diez joyas sueltas.",
-        "query": "Jewel of Bless",
-        "recipe": ""
-      },
-      {
-        "name": "Condor Feather",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": "pluma-condor"
-      },
-      {
-        "name": "Condor Flame",
-        "quantity": 1,
-        "note": "",
-        "query": "Condor Flame",
-        "recipe": ""
-      },
-      {
-        "name": "Equipo Excellent +9, opción +4 o superior",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": ""
-      }
+     "Devil's Eye +5",
+     "Devil's Key +5",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Conseguí la llama en Barracks y creá la pluma de Cóndor.",
-      "Prepará los packs de diez Bless y diez Soul, y el Excellent con nivel y opción.",
-      "Colocá los ingredientes, revisá tasa y costo, y confirmá solo si aceptás perderlos."
-    ],
-    "result": "Alas o capa de tercera generación aleatorias.",
-    "note": "Crear alas de tercera generación y subir su nivel son combinaciones diferentes. La creación usa tasa variable.",
-    "zen": null
-  },
-  {
-    "id": "pieza-fenrir",
-    "name": "Pieza de cuerno",
-    "group": "Fenrir",
-    "rateKey": "PieceOfHornMixRate",
-    "place": "Chaos Goblin · Noria",
+    "result": "Invitation to Devil Square +5"
+   },
+   {
+    "label": "6",
+    "rateKey": "DevilSquareMixRate6",
+    "zen": 1600000,
+    "charLevel": "331 o más · MG, DL y RF: 311 o más",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Splinter of Armor",
-        "quantity": 20,
-        "note": "",
-        "query": "Splinter of Armor",
-        "recipe": ""
-      },
-      {
-        "name": "Bless of Guardian",
-        "quantity": 20,
-        "note": "",
-        "query": "Bless of Guardian",
-        "recipe": ""
-      }
+     "Devil's Eye +6",
+     "Devil's Key +6",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Farmeá los materiales elegibles de Crywolf.",
-      "Juntá exactamente las cantidades de esta etapa.",
-      "Combiná los dos materiales con un Chaos."
-    ],
-    "result": "Piece of Horn.",
-    "note": "Es la primera etapa del Fenrir; necesitarás cinco piezas para el cuerno roto.",
-    "zen": null
-  },
-  {
-    "id": "cuerno-roto",
-    "name": "Cuerno roto",
-    "group": "Fenrir",
-    "rateKey": "BrokenHornMixRate",
-    "place": "Chaos Goblin · Noria",
+    "result": "Invitation to Devil Square +6"
+   },
+   {
+    "label": "7",
+    "rateKey": "DevilSquareMixRate7",
+    "zen": 2000000,
+    "charLevel": "Tercera clase",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Piece of Horn",
-        "quantity": 5,
-        "note": "",
-        "query": "",
-        "recipe": "pieza-fenrir"
-      },
-      {
-        "name": "Claw of Beast",
-        "quantity": 10,
-        "note": "",
-        "query": "Claw of Beast",
-        "recipe": ""
-      }
+     "Devil's Eye +7",
+     "Devil's Key +7",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Prepará cinco piezas de cuerno; cada una requiere su propia mezcla.",
-      "Conseguí diez Claw of Beast en Crywolf.",
-      "Colocá las cinco piezas, las diez garras y un Chaos."
-    ],
-    "result": "Broken Horn.",
-    "note": "Cada etapa tiene su propio riesgo; el 50% de esta mezcla no representa toda la cadena del Fenrir.",
-    "zen": null
+    "result": "Invitation to Devil Square +7"
+   }
+  ]
+ },
+ {
+  "id": "blood-castle",
+  "name": "Capa de Blood Castle",
+  "group": "Entradas",
+  "summary": "Scroll of Archangel + Blood Bone del mismo nivel.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "BloodCastleMixRate1",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 50000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/editorial/blood-castle.webp",
+  "materials": [
+   {
+    "name": "Scroll of Archangel +1",
+    "quantity": 1,
+    "image": "img/atlas/drops/6672-728cac53721b.webp",
+    "query": "Scroll of Archangel",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Blood Bone +1",
+    "quantity": 1,
+    "image": "img/atlas/drops/6673-0921cfa9cefd.webp",
+    "query": "Blood Bone",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Invisibility Cloak +1",
+   "image": ""
   },
-  {
-    "id": "fenrir",
-    "name": "Fenrir rojo",
-    "group": "Fenrir",
-    "rateKey": "HornOfFenrirMixRate",
-    "place": "Chaos Goblin · Noria",
+  "steps": [
+   "Juntá un Scroll of Archangel y un Blood Bone del mismo nivel.",
+   "Ponelos en la Chaos Machine con un Chaos.",
+   "Entrá con la capa de tu categoría desde el NPC del evento."
+  ],
+  "note": "Si falla, perdés el pergamino, el hueso y el Chaos.",
+  "extra": "",
+  "event": "blood-castle",
+  "levelLabel": "Nivel",
+  "levels": [
+   {
+    "label": "1",
+    "rateKey": "BloodCastleMixRate1",
+    "zen": 50000,
+    "charLevel": "15 a 80 · MG, DL y RF: 10 a 60",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Broken Horn",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": "cuerno-roto"
-      },
-      {
-        "name": "Jewel of Life",
-        "quantity": 3,
-        "note": "",
-        "query": "Jewel of Life",
-        "recipe": ""
-      }
+     "Scroll of Archangel +1",
+     "Blood Bone +1",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Creá el cuerno roto.",
-      "Juntá tres Life y un Chaos.",
-      "Revisá el costo y combiná para intentar crear el Fenrir."
-    ],
-    "result": "Horn of Fenrir rojo.",
-    "note": "El fallo consume los materiales. Las mejoras a Fenrir negro o azul tienen otra receta.",
-    "zen": 10000000
-  },
-  {
-    "id": "fruta",
-    "name": "Fruta de estadísticas",
-    "group": "Otros",
-    "rateKey": "FruitMixRate",
-    "place": "Chaos Goblin · Noria",
+    "result": "Invisibility Cloak +1"
+   },
+   {
+    "label": "2",
+    "rateKey": "BloodCastleMixRate2",
+    "zen": 80000,
+    "charLevel": "81 a 130 · MG, DL y RF: 61 a 110",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Creation",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Creation",
-        "recipe": ""
-      }
+     "Scroll of Archangel +2",
+     "Blood Bone +2",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Colocá Chaos y Creation.",
-      "Revisá el costo de combinación.",
-      "La fruta resultante puede corresponder a distintos atributos."
-    ],
-    "result": "Fruta de estadísticas aleatoria.",
-    "note": "Crear una fruta y utilizarla son procesos diferentes; el uso tiene límites propios del personaje.",
-    "zen": 3000000
-  },
-  {
-    "id": "dark-horse",
-    "name": "Dark Horse",
-    "group": "Pets",
-    "rateKey": "PetMixRate",
-    "place": "Trainer · Lorencia",
+    "result": "Invisibility Cloak +2"
+   },
+   {
+    "label": "3",
+    "rateKey": "BloodCastleMixRate3",
+    "zen": 150000,
+    "charLevel": "131 a 180 · MG, DL y RF: 111 a 160",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Creation",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Creation",
-        "recipe": ""
-      },
-      {
-        "name": "Soul of Dark Horse",
-        "quantity": 1,
-        "note": "",
-        "query": "Spirit of Dark Horse",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Bless",
-        "quantity": 5,
-        "note": "",
-        "query": "Jewel of Bless",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Soul",
-        "quantity": 5,
-        "note": "",
-        "query": "Jewel of Soul",
-        "recipe": ""
-      }
+     "Scroll of Archangel +3",
+     "Blood Bone +3",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Conseguí el alma de Dark Horse.",
-      "Llevá los ingredientes al Trainer de Lorencia.",
-      "Seleccioná la resurrección del Dark Horse y revisá el costo."
-    ],
-    "result": "Dark Horse para Dark Lord.",
-    "note": "No se crea en Chaos Goblin. El alma y las joyas forman parte de la combinación.",
-    "zen": 5000000
-  },
-  {
-    "id": "dark-spirit",
-    "name": "Dark Spirit",
-    "group": "Pets",
-    "rateKey": "PetMixRate",
-    "place": "Trainer · Lorencia",
+    "result": "Invisibility Cloak +3"
+   },
+   {
+    "label": "4",
+    "rateKey": "BloodCastleMixRate4",
+    "zen": 250000,
+    "charLevel": "181 a 230 · MG, DL y RF: 161 a 210",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Creation",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Creation",
-        "recipe": ""
-      },
-      {
-        "name": "Soul of Dark Spirit",
-        "quantity": 1,
-        "note": "",
-        "query": "Spirit of Dark Spirit",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Bless",
-        "quantity": 2,
-        "note": "",
-        "query": "Jewel of Bless",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Soul",
-        "quantity": 2,
-        "note": "",
-        "query": "Jewel of Soul",
-        "recipe": ""
-      }
+     "Scroll of Archangel +4",
+     "Blood Bone +4",
+     "Jewel of Chaos"
     ],
-    "steps": [
-      "Conseguí el alma de Dark Spirit.",
-      "Llevá los ingredientes al Trainer de Lorencia.",
-      "Elegí la resurrección del Dark Spirit."
+    "result": "Invisibility Cloak +4"
+   },
+   {
+    "label": "5",
+    "rateKey": "BloodCastleMixRate5",
+    "zen": 400000,
+    "charLevel": "231 a 280 · MG, DL y RF: 211 a 260",
+    "materials": [
+     "Scroll of Archangel +5",
+     "Blood Bone +5",
+     "Jewel of Chaos"
     ],
-    "result": "Dark Spirit para Dark Lord.",
-    "note": "No confundas el alma del caballo con la del cuervo: son variantes diferentes.",
-    "zen": 1000000
+    "result": "Invisibility Cloak +5"
+   },
+   {
+    "label": "6",
+    "rateKey": "BloodCastleMixRate6",
+    "zen": 600000,
+    "charLevel": "281 a 330 · MG, DL y RF: 261 a 310",
+    "materials": [
+     "Scroll of Archangel +6",
+     "Blood Bone +6",
+     "Jewel of Chaos"
+    ],
+    "result": "Invisibility Cloak +6"
+   },
+   {
+    "label": "7",
+    "rateKey": "BloodCastleMixRate7",
+    "zen": 850000,
+    "charLevel": "331 o más · MG, DL y RF: 311 o más",
+    "materials": [
+     "Scroll of Archangel +7",
+     "Blood Bone +7",
+     "Jewel of Chaos"
+    ],
+    "result": "Invisibility Cloak +7"
+   },
+   {
+    "label": "8",
+    "rateKey": "BloodCastleMixRate8",
+    "zen": 1050000,
+    "charLevel": "Tercera clase",
+    "materials": [
+     "Scroll of Archangel +8",
+     "Blood Bone +8",
+     "Jewel of Chaos"
+    ],
+    "result": "Invisibility Cloak +8"
+   }
+  ]
+ },
+ {
+  "id": "illusion-temple",
+  "name": "Scroll of Blood (Illusion Temple)",
+  "group": "Entradas",
+  "summary": "Old Scroll + Covenant del mismo nivel.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "IllusionTempleMixRate1",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 3000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/events/illusion-temple-862b30bc2306.webp",
+  "materials": [
+   {
+    "name": "Old Scroll +1",
+    "quantity": 1,
+    "image": "img/atlas/drops/6705-138860b362e8.webp",
+    "query": "Old Scroll",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Illusion Sorcerer Covenant +1",
+    "quantity": 1,
+    "image": "img/atlas/drops/6706-67cd08873ea1.webp",
+    "query": "Illusion Sorcerer Covenant",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Scroll of Blood +1",
+   "image": ""
   },
-  {
-    "id": "seed",
+  "steps": [
+   "Juntá un Old Scroll y un Illusion Sorcerer Covenant del mismo nivel.",
+   "Ponelos en la Chaos Machine con un Chaos.",
+   "Anotate con el NPC Mirage. Se juega con 4 personas como mínimo."
+  ],
+  "note": "Si falla, perdés los dos pergaminos y el Chaos.",
+  "extra": "",
+  "event": "illusion-temple",
+  "levelLabel": "Nivel",
+  "levels": [
+   {
+    "label": "1",
+    "rateKey": "IllusionTempleMixRate1",
+    "zen": 3000000,
+    "charLevel": "220 a 270",
+    "materials": [
+     "Old Scroll +1",
+     "Illusion Sorcerer Covenant +1",
+     "Jewel of Chaos"
+    ],
+    "result": "Scroll of Blood +1"
+   },
+   {
+    "label": "2",
+    "rateKey": "IllusionTempleMixRate2",
+    "zen": 5000000,
+    "charLevel": "271 a 320",
+    "materials": [
+     "Old Scroll +2",
+     "Illusion Sorcerer Covenant +2",
+     "Jewel of Chaos"
+    ],
+    "result": "Scroll of Blood +2"
+   },
+   {
+    "label": "3",
+    "rateKey": "IllusionTempleMixRate3",
+    "zen": 7000000,
+    "charLevel": "321 a 350",
+    "materials": [
+     "Old Scroll +3",
+     "Illusion Sorcerer Covenant +3",
+     "Jewel of Chaos"
+    ],
+    "result": "Scroll of Blood +3"
+   },
+   {
+    "label": "4",
+    "rateKey": "IllusionTempleMixRate4",
+    "zen": 9000000,
+    "charLevel": "351 a 380",
+    "materials": [
+     "Old Scroll +4",
+     "Illusion Sorcerer Covenant +4",
+     "Jewel of Chaos"
+    ],
+    "result": "Scroll of Blood +4"
+   },
+   {
+    "label": "5",
+    "rateKey": "IllusionTempleMixRate5",
+    "zen": 11000000,
+    "charLevel": "381 o más",
+    "materials": [
+     "Old Scroll +5",
+     "Illusion Sorcerer Covenant +5",
+     "Jewel of Chaos"
+    ],
+    "result": "Scroll of Blood +5"
+   },
+   {
+    "label": "6",
+    "rateKey": "IllusionTempleMixRate6",
+    "zen": 13000000,
+    "charLevel": "Tercera clase",
+    "materials": [
+     "Old Scroll +6",
+     "Illusion Sorcerer Covenant +6",
+     "Jewel of Chaos"
+    ],
+    "result": "Scroll of Blood +6"
+   }
+  ]
+ },
+ {
+  "id": "kalima",
+  "name": "Lost Map (Kalima)",
+  "group": "Entradas",
+  "summary": "Cinco Symbol of Kundun del mismo nivel.",
+  "place": "Inventario · se arma solo",
+  "rateKey": null,
+  "rateMode": "stack",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/monsters/web/275-e7ed8d75c163.webp",
+  "materials": [
+   {
+    "name": "Symbol of Kundun +1",
+    "quantity": 5,
+    "image": "img/atlas/drops/7197-248f3ce4d292.webp",
+    "query": "Symbol of Kundun",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Lost Map +1",
+   "image": ""
+  },
+  "steps": [
+   "Juntá cinco Symbol of Kundun del mismo nivel.",
+   "Apilalos en el inventario: al completar cinco se convierten en Lost Map.",
+   "Usá el Lost Map fuera de la zona segura para abrir el portal a Kalima."
+  ],
+  "note": "No pasa por la Chaos Machine ni puede fallar.",
+  "extra": "",
+  "event": "kundun",
+  "levelLabel": "Nivel",
+  "levels": [
+   {
+    "label": "1",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Symbol of Kundun +1"
+    ],
+    "result": "Lost Map +1"
+   },
+   {
+    "label": "2",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Symbol of Kundun +2"
+    ],
+    "result": "Lost Map +2"
+   },
+   {
+    "label": "3",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Symbol of Kundun +3"
+    ],
+    "result": "Lost Map +3"
+   },
+   {
+    "label": "4",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Symbol of Kundun +4"
+    ],
+    "result": "Lost Map +4"
+   },
+   {
+    "label": "5",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Symbol of Kundun +5"
+    ],
+    "result": "Lost Map +5"
+   },
+   {
+    "label": "6",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Symbol of Kundun +6"
+    ],
+    "result": "Lost Map +6"
+   },
+   {
+    "label": "7",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Symbol of Kundun +7"
+    ],
+    "result": "Lost Map +7"
+   }
+  ]
+ },
+ {
+  "id": "doppelganger",
+  "name": "Mirror of Dimensions (Doppelganger)",
+  "group": "Entradas",
+  "summary": "Cinco Sign of Dimensions.",
+  "place": "Inventario · se arma solo",
+  "rateKey": null,
+  "rateMode": "stack",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/events/double-goer-5a6c0c4edd3e.webp",
+  "materials": [
+   {
+    "name": "Sign of Dimensions",
+    "quantity": 5,
+    "image": "img/atlas/drops/7278-0-0767c29d2e0f.webp",
+    "query": "Sign of Dimensions",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Mirror of Dimensions",
+   "image": ""
+  },
+  "steps": [
+   "Juntá cinco Sign of Dimensions.",
+   "Apilalos en el inventario: al completar cinco se convierten en Mirror of Dimensions.",
+   "Usá el espejo para entrar a Doppelganger, solo o en party."
+  ],
+  "note": "No pasa por la Chaos Machine ni puede fallar.",
+  "extra": "",
+  "event": "double-goer",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "imperial-gaion",
+  "name": "Gaion's Order (Imperial Guardian)",
+  "group": "Entradas",
+  "summary": "Entrada de lunes a sábado: cinco Suspicious Scrap of Paper.",
+  "place": "Inventario · se arma solo",
+  "rateKey": null,
+  "rateMode": "stack",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/editorial/imperial-temple.webp",
+  "materials": [
+   {
+    "name": "Suspicious Scrap of Paper",
+    "quantity": 5,
+    "image": "img/atlas/drops/7269-0-15e63143acac.webp",
+    "query": "Suspicious Scrap of Paper",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Gaion's Order",
+   "image": ""
+  },
+  "steps": [
+   "Juntá cinco Suspicious Scrap of Paper.",
+   "Apilalos en el inventario: al completar cinco se convierten en Gaion's Order.",
+   "Entrá a Imperial Guardian de lunes a sábado."
+  ],
+  "note": "No pasa por la Chaos Machine ni puede fallar.",
+  "extra": "",
+  "event": "imperial-guardian",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "imperial-secromicon",
+  "name": "Complete Secromicon (Imperial Guardian)",
+  "group": "Entradas",
+  "summary": "Entrada del domingo: las seis páginas del Secromicon.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": null,
+  "rateMode": "always",
+  "rateCap": null,
+  "zen": 1000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/editorial/imperial-temple.webp",
+  "materials": [
+   {
+    "name": "Page of Secromicon (lunes)",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Page of Secromicon (martes)",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Page of Secromicon (miércoles)",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Page of Secromicon (jueves)",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Page of Secromicon (viernes)",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Page of Secromicon (sábado)",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Complete Secromicon",
+   "image": ""
+  },
+  "steps": [
+   "De lunes a sábado, el jefe final de Imperial Guardian deja una página distinta por día.",
+   "Juntá las seis páginas y llevalas a la Chaos Machine.",
+   "El domingo entrás con el Secromicon completo."
+  ],
+  "note": "Esta mezcla no falla: solo pagás el Zen.",
+  "extra": "",
+  "event": "imperial-guardian",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "chaos-castle",
+  "name": "Armor of Guardsman (Chaos Castle)",
+  "group": "Entradas",
+  "summary": "No se fabrica: no hay receta para esta entrada.",
+  "place": "No es una mezcla",
+  "rateKey": null,
+  "rateMode": "none",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "img/atlas/editorial/pvp-arena.webp",
+  "materials": [],
+  "result": {
+   "name": "Armor of Guardsman",
+   "image": ""
+  },
+  "steps": [
+   "Chaos Castle no usa la Chaos Machine.",
+   "Conseguí Armor of Guardsman de tu categoría y usala durante la apertura del evento.",
+   "Revisá horarios y premios en la ficha del evento."
+  ],
+  "note": "Sin mezcla, sin riesgo de fallo.",
+  "extra": "",
+  "event": "chaos-castle",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "arma-chaos",
+  "name": "Arma Chaos",
+  "group": "Alas",
+  "summary": "El primer paso hacia las alas.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "ChaosItemMixRate",
+  "rateMode": "value",
+  "rateCap": 100,
+  "zen": null,
+  "zenText": "Tasa × 10.000",
+  "zenNote": "Si la tasa es 50%, pagás 500.000.",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Equipo +4 con opción +4 o más",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": "La opción es la adicional (Life). Skill o Luck no cuentan."
+   }
+  ],
+  "result": {
+   "name": "Dragon Axe, Nature Bow o Lightning Staff",
+   "image": ""
+  },
+  "steps": [
+   "Poné un Chaos y un equipo +4 con opción adicional +4 o más.",
+   "Sumar más equipo, Bless o Soul sube la tasa.",
+   "Mirá el porcentaje en la máquina antes de confirmar."
+  ],
+  "note": "Si falla, perdés todo lo que pusiste.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "alas-1",
+  "name": "Alas de primera generación",
+  "group": "Alas",
+  "summary": "Arma Chaos + Chaos.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "Wing1MixRate",
+  "rateMode": "value",
+  "rateCap": 100,
+  "zen": null,
+  "zenText": "Tasa × 10.000",
+  "zenNote": "Si la tasa es 50%, pagás 500.000.",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Arma Chaos +4 con opción +4 o más",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "arma-chaos",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Alas de 1.ª generación (clase al azar)",
+   "image": ""
+  },
+  "steps": [
+   "Prepará el arma Chaos +4 con opción adicional.",
+   "Ponela con un Chaos; podés sumar equipo, Bless o Soul para subir la tasa.",
+   "La clase de las alas sale al azar."
+  ],
+  "note": "Si falla, perdés el arma y todo lo que pusiste.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "alas-2",
+  "name": "Alas de segunda generación",
+  "group": "Alas",
+  "summary": "Alas 1 + Loch's Feather + Chaos.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "Wing2MixRate",
+  "rateMode": "value",
+  "rateCap": 90,
+  "zen": 5000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Alas de 1.ª generación",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "alas-1",
+    "note": ""
+   },
+   {
+    "name": "Loch's Feather",
+    "quantity": 1,
+    "image": "img/atlas/drops/6670-0-e5ff1cefedb4.webp",
+    "query": "Loch's Feather",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Alas de 2.ª generación (clase al azar)",
+   "image": ""
+  },
+  "steps": [
+   "Conseguí Loch's Feather en Icarus.",
+   "Poné las alas, la pluma y un Chaos. Un Excellent +4 suma tasa.",
+   "Las alas de 1.ª generación se consumen."
+  ],
+  "note": "Si falla, perdés todo lo que pusiste.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "capa-2",
+  "name": "Capa de Lord / Fighter",
+  "group": "Alas",
+  "summary": "Alas 1 + Monarch's Crest + Chaos.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "Wing2MixRate",
+  "rateMode": "value",
+  "rateCap": 90,
+  "zen": 5000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Alas de 1.ª generación",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "alas-1",
+    "note": ""
+   },
+   {
+    "name": "Monarch's Crest",
+    "quantity": 1,
+    "image": "img/atlas/drops/6670-1-4660626648ab.webp",
+    "query": "Monarch's Crest",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Cape of Lord o Cape of Fighter (al azar)",
+   "image": ""
+  },
+  "steps": [
+   "Conseguí Monarch's Crest: no es la pluma de Loch.",
+   "Poné las alas, el Crest y un Chaos.",
+   "La capa puede salir de la otra clase."
+  ],
+  "note": "Si falla, perdés todo lo que pusiste.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "pluma-condor",
+  "name": "Pluma de Cóndor",
+  "group": "Alas",
+  "summary": "La llave para las alas de tercera.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "FeatherOfCondorMixRate",
+  "rateMode": "value",
+  "rateCap": 60,
+  "zen": null,
+  "zenText": "Tasa × 200.000",
+  "zenNote": "Si la tasa es 30%, pagás 6.000.000.",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Pack de 10 Soul",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-soul-05f3890104b2.webp",
+    "query": "Jewel of Soul",
+    "recipe": "",
+    "note": "Un pack, no diez joyas sueltas."
+   },
+   {
+    "name": "Alas o capa de 2.ª generación +9, opción +4",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "alas-2",
+    "note": ""
+   },
+   {
+    "name": "Equipo Ancient +7, opción +4",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Condor Feather",
+   "image": ""
+  },
+  "steps": [
+   "Prepará alas o capa +9 y un Ancient +7, los dos con opción adicional.",
+   "Sumá un pack de 10 Soul, un Chaos y un Creation.",
+   "Mirá la tasa en la máquina antes de confirmar."
+  ],
+  "note": "Si falla, perdés las alas, el Ancient y las joyas.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "alas-3",
+  "name": "Alas de tercera generación",
+  "group": "Alas",
+  "summary": "Pluma + Llama de Cóndor + packs.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "Wing3MixRate",
+  "rateMode": "value",
+  "rateCap": 40,
+  "zen": null,
+  "zenText": "Tasa × 200.000",
+  "zenNote": "Si la tasa es 30%, pagás 6.000.000.",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Pack de 10 Soul",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-soul-05f3890104b2.webp",
+    "query": "Jewel of Soul",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Pack de 10 Bless",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-bless-2c80b97e4d75.webp",
+    "query": "Jewel of Bless",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Condor Feather",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "pluma-condor",
+    "note": ""
+   },
+   {
+    "name": "Condor Flame",
+    "quantity": 1,
+    "image": "img/atlas/drops/6708-0-94aa8c6226f5.webp",
+    "query": "Condor Flame",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Equipo Excellent +9, opción +4",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Alas o capa de 3.ª generación (al azar)",
+   "image": ""
+  },
+  "steps": [
+   "Conseguí la Condor Flame en Barracks y creá la pluma.",
+   "Sumá los packs de Bless y Soul, Chaos, Creation y un Excellent +9 con opción.",
+   "Mirá la tasa en la máquina antes de confirmar."
+  ],
+  "note": "Si falla, perdés todo lo que pusiste.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "mejora-chaos",
+  "name": "Subir de +10 a +15",
+  "group": "Equipo",
+  "summary": "Ítem + Chaos + Bless y Soul.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "PlusItemLevelMixRate1",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 2000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Ítem +9",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Bless",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-bless-2c80b97e4d75.webp",
+    "query": "Jewel of Bless",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Soul",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-soul-05f3890104b2.webp",
+    "query": "Jewel of Soul",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "El mismo ítem en +10",
+   "image": ""
+  },
+  "steps": [
+   "Elegí el nivel al que querés llegar.",
+   "Poné el ítem, un Chaos y las Bless y Soul que marca la receta.",
+   "Si el ítem tiene Luck, la tasa sube."
+  ],
+  "note": "Si falla, perdés el ítem y las joyas. Con un Talisman of Chaos Assembly en la máquina, el ítem no se destruye.",
+  "extra": "luck",
+  "event": "",
+  "levelLabel": "Objetivo",
+  "levels": [
+   {
+    "label": "+10",
+    "rateKey": "PlusItemLevelMixRate1",
+    "zen": 2000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem +9",
+     "Jewel of Chaos",
+     "Jewel of Bless",
+     "Jewel of Soul"
+    ],
+    "quantities": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "result": "El mismo ítem en +10",
+    "alt": [
+     [
+      "Excellent",
+      "PlusItemExcLevelMixRate1"
+     ],
+     [
+      "Ancient",
+      "PlusItemSetLevelMixRate1"
+     ],
+     [
+      "Socket",
+      "PlusItemSocketLevelMixRate1"
+     ],
+     [
+      "Alas / capa",
+      "PlusItemWingLevelMixRate1"
+     ]
+    ]
+   },
+   {
+    "label": "+11",
+    "rateKey": "PlusItemLevelMixRate2",
+    "zen": 4000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem +10",
+     "Jewel of Chaos",
+     "Jewel of Bless",
+     "Jewel of Soul"
+    ],
+    "quantities": [
+     1,
+     1,
+     2,
+     2
+    ],
+    "result": "El mismo ítem en +11",
+    "alt": [
+     [
+      "Excellent",
+      "PlusItemExcLevelMixRate2"
+     ],
+     [
+      "Ancient",
+      "PlusItemSetLevelMixRate2"
+     ],
+     [
+      "Socket",
+      "PlusItemSocketLevelMixRate2"
+     ],
+     [
+      "Alas / capa",
+      "PlusItemWingLevelMixRate2"
+     ]
+    ]
+   },
+   {
+    "label": "+12",
+    "rateKey": "PlusItemLevelMixRate3",
+    "zen": 6000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem +11",
+     "Jewel of Chaos",
+     "Jewel of Bless",
+     "Jewel of Soul"
+    ],
+    "quantities": [
+     1,
+     1,
+     3,
+     3
+    ],
+    "result": "El mismo ítem en +12",
+    "alt": [
+     [
+      "Excellent",
+      "PlusItemExcLevelMixRate3"
+     ],
+     [
+      "Ancient",
+      "PlusItemSetLevelMixRate3"
+     ],
+     [
+      "Socket",
+      "PlusItemSocketLevelMixRate3"
+     ],
+     [
+      "Alas / capa",
+      "PlusItemWingLevelMixRate3"
+     ]
+    ]
+   },
+   {
+    "label": "+13",
+    "rateKey": "PlusItemLevelMixRate4",
+    "zen": 8000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem +12",
+     "Jewel of Chaos",
+     "Jewel of Bless",
+     "Jewel of Soul"
+    ],
+    "quantities": [
+     1,
+     1,
+     4,
+     4
+    ],
+    "result": "El mismo ítem en +13",
+    "alt": [
+     [
+      "Excellent",
+      "PlusItemExcLevelMixRate4"
+     ],
+     [
+      "Ancient",
+      "PlusItemSetLevelMixRate4"
+     ],
+     [
+      "Socket",
+      "PlusItemSocketLevelMixRate4"
+     ],
+     [
+      "Alas / capa",
+      "PlusItemWingLevelMixRate4"
+     ]
+    ]
+   },
+   {
+    "label": "+14",
+    "rateKey": "PlusItemLevelMixRate5",
+    "zen": 10000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem +13",
+     "Jewel of Chaos",
+     "Jewel of Bless",
+     "Jewel of Soul"
+    ],
+    "quantities": [
+     1,
+     1,
+     5,
+     5
+    ],
+    "result": "El mismo ítem en +14",
+    "alt": [
+     [
+      "Excellent",
+      "PlusItemExcLevelMixRate5"
+     ],
+     [
+      "Ancient",
+      "PlusItemSetLevelMixRate5"
+     ],
+     [
+      "Socket",
+      "PlusItemSocketLevelMixRate5"
+     ],
+     [
+      "Alas / capa",
+      "PlusItemWingLevelMixRate5"
+     ]
+    ]
+   },
+   {
+    "label": "+15",
+    "rateKey": "PlusItemLevelMixRate6",
+    "zen": 12000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem +14",
+     "Jewel of Chaos",
+     "Jewel of Bless",
+     "Jewel of Soul"
+    ],
+    "quantities": [
+     1,
+     1,
+     6,
+     6
+    ],
+    "result": "El mismo ítem en +15",
+    "alt": [
+     [
+      "Excellent",
+      "PlusItemExcLevelMixRate6"
+     ],
+     [
+      "Ancient",
+      "PlusItemSetLevelMixRate6"
+     ],
+     [
+      "Socket",
+      "PlusItemSocketLevelMixRate6"
+     ],
+     [
+      "Alas / capa",
+      "PlusItemWingLevelMixRate6"
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "item-380",
+  "name": "Opción 380",
+  "group": "Equipo",
+  "summary": "Guardian + Harmony sobre un ítem 380.",
+  "place": "NPC Osbourne",
+  "rateKey": "Item380MixRate1",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 10000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Ítem de nivel 380, +4 a +6 con opción +4",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Guardian",
+    "quantity": 1,
+    "image": "",
+    "query": "Jewel of Guardian",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Harmony",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "harmony-refinar",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "El mismo ítem con la opción 380",
+   "image": ""
+  },
+  "steps": [
+   "Usá un ítem de nivel 380 con opción adicional +4 o más.",
+   "Sumá un Jewel of Guardian y un Jewel of Harmony.",
+   "A partir de +7 la tasa es más alta."
+  ],
+  "note": "Si falla, el ítem vuelve a tu inventario y perdés las joyas.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel del ítem",
+  "levels": [
+   {
+    "label": "+4 a +6",
+    "rateKey": "Item380MixRate1",
+    "zen": 10000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem de nivel 380, +4 a +6 con opción +4",
+     "Jewel of Guardian",
+     "Jewel of Harmony"
+    ],
+    "result": "El mismo ítem con la opción 380"
+   },
+   {
+    "label": "+7 o más",
+    "rateKey": "Item380MixRate2",
+    "zen": 10000000,
+    "charLevel": "",
+    "materials": [
+     "Ítem de nivel 380, +7 o más con opción +4",
+     "Jewel of Guardian",
+     "Jewel of Harmony"
+    ],
+    "result": "El mismo ítem con la opción 380"
+   }
+  ]
+ },
+ {
+  "id": "harmony-refinar",
+  "name": "Jewel of Harmony",
+  "group": "Equipo",
+  "summary": "Refiná una Gemstone.",
+  "place": "NPC Elpis · refinación",
+  "rateKey": "JewelOfHarmonyItemPurityMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Gemstone",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-gemstone-5edf360037d7.webp",
+    "query": "Gemstone",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Jewel of Harmony",
+   "image": ""
+  },
+  "steps": [
+   "Conseguí una Gemstone.",
+   "Llevala al NPC Elpis y elegí refinar.",
+   "La Jewel of Harmony agrega una opción Harmony a equipo compatible."
+  ],
+  "note": "Si falla, perdés la Gemstone.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "harmony-fundir",
+  "name": "Refining Stone",
+  "group": "Equipo",
+  "summary": "Fundí equipo para mejorar opciones Harmony.",
+  "place": "NPC Elpis · fundición",
+  "rateKey": "JewelOfHarmonyItemSmeltMixRate1",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Equipo normal sin opción Harmony",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Lower Refining Stone",
+   "image": ""
+  },
+  "steps": [
+   "Elegí un equipo compatible que no sea Ancient ni tenga opción Harmony.",
+   "Fundilo en el NPC Elpis.",
+   "Con Excellent sale la piedra superior."
+  ],
+  "note": "Si falla, perdés el equipo.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Equipo",
+  "levels": [
+   {
+    "label": "Normal",
+    "rateKey": "JewelOfHarmonyItemSmeltMixRate1",
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Equipo normal sin opción Harmony"
+    ],
+    "result": "Lower Refining Stone"
+   },
+   {
+    "label": "Excellent",
+    "rateKey": "JewelOfHarmonyItemSmeltMixRate2",
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Equipo Excellent sin opción Harmony"
+    ],
+    "result": "Higher Refining Stone"
+   }
+  ]
+ },
+ {
+  "id": "harmony-restaurar",
+  "name": "Quitar la opción Harmony",
+  "group": "Equipo",
+  "summary": "Restaurá un ítem con Harmony.",
+  "place": "NPC Elpis · restauración",
+  "rateKey": "JewelOfHarmonyItemRestoreMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "Según la opción",
+  "zenNote": "Depende del nivel de la opción Harmony.",
+  "art": "",
+  "materials": [
+   {
+    "name": "Ítem con opción Harmony",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "El mismo ítem sin la opción Harmony",
+   "image": ""
+  },
+  "steps": [
+   "Llevá el ítem con opción Harmony al NPC Elpis.",
+   "Elegí restaurar y revisá el Zen.",
+   "El ítem queda sin la opción Harmony."
+  ],
+  "note": "Revisá el costo: depende del nivel de la opción.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "pieza-fenrir",
+  "name": "Pieza de cuerno",
+  "group": "Fenrir",
+  "summary": "Primera etapa del Fenrir.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "PieceOfHornMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Splinter of Armor",
+    "quantity": 20,
+    "image": "img/atlas/drops/6688-0-51adc62c274c.webp",
+    "query": "Splinter of Armor",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Bless of Guardian",
+    "quantity": 20,
+    "image": "img/atlas/drops/6689-0-d9a08f9f9a14.webp",
+    "query": "Bless of Guardian",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Piece of Horn",
+   "image": ""
+  },
+  "steps": [
+   "Juntá 20 Splinter of Armor y 20 Bless of Guardian.",
+   "Ponelos con un Chaos.",
+   "Necesitás cinco piezas para el cuerno roto."
+  ],
+  "note": "Si falla, perdés los materiales.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "cuerno-roto",
+  "name": "Cuerno roto",
+  "group": "Fenrir",
+  "summary": "Cinco piezas + diez garras.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "BrokenHornMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Piece of Horn",
+    "quantity": 5,
+    "image": "",
+    "query": "",
+    "recipe": "pieza-fenrir",
+    "note": ""
+   },
+   {
+    "name": "Claw of Beast",
+    "quantity": 10,
+    "image": "img/atlas/drops/6690-0-2e407ec3d9de.webp",
+    "query": "Claw of Beast",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Broken Horn",
+   "image": ""
+  },
+  "steps": [
+   "Prepará cinco piezas de cuerno.",
+   "Juntá diez Claw of Beast.",
+   "Ponelos con un Chaos."
+  ],
+  "note": "Si falla, perdés las piezas y las garras.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "fenrir",
+  "name": "Fenrir rojo",
+  "group": "Fenrir",
+  "summary": "Cuerno roto + tres Life.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "HornOfFenrirMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 10000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Broken Horn",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "cuerno-roto",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Life",
+    "quantity": 3,
+    "image": "img/atlas/drops/jewel-life-6e1a802e1074.webp",
+    "query": "Jewel of Life",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Horn of Fenrir (rojo)",
+   "image": ""
+  },
+  "steps": [
+   "Creá el cuerno roto.",
+   "Sumá tres Life y un Chaos.",
+   "Después podés mejorarlo a negro o azul."
+  ],
+  "note": "Si falla, perdés el cuerno y las joyas.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "fenrir-mejorado",
+  "name": "Fenrir negro o azul",
+  "group": "Fenrir",
+  "summary": "Fenrir rojo + cinco Life + un ítem.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "HornOfFenrirUpgradeMixRate",
+  "rateMode": "value",
+  "rateCap": 80,
+  "zen": 10000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Horn of Fenrir rojo",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "fenrir",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Life",
+    "quantity": 5,
+    "image": "img/atlas/drops/jewel-life-6e1a802e1074.webp",
+    "query": "Jewel of Life",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Arma +4 con opción +4",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Fenrir negro (daño)",
+   "image": ""
+  },
+  "steps": [
+   "Elegí qué Fenrir querés: con un arma sale negro, con una armadura sale azul.",
+   "Poné el Fenrir rojo, cinco Life, un Chaos y una sola pieza +4 con opción.",
+   "Cuanto más vale la pieza, más sube la tasa."
+  ],
+  "note": "Si falla, perdés todo: también el Fenrir rojo.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Tipo",
+  "levels": [
+   {
+    "label": "Negro",
+    "rateKey": "HornOfFenrirUpgradeMixRate",
+    "zen": 10000000,
+    "charLevel": "",
+    "materials": [
+     "Jewel of Chaos",
+     "Horn of Fenrir rojo",
+     "Jewel of Life",
+     "Arma +4 con opción +4"
+    ],
+    "result": "Fenrir negro (daño)"
+   },
+   {
+    "label": "Azul",
+    "rateKey": "HornOfFenrirUpgradeMixRate",
+    "zen": 10000000,
+    "charLevel": "",
+    "materials": [
+     "Jewel of Chaos",
+     "Horn of Fenrir rojo",
+     "Jewel of Life",
+     "Armadura +4 con opción +4"
+    ],
+    "result": "Fenrir azul (defensa)"
+   }
+  ]
+ },
+ {
+  "id": "dark-horse",
+  "name": "Dark Horse",
+  "group": "Mascotas",
+  "summary": "Montura del Dark Lord.",
+  "place": "Trainer · Lorencia",
+  "rateKey": "PetMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 5000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Spirit of Dark Horse",
+    "quantity": 1,
+    "image": "img/atlas/drops/6687-0-4ce92a01991e.webp",
+    "query": "Spirit",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Bless",
+    "quantity": 5,
+    "image": "img/atlas/drops/jewel-bless-2c80b97e4d75.webp",
+    "query": "Jewel of Bless",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Soul",
+    "quantity": 5,
+    "image": "img/atlas/drops/jewel-soul-05f3890104b2.webp",
+    "query": "Jewel of Soul",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Dark Horse",
+   "image": ""
+  },
+  "steps": [
+   "Conseguí el Spirit of Dark Horse.",
+   "Llevá las joyas al Trainer de Lorencia.",
+   "Elegí revivir al Dark Horse."
+  ],
+  "note": "Si falla, perdés el espíritu y las joyas.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "dark-spirit",
+  "name": "Dark Raven",
+  "group": "Mascotas",
+  "summary": "El cuervo del Dark Lord.",
+  "place": "Trainer · Lorencia",
+  "rateKey": "PetMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 1000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Spirit of Dark Spirit",
+    "quantity": 1,
+    "image": "img/atlas/drops/6687-0-4ce92a01991e.webp",
+    "query": "Spirit of Dark Spirit",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Bless",
+    "quantity": 2,
+    "image": "img/atlas/drops/jewel-bless-2c80b97e4d75.webp",
+    "query": "Jewel of Bless",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Soul",
+    "quantity": 2,
+    "image": "img/atlas/drops/jewel-soul-05f3890104b2.webp",
+    "query": "Jewel of Soul",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Dark Raven",
+   "image": ""
+  },
+  "steps": [
+   "Conseguí el Spirit of Dark Spirit: no es el del caballo.",
+   "Llevá las joyas al Trainer de Lorencia.",
+   "Elegí revivir al cuervo."
+  ],
+  "note": "Si falla, perdés el espíritu y las joyas.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "dinorant",
+  "name": "Dinorant",
+  "group": "Mascotas",
+  "summary": "Diez Horn of Uniria + Chaos.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "DinorantMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 500000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Horn of Uniria",
+    "quantity": 10,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": "Con la durabilidad completa."
+   }
+  ],
+  "result": {
+   "name": "Horn of Dinorant",
+   "image": ""
+  },
+  "steps": [
+   "Juntá diez Horn of Uniria sin gastar.",
+   "Ponelos con un Chaos.",
+   "La opción del Dinorant sale al azar."
+  ],
+  "note": "Si falla, perdés los Uniria y el Chaos.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "seed",
+  "name": "Seed",
+  "group": "Socket",
+  "summary": "Excellent + Ancient + tres joyas.",
+  "place": "Seed Master",
+  "rateKey": "SocketItemCreateSeedMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 1000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Harmony",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "harmony-refinar",
+    "note": ""
+   },
+   {
+    "name": "Equipo Excellent +4 o más",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Equipo Ancient +4 o más",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Seed (tipo y opción al azar)",
+   "image": ""
+  },
+  "steps": [
+   "Prepará un Excellent y un Ancient, los dos +4 o más.",
+   "Sumá Chaos, Creation y Harmony.",
+   "El equipo se consume."
+  ],
+  "note": "Si falla, perdés todo lo que pusiste.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "seed-sphere",
+  "name": "Seed Sphere",
+  "group": "Socket",
+  "summary": "Seed + Sphere + dos joyas.",
+  "place": "Seed Researcher",
+  "rateKey": "SocketItemCreateSeedSphereMixRate",
+  "rateMode": "value",
+  "rateCap": 90,
+  "zen": 1000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   },
+   {
     "name": "Seed",
-    "group": "Socket",
-    "rateKey": "SocketItemCreateSeedMixRate",
-    "place": "Seed Master · sistema Socket",
-    "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Creation",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Creation",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Harmony",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": ""
-      },
-      {
-        "name": "Equipo Excellent +4 o superior",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": ""
-      },
-      {
-        "name": "Equipo Ancient +4 o superior",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": ""
-      }
-    ],
-    "steps": [
-      "Prepará un Excellent y un Ancient compatibles, ambos +4 o superior.",
-      "Agregá las tres joyas requeridas.",
-      "Elegí extracción de Seed y revisá el resultado de la receta."
-    ],
-    "result": "Seed de tipo y opción aleatorios.",
-    "note": "Crear Seed consume el equipo usado como ingrediente; no agrega slots a ese equipo.",
-    "zen": 1000000
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "seed",
+    "note": ""
+   },
+   {
+    "name": "Sphere",
+    "quantity": 1,
+    "image": "img/atlas/drops/6214-0-4292d8890a9d.webp",
+    "query": "Sphere",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Seed Sphere",
+   "image": ""
   },
-  {
-    "id": "seed-sphere",
+  "steps": [
+   "Conseguí un Seed y una Sphere.",
+   "Sumá Chaos y Creation.",
+   "Después la montás en un slot vacío."
+  ],
+  "note": "Si falla, perdés todo lo que pusiste.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "montar-seed-sphere",
+  "name": "Montar una Seed Sphere",
+  "group": "Socket",
+  "summary": "Seed Sphere en un slot vacío.",
+  "place": "Seed Master",
+  "rateKey": null,
+  "rateMode": "always",
+  "rateCap": null,
+  "zen": 1000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   },
+   {
     "name": "Seed Sphere",
-    "group": "Socket",
-    "rateKey": "SocketItemCreateSeedSphereMixRate",
-    "place": "Seed Master · sistema Socket",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "seed-sphere",
+    "note": ""
+   },
+   {
+    "name": "Ítem Socket con un slot libre",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "El ítem con la opción del Seed",
+   "image": ""
+  },
+  "steps": [
+   "Usá un ítem Socket con un slot vacío.",
+   "Sumá la Seed Sphere, un Chaos y un Creation.",
+   "Elegí el slot y confirmá."
+  ],
+  "note": "Esta operación no falla: solo pagás el Zen.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "fruta",
+  "name": "Fruta de estadísticas",
+  "group": "Otros",
+  "summary": "Chaos + Creation.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "FruitMixRate",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 3000000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Jewel of Chaos",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-chaos-809384516512.webp",
+    "query": "Jewel of Chaos",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Jewel of Creation",
+    "quantity": 1,
+    "image": "img/atlas/drops/jewel-creation-9b7e2a322074.webp",
+    "query": "Jewel of Creation",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Fruit (atributo al azar)",
+   "image": ""
+  },
+  "steps": [
+   "Poné un Chaos y un Creation.",
+   "La fruta sale de un atributo al azar.",
+   "Usarla tiene sus propios límites."
+  ],
+  "note": "Si falla, perdés las dos joyas.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Nivel",
+  "levels": []
+ },
+ {
+  "id": "pocion-sd",
+  "name": "Pociones de escudo (SD)",
+  "group": "Otros",
+  "summary": "Tres pociones se convierten en una de SD.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": "ShieldPotionMixRate1",
+  "rateMode": "fixed",
+  "rateCap": null,
+  "zen": 100000,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Large Healing Potion",
+    "quantity": 3,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Small Shield Potion",
+   "image": ""
+  },
+  "steps": [
+   "Elegí el tamaño.",
+   "Poné tres pociones del tipo indicado.",
+   "Confirmá en la Chaos Machine."
+  ],
+  "note": "Si falla, perdés las pociones.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Tamaño",
+  "levels": [
+   {
+    "label": "Chica",
+    "rateKey": "ShieldPotionMixRate1",
+    "zen": 100000,
+    "charLevel": "",
     "materials": [
-      {
-        "name": "Jewel of Chaos",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Chaos",
-        "recipe": ""
-      },
-      {
-        "name": "Jewel of Creation",
-        "quantity": 1,
-        "note": "",
-        "query": "Jewel of Creation",
-        "recipe": ""
-      },
-      {
-        "name": "Seed",
-        "quantity": 1,
-        "note": "",
-        "query": "",
-        "recipe": "seed"
-      },
-      {
-        "name": "Sphere",
-        "quantity": 1,
-        "note": "",
-        "query": "Sphere",
-        "recipe": ""
-      }
+     "Large Healing Potion"
     ],
-    "steps": [
-      "Conseguí un Seed y una Sphere compatible.",
-      "Elegí combinación de Seed Sphere.",
-      "La Seed Sphere se monta después en un slot vacío mediante el NPC correspondiente."
+    "result": "Small Shield Potion"
+   },
+   {
+    "label": "Mediana",
+    "rateKey": "ShieldPotionMixRate2",
+    "zen": 500000,
+    "charLevel": "",
+    "materials": [
+     "Small Complex Potion"
     ],
-    "result": "Seed Sphere lista para el montaje.",
-    "note": "Crear la Seed Sphere y montarla son operaciones distintas. El equipo debe tener un slot disponible.",
-    "zen": 1000000
-  }
+    "result": "Shield Potion"
+   },
+   {
+    "label": "Grande",
+    "rateKey": "ShieldPotionMixRate3",
+    "zen": 1000000,
+    "charLevel": "",
+    "materials": [
+     "Complex Potion"
+    ],
+    "result": "Large Shield Potion"
+   }
+  ]
+ },
+ {
+  "id": "cofre-imperial",
+  "name": "Abrir cofres sellados",
+  "group": "Otros",
+  "summary": "Llave + cofre sellado del mismo color.",
+  "place": "Chaos Goblin · Noria",
+  "rateKey": null,
+  "rateMode": "always",
+  "rateCap": null,
+  "zen": null,
+  "zenText": "",
+  "zenNote": "",
+  "art": "",
+  "materials": [
+   {
+    "name": "Gold Key",
+    "quantity": 1,
+    "image": "",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   },
+   {
+    "name": "Sealed Golden Box",
+    "quantity": 1,
+    "image": "img/atlas/drops/7289-0-4fed847c48b5.webp",
+    "query": "",
+    "recipe": "",
+    "note": ""
+   }
+  ],
+  "result": {
+   "name": "Golden Box",
+   "image": ""
+  },
+  "steps": [
+   "Juntá una llave y un cofre sellado del mismo color.",
+   "Ponelos en la Chaos Machine.",
+   "Abrí el cofre resultante desde el inventario."
+  ],
+  "note": "Esta mezcla no falla y no cobra Zen.",
+  "extra": "",
+  "event": "",
+  "levelLabel": "Color",
+  "levels": [
+   {
+    "label": "Dorado",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Gold Key",
+     "Sealed Golden Box"
+    ],
+    "images": [
+     "",
+     "img/atlas/drops/7289-0-4fed847c48b5.webp"
+    ],
+    "result": "Golden Box"
+   },
+   {
+    "label": "Plateado",
+    "rateKey": null,
+    "zen": null,
+    "charLevel": "",
+    "materials": [
+     "Silver Key",
+     "Sealed Silver Box"
+    ],
+    "images": [
+     "",
+     "img/atlas/drops/7290-0-af62c96574df.webp"
+    ],
+    "result": "Silver Box"
+   }
+  ]
+ }
 ]

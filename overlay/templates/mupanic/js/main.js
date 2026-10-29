@@ -149,7 +149,7 @@
     if (!panel) panel = panels[0];
     panels.forEach(function (item) { item.hidden = item !== panel; });
     nav.forEach(function (link) { if (link.hash === '#' + panel.id) { link.setAttribute('aria-current', 'page'); var group = link.closest('details'); if (group) group.open = true; } else link.removeAttribute('aria-current'); });
-    if (panel.id === 'taller') selectRecipe(target && target.hasAttribute('data-recipe-id') ? target.getAttribute('data-recipe-id') : currentRecipe);
+    if (panel.id === 'taller') { var recipeTarget = target && target.closest('[data-recipe-id]'); selectRecipe(recipeTarget ? recipeTarget.getAttribute('data-recipe-id') : null); }
     // A shared deep link must reveal a map/row even after local filtering.
     wiki.querySelectorAll('[data-event-reward-list]').forEach(function(list) { list.hidden = true; });
     if (target) {
@@ -396,17 +396,39 @@
       if (map.open) wiki.querySelectorAll('#progresion > .wiki-map-list > .wiki-map').forEach(function(other) { if (other !== map) other.open = false; });
     });
   });
-  // The workshop and the upgrade planner share the same public balance snapshot.
+  // Taller: a card grid and one recipe at a time. Rates always come from the synced mixRates.
   var recipeSearch = wiki.querySelector('[data-recipe-search]');
   var recipeAccount = wiki.querySelector('[data-recipe-account]');
   var recipeGroup = 'Todas';
-  var currentRecipe = data.recipes[0].id;
+  var currentRecipe = null;
+  var recipeLevels = {};
+  var tallerSection = wiki.querySelector('#taller');
   var materialChecks = [];
   try { var storedMaterials = JSON.parse(localStorage.getItem('panic-atlas-materials') || '[]'); if (Array.isArray(storedMaterials)) materialChecks = storedMaterials.filter(function (key) { return typeof key === 'string' && wiki.querySelector('[data-material="' + CSS.escape(key) + '"]'); }); } catch (e) {}
+  function findRecipe(id) { return data.recipes.find(function (recipe) { return recipe.id === id; }); }
+  function zenText(value) { return Number(value).toLocaleString('es-AR'); }
+  function recipeRate(recipe, level, account) {
+    var key = level ? level.rateKey : recipe.rateKey;
+    if (!key) return {text: {always: 'No falla', stack: 'Se arma sola', none: 'Sin mezcla'}[recipe.rateMode] || '—', pct: ['always', 'stack'].indexOf(recipe.rateMode) >= 0 ? 100 : 0, fixed: false};
+    var rates = data.crafting.mixRates[key];
+    if (!rates || rates[account] === undefined) return {text: '—', pct: 0, fixed: false};
+    var rate = rates[account];
+    if (rate === -1) return {text: 'Variable', pct: recipe.rateCap || 0, variable: true, fixed: true};
+    return {text: rate + '%', pct: Math.max(0, Math.min(100, rate)), value: rate, fixed: true};
+  }
+  function cardRate(recipe, account) {
+    if (!recipe.levels.length) return recipeRate(recipe, null, account).text;
+    var values = recipe.levels.map(function (level) { return recipeRate(recipe, level, account); });
+    var numbers = values.filter(function (v) { return typeof v.value === 'number'; }).map(function (v) { return v.value; });
+    if (numbers.length === values.length && numbers.length) { var min = Math.min.apply(null, numbers), max = Math.max.apply(null, numbers); return min === max ? min + '%' : min + '–' + max + '%'; }
+    return values[0].text;
+  }
   function updateMaterialProgress(article) {
     var checks = Array.from(article.querySelectorAll('[data-material]'));
+    var progress = article.querySelector('[data-recipe-progress]');
+    if (!progress) return;
     var ready = checks.filter(function (check) { return check.checked; }).length;
-    article.querySelector('[data-recipe-progress]').textContent = ready === checks.length ? 'Lista de materiales completa. Revisá la tasa y el Zen en el juego antes de intentar la mezcla.' : ready + ' de ' + checks.length + ' materiales preparados · faltan ' + (checks.length - ready);
+    progress.textContent = ready === checks.length ? 'Tenés todo. Revisá la tasa y el Zen en la máquina antes de confirmar.' : 'Tenés ' + ready + ' de ' + checks.length + '. Te faltan ' + (checks.length - ready) + '.';
   }
   wiki.querySelectorAll('[data-material]').forEach(function (check) {
     check.checked = materialChecks.includes(check.getAttribute('data-material'));
@@ -417,38 +439,76 @@
       updateMaterialProgress(check.closest('.recipe-article'));
     });
   });
+  function renderRecipe(recipe) {
+    var article = document.getElementById('crear-' + recipe.id);
+    var account = Number(recipeAccount.value);
+    var index = recipeLevels[recipe.id] || 0;
+    var level = recipe.levels[index] || null;
+    var rate = recipeRate(recipe, level, account);
+    article.querySelector('[data-recipe-rate]').textContent = rate.text;
+    article.querySelector('[data-tl-bar]').style.width = rate.pct + '%';
+    var note = article.querySelector('[data-tl-rate-note]');
+    var alt = level && level.alt ? level.alt.map(function (pair) { var r = recipeRate(recipe, {rateKey: pair[1]}, account); return pair[0] + ' ' + r.text; }).join(' · ') : '';
+    note.textContent = rate.variable ? 'Depende del valor de lo que pongas. Tope: ' + recipe.rateCap + '%.' : (alt ? alt : (rate.fixed ? 'Tasa de tu cuenta. La máquina muestra la final.' : ''));
+    var luck = article.querySelector('[data-tl-luck]');
+    if (luck) luck.textContent = data.crafting.jewels.AddLuckSuccessRate2[account];
+    article.querySelectorAll('[data-tl-row-rate]').forEach(function (cell) { cell.textContent = recipeRate(recipe, recipe.levels[Number(cell.getAttribute('data-tl-row-rate'))], account).text; });
+    if (!level) return;
+    var zen = article.querySelector('[data-tl-zen]');
+    if (zen) zen.textContent = level.zen !== null && level.zen !== undefined ? zenText(level.zen) : (recipe.zenText || 'Sin costo');
+    var parts = (level.charLevel || '').split(' · ');
+    var charMain = article.querySelector('[data-tl-char]'), charAlt = article.querySelector('[data-tl-char-alt]');
+    if (charMain) { charMain.textContent = parts[0] || '—'; charAlt.textContent = parts[1] || ''; }
+    level.materials.forEach(function (name, i) {
+      article.querySelectorAll('[data-tl-name="' + i + '"]').forEach(function (el) { el.textContent = name; });
+      var qty = level.quantities ? level.quantities[i] : recipe.materials[i].quantity;
+      article.querySelectorAll('[data-tl-qty="' + i + '"]').forEach(function (el) { el.textContent = '×' + qty; });
+      if (level.images) {
+        var holder = article.querySelector('[data-tl-img="' + i + '"]');
+        if (holder) {
+          holder.replaceChildren();
+          if (level.images[i]) { var img = document.createElement('img'); img.src = recipeImageBase + level.images[i]; img.alt = ''; holder.appendChild(img); }
+          else { var letter = document.createElement('b'); letter.setAttribute('aria-hidden', 'true'); letter.textContent = name.charAt(0); holder.appendChild(letter); }
+        }
+      }
+    });
+    var result = article.querySelector('[data-tl-result]');
+    if (result) result.textContent = level.result;
+    article.querySelectorAll('[data-tl-level]').forEach(function (button) { button.setAttribute('aria-pressed', String(Number(button.getAttribute('data-tl-level')) === index)); });
+  }
+  var recipeImageBase = (function () { var img = wiki.querySelector('.tl-ing-img img, .tl-card-media img'); if (!img) return '/templates/mupanic/'; var src = img.getAttribute('src'), at = src.indexOf('img/'); return at >= 0 ? src.slice(0, at) : '/templates/mupanic/'; })();
   function recipeRates() {
     var account = Number(recipeAccount.value);
     data.recipes.forEach(function (recipe) {
-      var rate = data.crafting.mixRates[recipe.rateKey][account];
-      var article = document.getElementById('crear-' + recipe.id);
-      article.querySelector('[data-recipe-rate]').textContent = rate === -1 ? 'Variable' : rate + '%';
-      updateMaterialProgress(article);
+      var badge = wiki.querySelector('[data-card-rate="' + recipe.id + '"]');
+      if (badge) badge.textContent = cardRate(recipe, account);
+      renderRecipe(recipe);
+      updateMaterialProgress(document.getElementById('crear-' + recipe.id));
     });
   }
   function selectRecipe(id) {
-    if (!data.recipes.some(function (recipe) { return recipe.id === id; })) return;
-    currentRecipe = id;
-    var link = wiki.querySelector('[data-recipe-nav="' + id + '"]');
-    if (link.hidden) { recipeGroup = 'Todas'; recipeSearch.value = ''; filterRecipes(false); }
-    wiki.querySelectorAll('.recipe-article').forEach(function (article) { article.hidden = article.getAttribute('data-recipe-id') !== id; });
-    wiki.querySelectorAll('[data-recipe-nav]').forEach(function (item) { if (item.getAttribute('data-recipe-nav') === id) item.setAttribute('aria-current', 'true'); else item.removeAttribute('aria-current'); });
-    wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-recipe-group') === recipeGroup)); });
+    var recipe = id ? findRecipe(id) : null;
+    currentRecipe = recipe ? recipe.id : null;
+    tallerSection.classList.toggle('is-reading', !!recipe);
+    wiki.querySelector('[data-tl-browse]').hidden = !!recipe;
+    wiki.querySelectorAll('.recipe-article').forEach(function (article) { article.hidden = article.getAttribute('data-recipe-id') !== currentRecipe; });
+    wiki.querySelectorAll('[data-recipe-nav]').forEach(function (item) { if (item.getAttribute('data-recipe-nav') === currentRecipe) item.setAttribute('aria-current', 'true'); else item.removeAttribute('aria-current'); });
   }
-  function filterRecipes(selectFirst) {
+  function filterRecipes() {
     var query = normalize(recipeSearch.value);
-    var matches = data.recipes.filter(function (recipe) { return (recipeGroup === 'Todas' || recipe.group === recipeGroup) && normalize(recipe.name + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')).includes(query); });
+    var matches = data.recipes.filter(function (recipe) { return (recipeGroup === 'Todas' || recipe.group === recipeGroup) && normalize(recipe.name + ' ' + recipe.group + ' ' + recipe.summary + ' ' + recipe.result.name + ' ' + (recipe.event || '').replace(/-/g, ' ') + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')).includes(query); });
     wiki.querySelectorAll('[data-recipe-nav]').forEach(function (link) { link.hidden = !matches.some(function (recipe) { return recipe.id === link.getAttribute('data-recipe-nav'); }); });
-    wiki.querySelector('[data-recipe-status]').textContent = matches.length ? matches.length + ' recetas · elegí tu objetivo' : 'No hay recetas con ese nombre en esta categoría.';
-    if (selectFirst && matches.length) { selectRecipe(matches[0].id); history.replaceState(null, '', '#crear-' + matches[0].id); }
-    if (!matches.length) wiki.querySelectorAll('.recipe-article').forEach(function (article) { article.hidden = true; });
+    wiki.querySelectorAll('[data-tl-group]').forEach(function (group) { group.hidden = !group.querySelector('[data-recipe-nav]:not([hidden])'); });
+    wiki.querySelector('[data-recipe-status]').textContent = matches.length ? (matches.length === 1 ? '1 receta' : matches.length + ' recetas') : 'No hay recetas con ese nombre. Probá con otra palabra o elegí «Todas».';
     wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.setAttribute('aria-pressed', String(button.getAttribute('data-recipe-group') === recipeGroup)); });
   }
-  recipeSearch.addEventListener('input', function () { filterRecipes(true); });
+  function showRecipeGrid() { if (currentRecipe) { if (location.hash !== '#taller') history.replaceState(null, '', '#taller'); selectRecipe(null); } }
+  recipeSearch.addEventListener('input', function () { showRecipeGrid(); filterRecipes(); });
   recipeAccount.addEventListener('change', recipeRates);
-  wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.addEventListener('click', function () { recipeGroup = button.getAttribute('data-recipe-group'); filterRecipes(true); }); });
+  wiki.querySelectorAll('[data-recipe-group]').forEach(function (button) { button.addEventListener('click', function () { recipeGroup = button.getAttribute('data-recipe-group'); showRecipeGrid(); filterRecipes(); }); });
+  wiki.querySelectorAll('[data-tl-level]').forEach(function (button) { button.addEventListener('click', function () { var article = button.closest('[data-recipe-id]'), recipe = findRecipe(article.getAttribute('data-recipe-id')); recipeLevels[recipe.id] = Number(button.getAttribute('data-tl-level')); renderRecipe(recipe); }); });
   wiki.querySelectorAll('[data-material-drop]').forEach(function (link) { link.addEventListener('click', function () { dropExplorer.reset({query:link.getAttribute('data-material-drop')}); if (location.hash === '#drops') revealHash(); }); });
-  data.recipes.forEach(function (recipe) { searchable.push({title: recipe.name, context: 'Taller · ' + recipe.group, text: normalize(recipe.name + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')), hash: '#crear-' + recipe.id}); });
+  data.recipes.forEach(function (recipe) { searchable.push({title: recipe.name, context: 'Taller · ' + recipe.group, text: normalize(recipe.name + ' ' + recipe.summary + ' ' + recipe.materials.map(function (material) { return material.name; }).join(' ')), hash: '#crear-' + recipe.id}); });
   function updateUpgradePlanner() {
     var account = Number(wiki.querySelector('[data-upgrade-account]').value);
     var type = wiki.querySelector('[data-upgrade-type]').value;
@@ -477,7 +537,7 @@
     resources.textContent = 'Materiales de una cadena sin fallos: ' + bless + ' Bless · ' + soul + ' Soul · ' + chaos + ' Chaos. No incluye equipo ni Zen; un fallo exige reconsiderar la ruta.';
   }
   wiki.querySelectorAll('[data-upgrade-calculator] select,[data-upgrade-luck]').forEach(function (control) { control.addEventListener('change', updateUpgradePlanner); });
-  filterRecipes(false); selectRecipe(currentRecipe); recipeRates(); updateUpgradePlanner();
+  filterRecipes(); selectRecipe(null); recipeRates(); updateUpgradePlanner();
 
   var saved = [];
   try { var stored = JSON.parse(localStorage.getItem('panic-atlas-maps') || '[]'); if (Array.isArray(stored)) saved = stored.filter(function (id) { return data.maps.some(function (map) { return map.id === id; }); }); } catch (e) { /* Reference works without browser storage. */ }
