@@ -73,11 +73,12 @@ if(!function_exists('panicAuthArt')) {
         echo '<p class="auth-lead">'.panicAuthEsc($copy['lead']).'</p>';
         if($isRegister) {
             echo '<ul class="auth-perks">';
-            echo '<li><b>01</b>Gratis</li>';
-            echo '<li><b>02</b>Season 6, hecho en Argentina</li>';
-            echo '<li><b>03</b>'.($ref ? 'Tu código de invitación ya está cargado' : 'Si te invitaron, arrancás con 3 días de VIP').'</li>';
+            echo '<li>Gratis</li>';
+            echo '<li>Season 6</li>';
+            echo '<li>Hecho en Argentina</li>';
             echo '</ul>';
-            if($ref) echo '<p class="auth-badge"><span>Te invitó un amigo</span><strong>3 días de VIP</strong></p>';
+            if($ref) echo '<p class="auth-badge"><span>Te invitó un amigo</span><strong>3 días de VIP</strong><small>Tu código ya está cargado en el formulario.</small></p>';
+            else echo '<p class="auth-note">¿Te invitó un amigo? Con su código arrancás con <b>3 días de VIP</b>.</p>';
         }
         echo '</div>';
         echo '</div></div>';
