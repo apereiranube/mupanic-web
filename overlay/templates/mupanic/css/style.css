@@ -323,3 +323,9 @@
 }
 /* Las brasas pasan por detrás de la barra (no ensucian los bloques de color) */
 .mp-brasas{z-index:59!important}
+/* Colores de la misma familia (violeta → fucsia → rosa) para que los bordes no "vibren" */
+@media(min-width:1101px){
+.site-header .main-nav .nav-discord{background:#6a4fe8!important}
+.site-header .main-nav .nav-socios{background:#a53fd8!important}
+.site-header .main-nav .nav-votar{background:#dc3f93!important}
+}
