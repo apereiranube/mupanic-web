@@ -261,3 +261,11 @@
 .site-header .main-nav .nav-p-inicio.is-current,.site-header .main-nav .nav-p-mercado.is-current,.site-header .main-nav .nav-p-atlas.is-current,.site-header .main-nav .nav-p-socios.is-current{color:#0f1923}
 }
 @media(min-width:1101px){.site-header .main-nav .nav-votar.is-current i{border-bottom-color:#fff;filter:none}.site-header .main-nav .nav-p-fractura.is-current>span{text-shadow:0 1px 3px #0f1923aa}}
+
+/* Discord, Socios y Votar: un cuadrado fijo de su color en vez de flecha/punto */
+.site-header .main-nav .nav-discord b{display:none}
+.site-header .main-nav .nav-discord:before{content:'';display:inline-block;width:8px;height:8px;margin-right:2px;background:#9b83f2;flex:none}
+.site-header .main-nav .nav-socios i,.site-header .main-nav .nav-votar i{width:8px;height:8px;margin-right:8px;vertical-align:1px;transform:none;border:0;filter:none;box-shadow:none}
+.site-header .main-nav .nav-socios i{background:#6fb4ff}
+.site-header .main-nav .nav-votar i{background:#ff4655}
+@media(min-width:1101px) and (max-width:1350px){.site-header .main-nav .nav-discord:before{display:none}}
