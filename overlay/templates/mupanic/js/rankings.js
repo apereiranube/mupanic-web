@@ -63,7 +63,9 @@
     /* ---------- Bandas: categorías / podio / tabla ---------- */
     surface.classList.add('rk-js');
     if (motion) surface.classList.add('rk-anim');
-    const band = cls => { const s = make('section', 'rk-band ' + cls); const w = make('div', 'pui-wrap rk-band-in'); s.append(w); return [s, w]; };
+    const band = cls => { const s = make('section', 'rk-band ' + cls); const w = make('div', 'pui-wrap rk-band-in'); s.append(w);
+        const bg = art('bg', cls.split(' ')[0].replace('rk-', '')); if (bg) { s.classList.add('has-bg'); s.style.backgroundImage = 'url("' + bg + '")'; }
+        return [s, w]; };
     const [tabsBand, tabsIn] = band('rk-tabs');
     const [boardBand, boardIn] = band('rk-board');
     const menu = surface.querySelector('.rankings_menu');

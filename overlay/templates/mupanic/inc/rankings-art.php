@@ -7,6 +7,7 @@
  *   rankings-insignia-1/-2/-3 (tarjetas del podio y puestos 1 a 3 de la tabla)
  *   rankings-cat-<clave> (level, master, resets, grandresets, guilds, killers, bloodcastle, devilsquare, duels, gens, online, votes)
  *   rankings-clase-<id> (sm, bk, elfa, mg, dl, su, rf)
+ *   rankings-fondo-claro (SVG 2400x1400, banda del podio) · rankings-fondo-tabla (SVG 2400x2400, banda de la tabla)
  */
 if(!defined('access') || !access) die();
 if(!function_exists('panicRankingArt')) {
@@ -27,6 +28,9 @@ if(!function_exists('panicRankingArt')) {
         foreach([1, 2, 3] as $n) if($src = panicRankingArt('rankings-insignia-'.$n)) $map['insignia'][$n] = $src;
         foreach(['level','master','resets','grandresets','guilds','killers','bloodcastle','devilsquare','duels','gens','online','votes'] as $k) if($src = panicRankingArt('rankings-cat-'.$k)) $map['cat'][$k] = $src;
         foreach(['sm','bk','elfa','mg','dl','su','rf'] as $k) if($src = panicRankingArt('rankings-clase-'.$k)) $map['clase'][$k] = $src;
+        $map['bg'] = [];
+        foreach(['stage'=>'rankings-fondo-claro','board'=>'rankings-fondo-tabla'] as $k=>$n) if($src = panicRankingArt($n)) $map['bg'][$k] = $src;
+        if(!$map['bg']) $map['bg'] = new stdClass();
         if(!$map['podio']) unset($map['podio']);
         foreach(['insignia','cat','clase'] as $k) if(!$map[$k]) $map[$k] = new stdClass();
         return $map;

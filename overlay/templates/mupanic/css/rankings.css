@@ -256,3 +256,8 @@ tr[data-rank-position="1"] .rankings-place-medal b,tr[data-rank-position="2"] .r
  .rk-hero-fig,.rk-ins img,.rk-tab-ico,.rankings-score-value{transition:none;transform:none}
  .rk-anim .rk-podium.is-up .rk-ins,.rk-anim .rk-podium.is-up .rk-col--1 .rk-base{animation:none}
 }
+
+/* Fondos de líneas (arte GPT) en las bandas del podio y de la tabla */
+.rk-band.has-bg{background-repeat:no-repeat;background-position:center top;background-size:cover}
+.rk-stage.has-bg{background-color:var(--pui-bone)}
+.rk-board.has-bg{background-color:var(--pui-night)}
