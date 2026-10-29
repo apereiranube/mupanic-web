@@ -1281,3 +1281,5 @@ body.is-wiki .atl .eq-where-list a{color:#ece8e1!important;font-weight:700}
 body.is-wiki .atl .eq-where-list b{font:400 20px/1 var(--pui-display);color:#c6f03a}
 body.is-wiki .atl .eq-maps td{color:#ece8e1}
 @media(max-width:760px){body.is-wiki .atl .eq-where{grid-template-columns:1fr}}
+/* Taller: arte nuevo de GPT (objeto con fondo transparente) se muestra entero */
+body.is-wiki .atl .tl-card-media img[src*="atlas-v2/recetas/"]{object-fit:contain!important;padding:6px 10px;filter:drop-shadow(0 8px 12px #0009)}

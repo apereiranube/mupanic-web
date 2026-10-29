@@ -11,7 +11,7 @@
   "zen": 100000,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/editorial/devil-square.webp",
+  "art": "img/atlas-v2/recetas/devil-square-eb94dcec78bb.webp",
   "materials": [
    {
     "name": "Devil's Eye +1",
@@ -301,7 +301,7 @@
   "zen": 3000000,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/events/illusion-temple-862b30bc2306.webp",
+  "art": "img/atlas-v2/recetas/illusion-temple-d2e11a484c8c.webp",
   "materials": [
    {
     "name": "Old Scroll +1",
@@ -428,7 +428,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/monsters/web/275-e7ed8d75c163.webp",
+  "art": "img/atlas-v2/recetas/kalima-085d052c10ea.webp",
   "materials": [
    {
     "name": "Symbol of Kundun +1",
@@ -537,7 +537,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/events/double-goer-5a6c0c4edd3e.webp",
+  "art": "img/atlas-v2/recetas/doppelganger-ff35a851dec6.webp",
   "materials": [
    {
     "name": "Sign of Dimensions",
@@ -575,7 +575,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/editorial/imperial-temple.webp",
+  "art": "img/atlas-v2/recetas/imperial-gaion-e652dbac31f8.webp",
   "materials": [
    {
     "name": "Suspicious Scrap of Paper",
@@ -613,7 +613,7 @@
   "zen": 1000000,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/editorial/imperial-temple.webp",
+  "art": "img/atlas-v2/recetas/imperial-secromicon-bfe878d745f4.webp",
   "materials": [
    {
     "name": "Page of Secromicon (lunes)",
@@ -691,7 +691,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "img/atlas/editorial/pvp-arena.webp",
+  "art": "img/atlas-v2/recetas/chaos-castle-1a3b299867da.webp",
   "materials": [],
   "result": {
    "name": "Armor of Guardsman",
@@ -720,7 +720,7 @@
   "zen": null,
   "zenText": "Tasa × 10.000",
   "zenNote": "Si la tasa es 50%, pagás 500.000.",
-  "art": "",
+  "art": "img/atlas-v2/recetas/arma-chaos-6c4ae29d2b9d.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -766,7 +766,7 @@
   "zen": null,
   "zenText": "Tasa × 10.000",
   "zenNote": "Si la tasa es 50%, pagás 500.000.",
-  "art": "",
+  "art": "img/atlas-v2/recetas/alas-1-a6221a6a4b7a.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -812,7 +812,7 @@
   "zen": 5000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/alas-2-41731a46b490.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -866,7 +866,7 @@
   "zen": 5000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/capa-2-e2dfec8ce20e.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -920,7 +920,7 @@
   "zen": null,
   "zenText": "Tasa × 200.000",
   "zenNote": "Si la tasa es 30%, pagás 6.000.000.",
-  "art": "",
+  "art": "img/atlas-v2/recetas/pluma-condor-a995f26d6dba.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -990,7 +990,7 @@
   "zen": null,
   "zenText": "Tasa × 200.000",
   "zenNote": "Si la tasa es 30%, pagás 6.000.000.",
-  "art": "",
+  "art": "img/atlas-v2/recetas/alas-3-af7e95c066ee.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -1076,7 +1076,7 @@
   "zen": 2000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/mejora-chaos-c5e7caaee845.webp",
   "materials": [
    {
     "name": "Ítem +9",
@@ -1361,7 +1361,7 @@
   "zen": 10000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/item-380-14b175d7112d.webp",
   "materials": [
    {
     "name": "Ítem de nivel 380, +4 a +6 con opción +4",
@@ -1440,7 +1440,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/harmony-refinar-a46dee3f47dd.webp",
   "materials": [
    {
     "name": "Gemstone",
@@ -1478,7 +1478,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/harmony-fundir-4d82a8b94e91.webp",
   "materials": [
    {
     "name": "Equipo normal sin opción Harmony",
@@ -1575,7 +1575,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/pieza-fenrir-fd13511f3af4.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -1629,7 +1629,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/cuerno-roto-c76286fdd1a3.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -1683,7 +1683,7 @@
   "zen": 10000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/fenrir-8f1b93724cd1.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -1737,7 +1737,7 @@
   "zen": 10000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/fenrir-mejorado-6db8b0154085.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -1826,7 +1826,7 @@
   "zen": 5000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/dark-horse-86d737f023b5.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -1896,7 +1896,7 @@
   "zen": 1000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/dark-spirit-3b53503225ef.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -1966,7 +1966,7 @@
   "zen": 500000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/dinorant-e8f1509a9035.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -2012,7 +2012,7 @@
   "zen": 1000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/seed-d8cd98ee7259.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -2082,7 +2082,7 @@
   "zen": 1000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/seed-sphere-287eda52568f.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -2144,7 +2144,7 @@
   "zen": 1000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/montar-seed-sphere-1c3635f1a3de.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -2206,7 +2206,7 @@
   "zen": 3000000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/fruta-d61cd035930f.webp",
   "materials": [
    {
     "name": "Jewel of Chaos",
@@ -2252,7 +2252,7 @@
   "zen": 100000,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/pocion-sd-32a337901b70.webp",
   "materials": [
    {
     "name": "Large Healing Potion",
@@ -2321,7 +2321,7 @@
   "zen": null,
   "zenText": "",
   "zenNote": "",
-  "art": "",
+  "art": "img/atlas-v2/recetas/cofre-imperial-568dee773987.webp",
   "materials": [
    {
     "name": "Gold Key",
