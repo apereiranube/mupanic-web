@@ -140,10 +140,18 @@ $dlHelp = [
             <div class="dl-ref-copy">
                 <p class="pui-kicker">Referidos</p>
                 <h2 class="pui-h2" id="dl-ref-title"><span class="pui-reveal">Traé a tu grupo y jueguen con VIP</span></h2>
-                <dl class="dl-ref-deal">
-                    <div><dt>Tu amigo</dt><dd><strong>3 días de VIP</strong> apenas crea la cuenta con tu link.</dd></div>
-                    <div><dt>Vos</dt><dd><strong>7 días de VIP</strong> cuando tu amigo llega al reset 2 y juega 3 días distintos.</dd></div>
+                <dl class="dl-ref-deal" data-ref-deal>
+                    <div data-ref-friend><dt>Tu amigo</dt><dd><strong>3 días de VIP</strong> apenas crea la cuenta con tu link.</dd></div>
+                    <div data-ref-you><dt>Vos</dt><dd><strong>7 días de VIP</strong> cuando tu amigo llega al reset 2 y juega 3 días distintos.</dd></div>
                 </dl>
+                <div class="dl-ref-track" data-ref-track aria-hidden="true">
+                    <div class="dl-ref-bar"><i data-ref-bar></i></div>
+                    <ol>
+                        <li data-ref-step="0"><b>01</b><span>Crea la cuenta</span></li>
+                        <li data-ref-step="1"><b>02</b><span>Reset <em data-ref-reset>2</em>/2</span></li>
+                        <li data-ref-step="2"><b>03</b><span>Día <em data-ref-days>3</em>/3</span></li>
+                    </ol>
+                </div>
                 <a class="pui-btn dl-btn dl-punch" href="<?php echo __BASE_URL__; ?>usercp/referidos/">Conseguir mi link</a>
                 <p class="dl-fine">Tu link está en Mi cuenta → Referidos. Si todavía no entraste, primero te pide ingresar.</p>
             </div>

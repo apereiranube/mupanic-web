@@ -133,3 +133,41 @@
   reset.addEventListener('click', function () { start(); chest.focus({preventScroll: true}); });
   start();
 })();
+
+/* Referidos: cuando se ve, se cuenta el camino del amigo y cada beneficio cae como sello. Clic en la barra para verlo de nuevo. */
+(function () {
+  var sec = document.querySelector('.dl-ref'), track = sec && sec.querySelector('[data-ref-track]');
+  if (!track || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var bar = track.querySelector('[data-ref-bar]'), steps = track.querySelectorAll('[data-ref-step]');
+  var reset = track.querySelector('[data-ref-reset]'), days = track.querySelector('[data-ref-days]');
+  var friend = sec.querySelector('[data-ref-friend]'), you = sec.querySelector('[data-ref-you]'), img = sec.querySelector('.dl-ref-art img');
+  var timers = [];
+  function at(ms, fn) { timers.push(setTimeout(fn, ms)); }
+  function tick(el, v) { el.textContent = v; el.classList.remove('is-tick'); void el.offsetWidth; el.classList.add('is-tick'); }
+  function fill(p) { bar.style.transform = 'scaleX(' + p + ')'; }
+  function play() {
+    timers.forEach(clearTimeout); timers = [];
+    sec.classList.add('is-playing'); friend.classList.remove('is-won'); you.classList.remove('is-won');
+    steps.forEach(function (s) { s.classList.remove('is-on'); });
+    reset.textContent = '0'; days.textContent = '0';
+    bar.style.transition = 'none'; fill(0); void bar.offsetWidth; bar.style.transition = '';
+    at(300, function () { steps[0].classList.add('is-on'); fill(1 / 3); });
+    at(1000, function () { friend.classList.add('is-won'); });
+    at(1700, function () { steps[1].classList.add('is-on'); tick(reset, '1'); fill(.5); });
+    at(2300, function () { tick(reset, '2'); fill(2 / 3); });
+    at(2900, function () { steps[2].classList.add('is-on'); tick(days, '1'); fill(.78); });
+    at(3400, function () { tick(days, '2'); fill(.89); });
+    at(3900, function () { tick(days, '3'); fill(1); });
+    at(4500, function () { you.classList.add('is-won'); sec.classList.remove('is-playing'); });
+  }
+  sec.classList.add('is-pre'); sec.classList.add('is-playing'); reset.textContent = '0'; days.textContent = '0'; fill(0);
+  var io = new IntersectionObserver(function (es) {
+    if (!es[0].isIntersecting) return; io.disconnect();
+    sec.classList.remove('is-pre');
+    if (img) setTimeout(function () { img.classList.add('is-float'); }, 900);
+    play();
+  }, {threshold: .35});
+  io.observe(sec);
+  track.addEventListener('click', play);
+})();

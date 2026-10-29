@@ -258,3 +258,30 @@ body.is-downloads{background:var(--pui-night)}
  .dl-hero-fig{transform:none}
  .dl-js [data-dl-reveal]>li{opacity:1;transform:none}
 }
+
+/* Referidos: la recompensa se cuenta sola (amigo crea la cuenta → reset 2 → 3 días) y cada beneficio cae como sello */
+.dl-ref-track{margin:-10px 0 28px}
+.dl-ref-bar{position:relative;height:6px;background:#0f19231f}
+.dl-ref-bar i{position:absolute;inset:0 auto 0 0;width:100%;background:var(--dl-o);transform-origin:left;transition:transform .7s cubic-bezier(.6,0,.2,1)}
+.dl-ref-track ol{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 0;padding:0;list-style:none}
+.dl-ref-track li{display:flex;align-items:baseline;gap:8px;color:var(--pui-bone-ink);transition:opacity .3s}
+.dl-ref-track b{font:400 22px/1 var(--pui-display);color:var(--dl-o)}
+.dl-ref-track span{font:700 11px/1.3 var(--pui-body);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.dl-ref-track em{font-style:normal;display:inline-block;min-width:1ch;color:var(--dl-o-ink)}
+.dl-ref-track em.is-tick{animation:dlTick .3s cubic-bezier(.3,1.6,.5,1)}
+@keyframes dlTick{from{transform:translateY(-6px) scale(1.5)}}
+.dl-ref.is-playing .dl-ref-track li{opacity:.35}
+.dl-ref.is-playing .dl-ref-track li.is-on{opacity:1}
+.dl-ref-deal strong{transform-origin:left center}
+.dl-ref.is-playing .dl-ref-deal div:not(.is-won) strong{opacity:.25;transform:scale(.92)}
+.dl-ref-deal div.is-won strong{animation:dlStamp .6s cubic-bezier(.3,1.5,.5,1)}
+.dl-ref-deal div.is-won{animation:dlFlash .6s ease-out}
+@keyframes dlStamp{0%{opacity:0;transform:scale(1.7) rotate(-6deg)}60%{opacity:1}100%{transform:none}}
+@keyframes dlFlash{0%{filter:brightness(1.35)}100%{filter:none}}
+.dl-ref-art img{transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s}
+.dl-ref.is-pre .dl-ref-art img{opacity:0;transform:translateX(-40px)}
+.dl-ref-art img.is-float{animation:dlRefFloat 6s ease-in-out infinite}
+@keyframes dlRefFloat{50%{transform:translateY(-8px)}}
+.dl-ref-track{cursor:pointer}
+@media(max-width:560px){.dl-ref-track span{font-size:10px;letter-spacing:.06em}.dl-ref-track b{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.dl-ref-art img,.dl-ref-bar i{transition:none;animation:none}.dl-ref-deal div.is-won,.dl-ref-deal div.is-won strong,.dl-ref-track em.is-tick{animation:none}}
