@@ -349,3 +349,10 @@
 .site-header .main-nav .nav-discord:hover>span,.site-header .main-nav .nav-discord:focus-visible>span{opacity:0;transform:translateY(-14px)}
 .site-header .main-nav .nav-discord:hover:after,.site-header .main-nav .nav-discord:focus-visible:after{opacity:1;transform:none}
 }
+/* Atlas: mapas nuevos (bloques isométricos con fondo transparente) se muestran enteros */
+body.is-wiki img.atlas-map-preview[src*="atlas-v2/mapas/"]{object-fit:contain;object-position:center top;padding:1% 4% 15%;filter:drop-shadow(0 16px 20px #0008)}
+body.is-wiki .atlas-territory-cover:has(img[src*="atlas-v2/mapas/"]):after{background:linear-gradient(0deg,#0f1923f0,transparent 38%)!important}
+/* Atlas · Vessara: la columna "Objeto" de la tabla de reglas era verde sobre dorado */
+body.is-wiki .atl .v-guide-table tbody th[scope=row]{background:#ffc24a!important;color:#0f1923!important;font-family:var(--pui-display,Anton),Impact,sans-serif;font-size:17px!important;letter-spacing:.02em;text-transform:uppercase;vertical-align:middle}
+body.is-wiki .atl .v-guide-table tbody tr+tr th[scope=row]{border-top:2px solid #0f192333}
+body.is-wiki img[src*="atlas-v2/mapas/"]{object-fit:contain!important}
