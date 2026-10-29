@@ -714,3 +714,169 @@ body.is-wiki .atl .atlas-furia-combos figure.is-v3 strong{color:var(--atl-org)!i
 body.is-wiki .atl a.vinculos-home.atl-feature{grid-template-columns:380px minmax(0,1fr);min-height:250px}
 body.is-wiki .atl .vinculos-home .atl-feature-art.is-v3 img{inset:12px 15% 0 2%;width:83%;height:calc(100% - 12px);object-fit:contain;object-position:center bottom}
 }
+/* ───── Fractura: bandos y premios (bandas hueso/navy, cifras en Anton, pasos y avisos) ───── */
+body.is-wiki .atl #fractura{--afx-nexo:#29c8ff;--afx-caos:#e2264d;--afx-bone:var(--pui-bone);--afx-ink:#0f1923;--afx-bm:#4c5762}
+body.is-wiki .atl #fractura .af-guide-index{border:0!important;padding:16px 0 0;gap:6px}
+body.is-wiki .atl #fractura .afx-band{scroll-margin-top:120px;margin:16px 0 0;padding:40px 40px 44px;background:var(--atl-n2)!important;color:var(--pui-ink)}
+body.is-wiki .atl #fractura .afx-band--bone{background:var(--afx-bone)!important;color:var(--afx-ink)}
+body.is-wiki .atl #fractura .afx-band--bone :is(h3,h4,strong,b,li,p){color:var(--afx-ink)}
+body.is-wiki .atl #fractura .afx-band--bone :is(p,li){color:var(--afx-bm)}
+body.is-wiki .atl #fractura .afx-band--bone p strong,body.is-wiki .atl #fractura .afx-band--bone li strong{color:var(--afx-ink)}
+body.is-wiki .atl #fractura .afx-band--bone .eyebrow{color:var(--afx-caos)!important}
+body.is-wiki .atl #fractura .afx-band:not(.afx-band--bone) .eyebrow{color:var(--afx-nexo)!important}
+body.is-wiki .atl #fractura .afx-band p{font-size:15px;line-height:1.6;margin:0}
+body.is-wiki .atl #fractura .afx-head{display:flex;align-items:center;gap:18px;margin:0 0 28px}
+body.is-wiki .atl #fractura .afx-num{flex:none;display:grid;place-items:center;width:64px;height:64px;font:400 34px/1 var(--pui-display);background:var(--atl-red)!important;color:#fff!important;clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%)}
+body.is-wiki .atl #fractura .afx-head h3{margin:6px 0 0!important;font-size:clamp(32px,3.6vw,50px);line-height:.95}
+body.is-wiki .atl #fractura .afx-sub{margin:36px 0 14px;font-size:24px;letter-spacing:.03em}
+body.is-wiki .atl #fractura .afx-lead{font-size:18px!important;line-height:1.45!important;margin:0 0 18px!important;color:var(--pui-ink)!important}
+body.is-wiki .atl #fractura .afx-text{margin-top:16px!important;max-width:760px}
+body.is-wiki .atl #fractura .afx-small{max-width:none;margin-top:16px!important;font-size:12px!important;line-height:1.5!important}
+/* Tiles de cifras */
+body.is-wiki .atl #fractura .afx-stats{display:grid;gap:10px}
+body.is-wiki .atl #fractura .afx-stats--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+body.is-wiki .atl #fractura .afx-stats--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+body.is-wiki .atl #fractura .afx-tile{display:flex;flex-direction:column;gap:8px;padding:20px 20px 22px;background:var(--atl-n3)!important;color:var(--pui-ink)}
+body.is-wiki .atl #fractura .afx-tile>strong{font:400 clamp(30px,3vw,44px)/1 var(--pui-display);letter-spacing:.02em;color:var(--pui-ink)}
+body.is-wiki .atl #fractura .afx-tile>span{font:700 12px/1.4 var(--pui-body);letter-spacing:.06em;text-transform:uppercase;color:var(--pui-muted)}
+body.is-wiki .atl #fractura .afx-tile p{font-size:14px!important;color:var(--pui-muted)}
+body.is-wiki .atl #fractura .afx-tile p b{color:var(--pui-ink)}
+body.is-wiki .atl #fractura .afx-tile--big>strong{font-size:clamp(64px,7vw,104px);line-height:.9}
+body.is-wiki .atl #fractura .afx-tile--red{background:var(--atl-red)!important}
+body.is-wiki .atl #fractura .afx-tile--red>:is(strong,span){color:#fff!important}
+body.is-wiki .atl #fractura .afx-tile--lime{background:var(--atl)!important}
+body.is-wiki .atl #fractura :is(.afx-tile--lime,.afx-tile--bone)>:is(strong,span),body.is-wiki .atl #fractura :is(.afx-tile--lime,.afx-tile--bone) :is(p,b){color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-tile--bone{background:var(--afx-bone)!important}
+body.is-wiki .atl #fractura .afx-tile--ink{background:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-tile--ink>strong{color:var(--atl)!important}
+body.is-wiki .atl #fractura .afx-tile--ink>span,body.is-wiki .atl #fractura .afx-tile--ink p{color:#c3c9cf!important}
+body.is-wiki .atl #fractura .afx-tile--ink p b{color:#fff!important}
+body.is-wiki .atl #fractura .afx-tile--loot>strong{font-size:clamp(48px,5vw,72px);line-height:.9;color:var(--atl)}
+body.is-wiki .atl #fractura .afx-tile--loot.afx-tile--red>strong{color:#fff!important}
+/* 01 · bandos */
+body.is-wiki .atl #fractura .afx-oath{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1fr);gap:10px}
+body.is-wiki .atl #fractura .afx-oath .afx-tile>strong{font-size:clamp(40px,4vw,58px)}
+body.is-wiki .atl #fractura .afx-side{display:flex;align-items:center;gap:16px;padding:22px 20px}
+body.is-wiki .atl #fractura .afx-side--nexo{background:var(--afx-nexo)!important}
+body.is-wiki .atl #fractura .afx-side--caos{background:var(--afx-caos)!important}
+body.is-wiki .atl #fractura .afx-side img{flex:none;width:96px;height:96px;object-fit:contain}
+body.is-wiki .atl #fractura .afx-side h4{margin:0;font-size:clamp(40px,4vw,56px);line-height:.9;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-side b{display:block;margin:6px 0 8px;font:400 18px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-side p{font-size:14px!important;font-weight:700;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-side--caos :is(h4,b,p){color:#fff!important}
+/* Avisos */
+body.is-wiki .atl #fractura .afx-note{max-width:none;display:flex;align-items:center;gap:16px;margin:16px 0 0!important;padding:16px 20px;background:var(--afx-ink)!important;color:#c3c9cf!important}
+body.is-wiki .atl #fractura .afx-note span{color:#c3c9cf}
+body.is-wiki .atl #fractura .afx-note strong{color:#fff!important}
+body.is-wiki .atl #fractura .afx-note--dark{background:var(--afx-bone)!important}
+body.is-wiki .atl #fractura .afx-note--dark span{color:var(--afx-bm)!important}
+body.is-wiki .atl #fractura .afx-note--dark strong{color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-bang{flex:none;display:grid;place-items:center;width:40px;height:40px;font:400 26px/1 var(--pui-display);background:var(--atl-red)!important;color:#fff!important}
+/* 02 · conquista */
+body.is-wiki .atl #fractura .afx-boss{display:grid;gap:10px}
+body.is-wiki .atl #fractura .afx-boss.has-art{grid-template-columns:minmax(0,1fr) 300px;align-items:stretch}
+body.is-wiki .atl #fractura .afx-boss-copy{display:flex;flex-direction:column;justify-content:center}
+body.is-wiki .atl #fractura .afx-boss-art{position:relative;overflow:hidden;min-height:260px;background:var(--atl-n1)!important}
+body.is-wiki .atl #fractura .afx-boss-art i{position:absolute;inset:0 0 0 22%;background:var(--afx-bone)!important;clip-path:polygon(22% 0,100% 0,100% 100%,0 100%)}
+body.is-wiki .atl #fractura .afx-boss-art img{position:absolute;left:50%;bottom:-14%;height:122%;width:auto;transform:translateX(-50%);filter:drop-shadow(0 14px 22px #000a)}
+body.is-wiki .atl #fractura .afx-tile--big>span{color:var(--pui-muted)}
+body.is-wiki .atl #fractura .afx-counts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+body.is-wiki .atl #fractura .afx-counts li{display:flex;align-items:flex-start;gap:16px;padding:18px 20px;background:var(--atl-n3)!important}
+body.is-wiki .atl #fractura .afx-counts li>b{flex:none;width:92px;padding:8px 0;text-align:center;font:400 16px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase}
+body.is-wiki .atl #fractura .afx-counts .is-yes>b{background:var(--atl)!important;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-counts .is-no>b{background:var(--atl-n1)!important;color:var(--atl-red)!important}
+body.is-wiki .atl #fractura .afx-counts strong{display:block;margin:2px 0 6px;font:400 22px/1 var(--pui-display);letter-spacing:.03em;text-transform:uppercase;color:var(--pui-ink)}
+body.is-wiki .atl #fractura .afx-counts p{font-size:14px!important}
+body.is-wiki .atl #fractura .afx-warn{display:flex;gap:22px;margin:10px 0 0;padding:24px;background:var(--afx-bone)!important;color:var(--afx-ink)}
+body.is-wiki .atl #fractura .afx-warn-num{flex:none;display:grid;place-items:center;width:96px;height:96px;font:400 72px/1 var(--pui-display);background:var(--atl-red)!important;color:#fff!important}
+body.is-wiki .atl #fractura .afx-warn-tag{display:inline-block;margin:0 0 8px;padding:5px 10px;font:400 15px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;background:var(--afx-ink)!important;color:var(--afx-bone)!important}
+body.is-wiki .atl #fractura .afx-warn p{color:var(--afx-ink)!important;font-size:16px!important}
+body.is-wiki .atl #fractura .afx-warn p strong{color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-warn ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+body.is-wiki .atl #fractura .afx-warn li{position:relative;padding-left:20px;font-size:14px;line-height:1.5;color:var(--afx-bm)!important}
+body.is-wiki .atl #fractura .afx-warn li:before{content:"";position:absolute;left:0;top:6px;width:9px;height:9px;background:var(--atl-red)}
+/* 03 · premios */
+body.is-wiki .atl #fractura .afx-tile--req>strong{font-size:clamp(40px,4vw,56px)}
+body.is-wiki .atl #fractura .afx-rewards{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px;margin:28px 0 0;align-items:stretch}
+body.is-wiki .atl #fractura .afx-reward{display:flex;flex-direction:column;padding:22px 22px 24px;background:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-reward h4{margin:0 0 14px;font-size:20px;letter-spacing:.06em;color:var(--pui-muted)!important}
+body.is-wiki .atl #fractura .afx-reward>strong{font:400 clamp(60px,6.4vw,96px)/.9 var(--pui-display);color:var(--atl)!important}
+body.is-wiki .atl #fractura .afx-reward>small{margin:8px 0 16px;font:700 12px/1.3 var(--pui-body);letter-spacing:.08em;text-transform:uppercase;color:#c3c9cf!important}
+body.is-wiki .atl #fractura .afx-reward ul{margin:auto 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+body.is-wiki .atl #fractura .afx-reward li{padding:7px 10px;font-size:13px;font-weight:700;line-height:1.2;background:var(--atl-n3)!important;color:var(--pui-ink)!important}
+body.is-wiki .atl #fractura .afx-reward li b{font:400 16px/1 var(--pui-display);color:var(--atl)!important;margin-right:2px}
+body.is-wiki .atl #fractura .afx-reward--w{background:var(--atl)!important}
+body.is-wiki .atl #fractura .afx-reward--w :is(h4,strong,small){color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-reward--w li{background:var(--afx-ink)!important;color:#fff!important}
+/* 04 · pasos */
+body.is-wiki .atl #fractura .afx-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:none}
+body.is-wiki .atl #fractura .afx-steps li{position:relative;display:flex;flex-direction:column;gap:12px;padding:22px 22px 26px;background:var(--atl-n3)!important}
+body.is-wiki .atl #fractura .afx-step-n{display:block;font:400 96px/.8 var(--pui-display);color:var(--atl-red)}
+body.is-wiki .atl #fractura .afx-chip{align-self:flex-start;padding:6px 10px;font:400 15px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;background:var(--atl)!important;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-steps strong{font:400 24px/1.05 var(--pui-display);letter-spacing:.02em;text-transform:uppercase;color:var(--pui-ink)}
+body.is-wiki .atl #fractura .afx-steps p{font-size:14px!important}
+/* 05 · rangos */
+body.is-wiki .atl #fractura .afx-facts{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+body.is-wiki .atl #fractura .afx-facts li{padding:10px 14px;font-size:14px;line-height:1.4;font-weight:600;background:#d9d4ca!important;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-facts--dark{margin:16px 0 0}
+body.is-wiki .atl #fractura .afx-facts--dark li{background:var(--atl-n3)!important;color:var(--pui-muted)!important}
+body.is-wiki .atl #fractura .afx-facts--dark li strong{color:var(--pui-ink)!important}
+body.is-wiki .atl #fractura .afx-ranks table{table-layout:fixed;border-collapse:separate;border-spacing:0 4px;margin:-4px 0}
+body.is-wiki .atl #fractura .afx-ranks th[scope=col]{width:auto;padding:14px 18px;font-size:20px!important;background:var(--afx-ink)!important;color:var(--afx-bone)!important}
+body.is-wiki .atl #fractura .afx-ranks th[scope=col]:first-child{width:22%}
+body.is-wiki .atl #fractura .afx-ranks th.afx-th-nexo[scope=col]{background:var(--afx-nexo)!important;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-ranks th.afx-th-caos[scope=col]{background:var(--afx-caos)!important;color:#fff!important}
+body.is-wiki .atl #fractura .afx-ranks tbody th[scope=row]{padding:14px 18px;font-size:24px!important;background:var(--afx-ink)!important;color:var(--atl)!important}
+body.is-wiki .atl #fractura .afx-ranks td{padding:14px 18px;border:0!important;font-weight:700;font-size:15px;overflow-wrap:anywhere;background:#fff!important;color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .afx-ranks td:nth-child(2){border-left:6px solid var(--afx-nexo)!important}
+body.is-wiki .atl #fractura .afx-ranks td:nth-child(3){border-left:6px solid var(--afx-caos)!important}
+body.is-wiki .atl #fractura .afx-ranks tbody tr:nth-child(even) td,body.is-wiki .atl #fractura .afx-ranks tbody tr:hover td{background:#f6f4f0!important}
+/* 06 · distinción */
+body.is-wiki .atl #fractura .afx-laurels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+body.is-wiki .atl #fractura .afx-laurel{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:22px 16px;text-align:center}
+body.is-wiki .atl #fractura .afx-laurel--nexo{background:var(--afx-nexo)!important}
+body.is-wiki .atl #fractura .afx-laurel--caos{background:var(--afx-caos)!important}
+body.is-wiki .atl #fractura .afx-laurel img{width:112px;height:112px;object-fit:contain}
+body.is-wiki .atl #fractura .afx-laurel strong{font:400 26px/1 var(--pui-display);letter-spacing:.03em;text-transform:uppercase;color:var(--afx-ink)}
+body.is-wiki .atl #fractura .afx-laurel--caos strong{color:#fff}
+body.is-wiki .atl #fractura .afx-laurel-time{justify-content:center}
+body.is-wiki .atl #fractura .afx-laurel-time>strong{font-size:clamp(56px,6vw,88px)!important;line-height:.9}
+body.is-wiki .atl #fractura .afx-laurel-time>span{text-transform:none;letter-spacing:0;font-size:14px;font-weight:600}
+body.is-wiki .atl #fractura .afx-laurel-time b{color:var(--afx-ink)!important}
+body.is-wiki .atl #fractura .af-return{margin-top:16px}
+@media(max-width:1180px){
+  body.is-wiki .atl #fractura .afx-oath{grid-template-columns:1fr 1fr}
+  body.is-wiki .atl #fractura .afx-oath>.afx-tile{grid-column:1/-1}
+  body.is-wiki .atl #fractura .afx-boss.has-art{grid-template-columns:minmax(0,1fr) 220px}
+  body.is-wiki .atl #fractura .afx-counts{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  body.is-wiki .atl #fractura .afx-band{padding:28px 18px 30px}
+  body.is-wiki .atl #fractura .afx-head{gap:14px;margin-bottom:22px}
+  body.is-wiki .atl #fractura .afx-num{width:52px;height:52px;font-size:28px}
+  body.is-wiki .atl #fractura .afx-head h3{font-size:32px}
+  body.is-wiki .atl #fractura :is(.afx-oath,.afx-stats--2,.afx-rewards,.afx-steps){grid-template-columns:1fr}
+  body.is-wiki .atl #fractura .afx-stats--3{grid-template-columns:1fr 1fr}
+  body.is-wiki .atl #fractura .afx-stats--3>:first-child{grid-column:1/-1}
+  body.is-wiki .atl #fractura .afx-boss.has-art{grid-template-columns:1fr}
+  body.is-wiki .atl #fractura .afx-boss-art{order:-1;min-height:220px;height:220px}
+  body.is-wiki .atl #fractura .afx-tile{padding:16px}
+  body.is-wiki .atl #fractura .afx-side img{width:72px;height:72px}
+  body.is-wiki .atl #fractura .afx-counts li{flex-direction:column;gap:10px;padding:16px}
+  body.is-wiki .atl #fractura .afx-warn{flex-direction:column;gap:14px;padding:18px}
+  body.is-wiki .atl #fractura .afx-warn-num{width:64px;height:64px;font-size:48px}
+  body.is-wiki .atl #fractura .afx-step-n{font-size:72px}
+  body.is-wiki .atl #fractura .afx-note{align-items:flex-start;padding:14px 16px}
+  body.is-wiki .atl #fractura .afx-laurels{grid-template-columns:1fr 1fr}
+  body.is-wiki .atl #fractura .afx-laurel-time{grid-column:1/-1}
+  body.is-wiki .atl #fractura .afx-laurel img{width:80px;height:80px}
+  body.is-wiki .atl #fractura .afx-laurel strong{font-size:20px}
+  body.is-wiki .atl #fractura .afx-ranks :is(th,td){padding:12px 8px!important;font-size:13px!important}
+  body.is-wiki .atl #fractura .afx-ranks tbody th[scope=row]{font-size:17px!important}
+  body.is-wiki .atl #fractura .afx-ranks th[scope=col]{font-size:16px!important}
+  body.is-wiki .atl #fractura .afx-ranks td:nth-child(n+2){border-left-width:4px!important}
+}
+body.is-wiki .atl #fractura :is(.afx-band--bone,.afx-note--dark) kbd{background:var(--afx-ink);color:var(--afx-bone)}
+body.is-wiki .atl #fractura .afx-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+@media(max-width:760px){body.is-wiki .atl #fractura .afx-stats--3 .afx-tile>strong{font-size:28px}body.is-wiki .atl #fractura .afx-stats--3 .afx-tile--loot>strong{font-size:48px}}
+@media(max-width:1180px){body.is-wiki .atl #fractura .afx-boss.has-art{grid-template-columns:1fr}body.is-wiki .atl #fractura .afx-boss-art{order:-1;min-height:240px;height:240px}}
