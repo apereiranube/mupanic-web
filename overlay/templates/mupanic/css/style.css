@@ -249,15 +249,15 @@
 
 /* Cada sección con su forma y su color (GPT) */
 @media(min-width:1101px){
-.site-header .main-nav .nav-p-atlas.is-current:before{background-image:url('../img/ui/nav8-atlas-ac89af71cafa.svg')}
-.site-header .main-nav .nav-p-descargas.is-current:before{background-image:url('../img/ui/nav8-descargas-65937157e59f.svg')}
-.site-header .main-nav .nav-p-fractura.is-current:before{background-image:url('../img/ui/nav8-fractura-b0499f7e6ed3.svg')}
-.site-header .main-nav .nav-p-inicio.is-current:before{background-image:url('../img/ui/nav8-inicio-de09af34eacd.svg')}
-.site-header .main-nav .nav-p-mercado.is-current:before{background-image:url('../img/ui/nav8-mercado-93e1b34f040d.svg')}
-.site-header .main-nav .nav-p-rankings.is-current:before{background-image:url('../img/ui/nav8-rankings-c64559511573.svg')}
-.site-header .main-nav .nav-p-servidor.is-current:before{background-image:url('../img/ui/nav8-servidor-501d444d2cc1.svg')}
-.site-header .main-nav .nav-p-socios.is-current:before{background-image:url('../img/ui/nav8-socios-4baacc95b674.svg')}
-.site-header .main-nav .nav-p-votar.is-current:before{background-image:url('../img/ui/nav8-votar-ab268f06fc4f.svg')}
+.site-header .main-nav .nav-p-atlas.is-current:before{background:#c6f03a}
+.site-header .main-nav .nav-p-descargas.is-current:before{background:#ff7a1a}
+.site-header .main-nav .nav-p-fractura.is-current:before{background:#e2264d}
+.site-header .main-nav .nav-p-inicio.is-current:before{background:#29c8ff}
+.site-header .main-nav .nav-p-mercado.is-current:before{background:#ffc24a}
+.site-header .main-nav .nav-p-rankings.is-current:before{background:#9b6bff}
+.site-header .main-nav .nav-p-servidor.is-current:before{background:#ff3fa4}
+.site-header .main-nav .nav-p-socios.is-current:before{background:#36e07f}
+.site-header .main-nav .nav-p-votar.is-current:before{background:#ff4655}
 .site-header .main-nav .nav-p-inicio.is-current,.site-header .main-nav .nav-p-mercado.is-current,.site-header .main-nav .nav-p-atlas.is-current,.site-header .main-nav .nav-p-socios.is-current{color:#0f1923}
 }
 @media(min-width:1101px){.site-header .main-nav .nav-votar.is-current i{border-bottom-color:#fff;filter:none}.site-header .main-nav .nav-p-fractura.is-current>span{text-shadow:0 1px 3px #0f1923aa}}
@@ -291,3 +291,8 @@
 @media(max-width:370px){.site-header .brand-crystal .brand-full{display:none}.site-header .brand-crystal .brand-ala{display:block;height:30px}}
 /* Barra de 85 px: centrar sobre 84 para que lo centrado caiga justo en un píxel (bordes nítidos) */
 .site-header .nav-shell{padding-bottom:1px}
+
+/* Sección actual: bloque sólido con esquina a 45° (bordes nítidos en cualquier pantalla) */
+@media(min-width:1101px){.site-header .main-nav .nav-main-link.is-current:before{top:-12px;height:53px;left:0;right:0;background-image:none;clip-path:polygon(0 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%);animation:navBlockIn .35s cubic-bezier(.6,0,.2,1) both}}
+@keyframes navBlockIn{from{transform:scaleY(0);transform-origin:top}to{transform:none;transform-origin:top}}
+@media(prefers-reduced-motion:reduce){.site-header .main-nav .nav-main-link.is-current:before{animation:none}}
