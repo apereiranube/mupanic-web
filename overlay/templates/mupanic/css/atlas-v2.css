@@ -588,3 +588,14 @@ body.is-wiki .atl .wiki-section{isolation:auto!important}
 body.is-wiki .atl .atlas-account select{width:170px!important;flex:none}
 @media(max-width:600px){body.is-wiki .atl [data-atlas-find-status]{min-height:32px}}
 body.is-wiki .atl .atl-nav nav{grid-template-columns:minmax(0,1fr)!important;margin-top:0!important}
+body.is-wiki .atl-hero .atl-hero-title{font-family:var(--pui-display)!important;font-weight:400!important;letter-spacing:.005em}
+body.is-wiki .atl-hero .atl-hero-lead{margin:0 0 26px;font-size:16px;line-height:1.6;color:var(--pui-muted)}
+body.is-wiki .atl .atl-tile:not(.atl-tile--big) .atlas-purpose{display:none!important}
+@media(max-width:1180px){body.is-wiki .atl .atl-nav nav a{font-size:14px}}
+@media(max-width:600px){
+  .atl-hero{height:760px}
+  .atl-hero-block{height:300px}
+  .atl-hero-map{height:280px;bottom:80px}
+  .atl-hero-copy{padding-top:28px}
+}
+@media(max-width:600px){.atl-hero-facts{gap:14px;letter-spacing:.06em;font-size:9px}.atl-hero-facts strong{font-size:22px;margin-right:4px;vertical-align:-3px}}
