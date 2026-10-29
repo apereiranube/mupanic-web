@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600">
+  <rect width="2400" height="1600" fill="#c6f432"/>
+  <g fill="#9ccc16">
+    <polygon points="-260,460 460,-260 760,-260 -260,760"/>
+    <polygon points="1660,1860 2660,860 2660,1160 1960,1860"/>
+  </g>
+  <g fill="#0f1923">
+    <path d="M0 1020H190L640 1470V1600H0Z"/>
+    <path fill-rule="evenodd" d="M2140-70H2300L2380 10V150L2220 350 2060 150V10ZM2220 25 2160 85 2220 145 2280 85Z"/>
+    <path fill-rule="evenodd" d="M2290 470H2410L2470 530V635L2350 785 2230 635V530ZM2350 541 2305 586 2350 631 2395 586Z"/>
+    <path fill-rule="evenodd" d="M2060 850H2140L2180 890V960L2100 1060 2020 960V890ZM2100 897 2070 927 2100 957 2130 927Z"/>
+  </g>
+</svg>
