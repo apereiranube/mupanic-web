@@ -887,3 +887,10 @@ body.is-wiki .atl #fractura .af-v3-grieta{display:none}
 body.is-wiki .atl #fractura .af-v3-fig{height:108%;bottom:-10%;filter:drop-shadow(0 14px 22px #0f1923b3)}
 body.is-wiki .atl #fractura .af-v3-fig--aldren{left:7%;filter:drop-shadow(0 0 2px #0f1923) drop-shadow(0 14px 22px #0f1923b3)}
 @media(max-width:760px){body.is-wiki .atl #fractura .af-v3-fig{height:96%;bottom:-6%}}
+/* Mapas sin plano del cliente ni spots: se muestra la vista isométrica del mapa */
+body.is-wiki .atl .atlas-terrain.atlas-terrain-empty:has(.atlas-terrain-iso){background:#1c2b38!important;display:flex;align-items:center;justify-content:center}
+body.is-wiki .atl .atlas-terrain-iso{position:absolute;inset:6%;width:88%;height:88%;object-fit:contain;filter:drop-shadow(0 18px 24px #0009)}
+/* Vínculos: sin la rayita verde al costado del cartel "El Pacto de los Ocho" */
+body.is-wiki .atl .vinculos-hero-art--group{background:var(--atl-ink)!important}
+body.is-wiki .atl .vinculos-hero-art--group:before{content:'';position:absolute;z-index:0;left:0;right:0;top:0;bottom:92px;background:var(--atl)}
+body.is-wiki .atl .vinculos-hero-art--group .vinculos-hero-creature{height:94px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;margin:0}
