@@ -315,3 +315,11 @@
 }
 @media(min-width:1101px) and (max-width:1460px){.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{width:92px}}
 @media(min-width:1461px) and (max-width:1600px){.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{width:96px}}
+/* Letra blanca en los tres, como Discord (verde y dorado un tono más profundos para que se lea) */
+@media(min-width:1101px){
+.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{color:#fff!important}
+.site-header .main-nav .nav-socios{background:#1fae5e!important}
+.site-header .main-nav .nav-votar{background:#e39a12!important}
+}
+/* Las brasas pasan por detrás de la barra (no ensucian los bloques de color) */
+.mp-brasas{z-index:59!important}
