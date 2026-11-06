@@ -72,6 +72,12 @@ function panicLauncherReadState($root) {
         $row=$db->query_fetch_single('SELECT COUNT(*) AS totalOnline FROM [MEMB_STAT] WHERE [ConnectStat] = 1');
         $count=$row['totalOnline'] ?? null;
         if(!is_scalar($count) || !preg_match('/^[0-9]{1,9}$/D',(string)$count)) return $offline;
+        // El VPS escribe cada minuto si el GameServer 1 escucha en su puerto (MU PANIC Estado Web).
+        // Cerrado o sin latido hace mas de 3 minutos = offline. Sin la tabla, se comporta como antes.
+        try {
+            $estado=$db->query_fetch_single('SELECT [Abierto], DATEDIFF(second, [ActualizadoAR], GETDATE()) AS [Edad] FROM [MUPanicServerEstado] WHERE [Servidor] = 0');
+            if(is_array($estado) && isset($estado['Abierto'],$estado['Edad']) && ((int)$estado['Abierto']!==1 || (int)$estado['Edad']>180)) return $offline;
+        } catch(Throwable $estadoError) {}
         return ['online'=>(int)$count,'servidor'=>'online'];
     } catch(Throwable $error) { return $offline; }
 }
