@@ -372,7 +372,7 @@
     var inv=$('vInv');JW.forEach(function(u){var im=document.createElement('img');im.src=u;im.alt='';inv.appendChild(im)});
     function setTxt(id,t){$(id).textContent=t}
     function apply(){sec.classList.toggle('is-vip',vip);bF.setAttribute('aria-pressed',!vip);bV.setAttribute('aria-pressed',vip);
-      setTxt('vExp',vip?'20x':'15x');setTxt('vExpS',vip?'+33% más rápido':'ritmo base');setTxt('vExpT',vip?'Cada nivel llega antes.':'Subís a tu ritmo.');
+      setTxt('vExp',vip?'60x':'50x');setTxt('vExpS',vip?'+20% más rápido':'ritmo base');setTxt('vExpT',vip?'Cada nivel llega antes.':'Subís a tu ritmo.');
       setTxt('vDrop',vip?'30%':'25%');setTxt('vDropS',vip?'+20% más drops':'drop base');
       setTxt('vSlotsN',vip?'10':'3');setTxt('vSlotsT',vip?'Diez objetos vendiéndose a la vez, aunque no estés.':'Tres objetos en la vidriera a la vez.');
       slotS.forEach(function(s,i){var on=i<(vip?10:3);setTimeout(function(){s.className=on?'on':'lock'},on?i*60:0)});

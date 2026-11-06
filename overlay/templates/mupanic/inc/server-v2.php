@@ -75,7 +75,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
 
   <div class="sv-facts">
     <dl class="pui-wrap sv-facts-grid">
-      <div class="pui-stat"><dt>Experiencia</dt><dd>15x</dd></div>
+      <div class="pui-stat"><dt>Experiencia</dt><dd>50x</dd></div>
       <div class="pui-stat"><dt>Master EXP</dt><dd>10x</dd></div>
       <div class="pui-stat"><dt>Drop general</dt><dd>25%</dd></div>
       <div class="pui-stat"><dt>Reset</dt><dd>400<small>nivel</small></dd></div>
@@ -361,16 +361,16 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
         <i aria-hidden="true"></i>
       </div>
       <div class="sv-vp-score" aria-live="polite">
-        <div><b id="svVpExp">15x</b><small>Experiencia</small></div>
+        <div><b id="svVpExp">50x</b><small>Experiencia</small></div>
         <div><b id="svVpDrop">25%</b><small>Drop general</small></div>
         <div><b id="svVpSlotsN">3</b><small>Publicaciones en Vessara</small></div>
         <div><b id="svVpEx">0</b><small>Beneficios exclusivos</small></div>
       </div>
       <div class="sv-vp-rows">
         <article class="sv-vp-row">
-          <div class="sv-vp-copy"><span class="sv-vp-mode" aria-hidden="true"><i class="f">En Free</i><i class="v">Con VIP</i></span><div class="sv-vp-sw"><div class="f"><h3>Experiencia y drop</h3><p>En Free jugás con las tasas base: 15x de experiencia y 25% de drop.</p></div><div class="v"><h3>Avanzás más rápido</h3><p>Con VIP: +33% de experiencia por cada monstruo y +20% de objetos al suelo.</p></div></div></div>
+          <div class="sv-vp-copy"><span class="sv-vp-mode" aria-hidden="true"><i class="f">En Free</i><i class="v">Con VIP</i></span><div class="sv-vp-sw"><div class="f"><h3>Experiencia y drop</h3><p>En Free jugás con las tasas base: 50x de experiencia y 25% de drop.</p></div><div class="v"><h3>Avanzás más rápido</h3><p>Con VIP: +20% de experiencia por cada monstruo y +20% de objetos al suelo.</p></div></div></div>
           <div class="sv-vp-demo sv-vp-fast">
-            <div class="sv-vp-meter"><span class="k">Experiencia</span><b id="svVpExpBig">15x</b><em id="svVpExpNote">Ritmo base</em><div class="sv-vp-bar"><i></i></div></div>
+            <div class="sv-vp-meter"><span class="k">Experiencia</span><b id="svVpExpBig">50x</b><em id="svVpExpNote">Ritmo base</em><div class="sv-vp-bar"><i></i></div></div>
             <div class="sv-vp-meter"><span class="k">Drop general</span><b id="svVpDropBig">25%</b><em id="svVpDropNote">Drop base</em><div class="sv-vp-bar d"><i></i></div></div>
           </div>
         </article>

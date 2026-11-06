@@ -29,7 +29,7 @@ const routePage = (page, content = html) => page.route('**/*', async route => {
   if(width<=700) assert.equal(await page.locator('.campaign-discord>span').isVisible(),false);
   const destinations=await page.locator('a[href]').evaluateAll(links=>links.map(a=>a.getAttribute('href')));
   assert(destinations.every(h=>h.startsWith('#')||h==='https://discord.gg/fP4Mxcsee'));
-  const rates=await page.locator('.campaign-ticker').innerText();assert.match(rates,/15X/);assert.match(rates,/10X/);assert.match(rates,/25%/);
+  const rates=await page.locator('.campaign-ticker').innerText();assert.match(rates,/50X/);assert.match(rates,/10X/);assert.match(rates,/25%/);
   assert.match(await page.locator('#filosofia').innerText(), /PAY TO WIN/);
   assert.match(await page.locator('#zen').innerText(), /JOYAS/);
   assert.match(await page.locator('#hub').innerText(), /CLIENTE PERSONALIZADO POR NOSOTROS/);

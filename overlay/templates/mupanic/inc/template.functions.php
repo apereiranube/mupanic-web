@@ -30,7 +30,7 @@ function mupanicPageTitle($page, $subpage = '') {
 // SEO por página: título, descripción y si Google debe indexarla.
 function mupanicPageSeo($page, $subpage = '', $isHome = false) {
     $base = 'MU PANIC: MU Online Season 6 argentino con reset dinámico, Furia, mascotas evolutivas, Mercado de Vessara y minijuegos.';
-    if($isHome) return array('MU PANIC · MU Online Season 6 Argentina', 'Servidor argentino de MU Online Season 6: EXP 15x, reset dinámico, siete clases, guerra Nexo contra Caos, mascotas evolutivas, Mercado de Vessara y ocho minijuegos. Creá tu cuenta gratis.', 'index,follow');
+    if($isHome) return array('MU PANIC · MU Online Season 6 Argentina', 'Servidor argentino de MU Online Season 6: EXP 50x, reset dinámico, siete clases, guerra Nexo contra Caos, mascotas evolutivas, Mercado de Vessara y ocho minijuegos. Creá tu cuenta gratis.', 'index,follow');
     $map = array(
         'information' => array('El servidor · MU Online Season 6 con reset dinámico', 'Cómo es MU PANIC: reset dinámico de 200 a 350 puntos, siete clases con su rol, PvP con barra de vida, Furia, eventos en vivo y VIP. Todo lo que hace distinto a este MU Online argentino.'),
         'info' => array('Atlas · mapas, drops y eventos de MU Online', 'Atlas de MU PANIC: mapas, monstruos, drops, eventos con horarios de Argentina y recompensas de MU Online Season 6.'),

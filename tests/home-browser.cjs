@@ -95,7 +95,7 @@ async function routes(page,body=html){
   assert.ok(coreLabel.font>=9 && coreLabel.lines[1].top>coreLabel.lines[0].top,'The core title must have two legible lines');
   assert.ok(coreLabel.lines.every(line=>line.left>=coreLabel.left && line.right<=coreLabel.right) && coreLabel.bottom+2<=coreLabel.numberTop,'The title must fit the inner aperture and stay separate from the count');
 
-  assert.equal(await page.locator('[data-home-rate=experience]').textContent(),'15x');
+  assert.equal(await page.locator('[data-home-rate=experience]').textContent(),'50x');
   assert.equal(await page.locator('.ph-status').getAttribute('data-server-state'),'online');
   assert.equal(await page.locator('[data-home-state]').textContent(),'Online');
   if([1440,390,320].includes(width)){

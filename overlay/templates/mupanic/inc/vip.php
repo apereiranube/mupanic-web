@@ -22,11 +22,11 @@ $vipCta=$vipHasPrice?($vipActive?'Extender VIP':'Activá tu VIP'):'Conseguí tus
 $vipRechargeUrl=__BASE_URL__.'usercp/recharge/'.($vipHasPrice?'?recharge_goal=vip#recharge-cart':'#eryns-vip');
 require_once __DIR__.'/tienda-art.php';
 $vipEmblem=panicTiendaEmblemaVip();
-$vipExpBase=is_string($GLOBALS['serverExp'] ?? null) ? $GLOBALS['serverExp'] : '15x';
+$vipExpBase=is_string($GLOBALS['serverExp'] ?? null) ? $GLOBALS['serverExp'] : '50x';
 $vipDropBase=is_string($GLOBALS['serverDrop'] ?? null) ? $GLOBALS['serverDrop'] : '25%';
 // Free o VIP: los mismos datos que muestra El servidor (inc/server-v2.php, sección VIP).
 $vipCompare=[
-  ['Experiencia',$vipExpBase,'+33% por monstruo'],
+  ['Experiencia',$vipExpBase,'+20% por monstruo'],
   ['Drop general',$vipDropBase,'+20% de objetos'],
   ['Vidriera de Vessara','3 a la venta','10 a la venta'],
   ['AutoPost en el chat','Lo escribís vos','Se publica solo'],

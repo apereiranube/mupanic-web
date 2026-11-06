@@ -66,7 +66,7 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
     </div></div></div>
     <div class="wrap hero-facts">
       <dl class="facts rv">
-        <div><dt>Experiencia</dt><dd data-to="15" data-suf="x">15x</dd></div>
+        <div><dt>Experiencia</dt><dd data-to="50" data-suf="x">50x</dd></div>
         <div><dt>Master EXP</dt><dd data-to="10" data-suf="x">10x</dd></div>
         <div><dt>Drop general</dt><dd data-to="25" data-suf="%">25%</dd></div>
         <div><dt>Reset</dt><dd><span data-to="400">400</span><small>nivel</small></dd></div>
@@ -387,7 +387,7 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
       <div class="vgrid rv d1">
         <div class="vcard gain">
           <span class="vk">Experiencia</span>
-          <div class="vv"><span id="vExp">15x</span><small id="vExpS">ritmo base</small></div>
+          <div class="vv"><span id="vExp">50x</span><small id="vExpS">ritmo base</small></div>
           <div class="vexp"><i id="vExpBar"></i></div>
           <div class="vexp-row"><span>Nivel <b id="vLvl">312</b></span><span id="vExpT">Subís a tu ritmo.</span></div>
         </div>

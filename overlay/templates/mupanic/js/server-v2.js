@@ -374,8 +374,8 @@
     var a = vip ? 1 : 0, b = vip ? 0 : 1;
     roll(q('svVpExp'), V.exp[b], V.exp[a], 'x'); roll(q('svVpDrop'), V.drop[b], V.drop[a], '%');
     roll(q('svVpSlotsN'), V.slots[b], V.slots[a], ''); roll(q('svVpEx'), V.ex[b], V.ex[a], '');
-    q('svVpExpBig').textContent = vip ? '20x' : '15x'; q('svVpDropBig').textContent = vip ? '30%' : '25%';
-    q('svVpExpNote').textContent = vip ? '+33% de experiencia' : 'Ritmo base';
+    q('svVpExpBig').textContent = vip ? '60x' : '50x'; q('svVpDropBig').textContent = vip ? '30%' : '25%';
+    q('svVpExpNote').textContent = vip ? '+20% de experiencia' : 'Ritmo base';
     q('svVpDropNote').textContent = vip ? '+20% de drop' : 'Drop base';
     q('svVpSlotsBig').textContent = vip ? '10' : '3';
     S.style.setProperty('--exp-d', vip ? '2.2s' : '3s');

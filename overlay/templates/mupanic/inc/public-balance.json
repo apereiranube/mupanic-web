@@ -6,25 +6,25 @@
   "accounts": [
     {
       "name": "Free",
-      "experience": 15,
+      "experience": 50,
       "master": 10,
       "drop": 25
     },
     {
       "name": "VIP 1",
-      "experience": 20,
+      "experience": 60,
       "master": 10,
       "drop": 30
     },
     {
       "name": "VIP 2",
-      "experience": 20,
+      "experience": 60,
       "master": 10,
       "drop": 30
     },
     {
       "name": "VIP 3",
-      "experience": 20,
+      "experience": 60,
       "master": 10,
       "drop": 30
     }
