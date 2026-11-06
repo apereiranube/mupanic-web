@@ -356,3 +356,10 @@ body.is-wiki .atlas-territory-cover:has(img[src*="atlas-v2/mapas/"]):after{backg
 body.is-wiki .atl .v-guide-table tbody th[scope=row]{background:#ffc24a!important;color:#0f1923!important;font-family:var(--pui-display,Anton),Impact,sans-serif;font-size:17px!important;letter-spacing:.02em;text-transform:uppercase;vertical-align:middle}
 body.is-wiki .atl .v-guide-table tbody tr+tr th[scope=row]{border-top:2px solid #0f192333}
 body.is-wiki img[src*="atlas-v2/mapas/"]{object-fit:contain!important}
+
+/* 777play: acceso al casino social, a la izquierda de Ingresar */
+.site-header .nav-partner{display:inline-flex;align-items:center;justify-content:center;flex:none;width:58px;height:58px;margin-right:6px;transition:transform .18s ease,filter .18s ease}
+.site-header .nav-partner img{display:block;width:54px;height:56px;filter:drop-shadow(0 4px 10px #0009)}
+.site-header .nav-partner:hover,.site-header .nav-partner:focus-visible{transform:translateY(-1px) scale(1.06);filter:drop-shadow(0 0 10px #ffc24a66)}
+@media(max-width:900px){.site-header .nav-partner{width:42px;height:42px;margin-right:2px}.site-header .nav-partner img{width:40px;height:42px}}
+@media(max-width:370px){.site-header .nav-partner{width:36px;height:36px}.site-header .nav-partner img{width:34px;height:35px}}
