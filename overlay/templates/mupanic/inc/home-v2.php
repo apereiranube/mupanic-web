@@ -23,6 +23,12 @@ $h2systems = [
   ['hub','Hub F11','Tu personaje, la Fractura, eventos, mercado y tienda: todo MU PANIC a una tecla.','#hub','Summoner · violeta','#9b6bff'],
   ['juegos','Minijuegos','Ocho juegos dentro del cliente para cambiar de ritmo entre leveo y leveo.','#hub','Magic Gladiator · magenta','#ff3fa4'],
 ];
+// Lanzamiento 06/11/2026 21:00 (hora Argentina): cuenta regresiva en la portada hasta la madrugada.
+$h2launchAt = strtotime('2026-11-06T21:00:00-03:00');
+$h2launch = time() < strtotime('2026-11-07T03:00:00-03:00');
+$h2launchOpen = time() >= $h2launchAt;
+$h2launchLeft = max(0, $h2launchAt - time());
+$h2launchPad = function($n) { return str_pad((string)(int)$n, 2, '0', STR_PAD_LEFT); };
 $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia de Joyas','Tesoro de Kalima','Torre del Caos','Carrera'];
 ?>
 <div class="h2 pui" data-panic-home data-launcher-url="<?php echo $h2e(__BASE_URL__.'api/launcher.php?home=1'); ?>">
@@ -42,8 +48,22 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
       <img class="h2-charge-bk" src="<?php echo $h2e($h2img.'inicio-bk-carga-01b160ca5b33.webp'); ?>" alt="" width="1257" height="1503" decoding="async" fetchpriority="high">
     </div>
     <div class="pui-wrap h2-hero-copy">
+      <?php if($h2launch) { ?>
+      <p class="pui-kicker">Servidor argentino de MU Online</p>
+      <h1 class="pui-h1" id="h2-title" data-launch-title><?php echo $h2launchOpen ? 'Ya estamos<br>online' : 'Abrimos<br>hoy 21 hs'; ?></h1>
+      <div class="h2-launch" data-launch-at="2026-11-06T21:00:00-03:00" data-open="<?php echo $h2launchOpen ? '1' : '0'; ?>">
+        <p class="h2-launch-tag"><span class="h2-launch-dot" aria-hidden="true"></span><span data-launch-label><?php echo $h2launchOpen ? 'Lanzamiento oficial · Ya podés jugar' : 'Lanzamiento oficial · Faltan'; ?></span></p>
+        <div class="h2-launch-clock" role="timer" aria-label="Tiempo que falta para el lanzamiento"<?php if($h2launchOpen) echo ' hidden'; ?>>
+          <div class="h2-launch-unit"><b data-launch-h><?php echo $h2launchPad(intdiv($h2launchLeft, 3600)); ?></b><small>Horas</small></div>
+          <div class="h2-launch-unit"><b data-launch-m><?php echo $h2launchPad(intdiv($h2launchLeft % 3600, 60)); ?></b><small>Minutos</small></div>
+          <div class="h2-launch-unit"><b data-launch-s><?php echo $h2launchPad($h2launchLeft % 60); ?></b><small>Segundos</small></div>
+        </div>
+        <p class="h2-launch-rates">EXP <b>50x</b> <i aria-hidden="true">/</i> VIP <b>60x</b></p>
+      </div>
+      <?php } else { ?>
       <p class="pui-kicker">Servidor argentino de MU Online</p>
       <h1 class="pui-h1" id="h2-title">Tu leyenda<br>empieza acá</h1>
+      <?php } ?>
       <p class="pui-lead">Sistemas propios que no vas a encontrar en otro MU: Furia, la Fractura, compañeros y el Mercado de Vessara.</p>
       <div class="h2-actions">
         <span class="pui-btn-wrap"><a class="pui-btn pui-btn--lg" href="<?php echo $h2e($h2play); ?>">Jugá gratis</a></span>

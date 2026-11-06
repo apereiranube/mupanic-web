@@ -1,10 +1,10 @@
 {
  "activo": true,
- "hasta": "2026-10-30T00:00:00-03:00",
+ "hasta": "2026-11-07T03:00:00-03:00",
  "mensajes": [
-  "Beta abierta hasta el jueves 29",
-  "Participá y ganate un mes de VIP",
-  "Descargá el juego y entrá hoy"
+  "Lanzamiento oficial hoy 21 hs",
+  "EXP 50x · VIP 60x",
+  "Creá tu cuenta y entrá apenas abra"
  ],
- "link": "downloads/"
+ "link": "register/"
 }

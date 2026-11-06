@@ -209,3 +209,29 @@
     new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible && state === 'idle') charge(); }, {threshold: .4}).observe(f);
   } else { visible = true; charge(); }
 })();
+
+// Lanzamiento 06/11 21 hs: cuenta regresiva de la portada.
+(function () {
+  var box = document.querySelector('[data-launch-at]');
+  if (!box) return;
+  var at = Date.parse(box.getAttribute('data-launch-at'));
+  if (!Number.isFinite(at)) return;
+  var h = box.querySelector('[data-launch-h]'), m = box.querySelector('[data-launch-m]'), s = box.querySelector('[data-launch-s]');
+  var clock = box.querySelector('.h2-launch-clock'), label = box.querySelector('[data-launch-label]'), title = document.querySelector('[data-launch-title]');
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function tick() {
+    var left = Math.max(0, Math.floor((at - Date.now()) / 1000));
+    if (left === 0) {
+      box.setAttribute('data-open', '1');
+      clock.hidden = true;
+      label.textContent = 'Lanzamiento oficial \u00b7 Ya pod\u00e9s jugar';
+      if (title) title.innerHTML = 'Ya estamos<br>online';
+      return;
+    }
+    h.textContent = pad(Math.floor(left / 3600));
+    m.textContent = pad(Math.floor(left % 3600 / 60));
+    s.textContent = pad(left % 60);
+    setTimeout(tick, 1005 - (Date.now() % 1000));
+  }
+  tick();
+})();
