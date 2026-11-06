@@ -1,7 +1,7 @@
 {
- "version": "Cliente v1",
- "fecha": "25 de octubre de 2026",
- "tamano": "1,2 GB",
+ "version": "Cliente v2",
+ "fecha": "6 de noviembre de 2026",
+ "tamano": "1,3 GB",
  "links": [
   {
    "nombre": "Mega",
@@ -9,11 +9,11 @@
   },
   {
    "nombre": "MediaFire",
-   "url": "https://www.mediafire.com/file/4jn4eoiz6agoquc/MU-PANIC-Cliente.zip/file"
+   "url": "https://www.mediafire.com/file/7vv2ottte1gtuan/MU_PANIC_Cliente_2026-11-06.zip/file"
   },
   {
    "nombre": "Google Drive",
-   "url": "https://drive.google.com/file/d/13t-ugi2fp4_IiYwoCToJ6LL2cDJ9qKwD/view?usp=sharing"
+   "url": "https://drive.google.com/file/d/1qTVRQF9Ffv-B6MU9mDhwnUcv6WFuMmoo/view?usp=sharing"
   }
  ]
 }
