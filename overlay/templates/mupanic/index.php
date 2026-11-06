@@ -250,7 +250,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
         </nav>
 
         <div class="nav-actions">
-            <a class="nav-partner" href="https://777play.io/" target="_blank" rel="noopener" title="777play · Casino social" aria-label="777play, casino social (se abre en otra pestaña)"><img src="<?php echo __PATH_TEMPLATE__; ?>img/brand/777play-c25f4918b5d0.webp" alt="" width="54" height="56" decoding="async"></a>
+            <a class="nav-partner" href="https://777play.io/" target="_blank" rel="noopener" title="777play · Casino social" aria-label="777play, casino social (se abre en otra pestaña)"><img src="<?php echo __PATH_TEMPLATE__; ?>img/brand/777play-8d3f36f068db.webp" alt="" width="81" height="84" decoding="async"></a>
 
             <?php if($isLogged) { ?>
                 <a class="account-link" href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a>
