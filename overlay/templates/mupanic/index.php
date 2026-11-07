@@ -33,6 +33,15 @@ if($legacyPurchaseRoute) {
     header('Location: '.$target, true, 302);
     exit;
 }
+// Comprar Eryns (boton de la cabecera): logueado va directo a la tienda; si no, despues de ingresar vuelve a la tienda (vale 30 min).
+if($_REQUEST['page']==='login' && ($_GET['ir'] ?? '')==='eryns') {
+    if(isLoggedIn()) { header('Location: '.__BASE_URL__.'usercp/recharge/', true, 302); exit; }
+    $_SESSION['panic_tras_login']=['a'=>'eryns','t'=>time()];
+}
+if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='' && isLoggedIn() && isset($_SESSION['panic_tras_login'])) {
+    $panicTras=$_SESSION['panic_tras_login']; unset($_SESSION['panic_tras_login']);
+    if(is_array($panicTras) && ($panicTras['a'] ?? '')==='eryns' && (int)($panicTras['t'] ?? 0)>=time()-1800) { header('Location: '.__BASE_URL__.'usercp/recharge/', true, 302); exit; }
+}
 // Referidos: el link de invitacion (?ref=CODIGO) se recuerda hasta que el invitado lo confirma en Mi cuenta.
 if(in_array($_REQUEST['page'],['register','usercp'],true) && is_string($_GET['ref'] ?? null) && preg_match('/^[A-Za-z0-9]{8}$/D',$_GET['ref'])) {
     require_once __DIR__.'/inc/referidos-cola.php';
@@ -246,12 +255,14 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
             <a class="nav-discord" href="https://discord.com/channels/<?php echo rawurlencode($community['guildId']); ?>" target="_blank" rel="noopener noreferrer"><span>Discord</span><b aria-hidden="true">↗︎</b></a>
             <a class="nav-main-link nav-p-socios nav-socios<?php echo $_REQUEST['page']==='socios' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>socios/"<?php echo $_REQUEST['page']==='socios' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Socios</span></a>
             <a class="nav-main-link nav-p-votar nav-votar<?php echo $_REQUEST['page']==='votar' ? ' is-current' : ''; ?>" href="<?php echo __BASE_URL__; ?>votar/"<?php echo $_REQUEST['page']==='votar' ? ' aria-current="page"' : ''; ?>><i aria-hidden="true"></i><span>Votar</span></a>
+            <a class="mobile-eryns" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/recharge/' : 'login/?ir=eryns'; ?>">Comprar Eryns</a>
             <a class="mobile-account" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/' : 'login/'; ?>"><?php echo $isLogged ? 'Mi cuenta' : 'Ingresar'; ?></a>
         </nav>
 
         <div class="nav-actions">
             <a class="nav-partner" href="https://777play.io/" target="_blank" rel="noopener" title="777play · Casino social" aria-label="777play, casino social (se abre en otra pestaña)"><img src="<?php echo __PATH_TEMPLATE__; ?>img/brand/777play-8d3f36f068db.webp" alt="" width="81" height="84" decoding="async"></a>
 
+            <a class="nav-eryns" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/recharge/' : 'login/?ir=eryns'; ?>" aria-label="Comprar Eryns"><img src="<?php echo __PATH_TEMPLATE__; ?>img/votar/votar-gema-64-4559844ddcec.webp" alt="" width="22" height="24" decoding="async"><span class="nav-eryns-long">Comprar Eryns</span><span class="nav-eryns-short">Eryns</span></a>
             <?php if($isLogged) { ?>
                 <a class="account-link" href="<?php echo __BASE_URL__; ?>usercp/">Mi cuenta</a>
                 <a class="nav-cta" href="<?php echo __BASE_URL__; ?>logout/">Salir</a>
