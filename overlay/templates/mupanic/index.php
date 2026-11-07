@@ -260,7 +260,6 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
         </nav>
 
         <div class="nav-actions">
-            <a class="nav-partner" href="https://777play.io/" target="_blank" rel="noopener" title="777play · Casino social" aria-label="777play, casino social (se abre en otra pestaña)"><img src="<?php echo __PATH_TEMPLATE__; ?>img/brand/777play-8d3f36f068db.webp" alt="" width="81" height="84" decoding="async"></a>
 
             <a class="nav-eryns" href="<?php echo __BASE_URL__; ?><?php echo $isLogged ? 'usercp/recharge/' : 'login/?ir=eryns'; ?>" aria-label="Comprar Eryns"><img src="<?php echo __PATH_TEMPLATE__; ?>img/votar/votar-gema-64-4559844ddcec.webp" alt="" width="22" height="24" decoding="async"><span class="nav-eryns-long">Comprar Eryns</span><span class="nav-eryns-short">Eryns</span></a>
             <?php if($isLogged) { ?>
@@ -273,6 +272,9 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
         </div>
     </div>
 </header>
+<?php if($_REQUEST['page']!=='usercp') { ?>
+<a class="float-777" href="https://777play.io/" target="_blank" rel="noopener" title="777play · Casino social" aria-label="777play, casino social (se abre en otra pestaña)"><img src="<?php echo __PATH_TEMPLATE__; ?>img/brand/777play-8d3f36f068db.webp" alt="" width="81" height="84" decoding="async"></a>
+<?php } ?>
 
 <a class="skip-link" href="#main-content">Saltar al contenido</a>
 <main id="main-content">

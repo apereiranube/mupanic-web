@@ -357,24 +357,23 @@ body.is-wiki .atl .v-guide-table tbody th[scope=row]{background:#ffc24a!importan
 body.is-wiki .atl .v-guide-table tbody tr+tr th[scope=row]{border-top:2px solid #0f192333}
 body.is-wiki img[src*="atlas-v2/mapas/"]{object-fit:contain!important}
 
-/* 777play: acceso al casino social, a la izquierda de Ingresar */
-.site-header .nav-partner{display:inline-flex;align-items:center;justify-content:center;flex:none;width:84px;height:84px;margin:-6px 8px -6px 0;transition:transform .18s ease,filter .18s ease}
-.site-header .nav-partner img{display:block;width:81px;height:84px;filter:drop-shadow(0 4px 12px #000a)}
-.site-header .nav-partner:hover,.site-header .nav-partner:focus-visible{transform:translateY(-1px) scale(1.06);filter:drop-shadow(0 0 12px #ffc24a77)}
-@media(max-width:1350px){.site-header .nav-partner{width:62px;height:62px;margin:-4px 4px -4px 0}.site-header .nav-partner img{width:60px;height:62px}}
-@media(max-width:760px){.site-header .nav-partner{width:56px;height:56px;margin:-4px 4px -4px 0}.site-header .nav-partner img{width:54px;height:56px}}
-@media(max-width:370px){.site-header .nav-partner{width:44px;height:44px}.site-header .nav-partner img{width:42px;height:44px}}
-
+/* 777play: acceso flotante al casino social, abajo a la izquierda */
+.float-777{position:fixed;left:20px;bottom:20px;z-index:55;display:block;width:92px;height:96px;filter:drop-shadow(0 6px 16px #000b);animation:float777 3.2s ease-in-out infinite;transition:transform .18s ease,filter .18s ease}
+.float-777 img{display:block;width:92px;height:96px}
+.float-777:hover,.float-777:focus-visible{animation-play-state:paused;transform:scale(1.08);filter:drop-shadow(0 0 16px #ffc24a99) drop-shadow(0 6px 16px #000b)}
+@keyframes float777{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){.float-777{animation:none}}
+@media(max-width:1440px){.float-777{left:14px;bottom:14px;width:70px;height:73px}.float-777 img{width:70px;height:73px}}
+@media(max-width:760px){.float-777{left:10px;bottom:10px;width:50px;height:52px}.float-777 img{width:50px;height:52px}}
 /* Comprar Eryns: acceso directo a la tienda (azul cristal = Eryns) */
-.site-header .nav-eryns{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:none;height:42px;padding:0 14px 0 11px;background:#6fb4ff;color:#0f1923;font:400 16px/1 Anton,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);transition:background .15s ease,transform .15s ease}
+.site-header .nav-eryns{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:none;height:42px;padding:0 16px 0 12px;background:#6fb4ff;color:#0f1923;font:400 16px/1 Anton,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);transition:background .15s ease,transform .15s ease}
 .site-header .nav-eryns img{display:block;width:22px;height:24px;filter:drop-shadow(0 1px 2px #0f192366)}
 .site-header .nav-eryns:hover,.site-header .nav-eryns:focus-visible{background:#9ccdff;color:#0f1923;transform:translateY(-1px)}
 .site-header .nav-eryns-short{display:none}
 .site-header .main-nav .mobile-eryns{display:none}
-@media(max-width:1919px){.site-header .nav-actions{gap:12px}.site-header .nav-eryns{padding:0 12px 0 10px;font-size:15px}.site-header .nav-eryns-long{display:none}.site-header .nav-eryns-short{display:inline}.site-header .nav-partner{width:62px;height:62px;margin:-4px 0}.site-header .nav-partner img{width:60px;height:62px}}
-@media(max-width:1300px){.site-header .nav-eryns{width:42px;padding:0}.site-header .nav-eryns span{display:none!important}}
-@media(min-width:1101px) and (max-width:1720px){.site-header .brand-crystal .brand-full{display:none}.site-header .brand-crystal .brand-ala{display:block}}
-@media(min-width:1101px) and (max-width:1250px){.site-header .nav-partner{width:50px;height:50px}.site-header .nav-partner img{width:48px;height:50px}}
-@media(min-width:1101px) and (max-width:1250px){.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{width:68px;padding-inline:0;justify-content:center;font-size:11px;letter-spacing:.03em}.site-header .main-nav .nav-discord b,.site-header .main-nav .nav-socios i,.site-header .main-nav .nav-votar i{display:none}.site-header .main-nav .nav-main-link:not(.nav-socios):not(.nav-votar):not(.nav-p-inicio){padding-inline:4px}.site-header .nav-actions{gap:8px}.site-header .nav-partner{width:44px;height:44px}.site-header .nav-partner img{width:42px;height:44px}}
+@media(max-width:1699px){.site-header .nav-eryns{padding:0 12px 0 10px;font-size:15px}.site-header .nav-eryns-long{display:none}.site-header .nav-eryns-short{display:inline}}
+@media(max-width:1440px){.site-header .nav-eryns{width:42px;padding:0}.site-header .nav-eryns span{display:none!important}}
+@media(min-width:1101px) and (max-width:1340px){.site-header .brand-crystal .brand-full{display:none}.site-header .brand-crystal .brand-ala{display:block}}
+@media(min-width:1101px) and (max-width:1180px){.site-header .main-nav .nav-discord,.site-header .main-nav .nav-socios,.site-header .main-nav .nav-votar{width:74px;padding-inline:0;justify-content:center;font-size:11px;letter-spacing:.03em}.site-header .main-nav .nav-discord b,.site-header .main-nav .nav-socios i,.site-header .main-nav .nav-votar i{display:none}.site-header .nav-actions{gap:10px}}
 @media(max-width:760px){.site-header .main-nav .mobile-eryns{display:flex;align-items:center;min-height:48px;padding:0 18px;background:#6fb4ff;color:#0f1923;font:400 18px/1 Anton,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase}}
-@media(max-width:430px){.site-header .nav-actions{gap:6px}.site-header .nav-partner{width:40px;height:40px}.site-header .nav-partner img{width:38px;height:40px}.site-header .nav-eryns{width:38px;height:38px}.site-header .nav-cta{padding-inline:10px;font-size:11px}}
+@media(max-width:400px){.site-header .nav-actions{gap:8px}.site-header .nav-eryns{width:38px;height:38px}}
