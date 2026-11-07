@@ -273,7 +273,21 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     </div>
 </header>
 <?php if($_REQUEST['page']!=='usercp') { ?>
+<div class="float-777-wrap" data-float-777>
 <a class="float-777" href="https://777play.io/" target="_blank" rel="noopener" title="777play · Casino social" aria-label="777play, casino social (se abre en otra pestaña)"><img src="<?php echo __PATH_TEMPLATE__; ?>img/brand/777play-8d3f36f068db.webp" alt="" width="81" height="84" decoding="async"></a>
+<div class="float-777-tip" aria-hidden="true" hidden><a href="https://777play.io/" target="_blank" rel="noopener" tabindex="-1" data-float-777-text>¿Te animás a probar suerte?</a><button type="button" data-float-777-close aria-label="Cerrar">×</button></div>
+</div>
+<script>
+(function(){var w=document.querySelector('[data-float-777]');if(!w)return;var tip=w.querySelector('.float-777-tip'),txt=w.querySelector('[data-float-777-text]');
+var frases=['¿Te animás a probar suerte?','Tragamonedas y más en 777play','¡Tocá y jugá en 777play!','¿Una vuelta mientras farmeás?'];
+var k=0,cerrado=false;try{cerrado=sessionStorage.getItem('panic777tip')==='1'}catch(e){}
+if(cerrado)return;
+function mostrar(){if(cerrado)return;txt.textContent=frases[k%frases.length];k++;tip.hidden=false;requestAnimationFrame(function(){tip.classList.add('is-on')});setTimeout(ocultar,6000)}
+function ocultar(){tip.classList.remove('is-on');setTimeout(function(){tip.hidden=true},300)}
+w.querySelector('[data-float-777-close]').addEventListener('click',function(){cerrado=true;ocultar();try{sessionStorage.setItem('panic777tip','1')}catch(e){}});
+setTimeout(mostrar,5000);setInterval(mostrar,30000);
+})();
+</script>
 <?php } ?>
 
 <a class="skip-link" href="#main-content">Saltar al contenido</a>

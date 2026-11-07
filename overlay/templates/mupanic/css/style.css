@@ -357,14 +357,21 @@ body.is-wiki .atl .v-guide-table tbody th[scope=row]{background:#ffc24a!importan
 body.is-wiki .atl .v-guide-table tbody tr+tr th[scope=row]{border-top:2px solid #0f192333}
 body.is-wiki img[src*="atlas-v2/mapas/"]{object-fit:contain!important}
 
-/* 777play: acceso flotante al casino social, abajo a la izquierda */
-.float-777{position:fixed;left:20px;bottom:20px;z-index:55;display:block;width:92px;height:96px;filter:drop-shadow(0 6px 16px #000b);animation:float777 3.2s ease-in-out infinite;transition:transform .18s ease,filter .18s ease}
-.float-777 img{display:block;width:92px;height:96px}
+/* 777play: acceso flotante al casino social, abajo a la izquierda, con globo que invita a jugar */
+.float-777-wrap{position:fixed;left:20px;bottom:20px;z-index:55;display:flex;align-items:center;gap:10px;pointer-events:none}
+.float-777{pointer-events:auto;display:block;flex:none;width:92px;height:96px;filter:drop-shadow(0 6px 16px #000b);animation:float777 3.2s ease-in-out infinite;transition:transform .18s ease,filter .18s ease}
+.float-777 img{display:block;width:100%;height:100%}
 .float-777:hover,.float-777:focus-visible{animation-play-state:paused;transform:scale(1.08);filter:drop-shadow(0 0 16px #ffc24a99) drop-shadow(0 6px 16px #000b)}
+.float-777-tip{pointer-events:auto;position:relative;display:flex;align-items:center;gap:6px;max-width:220px;padding:10px 8px 10px 14px;background:#0f1923;color:#ece8e1;border:1px solid #ffc24a66;border-left:4px solid #ffc24a;box-shadow:0 8px 22px #0009;opacity:0;transform:translateX(-8px);transition:opacity .3s ease,transform .3s ease}
+.float-777-tip.is-on{opacity:1;transform:none}
+.float-777-tip:before{content:"";position:absolute;left:-12px;top:50%;margin-top:-7px;border:7px solid transparent;border-right-color:#ffc24a}
+.float-777-tip a{font:700 14px/1.25 Manrope,Arial,sans-serif;color:#ece8e1;text-decoration:none}
+.float-777-tip button{flex:none;width:24px;height:24px;padding:0;border:0;background:none;color:#ece8e199;font:400 18px/1 Arial,sans-serif;cursor:pointer}
+.float-777-tip button:hover{color:#ffc24a}
 @keyframes float777{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@media(prefers-reduced-motion:reduce){.float-777{animation:none}}
-@media(max-width:1440px){.float-777{left:14px;bottom:14px;width:70px;height:73px}.float-777 img{width:70px;height:73px}}
-@media(max-width:760px){.float-777{left:10px;bottom:10px;width:50px;height:52px}.float-777 img{width:50px;height:52px}}
+@media(prefers-reduced-motion:reduce){.float-777{animation:none}.float-777-tip{transition:none}}
+@media(max-width:1440px){.float-777-wrap{left:14px;bottom:14px}.float-777{width:70px;height:73px}}
+@media(max-width:760px){.float-777-wrap{left:12px;bottom:28px;gap:8px}.float-777{width:52px;height:54px}.float-777-tip{max-width:190px;padding:8px 6px 8px 12px}.float-777-tip a{font-size:13px}}
 /* Comprar Eryns: acceso directo a la tienda (azul cristal = Eryns) */
 .site-header .nav-eryns{display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:none;height:42px;padding:0 16px 0 12px;background:#6fb4ff;color:#0f1923;font:400 16px/1 Anton,Impact,sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;white-space:nowrap;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);transition:background .15s ease,transform .15s ease}
 .site-header .nav-eryns img{display:block;width:22px;height:24px;filter:drop-shadow(0 1px 2px #0f192366)}
