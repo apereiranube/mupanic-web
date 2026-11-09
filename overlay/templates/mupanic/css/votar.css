@@ -224,3 +224,8 @@ body.is-votar .module-surface{padding:0;border:0;background:transparent;box-shad
   .vot-site-emblem,.vot-pod img,.vot-feed-tag:before,.vot-hero.is-pulse .vot-hero-pulse{animation:none!important}
   .vot-toast,.vot-bar-fill,.vot-btn{transition:none}
 }
+
+/* Badge en vivo de MU Top 100 (puesto y votos) */
+.vot-site-badge{display:inline-block;margin:6px 0 10px;line-height:0;border-radius:6px;transition:transform .15s ease,filter .15s ease}
+.vot-site-badge img{display:block;max-width:100%;height:auto}
+.vot-site-badge:hover{transform:translateY(-1px);filter:brightness(1.08)}

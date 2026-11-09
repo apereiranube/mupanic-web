@@ -154,6 +154,7 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
           <div class="vot-site-info">
             <h3><?php echo votE($site['name']); ?></h3>
             <p class="vot-site-sub">Top de servidores de MU Online · un voto cada <?php echo (int)$site['hours']; ?> horas</p>
+            <?php if($id==='mutop100') { ?><a class="vot-site-badge" href="https://www.mutop100.com/mu-online-private-servers" target="_blank" rel="noopener"><img src="https://www.mutop100.com/badge/mu-panic-431.svg" width="240" height="60" alt="Vote for Mu Panic - ranked on MU Online Top 100" loading="lazy"></a><?php } ?>
             <p class="vot-state"><?php if($wait) { ?>Próximo voto en <b class="vot-count" data-count><?php echo votE(gmdate('H:i:s',$next-$votNow)); ?></b><?php } else { ?><span class="vot-ready">Disponible</span> · ya podés votar<?php } ?></p>
             <div class="vot-bar" aria-hidden="true"><i class="vot-bar-fill" style="width:<?php echo round($pct,2); ?>%"></i></div>
           </div>
