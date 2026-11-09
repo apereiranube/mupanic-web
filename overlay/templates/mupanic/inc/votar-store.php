@@ -180,6 +180,44 @@ final class PanicVotarStore {
         });
     }
 
+    /**
+     * Aviso de voto de una lista: si se puede pagar ya (premios prendidos y sin espera de 12 h), el premio queda ganado al instante,
+     * sin que el jugador toque "Reclamar". Si no, queda como aviso sin usar (lo puede cobrar después con Reclamar).
+     * Devuelve el premio creado o null.
+     */
+    public function autoPremioPing($site,$account,$now) {
+        if(!self::validAccount($account) || !isset(panicVotarSites()[$site])) return null;
+        $hours=(int)panicVotarSites()[$site]['hours'];
+        return $this->locked(function($d) use ($site,$account,$now,$hours) {
+            $c=$d['config']; $k=strtolower($account).'|'.$site;
+            $u=is_array($d['ultimos'][$k] ?? null)?$d['ultimos'][$k]:[];
+            $payable=!empty($c['enabled']) && !empty($c['sites'][$site]['enabled']) && ($c['sites'][$site]['token'] ?? '')!=='' && (int)($u['cobro'] ?? 0)+$hours*3600<=$now;
+            $pings=is_array($d['pings'])?$d['pings']:[];
+            foreach($pings as $q) if(($q['site'] ?? '')===$site && strcasecmp($q['account'] ?? '',$account)===0 && (int)$q['at']>$now-600) return null; // aviso repetido
+            $ref='P'.bin2hex(random_bytes(12));
+            $pings[]=['id'=>$ref,'site'=>$site,'account'=>$account,'at'=>$now,'used'=>$payable];
+            if(count($pings)>self::MAX_PINGS) $pings=array_slice($pings,-self::MAX_PINGS);
+            $d['pings']=$pings;
+            if(!$payable) return ['__save'=>$d,'__return'=>null];
+            foreach($d['premios'] as $x) if(($x['site'] ?? '')===$site && ($x['claim_ref'] ?? '')===$ref) return ['__save'=>$d,'__return'=>null];
+            $id='V'.bin2hex(random_bytes(16));
+            $prem=['id'=>$id,'site'=>$site,'account'=>$account,'coins'=>max(1,(int)$c['reward']),'claim_ref'=>$ref,'created'=>$now,'state'=>'pending','auto'=>true];
+            $d['premios'][$id]=$prem;
+            $u['cobro']=$now; $d['ultimos'][$k]=$u;
+            return ['__save'=>$d,'__return'=>$prem];
+        });
+    }
+
+    /** Premio de la cuenta en esa lista creado desde $since (para festejar cuando el jugador vuelve a la página). */
+    public function recentPremio($account,$site,$since) {
+        if(!self::validAccount($account)) return null;
+        return $this->locked(function($d) use ($account,$site,$since) {
+            $best=null;
+            foreach($d['premios'] as $x) if(($x['site'] ?? '')===$site && strcasecmp($x['account'] ?? '',$account)===0 && (int)$x['created']>=$since && (!$best || $x['created']>$best['created'])) $best=$x;
+            return $best;
+        });
+    }
+
     /** Usa el aviso más viejo sin cobrar de la cuenta (de las últimas $maxAge s). Devuelve su comprobante o ''. */
     public function takePing($site,$account,$now,$maxAge) {
         if(!self::validAccount($account)) return '';

@@ -1,7 +1,7 @@
 <?php
 // MU PANIC - Votar: aviso de voto de las listas con pingback (hoy GTop100).
 // La lista llama a esta dirección después de cada voto; solo se anota si trae la clave correcta y el voto salió bien.
-// El premio se cobra después, cuando el jugador toca "Reclamar" en la página de Votar.
+// Si se puede pagar, el premio queda ganado al instante (el jugador no toca nada).
 define('access','api');
 require_once __DIR__.'/../inc/votar-store.php';
 header('Content-Type: text/plain; charset=utf-8'); header('Cache-Control: no-store');
@@ -23,6 +23,6 @@ $account=is_string($in['pingUsername'] ?? null)?trim($in['pingUsername']):'';
 try { $store->noteApi($site,'PINGBACK '.$method.' clave='.($key===''?'sin_cargar':($keyOk?'ok':($given===''?'no_vino':'distinta'))).' Successful='.(string)($in['Successful'] ?? '-').' cuenta='.substr($account,0,20).' campos='.implode(',',array_slice(array_keys($in),0,12))); } catch(Throwable $e) {}
 if(!$keyOk) votarPingEnd(403,'forbidden');
 if($ok && PanicVotarStore::validAccount($account)) {
-    try { $store->addPing($site,$account,time()); } catch(Throwable $e) { votarPingEnd(503,'unavailable'); }
+    try { $store->autoPremioPing($site,$account,time()); } catch(Throwable $e) { votarPingEnd(503,'unavailable'); }
 }
 votarPingEnd(200,'OK');

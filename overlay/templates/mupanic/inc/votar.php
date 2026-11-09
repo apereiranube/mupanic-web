@@ -21,10 +21,10 @@ $votSites=$votCfg['sites'] ?? array_map(function($s){ return $s+['enabled'=>fals
 $votReward=(int)($votCfg['reward'] ?? PanicVotarStore::DEFAULT_REWARD);
 $votRewardsOn=$votStore && !empty($votCfg['enabled']);
 
-$votMsg=null; $votTone='info'; $votClaimed=null;
+$votMsg=null; $votTone='info'; $votClaimed=null; $votClaimState=''; $votClaimFor='';
 if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && ($_POST['votar_action'] ?? '')==='reclamar') {
     $site=is_string($_POST['votar_site'] ?? null)?$_POST['votar_site']:'';
-    $now=time();
+    $now=time(); $votClaimFor=$site; $votClaimState='error';
     if(!$votLogged) { $votMsg='Ingresá con tu cuenta para cobrar el premio.'; $votTone='error'; }
     elseif(!is_string($_POST['votar_csrf'] ?? null) || !hash_equals($_SESSION['votar_csrf'],$_POST['votar_csrf'])) { $votMsg='La sesión venció. Recargá la página e intentá de nuevo.'; $votTone='error'; }
     elseif(!$votStore || !isset($votSites[$site])) { $votMsg='No pudimos revisar tu voto ahora. Probá en unos minutos.'; $votTone='error'; }
@@ -33,6 +33,7 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && ($_POST['votar_action'] ?? '')
             $begin=$votStore->beginClaim($votAccount,$site,$now);
             if(!$begin['ok']) {
                 $votTone='error';
+                $votClaimState=$begin['reason']==='disabled'?'off':($begin['reason']==='cooldown'?'cooldown':'wait');
                 if($begin['reason']==='disabled') $votMsg='Los premios por votar están pausados por ahora. ¡Igual gracias por votar!';
                 elseif($begin['reason']==='cooldown') $votMsg='Ya cobraste el premio de '.$votSites[$site]['name'].'. Podés volver a votar en '.panicVotarFalta($begin['until']-$now).'.';
                 else $votMsg='Esperá unos segundos y probá de nuevo.';
@@ -40,14 +41,23 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && ($_POST['votar_action'] ?? '')
                 $claim=panicVotarClaim($site,$votAccount,$votStore->token($site),$votStore);
                 if(($votSites[$site]['api'] ?? '')!=='ping') { try { $votStore->noteApi($site,$claim['summary']); } catch(Throwable $e) {} }
                 if($claim['ok']) {
-                    $p=$votStore->addPremio($votAccount,$site,$claim['ref'],$now); $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site];
-                    $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Se acreditan en tu cuenta cuando estés desconectado del juego.'; $votTone='ok';
+                    $p=$votStore->addPremio($votAccount,$site,$claim['ref'],$now); $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site]; $votClaimState='ok';
+                    $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Llegan a tu cuenta en unos minutos.'; $votTone='ok';
                 } elseif($claim['error']) { $votMsg='No pudimos comunicarnos con '.$votSites[$site]['name'].'. Probá de nuevo en unos minutos.'; $votTone='error'; }
-                elseif(($votSites[$site]['api'] ?? '')==='ping') { $votMsg='Todavía no nos llegó tu voto de '.$votSites[$site]['name'].'. Votá con el botón "Votar" de esta página (con tu cuenta iniciada), completá el voto en la lista, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
-                else { $votMsg='Todavía no vemos tu voto en '.$votSites[$site]['name'].'. Asegurate de escribir tu cuenta ('.$votAccount.') al votar, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
+                elseif(($votSites[$site]['api'] ?? '')==='ping') { $votClaimState='pending'; $votMsg='Todavía no nos llegó tu voto de '.$votSites[$site]['name'].'. Votá con el botón "Votar" de esta página (con tu cuenta iniciada), completá el voto en la lista, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
+                else { $votClaimState='pending'; $votMsg='Todavía no vemos tu voto en '.$votSites[$site]['name'].'. Asegurate de escribir tu cuenta ('.$votAccount.') al votar, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
             }
         } catch(Throwable $e) { $votMsg='No pudimos revisar tu voto ahora. Probá en unos minutos.'; $votTone='error'; }
     }
+}
+
+// Vuelta a la página después de votar en una lista con aviso: si el premio ya se ganó solo, se festeja.
+if(($_SERVER['REQUEST_METHOD'] ?? '')==='GET' && $votLogged && $votStore && is_string($_GET['visto'] ?? null) && ($votSites[$_GET['visto']]['api'] ?? '')==='ping') {
+    $site=$_GET['visto']; $now=time(); $votClaimFor=$site;
+    $since=max($now-3600,min($now,(int)($_GET['desde'] ?? $now)))-10;
+    try { $p=$votStore->recentPremio($votAccount,$site,$since); } catch(Throwable $e) { $p=null; }
+    if($p) { $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site]; $votClaimState='ok'; $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Llegan a tu cuenta en unos minutos.'; $votTone='ok'; }
+    else $votClaimState='pending';
 }
 
 function panicVotarFalta($s) {
@@ -96,7 +106,7 @@ $votArt=['hero'=>'votar-darklord-3cd38766111c.webp','heroMobile'=>'votar-darklor
 $votMineBefore=(int)$votStats['mine_total']-(int)($votClaimed['coins'] ?? 0);
 $fmt=function($n){ return number_format((int)$n,0,',','.'); };
 ?>
-<div class="vot-page" data-now="<?php echo (int)$votNow; ?>"<?php if($votClaimed) { ?> data-claimed="<?php echo (int)$votClaimed['coins']; ?>" data-claimed-site="<?php echo votE($votClaimed['site']); ?>"<?php } ?> data-gem="<?php echo votE($votImg.$votArt['gemSmall']); ?>">
+<div class="vot-page" data-now="<?php echo (int)$votNow; ?>" data-logged="<?php echo $votLogged?1:0; ?>" data-claim-state="<?php echo votE($votClaimState); ?>" data-claim-for="<?php echo votE($votClaimFor); ?>" data-url="<?php echo votE(__BASE_URL__.'votar/'); ?>"<?php if($votClaimed) { ?> data-claimed="<?php echo (int)$votClaimed['coins']; ?>" data-claimed-site="<?php echo votE($votClaimed['site']); ?>"<?php } ?> data-gem="<?php echo votE($votImg.$votArt['gemSmall']); ?>">
 
   <section class="vot-hero">
     <div class="vot-hero-bg" aria-hidden="true" style="background-image:url('<?php echo votE($votImg.$votArt['bg']); ?>')"><span class="vot-hero-word">VOTÁ</span><i class="vot-glyph g1"></i><i class="vot-glyph g2"></i><i class="vot-glyph g3"></i></div>
@@ -150,7 +160,7 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
             $period=(int)$site['hours']*3600;
             $pct=$wait?max(0,min(100,100-($next-$votNow)/$period*100)):100;
         ?>
-        <article class="vot-site<?php echo $wait?' is-wait':' is-ready'; ?>" data-site="<?php echo votE($id); ?>" data-next="<?php echo $wait?$next:0; ?>" data-period="<?php echo $period; ?>">
+        <article class="vot-site<?php echo $wait?' is-wait':' is-ready'; ?>" data-site="<?php echo votE($id); ?>" data-api="<?php echo votE($site['api'] ?? ''); ?>" data-auto="<?php echo $votLogged && $siteOn?1:0; ?>" data-next="<?php echo $wait?$next:0; ?>" data-period="<?php echo $period; ?>">
           <img class="vot-site-emblem" src="<?php echo votE($votImg.$votArt['emblem']); ?>" alt="" width="400" height="415" loading="lazy">
           <div class="vot-site-info">
             <h3><?php echo votE($site['name']); ?></h3>
@@ -158,16 +168,17 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
             <?php if($id==='mutop100') { ?><a class="vot-site-badge" href="https://www.mutop100.com/mu-online-private-servers" target="_blank" rel="noopener"><img src="https://www.mutop100.com/badge/mu-panic-431.svg" width="240" height="60" alt="Vote for Mu Panic - ranked on MU Online Top 100" loading="lazy"></a><?php } ?>
             <p class="vot-state"><?php if($wait) { ?>Próximo voto en <b class="vot-count" data-count><?php echo votE(gmdate('H:i:s',$next-$votNow)); ?></b><?php } else { ?><span class="vot-ready">Disponible</span> · ya podés votar<?php } ?></p>
             <div class="vot-bar" aria-hidden="true"><i class="vot-bar-fill" style="width:<?php echo round($pct,2); ?>%"></i></div>
+            <?php if($siteOn) { ?><p class="vot-auto"><?php echo $votLogged?'Votá y volvé: los Eryns se suman solos.':'Ingresá con tu cuenta antes de votar para cobrar el premio.'; ?></p><p class="vot-autostate" data-autostate hidden></p><?php } ?>
           </div>
           <?php if($siteOn) { ?><div class="vot-site-prize"><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="160" height="177" loading="lazy"><b>+<?php echo $fmt($votReward); ?></b><span>Eryns por voto</span></div><?php } ?>
           <div class="vot-actions">
             <a class="vot-btn vot-btn--red" href="<?php echo votE(panicVotarLink($site,$votAccount)); ?>" target="_blank" rel="noopener">Votar<span class="vot-sr"> (se abre en otra pestaña)</span></a>
-            <?php if($votLogged && $siteOn) { ?>
+            <?php if($votLogged && $siteOn && ($site['api'] ?? '')!=='ping') { ?>
             <form method="post" action="<?php echo votE(__BASE_URL__.'votar/'); ?>">
               <input type="hidden" name="votar_csrf" value="<?php echo votE($_SESSION['votar_csrf']); ?>">
               <input type="hidden" name="votar_action" value="reclamar">
               <input type="hidden" name="votar_site" value="<?php echo votE($id); ?>">
-              <button class="vot-btn vot-btn--blue vot-btn--claim" type="submit" <?php if($wait) echo 'disabled'; ?>>Reclamar</button>
+              <button class="vot-btn vot-btn--blue vot-btn--claim vot-btn--backup" type="submit" <?php if($wait) echo 'disabled'; ?>>Reclamar</button>
             </form>
             <?php } ?>
           </div>
@@ -205,9 +216,9 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
     <div class="vot-wrap">
       <header class="vot-head"><h2 id="vot-how-title">Cómo funciona</h2></header>
       <ol class="vot-steps">
-        <li><span>01</span><strong>Tocá Votar</strong><p>Se abre la lista en otra pestaña.</p></li>
-        <li><span>02</span><strong>Escribí tu cuenta y votá</strong><p>Usá el nombre de tu cuenta, no el del personaje.</p></li>
-        <li><span>03</span><strong>Volvé y tocá Reclamar</strong><p>Revisamos tu voto y te damos los Eryns.</p></li>
+        <li><span>01</span><strong>Ingresá y tocá Votar</strong><p>Con tu cuenta iniciada. Se abre la lista en otra pestaña.</p></li>
+        <li><span>02</span><strong>Votá en la lista</strong><p>Si te pide un nombre, escribí tu cuenta (no el personaje).</p></li>
+        <li><span>03</span><strong>Volvé a esta pestaña</strong><p>Confirmamos tu voto solos y te sumamos los Eryns.</p></li>
       </ol>
     </div>
   </section>
@@ -218,13 +229,13 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
       <header class="vot-head"><h2 id="vot-history-title">Tus premios</h2></header>
       <ul class="vot-history" aria-labelledby="vot-history-title">
         <?php foreach($votMine['premios'] as $p) { $done=($p['state'] ?? '')==='done'; ?>
-        <li><span><?php echo votE(date('d/m H:i',(int)$p['created'])); ?> · <?php echo votE($votSites[$p['site']]['name'] ?? $p['site']); ?></span><strong>+<?php echo $fmt($p['coins']); ?> Eryns</strong><em class="<?php echo $done?'is-done':'is-pending'; ?>"><?php echo $done?'Acreditados':'Se acreditan al desconectarte'; ?></em></li>
+        <li><span><?php echo votE(date('d/m H:i',(int)$p['created'])); ?> · <?php echo votE($votSites[$p['site']]['name'] ?? $p['site']); ?></span><strong>+<?php echo $fmt($p['coins']); ?> Eryns</strong><em class="<?php echo $done?'is-done':'is-pending'; ?>"><?php echo $done?'Acreditados':'En camino'; ?></em></li>
         <?php } ?>
       </ul>
       <?php } ?>
       <p class="vot-note">Cada voto se cobra una sola vez: la lista lo confirma antes de darte los Eryns. Las listas cuentan un voto cada 12 horas por conexión, así que votar con varias cuentas desde la misma conexión no suma.</p>
     </div>
   </section>
-  <div class="vot-toast" role="status" aria-live="polite" hidden><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="44" height="49"><div><b>¡Voto confirmado! +<span data-toast-coins>0</span> Eryns</b><span>Se acreditan en tu cuenta cuando te desconectes del juego.</span></div></div>
+  <div class="vot-toast" role="status" aria-live="polite" hidden><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="44" height="49"><div><b>¡Voto confirmado! +<span data-toast-coins>0</span> Eryns</b><span>Llegan a tu cuenta en unos minutos.</span></div></div>
 </div>
 <script src="<?php echo votE(__PATH_TEMPLATE__.'js/votar.js?v='.substr(hash_file('sha256',__DIR__.'/../js/votar.js'),0,12)); ?>" defer></script>

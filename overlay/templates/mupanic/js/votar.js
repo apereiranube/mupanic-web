@@ -45,6 +45,62 @@
   }
   tick(); setInterval(tick, 1000);
 
+  /* Votá y listo: al volver a esta pestaña después de votar, la página confirma el voto sola.
+     - Listas con aviso (GTop100): el premio ya se ganó solo; la página se recarga para mostrarlo.
+     - MU Top 100: la página toca "Reclamar" sola y reintenta unas veces. */
+  (function () {
+    var KEY = 'votPend', MAX_TRIES = 5, FIRST = 6000, NEXT = 22000;
+    var store = { get: function () { try { return JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) { return null; } },
+      set: function (v) { try { sessionStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} },
+      del: function () { try { sessionStorage.removeItem(KEY); } catch (e) {} } };
+    if (page.getAttribute('data-logged') !== '1') return;
+    page.querySelectorAll('.vot-site[data-auto="1"] .vot-btn--red').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var card = a.closest('.vot-site');
+        store.set({ site: card.getAttribute('data-site'), api: card.getAttribute('data-api'), at: Date.now(), tries: 0 });
+      });
+    });
+    var state = page.getAttribute('data-claim-state'), stateFor = page.getAttribute('data-claim-for');
+    var p = store.get();
+    if (p && stateFor === p.site && (state === 'ok' || state === 'cooldown' || state === 'off')) { store.del(); p = null; }
+    var timer = null;
+    function card(site) { return page.querySelector('.vot-site[data-site="' + site + '"]'); }
+    function say(site, text) {
+      var c = card(site), el = c ? c.querySelector('[data-autostate]') : null;
+      if (!el) return; el.hidden = !text; el.textContent = text || '';
+    }
+    function giveUp(p) {
+      store.del(); say(p.site, '');
+      var al = page.querySelector('.vot-alert');
+      if (al) { al.hidden = false; return; }
+      say(p.site, 'Todavía no nos llegó la confirmación. Si votaste, probá con "Reclamar" en unos minutos.');
+    }
+    function attempt() {
+      var p = store.get(); if (!p) return;
+      if (Date.now() - p.at > 15 * 60 * 1000) { store.del(); return; }
+      if (p.tries >= MAX_TRIES) { giveUp(p); return; }
+      p.tries++; store.set(p);
+      say(p.site, 'Confirmando tu voto…');
+      if (p.api === 'ping') {
+        location.href = page.getAttribute('data-url') + '?visto=' + encodeURIComponent(p.site) + '&desde=' + Math.floor(p.at / 1000);
+      } else {
+        var c = card(p.site), f = c ? c.querySelector('form') : null;
+        if (f) f.submit(); else store.del();
+      }
+    }
+    function schedule() {
+      var p = store.get(); if (!p || document.hidden || timer) return;
+      if (p.tries >= MAX_TRIES) { giveUp(p); return; }
+      var al = page.querySelector('.vot-alert--error'); if (al && stateFor === p.site && state === 'pending') al.hidden = true;
+      say(p.site, 'Confirmando tu voto…');
+      var wait = p.tries === 0 ? Math.max(0, FIRST - (Date.now() - p.at)) : NEXT;
+      timer = setTimeout(function () { timer = null; if (!document.hidden) attempt(); else schedule(); }, wait);
+    }
+    if (p && p.tries > 0) schedule();
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) schedule(); });
+    window.addEventListener('focus', schedule);
+  })();
+
   /* El momento de cobrar */
   var claimed = parseInt(page.getAttribute('data-claimed'), 10) || 0;
   if (!claimed) return;

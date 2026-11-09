@@ -229,3 +229,7 @@ body.is-votar .module-surface{padding:0;border:0;background:transparent;box-shad
 .vot-site-badge{display:inline-block;margin:6px 0 10px;line-height:0;border-radius:6px;transition:transform .15s ease,filter .15s ease}
 .vot-site-badge img{display:block;max-width:100%;height:auto}
 .vot-site-badge:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.vot-auto{margin:10px 0 0!important;font-size:14px;color:#9fb0bf!important}
+.vot-autostate{margin:6px 0 0!important;font-size:14px;font-weight:600;color:#ffc24a!important}
+.vot-autostate:not([hidden])::before{content:'';display:inline-block;width:10px;height:10px;margin-right:8px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;vertical-align:-1px;animation:votspin .8s linear infinite}
+@keyframes votspin{to{transform:rotate(360deg)}}
