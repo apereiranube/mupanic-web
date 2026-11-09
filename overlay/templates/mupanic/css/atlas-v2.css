@@ -1292,3 +1292,26 @@ body.is-wiki .atl .eq-mark.is-item img,body.is-wiki .atl .mj-card-img img,body.i
 body.is-wiki .atl .eq-step-art img[src*="atlas-v2/equipo/"]{width:56px;height:56px;object-fit:contain}
 body.is-wiki .atl .eq-rate.has-img{position:relative;padding-right:84px}
 body.is-wiki .atl .eq-rate-img{position:absolute;right:10px;top:10px;width:68px;height:68px;object-fit:contain}
+
+/* Master Reset destacado (sección Reset del Atlas) */
+body.is-wiki .atl .atl-mreset{--mr:#ffc24a;position:relative;margin:26px 0 30px;padding:28px 28px 22px;background:linear-gradient(135deg,#1f2c38,#0f1923)!important;border:1px solid #ffc24a55!important;color:#ece8e1!important;clip-path:polygon(0 0,100% 0,100% calc(100% - var(--atl-cut)),calc(100% - var(--atl-cut)) 100%,0 100%);box-shadow:0 0 0 1px #ffc24a22 inset,0 18px 40px #0003}
+body.is-wiki .atl .atl-mreset:before{content:'';position:absolute;inset:0 auto 0 0;width:5px;background:var(--mr)}
+body.is-wiki .atl .atl-mreset :is(h3,h4,p,strong,td,th){color:#ece8e1!important}
+body.is-wiki .atl .atl-mreset .pui-kicker{color:var(--mr)!important;margin:0 0 6px!important}
+body.is-wiki .atl .atl-mreset .pui-kicker:before{background:var(--mr)!important}
+body.is-wiki .atl .atl-mreset h3{font-size:clamp(30px,3.2vw,46px)!important;margin:0 0 10px!important;color:#fff6e4!important}
+body.is-wiki .atl .atl-mreset-head>p:last-child{max-width:720px;color:#c9cfd4!important}
+body.is-wiki .atl .atl-mreset-head strong{color:var(--mr)!important}
+body.is-wiki .atl .atl-mreset-tag{position:absolute;background:#ff4655!important;color:#fff!important;top:18px;right:20px;padding:5px 12px;background:#ff4655;color:#fff;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);animation:atlmrpulse 2.4s ease-in-out infinite}
+@keyframes atlmrpulse{50%{filter:brightness(1.25)}}
+.atl-mreset-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 16px}
+body.is-wiki .atl .atl-mreset-card{padding:20px 18px;background:#ffffff0a!important;border:1px solid #ffffff14!important;display:flex;flex-direction:column;gap:8px}
+body.is-wiki .atl .atl-mreset-card.is-points{background:linear-gradient(160deg,#ffc24a26,#ffffff08)!important;border-color:#ffc24a66!important}
+.atl-mreset-card img{width:44px;height:44px}
+body.is-wiki .atl .atl-mreset-card strong{font-size:19px;line-height:1.2;color:#fff6e4!important}
+body.is-wiki .atl .atl-mreset-card.is-points strong{color:var(--mr)!important;font-size:24px}
+body.is-wiki .atl .atl-mreset-card p{margin:0!important;font-size:14px;line-height:1.55;color:#c9cfd4!important}
+body.is-wiki .atl .atl-mreset-table table{background:transparent!important}
+body.is-wiki .atl .atl-mreset-table :is(th,td){border-color:#ffffff1a!important;background:transparent!important}
+body.is-wiki .atl .atl-mreset-table th{color:var(--mr)!important}
+@media(max-width:800px){.atl-mreset-grid{grid-template-columns:1fr}body.is-wiki .atl .atl-mreset{padding:24px 18px 18px}.atl-mreset-tag{top:12px;right:12px}}
