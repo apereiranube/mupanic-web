@@ -45,7 +45,7 @@ $vaSites=panicVotarSites();
   <input type="hidden" name="votar_admin_action" value="premio">
   <h3 style="margin-top:0">Premio por voto</h3>
   <p><label><input type="checkbox" name="enabled" value="1" <?php if($vaCfg['enabled']) echo 'checked'; ?>> <strong>Dar Eryns por votar</strong></label> — si está apagado, la página deja votar pero no da premios.</p>
-  <p><label>Eryns por voto <input type="number" name="reward" min="1" max="1000" step="1" value="<?php echo (int)$vaCfg['reward']; ?>" style="width:110px"></label></p>
+  <p><label>Eryns por voto <input type="number" name="reward" min="1" max="1000" step="1" value="<?php echo (int)$vaCfg['reward']; ?>" style="width:110px;height:36px;padding:6px 10px;margin-left:8px;border:1px solid #d3cec5;border-radius:6px;background:#fffdf9!important;color:#282c36!important;font:inherit;font-size:15px;font-weight:700"></label></p>
   <p style="margin-bottom:14px">Listas que dan premio: <strong><?php echo $vaActive?$vaEsc(implode(', ',array_map(function($s){ return $s['name']; },$vaActive))):'ninguna'; ?></strong> · <a href="<?php echo $vaEsc($vaSitesUrl); ?>">Configurar páginas de votación →</a></p>
   <button class="recharge-button" type="submit">Guardar</button>
   <?php if($vaCfg['updated_at']) { ?><p class="recharge-subtle">Último cambio: <?php echo $vaEsc($vaDate($vaCfg['updated_at'])); ?></p><?php } ?>
