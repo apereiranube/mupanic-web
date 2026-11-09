@@ -33,6 +33,11 @@ if($legacyPurchaseRoute) {
     header('Location: '.$target, true, 302);
     exit;
 }
+// Ingresar: el juego guarda la contraseña con 10 caracteres como máximo (MEMB_INFO.memb__pwd varchar(10)).
+// Si la cuenta se creó desde el juego con una contraseña más larga, quedó recortada; acá se recorta igual para que coincida.
+if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && isset($_POST['webengineLogin_pwd']) && is_string($_POST['webengineLogin_pwd']) && strlen($_POST['webengineLogin_pwd'])>10) {
+    $_POST['webengineLogin_pwd']=substr($_POST['webengineLogin_pwd'],0,10);
+}
 // Comprar Eryns (boton de la cabecera): logueado va directo a la tienda; si no, despues de ingresar vuelve a la tienda (vale 30 min).
 if($_REQUEST['page']==='login' && ($_GET['ir'] ?? '')==='eryns') {
     if(isLoggedIn()) { header('Location: '.__BASE_URL__.'usercp/recharge/', true, 302); exit; }
