@@ -38,7 +38,7 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && ($_POST['votar_action'] ?? '')
                 else $votMsg='Esperá unos segundos y probá de nuevo.';
             } else {
                 $claim=panicVotarClaim($site,$votAccount,$votStore->token($site),$votStore);
-                try { $votStore->noteApi($site,$claim['summary']); } catch(Throwable $e) {}
+                if(($votSites[$site]['api'] ?? '')!=='ping') { try { $votStore->noteApi($site,$claim['summary']); } catch(Throwable $e) {} }
                 if($claim['ok']) {
                     $p=$votStore->addPremio($votAccount,$site,$claim['ref'],$now); $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site];
                     $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Se acreditan en tu cuenta cuando estés desconectado del juego.'; $votTone='ok';
