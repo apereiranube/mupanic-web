@@ -37,12 +37,13 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && ($_POST['votar_action'] ?? '')
                 elseif($begin['reason']==='cooldown') $votMsg='Ya cobraste el premio de '.$votSites[$site]['name'].'. Podés volver a votar en '.panicVotarFalta($begin['until']-$now).'.';
                 else $votMsg='Esperá unos segundos y probá de nuevo.';
             } else {
-                $claim=panicVotarClaim($site,$votAccount,$votStore->token($site));
+                $claim=panicVotarClaim($site,$votAccount,$votStore->token($site),$votStore);
                 try { $votStore->noteApi($site,$claim['summary']); } catch(Throwable $e) {}
                 if($claim['ok']) {
                     $p=$votStore->addPremio($votAccount,$site,$claim['ref'],$now); $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site];
                     $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Se acreditan en tu cuenta cuando estés desconectado del juego.'; $votTone='ok';
                 } elseif($claim['error']) { $votMsg='No pudimos comunicarnos con '.$votSites[$site]['name'].'. Probá de nuevo en unos minutos.'; $votTone='error'; }
+                elseif(($votSites[$site]['api'] ?? '')==='ping') { $votMsg='Todavía no nos llegó tu voto de '.$votSites[$site]['name'].'. Votá con el botón "Votar" de esta página (con tu cuenta iniciada), completá el voto en la lista, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
                 else { $votMsg='Todavía no vemos tu voto en '.$votSites[$site]['name'].'. Asegurate de escribir tu cuenta ('.$votAccount.') al votar, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
             }
         } catch(Throwable $e) { $votMsg='No pudimos revisar tu voto ahora. Probá en unos minutos.'; $votTone='error'; }
@@ -160,7 +161,7 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
           </div>
           <?php if($siteOn) { ?><div class="vot-site-prize"><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="160" height="177" loading="lazy"><b>+<?php echo $fmt($votReward); ?></b><span>Eryns por voto</span></div><?php } ?>
           <div class="vot-actions">
-            <a class="vot-btn vot-btn--red" href="<?php echo votE($site['vote_url']); ?>" target="_blank" rel="noopener">Votar<span class="vot-sr"> (se abre en otra pestaña)</span></a>
+            <a class="vot-btn vot-btn--red" href="<?php echo votE(panicVotarLink($site,$votAccount)); ?>" target="_blank" rel="noopener">Votar<span class="vot-sr"> (se abre en otra pestaña)</span></a>
             <?php if($votLogged && $siteOn) { ?>
             <form method="post" action="<?php echo votE(__BASE_URL__.'votar/'); ?>">
               <input type="hidden" name="votar_csrf" value="<?php echo votE($_SESSION['votar_csrf']); ?>">

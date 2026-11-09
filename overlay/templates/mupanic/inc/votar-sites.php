@@ -66,10 +66,27 @@ function panicVotarParseMutop100(array $res) {
     return ['ok'=>$okFlag && !$denied && $ref!=='' && ($claimed || !array_key_exists('claimed',$d)),'ref'=>$ref,'summary'=>$summary,'error'=>false];
 }
 
+/** Listas que avisan cada voto (pingback): se cobra un aviso recibido y sin usar de esa cuenta. */
+function panicVotarClaimPing($site,$account,$store) {
+    if(!$store) return ['ok'=>false,'ref'=>'','summary'=>'ping: sin registro','error'=>true];
+    $hours=(int)panicVotarSites()[$site]['hours'];
+    $ref=$store->takePing($site,$account,time(),$hours*3600+3600);
+    return ['ok'=>$ref!=='','ref'=>$ref,'summary'=>$ref!==''?'ping usado '.$ref:'ping: no hay aviso de voto de la cuenta','error'=>false];
+}
+
 /** Despacha al adaptador de la lista. */
-function panicVotarClaim($site,$account,$token) {
+function panicVotarClaim($site,$account,$token,$store=null) {
     $sites=panicVotarSites();
     if(!isset($sites[$site])) return ['ok'=>false,'ref'=>'','summary'=>'unknown site','error'=>true];
     if($sites[$site]['api']==='mutop100') return panicVotarClaimMutop100($account,$token);
+    if($sites[$site]['api']==='ping') return panicVotarClaimPing($site,$account,$store);
     return ['ok'=>false,'ref'=>'','summary'=>'no adapter','error'=>true];
 }
+
+/** Link para votar: en las listas con aviso se agrega la cuenta (así la lista nos dice quién votó). */
+function panicVotarLink(array $site,$account) {
+    $url=(string)$site['vote_url'];
+    if(!empty($site['user_param']) && PanicVotarStore::validAccount($account)) $url.=(strpos($url,'?')===false?'?':'&').rawurlencode($site['user_param']).'='.rawurlencode($account);
+    return $url;
+}
+

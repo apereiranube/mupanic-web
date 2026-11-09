@@ -23,6 +23,14 @@ function panicVotarSites() {
             'hours'=>12,
             'api'=>'mutop100',
         ],
+        // GTop100 avisa cada voto (pingback) a api/votar-ping.php?s=gtop100; el token de esta lista es la Pingback Key.
+        'gtop100'=>[
+            'name'=>'GTop100',
+            'vote_url'=>'https://gtop100.com/mu-online-private-servers/server-107211?vote=1',
+            'user_param'=>'pingUsername',
+            'hours'=>12,
+            'api'=>'ping',
+        ],
     ];
 }
 
@@ -31,6 +39,7 @@ final class PanicVotarStore {
     const MAX_PREMIOS=20000;
     const DEFAULT_REWARD=20;
     const ATTEMPT_SECONDS=20;
+    const MAX_PINGS=5000;
 
     public function __construct($directory='/home/mupanic/payments-private') {
         $real=realpath($directory); $public=realpath('/home/mupanic/public_html');
@@ -48,7 +57,7 @@ final class PanicVotarStore {
         return hash_hmac('sha256','votar',$token);
     }
 
-    private static function blank() { return ['config'=>['enabled'=>false,'reward'=>self::DEFAULT_REWARD,'sites'=>[],'updated_at'=>null,'last_api'=>null],'premios'=>[],'ultimos'=>[]]; }
+    private static function blank() { return ['config'=>['enabled'=>false,'reward'=>self::DEFAULT_REWARD,'sites'=>[],'updated_at'=>null,'last_api'=>null],'premios'=>[],'ultimos'=>[],'pings'=>[]]; }
 
     private function locked(callable $operation) {
         $lock=$this->directory.'/votar.lock';
@@ -152,6 +161,36 @@ final class PanicVotarStore {
             $k=strtolower($account).'|'.$site; $u=is_array($d['ultimos'][$k] ?? null)?$d['ultimos'][$k]:[];
             $u['cobro']=$now; $d['ultimos'][$k]=$u;
             return ['__save'=>$d,'__return'=>$p];
+        });
+    }
+
+    /**
+     * Aviso de una lista (pingback): la lista confirma que esa cuenta votó. Queda sin usar hasta que el jugador toca "Reclamar".
+     * Un segundo aviso de la misma cuenta y lista dentro de 10 minutos se ignora. Se guardan como mucho los últimos MAX_PINGS.
+     */
+    public function addPing($site,$account,$now) {
+        if(!self::validAccount($account) || !isset(panicVotarSites()[$site])) return false;
+        return $this->locked(function($d) use ($site,$account,$now) {
+            $pings=is_array($d['pings'])?$d['pings']:[];
+            foreach($pings as $p) if(($p['site'] ?? '')===$site && strcasecmp($p['account'] ?? '',$account)===0 && empty($p['used']) && (int)$p['at']>$now-600) return ['__save'=>$d,'__return'=>false];
+            $pings[]=['id'=>'P'.bin2hex(random_bytes(12)),'site'=>$site,'account'=>$account,'at'=>$now,'used'=>false];
+            if(count($pings)>self::MAX_PINGS) $pings=array_slice($pings,-self::MAX_PINGS);
+            $d['pings']=$pings;
+            return ['__save'=>$d,'__return'=>true];
+        });
+    }
+
+    /** Usa el aviso más viejo sin cobrar de la cuenta (de las últimas $maxAge s). Devuelve su comprobante o ''. */
+    public function takePing($site,$account,$now,$maxAge) {
+        if(!self::validAccount($account)) return '';
+        return $this->locked(function($d) use ($site,$account,$now,$maxAge) {
+            $pings=is_array($d['pings'])?$d['pings']:[];
+            foreach($pings as $i=>$p) {
+                if(($p['site'] ?? '')!==$site || strcasecmp($p['account'] ?? '',$account)!==0 || !empty($p['used']) || (int)$p['at']<$now-$maxAge) continue;
+                $pings[$i]['used']=true; $pings[$i]['used_at']=$now; $d['pings']=$pings;
+                return ['__save'=>$d,'__return'=>(string)$p['id']];
+            }
+            return '';
         });
     }
 
