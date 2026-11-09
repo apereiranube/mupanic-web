@@ -6,10 +6,13 @@ define('access','api');
 require_once __DIR__.'/../inc/votar-store.php';
 header('Content-Type: text/plain; charset=utf-8'); header('Cache-Control: no-store');
 function votarPingEnd($code,$text) { http_response_code($code); echo $text; exit; }
-// Si la lista no conserva el ?s= de la dirección, se asume GTop100 (hoy es la única lista con aviso).
-$site=is_string($_GET['s'] ?? null) && $_GET['s']!==''?$_GET['s']:'gtop100';
+// GTop100 no siempre respeta el ?s= de la dirección (lo saca o le pega sus propios datos con otro '?').
+// Si no es una lista con aviso conocida, se asume GTop100 (hoy es la única lista con aviso).
 $sites=panicVotarSites();
-if(!isset($sites[$site]) || ($sites[$site]['api'] ?? '')!=='ping') votarPingEnd(404,'unknown');
+$site=is_string($_GET['s'] ?? null)?strtolower(preg_replace('/[^a-z0-9].*$/is','',$_GET['s'])):'';
+if(!isset($sites[$site]) || ($sites[$site]['api'] ?? '')!=='ping') $site='gtop100';
+// Si GTop100 pegó sus datos dentro del ?s= (s=gtop100?pingUsername=...), se recuperan.
+if(is_string($_GET['s'] ?? null) && strpos($_GET['s'],'?')!==false) { parse_str(substr($_GET['s'],strpos($_GET['s'],'?')+1),$extra); if(is_array($extra)) $_GET=array_merge($extra,$_GET); }
 $method=(string)($_SERVER['REQUEST_METHOD'] ?? '');
 $in=array_merge($_GET,$_POST);
 $raw=file_get_contents('php://input',false,null,0,8193);
