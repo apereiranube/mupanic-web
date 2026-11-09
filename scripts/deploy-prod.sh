@@ -351,8 +351,8 @@ done
 mkdir -p "$DEPLOY_ROOT/api"
 cp -a "$SOURCE_ROOT/overlay/api/launcher.php" "$DEPLOY_ROOT/api/launcher.php"
 
-# SEO: robots.txt y sitemap.xml propios en la raiz de main.
-for file in robots.txt sitemap.xml; do
+# SEO: robots.txt y sitemap.xml propios en la raiz de main (+ verificacion de MU Top 100).
+for file in robots.txt sitemap.xml mutop100-verify.txt; do
   test -s "$SOURCE_ROOT/overlay/root/$file"
   cp "$SOURCE_ROOT/overlay/root/$file" "$DEPLOY_ROOT/$file.mupanic_tmp"
   chmod 644 "$DEPLOY_ROOT/$file.mupanic_tmp"
