@@ -193,7 +193,8 @@ final class PanicVotarStore {
             $u=is_array($d['ultimos'][$k] ?? null)?$d['ultimos'][$k]:[];
             $payable=!empty($c['enabled']) && !empty($c['sites'][$site]['enabled']) && ($c['sites'][$site]['token'] ?? '')!=='' && (int)($u['cobro'] ?? 0)+$hours*3600<=$now;
             $pings=is_array($d['pings'])?$d['pings']:[];
-            foreach($pings as $q) if(($q['site'] ?? '')===$site && strcasecmp($q['account'] ?? '',$account)===0 && (int)$q['at']>$now-600) return null; // aviso repetido
+            // Aviso repetido: solo si ya se pago uno de esta cuenta y lista en los ultimos 10 minutos.
+            foreach($pings as $q) if(($q['site'] ?? '')===$site && strcasecmp($q['account'] ?? '',$account)===0 && !empty($q['used']) && (int)$q['at']>$now-600) return ['__save'=>$d,'__return'=>null];
             $ref='P'.bin2hex(random_bytes(12));
             $pings[]=['id'=>$ref,'site'=>$site,'account'=>$account,'at'=>$now,'used'=>$payable];
             if(count($pings)>self::MAX_PINGS) $pings=array_slice($pings,-self::MAX_PINGS);

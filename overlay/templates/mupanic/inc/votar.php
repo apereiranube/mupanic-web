@@ -56,8 +56,18 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='GET' && $votLogged && $votStore && is_s
     $site=$_GET['visto']; $now=time(); $votClaimFor=$site;
     $since=max($now-3600,min($now,(int)($_GET['desde'] ?? $now)))-10;
     try { $p=$votStore->recentPremio($votAccount,$site,$since); } catch(Throwable $e) { $p=null; }
+    // Si el aviso llego pero no se pudo pagar en ese momento (quedo sin usar), se cobra ahora.
+    if(!$p) {
+        try {
+            $begin=$votStore->beginClaim($votAccount,$site,$now);
+            if($begin['ok']) {
+                $claim=panicVotarClaim($site,$votAccount,$votStore->token($site),$votStore);
+                if($claim['ok']) $p=$votStore->addPremio($votAccount,$site,$claim['ref'],$now);
+            } elseif($begin['reason']==='cooldown') $votClaimState='cooldown';
+        } catch(Throwable $e) {}
+    }
     if($p) { $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site]; $votClaimState='ok'; $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Llegan a tu cuenta en unos minutos.'; $votTone='ok'; }
-    else $votClaimState='pending';
+    elseif($votClaimState!=='cooldown') $votClaimState='pending';
 }
 
 function panicVotarFalta($s) {
