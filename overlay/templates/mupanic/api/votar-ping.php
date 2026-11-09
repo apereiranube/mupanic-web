@@ -6,7 +6,8 @@ define('access','api');
 require_once __DIR__.'/../inc/votar-store.php';
 header('Content-Type: text/plain; charset=utf-8'); header('Cache-Control: no-store');
 function votarPingEnd($code,$text) { http_response_code($code); echo $text; exit; }
-$site=is_string($_GET['s'] ?? null)?$_GET['s']:'';
+// Si la lista no conserva el ?s= de la dirección, se asume GTop100 (hoy es la única lista con aviso).
+$site=is_string($_GET['s'] ?? null) && $_GET['s']!==''?$_GET['s']:'gtop100';
 $sites=panicVotarSites();
 if(!isset($sites[$site]) || ($sites[$site]['api'] ?? '')!=='ping') votarPingEnd(404,'unknown');
 $method=(string)($_SERVER['REQUEST_METHOD'] ?? '');
