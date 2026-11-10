@@ -10,7 +10,8 @@ if(!defined('access') || !access) die();
  * Archivo privado: /home/mupanic/payments-private/votar.json
  *   config  -> premio por voto, encendido, y por lista: encendida + token (nunca va a git ni se muestra)
  *   premios -> cada voto cobrado: pending (esperando al VPS) o done (acreditado)
- *   ultimos -> último cobro y último intento por cuenta+lista (para los tiempos de espera)
+ *   ultimos -> por cuenta+lista: cobros de las últimas horas, IPs ya pagadas (listas con aviso) y último intento.
+ *   Se paga cada voto que la lista acepta (la lista controla un voto por conexión), hasta MAX_POR_VENTANA por lista cada 'hours'.
  * Clave del puente con el VPS: HMAC('votar', token del worker de recargas).
  */
 
@@ -40,6 +41,32 @@ final class PanicVotarStore {
     const DEFAULT_REWARD=20;
     const ATTEMPT_SECONDS=20;
     const MAX_PINGS=5000;
+    const MAX_POR_VENTANA=5;   // premios por cuenta y lista cada 'hours' (votando desde distintos dispositivos/conexiones)
+
+    /** Cobros de la cuenta en la ventana: lista de horarios (incluye el formato viejo con un solo 'cobro'). */
+    private static function cobros(array $u,$hours,$now) {
+        $list=is_array($u['cobros'] ?? null)?$u['cobros']:[];
+        if(!$list && (int)($u['cobro'] ?? 0)>0) $list=[(int)$u['cobro']];
+        $desde=$now-$hours*3600;
+        return array_values(array_filter(array_map('intval',$list),function($t) use ($desde){ return $t>$desde; }));
+    }
+    /** Hasta cuándo hay que esperar (0 = se puede cobrar). Con IP: además esa IP no tiene que haber cobrado en la ventana. */
+    private static function esperaHasta(array $u,$hours,$now,$ip='') {
+        $list=self::cobros($u,$hours,$now);
+        if(count($list)>=self::MAX_POR_VENTANA) { sort($list); return $list[count($list)-self::MAX_POR_VENTANA]+$hours*3600; }
+        if($ip!=='') { $t=(int)(($u['ips'] ?? [])[$ip] ?? 0); if($t+$hours*3600>$now) return $t+$hours*3600; }
+        return 0;
+    }
+    /** Anota un cobro (y la IP, si vino) y limpia lo viejo. */
+    private static function anotarCobro(array $u,$hours,$now,$ip='') {
+        $list=self::cobros($u,$hours,$now); $list[]=$now; $u['cobros']=$list; $u['cobro']=$now;
+        $ips=is_array($u['ips'] ?? null)?$u['ips']:[];
+        foreach($ips as $k=>$t) if((int)$t+$hours*3600<=$now) unset($ips[$k]);
+        if($ip!=='') $ips[$ip]=$now;
+        $u['ips']=$ips;
+        return $u;
+    }
+    public static function validIp($ip) { return is_string($ip) && strlen($ip)<=45 && filter_var($ip,FILTER_VALIDATE_IP)!==false; }
 
     public function __construct($directory='/home/mupanic/payments-private') {
         $real=realpath($directory); $public=realpath('/home/mupanic/public_html');
@@ -141,7 +168,7 @@ final class PanicVotarStore {
             $c=$d['config'];
             if(empty($c['enabled']) || empty($c['sites'][$site]['enabled']) || ($c['sites'][$site]['token'] ?? '')==='') return ['ok'=>false,'reason'=>'disabled'];
             $k=strtolower($account).'|'.$site; $u=is_array($d['ultimos'][$k] ?? null)?$d['ultimos'][$k]:[];
-            $next=(int)($u['cobro'] ?? 0)+$hours*3600;
+            $next=self::esperaHasta($u,$hours,$now);
             if($next>$now) return ['ok'=>false,'reason'=>'cooldown','until'=>$next];
             $again=(int)($u['intento'] ?? 0)+self::ATTEMPT_SECONDS;
             if($again>$now) return ['ok'=>false,'reason'=>'too_fast','until'=>$again];
@@ -153,13 +180,14 @@ final class PanicVotarStore {
     /** La lista confirmó el voto: se deja el premio en la cola del VPS. Un mismo comprobante nunca se paga dos veces. */
     public function addPremio($account,$site,$claimRef,$now) {
         if(!self::validAccount($account) || !isset(panicVotarSites()[$site]) || !is_string($claimRef) || !preg_match('/^[A-Za-z0-9._:\-]{1,120}$/D',$claimRef)) throw new InvalidArgumentException('Datos inválidos');
-        return $this->locked(function($d) use ($account,$site,$claimRef,$now) {
+        $hours=(int)panicVotarSites()[$site]['hours'];
+        return $this->locked(function($d) use ($account,$site,$claimRef,$now,$hours) {
             foreach($d['premios'] as $p) if(($p['site'] ?? '')===$site && ($p['claim_ref'] ?? '')===$claimRef) return ['__save'=>$d,'__return'=>$p];
             $id='V'.bin2hex(random_bytes(16));
             $p=['id'=>$id,'site'=>$site,'account'=>$account,'coins'=>max(1,(int)$d['config']['reward']),'claim_ref'=>$claimRef,'created'=>$now,'state'=>'pending'];
             $d['premios'][$id]=$p;
             $k=strtolower($account).'|'.$site; $u=is_array($d['ultimos'][$k] ?? null)?$d['ultimos'][$k]:[];
-            $u['cobro']=$now; $d['ultimos'][$k]=$u;
+            $d['ultimos'][$k]=self::anotarCobro($u,$hours,$now);
             return ['__save'=>$d,'__return'=>$p];
         });
     }
@@ -185,18 +213,22 @@ final class PanicVotarStore {
      * sin que el jugador toque "Reclamar". Si no, queda como aviso sin usar (lo puede cobrar después con Reclamar).
      * Devuelve el premio creado o null.
      */
-    public function autoPremioPing($site,$account,$now) {
+    public function autoPremioPing($site,$account,$now,$ip='') {
         if(!self::validAccount($account) || !isset(panicVotarSites()[$site])) return null;
         $hours=(int)panicVotarSites()[$site]['hours'];
-        return $this->locked(function($d) use ($site,$account,$now,$hours) {
+        $ip=self::validIp($ip)?$ip:'';
+        return $this->locked(function($d) use ($site,$account,$now,$hours,$ip) {
             $c=$d['config']; $k=strtolower($account).'|'.$site;
             $u=is_array($d['ultimos'][$k] ?? null)?$d['ultimos'][$k]:[];
-            $payable=!empty($c['enabled']) && !empty($c['sites'][$site]['enabled']) && ($c['sites'][$site]['token'] ?? '')!=='' && (int)($u['cobro'] ?? 0)+$hours*3600<=$now;
             $pings=is_array($d['pings'])?$d['pings']:[];
-            // Aviso repetido: solo si ya se pago uno de esta cuenta y lista en los ultimos 10 minutos.
-            foreach($pings as $q) if(($q['site'] ?? '')===$site && strcasecmp($q['account'] ?? '',$account)===0 && !empty($q['used']) && (int)$q['at']>$now-600) return ['__save'=>$d,'__return'=>null];
+            // Aviso repetido (la lista avisa dos veces el mismo voto): misma cuenta y misma conexión en los últimos 10 minutos.
+            // Sin IP (lista que no la manda) se mantiene la regla vieja: uno pagado de la cuenta en 10 minutos.
+            foreach($pings as $q) if(($q['site'] ?? '')===$site && strcasecmp($q['account'] ?? '',$account)===0 && (int)$q['at']>$now-600 && (($ip!=='' && ($q['ip'] ?? '')===$ip) || ($ip==='' && !empty($q['used'])))) return ['__save'=>$d,'__return'=>null];
+            // Esa conexión ya cobró en la ventana: el voto cuenta en la lista pero no paga (ni se guarda para después).
+            $ipPagada=$ip!=='' && (int)(($u['ips'] ?? [])[$ip] ?? 0)+$hours*3600>$now;
+            $payable=!$ipPagada && !empty($c['enabled']) && !empty($c['sites'][$site]['enabled']) && ($c['sites'][$site]['token'] ?? '')!=='' && self::esperaHasta($u,$hours,$now,$ip)<=$now;
             $ref='P'.bin2hex(random_bytes(12));
-            $pings[]=['id'=>$ref,'site'=>$site,'account'=>$account,'at'=>$now,'used'=>$payable];
+            $pings[]=['id'=>$ref,'site'=>$site,'account'=>$account,'at'=>$now,'used'=>$payable || $ipPagada,'ip'=>$ip];
             if(count($pings)>self::MAX_PINGS) $pings=array_slice($pings,-self::MAX_PINGS);
             $d['pings']=$pings;
             if(!$payable) return ['__save'=>$d,'__return'=>null];
@@ -204,7 +236,7 @@ final class PanicVotarStore {
             $id='V'.bin2hex(random_bytes(16));
             $prem=['id'=>$id,'site'=>$site,'account'=>$account,'coins'=>max(1,(int)$c['reward']),'claim_ref'=>$ref,'created'=>$now,'state'=>'pending','auto'=>true];
             $d['premios'][$id]=$prem;
-            $u['cobro']=$now; $d['ultimos'][$k]=$u;
+            $d['ultimos'][$k]=self::anotarCobro($u,$hours,$now,$ip);
             return ['__save'=>$d,'__return'=>$prem];
         });
     }
@@ -241,13 +273,13 @@ final class PanicVotarStore {
 
     /** Estado de una cuenta: próximos votos y últimos premios. */
     public function account($account) {
-        if(!self::validAccount($account)) return ['next'=>[],'premios'=>[]];
+        if(!self::validAccount($account)) return ['next'=>[],'used'=>[],'premios'=>[]];
         return $this->locked(function($d) use ($account) {
-            $next=[];
-            foreach(panicVotarSites() as $id=>$site) { $u=$d['ultimos'][strtolower($account).'|'.$id] ?? []; $next[$id]=(int)($u['cobro'] ?? 0)+$site['hours']*3600; }
+            $next=[]; $used=[]; $now=time();
+            foreach(panicVotarSites() as $id=>$site) { $u=$d['ultimos'][strtolower($account).'|'.$id] ?? []; $u=is_array($u)?$u:[]; $next[$id]=self::esperaHasta($u,$site['hours'],$now); $used[$id]=count(self::cobros($u,$site['hours'],$now)); }
             $mine=array_values(array_filter($d['premios'],function($p) use ($account){ return strcasecmp($p['account'] ?? '',$account)===0; }));
             usort($mine,function($a,$b){ return $b['created']<=>$a['created']; });
-            return ['next'=>$next,'premios'=>array_slice($mine,0,10)];
+            return ['next'=>$next,'used'=>$used,'premios'=>array_slice($mine,0,10)];
         });
     }
 

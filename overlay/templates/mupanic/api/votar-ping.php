@@ -23,9 +23,11 @@ $keyOk=$key!=='' && $given!=='' && hash_equals($key,$given);
 $ok=abs((int)($in['Successful'] ?? 1))===0;
 $account=is_string($in['pingUsername'] ?? null)?trim($in['pingUsername']):'';
 // Diagnóstico para el panel (sin la clave): se ve en Configuración -> Páginas de votación -> Última respuesta.
-try { $store->noteApi($site,'PINGBACK '.$method.' clave='.($key===''?'sin_cargar':($keyOk?'ok':($given===''?'no_vino':'distinta'))).' Successful='.(string)($in['Successful'] ?? '-').' cuenta='.substr($account,0,20).' campos='.implode(',',array_slice(array_keys($in),0,12))); } catch(Throwable $e) {}
+try { $store->noteApi($site,'PINGBACK '.$method.' clave='.($key===''?'sin_cargar':($keyOk?'ok':($given===''?'no_vino':'distinta'))).' Successful='.(string)($in['Successful'] ?? '-').' cuenta='.substr($account,0,20).' ip='.(PanicVotarStore::validIp(is_string($in['VoterIP'] ?? null)?trim($in['VoterIP']):'')?'si':'no').' campos='.implode(',',array_slice(array_keys($in),0,12))); } catch(Throwable $e) {}
 if(!$keyOk) votarPingEnd(403,'forbidden');
 if($ok && PanicVotarStore::validAccount($account)) {
-    try { $store->autoPremioPing($site,$account,time()); } catch(Throwable $e) { votarPingEnd(503,'unavailable'); }
+    // IP de quien votó (GTop100 la manda como VoterIP): cada conexión distinta paga su premio.
+    $voterIp=is_string($in['VoterIP'] ?? null)?trim($in['VoterIP']):'';
+    try { $store->autoPremioPing($site,$account,time(),$voterIp); } catch(Throwable $e) { votarPingEnd(503,'unavailable'); }
 }
 votarPingEnd(200,'OK');

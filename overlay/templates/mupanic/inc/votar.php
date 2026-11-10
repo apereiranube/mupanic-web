@@ -35,14 +35,14 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && ($_POST['votar_action'] ?? '')
                 $votTone='error';
                 $votClaimState=$begin['reason']==='disabled'?'off':($begin['reason']==='cooldown'?'cooldown':'wait');
                 if($begin['reason']==='disabled') $votMsg='Los premios por votar están pausados por ahora. ¡Igual gracias por votar!';
-                elseif($begin['reason']==='cooldown') $votMsg='Ya cobraste el premio de '.$votSites[$site]['name'].'. Podés volver a votar en '.panicVotarFalta($begin['until']-$now).'.';
+                elseif($begin['reason']==='cooldown') $votMsg='Ya cobraste los '.PanicVotarStore::MAX_POR_VENTANA.' premios de '.$votSites[$site]['name'].' de estas '.(int)$votSites[$site]['hours'].' horas. Podés volver a cobrar en '.panicVotarFalta($begin['until']-$now).'.';
                 else $votMsg='Esperá unos segundos y probá de nuevo.';
             } else {
                 $claim=panicVotarClaim($site,$votAccount,$votStore->token($site),$votStore);
                 if(($votSites[$site]['api'] ?? '')!=='ping') { try { $votStore->noteApi($site,$claim['summary']); } catch(Throwable $e) {} }
                 if($claim['ok']) {
                     $p=$votStore->addPremio($votAccount,$site,$claim['ref'],$now); $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site]; $votClaimState='ok';
-                    $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Llegan a tu cuenta en unos minutos.'; $votTone='ok';
+                    $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Llegan a tu cuenta en unos minutos. ¿Tenés otro dispositivo? Votá desde ahí y sumás otro premio.'; $votTone='ok';
                 } elseif($claim['error']) { $votMsg='No pudimos comunicarnos con '.$votSites[$site]['name'].'. Probá de nuevo en unos minutos.'; $votTone='error'; }
                 elseif(($votSites[$site]['api'] ?? '')==='ping') { $votClaimState='pending'; $votMsg='Todavía no nos llegó tu voto de '.$votSites[$site]['name'].'. Votá con el botón "Votar" de esta página (con tu cuenta iniciada), completá el voto en la lista, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
                 else { $votClaimState='pending'; $votMsg='Todavía no vemos tu voto en '.$votSites[$site]['name'].'. Asegurate de escribir tu cuenta ('.$votAccount.') al votar, esperá un minuto y tocá "Reclamar" de nuevo.'; $votTone='error'; }
@@ -66,7 +66,7 @@ if(($_SERVER['REQUEST_METHOD'] ?? '')==='GET' && $votLogged && $votStore && is_s
             } elseif($begin['reason']==='cooldown') $votClaimState='cooldown';
         } catch(Throwable $e) {}
     }
-    if($p) { $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site]; $votClaimState='ok'; $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Llegan a tu cuenta en unos minutos.'; $votTone='ok'; }
+    if($p) { $votClaimed=['coins'=>(int)$p['coins'],'site'=>$site]; $votClaimState='ok'; $votMsg='¡Voto confirmado! Ganaste '.number_format((int)$p['coins'],0,',','.').' Eryns. Llegan a tu cuenta en unos minutos. ¿Tenés otro dispositivo? Votá desde ahí y sumás otro premio.'; $votTone='ok'; }
     elseif($votClaimState!=='cooldown') $votClaimState='pending';
 }
 
@@ -129,7 +129,7 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
       <p class="vot-kicker">Top de servidores</p>
       <h1>Votá por<br>MU PANIC</h1>
       <?php if($votRewardsOn) { ?><p class="vot-prize"><img src="<?php echo votE($votImg.$votArt['gemSmall']); ?>" alt="" width="34" height="34"><span>Ganá <b><?php echo $fmt($votReward); ?> Eryns</b> por cada voto</span></p><?php } ?>
-      <p class="vot-lead">Cada voto nos sube en los rankings de servidores de MU y trae jugadores nuevos.<?php if($votRewardsOn) { ?> Podés votar de nuevo cada 12 horas.<?php } ?></p>
+      <p class="vot-lead">Cada voto nos sube en los rankings de servidores de MU y trae jugadores nuevos.<?php if($votRewardsOn) { ?> Votá desde cada dispositivo que tengas (la compu, el celu con datos): cada voto que la lista acepta te suma Eryns, hasta <?php echo PanicVotarStore::MAX_POR_VENTANA; ?> por lista cada 12 horas.<?php } ?></p>
       <?php if($votLogged) { ?>
       <div class="vot-me">
         <div class="vot-me-account"><span>Tu cuenta</span><b><?php echo votE($votAccount); ?></b><button type="button" class="vot-copy" data-copy="<?php echo votE($votAccount); ?>">Copiar</button></div>
@@ -167,6 +167,7 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
         <?php foreach($votSites as $id=>$site) {
             $siteOn=$votRewardsOn && !empty($site['enabled']) && !empty($site['has_token']);
             $next=(int)($votMine['next'][$id] ?? 0); $wait=$votLogged && $siteOn && $next>$votNow;
+            $usados=$votLogged && $siteOn ? (int)($votMine['used'][$id] ?? 0) : 0; $tope=PanicVotarStore::MAX_POR_VENTANA;
             $period=(int)$site['hours']*3600;
             $pct=$wait?max(0,min(100,100-($next-$votNow)/$period*100)):100;
         ?>
@@ -174,9 +175,9 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
           <img class="vot-site-emblem" src="<?php echo votE($votImg.$votArt['emblem']); ?>" alt="" width="400" height="415" loading="lazy">
           <div class="vot-site-info">
             <h3><?php echo votE($site['name']); ?></h3>
-            <p class="vot-site-sub">Top de servidores de MU Online · un voto cada <?php echo (int)$site['hours']; ?> horas</p>
+            <p class="vot-site-sub">Top de servidores de MU Online · un voto cada <?php echo (int)$site['hours']; ?> horas por conexión</p>
             <?php if($id==='mutop100') { ?><a class="vot-site-badge" href="https://www.mutop100.com/mu-online-private-servers" target="_blank" rel="noopener"><img src="https://www.mutop100.com/badge/mu-panic-431.svg" width="240" height="60" alt="Vote for Mu Panic - ranked on MU Online Top 100" loading="lazy"></a><?php } ?>
-            <p class="vot-state"><?php if($wait) { ?>Próximo voto en <b class="vot-count" data-count><?php echo votE(gmdate('H:i:s',$next-$votNow)); ?></b><?php } else { ?><span class="vot-ready">Disponible</span> · ya podés votar<?php } ?></p>
+            <p class="vot-state"><?php if($wait) { ?>Cobraste los <?php echo $tope; ?> premios · próximo en <b class="vot-count" data-count><?php echo votE(gmdate('H:i:s',$next-$votNow)); ?></b><?php } elseif($usados>0) { ?><span class="vot-ready">Llevás <?php echo $usados; ?> de <?php echo $tope; ?></span> · votá desde otro dispositivo y sumá otro premio<?php } else { ?><span class="vot-ready">Disponible</span> · ya podés votar<?php } ?></p>
             <div class="vot-bar" aria-hidden="true"><i class="vot-bar-fill" style="width:<?php echo round($pct,2); ?>%"></i></div>
             <?php if($siteOn) { ?><p class="vot-auto"><?php echo $votLogged?'Votá y volvé: los Eryns se suman solos.':'Ingresá con tu cuenta antes de votar para cobrar el premio.'; ?></p><p class="vot-autostate" data-autostate hidden></p><?php } ?>
           </div>
@@ -243,7 +244,7 @@ $fmt=function($n){ return number_format((int)$n,0,',','.'); };
         <?php } ?>
       </ul>
       <?php } ?>
-      <p class="vot-note">Cada voto se cobra una sola vez: la lista lo confirma antes de darte los Eryns. Las listas cuentan un voto cada 12 horas por conexión, así que votar con varias cuentas desde la misma conexión no suma.</p>
+      <p class="vot-note">Cada voto se cobra una sola vez: la lista lo confirma antes de darte los Eryns. Las listas cuentan un voto cada 12 horas por conexión: votando desde distintos dispositivos o conexiones (por ejemplo, la compu y el celu con datos) sumás un premio por cada uno, hasta <?php echo PanicVotarStore::MAX_POR_VENTANA; ?> por lista cada 12 horas.</p>
     </div>
   </section>
   <div class="vot-toast" role="status" aria-live="polite" hidden><img src="<?php echo votE($votImg.$votArt['gem']); ?>" alt="" width="44" height="49"><div><b>¡Voto confirmado! +<span data-toast-coins>0</span> Eryns</b><span>Llegan a tu cuenta en unos minutos.</span></div></div>
