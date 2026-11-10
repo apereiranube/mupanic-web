@@ -1,0 +1,168 @@
+/* MU PANIC · Atlas · Armería (sets y armas por clase). Todo bajo #armeria, clases arm-. Datos en inc/atlas-armeria.json. */
+@font-face{font-family:'Barlow Condensed';src:url('../fonts/barlow-condensed-600.woff2') format('woff2');font-weight:600 700;font-display:swap}
+@font-face{font-family:'Barlow Condensed';src:url('../fonts/barlow-condensed-500.woff2') format('woff2');font-weight:500;font-display:swap}
+#armeria{--night:#0f1923; --night-2:#16232f; --night-3:#1d2d3b; --line:#2a3b4b;
+  --bone:#ece8e1; --mute:#8fa0ae; --soft:#c9cfd3; --red:#ff4655; --gold:#ffc24a;
+  --cls:#29c8ff; --t:#ff4655;
+  --f-display:Anton,"Impact","Arial Narrow",sans-serif;
+  --f-body:Manrope,"Segoe UI",Arial,sans-serif;
+  --f-label:"Barlow Condensed","Arial Narrow",sans-serif}
+#armeria *{box-sizing:border-box}
+#armeria{background:var(--night)!important;color:var(--bone);font-family:var(--f-body);font-size:15px;line-height:1.5;overflow:hidden}
+#armeria .arm-wrap{max-width:none;margin:0}
+#armeria button{font:inherit;color:inherit}
+#armeria :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#armeria .arm-hero{position:relative;overflow:hidden;background:
+  radial-gradient(60% 90% at 78% 55%,color-mix(in srgb,var(--cls) 34%,transparent),transparent 70%),
+  linear-gradient(180deg,var(--night) 0,var(--night-2) 100%)!important;border-bottom:1px solid var(--line)!important;transition:background .5s}
+#armeria .arm-hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 38px,color-mix(in srgb,var(--cls) 7%,transparent) 38px 40px)!important;pointer-events:none}
+#armeria .arm-hero .arm-wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:12px;align-items:end;min-height:440px;padding-block:40px 0}
+#armeria .arm-hero-copy{padding-bottom:36px;position:relative;z-index:2}
+#armeria .arm-kicker{font-family:var(--f-label);font-weight:600;letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--red);margin:0 0 8px}
+#armeria .arm-title{font-family:var(--f-display);font-weight:400;font-size:clamp(44px,7.5vw,84px);line-height:.92;margin:0;text-transform:uppercase;text-wrap:balance}
+#armeria .arm-title em{font-style:normal;color:var(--cls);transition:color .4s}
+#armeria .arm-lead{max-width:50ch;color:var(--soft);margin:14px 0 0}
+#armeria .arm-hero-art{position:relative;align-self:stretch;display:flex;align-items:flex-end;justify-content:center;min-height:360px}
+#armeria .arm-hero-art img{position:absolute;bottom:0;height:min(470px,108%);width:auto;max-width:none;filter:drop-shadow(0 18px 40px rgba(0,0,0,.55));transition:opacity .45s,transform .6s cubic-bezier(.2,.8,.2,1)}
+#armeria .arm-hero-art img.arm-out{opacity:0;transform:translateX(40px) scale(.97)}
+#armeria .arm-hero-word{position:absolute;right:0;top:18px;font-family:var(--f-display);font-size:clamp(70px,14vw,170px);line-height:.85;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--cls) 50%,transparent);text-transform:uppercase;pointer-events:none;user-select:none;z-index:0;text-align:right;transition:-webkit-text-stroke-color .4s}
+#armeria .arm-picker{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:24px}
+#armeria .arm-pick{--c:var(--bone);position:relative;border:1px solid var(--line)!important;background:var(--night)!important;cursor:pointer;padding:0;height:86px;overflow:hidden;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);transition:border-color .2s,transform .2s}
+#armeria .arm-pick img{position:absolute;left:50%;top:6px;height:170px;width:auto;max-width:none;transform:translateX(-50%);filter:grayscale(.85) brightness(.7);transition:filter .3s,transform .3s}
+#armeria .arm-pick span{position:absolute;left:0;right:0;bottom:0;padding:16px 4px 5px;font-family:var(--f-label);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:center;background:linear-gradient(transparent,rgba(10,16,22,.95) 55%)!important;line-height:1.1}
+#armeria .arm-pick .arm-sn{display:none}
+#armeria .arm-pick b{font-weight:inherit}
+#armeria .arm-pick:hover img{filter:grayscale(.3) brightness(.9)}
+#armeria .arm-pick[data-on="true"]{border-color:var(--c)!important;transform:translateY(-3px)}
+#armeria .arm-pick[data-on="true"] img{filter:none;transform:translateX(-50%) scale(1.04)}
+#armeria .arm-pick[data-on="true"] span{color:var(--c)}
+#armeria .arm-pick[data-on="true"]::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--c)!important}
+#armeria .arm-stairs-sec{padding-block:34px 10px}
+#armeria .arm-sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 20px;margin-bottom:16px}
+#armeria .arm-sec-head h2{font-family:var(--f-display);font-weight:400;font-size:clamp(28px,4vw,38px);text-transform:uppercase;margin:0;line-height:1}
+#armeria .arm-sec-head p{margin:4px 0 0;color:var(--mute);font-size:14px}
+#armeria .arm-opt{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--soft);user-select:none}
+#armeria .arm-opt input{position:absolute;opacity:0;pointer-events:none}
+#armeria .arm-opt span{width:38px;height:20px;background:var(--night-3)!important;border:1px solid var(--line)!important;position:relative;flex:none}
+#armeria .arm-opt span::after{content:"";position:absolute;top:3px;left:3px;width:12px;height:12px;background:var(--mute)!important;transition:transform .2s,background .2s}
+#armeria .arm-opt input:checked+span{background:color-mix(in srgb,var(--cls) 35%,var(--night-3))!important}
+#armeria .arm-opt input:checked+span::after{transform:translateX(18px);background:var(--bone)!important}
+#armeria .arm-opt input:focus-visible+span{outline:2px solid var(--gold);outline-offset:2px}
+#armeria .arm-stairs{position:relative;display:flex;align-items:flex-end;gap:6px;height:230px;padding:0 0 0;border-bottom:2px solid var(--line)!important}
+#armeria .arm-stairs::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 45px,rgba(255,255,255,.04) 45px 46px)!important;pointer-events:none}
+#armeria .arm-step{--t:#b9c3cb;flex:1 1 0;min-width:0;position:relative;height:100%;display:flex;align-items:flex-end;cursor:pointer;background:none!important;border:0!important;padding:0}
+#armeria .arm-step i{display:block;width:100%;height:var(--h);background:linear-gradient(180deg,color-mix(in srgb,var(--t) 85%,#fff 15%),color-mix(in srgb,var(--t) 40%,var(--night)))!important;opacity:.42;transition:opacity .25s,height .55s cubic-bezier(.2,.8,.2,1),box-shadow .25s;clip-path:polygon(0 6px,6px 0,100% 0,100% 100%,0 100%)}
+#armeria .arm-step b{position:absolute;left:0;right:0;bottom:calc(var(--h) + 6px);text-align:center;font-family:var(--f-display);font-weight:400;font-size:15px;color:var(--mute);transition:bottom .55s cubic-bezier(.2,.8,.2,1),color .2s;font-variant-numeric:tabular-nums}
+#armeria .arm-step:hover i{opacity:.7}
+#armeria .arm-step[data-on="true"] i{opacity:1;box-shadow:0 0 0 2px var(--bone),0 0 28px color-mix(in srgb,var(--t) 70%,transparent)}
+#armeria .arm-step[data-on="true"] b{color:var(--bone)}
+#armeria .arm-tiers{display:flex;gap:6px;margin-top:8px}
+#armeria .arm-tiers div{flex:var(--n) 1 0;min-width:0;border-top:3px solid var(--t)!important;padding-top:5px;font-family:var(--f-label);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--t);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#armeria .arm-scrub{width:100%;margin:16px 0 0;accent-color:var(--cls)}
+#armeria .arm-hint{color:var(--mute);font-size:13px;margin:6px 0 0}
+#armeria .arm-card.arm-one{grid-template-columns:minmax(0,1fr)}
+#armeria .arm-card{position:relative;margin-top:22px;background:var(--night-2)!important;border:1px solid var(--line)!important;border-left:4px solid var(--t)!important;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0;overflow:hidden}
+#armeria .arm-card-main{padding:24px 24px 22px;position:relative;min-width:0}
+#armeria .arm-card-main .arm-num{position:absolute;right:16px;top:6px;font-family:var(--f-display);font-size:110px;line-height:1;color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--t) 45%,transparent);pointer-events:none}
+#armeria .arm-tier-badge{display:inline-block;font-family:var(--f-label);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--night);background:var(--t)!important;padding:3px 10px 2px;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+#armeria .arm-card h3{font-family:var(--f-display);font-weight:400;font-size:clamp(36px,5.5vw,56px);line-height:.95;text-transform:uppercase;margin:12px 0 10px;position:relative;text-wrap:balance}
+#armeria .arm-chips{display:flex;flex-wrap:wrap;gap:6px}
+#armeria .arm-chip{font-family:var(--f-label);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border:1px solid var(--line)!important;color:var(--soft);background:var(--night)!important}
+#armeria .arm-chip.arm-evo{border-color:color-mix(in srgb,var(--cls) 60%,transparent)!important;color:var(--cls)}
+#armeria .arm-chip.arm-boss{border-color:color-mix(in srgb,var(--gold) 60%,transparent)!important;color:var(--gold)}
+#armeria .arm-stats{display:flex;flex-wrap:wrap;gap:22px 34px;margin-top:22px}
+#armeria .arm-stat small{display:block;font-family:var(--f-label);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+#armeria .arm-stat strong{display:block;font-family:var(--f-display);font-weight:400;font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+#armeria .arm-stat strong.arm-up{color:#5ee0a0}
+#armeria .arm-stat strong span{font-size:22px;color:var(--mute)}
+#armeria .arm-how{margin:20px 0 0;color:var(--soft);font-size:14.5px;max-width:52ch}
+#armeria .arm-nav{display:flex;gap:8px;margin-top:20px}
+#armeria .arm-nav button{appearance:none;border:1px solid var(--line)!important;background:var(--night)!important;padding:8px 14px;cursor:pointer;font-family:var(--f-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+#armeria .arm-nav button:hover:not(:disabled){border-color:var(--bone)!important}
+#armeria .arm-nav button:disabled{opacity:.35;cursor:default}
+#armeria .arm-pieces{background:var(--night)!important;border-left:1px solid var(--line)!important;padding:18px;display:grid;gap:8px;align-content:start;min-width:0}
+#armeria .arm-pieces h4{margin:0 0 2px;font-family:var(--f-label);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+#armeria .arm-piece{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;background:var(--night-2)!important;border:1px solid var(--line)!important}
+#armeria .arm-piece svg{width:30px;height:30px;color:var(--t)}
+#armeria .arm-piece strong{display:block;font-family:var(--f-label);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;line-height:1.1}
+#armeria .arm-piece span{display:block;color:var(--mute);font-size:12.5px;font-variant-numeric:tabular-nums}
+#armeria .arm-piece em{font-style:normal;font-family:var(--f-display);font-size:22px;font-variant-numeric:tabular-nums}
+#armeria .arm-piece em small{font-family:var(--f-label);font-size:11px;color:var(--mute);letter-spacing:.1em;margin-left:3px}
+#armeria .arm-mgnote{margin:14px 0 0;color:var(--soft);font-size:14px;border-left:3px solid var(--cls)!important;padding:6px 12px;max-width:70ch}
+#armeria .arm-note{color:var(--mute);font-size:13.5px;max-width:72ch;margin:26px 0 0;padding-bottom:44px}
+#armeria .arm-card.arm-swap .arm-card-main>*:not(.arm-num){animation:arm-rise .45s cubic-bezier(.2,.8,.2,1) both}
+
+@keyframes arm-rise{from{opacity:.0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (max-width:820px){#armeria .arm-hero .arm-wrap{grid-template-columns:minmax(0,1fr) 150px;min-height:0}
+#armeria .arm-hero-art{min-height:250px}
+#armeria .arm-hero-art img{height:290px;right:-30px}
+#armeria .arm-hero-word{display:none}
+#armeria .arm-picker{grid-template-columns:repeat(4,minmax(0,1fr))}
+#armeria .arm-card{grid-template-columns:minmax(0,1fr)}
+#armeria .arm-pieces{border-left:0!important;border-top:1px solid var(--line)!important}
+
+}
+@media (max-width:520px){#armeria .arm-hero .arm-wrap{grid-template-columns:minmax(0,1fr) 110px}
+#armeria .arm-hero-art img{height:240px;right:-46px}
+#armeria .arm-picker{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+#armeria .arm-pick{height:74px}
+#armeria .arm-pick .arm-ln{display:none}
+#armeria .arm-pick .arm-sn{display:inline}
+#armeria .arm-pick img{height:150px}
+#armeria .arm-stairs{height:180px;gap:4px}
+#armeria .arm-step b{font-size:12px}
+#armeria .arm-card-main{padding:20px 16px}
+#armeria .arm-stat strong{font-size:36px}
+#armeria .arm-tiers div{font-size:10px;letter-spacing:.04em}
+
+}
+@media (prefers-reduced-motion:reduce){#armeria *{animation:none!important;transition:none!important}
+}
+#armeria [hidden]{display:none!important}
+#armeria .arm-modes{display:inline-flex;border:1px solid var(--line)!important;background:var(--night)!important;margin-top:18px}
+#armeria .arm-modes button{appearance:none;border:0!important;background:none!important;padding:9px 20px 8px;cursor:pointer;font-family:var(--f-label);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px;color:var(--mute)}
+#armeria .arm-modes button[data-on="true"]{background:var(--bone)!important;color:var(--night)}
+#armeria .arm-fams{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+#armeria .arm-fams button{appearance:none;border:1px solid var(--line)!important;background:var(--night-2)!important;padding:6px 12px 5px;cursor:pointer;font-family:var(--f-label);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:13px;color:var(--soft)}
+#armeria .arm-fams button[data-on="true"]{border-color:var(--cls)!important;color:var(--cls);background:color-mix(in srgb,var(--cls) 12%,var(--night-2))!important}
+#armeria .arm-vitrina{float:right;margin:0 0 10px 16px;width:150px;height:170px;display:grid;place-items:center;background:radial-gradient(closest-side,color-mix(in srgb,var(--t) 26%,transparent),transparent),var(--night)!important;border:1px solid var(--line)!important;position:relative;z-index:1;clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px)}
+#armeria .arm-vitrina img{max-width:130px;max-height:150px;width:auto;height:auto;image-rendering:auto;filter:drop-shadow(0 6px 14px rgba(0,0,0,.6))}
+#armeria .arm-vitrina.arm-empty{display:none}
+#armeria .arm-card-main .arm-num{z-index:0}
+#armeria .arm-reqs{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-family:var(--f-label);font-size:14px;letter-spacing:.05em;color:var(--soft);text-transform:uppercase}
+#armeria .arm-reqs b{color:var(--bone);font-family:var(--f-body);font-weight:700;letter-spacing:0}
+#armeria .arm-piece .arm-thumb{width:34px;height:40px;display:grid;place-items:center}
+#armeria .arm-piece .arm-thumb img{max-width:34px;max-height:40px;width:auto;height:auto}
+#armeria .arm-anc{margin-top:16px;display:grid;gap:12px}
+#armeria .arm-anc-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-top:26px}
+#armeria .arm-anc-head h3{font-family:var(--f-display);font-weight:400;font-size:28px;text-transform:uppercase;margin:0;color:var(--gold)}
+#armeria .arm-anc-head p{margin:0;color:var(--mute);font-size:14px;max-width:62ch}
+#armeria .arm-ancard{background:var(--night-2)!important;border:1px solid color-mix(in srgb,var(--gold) 35%,var(--line))!important;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);overflow:hidden}
+#armeria .arm-ancard-l{padding:16px 18px;border-right:1px solid var(--line)!important;min-width:0}
+#armeria .arm-ancard-l h4{font-family:var(--f-display);font-weight:400;font-size:26px;text-transform:uppercase;margin:0;color:var(--gold);letter-spacing:.02em}
+#armeria .arm-ancard-l small{display:block;font-family:var(--f-label);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-size:12px;margin:10px 0 6px}
+#armeria .arm-anc-items{display:flex;flex-wrap:wrap;gap:5px}
+#armeria .arm-anc-items span{font-size:13px;padding:2px 7px;border:1px solid var(--line)!important;background:var(--night)!important;color:var(--soft)}
+#armeria .arm-anc-items span.arm-mine{border-color:color-mix(in srgb,var(--gold) 55%,transparent)!important;color:var(--bone)}
+#armeria .arm-ladder{list-style:none;margin:0;padding:14px 18px;display:grid;gap:6px;min-width:0}
+#armeria .arm-ladder li{display:grid;grid-template-columns:84px minmax(0,1fr);gap:10px;align-items:baseline;font-size:14px;color:var(--soft)}
+#armeria .arm-ladder li b{font-family:var(--f-label);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:13px;color:var(--mute)}
+#armeria .arm-ladder li.arm-full{margin-top:4px;padding-top:8px;border-top:1px dashed color-mix(in srgb,var(--gold) 40%,var(--line))!important}
+#armeria .arm-ladder li.arm-full b,#armeria .arm-ladder li.arm-full span{color:var(--gold)}
+#armeria .arm-noanc{color:var(--mute);font-size:14px;margin:10px 0 0}
+@media (max-width:820px){#armeria .arm-ancard{grid-template-columns:minmax(0,1fr)}
+#armeria .arm-ancard-l{border-right:0!important;border-bottom:1px solid var(--line)!important}
+}
+@media (max-width:520px){#armeria .arm-vitrina{width:110px;height:130px}
+#armeria .arm-vitrina img{max-width:96px;max-height:112px}
+}
+
+#armeria .arm-hero .arm-wrap{padding-left:clamp(16px,3vw,32px);padding-right:clamp(16px,3vw,32px)}
+#armeria>main.arm-wrap{padding:0 clamp(16px,3vw,32px)}
+#armeria .arm-anchor{position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden}
+#armeria h2.arm-title,#armeria .arm-sec-head h3{margin:0}
+#armeria .arm-sec-head h3{font-size:clamp(28px,4vw,38px)!important;line-height:1!important}
+#armeria .arm-card h3{font-size:clamp(36px,5.5vw,56px)!important;line-height:.95!important}
+#armeria .arm-anc-head h3{font-size:28px!important;color:var(--gold)!important}
+#armeria .arm-ancard-l h4{font-size:26px!important;color:var(--gold)!important}
+#armeria .arm-title{font-size:clamp(44px,7.5vw,84px)!important;line-height:.92!important}
