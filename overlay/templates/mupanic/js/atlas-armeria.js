@@ -53,6 +53,34 @@ function ancHTML(ids,mineSec,mineIdx){
     const lad=a.b.map(b=>'<li><b>'+b[0]+' piezas</b><span>'+esc(b[1].join(' · '))+'</span></li>').join('')+(a.f.length?'<li class="arm-full"><b>Completo</b><span>'+esc(a.f.join(' · '))+'</span></li>':'');
     return '<div class="arm-ancard"><div class="arm-ancard-l"><h4>'+esc(a.n)+'</h4><small>Piezas del Ancient ('+a.it.length+')</small><div class="arm-anc-items">'+it+'</div></div><ol class="arm-ladder">'+lad+'</ol></div>'}).join('')+'</div>';
 }
+var IDX=null,WD=null;
+function srcIndex(){
+  if(IDX!==null)return IDX; IDX=false;
+  try{var el=document.getElementById('wiki-data');if(el&&window.PanicAtlasSearch){WD=JSON.parse(el.textContent);var m=new Map();window.PanicAtlasSearch.build(WD).forEach(function(e){if(e.type==='object')m.set(e.id,e)});IDX=m}}catch(e){IDX=false}
+  return IDX;
+}
+function sources(ids){
+  var ix=srcIndex(); if(!ix)return null;
+  var maps=new Map(),bosses=new Map(),boxes=new Map();
+  ids.forEach(function(id){var o=ix.get(id);if(!o)return;o.routes.forEach(function(r){
+    var h=String(r.hash||'');
+    if(r.kind==='drop'&&h.indexOf('#drop-')===0){var drop=WD.drops[+h.slice(6)];(r.maps||[]).forEach(function(mid){var map=WD.maps.find(function(x){return x.id===mid});if(!map||!drop)return;var e=maps.get(mid);if(!e){e={map:map,mobs:new Map()};maps.set(mid,e)}map.monsters.forEach(function(mob){if(window.PanicAtlasSearch.compatible(drop,map,mob))e.mobs.set(mob.id,mob)})})}
+    else if(r.kind==='reward'&&h.indexOf('#recompensa-')===0){var bid=+h.slice(12),bag=(WD.eventBags||[]).find(function(b){return b.id===bid});if(bag)(bag.monster>=0?bosses:boxes).set(bid,bag)}
+  })});
+  return {maps:maps,bosses:bosses,boxes:boxes};
+}
+function srcHTML(ids,what){
+  var s=sources(ids); if(!s)return '';
+  var rows=Array.from(s.maps.values()).filter(function(e){return e.mobs.size}).map(function(e){var mobs=Array.from(e.mobs.values()).sort(function(a,b){return a.level-b.level});return {e:e,mobs:mobs,min:mobs[0].level,max:mobs[mobs.length-1].level}}).sort(function(a,b){return a.min-b.min});
+  if(!rows.length&&!s.bosses.size&&!s.boxes.size)return '';
+  var h='<div class="arm-src"><h3>Dónde se consigue</h3><p class="arm-src-sub">'+esc(what)+'. Tocá un mapa o un monstruo para ir a su ficha del Atlas.</p>';
+  if(rows.length){h+='<div class="arm-src-group"><h4>Cae de monstruos</h4><div class="arm-src-maps">'+rows.map(function(r){
+    var shown=r.mobs.slice(0,8),more=r.mobs.length-shown.length;
+    return '<div class="arm-src-map"><a class="arm-src-mapname" href="#mapa-'+r.e.map.id+'">'+esc(r.e.map.name)+'<small>Lv. '+r.min+(r.max!==r.min?'–'+r.max:'')+'</small></a><div class="arm-src-mobs">'+shown.map(function(m){return '<a href="#mob-'+r.e.map.id+'-'+m.id+'">'+esc(m.name)+' <small>'+m.level+'</small></a>'}).join('')+(more>0?'<span>+'+more+' más</span>':'')+'</div></div>'}).join('')+'</div></div>'}
+  if(s.bosses.size){h+='<div class="arm-src-group"><h4>Jefes</h4><div class="arm-src-mobs">'+Array.from(s.bosses.values()).map(function(b){return '<a href="#recompensa-'+b.id+'">'+esc(b.monsterName||b.name)+'</a>'}).join('')+'</div></div>'}
+  if(s.boxes.size){h+='<div class="arm-src-group"><h4>Cajas y eventos</h4><div class="arm-src-mobs">'+Array.from(s.boxes.values()).map(function(b){return '<a href="#recompensa-'+b.id+'">'+esc(b.name)+'</a>'}).join('')+'</div></div>'}
+  return h+'</div>';
+}
 function pick(i){
   sel=Math.max(0,Math.min(i,list.length-1)); const s=list[sel]; if(!s){$('ancBox').innerHTML='';return} const t=tierOf(s.lv), prev=list[sel-1];
   [...$('stairs').children].forEach((b,j)=>b.setAttribute('data-on',j===sel?'true':'false')); $('scrub').value=sel;
@@ -69,7 +97,9 @@ function pick(i){
     $('cHow').textContent=s.r380?('No cae de monstruos comunes: sale del jefe '+(s.src==='Kundun'?'Kundun, en Kalima':'Selupan, en Raklion')+'. Pide nivel 380.'):'Cae de monstruos. Cuanto más alto el nivel del objeto, más fuertes los monstruos que lo sueltan.'+(prev?' Mejora a '+prev.n+'.':'');
     $('cPieces').innerHTML='<h4>Piezas</h4>'+s.p.map(p=>'<div class="arm-piece"><span class="arm-thumb"><img src="'+img(p.k,ix)+'" alt="" loading="lazy" onerror="this.outerHTML=\''+SVG[p.k].replace(/"/g,'&quot;')+'\'"></span><div><strong>'+p.s+'</strong><span>Fza '+p.f+' · Agi '+p.g+'</span></div><em>'+p.d+'<small>DEF</small></em></div>').join('');
     $('cPieces').hidden=false;
-    $('ancBox').innerHTML=ancHTML(s.a,null,ix);
+    var srcS=srcHTML(s.p.map(function(p){return p.k*512+ix}),'Cualquier pieza del set: casco, armadura, pantalones, guantes o botas');
+    $('ancBox').innerHTML=srcS+ancHTML(s.a,null,ix);
+    if(srcS)$('cHow').textContent=s.r380?'Pide nivel 380 para equiparlo.':(prev?'Mejora a '+prev.n+'.':'El primer set de la clase.');
   } else {
     if(!s.d)ch.push('<span class="arm-chip arm-boss">No cae de monstruos comunes</span>');
     if(s.a.length)ch.push('<span class="arm-chip arm-boss">Tiene Ancient</span>');
@@ -80,7 +110,9 @@ function pick(i){
     $('cReqs').innerHTML=r.length?'<span>Pide</span> '+r.join(' · '):'';
     $('cHow').textContent=(s.d?'Cae de monstruos. Cuanto más alto el nivel del objeto ('+s.lv+'), más fuertes los monstruos que la sueltan.':'Arma especial: no cae de monstruos comunes.')+(prev?' Mejora a '+prev.n+'.':'');
     $('cPieces').hidden=true; $('cPieces').innerHTML='';
-    $('ancBox').innerHTML=ancHTML(s.a,s.k,s.i);
+    var srcW=srcHTML([s.k*512+s.i],'Esta arma');
+    $('ancBox').innerHTML=srcW+ancHTML(s.a,s.k,s.i);
+    if(srcW)$('cHow').textContent=prev?'Mejora a '+prev.n+'.':'La primera de la lista.';
   }
   $('cChips').innerHTML=ch.join('');
   const v=$('cVal'); if(v)count(v,mode==='sets'?s.def:s.mg);

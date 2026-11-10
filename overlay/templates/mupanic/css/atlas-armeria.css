@@ -166,3 +166,19 @@
 #armeria .arm-anc-head h3{font-size:28px!important;color:var(--gold)!important}
 #armeria .arm-ancard-l h4{font-size:26px!important;color:var(--gold)!important}
 #armeria .arm-title{font-size:clamp(44px,7.5vw,84px)!important;line-height:.92!important}
+#armeria .arm-src{margin-top:22px;background:var(--night-2)!important;border:1px solid var(--line)!important;padding:18px 20px}
+#armeria .arm-src h3{font-size:28px!important;margin:0;line-height:1!important}
+#armeria .arm-src-sub{margin:6px 0 0;color:var(--mute);font-size:14px}
+#armeria .arm-src-group{margin-top:16px}
+#armeria .arm-src-group h4{margin:0 0 8px;font-family:var(--f-label)!important;font-weight:700!important;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+#armeria .arm-src-maps{display:grid;gap:8px}
+#armeria .arm-src-map{display:grid;grid-template-columns:minmax(150px,200px) minmax(0,1fr);gap:8px 14px;align-items:start;padding:10px 12px;background:var(--night)!important;border:1px solid var(--line)!important}
+#armeria .arm-src-mapname{font-family:var(--f-display);font-size:20px;text-transform:uppercase;color:var(--bone);text-decoration:none;line-height:1.05}
+#armeria .arm-src-mapname small{display:block;font-family:var(--f-label);font-size:12px;letter-spacing:.1em;color:var(--t);margin-top:3px}
+#armeria .arm-src-mapname:hover{color:var(--cls)}
+#armeria .arm-src-mobs{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+#armeria .arm-src-mobs a,#armeria .arm-src-mobs span{font-size:13px;padding:3px 8px;border:1px solid var(--line)!important;background:var(--night-2)!important;color:var(--soft);text-decoration:none}
+#armeria .arm-src-mobs a:hover{border-color:var(--cls)!important;color:var(--bone)}
+#armeria .arm-src-mobs a small{color:var(--mute);font-size:11px}
+#armeria .arm-src-mobs span{color:var(--mute)}
+@media (max-width:620px){#armeria .arm-src-map{grid-template-columns:minmax(0,1fr)}#armeria .arm-src{padding:16px}}
