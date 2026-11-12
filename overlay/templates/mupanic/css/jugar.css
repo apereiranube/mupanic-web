@@ -1,0 +1,66 @@
+/* MU PANIC · /jugar/ — página de entrada para la publicidad. Se carga además de auth-v2.css (el formulario usa sus estilos). */
+/* Sin menú: queda solo el logo, que lleva al Inicio. */
+body.is-jugar .site-header .main-nav,body.is-jugar .site-header .menu-toggle,body.is-jugar .site-header .nav-actions{display:none!important}
+body.is-jugar .footer-modern .footer-main{display:none}
+body.is-jugar .footer-modern{margin-top:0}
+body.is-jugar .float-777-wrap{display:none!important}
+
+.jugar{--lila:#c58bff;--o:#ff4655;--o2:#d93a48;--o3:#ff6b77;--o-ink:#b3202d}
+.jugar-pantalla{position:relative;padding:calc(var(--hd) + clamp(16px,3.4vh,44px)) 0 clamp(20px,4vh,56px);background:var(--pui-night) center/cover no-repeat;overflow:hidden}
+.jugar-grilla{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,440px);gap:0 clamp(12px,2vw,28px);align-items:start;width:min(1320px,calc(100% - 48px));margin:0 auto}
+.jugar-texto{position:relative;z-index:2;min-width:0;padding-top:clamp(4px,2vh,24px)}
+.jugar .jugar-titulo{margin:0;font:400 clamp(52px,6.1vw,96px)/.94 var(--pui-display);letter-spacing:.01em;text-transform:uppercase;color:var(--pui-bone);text-wrap:balance}
+.jugar-titulo em{font-style:normal;color:var(--lila)}
+.jugar .jugar-bajada{margin:18px 0 0;max-width:27em;font-size:clamp(16px,1.25vw,19px);line-height:1.5;color:#d5dbe0}
+.jugar-motivos{list-style:none;margin:clamp(20px,3.4vh,34px) 0 0;padding:0;display:grid;gap:clamp(10px,1.7vh,16px)}
+.jugar-motivos li{display:grid;grid-template-columns:56px minmax(0,1fr);gap:14px;align-items:center}
+.jugar-ico{display:flex;align-items:center;justify-content:center;width:56px;height:56px}
+.jugar-ico img{max-width:56px;max-height:56px;width:auto;height:auto}
+.jugar-m-txt{display:block;min-width:0}
+.jugar-m-txt b{display:block;font:400 clamp(19px,1.5vw,23px)/1.1 var(--pui-display);letter-spacing:.02em;text-transform:uppercase;color:var(--c)}
+.jugar-m-txt span{display:block;margin-top:2px;font-size:15px;line-height:1.4;color:#d5dbe0}
+.jugar-m-furia{--c:#ff7a1a}.jugar-m-mascota{--c:#36e07f}.jugar-m-mercado{--c:#ffc24a}.jugar-m-nuevo{--c:#29c8ff}
+
+/* El personaje va en la columna del medio y se pasa un poco hacia los costados, por detrás del texto y de la tarjeta. */
+.jugar-fig{position:relative;z-index:1;min-width:0;align-self:stretch;pointer-events:none}
+.jugar-fig img{position:absolute;left:-7%;bottom:clamp(-56px,-5vh,-28px);height:min(108%,700px);width:auto;max-width:none}
+
+.jugar-form{position:relative;z-index:2;min-width:0}
+.jugar .auth-card{width:100%;padding:24px 30px 20px;border-top-color:var(--lila)}
+.jugar .auth-card .page-title{margin-bottom:14px}
+.jugar .auth-card .page-title span{font-size:clamp(30px,2.5vw,38px)}
+/* Formulario compacto para que entre en una pantalla: las dos contraseñas van lado a lado. */
+.jugar .auth-card .form-horizontal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 14px}
+.jugar .auth-card .form-horizontal>*{grid-column:1/-1;margin:0;min-width:0}
+.jugar .auth-card .form-horizontal>.form-group:nth-child(2),.jugar .auth-card .form-horizontal>.form-group:nth-child(3){grid-column:auto}
+.jugar .auth-card .form-group{gap:6px;align-content:start}
+.jugar .auth-card .form-control{height:44px;padding:0 12px}
+.jugar .auth-card .help-block{font-size:12px;line-height:1.35}
+.jugar .auth-card .form-group:has(.btn){margin:4px 0 0}
+.jugar .auth-card .auth-btn{min-height:54px}
+.jugar-pc{margin:14px 0 0!important;padding-top:12px;border-top:1px solid var(--pui-line);font-size:14px;color:var(--pui-muted)}
+.jugar-pc a{color:var(--lila);font-weight:800;text-decoration:none;border-bottom:2px solid transparent}
+.jugar-pc a:hover{border-color:currentColor}
+.jugar .auth-btn{background:var(--pui-red);color:#fff}
+.jugar .auth-btn:hover,.jugar .auth-btn:focus{background:var(--pui-red-2);color:#fff}
+
+.jugar-abajo{position:relative;z-index:2;background:var(--pui-bone);color:var(--pui-night)}
+.jugar-abajo-in{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 28px;width:min(1320px,calc(100% - 48px));margin:0 auto;padding:22px 0}
+.jugar .jugar-abajo p{margin:0;font:400 clamp(22px,2.2vw,30px)/1.05 var(--pui-display);letter-spacing:.01em;text-transform:uppercase;color:var(--pui-night)}
+.jugar-acc{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
+.jugar a.jugar-btn{display:inline-flex;align-items:center;min-height:46px;padding:0 22px;background:var(--pui-night);color:var(--pui-bone);font:400 18px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;text-decoration:none;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%);transition:background .15s}
+.jugar a.jugar-btn:hover{background:var(--pui-red);color:#fff}
+.jugar a.jugar-link{color:var(--pui-night);font-weight:800;text-decoration:none;border-bottom:2px solid var(--pui-night)}
+.jugar a.jugar-link:hover{color:var(--o-ink);border-color:currentColor}
+
+@media(max-width:1180px){
+  .jugar-grilla{grid-template-columns:minmax(0,1fr) minmax(0,420px)}
+  .jugar-fig{position:absolute;z-index:0;left:38%;top:0;bottom:0;width:34%;opacity:.5}
+}
+@media(max-width:860px){
+  .jugar-pantalla{padding-top:calc(var(--hd) + 20px)}
+  .jugar-grilla{grid-template-columns:minmax(0,1fr);gap:26px;width:calc(100% - 32px)}
+  .jugar-fig{display:none}
+  .jugar .auth-card{padding:26px 20px 22px}
+  .jugar-abajo-in{width:calc(100% - 32px)}
+}

@@ -47,6 +47,9 @@ if($_REQUEST['page']==='usercp' && $_REQUEST['subpage']==='' && isLoggedIn() && 
     $panicTras=$_SESSION['panic_tras_login']; unset($_SESSION['panic_tras_login']);
     if(is_array($panicTras) && ($panicTras['a'] ?? '')==='eryns' && (int)($panicTras['t'] ?? 0)>=time()-1800) { header('Location: '.__BASE_URL__.'usercp/recharge/', true, 302); exit; }
 }
+// /jugar/: pagina de entrada para la publicidad. Es Crear cuenta con otra envoltura (inc/jugar.php).
+$panicJugar = (($_REQUEST['page'] ?? '') === 'jugar');
+if($panicJugar) { $_REQUEST['page'] = 'register'; $_REQUEST['subpage'] = ''; }
 // Referidos: el link de invitacion (?ref=CODIGO) se recuerda hasta que el invitado lo confirma en Mi cuenta.
 if(in_array($_REQUEST['page'],['register','usercp'],true) && is_string($_GET['ref'] ?? null) && preg_match('/^[A-Za-z0-9]{8}$/D',$_GET['ref'])) {
     require_once __DIR__.'/inc/referidos-cola.php';
@@ -171,6 +174,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#0b1113"/>
     <?php list($seoTitle, $seoDescription, $seoRobots) = mupanicPageSeo($_REQUEST['page'] ?? '', $_REQUEST['subpage'] ?? '', $isHome); ?>
+    <?php if($panicJugar) { $seoTitle = 'MU PANIC · MU, como nunca lo jugaste'; $seoDescription = 'MU Online Season 6 con Furia, mascotas que creás vos y Mercado de Vessara. Server nuevo, EXP x50. Creá tu cuenta gratis y entrá a jugar.'; $seoRobots = 'noindex,follow'; } ?>
     <title><?php echo htmlspecialchars($seoTitle); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($seoDescription); ?>"/>
     <meta name="robots" content="<?php echo $seoRobots; ?>"/>
@@ -220,6 +224,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page'] === 'information') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>server-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/server-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'downloads') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>downloads.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/downloads.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($isAuthPage) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>auth-v2.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/auth-v2.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
+    <?php if($panicJugar) { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>jugar.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/jugar.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'rankings') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>rankings.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/rankings.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'profile') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>profiles.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/profiles.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
     <?php if($_REQUEST['page'] === 'usercp') { ?><link href="<?php echo __PATH_TEMPLATE_CSS__; ?>account.css?v=<?php echo substr(hash_file('sha256', __DIR__.'/css/account.css'), 0, 12); ?>" rel="stylesheet"><?php } ?>
@@ -237,7 +242,7 @@ $serverDrop = $publicBalance['accounts'][0]['drop'].'%';
     <?php if($_REQUEST['page']==='fractura') { ?><link rel="stylesheet" href="<?php echo __PATH_TEMPLATE_CSS__; ?>fractura-v2.css?v=<?php echo substr(hash_file('sha256',__DIR__.'/css/fractura-v2.css'),0,12); ?>"><?php } ?>
     <noscript><style>@media(max-width:1100px){.site-header{position:relative;height:auto}.site-header .nav-shell{height:auto;min-height:var(--site-header-height);flex-wrap:wrap;padding-block:12px}.site-header .main-nav{display:flex;position:static;flex-basis:100%;width:100%;order:3;max-height:none;flex-direction:row;flex-wrap:wrap;padding:8px 0 0;border:0;background:none}.site-header .main-nav a{min-height:38px;padding:8px}.site-header .main-nav .mobile-account{display:flex}.site-header .menu-toggle{display:none}.site-header .nav-actions{margin-left:auto}}</style></noscript>
 </head>
-<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $_REQUEST['page']==='votar' ? 'is-votar ' : ''; ?><?php echo $isAuthPage ? 'is-auth ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ($_REQUEST['page'] === 'downloads' ? ' is-downloads' : '')))))); ?>">
+<body class="<?php echo $isHome ? 'is-home-launch ' : ''; ?><?php echo $_REQUEST['page']==='fractura' ? 'is-fractura ' : ''; ?><?php echo $_REQUEST['page']==='market' ? 'is-market ' : ''; ?><?php echo $_REQUEST['page']==='socios' ? 'is-socios ' : ''; ?><?php echo $_REQUEST['page']==='votar' ? 'is-votar ' : ''; ?><?php echo $isAuthPage ? 'is-auth ' : ''; ?><?php echo $panicJugar ? 'is-jugar ' : ''; ?><?php echo $isHome ? 'is-home' : 'is-inner'.($_REQUEST['page'] === 'info' ? ' is-wiki' : ($_REQUEST['page'] === 'rankings' ? ' is-rankings' : ($_REQUEST['page'] === 'profile' ? ' is-profile' : ($_REQUEST['page'] === 'usercp' ? ' is-account' : ($_REQUEST['page'] === 'information' ? ' is-server-info' : ($_REQUEST['page'] === 'downloads' ? ' is-downloads' : '')))))); ?>">
 
 <header class="site-header">
     <div class="shell nav-shell">
@@ -339,7 +344,7 @@ setTimeout(mostrar,5000);setInterval(mostrar,30000);
             </div>
         <?php } else { ?>
             <div class="module-surface"><?php
-                if($isAuthPage) { require_once __DIR__.'/inc/auth-v2.php'; panicAuthOpen($_REQUEST['page']); ob_start('panicAuthMarkup'); }
+                if($isAuthPage) { require_once __DIR__.'/inc/auth-v2.php'; if($panicJugar) { require_once __DIR__.'/inc/jugar.php'; panicJugarOpen(); } else { panicAuthOpen($_REQUEST['page']); } ob_start('panicAuthMarkup'); }
                 if($_REQUEST['page'] === 'fractura') {
                     include(__DIR__.'/inc/fractura-v2.php');
                 } elseif($_REQUEST['page'] === 'socios') {
@@ -370,7 +375,7 @@ setTimeout(mostrar,5000);setInterval(mostrar,30000);
                 } else {
                     $handler->loadModule($_REQUEST['page'], $_REQUEST['subpage']);
                 }
-                if($isAuthPage) { ob_end_flush(); panicAuthClose($_REQUEST['page']); }
+                if($isAuthPage) { ob_end_flush(); if($panicJugar) { panicJugarClose(); } else { panicAuthClose($_REQUEST['page']); } }
                 ?></div>
         <?php } ?>
     </div>
