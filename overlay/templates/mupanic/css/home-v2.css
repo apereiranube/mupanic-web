@@ -641,3 +641,11 @@ body.is-home{background:var(--pui-night)}
 @keyframes h2LaunchPulse{50%{opacity:.2}}
 @media (prefers-reduced-motion:reduce){.h2-launch-dot{animation:none}}
 @media (max-width:560px){.h2-launch-clock{gap:8px}.h2-launch-unit{flex:1;width:auto;padding:12px 6px 10px}.h2-launch-unit b{font-size:54px}.h2-launch-unit small{font-size:10px;letter-spacing:.1em}.h2-launch-tag{font-size:15px}}
+
+/* Bienvenida para nuevos (12/11) */
+.h2-welcome{max-width:520px;margin-top:22px}
+.h2-welcome-tag{display:inline-block;padding:7px 14px 6px;background:var(--pui-red);color:#fff;font:400 15px/1 var(--pui-display);letter-spacing:.08em;text-transform:uppercase;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
+.h2-welcome-list{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;padding:0;list-style:none}
+.h2-welcome-list li{padding:8px 12px;border:1px solid #ffffff2e;background:#0f1923cc;color:#d5dbe1;font:600 13px/1.2 var(--pui-body)}
+.h2-welcome-list b{color:#fff;font-weight:800}
+@media(max-width:560px){.h2-welcome-list li{font-size:12px;padding:7px 10px}}

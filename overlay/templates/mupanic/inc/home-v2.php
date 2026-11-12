@@ -65,6 +65,7 @@ $h2games = ['Ruleta','Tragamonedas','Mayor o Menor','Vuelo del Dragón','Lluvia 
       <h1 class="pui-h1" id="h2-title">Tu leyenda<br>empieza acá</h1>
       <?php } ?>
       <p class="pui-lead">Sistemas propios que no vas a encontrar en otro MU: Furia, la Fractura, compañeros y el Mercado de Vessara.</p>
+      <div class="h2-welcome" aria-label="Bienvenida para jugadores nuevos"><span class="h2-welcome-tag">Si arrancás hoy</span><ul class="h2-welcome-list"><li><b>+500</b> puntos de regalo</li><li>Kit inicial <b>gratis</b></li><li><b>3 días</b> de VIP</li><li>Premios a nivel <b>50 · 100 · 200 · 300 · 400</b></li></ul></div>
       <div class="h2-actions">
         <span class="pui-btn-wrap"><a class="pui-btn pui-btn--lg" href="<?php echo $h2e($h2play); ?>">Jugá gratis</a></span>
         <a class="pui-btn pui-btn--ghost" href="<?php echo $h2e(__BASE_URL__.'information/'); ?>">Conocé el servidor</a>
