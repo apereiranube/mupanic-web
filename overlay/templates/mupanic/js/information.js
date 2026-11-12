@@ -176,10 +176,10 @@
     if('IntersectionObserver' in window)new IntersectionObserver(function(e){vis=e[0].isIntersecting;if(vis&&pending){pending=false;play((cur+1)%STEPS.length)}},{threshold:.35}).observe(st);else vis=true;
     play(0);
   })();
-  // Simulador de resets (tramos del Atlas: 200/250/300/350 puntos, 5 resets por etapa)
+  // Simulador de resets (tramos del Atlas: 400/450/500/550 puntos, 5 resets por etapa)
   (function(){
     var r=$('simR'),out=$('simOut'),pts=$('simPts'),nxt=$('simNext'),ol=$('ladderOl'),lis=[].slice.call(ol.children),shown=0,raf;
-    function per(r){return r<=4?200:r<=9?250:r<=14?300:350}
+    function per(r){return r<=4?400:r<=9?450:r<=14?500:550}
     function total(n){var t=0;for(var r=1;r<=n;r++)t+=per(r);return t}
     var LV=1995,LV2=2793;
     function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.')}

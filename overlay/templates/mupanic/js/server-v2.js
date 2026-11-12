@@ -92,11 +92,11 @@
     render(); ruler(); setInterval(render, 1000); setInterval(ruler, 20000);
   })();
 
-  /* Simulador de resets (200/250/300/350 puntos por etapa). */
+  /* Simulador de resets (400/450/500/550 puntos por etapa). */
   (function () {
     var r = $('svSimR'), out = $('svSimOut'), pts = $('svSimPts'), nxt = $('svSimNext'), lis = [].slice.call($('svLadder').children), tws = [].slice.call($('svTowers').children), shown = 0, raf, auto = !reduce, played = false;
     var LV = 1995, LV2 = 2793;
-    function per(n) { return n <= 4 ? 200 : n <= 9 ? 250 : n <= 14 ? 300 : 350; }
+    function per(n) { return n <= 4 ? 400 : n <= 9 ? 450 : n <= 14 ? 500 : 550; }
     function total(n) { var t = 0; for (var i = 1; i <= n; i++) t += per(i); return t; }
     function animTo(v) { cancelAnimationFrame(raf); var from = shown, t0 = null; (function st(t) { t0 = t0 || t; var k = Math.min(1, (t - t0) / 350); shown = Math.round(from + (v - from) * k); pts.textContent = fmt(shown); if (k < 1) raf = requestAnimationFrame(st); })(performance.now()); }
     function upd() {

@@ -89,16 +89,16 @@ foreach(($srvEventSource['events'] ?? []) as $e) {
         </div>
         <div class="ladder-r">
         <ol aria-label="Puntos por reset según la etapa" data-anim id="ladderOl">
-          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-1-off-85369d0ff2da.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-1-on-c615de19301c.webp" alt=""></div><b data-to="200">200</b><span>puntos · resets 1 a 4</span></li>
-          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-2-off-28e2692c419d.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-2-on-f85f37eacbb8.webp" alt=""></div><b data-to="250">250</b><span>puntos · resets 5 a 9</span></li>
-          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-3-off-b38c3d20c50c.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-3-on-5785fc68212b.webp" alt=""></div><b data-to="300">300</b><span>puntos · resets 10 a 14</span></li>
-          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-4-off-99a79ee5f03a.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-4-on-fa2f49278e20.webp" alt=""></div><b data-to="350">350</b><span>puntos · resets 15 a 20</span></li>
+          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-1-off-85369d0ff2da.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-1-on-c615de19301c.webp" alt=""></div><b data-to="400">400</b><span>puntos · resets 1 a 4</span></li>
+          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-2-off-28e2692c419d.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-2-on-f85f37eacbb8.webp" alt=""></div><b data-to="450">450</b><span>puntos · resets 5 a 9</span></li>
+          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-3-off-b38c3d20c50c.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-3-on-5785fc68212b.webp" alt=""></div><b data-to="500">500</b><span>puntos · resets 10 a 14</span></li>
+          <li><div class="pil" aria-hidden="true"><img loading="lazy" decoding="async" class="p-off" src="<?php echo $srvV3; ?>pilar-4-off-99a79ee5f03a.webp" alt=""><img loading="lazy" decoding="async" class="p-on" src="<?php echo $srvV3; ?>pilar-4-on-fa2f49278e20.webp" alt=""></div><b data-to="550">550</b><span>puntos · resets 15 a 20</span></li>
         </ol>
         <div class="sim rv" id="sim">
           <div class="sim-top"><label for="simR">Simulá tu recorrido</label><output id="simOut" for="simR">0<small>resets</small></output></div>
           <input type="range" id="simR" min="0" max="20" step="1" value="0" aria-label="Cantidad de resets">
           <div class="sim-ticks"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
-          <div class="sim-res"><div><small>Puntos de reset acumulados</small><b id="simPts">0</b></div><div><small>Tu próximo reset suma</small><b id="simNext">+200</b></div><div><small>Total para repartir, con los puntos de nivel 400</small><b id="simTot">1.995</b><em class="sim-cls">DW, DK, Elfa y SU · <span id="simTot2">2.793</span> MG, DL y RF</em></div></div>
+          <div class="sim-res"><div><small>Puntos de reset acumulados</small><b id="simPts">0</b></div><div><small>Tu próximo reset suma</small><b id="simNext">+400</b></div><div><small>Total para repartir, con los puntos de nivel 400</small><b id="simTot">1.995</b><em class="sim-cls">DW, DK, Elfa y SU · <span id="simTot2">2.793</span> MG, DL y RF</em></div></div>
           <p class="sim-note">Los puntos del árbol Master se suman aparte.</p>
         </div>
         </div>

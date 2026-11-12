@@ -93,10 +93,10 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
         <h2 class="pui-h2" id="sv-reset-t"><?php echo $svReveal(['Cada reset te','deja más fuerte']); ?></h2>
         <p class="pui-lead">Los puntos que recibís crecen a medida que avanzás. Llegar más lejos siempre vale la pena.</p>
         <ol class="sv-ladder" id="svLadder" aria-label="Puntos por reset según la etapa">
-          <li><b>200</b><span>puntos · resets 1 a 4</span></li>
-          <li><b>250</b><span>puntos · resets 5 a 9</span></li>
-          <li><b>300</b><span>puntos · resets 10 a 14</span></li>
-          <li><b>350</b><span>puntos · resets 15 a 20</span></li>
+          <li><b>400</b><span>puntos · resets 1 a 4</span></li>
+          <li><b>450</b><span>puntos · resets 5 a 9</span></li>
+          <li><b>500</b><span>puntos · resets 10 a 14</span></li>
+          <li><b>550</b><span>puntos · resets 15 a 20</span></li>
         </ol>
         <a class="pui-link" href="<?php echo $sv($svBase.'info/#rates'); ?>">Ver los rates completos ↗︎</a>
       </div>
@@ -112,7 +112,7 @@ $svReveal = function($lines) { return implode('<br>', array_map(function($l){ re
         <div class="sv-sim-ticks" aria-hidden="true"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
         <div class="sv-sim-res">
           <div><small>Puntos de reset acumulados</small><b id="svSimPts">0</b></div>
-          <div><small>Tu próximo reset suma</small><b id="svSimNext">+200</b></div>
+          <div><small>Tu próximo reset suma</small><b id="svSimNext">+400</b></div>
           <div class="sv-sim-total"><small>Total para repartir, con los puntos de nivel 400</small><b id="svSimTot">1.995</b><em>DW, DK, Elfa y SU · <span id="svSimTot2">2.793</span> MG, DL y RF</em></div>
         </div>
         <p class="sv-sim-note">Los puntos del árbol Master se suman aparte.</p>
