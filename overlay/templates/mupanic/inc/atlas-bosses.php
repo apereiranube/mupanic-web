@@ -49,6 +49,9 @@ $bossNow = $bossLive['now'];
 $bossTz = new DateTimeZone('America/Argentina/Buenos_Aires');
 $bossFresh = 180;
 $bossServerNames = [0=>'Server 1', 1=>'Server 2', 19=>'Server Loren'];
+// Servers cerrados por un tiempo (el 2 se cerró el 17/11/2026 para juntar a la gente en el 1). Para reabrirlo: dejar [].
+$bossClosed = [1];
+$bossOpen = function($servers) use($bossClosed) { return array_values(array_diff($servers, $bossClosed)); };
 $bossMap = function($id, $fallback) use($mapNames) { return $mapNames[$id] ?? $fallback; };
 $bossImg = function($class) use($wiki) {
     $f = $wiki['portraits'][(string)$class]['file'] ?? null;
@@ -90,7 +93,7 @@ $bossScheduled = [
     ['event'=>'invasion-0', 'name'=>'Skeleton King', 'class'=>55, 'map'=>'Invasión'],
     ['event'=>'invasion-3', 'name'=>'White Wizard', 'class'=>135, 'map'=>'Invasión'],
 ];
-$bossScheduledState = function($b) use($bossEvents, $bossLive, $bossNow, $bossFresh, $bossTz, $bossServerNames) {
+$bossScheduledState = function($b) use($bossEvents, $bossLive, $bossNow, $bossFresh, $bossTz, $bossServerNames, $bossClosed) {
     $e = $bossEvents[$b['event']] ?? null;
     if(!$e || !$e['enabled'] || $e['mode'] !== 'scheduled' || !$e['schedule']) return null;
     $dur = (int)round($e['durationMinutes'] * 60);
@@ -106,6 +109,7 @@ $bossScheduledState = function($b) use($bossEvents, $bossLive, $bossNow, $bossFr
     if($current === null) return $out + ['k'=>'wait', 't'=>'Próxima aparición', 'until'=>$next];
     $alive = []; $dead = false; $fresh = false;
     foreach($bossLive['rows'] as $server => $classes) {
+        if(in_array($server, $bossClosed, true)) continue;
         $r = $classes[$b['class']] ?? null;
         if(!$r || $bossNow - $r['seen'] > $bossFresh) continue;
         $fresh = true;
@@ -135,8 +139,8 @@ $bossCountdown = function($until, $label = '') use($bossClock) {
         <article class="bos-card" data-wiki-search>
             <div class="bos-head"><?php if($img) { ?><img src="<?php echo panicWikiEscape($img); ?>" alt="" width="96" height="96" loading="lazy"><?php } ?><div><h4><?php echo panicWikiEscape($b['name']); ?></h4><span class="bos-map"><?php echo panicWikiEscape($b['map']); ?></span></div></div>
             <ul class="bos-servers">
-            <?php foreach($b['servers'] as $s) { $st = $bossRegenState($s, $b['class'], $b['kind']); ?>
-                <li class="bos-st bos-st--<?php echo $st['k']; ?>"><?php if(count($b['servers']) > 1) { ?><span class="bos-srv"><?php echo $bossServerNames[$s]; ?></span><?php } ?><span class="bos-dot" aria-hidden="true"></span><span class="bos-txt"><?php echo panicWikiEscape($st['t']); ?></span><?php echo $bossCountdown($st['until'] ?? 0); ?></li>
+            <?php $bossSrv = $bossOpen($b['servers']); foreach($bossSrv as $s) { $st = $bossRegenState($s, $b['class'], $b['kind']); ?>
+                <li class="bos-st bos-st--<?php echo $st['k']; ?>"><?php if(count($bossSrv) > 1) { ?><span class="bos-srv"><?php echo $bossServerNames[$s]; ?></span><?php } ?><span class="bos-dot" aria-hidden="true"></span><span class="bos-txt"><?php echo panicWikiEscape($st['t']); ?></span><?php echo $bossCountdown($st['until'] ?? 0); ?></li>
             <?php } ?>
             </ul>
             <p class="bos-note"><?php echo panicWikiEscape($b['note']); ?></p>
@@ -144,8 +148,8 @@ $bossCountdown = function($until, $label = '') use($bossClock) {
     <?php } ?>
         <article class="bos-card bos-card--wide" data-wiki-search>
             <div class="bos-head"><div><h4>Ilusiones de Kundun</h4><span class="bos-map">Kalima 1 a 6</span></div></div>
-            <table class="bos-table"><thead><tr><th>Mapa</th><th>Server 1</th><th>Server 2</th></tr></thead><tbody>
-            <?php foreach($bossIllusions as $il) { ?><tr><td><?php echo panicWikiEscape($bossMap($il[2], 'Kalima '.$il[0])); ?></td><?php foreach([0, 1] as $s) { $st = $bossRegenState($s, $il[1]); ?><td class="bos-st bos-st--<?php echo $st['k']; ?>"><span class="bos-dot" aria-hidden="true"></span><span class="bos-txt"><?php echo panicWikiEscape($st['t']); ?></span><?php echo $bossCountdown($st['until'] ?? 0); ?></td><?php } ?></tr><?php } ?>
+            <table class="bos-table"><?php $bossIlSrv = $bossOpen([0, 1]); ?><thead><tr><th>Mapa</th><?php foreach($bossIlSrv as $s) { ?><th><?php echo $bossServerNames[$s]; ?></th><?php } ?></tr></thead><tbody>
+            <?php foreach($bossIllusions as $il) { ?><tr><td><?php echo panicWikiEscape($bossMap($il[2], 'Kalima '.$il[0])); ?></td><?php foreach($bossIlSrv as $s) { $st = $bossRegenState($s, $il[1]); ?><td class="bos-st bos-st--<?php echo $st['k']; ?>"><span class="bos-dot" aria-hidden="true"></span><span class="bos-txt"><?php echo panicWikiEscape($st['t']); ?></span><?php echo $bossCountdown($st['until'] ?? 0); ?></td><?php } ?></tr><?php } ?>
             </tbody></table>
         </article>
     </div>
