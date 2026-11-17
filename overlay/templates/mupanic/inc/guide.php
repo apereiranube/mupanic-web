@@ -58,7 +58,7 @@ for($i=18;$i<=23;$i++) $mapNames[$i] = 'Chaos Castle '.($i-17);
         else if(/^vinculo-/.test(hash)) section='vinculos';
         else if(/^fractura-/.test(hash)) section='fractura';
         else if(/^armeria-/.test(hash)) section='armeria';
-        else if(['vinculos','vessara','fractura','inicio','progresion','buscar','recompensas','eventos','primeros-pasos','drops','rates','sistemas','taller','mejoras','equipo','armeria'].indexOf(hash)>=0) section=hash;
+        else if(['vinculos','vessara','fractura','bosses','inicio','progresion','buscar','recompensas','eventos','primeros-pasos','drops','rates','sistemas','taller','mejoras','equipo','armeria'].indexOf(hash)>=0) section=hash;
         root.dataset.atlasInitial=section;root.classList.add('wiki-enhanced','atlas-boot');
         window.setTimeout(function(){if(root.classList.contains('atlas-boot')) root.classList.remove('atlas-boot','wiki-enhanced');},5000);
     })(document.currentScript);
@@ -67,7 +67,7 @@ for($i=18;$i<=23;$i++) $mapNames[$i] = 'Chaos Castle '.($i-17);
         <div class="atl-nav-search"><label for="wiki-search">¿Qué estás buscando?</label><input id="wiki-search" type="search" placeholder="Chaos, Lorencia, reset…" autocomplete="off">
         <div class="wiki-search-results" hidden></div><p class="wiki-search-status" role="status" aria-live="polite"></p></div>
         <nav aria-label="Guía de MU PANIC" data-atl-tabs>
-            <div class="atl-nav-main"><a href="#inicio"><?php echo panicAtlasIcon('territorios','I'); ?><span>Inicio del Atlas</span></a><a href="#progresion"><?php echo panicAtlasIcon('mapas','M'); ?><span>Mapas y spots</span></a><a href="#buscar"><?php echo panicAtlasIcon('buscar','B'); ?><span>Buscar objetos y mobs</span></a><a href="#recompensas"><?php echo panicAtlasIcon('recompensas','R'); ?><span>Bosses y recompensas</span></a><a href="#eventos"><?php echo panicAtlasIcon('eventos','E'); ?><span>Eventos y agenda</span></a><a href="#vinculos"><?php echo panicAtlasIcon('vinculos','V'); ?><span>Vínculos de PANIC</span></a><a href="#furia"><?php echo panicAtlasIcon('furia','F'); ?><span>La Furia</span></a><a href="#vessara"><?php echo panicAtlasIcon('vessara','V'); ?><span>Mercado de Vessara</span></a><a href="#fractura"><?php echo panicAtlasIcon('fractura','F'); ?><span>Fractura: bandos y premios</span></a></div>
+            <div class="atl-nav-main"><a href="#inicio"><?php echo panicAtlasIcon('territorios','I'); ?><span>Inicio del Atlas</span></a><a href="#progresion"><?php echo panicAtlasIcon('mapas','M'); ?><span>Mapas y spots</span></a><a href="#buscar"><?php echo panicAtlasIcon('buscar','B'); ?><span>Buscar objetos y mobs</span></a><a href="#recompensas"><?php echo panicAtlasIcon('recompensas','R'); ?><span>Bosses y recompensas</span></a><a href="#bosses"><?php echo panicAtlasIcon('recompensas','B'); ?><span>Bosses ahora</span></a><a href="#eventos"><?php echo panicAtlasIcon('eventos','E'); ?><span>Eventos y agenda</span></a><a href="#vinculos"><?php echo panicAtlasIcon('vinculos','V'); ?><span>Vínculos de PANIC</span></a><a href="#furia"><?php echo panicAtlasIcon('furia','F'); ?><span>La Furia</span></a><a href="#vessara"><?php echo panicAtlasIcon('vessara','V'); ?><span>Mercado de Vessara</span></a><a href="#fractura"><?php echo panicAtlasIcon('fractura','F'); ?><span>Fractura: bandos y premios</span></a></div>
             <div class="atlas-learn-nav atl-nav-learn"><span class="atl-nav-group"><?php echo panicAtlasIcon('guia','G'); ?>Aprender a jugar</span><a href="#primeros-pasos"><span>Primeros pasos</span></a><a href="#sistemas"><span>Reset y mejoras</span></a><a href="#taller"><span>Crear objetos y alas</span></a><a href="#mejoras"><span>Mejorar mi equipo</span></a><a href="#equipo"><span>Tipos de equipo</span></a><a href="#armeria"><span>Sets y armas por clase</span></a><a href="#rates"><span>Experiencia y tasas</span></a><a href="#drops"><span>Objetos y drops</span></a></div>
             <i class="atl-nav-bar" aria-hidden="true"></i>
         </nav>
@@ -76,6 +76,7 @@ for($i=18;$i<=23;$i++) $mapNames[$i] = 'Chaos Castle '.($i-17);
     <div class="wiki-content">
         <?php include(__DIR__.'/atlas-home.php'); ?>
         <?php include(__DIR__.'/atlas-search.php'); ?>
+        <?php include(__DIR__.'/atlas-bosses.php'); ?>
         <?php include(__DIR__.'/atlas-events.php'); ?>
         <?php include(__DIR__.'/atlas-vinculos.php'); ?>
         <?php include(__DIR__.'/atlas-furia.php'); ?>
