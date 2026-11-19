@@ -259,6 +259,32 @@ for asset in "${TERRITORY_ART_FILES[@]}"; do
   fi
 done
 
+# Mails en espanol: plantillas de WebEngine y asuntos de includes/config/email.xml.
+# No toca remitente, SMTP ni ninguna otra opcion del panel admin.
+EMAIL_SOURCE="$SOURCE_ROOT/overlay/includes/emails"
+EMAIL_DEST="$DEPLOY_ROOT/includes/emails"
+if [ -d "$EMAIL_DEST" ]; then
+  for f in "$EMAIL_SOURCE"/*.txt; do
+    test -s "$f"
+    cp "$f" "$EMAIL_DEST/$(basename "$f").mupanic_tmp"
+    chmod 644 "$EMAIL_DEST/$(basename "$f").mupanic_tmp"
+    mv -f "$EMAIL_DEST/$(basename "$f").mupanic_tmp" "$EMAIL_DEST/$(basename "$f")"
+  done
+fi
+EMAIL_XML="$DEPLOY_ROOT/includes/config/email.xml"
+if [ -f "$EMAIL_XML" ]; then
+  sed -i \
+    -e 's#<subject>{SERVER_NAME} Password Updated!</subject>#<subject>MU PANIC | Cambiaste tu clave</subject>#g' \
+    -e 's#<subject>{SERVER_NAME} Password Change Request</subject>#<subject>MU PANIC | Confirma el cambio de clave</subject>#g' \
+    -e 's#<subject>{SERVER_NAME} Password Recovery Request</subject>#<subject>MU PANIC | Recuperar tu cuenta</subject>#g' \
+    -e 's#<subject>Your New {SERVER_NAME} Password</subject>#<subject>MU PANIC | Tu clave nueva</subject>#g' \
+    -e 's#<subject>Welcome to {SERVER_NAME}!</subject>#<subject>Bienvenido a MU PANIC</subject>#g' \
+    -e 's#<subject>Verify your {SERVER_NAME} email</subject>#<subject>MU PANIC | Falta un paso para activar tu cuenta</subject>#g' \
+    -e 's#<subject>{SERVER_NAME} Email Change Request</subject>#<subject>MU PANIC | Confirma tu correo nuevo</subject>#g' \
+    -e 's#<subject>Your New {SERVER_NAME} Email</subject>#<subject>MU PANIC | Tu correo fue actualizado</subject>#g' \
+    "$EMAIL_XML"
+fi
+
 # Install only the explicitly approved public launcher route, never the whole API tree.
 if [ -L "$DEPLOY_ROOT/api" ] || [ -L "$DEPLOY_ROOT/api/launcher.php" ]; then
   echo "[MU PANIC] ERROR: Launcher API destination must not be a symlink." >&2
