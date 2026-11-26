@@ -187,10 +187,11 @@ final class PanicBankTransfers {
         if($confirmed!==true)throw new InvalidArgumentException('Confirmá que verificaste el ingreso bancario y el comprobante.');
         if(is_string($reference))$reference=trim($reference);
         if(!is_string($reference) || !preg_match('/^[A-Za-z0-9_-]{1,80}$/D',$reference))throw new InvalidArgumentException('Ingresá el número de operación que figura en el movimiento de tu banco. No es el código de Discord.');
-        $o=$this->get($id);if($o['payment_state']!=='pending' || !$o['ticket_channel'])throw new InvalidArgumentException('La compra no está pendiente con un ticket abierto.');
+        $o=$this->get($id);$noReceipt=empty($o['receipt_message']) || empty($o['receipt_url']);
+        if($o['payment_state']!=='pending' || (!$o['ticket_channel'] && !$noReceipt))throw new InvalidArgumentException('La compra no está pendiente con un ticket abierto.');
         if(($o['live']?'production':'test')!==$this->environment())throw new InvalidArgumentException('La compra pertenece a otro ambiente.');
         $manual=null;
-        if(empty($o['receipt_message']) || empty($o['receipt_url'])) {
+        if($noReceipt) {
             $manual=is_string($manualNote)?trim(preg_replace('/\s+/u',' ',$manualNote)):'';
             if($manual==='' || mb_strlen($manual)>120)throw new InvalidArgumentException('Falta el comprobante del bot. Para aprobar a mano, anotá dónde recibiste el comprobante (máximo 120 caracteres).');
         }
