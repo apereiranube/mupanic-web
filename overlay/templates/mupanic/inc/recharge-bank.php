@@ -182,19 +182,24 @@ final class PanicBankTransfers {
     public function botReady($environment) {
         return $this->file(function($d)use($environment){$b=$d['bot'] ?? [];return ($b['last_seen'] ?? 0)>=time()-180 && ($b['environment'] ?? '')===$environment && ($b['guild_id'] ?? '')===$d['config']['guild_id'] && ($b['support_channel_id'] ?? '')===$d['config']['support_channel_id'];});
     }
-    public function approve($id,$reference,$confirmed) {
+    public function approve($id,$reference,$confirmed,$manualNote=null) {
         if(!panicRechargeAdminAllowed())throw new RuntimeException('Acceso no autorizado.');
         if($confirmed!==true)throw new InvalidArgumentException('Confirmá que verificaste el ingreso bancario y el comprobante.');
         if(is_string($reference))$reference=trim($reference);
         if(!is_string($reference) || !preg_match('/^[A-Za-z0-9_-]{1,80}$/D',$reference))throw new InvalidArgumentException('Ingresá el número de operación que figura en el movimiento de tu banco. No es el código de Discord.');
         $o=$this->get($id);if($o['payment_state']!=='pending' || !$o['ticket_channel'])throw new InvalidArgumentException('La compra no está pendiente con un ticket abierto.');
         if(($o['live']?'production':'test')!==$this->environment())throw new InvalidArgumentException('La compra pertenece a otro ambiente.');
-        if(empty($o['receipt_message']) || empty($o['receipt_url']))throw new InvalidArgumentException('Falta que el bot registre el comprobante adjunto en Discord.');
+        $manual=null;
+        if(empty($o['receipt_message']) || empty($o['receipt_url'])) {
+            $manual=is_string($manualNote)?trim(preg_replace('/\s+/u',' ',$manualNote)):'';
+            if($manual==='' || mb_strlen($manual)>120)throw new InvalidArgumentException('Falta el comprobante del bot. Para aprobar a mano, anotá dónde recibiste el comprobante (máximo 120 caracteres).');
+        }
         $payment='BANK_'.strtoupper($reference);
-        return $this->update($id,function($current,$orders)use($payment){
+        return $this->update($id,function($current,$orders)use($payment,$manual){
             if($current['payment_state']!=='pending')throw new InvalidArgumentException('La compra ya fue revisada.');
             foreach($orders as $other)if($other['live']===$current['live'] && ($other['payment_id'] ?? '')===$payment)throw new InvalidArgumentException('Esta operación bancaria ya está registrada.');
             $current['payment_id']=$payment;$current['payment_state']='approved';$current['approved_by']=(string)$_SESSION['username'];$current['approved_at']=gmdate('c');
+            if($manual!==null){$current['receipt_source']='manual';$current['receipt_note']=$manual;}
             return $current;
         });
     }
