@@ -17,7 +17,8 @@ $shopHistory=['total'=>3,'orders'=>[$one,$two,$three]];$shopCanBuy=true;$shopSet
 $fixtureMode=getenv('RECHARGE_FIXTURE');
 require_once $inc.'/recharge-bank.php';
 $bankConfig=PanicBankTransfers::defaults();$bankConfig['enabled']=true;$bankCanBuy=true;$bankSelected=false;$bankCuit='';$bankPage=1;$bankHistory=['orders'=>[],'total'=>0];
-if(in_array($fixtureMode,['bank','bank-created','bank-error'],true)) {
+if(in_array($fixtureMode,['bank-discord','bank-discord-wait'],true)) { $bankOauthConfig=['client_id'=>'1555229554920915000','client_secret'=>'x'];$_SESSION['bank_oauth_key']=str_repeat('k',64); }
+if(in_array($fixtureMode,['bank','bank-created','bank-error','bank-discord','bank-discord-wait'],true)) {
     $bankConfig['enabled']=true;$bankCanBuy=true;
     $shopMessage='Ahora abrí Discord y usá el código de tu compra para adjuntar el comprobante en un ticket privado.';
     $_POST['recharge_action']='bank_ready';
@@ -27,6 +28,8 @@ if(in_array($fixtureMode,['bank','bank-created','bank-error'],true)) {
     $bankHistory=['orders'=>[$bankOrder],'total'=>1];
     $_SESSION['bank_claim_code']=['id'=>$bankOrder['id'],'code'=>str_repeat('a',24),'expires'=>time()+1800];
     $bankContinueOrder=$bankOrder;
+    if(in_array($fixtureMode,['bank-discord','bank-discord-wait'],true)) { unset($_SESSION['bank_claim_code']); $_POST['recharge_action']='create'; $shopMessage='Transferencia preparada.'; }
+    if($fixtureMode==='bank-discord-wait') { $bankOrder['ticket_state']='creating';$bankOrder['oauth']=['token'=>'t','at'=>time()];$bankHistory=['orders'=>[$bankOrder],'total'=>1]; }
     if($fixtureMode==='bank-created') { $_POST['recharge_action']='create'; $shopMessage='Transferencia preparada.'; unset($_SESSION['bank_claim_code']); }
     if($fixtureMode==='bank-error') { $_POST['recharge_action']='create'; $bankContinueOrder=null; $shopMessage='Revisá el CUIT.'; }
 }

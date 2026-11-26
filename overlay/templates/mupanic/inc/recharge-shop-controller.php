@@ -12,6 +12,13 @@ try {
 } catch(Throwable $ignored) { /* Closed by default; never publish configuration or secrets. */ }
 if(!is_string($_SESSION['recharge_csrf'] ?? null)) $_SESSION['recharge_csrf']=bin2hex(random_bytes(32));
 if(!is_string($_SESSION['recharge_nonce'] ?? null)) $_SESSION['recharge_nonce']=bin2hex(random_bytes(16));
+if(!is_string($_SESSION['bank_oauth_key'] ?? null)) $_SESSION['bank_oauth_key']=bin2hex(random_bytes(32));
+if(($_SERVER['REQUEST_METHOD'] ?? '')==='GET' && isset($_GET['state']) && (isset($_GET['code']) || isset($_GET['error']))) {
+    $bankSelected=true;
+    try { $bankContinueOrder=panicBankDiscordCallback($bankStore,$rechargeAccount); $shopMessage=$bankContinueOrder['ticket_channel']?'Tu ticket ya estaba abierto. Abrilo y adjuntá el comprobante.':'¡Listo! Estamos abriendo tu ticket privado en Discord. En unos segundos te llega un mensaje del bot con el acceso.'; }
+    catch(InvalidArgumentException $exception) { $shopMessage=$exception->getMessage(); }
+    catch(Throwable $exception) { $shopMessage='No pudimos conectar con Discord. Probá otra vez en unos minutos o usá el código de abajo.'; }
+}
 $shopQuantities=[]; foreach($rechargePackages as $offer) $shopQuantities[$offer['id']]='0';
 if(($_SERVER['REQUEST_METHOD'] ?? '')==='POST' && isset($_POST['recharge_action'])) {
     try {

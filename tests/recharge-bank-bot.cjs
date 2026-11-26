@@ -31,5 +31,15 @@ vm.runInNewContext(fs.readFileSync('tools/discord-bank/transferencias.js','utf8'
  await mod.notifyCredits(notifyClient,notices);await mod.notifyCredits(notifyClient,notices);await mod.notifyCredits(notifyClient,notices);
  assert.equal(notificationSends,1,'Lost acknowledgment must reuse the existing Discord message');assert.equal(noticeAcks,2);
  const originalTopic=channel.topic;channel.topic='public-channel';await mod.notifyCredits(notifyClient,async()=>({orders:[notificationOrder]}));assert.equal(notificationSends,1,'Never notify in a mismatched ticket');channel.topic=originalTopic;
+ // Discord login queue: adds the buyer, opens one ticket, pings once and DMs once.
+ const oo={...o,id:'PANIC-'+'b'.repeat(32),access_token:'tokentoken12'};const ch2={...channel,id:'1555229554920915066',topic:'mu-bank:'+oo.id+':'+user};const msgs2=new Collection();let added=0,dms=0,tickets=0,pings=0;
+ ch2.messages={fetch:async()=>msgs2};ch2.send=async p=>{if((p.content||'').startsWith('[MU-PANIC:AVISO:'))pings++;const m={id:String(msgs2.size+1),author:{id:'bot'},content:p.content,embeds:p.embeds||[]};msgs2.set(m.id,m);return m};ch2.permissionOverwrites={set:async()=>{}};
+ const cache2=new Collection([['category',{id:'cat',name:'🆘 SOPORTE',type:4}]]);
+ const g2={id:guildId,client:{user:{id:'bot'}},channels:{cache:cache2,fetch:async t=>t?ch2:cache2,create:async()=>{cache2.set(ch2.id,ch2);return ch2}},roles:guild.roles,members:{fetch:async()=>{throw Error('not member')},add:async(id,opt)=>{added++;assert.equal(opt.accessToken,'tokentoken12');return {send:async()=>{dms++}}}}};
+ let queued=true;const q=async r=>{if(r.action==='oauth_queue')return {orders:queued?[oo]:[]};if(r.action==='ticket'){tickets++;queued=false;return {state:'ok'}}throw Error('x')};
+ const c2={user:{id:'bot'},guilds:{fetch:async()=>g2}};
+ await mod.oauthQueue(c2,q);await mod.oauthQueue(c2,q);queued=true;await mod.oauthQueue(c2,q);
+ assert.equal(added,2);assert.equal(tickets,2);assert.equal(pings,1,'Ping only once');assert.equal(dms,1,'DM only once');
+ await mod.oauthQueue(c2,async()=>({orders:[{...oo,access_token:'bad token!'}]}));assert.equal(added,2,'Invalid token ignored');
  console.log('Existing bot: signed bridge, private ACL, channel reuse and buyer-only attachment tests passed.');
 })().catch(e=>{console.error(e);process.exitCode=1});

@@ -55,31 +55,65 @@ async function open(interaction, send=bridge) {
   if(!staff.size || !category)throw Error('Falta configurar el equipo o la categoría de soporte.');
   const result=await send({action:'claim',code,discord_id:interaction.user.id,guild_id:interaction.guildId});
   const o=result.order; if(!orderValid(o,interaction.user.id,interaction.guildId))throw Error('La compra no pudo verificarse.');
+  const channel=await ticketFor(guild,o,interaction.user.id,result.can_create,send,staff,category);
+  await interaction.editReply({content:'Tu ticket privado: '+channel.toString()+'. Adjuntá allí el comprobante.'});
+}
+async function ticketFor(guild,o,userId,canCreate,send,staff,category) {
   if(locks.has(o.id))throw Error('El ticket se está creando. Esperá unos segundos.');
   locks.add(o.id);
   try {
-    const topic='mu-bank:'+o.id+':'+interaction.user.id;
+    const topic='mu-bank:'+o.id+':'+userId;
     let channel=guild.channels.cache.find(c=>c.type===D.ChannelType.GuildText && c.topic===topic);
     if(o.ticket_channel) {
       channel=await guild.channels.fetch(o.ticket_channel);
       if(!channel || channel.topic!==topic)throw Error('El ticket registrado requiere revisión del equipo. No vuelvas a transferir.');
     }
     const allow=[D.PermissionsBitField.Flags.ViewChannel,D.PermissionsBitField.Flags.SendMessages,D.PermissionsBitField.Flags.ReadMessageHistory,D.PermissionsBitField.Flags.AttachFiles];
-    const overwrites=[{id:guild.id,deny:[D.PermissionsBitField.Flags.ViewChannel]},{id:interaction.user.id,allow},{id:guild.client.user.id,allow},...staff.map(r=>({id:r.id,allow}))];
+    const overwrites=[{id:guild.id,deny:[D.PermissionsBitField.Flags.ViewChannel]},{id:userId,allow},{id:guild.client.user.id,allow},...staff.map(r=>({id:r.id,allow}))];
     if(!channel) {
-      if(!result.can_create)throw Error('El ticket quedó pendiente de revisión. Contactá al equipo con tu número de compra; no repitas el pago.');
+      if(!canCreate)throw Error('El ticket quedó pendiente de revisión. Contactá al equipo con tu número de compra; no repitas el pago.');
       channel=await guild.channels.create({name:'recarga-'+o.id.slice(6,18),type:D.ChannelType.GuildText,parent:category.id,topic,permissionOverwrites:overwrites});
     } else {
       // Restore private access before showing personal/payment data in a recovered channel.
       await channel.permissionOverwrites.set(overwrites);
     }
-    await send({action:'ticket',id:o.id,discord_id:interaction.user.id,guild_id:guild.id,channel_id:channel.id});
+    await send({action:'ticket',id:o.id,discord_id:userId,guild_id:guild.id,channel_id:channel.id});
     const recent=await channel.messages.fetch({limit:100});
     if(!recent.some(m=>m.author.id===guild.client.user.id && m.content==='[MU-PANIC:RECARGA:'+o.id+']')) {
       await channel.send({content:'[MU-PANIC:RECARGA:'+o.id+']',embeds:[new D.EmbedBuilder().setColor(0xc9a64b).setTitle('Comprobante de transferencia').setDescription('Adjuntá el comprobante en este canal privado. El equipo verificará el ingreso bancario antes de aprobar la recarga. La acreditación puede demorar hasta 48 horas. Te avisaremos aquí cuando los Eryns estén acreditados. No vuelvas a transferir por esta compra.').addFields({name:'Cuenta MU',value:o.account,inline:true},{name:'CUIT del comprador',value:o.cuit,inline:true},{name:'Importe',value:'$ '+new Intl.NumberFormat('es-AR').format(o.price_cents/100)+' ARS',inline:true},{name:'Eryns',value:new Intl.NumberFormat('es-AR').format(o.coins),inline:true},{name:'Compra',value:o.id})],components:[new D.ActionRowBuilder().addComponents(new D.ButtonBuilder().setCustomId('panic_bank_receipt').setLabel('Ya adjunté el comprobante').setStyle(D.ButtonStyle.Primary))],allowedMentions:{parse:[]}});
     }
-    await interaction.editReply({content:'Tu ticket privado: '+channel.toString()+'. Adjuntá allí el comprobante.'});
+    return channel;
   } finally { locks.delete(o.id); }
+}
+// Discord login from the web: add the buyer to the server, open the ticket and tell them where it is.
+let linking=false;
+async function oauthQueue(client,send=bridge) {
+  if(linking)return;linking=true;
+  try {
+    const guild=await client.guilds.fetch(process.env.GUILD_ID);
+    const result=await send({action:'oauth_queue',guild_id:guild.id});
+    if(!Array.isArray(result.orders) || result.orders.length>3)throw Error('Cola inválida.');
+    if(!result.orders.length)return;
+    await guild.channels.fetch();await guild.roles.fetch();
+    const staff=guild.roles.cache.filter(r=>STAFF.includes(r.name));
+    const category=guild.channels.cache.find(c=>c.type===D.ChannelType.GuildCategory && c.name.includes('SOPORTE'));
+    if(!staff.size || !category)throw Error('Soporte no configurado.');
+    for(const o of result.orders) {
+      try {
+        if(!orderValid(o,o.discord_id,guild.id) || typeof o.access_token!=='string' || !/^[A-Za-z0-9._-]{10,200}$/.test(o.access_token))throw Error('Orden inválida.');
+        let member=await guild.members.fetch(o.discord_id).catch(()=>null);
+        if(!member)member=await guild.members.add(o.discord_id,{accessToken:o.access_token});
+        const channel=await ticketFor(guild,o,o.discord_id,true,send,staff,category);
+        const marker='[MU-PANIC:AVISO:'+o.id+']';
+        const recent=await channel.messages.fetch({limit:100});
+        if(!recent.some(m=>m.author.id===guild.client.user.id && (m.content || '').startsWith(marker))) {
+          await channel.send({content:marker+' <@'+o.discord_id+'> este es tu ticket privado. Adjuntá acá la foto o el PDF del comprobante.',allowedMentions:{parse:[],users:[o.discord_id]}});
+          const link='https://discord.com/channels/'+guild.id+'/'+channel.id;
+          if(member)await member.send({content:'¡Hola! Tu ticket de recarga en **MU PANIC** está listo. Tocá acá para abrirlo y adjuntar el comprobante: '+link}).catch(()=>{});
+        }
+      } catch { console.log('[Transferencias] Ticket por Discord pendiente; se reintentará.'); }
+    }
+  } finally { linking=false; }
 }
 async function receipt(message,send=bridge) {
   if(!message.guild || message.author.bot || !message.attachments?.size)return false;
@@ -136,7 +170,8 @@ function install(client) {
     const sync=async()=>{try{if(!panelReady){const g=await client.guilds.fetch(process.env.GUILD_ID);await panel(g);panelReady=true;}await heartbeat(client);await notifyCredits(client);}catch{console.log('[Transferencias] Esperando conexión del servicio web o soporte.');}};
     setTimeout(sync,10000).unref();
     setInterval(sync,60000).unref();
+    setInterval(()=>oauthQueue(client).catch(()=>{}),8000).unref();
   });
   client.on(D.Events.MessageCreate,async message=>{try{await receipt(message);}catch{console.log('[Transferencias] Comprobante pendiente; el comprador puede reintentar con el botón del ticket.');}});
 }
-module.exports={commands,handle,install,bridge,orderValid,open,receipt,notifyCredits};
+module.exports={commands,handle,install,bridge,orderValid,open,receipt,notifyCredits,oauthQueue};

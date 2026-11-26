@@ -100,6 +100,43 @@ final class PanicBankTransfers {
             $d['orders'][$o['id']]=$o;$save($d);return $o;
         });
     }
+    /** Discord login (OAuth2) for opening the ticket from any device. The secret stays in the private folder. */
+    public function oauthConfig() {
+        $path=$this->directory.'/discord-oauth.json';
+        if(is_link($path) || !is_file($path) || filesize($path)>4096)return null;
+        $c=json_decode(file_get_contents($path),true);
+        if(!is_array($c) || !preg_match('/^[1-9]\d{16,19}$/D',$c['client_id'] ?? '') || !preg_match('/^[A-Za-z0-9_-]{16,128}$/D',$c['client_secret'] ?? ''))return null;
+        return ['client_id'=>$c['client_id'],'client_secret'=>$c['client_secret']];
+    }
+    public function saveOauth($clientId,$secret) {
+        if(!panicRechargeAdminAllowed())throw new RuntimeException('Acceso no autorizado.');
+        $clientId=is_string($clientId)?trim($clientId):'';$secret=is_string($secret)?trim($secret):'';
+        if(!preg_match('/^[1-9]\d{16,19}$/D',$clientId))throw new InvalidArgumentException('El Application ID son 17 a 20 números.');
+        if($secret===''){$old=$this->oauthConfig();if(!$old || $old['client_id']!==$clientId)throw new InvalidArgumentException('Pegá el Client Secret.');$secret=$old['client_secret'];}
+        if(!preg_match('/^[A-Za-z0-9_-]{16,128}$/D',$secret))throw new InvalidArgumentException('El Client Secret no tiene el formato esperado.');
+        $path=$this->directory.'/discord-oauth.json';if(is_link($path))throw new RuntimeException('No se pudo guardar.');
+        $tmp=tempnam($this->directory,'oauth-');if(!$tmp)throw new RuntimeException('No se pudo guardar.');
+        chmod($tmp,0600);
+        if(file_put_contents($tmp,json_encode(['client_id'=>$clientId,'client_secret'=>$secret]))===false || !rename($tmp,$path)){@unlink($tmp);throw new RuntimeException('No se pudo guardar.');}
+    }
+    public static function oauthState($id,$key) { return $id.'.'.substr(hash_hmac('sha256','discord-ticket:'.$id,$key),0,32); }
+    public static function oauthUrl(array $c,$redirect,$state) {
+        return 'https://discord.com/oauth2/authorize?'.http_build_query(['client_id'=>$c['client_id'],'response_type'=>'code','redirect_uri'=>$redirect,'scope'=>'identify guilds.join','state'=>$state,'prompt'=>'none']);
+    }
+    /** Links the buyer's Discord user to the order; the bot then adds them to the server and opens the ticket. */
+    public function linkDiscord($id,$account,$discordId,$accessToken,$now=null) {
+        $now=$now ?? time();
+        if(!preg_match('/^[1-9]\d{16,19}$/D',(string)$discordId) || !is_string($accessToken) || !preg_match('/^[A-Za-z0-9._-]{10,200}$/D',$accessToken))throw new RuntimeException('Discord no confirmó tu usuario.');
+        return $this->update($id,function($o)use($account,$discordId,$accessToken,$now){
+            if(!hash_equals($o['account'],$account) || $o['payment_state']!=='pending')throw new InvalidArgumentException('Esta compra ya no está pendiente.');
+            if($o['live']!==($this->environment()==='production'))throw new InvalidArgumentException('La compra pertenece a otro ambiente.');
+            if($o['discord_id']!==null && $o['discord_id']!==$discordId)throw new InvalidArgumentException('Esta compra ya está vinculada a otro usuario de Discord. Ingresá con ese usuario.');
+            if($o['ticket_channel'])return $o;
+            if(!in_array($o['ticket_state'],['none','creating'],true))throw new InvalidArgumentException('El ticket requiere revisión del equipo.');
+            $o['discord_id']=$discordId;$o['ticket_state']='creating';$o['oauth']=['token'=>$accessToken,'at'=>$now];
+            return $o;
+        });
+    }
     public function get($id,$account=null) {
         return $this->file(function($d)use($id,$account){$o=$d['orders'][$id] ?? null;if(!$o || ($account!==null && !hash_equals($o['account'],$account)))throw new RuntimeException('Compra no disponible.');return $o;});
     }
@@ -144,13 +181,24 @@ final class PanicBankTransfers {
                 return ['orders'=>$rows];
             });
         }
+        if($action==='oauth_queue') {
+            if(!preg_match('/^[1-9]\d{16,19}$/D',$r['guild_id'] ?? ''))throw new RuntimeException('Bot inválido.');
+            return $this->file(function($d)use($r,$environment){
+                $rows=[];foreach($d['orders'] as $o) {
+                    if($o['payment_state']!=='pending' || $o['ticket_state']!=='creating' || $o['ticket_channel'] || empty($o['oauth']['token']) || ($o['oauth']['at'] ?? 0)<time()-600 || $o['live']!==($environment==='production') || $o['discord']['guild_id']!==$r['guild_id'])continue;
+                    $rows[]=self::botOrder($o)+['access_token'=>$o['oauth']['token']];
+                    if(count($rows)>=3)break;
+                }
+                return ['orders'=>$rows];
+            });
+        }
         if($action==='claim') {
             if(!is_string($r['code'] ?? null) || !preg_match('/^[a-f0-9]{24}$/D',$r['code']) || !preg_match('/^[1-9]\d{16,19}$/D',$r['discord_id'] ?? ''))throw new RuntimeException('Código inválido.');
             return $this->file(function($d,$save)use($r,$environment){
                 foreach($d['orders']as $id=>$o) {
                     if(!isset($o['claim_hash']) || !hash_equals($o['claim_hash'],hash('sha256',$r['code'])) || ($o['claim_expires'] ?? 0)<time())continue;
                     if($o['payment_state']!=='pending' || $o['live']!==($environment==='production') || $o['discord']['guild_id']!==($r['guild_id'] ?? '') || ($o['discord_id']!==null && $o['discord_id']!==$r['discord_id']))throw new RuntimeException('Código no disponible.');
-                    $create=$o['ticket_state']==='none';
+                    $create=$o['ticket_state']==='none' || ($o['ticket_state']==='creating' && !$o['ticket_channel'] && isset($o['oauth']) && $o['discord_id']===$r['discord_id']);
                     if($create){$o['discord_id']=$r['discord_id'];$o['ticket_state']='creating';$d['orders'][$id]=$o;$save($d);}
                     return ['order'=>self::botOrder($o),'can_create'=>$create];
                 }
@@ -167,7 +215,7 @@ final class PanicBankTransfers {
         if($action==='ticket')return $this->update($o['id'],function($o)use($r){
             if($o['ticket_state']!=='creating' && $o['ticket_state']!=='open')throw new RuntimeException('Ticket inválido.');
             if($o['ticket_channel']!==null && $o['ticket_channel']!==$r['channel_id'])throw new RuntimeException('El ticket ya existe.');
-            $o['ticket_channel']=$r['channel_id'];$o['ticket_state']='open';return ['id'=>$o['id']]+$o;
+            $o['ticket_channel']=$r['channel_id'];$o['ticket_state']='open';unset($o['oauth']);return ['id'=>$o['id']]+$o;
         });
         if($action==='receipt')return $this->update($o['id'],function($o)use($r){
             if($o['payment_state']!=='pending' || $o['ticket_channel']!==$r['channel_id'] || !preg_match('/^[1-9]\d{16,19}$/D',$r['message_id'] ?? '') || ($r['has_attachment'] ?? null)!==true)throw new RuntimeException('Comprobante inválido.');

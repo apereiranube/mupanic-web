@@ -19,6 +19,8 @@ try {
         if($action==='bank_config') {
             if(!is_string($_POST['bank_revision'] ?? null) || !preg_match('/^\d{1,10}$/D',$_POST['bank_revision']) || !is_array($_POST['bank'] ?? null))throw new InvalidArgumentException('Revisá la configuración.');
             $bankAdmin->saveConfig($_POST['bank'],(int)$_POST['bank_revision']);$bankAdminOk='Cuenta receptora guardada. Las compras anteriores conservan sus datos originales.';
+        } elseif($action==='bank_oauth') {
+            $bankAdmin->saveOauth($_POST['bank_oauth_id'] ?? '',$_POST['bank_oauth_secret'] ?? '');$bankAdminOk='Conexión con Discord guardada.';
         } elseif($action==='bank_approve') {
             $bankAdmin->approve(is_string($_POST['bank_order'] ?? null)?$_POST['bank_order']:'',$_POST['bank_reference'] ?? '',isset($_POST['bank_confirmed']),$_POST['bank_manual_note'] ?? null);
             $bankAdminOk='Transferencia confirmada. El servicio del VPS entregará los Eryns cuando la cuenta esté desconectada.';
@@ -46,6 +48,13 @@ try {
 </div><label class="bank-enable"><input type="checkbox" name="bank[enabled]" value="1" <?= $bankAdminConfig['enabled']?'checked':'' ?>> Ofrecer transferencias bancarias</label>
 <p class="recharge-subtle">Se ofrecerán cuando el bot y el servicio de entrega versión 3 estén conectados. No hace falta guardar el token de Discord en la web.</p>
 <button class="recharge-button" name="admin_action" value="bank_config">Guardar cuenta receptora</button></form>
+<?php $bankOauthSaved=$bankAdmin?$bankAdmin->oauthConfig():null; ?>
+<form method="post" action="<?= panicAccountEscape($bankPostUrl) ?>" class="bank-oauth-form"><input type="hidden" name="admin_csrf" value="<?= $_SESSION['shop_admin_csrf'] ?>">
+<h4>Conectar con Discord (tickets desde cualquier dispositivo)</h4>
+<p class="recharge-subtle">Datos de la aplicación del bot en el Discord Developer Portal → OAuth2. Dirección de retorno a registrar allí: <b><?= panicAccountEscape(__BASE_URL__.'usercp/recharge/') ?></b></p>
+<div class="shop-editor-grid"><label>Application ID (Client ID)<input name="bank_oauth_id" value="<?= panicAccountEscape($bankOauthSaved['client_id'] ?? '') ?>" maxlength="20" autocomplete="off" inputmode="numeric"></label><label>Client Secret<input name="bank_oauth_secret" type="password" value="" maxlength="128" autocomplete="new-password" placeholder="<?= $bankOauthSaved?'Guardado · dejalo vacío para conservarlo':'Pegá el Client Secret' ?>"></label></div>
+<p class="recharge-subtle"><?= $bankOauthSaved?'Activo: los compradores ven el botón «Enviar comprobante por Discord».':'Inactivo: los compradores siguen usando el código.' ?></p>
+<button class="recharge-button" name="admin_action" value="bank_oauth">Guardar conexión con Discord</button></form>
 <?php } else { ?><p>Abrí el comprobante, verificá el ingreso en tu banco y confirmá el pago. Acá sólo aparecen las transferencias pendientes de aprobación.</p>
 <?php if(!$bankRows['orders']) { ?><p>No hay transferencias pendientes de aprobación.</p><?php } ?>
 <div class="recharge-history-list"><?php foreach($bankRows['orders']as $o){[$tone,$label,$copy]=panicBankStatus($o); ?>

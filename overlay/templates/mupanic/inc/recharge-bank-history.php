@@ -19,13 +19,19 @@
 <?php if($o['ticket_channel']) { ?>
 <p><?= !empty($o['receipt_at'])?'Ya recibimos tu comprobante. Podés consultar el seguimiento en tu ticket privado.':'Tu ticket privado está listo. Abrilo y adjuntá el comprobante de la transferencia.' ?></p>
 <a class="recharge-button" href="<?= panicAccountEscape('https://discord.com/channels/'.$o['discord']['guild_id'].'/'.$o['ticket_channel']) ?>" target="_blank" rel="noopener noreferrer">Abrir mi ticket en Discord ↗︎</a>
-<?php } else { $claim=$_SESSION['bank_claim_code'] ?? null; $hasClaim=is_array($claim) && $claim['id']===$o['id'] && $claim['expires']>=time(); ?>
+<?php } else { $claim=$_SESSION['bank_claim_code'] ?? null; $hasClaim=is_array($claim) && $claim['id']===$o['id'] && $claim['expires']>=time(); $bankLinking=($o['ticket_state'] ?? '')==='creating' && isset($o['oauth']); ?>
+<?php if(!empty($bankOauthConfig)) { ?>
+<?php if($bankLinking) { ?><p class="bank-discord-wait" data-bank-wait="<?= panicAccountEscape(__BASE_URL__.'usercp/recharge/#bank-order-'.$o['id']) ?>"><b>Estamos abriendo tu ticket.</b> En unos segundos te llega un mensaje del bot de MU PANIC en Discord con el acceso. Esta página se actualiza sola.</p><?php } else { ?><p>¿Ya hiciste la transferencia? Conectá tu Discord y te abrimos el ticket privado al instante. Funciona desde el celular o la compu.</p><?php } ?>
+<a class="recharge-button" href="<?= panicAccountEscape(PanicBankTransfers::oauthUrl($bankOauthConfig,__BASE_URL__.'usercp/recharge/',PanicBankTransfers::oauthState($o['id'],$_SESSION['bank_oauth_key']))) ?>"><?= $bankLinking?'Volver a conectar Discord':'Enviar comprobante por Discord' ?></a>
+<p class="bank-step-note">Discord te va a pedir <b>Autorizar</b>: así te suma al servidor de MU PANIC (si no estabas) y te abre el ticket de esta compra.</p>
+<details class="bank-operation-details"><summary>Otra forma: con código</summary>
+<?php } ?>
 <?php if(!$hasClaim) { ?><p>¿Ya hiciste la transferencia? Continuá para enviarnos el comprobante por Discord.</p><?php } ?>
 <?php if($hasClaim) { ?><details class="bank-operation-details"><summary>Necesito otro código</summary><?php } ?><form method="post" action="<?= panicAccountEscape(__BASE_URL__.'usercp/recharge/?transferencias='.$bankPage.'#bank-transfers') ?>"><input type="hidden" name="recharge_csrf" value="<?= $_SESSION['recharge_csrf'] ?>"><input type="hidden" name="order_id" value="<?= panicAccountEscape($o['id']) ?>"><button class="recharge-button" name="recharge_action" value="bank_ready"><?= $hasClaim?'Generar otro código':'Ya transferí · Enviar comprobante' ?></button></form><?php if($hasClaim) { ?></details><?php } ?>
 <?php if($hasClaim) { ?>
 <div id="bank-ticket-<?= panicAccountEscape($o['id']) ?>" tabindex="-1" class="bank-ticket-code" role="status"><strong>Continuá en Discord</strong><ol><li>Copiá este código de tu recarga:<code><?= panicAccountEscape($claim['code']) ?></code><button type="button" class="bank-copy" data-bank-copy="<?= panicAccountEscape($claim['code']) ?>" data-copy-label="código">Copiar código</button></li><li>Abrí Discord y pulsá <b>Recarga por transferencia</b> en el canal de soporte.</li><li>Pegá el código cuando el bot lo pida. En el ticket privado que se abre, <b>adjuntá el comprobante</b>.</li></ol>
 <a class="recharge-button" href="<?= panicAccountEscape('https://discord.com/channels/'.$o['discord']['guild_id'].'/'.$o['discord']['support_channel_id']) ?>" target="_blank" rel="noopener noreferrer">Ir al soporte de Discord ↗︎</a><p class="bank-step-note">El código es privado y vence en 30 minutos. Si no ves el botón de recarga en Discord, escribí <b>/recarga</b>.</p></div>
-<?php } } ?></section>
+<?php } ?><?php if(!empty($bankOauthConfig)) { ?></details><?php } ?><?php } ?></section>
 <section class="bank-payment-step bank-payment-step--wait"><h4><span>3</span> Recibí tus Eryns</h4><p>Revisamos el ingreso en el banco. El proceso puede demorar <b>hasta 48 horas</b>. Con el pago aprobado, <b>desconectate del juego</b> para recibir la recarga. El bot te avisa en tu ticket cuando esté acreditada.</p></section>
 </div>
 <?php } else { ?><p data-order-copy><?= panicAccountEscape($copy) ?></p><?php } ?>
@@ -35,3 +41,4 @@
 </article><?php } ?></div>
 <?php if($bankHistory['total']>10) { ?><nav class="recharge-pagination" aria-label="Páginas de transferencias"><?php if($bankPage>1) { ?><a href="?transferencias=<?= $bankPage-1 ?>#bank-transfers">← Anteriores</a><?php } ?><span>Página <?= $bankPage ?></span><?php if($bankPage*10<$bankHistory['total']) { ?><a href="?transferencias=<?= $bankPage+1 ?>#bank-transfers">Siguientes →</a><?php } ?></nav><?php } ?>
 </section><?php } ?>
+<script>(function(){var w=document.querySelector('[data-bank-wait]');if(!w)return;var n=0;function tick(){n++;if(n>12)return;setTimeout(function(){fetch(location.pathname,{credentials:'same-origin'}).then(function(r){return r.text()}).then(function(h){if(h.indexOf('data-bank-wait')<0){var u=w.getAttribute('data-bank-wait').split('#');location.replace(u[0]+'?r='+Date.now()+'#'+u[1]);}else tick();}).catch(tick);},5000);}tick();})();</script>
